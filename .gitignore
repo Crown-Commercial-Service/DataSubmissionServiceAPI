@@ -24,3 +24,5 @@
 # Environment variables
 .env
 .env.local
+
+docker-compose.env

@@ -1,24 +1,42 @@
-# README
+# Data Submission Service API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Prerequisites
+ - [Docker](https://docs.docker.com/docker-for-mac) greater than or equal to `18.03.1-ce-mac64 (24245)`
 
-Things you may want to cover:
+### Setting up the project
 
-* Ruby version
+Copy the docker environment variables and fill in any missing secrets:
 
-* System dependencies
+```
+$ cp docker-compose.env.example docker-compose.env
+```
 
-* Configuration
+Build the docker container and set up the database
 
-* Database creation
+`bin/drebuild`
 
-* Database initialization
+Start the application
 
-* How to run the test suite
+`bin/dstart`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Running the tests
 
-* Deployment instructions
+There are two ways that you can run the tests.
 
-* ...
+### In development
+
+Because the setup and teardown introduces quite some latency, we use the spring service to
+start up all dependencies in a docker container. This makes the test run faster.
+
+Get the test server up and running
+`bin/dtest-server`
+
+Run the specs. When no arguments are specified, the default rake task is executed.
+`bin/dspec <args>`
+
+### Full run (before you push to github)
+
+Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up.
+
+`bin/dtests`
+
