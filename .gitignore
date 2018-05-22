@@ -26,3 +26,6 @@
 .env.local
 
 docker-compose.env
+
+# Test artifacts
+spec/examples.txt
