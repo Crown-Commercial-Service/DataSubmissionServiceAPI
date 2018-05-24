@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Endpoint for Cloudwatch to check API is up and running
+  get '/check', to: 'check#index', defaults: { format: :json }
 end
