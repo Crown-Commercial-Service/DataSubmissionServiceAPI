@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_05_24_101949) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "framework_lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "framework_id", null: false
+    t.string "number", null: false
+    t.index ["framework_id", "number"], name: "index_framework_lots_on_framework_id_and_number", unique: true
+    t.index ["framework_id"], name: "index_framework_lots_on_framework_id"
+  end
+
+  create_table "frameworks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "short_name", null: false
+    t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
+  end
+
+  add_foreign_key "framework_lots", "frameworks"
 end
