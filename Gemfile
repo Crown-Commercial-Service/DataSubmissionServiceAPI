@@ -43,5 +43,6 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
 end
