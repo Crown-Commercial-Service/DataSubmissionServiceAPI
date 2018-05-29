@@ -21,4 +21,21 @@ RSpec.describe '/v1' do
       expect(response.body).to include_json(expected)
     end
   end
+
+  describe 'GET /frameworks/:id' do
+    it 'returns the requested framework' do
+      framework = FactoryBot.create(:framework, name: 'Cheese Board 8', short_name: 'cboard8')
+
+      get "/v1/frameworks/#{framework.id}"
+
+      expect(response).to be_successful
+
+      expected = {
+        name: 'Cheese Board 8',
+        short_name: 'cboard8'
+      }
+
+      expect(response.body).to include_json(expected)
+    end
+  end
 end
