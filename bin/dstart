@@ -17,6 +17,6 @@ function cleanup {
 
 trap cleanup EXIT
 
-docker-compose up -d
+docker-compose up -d --build
 
 docker attach data-submission-service-api_web
