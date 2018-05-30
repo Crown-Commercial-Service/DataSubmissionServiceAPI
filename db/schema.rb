@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_05_30_100814) do
   create_table "framework_lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "framework_id", null: false
     t.string "number", null: false
+    t.string "description"
     t.index ["framework_id", "number"], name: "index_framework_lots_on_framework_id_and_number", unique: true
     t.index ["framework_id"], name: "index_framework_lots_on_framework_id"
   end
