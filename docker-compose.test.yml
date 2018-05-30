@@ -19,6 +19,7 @@ services:
     restart: on-failure
     networks:
       - tests
+    container_name: data-submission-service-api_test
 
   db-test:
     image: postgres
@@ -27,6 +28,7 @@ services:
     networks:
       - tests
     restart: on-failure
+    container_name: data-submission-service-api_db-test
 
 networks:
   tests:
