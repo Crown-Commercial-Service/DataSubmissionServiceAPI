@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_29_154004) do
+ActiveRecord::Schema.define(version: 2018_05_30_100814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "framework_id", null: false
+    t.uuid "supplier_id", null: false
+    t.index ["framework_id"], name: "index_agreements_on_framework_id"
+    t.index ["supplier_id"], name: "index_agreements_on_supplier_id"
+  end
 
   create_table "framework_lots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "framework_id", null: false
