@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_30_164708) do
+ActiveRecord::Schema.define(version: 2018_06_04_105000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 2018_05_30_164708) do
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
   end
 
+  create_table "submission_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "submission_id", null: false
+    t.uuid "submission_file_id"
+    t.jsonb "source"
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_file_id"], name: "index_submission_entries_on_submission_file_id"
+    t.index ["submission_id"], name: "index_submission_entries_on_submission_id"
+  end
+
   create_table "submission_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
     t.index ["submission_id"], name: "index_submission_files_on_submission_id"
@@ -54,6 +65,8 @@ ActiveRecord::Schema.define(version: 2018_05_30_164708) do
   end
 
   add_foreign_key "framework_lots", "frameworks"
+  add_foreign_key "submission_entries", "submission_files"
+  add_foreign_key "submission_entries", "submissions"
   add_foreign_key "submission_files", "submissions"
   add_foreign_key "submissions", "frameworks"
   add_foreign_key "submissions", "suppliers"
