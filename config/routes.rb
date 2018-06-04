@@ -9,5 +9,9 @@ Rails.application.routes.draw do
     resources :submissions, only: %i[create] do
       resources :files, only: %i[create], controller: 'submission_files'
     end
+
+    resources :files, only: [] do
+      resources :entries, only: %i[create], controller: 'submission_entries'
+    end
   end
 end
