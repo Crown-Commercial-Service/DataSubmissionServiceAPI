@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :agreements, only: %i[create]
     resources :submissions, only: %i[create] do
       resources :files, only: %i[create], controller: 'submission_files'
+      resources :entries, only: %i[create], controller: 'submission_entries'
     end
 
     resources :files, only: [] do

@@ -28,4 +28,33 @@ RSpec.describe '/v1' do
       expect(json['submission_id']).to eql submission.id
     end
   end
+
+  describe 'POST /submissions/:submission_id/entries' do
+    it 'stores a submission entry, not associated with a file' do
+      submission = FactoryBot.create(:submission)
+
+      params = {
+        source: { sheet: 'InvoicesReceived', row: 42 },
+        data: { test: 'test' }
+      }
+
+      headers = {
+        'CONTENT_TYPE': 'application/json'
+      }
+
+      post "/v1/submissions/#{submission.id}/entries", params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:created)
+
+      entry = SubmissionEntry.first
+
+      expect(json['id']).to eql entry.id
+      expect(json['submission_id']).to eql submission.id
+      expect(json['submission_file_id']).to be_nil
+
+      expect(json['source']['sheet']).to eql 'InvoicesReceived'
+      expect(json['source']['row']).to eql 42
+      expect(json['data']['test']).to eql 'test'
+    end
+  end
 end
