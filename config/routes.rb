@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :frameworks, only: %i[index show]
     resources :suppliers, only: %i[index show]
     resources :agreements, only: %i[create]
+    resources :submissions, only: %i[create]
   end
 end
