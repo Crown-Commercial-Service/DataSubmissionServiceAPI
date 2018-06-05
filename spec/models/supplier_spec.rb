@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Supplier do
+  it { is_expected.to have_many(:submissions) }
   it { is_expected.to validate_presence_of(:name) }
 
   it { is_expected.to have_many(:agreements) }

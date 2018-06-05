@@ -4,6 +4,7 @@ RSpec.describe Framework do
   it { is_expected.to have_many(:lots) }
   it { is_expected.to have_many(:agreements) }
   it { is_expected.to have_many(:suppliers).through(:agreements) }
+  it { is_expected.to have_many(:submissions) }
 
   describe 'validations' do
     subject { Framework.create(short_name: 'test') }

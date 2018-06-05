@@ -1,5 +1,6 @@
 class Framework < ApplicationRecord
   has_many :lots, dependent: :nullify, class_name: 'FrameworkLot'
+  has_many :submissions, dependent: :nullify
 
   has_many :agreements, dependent: :destroy
   has_many :suppliers, through: :agreements
