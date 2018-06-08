@@ -9,11 +9,16 @@ class V1::TasksController < ApplicationController
   end
 
   def index
-    if params[:status].present?
-      @tasks = Task.where(status: params[:status])
-    else
-      @tasks = Task.all
-    end
+    @tasks = if params[:status].present?
+               Task.where(status: params[:status])
+             else
+               Task.all
+             end
+  end
+
+  def complete
+    @task = Task.find(params[:id])
+    @task.update(status: 'completed')
   end
 
   private

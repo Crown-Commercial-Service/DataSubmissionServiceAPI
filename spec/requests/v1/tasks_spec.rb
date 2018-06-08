@@ -47,8 +47,8 @@ RSpec.describe '/v1' do
       expected = {
         tasks: [
           { status: 'test' },
-          { status: 'ready'},
-          { status: 'in progress'}
+          { status: 'ready' },
+          { status: 'in progress' }
         ]
       }
 
@@ -74,6 +74,20 @@ RSpec.describe '/v1' do
       }
 
       expect(response.body).to include_json(expected)
+    end
+  end
+
+  describe 'POST /v1/tasks/:task_id/complete' do
+    it "changes a task's status to completed" do
+      task = FactoryBot.create(:task, status: 'in progress')
+
+      post "/v1/tasks/#{task.id}/complete"
+
+      expect(response).to be_successful
+
+      task.reload
+
+      expect(task.status).to eql 'completed'
     end
   end
 end

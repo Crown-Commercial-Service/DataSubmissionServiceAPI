@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       resources :files, only: %i[create], controller: 'submission_files'
       resources :entries, only: %i[create], controller: 'submission_entries'
     end
-    resources :tasks, only: %i[create index]
+    resources :tasks, only: %i[create index] do
+      member do
+        post 'complete', to: 'tasks#complete'
+      end
+    end
 
     resources :files, only: [] do
       resources :entries, only: %i[create], controller: 'submission_entries'
