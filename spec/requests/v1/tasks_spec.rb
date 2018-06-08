@@ -35,9 +35,9 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks' do
     it 'returns a list of tasks' do
-      FactoryBot.create(:task, status: 'Test')
-      FactoryBot.create(:task, status: 'Ready')
-      FactoryBot.create(:task, status: 'In Progress')
+      FactoryBot.create(:task, status: 'test')
+      FactoryBot.create(:task, status: 'ready')
+      FactoryBot.create(:task, status: 'in progress')
 
       get '/v1/tasks'
 
@@ -46,9 +46,30 @@ RSpec.describe '/v1' do
 
       expected = {
         tasks: [
-          { status: 'Test' },
-          { status: 'Ready'},
-          { status: 'In Progress'}
+          { status: 'test' },
+          { status: 'ready'},
+          { status: 'in progress'}
+        ]
+      }
+
+      expect(response.body).to include_json(expected)
+    end
+  end
+
+  describe 'GET /tasks?status=' do
+    it 'returns a filtered list of tasks matching the statue value in the URL' do
+      FactoryBot.create(:task, status: 'test')
+      FactoryBot.create(:task, status: 'ready')
+      FactoryBot.create(:task, status: 'in progress')
+
+      get '/v1/tasks?status=test'
+
+      expect(response).to be_successful
+      expect(json['tasks'].size).to eql 1
+
+      expected = {
+        tasks: [
+          { status: 'test' }
         ]
       }
 

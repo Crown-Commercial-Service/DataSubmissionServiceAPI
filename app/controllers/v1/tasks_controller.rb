@@ -9,7 +9,11 @@ class V1::TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+    if params[:status].present?
+      @tasks = Task.where(status: params[:status])
+    else
+      @tasks = Task.all
+    end
   end
 
   private
