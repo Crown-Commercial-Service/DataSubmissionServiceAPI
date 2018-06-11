@@ -19,5 +19,9 @@ Rails.application.routes.draw do
     resources :files, only: [] do
       resources :entries, only: %i[create], controller: 'submission_entries'
     end
+
+    namespace :events do
+      post 'user_signed_in'
+    end
   end
 end
