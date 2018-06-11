@@ -35,9 +35,9 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks' do
     it 'returns a list of tasks' do
-      FactoryBot.create(:task, status: 'test')
-      FactoryBot.create(:task, status: 'ready')
-      FactoryBot.create(:task, status: 'in progress')
+      task1 = FactoryBot.create(:task, status: 'test')
+      task2 = FactoryBot.create(:task, status: 'ready')
+      task3 = FactoryBot.create(:task, status: 'in progress')
 
       get '/v1/tasks'
 
@@ -46,9 +46,9 @@ RSpec.describe '/v1' do
 
       expected = {
         tasks: [
-          { status: 'test' },
-          { status: 'ready' },
-          { status: 'in progress' }
+          { id: task1.id, status: 'test' },
+          { id: task2.id, status: 'ready' },
+          { id: task3.id, status: 'in progress' }
         ]
       }
 
