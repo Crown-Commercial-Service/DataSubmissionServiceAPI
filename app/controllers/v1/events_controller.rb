@@ -9,6 +9,16 @@ class V1::EventsController < ApplicationController
     head :created
   end
 
+  def user_signed_out
+    event_store.publish_event(
+      UserSignedOut.new(
+        data: { user_id: event_params[:user_id] }
+      )
+    )
+
+    head :created
+  end
+
   private
 
   def event_params

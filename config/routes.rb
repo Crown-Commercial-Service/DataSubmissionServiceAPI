@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
     namespace :events do
       post 'user_signed_in'
+      post 'user_signed_out'
     end
   end
 end
