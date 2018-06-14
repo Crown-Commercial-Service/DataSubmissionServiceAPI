@@ -29,3 +29,9 @@ docker-compose.env
 
 # Test artifacts
 spec/examples.txt
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
