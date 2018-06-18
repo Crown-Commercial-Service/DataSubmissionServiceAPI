@@ -1,0 +1,8 @@
+region              = "eu-west-2"
+app_name            = "dss-api"
+git_branch_to_track = "develop"
+github_token        = "secret"
+github_owner        = "Crown-Commercial-Service"
+github_repo         = "DataSubmissionServiceAPI"
+ecs_cluster_name    = "cluster-name"
+ecs_service_name    = "service-name"
