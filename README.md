@@ -40,3 +40,6 @@ Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up
 
 `bin/dtests`
 
+## API Endpoints
+
+A [full list of the API endpoints](endpoints.md) is available in a separate document.
