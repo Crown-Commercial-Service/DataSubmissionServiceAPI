@@ -4,11 +4,17 @@ RSpec.describe '/v1' do
   describe 'POST /tasks' do
     it 'creates a new task' do
       params = {
-        status: 'test'
+        data: {
+          type: 'tasks',
+          attributes: {
+            status: 'test'
+          }
+        }
       }
 
       headers = {
-        'CONTENT_TYPE': 'application/json'
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
       }
 
       post '/v1/tasks', params: params.to_json, headers: headers
@@ -16,17 +22,23 @@ RSpec.describe '/v1' do
       expect(response).to have_http_status(:created)
 
       task = Task.first
-
-      expect(json['id']).to eql task.id
-      expect(json['status']).to eql task.status
+      expect(json['data']).to have_id(task.id)
+      expect(json['data']).to have_attribute(:status).with_value('test')
     end
 
-    it 'returns an error if the status parameter is ommited' do
-      params = {}
+    it 'returns an error if the status parameter is omitted' do
+      params = {
+        data: {
+          type: 'tasks',
+          attributes: {}
+        }
+      }
 
       headers = {
-        'CONTENT_TYPE': 'application/json'
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
       }
+
       post '/v1/tasks', params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:bad_request)

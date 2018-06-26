@@ -1,11 +1,13 @@
 class V1::TasksController < ApplicationController
-  def create
-    @task = Task.new(task_params)
+  deserializable_resource :task, only: [:create]
 
-    if @task.save
-      render json: @task, status: :created
+  def create
+    task = Task.new(task_params)
+
+    if task.save
+      render jsonapi: task, status: :created
     else
-      render json: @task.errors, status: :bad_request
+      render jsonapi_errors: task.errors, status: :bad_request
     end
   end
 
@@ -27,6 +29,6 @@ class V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.permit(:status)
+    params.require(:task).permit(:status)
   end
 end
