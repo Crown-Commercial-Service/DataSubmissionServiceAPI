@@ -1,6 +1,7 @@
 class V1::TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
+
     if @task.save
       render json: @task, status: :created
     else
@@ -9,11 +10,13 @@ class V1::TasksController < ApplicationController
   end
 
   def index
-    @tasks = if params[:status].present?
-               Task.where(status: params[:status])
-             else
-               Task.all
-             end
+    tasks = if params.dig(:filter, :status)
+              Task.where(status: params.dig(:filter, :status))
+            else
+              Task.all
+            end
+
+    render jsonapi: tasks
   end
 
   def complete

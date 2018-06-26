@@ -42,38 +42,30 @@ RSpec.describe '/v1' do
       get '/v1/tasks'
 
       expect(response).to be_successful
-      expect(json['tasks'].size).to eql 3
 
-      expected = {
-        tasks: [
-          { id: task1.id, status: 'test' },
-          { id: task2.id, status: 'ready' },
-          { id: task3.id, status: 'in progress' }
-        ]
-      }
+      expect(json['data'][0]).to have_id(task1.id)
+      expect(json['data'][0]).to have_attribute(:status).with_value('test')
 
-      expect(response.body).to include_json(expected)
+      expect(json['data'][1]).to have_id(task2.id)
+      expect(json['data'][1]).to have_attribute(:status).with_value('ready')
+
+      expect(json['data'][2]).to have_id(task3.id)
+      expect(json['data'][2]).to have_attribute(:status).with_value('in progress')
     end
   end
 
-  describe 'GET /tasks?status=' do
+  describe 'GET /tasks?filter[status]=' do
     it 'returns a filtered list of tasks matching the statue value in the URL' do
       FactoryBot.create(:task, status: 'test')
       FactoryBot.create(:task, status: 'ready')
       FactoryBot.create(:task, status: 'in progress')
 
-      get '/v1/tasks?status=test'
+      get '/v1/tasks?filter[status]=ready'
 
       expect(response).to be_successful
-      expect(json['tasks'].size).to eql 1
 
-      expected = {
-        tasks: [
-          { status: 'test' }
-        ]
-      }
-
-      expect(response.body).to include_json(expected)
+      expect(json['data'].size).to eql 1
+      expect(json['data'][0]).to have_attribute(:status).with_value('ready')
     end
   end
 
