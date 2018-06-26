@@ -29,27 +29,5 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_attribute(:name).with_value('Cheese Board 8')
       expect(json['data']).to have_attribute(:short_name).with_value('cboard8')
     end
-
-    xit 'includes the list of lots on that framework' do
-      framework = FactoryBot.create(:framework, name: 'Cheese Board 8', short_name: 'cboard8')
-
-      FactoryBot.create(:framework_lot, number: '1a', framework: framework)
-      FactoryBot.create(:framework_lot, number: '1b', framework: framework)
-
-      get "/v1/frameworks/#{framework.id}"
-
-      expect(response).to be_successful
-
-      expected = {
-        name: 'Cheese Board 8',
-        short_name: 'cboard8',
-        lots: [
-          { number: '1a' },
-          { number: '1b' }
-        ]
-      }
-
-      expect(response.body).to include_json(expected)
-    end
   end
 end
