@@ -38,12 +38,23 @@ RSpec.describe '/v1' do
       submission = FactoryBot.create(:submission)
 
       params = {
-        source: { sheet: 'InvoicesReceived', row: 42 },
-        data: { test: 'test' }
+        data: {
+          type: 'submission_entries',
+          attributes: {
+            source: {
+              sheet: 'InvoicesReceived',
+              row: 42
+            },
+            data: {
+              test: 'test'
+            }
+          }
+        }
       }
 
       headers = {
-        'CONTENT_TYPE': 'application/json'
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
       }
 
       post "/v1/submissions/#{submission.id}/entries", params: params.to_json, headers: headers
@@ -52,13 +63,14 @@ RSpec.describe '/v1' do
 
       entry = SubmissionEntry.first
 
-      expect(json['id']).to eql entry.id
-      expect(json['submission_id']).to eql submission.id
-      expect(json['submission_file_id']).to be_nil
+      expect(json['data']).to have_id(entry.id)
 
-      expect(json['source']['sheet']).to eql 'InvoicesReceived'
-      expect(json['source']['row']).to eql 42
-      expect(json['data']['test']).to eql 'test'
+      expect(json['data']).to have_attribute(:submission_id).with_value(submission.id)
+      expect(json['data']).to have_attribute(:submission_file_id).with_value(nil)
+
+      expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'InvoicesReceived'
+      expect(json.dig('data', 'attributes', 'source', 'row')).to eql 42
+      expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end
   end
 end
