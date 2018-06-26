@@ -27,8 +27,9 @@ RSpec.describe '/v1' do
       expect(response).to have_http_status(:created)
 
       file = SubmissionFile.first
-      expect(json['id']).to eql file.id
-      expect(json['submission_id']).to eql submission.id
+
+      expect(json['data']).to have_id(file.id)
+      expect(json['data']).to have_attribute(:submission_id).with_value(submission.id)
     end
   end
 
