@@ -11,7 +11,10 @@ RSpec.describe '/v1' do
       expect(response).to have_http_status(:created)
 
       submission = Submission.first
-      expect(json['id']).to eql submission.id
+
+      expect(json['data']).to have_id(submission.id)
+      expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
+      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
     end
   end
 
