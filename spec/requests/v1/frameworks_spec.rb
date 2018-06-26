@@ -9,16 +9,12 @@ RSpec.describe '/v1' do
       get '/v1/frameworks'
 
       expect(response).to be_successful
-      expect(json['frameworks'].size).to eql 2
 
-      expected = {
-        frameworks: [
-          { name: 'Cheese Board 8', short_name: 'cboard8' },
-          { name: 'Baked Goods Supply Services', short_name: 'RM0000' }
-        ]
-      }
+      expect(json['data'][0]).to have_attribute(:name).with_value('Cheese Board 8')
+      expect(json['data'][0]).to have_attribute(:short_name).with_value('cboard8')
 
-      expect(response.body).to include_json(expected)
+      expect(json['data'][1]).to have_attribute(:name).with_value('Baked Goods Supply Services')
+      expect(json['data'][1]).to have_attribute(:short_name).with_value('RM0000')
     end
   end
 

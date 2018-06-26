@@ -1,6 +1,6 @@
 class V1::FrameworksController < ApplicationController
   def index
-    @frameworks = Framework.all
+    render jsonapi: Framework.all
   end
 
   def show
