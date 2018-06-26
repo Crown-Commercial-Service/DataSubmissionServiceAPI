@@ -1,5 +1,5 @@
 class V1::SuppliersController < ApplicationController
   def index
-    @suppliers = Supplier.all
+    render jsonapi: Supplier.all
   end
 end

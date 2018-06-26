@@ -10,14 +10,8 @@ RSpec.describe '/v1' do
 
       expect(response).to be_successful
 
-      expected = {
-        suppliers: [
-          { name: 'A1 Cakes Ltd' },
-          { name: 'Bakery Plus' }
-        ]
-      }
-
-      expect(response.body).to include_json(expected)
+      expect(json['data'][0]).to have_attribute(:name).with_value('A1 Cakes Ltd')
+      expect(json['data'][1]).to have_attribute(:name).with_value('Bakery Plus')
     end
   end
 end

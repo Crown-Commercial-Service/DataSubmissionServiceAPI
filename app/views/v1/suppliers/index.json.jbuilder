@@ -1,1 +1,0 @@
-json.suppliers @suppliers
