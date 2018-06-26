@@ -30,6 +30,9 @@ gem 'rubocop'
 # Audit log
 gem 'rails_event_store'
 
+# JSON API
+gem 'jsonapi-rails'
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
@@ -46,6 +49,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'jsonapi-rspec', require: false
   gem 'rails_event_store-rspec'
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
