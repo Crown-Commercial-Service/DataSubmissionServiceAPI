@@ -4,6 +4,6 @@ class V1::FrameworksController < ApplicationController
   end
 
   def show
-    @framework = Framework.find_by(id: params[:id])
+    render jsonapi: Framework.find(params[:id])
   end
 end
