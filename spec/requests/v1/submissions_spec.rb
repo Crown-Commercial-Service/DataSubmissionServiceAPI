@@ -33,6 +33,22 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'PATCH /submission/:submission_id/files/:file_id' do
+    it 'updates a submission file' do
+      submission = FactoryBot.create(:submission)
+      file = FactoryBot.create(:submission_file, submission: submission)
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      patch "/v1/submissions/#{submission.id}/files/#{file.id}", params: {}, headers: headers
+
+      expect(response).to have_http_status(204)
+    end
+  end
+
   describe 'POST /submissions/:submission_id/entries' do
     it 'stores a submission entry, not associated with a file' do
       submission = FactoryBot.create(:submission)
