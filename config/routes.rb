@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :v1, defaults: { format: :json } do
     resources :frameworks, only: %i[index show]
-    resources :suppliers, only: %i[index show]
+    resources :suppliers, only: %i[index]
     resources :agreements, only: %i[create]
     resources :submissions, only: %i[create] do
       resources :files, only: %i[create], controller: 'submission_files'

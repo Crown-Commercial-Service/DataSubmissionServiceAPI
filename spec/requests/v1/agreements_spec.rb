@@ -8,11 +8,13 @@ RSpec.describe '/v1' do
 
       post "/v1/agreements?framework_id=#{framework.id}&supplier_id=#{supplier.id}"
 
-      expect(response).to be_successful
+      expect(response).to have_http_status(:created)
 
       agreement = Agreement.first
-      expect(agreement.framework).to eql framework
-      expect(agreement.supplier).to eql supplier
+
+      expect(json['data']).to have_id(agreement.id)
+      expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
+      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
     end
   end
 end

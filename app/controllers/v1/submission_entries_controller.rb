@@ -1,30 +1,32 @@
 class V1::SubmissionEntriesController < ApplicationController
+  deserializable_resource :submission_entry, only: [:create]
+
   def create
-    @entry = initialize_submission_entry
+    entry = initialize_submission_entry
 
-    @entry.source = submission_entry_params[:source]
-    @entry.data = submission_entry_params[:data]
+    entry.source = submission_entry_params[:source]
+    entry.data = submission_entry_params[:data]
 
-    if @entry.save
-      render json: @entry, status: :created
+    if entry.save
+      render jsonapi: entry, status: :created
     else
-      render json: @entry.errors, status: :bad_request
+      render jsonapi_errors: entry.errors, status: :bad_request
     end
   end
 
   private
 
   def initialize_submission_entry
-    if submission_entry_params[:file_id].present?
-      file = SubmissionFile.find(submission_entry_params[:file_id])
+    if params[:file_id].present?
+      file = SubmissionFile.find(params[:file_id])
       file.entries.new(submission: file.submission)
     else
-      submission = Submission.find(submission_entry_params[:submission_id])
+      submission = Submission.find(params[:submission_id])
       submission.entries.new
     end
   end
 
   def submission_entry_params
-    params.permit(:file_id, :submission_id, source: {}, data: {})
+    params.require(:submission_entry).permit(source: {}, data: {})
   end
 end
