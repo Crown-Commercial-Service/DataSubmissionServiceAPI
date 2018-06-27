@@ -14,6 +14,17 @@ class V1::SubmissionEntriesController < ApplicationController
     end
   end
 
+  def show
+    submission_file = SubmissionFile.find(params[:file_id])
+    entry = submission_file.entries.find(params[:id])
+
+    if entry.present?
+      render jsonapi: entry, status: :ok
+    else
+      render jsonapi: entry.errors, status: :not_found
+    end
+  end
+
   private
 
   def initialize_submission_entry
