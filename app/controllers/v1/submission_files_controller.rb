@@ -10,6 +10,14 @@ class V1::SubmissionFilesController < ApplicationController
     end
   end
 
+  def update
+    SubmissionFile.find(params[:id])
+
+    # TODO: Store the updated file
+
+    head :no_content
+  end
+
   private
 
   def submission_file_params
