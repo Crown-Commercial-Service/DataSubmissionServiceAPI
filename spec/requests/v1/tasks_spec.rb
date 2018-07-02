@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe '/v1' do
   describe 'POST /tasks' do
     it 'creates a new task' do
+      supplier = FactoryBot.create(:supplier)
+
       params = {
         data: {
           type: 'tasks',
           attributes: {
-            status: 'test'
+            status: 'test',
+            supplier_id: supplier.id
           }
         }
       }
@@ -24,13 +27,18 @@ RSpec.describe '/v1' do
       task = Task.first
       expect(json['data']).to have_id(task.id)
       expect(json['data']).to have_attribute(:status).with_value('test')
+      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
     end
 
     it 'returns an error if the status parameter is omitted' do
+      supplier = FactoryBot.create(:supplier)
+
       params = {
         data: {
           type: 'tasks',
-          attributes: {}
+          attributes: {
+            supplier_id: supplier.id
+          }
         }
       }
 

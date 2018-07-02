@@ -29,6 +29,6 @@ class V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:status)
+    params.require(:task).permit(:status, :supplier_id)
   end
 end
