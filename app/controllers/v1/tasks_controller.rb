@@ -12,11 +12,9 @@ class V1::TasksController < ApplicationController
   end
 
   def index
-    tasks = if params.dig(:filter, :status)
-              Task.where(status: params.dig(:filter, :status))
-            else
-              Task.all
-            end
+    tasks = Task.where(nil)
+    tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
+    tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
 
     render jsonapi: tasks
   end
