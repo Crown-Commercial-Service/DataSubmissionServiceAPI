@@ -16,13 +16,13 @@ class V1::TasksController < ApplicationController
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
 
-    render jsonapi: tasks
+    render jsonapi: tasks, include: params.dig(:include)
   end
 
   def show
     task = Task.find(params[:id])
 
-    render jsonapi: task
+    render jsonapi: task, include: params.dig(:include)
   end
 
   def complete

@@ -60,6 +60,21 @@ RSpec.describe '/v1' do
       expect(json['data'][2]).to have_id(task3.id)
       expect(json['data'][2]).to have_attribute(:status).with_value('in_progress')
     end
+
+    it 'can optionally return included models' do
+      task = FactoryBot.create(:task)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+
+      get '/v1/tasks?include=submissions'
+
+      expect(response).to be_successful
+      expect(json['data'][0]).to have_id(task.id)
+      expect(json['data'][0])
+        .to have_relationship(:submissions)
+        .with_data([{ 'id' => submission.id, 'type' => 'submissions' }])
+      expect(json['included'][0])
+        .to have_attribute(:status).with_value('pending')
+    end
   end
 
   describe 'GET /tasks?filter[status]=' do
@@ -117,6 +132,20 @@ RSpec.describe '/v1' do
       expect(json['data'])
         .to have_attribute(:status)
         .with_value('in_progress')
+    end
+
+    it 'can optionally return included models' do
+      task = FactoryBot.create(:task)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+
+      get "/v1/tasks/#{task.id}?include=submissions"
+
+      expect(response).to be_successful
+      expect(json['data']).to have_id(task.id)
+      expect(json['data'])
+        .to have_relationship(:submissions)
+      expect(json['included'][0])
+        .to have_id(submission.id)
     end
   end
 
