@@ -14,6 +14,13 @@ class V1::SubmissionEntriesController < ApplicationController
     end
   end
 
+  def update
+    submission_file = SubmissionFile.find(params[:file_id])
+    submission_file.entries.find(params[:id])
+
+    head :no_content
+  end
+
   def show
     submission_file = SubmissionFile.find(params[:file_id])
     entry = submission_file.entries.find(params[:id])

@@ -91,4 +91,31 @@ RSpec.describe '/v1' do
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end
   end
+
+  describe 'PATCH /files/:file_id/entries/:id' do
+    it 'updates the given entry' do
+      file = FactoryBot.create(:submission_file)
+      entry = FactoryBot.create(:submission_entry,
+                                submission_file: file,
+                                data: { test: 'test' })
+
+      params = {
+        data: {
+          type: 'submission_entries',
+          attributes: {
+            valid: true
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:no_content)
+    end
+  end
 end
