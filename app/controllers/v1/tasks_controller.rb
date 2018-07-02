@@ -26,8 +26,14 @@ class V1::TasksController < ApplicationController
   end
 
   def complete
-    @task = Task.find(params[:id])
-    @task.update(status: 'completed')
+    task = Task.find(params[:id])
+    task.status = 'complete'
+
+    if task.save
+      render jsonapi: task
+    else
+      render jsonapi_errors: task.errors, status: :bad_request
+    end
   end
 
   private
