@@ -39,6 +39,6 @@ class V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:status, :supplier_id)
+    params.require(:task).permit(:supplier_id, :framework_id, :due_on, :period_month, :period_year, :description)
   end
 end
