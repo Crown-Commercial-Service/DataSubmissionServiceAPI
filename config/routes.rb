@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
 
     resources :files, only: [] do
-      resources :entries, only: %i[create], controller: 'submission_entries'
+      resources :entries, only: %i[create show], controller: 'submission_entries'
     end
 
     namespace :events do
