@@ -89,9 +89,35 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'GET /v1/tasks/:task_id' do
+    it 'returns the details of a given task' do
+      task = FactoryBot.create(
+        :task,
+        due_on: '2019-01-07',
+        status: 'in progress',
+        description: 'MI submission for December 2018 (cboard6)'
+      )
+
+      get "/v1/tasks/#{task.id}"
+
+      expect(response).to be_successful
+
+      expect(json['data']).to have_id(task.id)
+      expect(json['data'])
+        .to have_attribute(:description)
+        .with_value('MI submission for December 2018 (cboard6)')
+      expect(json['data'])
+        .to have_attribute(:due_on)
+        .with_value('2019-01-07')
+      expect(json['data'])
+        .to have_attribute(:status)
+        .with_value('in progress')
+    end
+  end
+
   describe 'POST /v1/tasks/:task_id/complete' do
     it "changes a task's status to completed" do
-      task = FactoryBot.create(:task, status: 'in progress')
+      task = FactoryBot.create(:task)
 
       post "/v1/tasks/#{task.id}/complete"
 

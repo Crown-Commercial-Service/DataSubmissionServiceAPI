@@ -21,6 +21,12 @@ class V1::TasksController < ApplicationController
     render jsonapi: tasks
   end
 
+  def show
+    task = Task.find(params[:id])
+
+    render jsonapi: task
+  end
+
   def complete
     @task = Task.find(params[:id])
     @task.update(status: 'completed')
