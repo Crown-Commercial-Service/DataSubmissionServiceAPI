@@ -14,4 +14,6 @@ class Task < ApplicationRecord
 
   belongs_to :framework, optional: true
   belongs_to :supplier
+
+  has_many :submissions, dependent: :nullify
 end

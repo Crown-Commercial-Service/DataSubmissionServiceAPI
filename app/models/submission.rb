@@ -3,6 +3,8 @@ class Submission < ApplicationRecord
 
   belongs_to :framework
   belongs_to :supplier
+  belongs_to :task
+
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
   has_many :entries, dependent: :nullify, class_name: 'SubmissionEntry'
 
