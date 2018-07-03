@@ -2,6 +2,7 @@ class SerializableTask < JSONAPI::Serializable::Resource
   type 'tasks'
 
   has_many :submissions
+  belongs_to :framework
 
   attributes :status, :framework_id, :supplier_id
   attributes :description, :due_on
