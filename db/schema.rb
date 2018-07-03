@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_02_145630) do
+ActiveRecord::Schema.define(version: 2018_07_02_191819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 2018_07_02_145630) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "aasm_state"
+    t.index ["aasm_state"], name: "index_submission_entries_on_aasm_state"
     t.index ["submission_file_id"], name: "index_submission_entries_on_submission_file_id"
     t.index ["submission_id"], name: "index_submission_entries_on_submission_id"
   end
@@ -75,8 +77,12 @@ ActiveRecord::Schema.define(version: 2018_07_02_145630) do
     t.uuid "framework_id", null: false
     t.uuid "supplier_id", null: false
     t.integer "levy"
+    t.string "aasm_state"
+    t.uuid "task_id"
+    t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
+    t.index ["task_id"], name: "index_submissions_on_task_id"
   end
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -87,7 +93,15 @@ ActiveRecord::Schema.define(version: 2018_07_02_145630) do
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
+    t.date "due_on"
+    t.integer "period_month"
+    t.integer "period_year"
+    t.uuid "supplier_id"
+    t.uuid "framework_id"
+    t.index ["framework_id"], name: "index_tasks_on_framework_id"
     t.index ["status"], name: "index_tasks_on_status"
+    t.index ["supplier_id"], name: "index_tasks_on_supplier_id"
   end
 
   add_foreign_key "framework_lots", "frameworks"
@@ -96,4 +110,7 @@ ActiveRecord::Schema.define(version: 2018_07_02_145630) do
   add_foreign_key "submission_files", "submissions"
   add_foreign_key "submissions", "frameworks"
   add_foreign_key "submissions", "suppliers"
+  add_foreign_key "submissions", "tasks"
+  add_foreign_key "tasks", "frameworks"
+  add_foreign_key "tasks", "suppliers"
 end

@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :task do
-    status 'MyString'
+    status 'unstarted'
+
+    supplier
+    framework
   end
 end

@@ -1,11 +1,22 @@
 class V1::SubmissionsController < ApplicationController
-  deserializable_resource :submission, only: [:update]
+  deserializable_resource :submission, only: %i[create update]
+
+  def show
+    submission = Submission.find(params[:id])
+
+    render jsonapi: submission, include: params.dig(:include)
+  end
 
   def create
-    framework = Framework.find(submission_params[:framework_id])
-    supplier = Supplier.find(submission_params[:supplier_id])
+    task = Task.find(create_submission_params[:task_id])
+    framework = task.framework
+    supplier = task.supplier
 
-    submission = Submission.new(framework: framework, supplier: supplier)
+    submission = Submission.new(
+      task: task,
+      framework: framework,
+      supplier: supplier
+    )
 
     if submission.save
       render jsonapi: submission, status: :created
@@ -27,8 +38,8 @@ class V1::SubmissionsController < ApplicationController
 
   private
 
-  def submission_params
-    params.permit(:framework_id, :supplier_id)
+  def create_submission_params
+    params.require(:submission).permit(:task_id)
   end
 
   def update_submission_params

@@ -1,12 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe '/v1' do
+  describe 'GET /submissions/:submission_id' do
+    it 'returns the requested submission' do
+      submission = FactoryBot.create(:submission)
+
+      get "/v1/submissions/#{submission.id}"
+
+      expect(response).to be_successful
+
+      expect(json['data']).to have_id(submission.id)
+    end
+
+    it 'optionally includes submission entries' do
+      # TODO: finish this
+    end
+  end
+
   describe 'POST /submissions' do
     it 'creates a new submission and returns its id' do
-      framework = FactoryBot.create(:framework, name: 'Cheese Board 8', short_name: 'cboard8')
-      supplier  = FactoryBot.create(:supplier, name: 'Cheesy Does It')
+      framework = FactoryBot.create(:framework)
+      supplier  = FactoryBot.create(:supplier)
+      task = FactoryBot.create(:task, framework: framework, supplier: supplier)
 
-      post "/v1/submissions?framework_id=#{framework.id}&supplier_id=#{supplier.id}"
+      params = {
+        data: {
+          type: 'submissions',
+          attributes: {
+            task_id: task.id
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      post "/v1/submissions?task_id=#{task.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:created)
 
@@ -15,6 +46,7 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_id(submission.id)
       expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
       expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
+      expect(json['data']).to have_attribute(:task_id).with_value(task.id)
     end
   end
 
