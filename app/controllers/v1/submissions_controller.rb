@@ -1,6 +1,12 @@
 class V1::SubmissionsController < ApplicationController
   deserializable_resource :submission, only: %i[create update]
 
+  def show
+    submission = Submission.find(params[:id])
+
+    render jsonapi: submission, include: params.dig(:include)
+  end
+
   def create
     task = Task.find(create_submission_params[:task_id])
     framework = task.framework

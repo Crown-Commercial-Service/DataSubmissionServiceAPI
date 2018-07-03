@@ -1,6 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe '/v1' do
+  describe 'GET /submissions/:submission_id' do
+    it 'returns the requested submission' do
+      submission = FactoryBot.create(:submission)
+
+      get "/v1/submissions/#{submission.id}"
+
+      expect(response).to be_successful
+
+      expect(json['data']).to have_id(submission.id)
+    end
+
+    it 'optionally includes submission entries' do
+      # TODO: finish this
+    end
+  end
+
   describe 'POST /submissions' do
     it 'creates a new submission and returns its id' do
       framework = FactoryBot.create(:framework)

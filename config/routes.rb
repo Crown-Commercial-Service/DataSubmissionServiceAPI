@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :frameworks, only: %i[index show]
     resources :suppliers, only: %i[index]
     resources :agreements, only: %i[create]
-    resources :submissions, only: %i[create update] do
+    resources :submissions, only: %i[show create update] do
       resources :files, only: %i[create update], controller: 'submission_files'
       resources :entries, only: %i[create], controller: 'submission_entries'
     end
