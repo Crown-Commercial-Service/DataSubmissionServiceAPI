@@ -16,4 +16,12 @@ class Task < ApplicationRecord
   belongs_to :supplier
 
   has_many :submissions, dependent: :nullify
+
+  def self.for_user_id(user_id)
+    supplier_ids = Membership
+                   .where(user_id: user_id)
+                   .pluck(:supplier_id)
+
+    where(supplier_id: supplier_ids)
+  end
 end
