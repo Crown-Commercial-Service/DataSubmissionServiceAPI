@@ -1,6 +1,7 @@
 class V1::SubmissionFilesController < ApplicationController
+  deserializable_resource :submission_file, only: %i[update]
   def create
-    submission = Submission.find(submission_file_params[:submission_id])
+    submission = Submission.find(params[:submission_id])
     submission_file = submission.files.new
 
     if submission_file.save
@@ -11,16 +12,18 @@ class V1::SubmissionFilesController < ApplicationController
   end
 
   def update
-    SubmissionFile.find(params[:id])
-
-    # TODO: Store the updated file
-
-    head :no_content
+    submission_file = SubmissionFile.find(params[:id])
+    submission_file.rows = submission_file_params[:rows]
+    if submission_file.save
+      head :no_content
+    else
+      render jsonapi: submission_file.errors, status: :bad_request
+    end
   end
 
   private
 
   def submission_file_params
-    params.permit(:submission_id)
+    params.require(:submission_file).permit(:rows)
   end
 end

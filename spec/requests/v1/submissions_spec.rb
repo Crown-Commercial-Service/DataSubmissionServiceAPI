@@ -80,7 +80,20 @@ RSpec.describe '/v1' do
     it 'creates a new submission file and returns its id' do
       submission = FactoryBot.create(:submission)
 
-      post "/v1/submissions/#{submission.id}/files"
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      params = {
+        data: {
+          type: 'submission_files',
+          attributes: {
+          }
+        }
+      }
+
+      post "/v1/submissions/#{submission.id}/files", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:created)
 
@@ -101,9 +114,19 @@ RSpec.describe '/v1' do
         'Accept': 'application/vnd.api+json'
       }
 
-      patch "/v1/submissions/#{submission.id}/files/#{file.id}", params: {}, headers: headers
+      params = {
+        data: {
+          type: 'submission_files',
+          attributes: {
+            rows: 1000
+          }
+        }
+      }
+
+      patch "/v1/submissions/#{submission.id}/files/#{file.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(204)
+      expect(file.reload.rows).to eql 1000
     end
   end
 
