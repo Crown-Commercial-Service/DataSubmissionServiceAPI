@@ -57,4 +57,46 @@ RSpec.describe '/v1' do
       expect(json['data'][0]).to have_attribute(:user_id).with_value(included_user_id)
     end
   end
+
+  describe 'POST /memberships' do
+    it 'creates a membership, which links a supplier to a user' do
+      supplier = FactoryBot.create(:supplier)
+      user_id = '7f77d6f6-1cca-4a58-9030-10a93fe1f32d'
+
+      params = {
+        data: {
+          type: 'memberships',
+          relationships: {
+            supplier: {
+              data: {
+                type: 'suppliers',
+                id: supplier.id
+              }
+            },
+            user: {
+              data: {
+                type: 'users',
+                id: user_id
+              }
+            }
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      post '/v1/memberships', params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:created)
+
+      membership = Membership.first
+
+      expect(json['data']).to have_id(membership.id)
+      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
+      expect(json['data']).to have_attribute(:user_id).with_value(user_id)
+    end
+  end
 end
