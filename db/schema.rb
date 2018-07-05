@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 2018_07_06_003625) do
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
   end
 
+  create_table "memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "supplier_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supplier_id"], name: "index_memberships_on_supplier_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "submission_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
     t.uuid "submission_file_id"
@@ -107,6 +116,7 @@ ActiveRecord::Schema.define(version: 2018_07_06_003625) do
   end
 
   add_foreign_key "framework_lots", "frameworks"
+  add_foreign_key "memberships", "suppliers"
   add_foreign_key "submission_entries", "submission_files"
   add_foreign_key "submission_entries", "submissions"
   add_foreign_key "submission_files", "submissions"

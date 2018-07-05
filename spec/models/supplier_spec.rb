@@ -6,4 +6,5 @@ RSpec.describe Supplier do
 
   it { is_expected.to have_many(:agreements) }
   it { is_expected.to have_many(:frameworks).through(:agreements) }
+  it { is_expected.to have_many(:memberships) }
 end
