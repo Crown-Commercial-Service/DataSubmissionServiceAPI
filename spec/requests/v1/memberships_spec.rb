@@ -99,4 +99,19 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_attribute(:user_id).with_value(user_id)
     end
   end
+
+  describe 'DELETE /memberships/:membership_id' do
+    it 'deletes a membership, disassociating a user from a supplier' do
+      membership = FactoryBot.create(:membership)
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      expect do
+        delete "/v1/memberships/#{membership.id}", params: {}, headers: headers
+      end.to change { Membership.count }.from(1).to(0)
+    end
+  end
 end

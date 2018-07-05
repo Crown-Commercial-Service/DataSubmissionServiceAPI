@@ -19,6 +19,13 @@ class V1::MembershipsController < ApplicationController
     end
   end
 
+  def destroy
+    membership = Membership.find(params[:id])
+    membership.destroy
+
+    head :no_content
+  end
+
   private
 
   def create_membership_params
