@@ -162,4 +162,32 @@ RSpec.describe '/v1' do
       expect(task).to be_complete
     end
   end
+
+  describe 'PATCH /v1/tasks/:task_id' do
+    it "updates a task's attributes" do
+      task = FactoryBot.create(:task)
+
+      params = {
+        data: {
+          type: 'tasks',
+          attributes: {
+            status: 'in_progress'
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: headers
+
+      expect(response).to be_successful
+
+      task.reload
+
+      expect(task).to be_in_progress
+    end
+  end
 end

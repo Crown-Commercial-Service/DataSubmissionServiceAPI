@@ -1,5 +1,5 @@
 class V1::TasksController < ApplicationController
-  deserializable_resource :task, only: [:create]
+  deserializable_resource :task, only: %i[create update]
 
   def create
     task = Task.new(task_params)
@@ -25,6 +25,17 @@ class V1::TasksController < ApplicationController
     render jsonapi: task, include: params.dig(:include)
   end
 
+  def update
+    task = Task.find(params[:id])
+    task.update(task_params)
+
+    if task.save
+      render jsonapi: task
+    else
+      render jsonapi_errors: task.errors, status: :bad_request
+    end
+  end
+
   def complete
     task = Task.find(params[:id])
     task.status = 'complete'
@@ -39,6 +50,7 @@ class V1::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:supplier_id, :framework_id, :due_on, :period_month, :period_year, :description)
+    params.require(:task).permit(:supplier_id, :framework_id, :status, :due_on,
+                                 :period_month, :period_year, :description)
   end
 end
