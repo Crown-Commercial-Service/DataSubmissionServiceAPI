@@ -93,7 +93,7 @@ RSpec.describe '/v1' do
   end
 
   describe 'PATCH /files/:file_id/entries/:id' do
-    it 'updates the given entry' do
+    it "updates the given entry's validation status and errors received from DAVE" do
       file = FactoryBot.create(:submission_file)
       entry = FactoryBot.create(:submission_entry,
                                 submission_file: file,
@@ -103,7 +103,8 @@ RSpec.describe '/v1' do
         data: {
           type: 'submission_entries',
           attributes: {
-            valid: true
+            status: 'errored',
+            validation_errors: { message: 'Invalid data' }
           }
         }
       }
@@ -116,6 +117,8 @@ RSpec.describe '/v1' do
       patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:no_content)
+      expect(entry.reload.aasm.current_state).to eql :errored
+      expect(entry.reload.validation_errors['message']).to eql 'Invalid data'
     end
   end
 end

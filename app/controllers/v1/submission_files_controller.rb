@@ -13,7 +13,7 @@ class V1::SubmissionFilesController < ApplicationController
 
   def update
     submission_file = SubmissionFile.find(params[:id])
-    submission_file.rows = submission_file_params[:rows]
+    submission_file.rows = submission_file_params[:rows] if submission_file_params[:rows]
     if submission_file.save
       head :no_content
     else
