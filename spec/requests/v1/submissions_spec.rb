@@ -130,6 +130,23 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'GET /submissions/:submission_id/files/:id' do
+    it 'retrieves a submission file data associated with a submission' do
+      submission = FactoryBot.create(:submission)
+      file = FactoryBot.create(:submission_file, submission_id: submission.id, rows: 40)
+
+      get "/v1/submissions/#{submission.id}/files/#{file.id}"
+
+      expect(response).to have_http_status(:ok)
+
+      expect(json['data']).to have_id(file.id)
+
+      expect(json['data']).to have_attribute(:rows).with_value(file.rows)
+
+      expect(json.dig('data', 'attributes', 'rows')).to eql 40
+    end
+  end
+
   describe 'POST /submissions/:submission_id/entries' do
     it 'stores a submission entry, not associated with a file' do
       submission = FactoryBot.create(:submission)

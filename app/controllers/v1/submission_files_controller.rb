@@ -21,6 +21,12 @@ class V1::SubmissionFilesController < ApplicationController
     end
   end
 
+  def show
+    submission_file = SubmissionFile.find(params[:id])
+
+    render jsonapi: submission_file, status: :ok
+  end
+
   private
 
   def submission_file_params

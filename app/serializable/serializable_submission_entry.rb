@@ -7,6 +7,8 @@ class SerializableSubmissionEntry < JSONAPI::Serializable::Resource
   attribute :source
   attribute :data
 
+  attribute :validation_errors
+
   attribute :status do
     @object.aasm.current_state
   end
