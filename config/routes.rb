@@ -7,10 +7,10 @@ Rails.application.routes.draw do
     resources :suppliers, only: %i[index]
     resources :agreements, only: %i[create]
     resources :submissions, only: %i[show create update] do
-      resources :files, only: %i[create update], controller: 'submission_files'
+      resources :files, only: %i[create update show], controller: 'submission_files'
       resources :entries, only: %i[create], controller: 'submission_entries'
     end
-    resources :tasks, only: %i[index show create] do
+    resources :tasks, only: %i[index show create update] do
       member do
         post 'complete', to: 'tasks#complete'
       end

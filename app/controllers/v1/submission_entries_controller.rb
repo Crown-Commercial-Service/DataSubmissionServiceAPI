@@ -1,5 +1,5 @@
 class V1::SubmissionEntriesController < ApplicationController
-  deserializable_resource :submission_entry, only: [:create]
+  deserializable_resource :submission_entry, only: %i[create update]
 
   def create
     entry = initialize_submission_entry
@@ -16,9 +16,15 @@ class V1::SubmissionEntriesController < ApplicationController
 
   def update
     submission_file = SubmissionFile.find(params[:file_id])
-    submission_file.entries.find(params[:id])
+    entry = submission_file.entries.find(params[:id])
+    entry.aasm.current_state = submission_entry_params[:status]
+    entry.validation_errors = submission_entry_params[:validation_errors] if submission_entry_params[:validation_errors]
 
-    head :no_content
+    if entry.save
+      head :no_content
+    else
+      render jsonapi_errors: entry.errors, status: :bad_request
+    end
   end
 
   def show
@@ -41,6 +47,6 @@ class V1::SubmissionEntriesController < ApplicationController
   end
 
   def submission_entry_params
-    params.require(:submission_entry).permit(source: {}, data: {})
+    params.require(:submission_entry).permit(:status, source: {}, data: {}, validation_errors: {})
   end
 end

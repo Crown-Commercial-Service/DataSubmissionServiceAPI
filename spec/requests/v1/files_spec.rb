@@ -93,7 +93,7 @@ RSpec.describe '/v1' do
   end
 
   describe 'PATCH /files/:file_id/entries/:id' do
-    it 'updates the given entry' do
+    it 'updates the given entry\'s validation status received from DAVE' do
       file = FactoryBot.create(:submission_file)
       entry = FactoryBot.create(:submission_entry,
                                 submission_file: file,
@@ -103,7 +103,7 @@ RSpec.describe '/v1' do
         data: {
           type: 'submission_entries',
           attributes: {
-            valid: true
+            status: 'validated'
           }
         }
       }
@@ -116,6 +116,74 @@ RSpec.describe '/v1' do
       patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:no_content)
+      expect(entry.reload).to be_validated
+    end
+
+    it 'updates the given entry\'s validation errors received from DAVE' do
+      file = FactoryBot.create(:submission_file)
+      entry = FactoryBot.create(:submission_entry,
+                                submission_file: file,
+                                data: { test: 'test' })
+
+      params = {
+        data: {
+          type: 'submission_entries',
+          attributes: {
+            validation_errors: {
+              location: {
+                row: 20,
+                column: 2
+              },
+              message: 'Required value error'
+            }
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:no_content)
+      expect(entry.reload).to be_pending
+      expect(entry.reload.validation_errors['message']).to eql 'Required value error'
+    end
+
+    it 'updates both the given entry\'s status and the validation errors received from DAVE' do
+      file = FactoryBot.create(:submission_file)
+      entry = FactoryBot.create(:submission_entry,
+                                submission_file: file,
+                                data: { test: 'test' })
+
+      params = {
+        data: {
+          type: 'submission_entries',
+          attributes: {
+            status: 'errored',
+            validation_errors: {
+              location: {
+                row: 20,
+                column: 2
+              },
+              message: 'Required value error'
+            }
+          }
+        }
+      }
+
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+
+      expect(response).to have_http_status(:no_content)
+      expect(entry.reload).to be_errored
+      expect(entry.reload.validation_errors['message']).to eql 'Required value error'
     end
   end
 end
