@@ -109,6 +109,27 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'GET /tasks?filter[user_id]=' do
+    it 'returns a filtered list of tasks for a user\'s suppliers' do
+      user_id = SecureRandom.uuid
+
+      current_supplier = FactoryBot.create(:supplier)
+      another_supplier = FactoryBot.create(:supplier)
+
+      FactoryBot.create(:membership, supplier: current_supplier, user_id: user_id)
+
+      FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
+      FactoryBot.create(:task, supplier: another_supplier)
+
+      get "/v1/tasks?filter[user_id]=#{user_id}"
+
+      expect(response).to be_successful
+
+      expect(json['data'].size).to eql 1
+      expect(json['data'][0]).to have_attribute(:description).with_value('hello')
+    end
+  end
+
   describe 'GET /v1/tasks/:task_id' do
     it 'returns the details of a given task' do
       task = FactoryBot.create(

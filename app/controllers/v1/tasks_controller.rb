@@ -15,6 +15,7 @@ class V1::TasksController < ApplicationController
     tasks = Task.where(nil)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
+    tasks = tasks.for_user_id(params.dig(:filter, :user_id)) if params.dig(:filter, :user_id)
 
     render jsonapi: tasks, include: params.dig(:include)
   end
