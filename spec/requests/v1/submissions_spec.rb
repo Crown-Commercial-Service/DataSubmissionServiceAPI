@@ -85,15 +85,7 @@ RSpec.describe '/v1' do
         'Accept': 'application/vnd.api+json'
       }
 
-      params = {
-        data: {
-          type: 'submission_files',
-          attributes: {
-          }
-        }
-      }
-
-      post "/v1/submissions/#{submission.id}/files", params: params.to_json, headers: headers
+      post "/v1/submissions/#{submission.id}/files", params: {}, headers: headers
 
       expect(response).to have_http_status(:created)
 
@@ -142,8 +134,6 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_id(file.id)
 
       expect(json['data']).to have_attribute(:rows).with_value(file.rows)
-
-      expect(json.dig('data', 'attributes', 'rows')).to eql 40
     end
   end
 

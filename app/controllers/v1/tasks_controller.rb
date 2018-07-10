@@ -30,7 +30,7 @@ class V1::TasksController < ApplicationController
     task.update(task_params)
 
     if task.save
-      render jsonapi: task
+      head :no_content
     else
       render jsonapi_errors: task.errors, status: :bad_request
     end
