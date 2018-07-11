@@ -55,6 +55,7 @@ GEM
       msgpack (~> 1.0)
     bounded_context (0.30.0)
     builder (3.2.3)
+    business (1.13.1)
     byebug (10.0.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
@@ -229,6 +230,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   bootsnap (>= 1.1.0)
+  business
   byebug
   database_cleaner
   factory_bot_rails
