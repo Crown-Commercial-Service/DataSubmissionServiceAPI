@@ -2,6 +2,7 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
   type 'submissions'
 
   has_many :entries
+  has_many :files
 
   attributes :framework_id, :supplier_id, :task_id
 
