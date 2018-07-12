@@ -36,6 +36,14 @@ class V1::SubmissionsController < ApplicationController
     end
   end
 
+  def calculate
+    submission = Submission.find(params[:id])
+    # Trigger lambda invocation
+    AWSLambdaService.new(submission_id: submission.id).trigger
+
+    head :no_content # Should we can check for lambda[:status_code] to handle error?
+  end
+
   private
 
   def create_submission_params

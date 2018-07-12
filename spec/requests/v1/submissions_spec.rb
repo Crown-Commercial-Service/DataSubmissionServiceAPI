@@ -177,4 +177,14 @@ RSpec.describe '/v1' do
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end
   end
+
+  describe 'GET /submissions/:submission_id/calculate' do
+    it 'invokes the calculate lambda function successfully' do
+      submission = FactoryBot.create(:submission)
+
+      get "/v1/submissions/#{submission.id}/calculate"
+
+      expect(response).to have_http_status(:no_content)
+    end
+  end
 end
