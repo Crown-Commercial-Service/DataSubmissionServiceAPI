@@ -28,6 +28,7 @@ class V1::SubmissionsController < ApplicationController
   def update
     submission = Submission.find(params[:id])
     submission.levy = update_submission_params[:levy] * 100
+    submission.aasm.current_state = 'complete' if update_submission_params[:levy]
 
     if submission.save
       head :no_content

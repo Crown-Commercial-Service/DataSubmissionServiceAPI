@@ -72,7 +72,10 @@ RSpec.describe '/v1' do
 
       expect(response).to have_http_status(:no_content)
 
-      expect(submission.reload.levy).to eql 4250
+      submission.reload
+
+      expect(submission.levy).to eql 4250
+      expect(submission).to be_complete
     end
   end
 
