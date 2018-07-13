@@ -6,7 +6,7 @@ class Task < ApplicationRecord
     state :unstarted, intial: true
     state :in_progress
     state :in_review
-    state :complete
+    state :completed
     state :cancelled
   end
 
