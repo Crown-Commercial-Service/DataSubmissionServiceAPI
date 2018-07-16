@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :agreements, only: %i[create]
     resources :submissions, only: %i[show create update] do
       member do
-        get 'calculate', to: 'submissions#calculate'
+        post 'calculate', to: 'submissions#calculate'
       end
 
       resources :files, only: %i[create update show], controller: 'submission_files'

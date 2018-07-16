@@ -42,7 +42,7 @@ class V1::SubmissionsController < ApplicationController
     # Trigger lambda invocation
     AWSLambdaService.new(submission_id: submission.id).trigger
 
-    head :no_content # Should we can check for lambda[:status_code] to handle error?
+    head :no_content
   end
 
   private

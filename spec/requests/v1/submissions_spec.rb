@@ -231,7 +231,12 @@ RSpec.describe '/v1' do
     it 'invokes the calculate lambda function successfully' do
       submission = FactoryBot.create(:submission)
 
-      get "/v1/submissions/#{submission.id}/calculate"
+      headers = {
+        'Content-Type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+      }
+
+      post "/v1/submissions/#{submission.id}/calculate", params: {}, headers: headers
 
       expect(response).to have_http_status(:no_content)
     end
