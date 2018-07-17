@@ -28,12 +28,21 @@ class V1::SubmissionsController < ApplicationController
   def update
     submission = Submission.find(params[:id])
     submission.levy = update_submission_params[:levy] * 100
+    submission.aasm.current_state = 'complete' if update_submission_params[:levy]
 
     if submission.save
       head :no_content
     else
       render jsonapi_errors: submission.errors, status: :bad_request
     end
+  end
+
+  def calculate
+    submission = Submission.find(params[:id])
+    # Trigger lambda invocation
+    AWSLambdaService.new(submission_id: submission.id).trigger
+
+    head :no_content
   end
 
   private
