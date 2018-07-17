@@ -17,7 +17,7 @@ phases:
       - docker exec test bundle install --with test --retry 3 --jobs 20
       - docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:create"
       - docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:setup"
-      - docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake"
+      - docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && export AWS_S3_REGION='eu-west-2' && export AWS_LAMBDA_CALCULATE='dummy' && rake"
       - docker rm -f test pg
   post_build:
     commands:
