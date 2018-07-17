@@ -39,7 +39,7 @@ class V1::TasksController < ApplicationController
 
   def complete
     task = Task.find(params[:id])
-    task.status = 'complete'
+    task.status = 'completed'
 
     if task.save
       render jsonapi: task

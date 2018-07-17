@@ -12,7 +12,7 @@ class Submission < ApplicationRecord
     state :pending, initial: true
     state :processing
     state :in_review
-    state :complete
+    state :completed
     state :rejected
   end
 end

@@ -81,14 +81,14 @@ RSpec.describe '/v1' do
     it 'returns a filtered list of tasks matching the statue value in the URL' do
       FactoryBot.create(:task, status: 'draft')
       FactoryBot.create(:task, status: 'draft')
-      FactoryBot.create(:task, status: 'complete')
+      FactoryBot.create(:task, status: 'completed')
 
-      get '/v1/tasks?filter[status]=complete'
+      get '/v1/tasks?filter[status]=completed'
 
       expect(response).to be_successful
 
       expect(json['data'].size).to eql 1
-      expect(json['data'][0]).to have_attribute(:status).with_value('complete')
+      expect(json['data'][0]).to have_attribute(:status).with_value('completed')
     end
   end
 
@@ -180,7 +180,7 @@ RSpec.describe '/v1' do
 
       task.reload
 
-      expect(task).to be_complete
+      expect(task).to be_completed
     end
   end
 
