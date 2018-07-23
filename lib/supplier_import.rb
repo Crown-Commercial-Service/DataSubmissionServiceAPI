@@ -1,0 +1,2 @@
+class SupplierImport
+end
