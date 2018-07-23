@@ -4,9 +4,9 @@ class SupplierImportRow
   end
 
   def import!
-    supplier = Supplier.create!(name: @row[:suppliername])
+    supplier = Supplier.find_or_create_by!(name: @row[:suppliername])
     framework = Framework.find_by!(short_name: @row[:frameworkreference])
 
-    supplier.agreements.create!(framework: framework)
+    supplier.agreements.find_or_create_by!(framework: framework)
   end
 end
