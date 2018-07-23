@@ -20,6 +20,16 @@ RSpec.describe SupplierImportRow do
     }
   end
 
+  describe '#initialize' do
+    it 'throws an error if the hash is missing required fields' do
+      data = {
+        frameworkreference: 'RM3756'
+      }
+
+      expect { SupplierImportRow.new(data) }.to raise_error('SupplierImportRow::MissingKey')
+    end
+  end
+
   describe '#import!' do
     it 'creates a new supplier and adds it to the framework' do
       framework = FactoryBot.create(:framework, short_name: 'RM3756')
