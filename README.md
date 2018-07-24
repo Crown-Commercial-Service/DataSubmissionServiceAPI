@@ -43,3 +43,7 @@ Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up
 ## API Endpoints
 
 A [full list of the API endpoints](endpoints.md) is available in a separate document.
+
+## Importing users
+
+See [this guide](importing.md) to see how to import users and suppliers.
