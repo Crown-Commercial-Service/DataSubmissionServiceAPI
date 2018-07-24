@@ -3,7 +3,7 @@ class Task < ApplicationRecord
 
   aasm column: 'status' do
     state :draft
-    state :unstarted, intial: true
+    state :unstarted, initial: true
     state :in_progress
     state :in_review
     state :completed
