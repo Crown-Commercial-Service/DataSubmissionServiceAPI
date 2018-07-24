@@ -8,6 +8,10 @@ RSpec.describe Task do
 
   it { is_expected.to have_many(:submissions) }
 
+  it "defaults to an 'unstarted' state" do
+    expect(Task.new.status).to eq 'unstarted'
+  end
+
   describe '.for_user_id' do
     it 'returns tasks for all suppliers that the current user is a member of' do
       user_id = SecureRandom.uuid
