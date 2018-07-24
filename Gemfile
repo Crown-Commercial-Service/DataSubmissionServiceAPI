@@ -27,10 +27,14 @@ gem 'puma', '~> 3.11'
 # Audit log
 gem 'rails_event_store'
 
+# Auth0
+gem 'auth0', require: false
+
 gem 'rubocop'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'rspec-rails'
