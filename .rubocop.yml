@@ -65,3 +65,8 @@ Metrics/BlockLength:
     Max: 40
     Exclude:
         - 'spec/**/*'
+
+Lint/AmbiguousBlockAssociation:
+    Exclude:
+        - 'spec/**/*'
+
