@@ -121,7 +121,7 @@ RSpec.describe '/v1' do
       submission.reload
 
       expect(submission.levy).to eql 4250
-      expect(submission).to be_completed
+      expect(submission).to be_in_review
     end
   end
 
