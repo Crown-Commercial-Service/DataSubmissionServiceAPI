@@ -131,13 +131,12 @@ RSpec.describe '/v1' do
         data: {
           type: 'submission_entries',
           attributes: {
-            validation_errors: {
-              location: {
-                row: 20,
-                column: 2
-              },
-              message: 'Required value error'
-            }
+            validation_errors: [
+              {
+                location: { row: 20, column: 2 },
+                message: 'Required value error'
+              }
+            ]
           }
         }
       }
@@ -153,7 +152,8 @@ RSpec.describe '/v1' do
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_pending
-      expect(entry.reload.validation_errors['message']).to eql 'Required value error'
+      expect(entry.validation_errors[0]['message']).to eq 'Required value error'
+      expect(entry.validation_errors[0]['location']).to eq('row' => 20, 'column' => 2)
     end
 
     it 'updates both the given entry\'s status and the validation errors received from DAVE' do
@@ -167,13 +167,12 @@ RSpec.describe '/v1' do
           type: 'submission_entries',
           attributes: {
             status: 'errored',
-            validation_errors: {
-              location: {
-                row: 20,
-                column: 2
-              },
-              message: 'Required value error'
-            }
+            validation_errors: [
+              {
+                location: { row: 20, column: 2 },
+                message: 'Required value error'
+              }
+            ]
           }
         }
       }
@@ -189,7 +188,8 @@ RSpec.describe '/v1' do
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_errored
-      expect(entry.reload.validation_errors['message']).to eql 'Required value error'
+      expect(entry.validation_errors[0]['message']).to eq 'Required value error'
+      expect(entry.validation_errors[0]['location']).to eq('row' => 20, 'column' => 2)
     end
   end
 

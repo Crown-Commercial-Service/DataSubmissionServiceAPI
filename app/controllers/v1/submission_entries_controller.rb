@@ -52,6 +52,8 @@ class V1::SubmissionEntriesController < ApplicationController
   end
 
   def submission_entry_params
-    params.require(:submission_entry).permit(:status, source: {}, data: {}, validation_errors: {})
+    params
+      .require(:submission_entry)
+      .permit(:status, :type, source: {}, data: {}, validation_errors: [:message, location: {}])
   end
 end
