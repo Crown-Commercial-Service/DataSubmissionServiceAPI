@@ -113,13 +113,15 @@ RSpec.describe '/v1' do
         'Accept': 'application/vnd.api+json'
       }
 
+      expect_submission_status_update_to_be_performed(file.submission)
+
       patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_validated
     end
 
-    it 'updates the given entry\'s validation errors received from DAVE' do
+    it 'updates the given entry\'s validation errors received from DAVE and performs a status update' do
       file = FactoryBot.create(:submission_file)
       entry = FactoryBot.create(:submission_entry,
                                 submission_file: file,
@@ -144,6 +146,8 @@ RSpec.describe '/v1' do
         'Content-Type': 'application/vnd.api+json',
         'Accept': 'application/vnd.api+json'
       }
+
+      expect_submission_status_update_to_be_performed(file.submission)
 
       patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
 
@@ -179,11 +183,19 @@ RSpec.describe '/v1' do
         'Accept': 'application/vnd.api+json'
       }
 
+      expect_submission_status_update_to_be_performed(file.submission)
+
       patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_errored
       expect(entry.reload.validation_errors['message']).to eql 'Required value error'
     end
+  end
+
+  def expect_submission_status_update_to_be_performed(submission)
+    status_update_double = double
+    expect(status_update_double).to receive(:perform!)
+    expect(SubmissionStatusUpdate).to receive(:new).with(submission).and_return(status_update_double)
   end
 end
