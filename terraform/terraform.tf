@@ -20,7 +20,7 @@ terraform {
 ## ECR
 
 resource "aws_ecr_repository" "api" {
-  name = "${var.app_name}"
+  name = "${var.app_name}-${terraform.workspace}"
 }
 
 ## CodePipeline
@@ -78,7 +78,7 @@ data "template_file" "buildspec" {
 
   vars {
     aws_account_id  = "${data.aws_caller_identity.current.account_id}"
-    image_repo_name = "${var.app_name}"
+    image_repo_name = "${var.app_name}-${terraform.workspace}"
     rails_env       = "${var.rails_env}"
     task_name       = "dss-infrastructure-${terraform.workspace}-api"
   }
