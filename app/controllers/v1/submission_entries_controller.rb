@@ -21,6 +21,7 @@ class V1::SubmissionEntriesController < ApplicationController
     entry.validation_errors = submission_entry_params[:validation_errors]
 
     if entry.save
+      submission_status_update!(submission_file.submission)
       head :no_content
     else
       render jsonapi_errors: entry.errors, status: :bad_request
@@ -35,6 +36,10 @@ class V1::SubmissionEntriesController < ApplicationController
   end
 
   private
+
+  def submission_status_update!(submission)
+    SubmissionStatusUpdate.new(submission).perform!
+  end
 
   def initialize_submission_entry
     if params[:file_id].present?
