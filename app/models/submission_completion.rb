@@ -6,19 +6,10 @@ class SubmissionCompletion
   end
 
   def perform!
-    return unless all_entries_valid?
-
-    Task.transaction do
-      Submission.transaction do
-        submission.reviewed_and_accepted!
-        submission.task.completed!
-      end
+    submission.reviewed_and_accepted! do
+      submission.task.completed!
     end
-  end
 
-  private
-
-  def all_entries_valid?
-    submission.entries.validated.count == submission.entries.count
+    submission
   end
 end

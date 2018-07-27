@@ -49,7 +49,7 @@ class V1::SubmissionsController < ApplicationController
     submission = Submission.find(params[:id])
     complete_submission!(submission)
 
-    if submission.save
+    if submission.errors.empty?
       head :no_content
     else
       render jsonapi_errors: submission.errors, status: :bad_request

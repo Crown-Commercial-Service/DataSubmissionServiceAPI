@@ -20,7 +20,15 @@ class Submission < ApplicationRecord
     end
 
     event :reviewed_and_accepted do
-      transitions from: :in_review, to: :completed
+      transitions from: :in_review, to: :completed, guard: :all_entries_valid?
+
+      error do |e|
+        errors.add(:aasm_state, message: e.message)
+      end
     end
+  end
+
+  def all_entries_valid?
+    entries.validated.count == entries.count
   end
 end

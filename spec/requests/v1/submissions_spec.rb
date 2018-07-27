@@ -243,23 +243,47 @@ RSpec.describe '/v1' do
   end
 
   describe 'POST /submissions/:submission_id/complete' do
-    it 'marks the submission as complete' do
-      task = FactoryBot.create(:task, status: :in_progress)
+    context 'given a valid submission' do
+      it 'marks the submission as complete' do
+        task = FactoryBot.create(:task, status: :in_progress)
 
-      submission = FactoryBot.create(
-        :submission_with_validated_entries,
-        aasm_state: :in_review,
-        task: task
-      )
+        submission = FactoryBot.create(
+          :submission_with_validated_entries,
+          aasm_state: :in_review,
+          task: task
+        )
 
-      post "/v1/submissions/#{submission.id}/complete"
+        post "/v1/submissions/#{submission.id}/complete"
 
-      expect(response).to be_successful
+        expect(response).to be_successful
 
-      submission.reload
+        submission.reload
 
-      expect(submission).to be_completed
-      expect(submission.task).to be_completed
+        expect(submission).to be_completed
+        expect(submission.task).to be_completed
+      end
+    end
+
+    context 'given an invalid submission' do
+      it 'returns an error' do
+        task = FactoryBot.create(:task, status: :in_progress)
+
+        submission = FactoryBot.create(
+          :submission_with_invalid_entries,
+          aasm_state: :in_review,
+          task: task
+        )
+
+        post "/v1/submissions/#{submission.id}/complete"
+
+        expect(response).to have_http_status(:bad_request)
+        expect(json['errors'][0]['title']).to eql 'Invalid aasm_state'
+
+        submission.reload
+
+        expect(submission).to be_in_review
+        expect(task).to be_in_progress
+      end
     end
   end
 end
