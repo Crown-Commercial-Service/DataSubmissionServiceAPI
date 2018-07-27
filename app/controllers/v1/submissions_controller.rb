@@ -45,7 +45,22 @@ class V1::SubmissionsController < ApplicationController
     head :no_content
   end
 
+  def complete
+    submission = Submission.find(params[:id])
+    complete_submission!(submission)
+
+    if submission.errors.empty?
+      head :no_content
+    else
+      render jsonapi_errors: submission.errors, status: :bad_request
+    end
+  end
+
   private
+
+  def complete_submission!(submission)
+    SubmissionCompletion.new(submission).perform!
+  end
 
   def create_submission_params
     params.require(:submission).permit(:task_id)

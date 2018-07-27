@@ -24,5 +24,14 @@ FactoryBot.define do
         create_list(:errored_submission_entry, 1, submission: submission)
       end
     end
+
+    factory :submission_with_unprocessed_entries do
+      aasm_state :processing
+
+      after(:create) do |submission, _evaluator|
+        create_list(:validated_submission_entry, 2, submission: submission)
+        create_list(:submission_entry, 1, submission: submission)
+      end
+    end
   end
 end

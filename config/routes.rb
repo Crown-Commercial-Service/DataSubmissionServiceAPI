@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :submissions, only: %i[show create update] do
       member do
         post 'calculate', to: 'submissions#calculate'
+        post 'complete', to: 'submissions#complete'
       end
 
       resources :files, only: %i[create update show], controller: 'submission_files'
