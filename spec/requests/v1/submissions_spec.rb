@@ -241,4 +241,21 @@ RSpec.describe '/v1' do
       expect(response).to have_http_status(:no_content)
     end
   end
+
+  describe 'POST /submissions/:submission_id/complete' do
+    it 'marks the submission as complete' do
+      submission = FactoryBot.create(
+        :submission_with_validated_entries,
+        aasm_state: :in_review
+      )
+
+      post "/v1/submissions/#{submission.id}/complete"
+
+      expect(response).to be_successful
+
+      submission.reload
+
+      expect(submission).to be_completed
+    end
+  end
 end

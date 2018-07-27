@@ -18,5 +18,9 @@ class Submission < ApplicationRecord
     event :ready_for_review do
       transitions from: %i[pending processing], to: :in_review
     end
+
+    event :reviewed_and_accepted do
+      transitions from: :in_review, to: :completed
+    end
   end
 end
