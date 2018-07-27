@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_06_003625) do
+ActiveRecord::Schema.define(version: 2018_07_27_170406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2018_07_06_003625) do
   create_table "submission_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
     t.integer "rows"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["submission_id"], name: "index_submission_files_on_submission_id"
   end
 
@@ -90,6 +92,8 @@ ActiveRecord::Schema.define(version: 2018_07_06_003625) do
     t.integer "levy"
     t.string "aasm_state"
     t.uuid "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
