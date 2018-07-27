@@ -5,9 +5,12 @@ class Task < ApplicationRecord
     state :draft
     state :unstarted, initial: true
     state :in_progress
-    state :in_review
     state :completed
     state :cancelled
+
+    event :completed do
+      transitions from: %i[in_progress], to: :completed
+    end
   end
 
   validates :status, presence: true
