@@ -244,9 +244,12 @@ RSpec.describe '/v1' do
 
   describe 'POST /submissions/:submission_id/complete' do
     it 'marks the submission as complete' do
+      task = FactoryBot.create(:task, status: :in_progress)
+
       submission = FactoryBot.create(
         :submission_with_validated_entries,
-        aasm_state: :in_review
+        aasm_state: :in_review,
+        task: task
       )
 
       post "/v1/submissions/#{submission.id}/complete"
@@ -256,6 +259,7 @@ RSpec.describe '/v1' do
       submission.reload
 
       expect(submission).to be_completed
+      expect(submission.task).to be_completed
     end
   end
 end
