@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     end
     resources :tasks, only: %i[index show create update] do
       member do
-        post 'complete', to: 'tasks#complete'
+        post :complete
+        post :no_business
       end
     end
 

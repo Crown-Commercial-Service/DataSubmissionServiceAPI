@@ -34,4 +34,36 @@ RSpec.describe Task do
       expect(tasks).to_not include(task3)
     end
   end
+
+  describe '#latest_submission' do
+    let(:task) { FactoryBot.create(:task) }
+
+    it 'returns the most recent submission' do
+      _old_submission = FactoryBot.create(:submission, task: task)
+
+      travel 1.day do
+        latest_submission = FactoryBot.create(:submission, task: task)
+
+        expect(task.latest_submission).to eq latest_submission
+      end
+    end
+  end
+
+  describe '#file_no_business!' do
+    let(:task) { FactoryBot.create(:task) }
+
+    it 'creates an empty completed submission' do
+      expect { task.file_no_business! }.to change { task.submissions.count }.by 1
+
+      submission = task.latest_submission
+
+      expect(submission).to be_completed
+      expect(submission.entries).to be_empty
+    end
+
+    it 'transitions the task to "completed"' do
+      task.file_no_business!
+      expect(task.reload).to be_completed
+    end
+  end
 end
