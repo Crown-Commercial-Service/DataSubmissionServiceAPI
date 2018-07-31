@@ -61,7 +61,7 @@ RSpec.describe '/v1' do
       expect(json['data'][2]).to have_attribute(:status).with_value('in_progress')
     end
 
-    it 'can optionally return included models' do
+    it 'can optionally include submissions' do
       task = FactoryBot.create(:task)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
 
@@ -72,6 +72,22 @@ RSpec.describe '/v1' do
       expect(json['data'][0])
         .to have_relationship(:submissions)
         .with_data([{ 'id' => submission.id, 'type' => 'submissions' }])
+      expect(json['included'][0])
+        .to have_attribute(:status).with_value('pending')
+    end
+
+    it 'can optionally include the latest_submission' do
+      task = FactoryBot.create(:task)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+
+      get '/v1/tasks?include=latest_submission'
+
+      expect(response).to be_successful
+      expect(json['data'][0]).to have_id(task.id)
+      expect(json['data'][0])
+        .to have_relationship(:latest_submission)
+        .with_data('id' => submission.id, 'type' => 'submissions')
+
       expect(json['included'][0])
         .to have_attribute(:status).with_value('pending')
     end
