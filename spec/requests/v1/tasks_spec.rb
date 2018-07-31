@@ -170,6 +170,25 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'POST /v1/tasks/:task_id/no_business' do
+    let(:task) { FactoryBot.create(:task) }
+
+    before { post "/v1/tasks/#{task.id}/no_business" }
+
+    it 'marks the task as completed' do
+      expect(task.reload).to be_completed
+    end
+
+    it 'creates and returns a completed submissions' do
+      expect(response).to have_http_status(:created)
+
+      submission = task.submissions.last
+
+      expect(json['data']).to have_id submission.id
+      expect(json['data']['attributes']['status']).to eq 'completed'
+    end
+  end
+
   describe 'POST /v1/tasks/:task_id/complete' do
     it "changes a task's status to completed" do
       task = FactoryBot.create(:task)
