@@ -57,7 +57,7 @@ task_in_review = Task.find_or_create_by!(
   period_year: Date.today.year,
   description: 'In review task (validated submission)'
 )
-valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review")
+valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review", levy: 3000)
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, source: { sheet: "InvoicesReceived", row: 2 })
