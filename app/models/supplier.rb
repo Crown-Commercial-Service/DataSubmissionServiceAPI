@@ -5,4 +5,8 @@ class Supplier < ApplicationRecord
   has_many :memberships, dependent: :destroy
 
   validates :name, presence: true
+  validates :coda_reference, allow_nil: true, format: {
+    with: /\AC0\d{5}\z/,
+    message: 'must start with “C0” and have five additional numbers, for example: “C012345”'
+  }
 end
