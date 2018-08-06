@@ -6,4 +6,8 @@ class Framework < ApplicationRecord
   has_many :suppliers, through: :agreements
 
   validates :short_name, presence: true, uniqueness: true
+  validates :coda_reference, allow_nil: true, format: {
+    with: /\A40\d{4}\z/,
+    message: 'must start with “40” and have four additional numbers, for example: “401234”'
+  }
 end
