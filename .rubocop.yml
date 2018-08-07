@@ -13,6 +13,10 @@ Rails:
 Bundler/OrderedGems:
     Enabled: false
 
+Rails/Output:
+    Exclude:
+        - 'db/data_migrate/**/*'
+
 Style/Alias:
     Enabled: false
 
