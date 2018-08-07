@@ -32,6 +32,8 @@ gem 'auth0', require: false
 
 gem 'rubocop'
 
+gem 'progress_bar', require: false
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
