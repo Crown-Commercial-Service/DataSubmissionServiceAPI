@@ -202,6 +202,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rollbar (2.16.4)
+      multi_json
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -285,6 +287,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rails_event_store
   rails_event_store-rspec
+  rollbar
   rspec-json_expectations
   rspec-rails
   rubocop
