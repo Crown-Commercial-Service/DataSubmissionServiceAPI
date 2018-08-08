@@ -49,7 +49,7 @@ module Reports
       submission.entries
                 .sheet('InvoicesRaised')
                 .sector(sector)
-                .sum { |entry| BigDecimal(entry.data['Total Cost (ex VAT)']) }
+                .sum("(data->>'Total Cost (ex VAT)')::float")
     end
 
     def management_charge
