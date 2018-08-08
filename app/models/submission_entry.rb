@@ -6,6 +6,8 @@ class SubmissionEntry < ApplicationRecord
 
   validates :data, presence: true
 
+  scope :sheet, ->(sheet_name) { where("source->>'sheet' = ?", sheet_name) }
+
   aasm do
     state :pending, initial: true
     state :validated
