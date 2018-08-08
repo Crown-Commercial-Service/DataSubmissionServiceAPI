@@ -30,6 +30,9 @@ gem 'rails_event_store'
 # Auth0
 gem 'auth0', require: false
 
+# Exception tracking
+gem 'rollbar'
+
 gem 'rubocop'
 
 gem 'progress_bar', require: false
