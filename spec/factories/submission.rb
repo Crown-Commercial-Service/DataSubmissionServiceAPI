@@ -4,6 +4,11 @@ FactoryBot.define do
     supplier
     task
 
+    factory :no_business_submission do
+      aasm_state :completed
+      association :task, status: 'completed'
+    end
+
     factory :submission_with_pending_entries do
       after(:create) do |submission, _evaluator|
         create_list(:submission_entry, 3, submission: submission)

@@ -100,5 +100,13 @@ RSpec.describe Reports::CodaFinanceReportRow do
       expect(cg_report_row.data['Commission']).to eq '18.46'
       expect(wps_report_row.data['Commission']).to eq '-6.43'
     end
+
+    it 'handles no business submissions, reporting them as zero sales and commission' do
+      no_business_submission = FactoryBot.create(:no_business_submission)
+      row = Reports::CodaFinanceReportRow.new(no_business_submission, Customer.sectors[:central_government])
+
+      expect(row.data['Inf Sales']).to eq '0.00'
+      expect(row.data['Commission']).to eq '0.00'
+    end
   end
 end
