@@ -9,6 +9,7 @@ module Reports
 
     def data
       @data ||= {
+        'RunID' => submission.id,
         'Nominal' => framework.coda_reference,
         'Contract ID' => framework.short_name,
         'Lot Description' => framework.name,
