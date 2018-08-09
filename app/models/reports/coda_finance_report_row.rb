@@ -1,9 +1,10 @@
 module Reports
   class CodaFinanceReportRow
-    attr_reader :submission
+    attr_reader :sector, :submission
 
-    def initialize(submission)
+    def initialize(submission, sector)
       @submission = submission
+      @sector = sector
     end
 
     def data
@@ -15,6 +16,7 @@ module Reports
         'Customer Name' => supplier.name,
         'Submitter' => supplier.name,
         'Month' => task_period,
+        'End User' => sector_identifier,
         'Inf Sales' => format_money(total_sales),
         'Commission' => format_money(management_charge),
         'Commission %' => format_percentage(management_charge_rate)
@@ -39,8 +41,15 @@ module Reports
       Date.new(task.period_year, task.period_month).strftime('%B %Y')
     end
 
+    def sector_identifier
+      sector == Customer.sectors[:central_government] ? 'UCGV' : 'UWPS'
+    end
+
     def total_sales
-      submission.entries.sheet('InvoicesRaised').sum { |entry| BigDecimal(entry.data['Total Cost (ex VAT)']) }
+      submission.entries
+                .sheet('InvoicesRaised')
+                .sector(sector)
+                .sum { |entry| BigDecimal(entry.data['Total Cost (ex VAT)']) }
     end
 
     def management_charge
