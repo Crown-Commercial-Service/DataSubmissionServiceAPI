@@ -58,7 +58,7 @@ Metrics/MethodLength:
     Exclude:
 
 Metrics/AbcSize:
-    Max: 20
+    Max: 21
     Exclude:
         - 'spec/**/*'
 
