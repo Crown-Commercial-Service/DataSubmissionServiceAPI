@@ -49,7 +49,7 @@ module Reports
       submission.entries
                 .sheet('InvoicesRaised')
                 .sector(sector)
-                .sum("(data->>'Total Cost (ex VAT)')::float")
+                .sum { |entry| numeric_string_to_number(entry.data['Total Cost (ex VAT)']) }
     end
 
     def management_charge
@@ -58,6 +58,10 @@ module Reports
 
     def management_charge_rate
       BigDecimal('1.5')
+    end
+
+    def numeric_string_to_number(numeric_string)
+      BigDecimal(numeric_string.delete(','))
     end
 
     def format_money(amount)
