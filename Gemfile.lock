@@ -67,6 +67,7 @@ GEM
     bootsnap (1.3.0)
       msgpack (~> 1.0)
     bounded_context (0.30.0)
+    brakeman (4.3.1)
     builder (3.2.3)
     byebug (10.0.2)
     coderay (1.1.2)
@@ -272,6 +273,7 @@ DEPENDENCIES
   auth0
   aws-sdk-lambda
   bootsnap (>= 1.1.0)
+  brakeman
   byebug
   database_cleaner
   dotenv-rails
