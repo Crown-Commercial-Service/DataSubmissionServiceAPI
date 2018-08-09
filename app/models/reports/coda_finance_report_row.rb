@@ -7,15 +7,19 @@ module Reports
       @sector = sector
     end
 
+    delegate :id, to: :submission, prefix: true
+    delegate :coda_reference, :name, to: :supplier, prefix: true
+    delegate :coda_reference, :name, :short_name, to: :framework, prefix: true
+
     def data
       @data ||= {
-        'RunID' => submission.id,
-        'Nominal' => framework.coda_reference,
-        'Contract ID' => framework.short_name,
-        'Lot Description' => framework.name,
-        'Customer Code' => supplier.coda_reference,
-        'Customer Name' => supplier.name,
-        'Submitter' => supplier.name,
+        'RunID' => submission_id,
+        'Nominal' => framework_coda_reference,
+        'Contract ID' => framework_short_name,
+        'Lot Description' => framework_name,
+        'Customer Code' => supplier_coda_reference,
+        'Customer Name' => supplier_name,
+        'Submitter' => supplier_name,
         'Month' => task_period,
         'End User' => sector_identifier,
         'Inf Sales' => format_money(total_sales),
