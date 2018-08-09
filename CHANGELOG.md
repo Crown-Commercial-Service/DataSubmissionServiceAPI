@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-3] - 2018-08-09
+
+- Added exception monitoring and reporting
+- Updated dependent libraries
+- Added code to generate Coda finance reports
+
 ## [release-2] - 2018-08-08
 
 - Added coda_reference to Framework model
