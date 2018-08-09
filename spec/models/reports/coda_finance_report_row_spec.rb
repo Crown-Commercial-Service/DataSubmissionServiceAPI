@@ -101,6 +101,17 @@ RSpec.describe Reports::CodaFinanceReportRow do
       expect(wps_report_row.data['Commission']).to eq '-6.43'
     end
 
+    it 'handles sales amounts written as a human-readable number' do
+      FactoryBot.create(
+        :validated_submission_entry,
+        submission: submission,
+        source: { sheet: 'InvoicesRaised', row: 3 },
+        data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
+      )
+      expect(cg_report_row.data['Inf Sales']).to eq '3659.40'
+      expect(cg_report_row.data['Commission']).to eq '54.89'
+    end
+
     it 'handles no business submissions, reporting them as zero sales and commission' do
       no_business_submission = FactoryBot.create(:no_business_submission)
       row = Reports::CodaFinanceReportRow.new(no_business_submission, Customer.sectors[:central_government])
