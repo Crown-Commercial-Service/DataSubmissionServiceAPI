@@ -1,0 +1,206 @@
+URN,CustomerName,Address1,Address2,Address3,Town,County,Country,PostCode,Sector,Subsector,Active
+10580963,East Midlands Councils,Pera Business Park Nottingham Road,Melton Mowbray,Leicestershire,Melton Mowbray,Leicestershire,England,LE13 0PB,Wider Public Sector,County Council,True
+10580942,Tees Valley Collaborative Trust,Church Walk,Guisborough,North Yorkshire,Guisborough,North Yorkshire,England,TS14 6BU,Wider Public Sector,Academy (All Types),True
+10580936,Horizon Church Sutton,Assembly Walk,Carshalton,Surrey,Carshalton,Surrey,England,SM5 1JH,Wider Public Sector,Charity,True
+10580935,Hedworthfield Community Association,Cornhill,Jarrow,Tyne and Wear,Jarrow,Tyne and Wear,England,NE32 4QD,Wider Public Sector,Region: North East,True
+10580932,Olive Academies,95 Ditchling Road,Brighton,East Sussex,Brighton,East Sussex,England,BN1 4ST,Wider Public Sector,Academy (All Types),True
+10580930,West Road Surgery,183-195 North Road Westcliff-on-Sea,Southend-on-Sea,Essex,Southend-on-Sea,Essex,England,SS0 7AF,Wider Public Sector,GP Practice,True
+10580929,The Wickham Centre,Mill Lane Wickham,Fareham,Hampshire,Fareham,Hampshire,England,PO17 5AL,Wider Public Sector,Education,True
+10580928,The Acorn And Gaumont House surgery,153 Peckham High Street,London,Greater London,London,Greater London,England,SE15 5SL,Wider Public Sector,GP Practice,True
+10580927,Emmanuel Church of England Middle School,Howe Lane,Verwood,Dorset,Verwood,Dorset,England,BH31 6JF,Wider Public Sector,Education,True
+10580924,Leeds Arts University,Blenheim Walk,Leeds,Yorkshire,Leeds,Yorkshire,England,LS2 9AQ,Wider Public Sector,Universities,True
+10580919,Grand Opera House Trust,Great Victoria Street,Belfast,County Antrim,Belfast,County Antrim,Northern Ireland,BT2 7HR,Wider Public Sector,Not for Profit,True
+10580907,Mercia Learning Trust,Carterknowle Road,Sheffield,Yorkshire,Sheffield,Yorkshire,England,S2 7DY,Wider Public Sector,Academy (All Types),True
+10580894,Level Two Youth Project,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580892,West Lincolnshire Domestic Abuse Service,PO BOX 125,Lincoln,Lincolnshire,Lincoln,Lincolnshire,England,LN1 1HA,Wider Public Sector,Charity,True
+10580888,Qualifications Wales,"Ground Floor, Q2 Building, Imperial Business Park",Newport,Gwent,Newport,Gwent,Wales,NP10 8UH,Wider Public Sector,Other,True
+10580885,The Bridges Community Trust,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580880,Vanguard Learning Trust,"c/o Vyners School, Warren Road, Ickenham",Ickenham,Middlesex,Ickenham,Middlesex,England,UB10 8AB,Wider Public Sector,Education,True
+10580879,Bedfordshire Opportunities for Learning Disabilities,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580872,Defence Primary Healthcare,,,,,,,XXXX,Wider Public Sector,TBA,True
+10580864,Audit Scotland,,,,,,,XXXX,Wider Public Sector,TBA,True
+10580863,House of Grace AoG - Miracle Centre Swindon,Even Comm. Centre Old School Jennings Street,Swindon,Wiltshire,Swindon,Wiltshire,England,SN2 2BG,Wider Public Sector,Charity,True
+10580862,Malmesbury Primary School,"MALMESBURY PRIMARY SCHOOL  Coborn Street, Bow,",London,,London,,,E3 2AB,Wider Public Sector,Education,True
+10580858,Dfamat,Astor Avenue,Dover,Kent,Dover,Kent,England,CT17 0AS,Wider Public Sector,Academy (All Types),True
+10580857,North East Ambulance Service Unified Solutions 1,"16-32 Luxembourg Road,","Pallion, Sunderland",,"Pallion, Sunderland",,England,SR46 SJ,Wider Public Sector,Ambulance Trust,True
+10580853,Norfolk Constabulary,Building 8 Jubille House Falconers Chase,Wymondham,Norfolk,Wymondham,Norfolk,England,NR18 0WW,Wider Public Sector,Police Authority,True
+10580850,Ore Valley Housing Association,,,,,,,XXXX,Wider Public Sector,Housing Associations,True
+10580849,Ore Valley Housing Association,"114-116 Station Road, Cardenden",Lochgelly,Fife,Lochgelly,Fife,Scotland,KY5 0BW,Wider Public Sector,Not for Profit,True
+10580835,Body and Soul Charity,99-119 Rosebery Avenue,London,Greater London,London,Greater London,England,EC1R 4RE,Wider Public Sector,Charity,True
+10580827,Centre for Stewardship,The Centre for Stewardship at Falkland The Stables Falkland Estate,Falkland,Fife,Falkland,Fife,Scotland,KY15 7AF,Wider Public Sector,Charity,True
+10580823,West Wales DAS Limited,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580822,Calan DVS,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580821,Threshold DAS Limited,,,,,,,XXXX,Wider Public Sector,Charity,True
+10580820,Craigsfarm Community Development Project Ltd,Maree Walk,Livingston,West Lothian,Livingston,West Lothian,Scotland,EH54 5BP,Wider Public Sector,Charity,True
+10580819,Hospicare,"Hospiscare, Searle House, Dryden Road",Exeter,,Exeter,,,EX2 5JJ,Wider Public Sector,Charity,True
+10579606,Victims First Northumbria,Cobalt Business Exchange Cobalt Park Way,Wallsend,Tyne and Wear,Wallsend,Tyne and Wear,England,NE28 9NZ,Wider Public Sector,Charity,True
+10579478,West of England Combined Authority,,,,,,,XXXX,Wider Public Sector,,True
+10579413,Leidos Supply Ltd (MoD Contracts),8 Monarch Court The Brooms Emersons Green,Bristol,Gloucestershire,Bristol,Gloucestershire,England,BS16 7FH,Central Government,,True
+10578943,Gov Facility Services Ltd (MoJ's 3rd Party FM Agent),102 Petty France,London,,London,,,SS1H 9AJ,Central Government,Prisons,True
+10578734,Suffolk Libraries,"Suffolk Libraries, Ipswich County Library Northgate Street",Ipswich,Suffolk,Ipswich,Suffolk,England,IP1 3DE,Wider Public Sector,Charity,True
+10578203,Harrogate Healthcare Facilities Management Limited,Harrogate District Hospital Lancaster Park Road,Harrogate,North Yorkshire,Harrogate,North Yorkshire,England,HG2 7SX,Wider Public Sector,Support,True
+10567958,Health Education England (Leeds 2),"Blenheim House, Duncomb Street",Leeds,,Leeds,,,LS1 4PL,Central Government,Executive non-departmental public body,True
+10565236,Royal Air Force (RAF),,,,,,,XXXX,Central Government,MoD - RAF,True
+10562827,Essex Partnership University NHS Foundation Trust,"Thameside House, Thurrock Hospital Long Lane",Grays,Essex,Grays,Essex,England,RM162PX,Wider Public Sector,Mental Health Trust,True
+10562251,Brazilian Naval Commission In Europe,170 Upper Richmond Road,London,,London,,England,SW15 2SH,Central Government,Overseas,True
+10562122,South Tees Site Company Limited,Steel House,Redcar,North Yorkshire,Redcar,North Yorkshire,England,TS10 5QW,Central Government,Public Corporation,True
+10542213,Sunbury & Walton Sea Cadets,Training Ship Black Swan River Ash Estate,Shepperton,Surrey,Shepperton,Surrey,England,TW17 8NG,Central Government,MoD - Reserve Forces & Cadets,True
+10542034,NATO HQ ARRC Italian NSE Innsworth,Innsworth,Gloucester,Gloucestershire,Gloucester,Gloucestershire,England,GL3 1HW,Central Government,Overseas,True
+10541921,Health Education England (Wakefield),Phoenix House Topcliffe Lane Tingley,Wakefield,West Yorkshire,Wakefield,West Yorkshire,England,WF3 1WE,Central Government,Executive non-departmental public body,True
+10541646,90 (Speke) Aircadets,39 Woolton Road Garston,Liverpool,Merseyside,Liverpool,Merseyside,England,L19 5ND,Central Government,MoD - Reserve Forces & Cadets,True
+10051302,National Infrastructure Commission,"National Infrastructure Commission  4th Floor, Finlaison House  15-17 Furnival Street",London,,London,,,EC4A 1AB,Central Government,Other,True
+10051296,Lammy Review,,,,,,,XXXX,Central Government,Other,True
+10051275,Housing Ombudsman Services,Exchange Tower 1 Harbour Exchange Square,London,,London,,,E14 9GE,Central Government,Executive non-departmental public body,True
+10044023,Ministry of Justice HQ Estates,102 Petty France,London,,London,,England,SW1H 9AJ,Central Government,TBA,True
+10043816,Babcock Land Ltd,1 Enterprise Way Aviation Park Bournemouth International Airport Hurn,Christchurch,Dorset,Christchurch,Dorset,England,BH23 6BS,Central Government,,True
+10042903,Royal Air Force Central Fund,Naphill,High Wycombe,Buckinghamshire,High Wycombe,Buckinghamshire,England,HP14 4UE,Central Government,MoD - RAF,True
+10042838,Ebbsfleet Development Corporation,2 Marsham Street,London,Middlesex,London,Middlesex,England,SW1P 4DF,Central Government,Executive non-departmental public body,True
+10042188,Groceries Code Adjudicator,Victoria House,London,Greater London,London,Greater London,England,WC1B 4DA,Central Government,Other,True
+10041690,Transform Trust,Unit 11 Castlebridge Office Village Kirtley Drive,Nottingham,Nottinghamshire,Nottingham,Nottinghamshire,England,NG7 1LD,Wider Public Sector,TBA,True
+10041689,Royal College of Defence Studies,Seaford House 37 Belgrave Square,London,Middlesex,London,Middlesex,England,SW1X 8NS,Central Government,Specialist Schools,True
+10041500,Radioactive Waste Management Limited,Building 587 Curie Avenue Harwell Oxford,Didcot,Oxfordshire,Didcot,Oxfordshire,England,OX11 ORH,Central Government,,True
+10041025,Ladysmith Federation,Ladysmith Rd,Exeter,Devon,Exeter,Devon,England,EX1 2PS,Wider Public Sector,TBA,True
+10040411,Armed Forces Chaplaincy Centre,Amport House,Andover,Hampshire,Andover,Hampshire,England,SP11 8BG,Central Government,MoD - JFC,True
+10040409,Joint Services Command and Staff College,SERCO Stores Undercroft Defence Academy,Swindon,Wiltshire,Swindon,Wiltshire,England,SN6 8TS,Central Government,Specialist Schools,True
+10040394,Joint Air Reconnaissance Intelligence Centre,"Room A104, A Block RAF Brampton",Huntingdon,Cambridgeshire,Huntingdon,Cambridgeshire,England,PE28 4YG,Central Government,MoD - RAF,True
+10040323,Hornbill School,Hornbill School,Brunei,,Brunei,,BFP,BFPO 11,Central Government,Specialist Schools,True
+10038485,NHS Health Education England (Taunton),South West House Blackbrook Park Avenue,Taunton,Somerset,Taunton,Somerset,England,TA1 2PX,Central Government,Executive non-departmental public body,True
+10038469,NHS England (Cumbria & North East),Old Exchange Barnard Street,Darlington,County Durham,Darlington,County Durham,England,DL3 7DR,Central Government,Executive non-departmental public body,True
+10038087,Human Tissue Authority,151 Buckingham Palace Road,London,Greater London,London,Greater London,England,SW1W 9SZ,Central Government,Executive non-departmental public body,True
+10037627,Health Education England (Leeds),Quarry House Quarry Hill,Leeds,West Yorkshire,Leeds,West Yorkshire,England,LS2 7UE,Central Government,Executive non-departmental public body,True
+10036876,Supreme Court of the United Kingdom,Parliament Square,London,Greater London,London,Greater London,England,SW1P 3BD,Central Government,,True
+10036746,Health Research Authority,Skipton House 80 London Road,London,Greater London,London,Greater London,England,SE1 6LH,Central Government,Executive non-departmental public body,True
+10036673,Corporate Performance Group,Selborne House 55 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QW,Central Government,TBA,True
+10036672,Judicial Policy Group,Selborne House 54 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QW,Central Government,TBA,True
+10036671,Legal Services Consumer Panel,Level 7 Victoria House Southampton Row,London,Greater London,London,Greater London,England,WC1B 4AD,Central Government,TBA,True
+10035752,Military Aviation Authority (MAA),"Elm 1b,#4126 Abbey Wood",Bristol,Avon,Bristol,Avon,England,BS34 8JH,Central Government,Other,True
+10035709,Building Regulations Advisory Committee,Eland House Bressenden Place,London,Greater London,London,Greater London,England,SW1E5DU,Central Government,TBA,True
+10035098,Parole Board,Grenadier House,London,Greater London,London,Greater London,England,SW1P 2DX,Central Government,Executive non-departmental public body,True
+10035059,(DIO) Aspire Defence Services Limited,Aspire Business Centre Ordnance Road,Tidworth,Wiltshire,Tidworth,Wiltshire,England,SP9 7QD,Central Government,,True
+10034746,Paradigm Services Limited (MoD 3rd Party Agents),1001 Skynet Drive Skynet Drive,CORSHAM,Wiltshire,CORSHAM,Wiltshire,England,SN13 9NP,Central Government,TBA,True
+10034411,Aylesbury Magistrates Court,COURT ADMIN MNGR-COURT ADMIN MNGR WALTON ST,AYLESBURY,Buckinghamshire,AYLESBURY,Buckinghamshire,England,HP21 7QZ,Central Government,,True
+10034345,NHS Blood And Transplant,Oak House Reeds Crescent,Watford,Herefordshire,Watford,Herefordshire,England,WD24 4QN,Central Government,Executive non-departmental public body,True
+10033014,Upper Tribunals,102 Petty France,London,Greater London,London,Greater London,England,SW1H 9AJ,Central Government,TBA,True
+10033013,First-Tier Tribunal (Estate Agents),45 Bedford Square,London,Greater London,London,Greater London,England,WC1B 3DN,Central Government,TBA,True
+10033012,First-Tier Tribunal (Charity),Tribunals Operational Support Centre,Leicester,Leicestershire,Leicester,Leicestershire,England,LE1 6ZX,Central Government,TBA,True
+10033011,First-Tier Tribunal (Consumer Credit),45 Bedford Square,London,Greater London,London,Greater London,England,WC1B 3DN,Central Government,TBA,True
+10033010,First-Tier Tribunal (Primary Health Lists),Mowden Hall,Darlington,County Durham,Darlington,County Durham,England,DL3 9BG,Central Government,TBA,True
+10033009,First-Tier Tribunal (Gambling Appeals),Tribunals Operational Support Centre,Leicester,Leicestershire,Leicester,Leicestershire,England,LE1 6ZX,Central Government,TBA,True
+10033008,First-Tier Tribunal (Local Government Standards in England),York House,Leeds,West Yorkshire,Leeds,West Yorkshire,England,LS1 2ED,Central Government,TBA,True
+10033007,First-Tier Tribunal (Claims Management Services),15-19 Bedford Avenue,London,Greater London,London,Greater London,England,WC1B 3AS,Central Government,TBA,True
+10033006,First-Tier Tribunal (Environment),PO Box 9300,Leicester,Leicestershire,Leicester,Leicestershire,England,LE1 8DJ,Central Government,TBA,True
+10033005,First Tier Tribunal,102 Petty France,London,Greater London,London,Greater London,England,SW1H 9AJ,Central Government,TBA,True
+10032402,Yorkshire and Humberside Prisons,Cleland House Page Street,London,Greater London,London,Greater London,England,SW1P 4LN,Central Government,Prisons,True
+10031608,Royal Air Force Association,Richard Peck House 1 St Thomas Road St Annes On Sea,Lytham St. Annes,Lancashire,Lytham St. Annes,Lancashire,England,FY8 1JL,Central Government,MoD - RAF,True
+10030797,Manchester Crown Court,Crown Square,West Manchester,Greater Manchester,West Manchester,Greater Manchester,England,M3 3FL,Central Government,,True
+10030786,HM Courts Service South W Region,Swindon Magistrates Court Princes Street,Swindon,Wiltshire,Swindon,Wiltshire,England,SN1 2JB,Central Government,,True
+10030769,Bristol County Court,2 Redcliff,Bristol,Gloucestershire,Bristol,Gloucestershire,England,BS1 6GR,Central Government,,True
+10030693,Altrincham County Court,Trafford Courthouse Ashton Lane,Sale,Greater Manchester,Sale,Greater Manchester,England,M33 7WX,Central Government,,True
+10029435,Welbeck - Defence Sixth Form College,Forest Road Woodhouse,Loughborough,Leicestershire,Loughborough,Leicestershire,England,LE12 8WD,Central Government,Specialist Schools,True
+10029405,(DIO) ASPIRE DEFENCE,WELLINGTON HOUSE ST OMER BARRACKS ALISONS ROAD,ALDERSHOT,Hampshire,ALDERSHOT,Hampshire,England,GU11 2BG,Central Government,,True
+10027362,Public Health England,Estates & Facilities Department 61 Colindale Avenue,London,Greater London,London,Greater London,England,NW9 5DF,Central Government,Executive Agency,True
+10027207,First-Tier Tribunal (Asylum Support),Anchorage House 2nd Floor 2 Clove Crescent,London,Greater London,London,Greater London,England,E14 2BE,Central Government,TBA,True
+10027176,Kingston Magistrates Court,Guildhall 2 High Street,Kingston Upon Thames,Greater London,Kingston Upon Thames,Greater London,England,KT1 1EU,Central Government,,True
+10026911,Independent Parliamentary Standards Authority,"4th Floor,  30 Millbank,",LONDON,,LONDON,,,SW1P 4DU,Central Government,Other,True
+10026754,Andover Mind,Westbrook Close South Street,Andover,Hampshire,Andover,Hampshire,England,SP10­­ 2BN,Wider Public Sector,TBA,True
+10026507,Sodexho Logistic Support Unit (MoD - Cyprus),Accomodation Services B Block,Cyprus,,Cyprus,,England,BFPO 53,Central Government,,True
+10026271,Camelot Group,Tolpits Lane,Watford,Hertfordshire,Watford,Hertfordshire,England,WD18 9RN,Central Government,TBA,True
+10026231,Birkenhead County Court,76 Hamilton Street,Birkenhead,Merseyside,Birkenhead,Merseyside,England,ch41 5en,Central Government,,True
+10026020,Blackfriars Crown Court,1 - 15 Pocock Street,London,Greater London,London,Greater London,England,SE1 0BJ,Central Government,,True
+10025944,Care Quality Commission,St. Nicholas Buildings St. Nicholas Street,Newcastle upon Tyne,Tyne and Wear,Newcastle upon Tyne,Tyne and Wear,England,NE1 1NB,Central Government,Executive non-departmental public body,True
+10025906,Salford Magistrates Court,Bexley Square,Salford,Greater Manchester,Salford,Greater Manchester,England,M3 6DJ,Central Government,,True
+10025801,Legal Services Board,Victoria House Southampton Row,London,Greater London,London,Greater London,England,WC1B 4AD,Central Government,Executive non-departmental public body,True
+10025691,Aberdare Coroners Court,Aberdare Coroners Court Rock Grounds Aberdare,Cardiff,South Glamorgan,Cardiff,South Glamorgan,Wales,CF44 7AE,Central Government,,True
+10025434,Bedford and Mid Bedfordshire Magistrates Court,3 St Pauls Square,Bedford,Bedfordshire,Bedford,Bedfordshire,England,MK40 1SQ,Central Government,,True
+10025394,Homes England,Maple House 149 Tottenham Court Road,London,Greater London,London,Greater London,England,W1T 7BN,Central Government,Executive non-departmental public body,True
+10025129,Sentencing Guidelines Council,10 Great George Street,London,Greater London,London,Greater London,England,SW1P 3AE,Central Government,TBA,True
+10024976,NHS Litigation Authority,Napier House 24 High Holbourn,London,Greater London,London,Greater London,England,WC1V 6AZ,Central Government,Executive non-departmental public body,True
+10023958,Leasehold Advisory Service,31-41 Worship Street,London,Greater London,London,Greater London,England,EC2A 2DX,Central Government,Executive non-departmental public body,True
+10023951,Medicines and Healthcare Products Regulatory Agency,151 Buckingham Palace Road,London,Greater London,London,Greater London,England,SW1W 9SZ,Central Government,Executive Agency,True
+10023209,Judicial Appointments Commission,1A Tothill Street,London,Greater London,London,Greater London,England,SW1H 9LJ,Central Government,Executive non-departmental public body,True
+10023205,Criminal Procedure Rule Committee,Selborne House 54-60 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QW,Central Government,Advisory non-departmental public body,True
+10023203,Civil Procedure Rule Committee,5th Floor Selborne House 54-60 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QW,Central Government,Advisory non-departmental public body,True
+10023201,Judicial Appointments and Conduct Ombudsman,8th Floor Millbank Tower Millbank,London,Greater London,London,Greater London,England,SW1P 4QP,Central Government,Other,True
+10023195,Judicial Office,Strand,London,Greater London,London,Greater London,England,WC2A 2LL,Central Government,Other,True
+10021815,Department of Health and Social Services (Cardiff),Cathays Park,Cardiff,South Glamorgan,Cardiff,South Glamorgan,Wales,CF10 3NQ,Wider Public Sector,TBA,True
+10021810,Defence College Management and Technology,Shrivenham,SWINDON,Wiltshire,SWINDON,Wiltshire,England,SN6 8LA,Central Government,Specialist Schools,True
+10021517,Royal Air Force Benevolent Fund,67 Portland Place,London,Greater London,London,Greater London,England,W1B 1AR,Central Government,MoD - RAF,True
+10020918,Babcock Dyncorp Limited,"Babcock Dyncorp Limited Regional Prime Contract (East) Building 37, RAF nonington",Bury St. Edmonds,Suffolk,Bury St. Edmonds,Suffolk,England,IP31 1EE,Central Government,,True
+10020054,NHS Business Services Authority,Stella House Goldcrest Way,Newcastle upon Tyne,Tyne and Wear,Newcastle upon Tyne,Tyne and Wear,England,NE15 8NY,Central Government,Executive non-departmental public body,True
+10019964,Parole Board for England and Wales,Grenadier House 99-105 Horseferry Road,London,Greater London,London,Greater London,England,SW1P 2DD,Central Government,Executive non-departmental public body,True
+10019957,British Association for Central and Eastern Europe,10 Westminster Palace Gardens Artillery Row,London,Greater London,London,Greater London,England,SW1P 1RL,Central Government,Overseas,True
+10019953,UK Chemical Stakeholders Forum,Zone 4/E1 Ashdown House 123 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6DE,Central Government,TBA,True
+10019913,Civil Justice Council,Room E214 Royal Courts of Justice Strand,London,Greater London,London,Greater London,England,WC2A 2LL,Central Government,Advisory non-departmental public body,True
+10019910,Advisory Committees on Justices of the Peace,Selborne House 54-60 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QW,Central Government,Advisory non-departmental public body,True
+10019870,Office of the Judge Advocate General,81 Chancery Lane,London,Greater London,London,Greater London,England,WC2A 1BQ,Central Government,TBA,True
+10019728,Office of the Strategic Health Authorities,Preston Hall,Aylesford,Kent,Aylesford,Kent,England,ME29 7NJ,Central Government,TBA,True
+10019002,Gender Recognition Panel,Gender Recognition Panel PO Box 6987,Leicester,Leicestershire,Leicester,Leicestershire,England,LE1 6ZX,Central Government,TBA,True
+10019000,First-Tier Tribunal (Immigration Services),Procession House 55 Ludgate House,London,Greater London,London,Greater London,England,EC4M 7JW,Central Government,TBA,True
+10018999,Firstâ€“Tier Tribunal (Information Rights),Arnhem House Support Centre PO Box 6987,Leicester,Leicestershire,Leicester,Leicestershire,England,LE1 6ZX,Central Government,TBA,True
+10018996,First-Tier Tribunal (Mental Health),5th Floor 11 Belgrave Road,London,Greater London,London,Greater London,England,SW1V 1RS,Central Government,TBA,True
+10018991,First-Tier Tribunal (Transport),Seventh Floor Victory House,London,Greater London,London,Greater London,England,WC2B 6EX,Central Government,TBA,True
+10018873,Law Commission,Conquest House 37 - 38 John Street,London,Greater London,London,Greater London,England,WC1N 2BQ,Central Government,Advisory non-departmental public body,True
+10018854,Bury Magistrates Court,Tenters Street,Bury,Greater Manchester,Bury,Greater Manchester,England,BL9 0HX,Central Government,,True
+10018257,Peoples Dispensary For Sick Animals,Whitechapel Way Priorslee,Telford,Shropshire,Telford,Shropshire,England,TF2 9PQ,Wider Public Sector,Charity,True
+10017478,Royal Air Forces Association Housing Limited,Stanmore House Washington Road,Storrington,West Sussex,Storrington,West Sussex,England,RH20 4RA,Central Government,MoD - RAF,True
+10015941,Census 1901,Census Helpdesk PO Box 1901,Malvern,Worcestershire,Malvern,Worcestershire,England,WR14 3YB,Central Government,,True
+10015730,City of London Magistrates Court,1 Queen Victoria Street,London,Greater London,London,Greater London,England,EC4N 4XY,Central Government,,True
+10013851,Office for Criminal Justice Reform,Southside 105 Victoria Street,London,Greater London,London,Greater London,England,SW1E 6QT,Central Government,TBA,True
+10013428,North Avon Magistrates Court,1 Kennedy Way,Bristol,Gloucestershire,Bristol,Gloucestershire,England,BS17 4PY,Central Government,,True
+10013425,Bath Magistrates Court,North Parade Road,Bath,Wiltshire,Bath,Wiltshire,England,BA1 5AF,Central Government,,True
+10012390,Official Solicitor and Public Trustee,81 Chancery Lane,London,Greater London,London,Greater London,England,WC2A 1DD,Central Government,Other,True
+10011779,Qinetiq,Cody Technology Park Old Ively Road,FARNBOROUGH,Hampshire,FARNBOROUGH,Hampshire,England,GU14 0LX,Central Government,,True
+10011632,New Deal for Communities,Wellsbourne Centre Whitehawk Road,Brighton,Sussex,Brighton,Sussex,England,BN2 5PL,Wider Public Sector,,True
+10011281,Youth Justice Board for England and Wales,11 Carteret Street,London,Greater London,London,Greater London,England,SW1H 9DL,Central Government,Executive non-departmental public body,True
+10011020,Valuation Tribunal Services,2nd Floor Black Lion House 45 Whitechapel  Rd Bressenden Place,London,Greater London,London,Greater London,England,E1 1DU,Central Government,Executive non-departmental public body,True
+10010256,Serco Defence and Aerospace,Room 2003 Building Poplar - 1 DPA Abbey Wood,Bristol,Avon,Bristol,Avon,England,BS34 8JH,Central Government,,True
+10010096,Royal Household,Buckingham Palace,London,Greater London,London,Greater London,England,SW1A 1AA,Central Government,Other,True
+10009644,"Ministry of Housing, Communities & Local Government","Fry Building, 2 Marsham Street",London,Greater London,London,Greater London,England,SW1P 4DF,Central Government,Department,True
+10009600,Northern Region Valuation Tribunals,Ground Floor Block B Southfield House Southfield Way,Durham,County Durham,Durham,County Durham,England,DH1 5JY,Central Government,TBA,True
+10009448,Natural History Museum,"Cromwell Road, South Kensington South Kensington",London,Greater London,London,Greater London,England,SW7 5BD,Central Government,Museums,True
+10009347,MOD Engineering Library,"Room 303,Building 75, Rnad Coulport",Helensburgh,Dunbartonshire,Helensburgh,Dunbartonshire,Scotland,G84 0PD,Central Government,Specialist Schools,True
+10009169,Local Government Boundary Commission for England,"Layden House, 76-86 Turnmill Street,",London,Greater London,London,Greater London,England,EC1M 5LG,Central Government,Other,True
+10009085,Legal Services Ombudsman,"Lord Chancellors Office 3rd Floor, Sunlight House Quay Street",Manchester,Greater Manchester,Manchester,Greater Manchester,England,M3 3JZ,Central Government,TBA,True
+10009084,Legal Services Commission,85 Grays Inn Road,London,Greater London,London,Greater London,England,WC1X 8TX,Central Government,TBA,True
+10009042,Lancashire Magistrates Court,Garstang,Preston,Lancashire,Preston,Lancashire,England,PR3 1EY,Central Government,,True
+10008839,The Insolvency Service,"21 Bloomsbury Street,",London,Greater London,London,Greater London,England,WC1B 3QW,Central Government,Executive Agency,True
+10008836,Inner London Magistrates Court Service,JCE Offices 65 Romney Road,London,Greater London,London,Greater London,England,SW1P 3RD,Central Government,,True
+10008818,Independent Housing Ombudsman,2nd Floor 81 Aldwych,London,Greater London,London,Greater London,England,WC2B 4HN,Central Government,Executive non-departmental public body,True
+10008789,Human Fertilisation and Embryology Authority,Finsbury Tower 103-105 Bunhill Row,London,Greater London,London,Greater London,England,EC1Y 8HF,Central Government,Executive non-departmental public body,True
+10008684,HM Prison Morton Hall,"4 Park Crescent, Swinderby",Lincoln,Lincolnshire,Lincoln,Lincolnshire,England,LN6 9HU,Central Government,Prisons,True
+10008654,HM Inspectorate of Probation,"6th Floor, South Wing, Trafford House Chester Road Stretford",Manchester,Greater Manchester,Manchester,Greater Manchester,England,M32 0RS,Central Government,Other,True
+10008621,Highbury Corner Magistrates Court,51 Holloway Road,London,Greater London,London,Greater London,England,N7 8JA,Central Government,,True
+10008618,High Peak Borough Council,Buxton Town Hall Market Place,Buxton,Derbyshire,Buxton,Derbyshire,England,SK17 6EL,Wider Public Sector,Region: East Midlands,True
+10008433,Greater London Magistrates Court Service,The Property & Contracts Dept 185 Marlebone Road,London,Greater London,London,Greater London,England,NW1 5QL,Central Government,,True
+10008141,Employment Tribunal,3rd Floor Alexandra House 14-22 The Parsonage,Manchester,Greater Manchester,Manchester,Greater Manchester,England,M3 2JA,Central Government,TBA,True
+10008000,Duke of Yorks Royal Military School,Estates Office Building 71,Dover,Kent,Dover,Kent,England,CT15 5EQ,Central Government,Specialist Schools,True
+10007845,Defence Academy of the United Kingdom,Building 15 Greenhill House Shrivenham,Swindon,Wiltshire,Swindon,Wiltshire,England,SN6 8LA,Central Government,Specialist Schools,True
+10007764,Criminal Injuries Compensation Authority,Morley House 26-30 Holborn Viaduct 300 Bath Street,London,Greater London,London,Greater London,England,EC1A 2JQ,Central Government,Executive Agency,True
+10007742,First-Tier Tribunal (Asylum and Immigration),4th Floor Cardinal Tower 12 Farringdon Road,London,Greater London,London,Greater London,England,EC1M 3BA,Central Government,TBA,True
+10007515,Children and Family Court Advisory and Support Service (CAFCASS),13th/14th Floors Archway Tower 2 Junction Road,London,Greater London,London,Greater London,England,N19 5HQ,Central Government,Executive non-departmental public body,True
+10007343,Project Phoenix,Elm 1a Mod Abbywood Station Road,Bristol,Gloucestershire,Bristol,Gloucestershire,England,BS34 8JH,Central Government,,True
+10007029,Balladen Community Primary School,Linden Lea Rawtenstall,Rossendale,Lancashire,Rossendale,Lancashire,England,BB4 6DX,Wider Public Sector,Local Authority Maintained School (All Types),True
+10007018,Babcock Rosyth Defence Limited,Wood Road Rosyth Royal Dockyard,Dunfermline,Fife,Dunfermline,Fife,Scotland,KY11 2YD,Central Government,,True
+10007016,Babcock (RAF Contract),Building 22 RAF Wittering,Peterborough,Cambridgeshire,Peterborough,Cambridgeshire,England,PE8 6HB,Central Government,,True
+10006663,Leeds College of Art,"Jacob Kramer Building, Blenheim Walk,","Leeds,",West Yorkshire,"Leeds,",West Yorkshire,England,LS2 9AQ.,Wider Public Sector,Colleges of Higher Education,True
+10006610,Bradford Court Centre,Exchange Sq Drake St,Bradford,West Yorkshire,Bradford,West Yorkshire,England,BD1 1JA,Central Government,,True
+10006298,West Mercia Magistrates Courts,17 The Moorings,Oldbury,West Midlands,Oldbury,West Midlands,England,B69 2DD,Central Government,,True
+10006164,Criminal Cases Review Commission,21st Floor Alpha Tower Suffolk Street Queensway Queensway,Birmingham,West Midlands,Birmingham,West Midlands,England,B1 1TT,Central Government,Executive non-departmental public body,True
+10006163,Coventry University,"Priory Street,",Coventry,West Midlands,Coventry,West Midlands,England,CV1 5FB,Wider Public Sector,Universities,True
+10005730,LEAP Multi Academy Trust,Brinsworth Road,Rotherham,South Yorkshire,Rotherham,South Yorkshire,England,S60 5EJ,Wider Public Sector,Academy (All Types),True
+10005722,South Yorkshire Magistrates Court,Unit 9 Meadow Court Amos Road,Sheffield,South Yorkshire,Sheffield,South Yorkshire,England,S9 1BX,Central Government,,True
+10004897,Interserve Defence,Buiding 276 RAF Shawbury,Shrewsbury,Shropshire,Shrewsbury,Shropshire,England,SY4 4DZ,Central Government,,True
+10004797,Queen Victoria School,School Office,Dunblane,Perthshire,Dunblane,Perthshire,Scotland,FK15 0JY,Central Government,Specialist Schools,True
+10003990,Mersey Care NHS Trust,Princess Dock 8 Princes Parade St Nicholas Place,LIVERPOOL,Merseyside,LIVERPOOL,Merseyside,England,L3 1DL,Wider Public Sector,Mental Health Trust,True
+10003981,Liverpool Magistrates Courts,"2nd Floor Port of Liverpool Building, Pier Head",Liverpool,Merseyside,Liverpool,Merseyside,England,L3 1BY,Central Government,,True
+10003939,Birkenhead Sixth Form College,"Park Road West, Claughton, Wirral",Birkenhead,Merseyside,Birkenhead,Merseyside,England,CH43 8SQ,Wider Public Sector,Colleges of Further Education,True
+10003914,Uxbridge Magistrates Court,Harfield Road,Uxbridge,Middlesex,Uxbridge,Middlesex,England,UB8 1PQ,Central Government,,True
+10003611,Leicestershire Magistrates Courts,Secretariat Unit Upper Bond Street,Hinckley,Leicestershire,Hinckley,Leicestershire,England,LE67 4PD,Central Government,,True
+10003514,Museum of Science and Industry,Liverpool Road Castlefield,Manchester,,Manchester,,,M3 4FP,Central Government,Museums,True
+10002926,Bromley County Court,College Rd,Bromley,Kent,Bromley,Kent,England,BR1 3PX,Central Government,,True
+10002911,Bexley Magistrates Courts,Norwich Place,Bexleyheath,Kent,Bexleyheath,Kent,England,BA6 8NB,Central Government,,True
+10002686,National Institute for Biological Standards and Control,Blanche Lane South Mimms,Potters Bar,Hertfordshire,Potters Bar,Hertfordshire,England,EN6 3QG.,Central Government,TBA,True
+10002519,SODEXHO Defence Services,Logic Support Group Knollys Road,Aldershot,Hampshire,Aldershot,Hampshire,England,GU11 1PN,Central Government,,True
+10001202,Plymouth City Council,10th Floor Civic Centre Prince Rock,PLYMOUTH,Devon,PLYMOUTH,Devon,England,PL1 2EW,Wider Public Sector,Region:South West,True
+10000643,Chester Magistrate Courts,Grosvenor Street,Chester,Cheshire,Chester,Cheshire,England,CH1 2XA,Central Government,,True
+10000460,Royal Air Force (RAF) - Headquarters,Royal Air Force High Wycombe Naphill,High Wycombe,,High Wycombe,,,HP14 4UE,Central Government,MoD - RAF,True
