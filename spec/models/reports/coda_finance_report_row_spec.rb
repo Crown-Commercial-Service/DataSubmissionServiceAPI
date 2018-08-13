@@ -101,7 +101,7 @@ RSpec.describe Reports::CodaFinanceReportRow do
     end
 
     it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
-      expect(cg_report_row.data['Commission']).to eq '18.46'
+      expect(cg_report_row.data['Commission']).to eq '18.45'
       expect(wps_report_row.data['Commission']).to eq '-6.43'
     end
 

@@ -70,7 +70,7 @@ module Reports
     end
 
     def format_money(amount)
-      format '%.2f', amount.round(2)
+      format '%.2f', amount.truncate(2)
     end
 
     def format_percentage(percentage)
