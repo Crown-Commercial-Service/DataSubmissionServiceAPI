@@ -8,6 +8,10 @@ RSpec.describe Reports::CodaFinanceReportRow do
   subject(:cg_report_row) { Reports::CodaFinanceReportRow.new(submission, Customer.sectors[:central_government]) }
   subject(:wps_report_row) { Reports::CodaFinanceReportRow.new(submission, Customer.sectors[:wider_public_sector]) }
 
+  it 'reports the submission ID as ‘RunID’' do
+    expect(cg_report_row.data['RunID']).to eq submission.id
+  end
+
   it 'reports the framework’s coda_reference as ‘Nominal’' do
     expect(cg_report_row.data['Nominal']).to eq framework.coda_reference
   end
@@ -97,7 +101,7 @@ RSpec.describe Reports::CodaFinanceReportRow do
     end
 
     it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
-      expect(cg_report_row.data['Commission']).to eq '18.46'
+      expect(cg_report_row.data['Commission']).to eq '18.45'
       expect(wps_report_row.data['Commission']).to eq '-6.43'
     end
 

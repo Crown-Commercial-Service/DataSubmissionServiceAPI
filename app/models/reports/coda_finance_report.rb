@@ -42,7 +42,7 @@ module Reports
       data = CodaFinanceReportRow.new(submission, sector).data
 
       [
-        report_uid,
+        data['RunID'],
         data['Nominal'],
         data['Customer Code'],
         data['Customer Name'],
@@ -57,13 +57,6 @@ module Reports
         data['Month'],
         monthly_or_quarterly
       ]
-    end
-
-    # CCS require that each report has a unique reference in case they need to
-    # perform an audit and trace a particular entry in the finance system back
-    # to the report that generated it.
-    def report_uid
-      "DSS-#{Time.zone.now.to_i}"
     end
 
     # Used to indicate if the data in the report is for monthly or quarterly
