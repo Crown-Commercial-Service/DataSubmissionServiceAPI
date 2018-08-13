@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-4] - 2018-08-13
+
+- Finance report includes submission ID in RunID column
+- Finance report rounds levy calcuations down
+
 ## [release-3] - 2018-08-09
 
 - Added exception monitoring and reporting
