@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-5] - 2018-08-15
+
+- Update URN list
+
 ## [release-4] - 2018-08-13
 
 - Finance report includes submission ID in RunID column
