@@ -43,7 +43,6 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks' do
     it 'returns a list of tasks' do
-      task1 = FactoryBot.create(:task, status: 'draft')
       task2 = FactoryBot.create(:task, status: 'unstarted')
       task3 = FactoryBot.create(:task, status: 'in_progress')
 
@@ -51,14 +50,11 @@ RSpec.describe '/v1' do
 
       expect(response).to be_successful
 
-      expect(json['data'][0]).to have_id(task1.id)
-      expect(json['data'][0]).to have_attribute(:status).with_value('draft')
+      expect(json['data'][0]).to have_id(task2.id)
+      expect(json['data'][0]).to have_attribute(:status).with_value('unstarted')
 
-      expect(json['data'][1]).to have_id(task2.id)
-      expect(json['data'][1]).to have_attribute(:status).with_value('unstarted')
-
-      expect(json['data'][2]).to have_id(task3.id)
-      expect(json['data'][2]).to have_attribute(:status).with_value('in_progress')
+      expect(json['data'][1]).to have_id(task3.id)
+      expect(json['data'][1]).to have_attribute(:status).with_value('in_progress')
     end
 
     it 'can optionally include submissions' do
@@ -95,8 +91,8 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks?filter[status]=' do
     it 'returns a filtered list of tasks matching the statue value in the URL' do
-      FactoryBot.create(:task, status: 'draft')
-      FactoryBot.create(:task, status: 'draft')
+      FactoryBot.create(:task, status: 'unstarted')
+      FactoryBot.create(:task, status: 'unstarted')
       FactoryBot.create(:task, status: 'completed')
 
       get '/v1/tasks?filter[status]=completed'
