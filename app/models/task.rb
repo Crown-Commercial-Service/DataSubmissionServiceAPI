@@ -2,11 +2,9 @@ class Task < ApplicationRecord
   include AASM
 
   aasm column: 'status' do
-    state :draft
     state :unstarted, initial: true
     state :in_progress
     state :completed
-    state :cancelled
 
     event :completed do
       transitions from: %i[unstarted in_progress], to: :completed
