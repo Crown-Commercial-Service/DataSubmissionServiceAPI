@@ -30,6 +30,8 @@ gem 'rails_event_store'
 # Auth0
 gem 'auth0', require: false
 
+gem 'aws-sdk-s3', require: false
+
 # Exception tracking
 gem 'rollbar'
 
