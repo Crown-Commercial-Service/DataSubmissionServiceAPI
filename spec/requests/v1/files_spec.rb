@@ -20,12 +20,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
-      post "/v1/files/#{file.id}/entries", params: params.to_json, headers: headers
+      post "/v1/files/#{file.id}/entries", params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:created)
 
@@ -56,12 +51,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
-      post "/v1/files/#{file.id}/entries", params: params.to_json, headers: headers
+      post "/v1/files/#{file.id}/entries", params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:bad_request)
     end
@@ -108,14 +98,9 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
       expect_submission_status_update_to_be_performed(file.submission)
 
-      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_validated
@@ -141,14 +126,9 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
       expect_submission_status_update_to_be_performed(file.submission)
 
-      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_pending
@@ -177,14 +157,9 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
       expect_submission_status_update_to_be_performed(file.submission)
 
-      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: headers
+      patch "/v1/files/#{file.id}/entries/#{entry.id}", params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:no_content)
       expect(entry.reload).to be_errored
