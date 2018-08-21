@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     resources :files, only: [] do
       resources :entries, only: %i[show create update], controller: 'submission_entries'
+      resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
     namespace :events do

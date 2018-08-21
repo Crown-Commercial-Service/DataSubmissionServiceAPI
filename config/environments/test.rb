@@ -19,7 +19,11 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
+
+  # Store attachment files on the local file system
+  config.active_storage.service = :test
+
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.

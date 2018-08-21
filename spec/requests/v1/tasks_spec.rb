@@ -20,12 +20,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
-      post '/v1/tasks', params: params.to_json, headers: headers
+      post '/v1/tasks', params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:created)
 
@@ -228,12 +223,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
-      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: headers
+      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: json_headers
 
       expect(response).to be_successful
 

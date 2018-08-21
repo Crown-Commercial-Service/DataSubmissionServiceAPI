@@ -83,12 +83,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
-      post '/v1/memberships', params: params.to_json, headers: headers
+      post '/v1/memberships', params: params.to_json, headers: json_headers
 
       expect(response).to have_http_status(:created)
 
@@ -104,13 +99,8 @@ RSpec.describe '/v1' do
     it 'deletes a membership, disassociating a user from a supplier' do
       membership = FactoryBot.create(:membership)
 
-      headers = {
-        'Content-Type': 'application/vnd.api+json',
-        'Accept': 'application/vnd.api+json'
-      }
-
       expect do
-        delete "/v1/memberships/#{membership.id}", params: {}, headers: headers
+        delete "/v1/memberships/#{membership.id}", params: {}, headers: json_headers
       end.to change { Membership.count }.from(1).to(0)
     end
   end
