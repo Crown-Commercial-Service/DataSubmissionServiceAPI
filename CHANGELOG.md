@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-6] - 2018-08-22
+
+- Add endpoint to set submission file upload information
+
 ## [release-5] - 2018-08-15
 
 - Update URN list
