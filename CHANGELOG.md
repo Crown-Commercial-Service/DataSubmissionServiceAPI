@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-7] - 2018-08-23
+
+- Added script to generate tasks for September 2018
+
 ## [release-6] - 2018-08-22
 
 - Add endpoint to set submission file upload information
@@ -11,7 +15,7 @@
 ## [release-4] - 2018-08-13
 
 - Finance report includes submission ID in RunID column
-- Finance report rounds levy calcuations down
+- Finance report rounds levy calculations down
 
 ## [release-3] - 2018-08-09
 
