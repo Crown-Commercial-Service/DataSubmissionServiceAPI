@@ -11,11 +11,13 @@ class Submission < ApplicationRecord
   aasm do
     state :pending, initial: true
     state :processing
+    state :validation_failed
     state :in_review
     state :completed
 
     event :ready_for_review do
-      transitions from: %i[pending processing], to: :in_review
+      transitions from: %i[pending processing], to: :in_review, guard: :all_entries_valid?
+      transitions from: %i[pending processing], to: :validation_failed
     end
 
     event :reviewed_and_accepted do

@@ -22,7 +22,7 @@ FactoryBot.define do
     end
 
     factory :submission_with_invalid_entries do
-      aasm_state :in_review
+      aasm_state :validation_failed
 
       after(:create) do |submission, _evaluator|
         create_list(:validated_submission_entry, 2, submission: submission)

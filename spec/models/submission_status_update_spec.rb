@@ -65,10 +65,10 @@ RSpec.describe SubmissionStatusUpdate do
       context 'with no "pending" entries remaining, but some having failed validation' do
         let(:submission) { FactoryBot.create(:submission_with_invalid_entries, aasm_state: :processing) }
 
-        it 'transitions the submission to "in_review"' do
+        it 'transitions the submission to "validation_failed"' do
           submission_status_check.perform!
 
-          expect(submission).to be_in_review
+          expect(submission).to be_validation_failed
         end
 
         it 'does not trigger a levy calculation' do

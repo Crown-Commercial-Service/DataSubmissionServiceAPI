@@ -72,9 +72,9 @@ task_in_review_with_errors = Task.find_or_create_by!(
   supplier: supplier,
   period_month: Date.today.month,
   period_year: Date.today.year,
-  description: 'In review task (invalid submission)'
+  description: 'Validation failed task (invalid submission)'
 )
-invalid_submission = supplier.submissions.find_or_create_by!(framework: framework_invalid, task: task_in_review_with_errors, aasm_state: "in_review")
+invalid_submission = supplier.submissions.find_or_create_by!(framework: framework_invalid, task: task_in_review_with_errors, aasm_state: "validation_failed")
 submission_file = invalid_submission.files.find_or_create_by!(rows: 2)
 invalid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
 invalid_submission.entries.find_or_create_by!(
