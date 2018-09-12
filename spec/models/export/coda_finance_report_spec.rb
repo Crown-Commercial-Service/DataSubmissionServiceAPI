@@ -39,8 +39,9 @@ RSpec.describe Export::CodaFinanceReport do
     )
   end
 
-  let(:submissions) { [submission, no_business_submission] }
-  let(:report) { Export::CodaFinanceReport.new(submissions) }
+  let(:submissions)      { [submission, no_business_submission] }
+  let(:output)           { StringIO.new }
+  let(:report)           { Export::CodaFinanceReport.new(submissions, output) }
   let(:report_timestamp) { Time.zone.now.to_i }
 
   let(:expected_csv) do
@@ -58,6 +59,7 @@ RSpec.describe Export::CodaFinanceReport do
   end
 
   it 'generates a CSV file based on the submissions provided' do
-    expect(report.to_csv).to eq expected_csv
+    report.run
+    expect(output.string).to eq expected_csv
   end
 end
