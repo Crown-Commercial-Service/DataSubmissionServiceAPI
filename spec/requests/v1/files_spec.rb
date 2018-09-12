@@ -9,6 +9,7 @@ RSpec.describe '/v1' do
         data: {
           type: 'submission_entries',
           attributes: {
+            entry_type: 'invoice',
             source: {
               sheet: 'InvoicesReceived',
               row: 42
@@ -26,6 +27,7 @@ RSpec.describe '/v1' do
 
       entry = SubmissionEntry.first
 
+      expect(entry.entry_type).to eq 'invoice'
       expect(json['data']).to have_id(entry.id)
 
       expect(json['data']).to have_attribute(:submission_file_id).with_value(file.id)
