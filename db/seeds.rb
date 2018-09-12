@@ -42,8 +42,8 @@ task_processing = Task.find_or_create_by!(
 )
 processing_submission = supplier.submissions.find_or_create_by!(framework: framework_processing, task: task_processing, aasm_state: "processing")
 submission_file = processing_submission.files.find_or_create_by!(rows: 2)
-processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
-processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, source: { sheet: "InvoicesReceived", row: 2 })
+processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
 
 
 framework_valid = Framework.find_or_create_by!(short_name: 'cboard11', name: 'Cheese Board 11')
@@ -59,8 +59,10 @@ task_in_review = Task.find_or_create_by!(
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review", levy: 3000)
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
-valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
-valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, source: { sheet: "InvoicesReceived", row: 2 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 1 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 2 })
 
 
 framework_invalid = Framework.find_or_create_by!(short_name: 'cboard12', name: 'Cheese Board 12')
@@ -76,12 +78,12 @@ task_in_review_with_errors = Task.find_or_create_by!(
 )
 invalid_submission = supplier.submissions.find_or_create_by!(framework: framework_invalid, task: task_in_review_with_errors, aasm_state: "validation_failed")
 submission_file = invalid_submission.files.find_or_create_by!(rows: 2)
-invalid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
+invalid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 invalid_submission.entries.find_or_create_by!(
   submission_file: submission_file,
   aasm_state: "errored",
   data: { key: "" },
-  source: { sheet: "InvoicesReceived", row: 2 },
+  entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 },
 ).update_attribute(:validation_errors, [{ "message": "Required value error", "location": { "row": 2, "column": 1 } }])
 
 # completed task
@@ -98,5 +100,5 @@ task_completed = Task.find_or_create_by!(
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_completed, task: task_completed, aasm_state: "completed")
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
-valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, source: { sheet: "InvoicesReceived", row: 1 })
-valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, source: { sheet: "InvoicesReceived", row: 2 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
