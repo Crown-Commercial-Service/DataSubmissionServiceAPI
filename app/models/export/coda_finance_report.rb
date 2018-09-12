@@ -1,6 +1,6 @@
 require 'csv'
 
-module Reports
+module Export
   # Used to generate reports summarising submissions in the format needed for
   # feeding into Coda, the CCS finance system.
   class CodaFinanceReport
@@ -39,7 +39,7 @@ module Reports
     private
 
     def row_for_submission(submission, sector)
-      data = CodaFinanceReportRow.new(submission, sector).data
+      data = Row.new(submission, sector).data
 
       [
         data['RunID'],

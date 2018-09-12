@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Reports::CodaFinanceReportRow do
+RSpec.describe Export::CodaFinanceReport::Row do
   let(:task) { FactoryBot.create(:task, framework: framework, supplier: supplier, period_month: 8, period_year: 2018) }
   let(:framework) { FactoryBot.create(:framework, coda_reference: 401234) }
   let(:supplier) { FactoryBot.create(:supplier, coda_reference: 'C012345') }
   let(:submission) { FactoryBot.create(:submission, framework: framework, task: task, supplier: supplier) }
-  subject(:cg_report_row) { Reports::CodaFinanceReportRow.new(submission, Customer.sectors[:central_government]) }
-  subject(:wps_report_row) { Reports::CodaFinanceReportRow.new(submission, Customer.sectors[:wider_public_sector]) }
+  subject(:cg_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:central_government]) }
+  subject(:wps_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:wider_public_sector]) }
 
   it 'reports the submission ID as ‘RunID’' do
     expect(cg_report_row.data['RunID']).to eq submission.id
@@ -118,7 +118,7 @@ RSpec.describe Reports::CodaFinanceReportRow do
 
     it 'handles no business submissions, reporting them as zero sales and commission' do
       no_business_submission = FactoryBot.create(:no_business_submission)
-      row = Reports::CodaFinanceReportRow.new(no_business_submission, Customer.sectors[:central_government])
+      row = Export::CodaFinanceReport::Row.new(no_business_submission, Customer.sectors[:central_government])
 
       expect(row.data['Inf Sales']).to eq '0.00'
       expect(row.data['Commission']).to eq '0.00'

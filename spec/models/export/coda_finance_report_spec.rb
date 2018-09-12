@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Reports::CodaFinanceReport do
+RSpec.describe Export::CodaFinanceReport do
   let(:home_office) { FactoryBot.create(:customer, :central_government, name: 'Home Office') }
   let(:framework) { FactoryBot.create(:framework, coda_reference: 409999, name: 'G CLOUD', short_name: 'RM3787') }
   let(:task_1) do
@@ -40,7 +40,7 @@ RSpec.describe Reports::CodaFinanceReport do
   end
 
   let(:submissions) { [submission, no_business_submission] }
-  let(:report) { Reports::CodaFinanceReport.new(submissions) }
+  let(:report) { Export::CodaFinanceReport.new(submissions) }
   let(:report_timestamp) { Time.zone.now.to_i }
 
   let(:expected_csv) do
