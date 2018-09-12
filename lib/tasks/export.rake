@@ -1,5 +1,3 @@
-require 'export/tasks'
-
 # Tasks to export per-entity CSV files for CCS BI
 namespace :export do
   desc 'Export task entities to CSV'

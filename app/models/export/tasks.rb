@@ -1,5 +1,4 @@
 require 'csv'
-require 'export/tasks/row'
 
 module Export
   class Tasks

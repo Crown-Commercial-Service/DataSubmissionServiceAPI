@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'export/tasks'
 require 'stringio'
 
 RSpec.describe Export::Tasks do

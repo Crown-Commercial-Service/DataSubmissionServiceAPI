@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'export/tasks/row'
 
 RSpec.describe Export::Tasks::Row do
   describe '#year_and_month' do
