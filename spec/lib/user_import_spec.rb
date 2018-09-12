@@ -25,7 +25,7 @@ RSpec.describe UserImport do
       csv += "Vaughan Legal,email2@example.com,Francis Bloggs\n"
       csv += "Vaughan Legal,email3@example.com,Alex Bloggs\n"
 
-      UserImport.new(csv, client).run!
+      UserImport.new(csv, client, auth0_throttle_sleep: 0).run!
 
       expect(client).to have_received(:create_user).exactly(3).times
     end
