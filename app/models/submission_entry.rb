@@ -5,6 +5,7 @@ class SubmissionEntry < ApplicationRecord
   belongs_to :submission_file, optional: true
 
   validates :data, presence: true
+  validates :entry_type, inclusion: { in: %w[invoice order] }, allow_blank: true
 
   scope :sheet, ->(sheet_name) { where("source->>'sheet' = ?", sheet_name) }
   scope :sector, lambda { |sector|
