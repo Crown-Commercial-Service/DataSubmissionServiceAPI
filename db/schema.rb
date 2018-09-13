@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_11_160120) do
+ActiveRecord::Schema.define(version: 2018_09_12_152515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2018_09_11_160120) do
     t.uuid "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "purchase_order_number"
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
