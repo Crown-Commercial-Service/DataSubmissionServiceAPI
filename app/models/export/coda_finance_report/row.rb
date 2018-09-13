@@ -53,7 +53,7 @@ module Export
 
       def total_sales
         submission.entries
-                  .sheet('InvoicesRaised')
+                  .invoices
                   .sector(sector)
                   .sum { |entry| numeric_string_to_number(entry.data['Total Cost (ex VAT)']) }
       end
