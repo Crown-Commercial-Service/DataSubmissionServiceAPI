@@ -8,4 +8,13 @@ namespace :export do
       Export::Tasks.new(Task.all, file).run
     end
   end
+
+  desc 'Export submission entities to CSV'
+  task submissions: :environment do
+    filename = "/tmp/submissions_#{Time.zone.today}.csv"
+    warn("Exporting submissions to #{filename}")
+    File.open(filename, 'w+') do |file|
+      Export::Submissions.new(Submission.all, file).run
+    end
+  end
 end
