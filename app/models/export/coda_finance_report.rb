@@ -1,10 +1,10 @@
 require 'csv'
 
-module Reports
+module Export
   # Used to generate reports summarising submissions in the format needed for
   # feeding into Coda, the CCS finance system.
   class CodaFinanceReport
-    attr_reader :submissions
+    attr_reader :submissions, :output
 
     HEADERS = [
       'RunID',
@@ -23,23 +23,23 @@ module Reports
       'M_Q'
     ].freeze
 
-    def initialize(submissions)
+    def initialize(submissions, output)
       @submissions = submissions
+      @output = output
     end
 
-    def to_csv
-      CSV.generate write_headers: true, headers: HEADERS do |csv|
-        submissions.each do |submission|
-          csv << row_for_submission(submission, Customer.sectors[:central_government])
-          csv << row_for_submission(submission, Customer.sectors[:wider_public_sector])
-        end
+    def run
+      output.puts CSV.generate_line(HEADERS)
+      submissions.each do |submission|
+        output.puts(CSV.generate_line(row_for_submission(submission, Customer.sectors[:central_government])))
+        output.puts(CSV.generate_line(row_for_submission(submission, Customer.sectors[:wider_public_sector])))
       end
     end
 
     private
 
     def row_for_submission(submission, sector)
-      data = CodaFinanceReportRow.new(submission, sector).data
+      data = Row.new(submission, sector).data
 
       [
         data['RunID'],
