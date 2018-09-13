@@ -56,41 +56,36 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
     let!(:home_office_invoice_entry) do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_invoice_submission_entry,
         submission: submission,
-        source: { sheet: 'InvoicesRaised', row: 1 },
         data: { 'Total Cost (ex VAT)' => '801.50', 'Customer URN' => home_office.urn }
       )
     end
     let!(:health_dept_invoice_entry) do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_invoice_submission_entry,
         submission: submission,
-        source: { sheet: 'InvoicesRaised', row: 2 },
         data: { 'Total Cost (ex VAT)' => '428.95', 'Customer URN' => health_dept.urn }
       )
     end
     let!(:bobs_charity_invoice_entry) do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_invoice_submission_entry,
         submission: submission,
-        source: { sheet: 'InvoicesRaised', row: 2 },
         data: { 'Total Cost (ex VAT)' => '-428.95', 'Customer URN' => bobs_charity.urn }
       )
     end
     let!(:home_office_order_entry) do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_order_submission_entry,
         submission: submission,
-        source: { sheet: 'OrdersReceived', row: 1 },
         data: { 'Total Cost (ex VAT)' => '1000.00', 'Customer URN' => home_office.urn }
       )
     end
     let!(:bobs_charity_order_entry) do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_order_submission_entry,
         submission: submission,
-        source: { sheet: 'OrdersReceived', row: 1 },
         data: { 'Total Cost (ex VAT)' => '1200.00', 'Customer URN' => bobs_charity.urn }
       )
     end
@@ -107,9 +102,8 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
     it 'handles sales amounts written as a human-readable number' do
       FactoryBot.create(
-        :validated_submission_entry,
+        :validated_invoice_submission_entry,
         submission: submission,
-        source: { sheet: 'InvoicesRaised', row: 3 },
         data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
       )
       expect(cg_report_row.data['Inf Sales']).to eq '3659.40'
