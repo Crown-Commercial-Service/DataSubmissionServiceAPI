@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-8] - 2018-09-13
+
+- Introduce new "validation_failed" state to submissions
+- Added first exporter for data warehouse export: tasks
+- Enhanced submission entries to make identifying their type easier
+
 ## [release-7] - 2018-08-23
 
 - Added script to generate tasks for September 2018
