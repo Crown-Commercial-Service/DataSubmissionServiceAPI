@@ -37,14 +37,6 @@ class V1::SubmissionsController < ApplicationController
     end
   end
 
-  def calculate
-    submission = Submission.find(params[:id])
-    # Trigger lambda invocation
-    AWSLambdaService.new(submission_id: submission.id).trigger
-
-    head :no_content
-  end
-
   def complete
     submission = Submission.find(params[:id])
     complete_submission!(submission)

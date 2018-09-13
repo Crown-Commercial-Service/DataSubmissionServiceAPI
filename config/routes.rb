@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     resources :agreements, only: %i[create]
     resources :submissions, only: %i[show create update] do
       member do
-        post 'calculate', to: 'submissions#calculate'
         post 'complete', to: 'submissions#complete'
       end
 

@@ -151,16 +151,6 @@ RSpec.describe '/v1' do
     end
   end
 
-  describe 'GET /submissions/:submission_id/calculate' do
-    it 'invokes the calculate lambda function successfully' do
-      submission = FactoryBot.create(:submission)
-
-      post "/v1/submissions/#{submission.id}/calculate", params: {}, headers: json_headers
-
-      expect(response).to have_http_status(:no_content)
-    end
-  end
-
   describe 'POST /submissions/:submission_id/complete' do
     context 'given a valid submission' do
       it 'marks the submission as complete' do
