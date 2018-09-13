@@ -13,7 +13,7 @@ RSpec.describe 'rake export:submissions', type: :task do
     after { File.delete(todays_filename) }
 
     before do
-      allow(Submission).to receive(:all).and_return(submissions_to_export)
+      allow(Export::Submissions::Extract).to receive(:all_relevant).and_return(submissions_to_export)
       allow(Export::Submissions).to receive(:new).with(
         submissions_to_export, duck_type(:puts)
       ).and_return(

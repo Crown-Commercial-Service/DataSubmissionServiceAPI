@@ -14,7 +14,7 @@ namespace :export do
     filename = "/tmp/submissions_#{Time.zone.today}.csv"
     warn("Exporting submissions to #{filename}")
     File.open(filename, 'w+') do |file|
-      Export::Submissions.new(Submission.all, file).run
+      Export::Submissions.new(Export::Submissions::Extract.all_relevant, file).run
     end
   end
 end
