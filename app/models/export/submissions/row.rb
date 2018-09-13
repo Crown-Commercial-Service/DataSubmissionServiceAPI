@@ -12,8 +12,9 @@ module Export
 
       def row_values
         [
-          1,
-          2
+          submission.task_id,
+          submission.id,
+          status
         ]
       end
 
