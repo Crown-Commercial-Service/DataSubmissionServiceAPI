@@ -56,7 +56,8 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe '#submission_file_type' do
+    let(:submission) { double 'Submission', _first_filename: 'it-is-an.XLS' }
     subject { row.submission_file_type }
-    it { is_expected.to eql('#MISSING') }
+    it { is_expected.to eql('xls') }
   end
 end

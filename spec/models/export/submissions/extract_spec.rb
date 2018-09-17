@@ -18,6 +18,9 @@ RSpec.describe Export::Submissions::Extract do
       let(:no_business_submission) { create :no_business_submission } # Complete by definition
       let(:file_submission) do
         create :submission_with_validated_entries,
+               files: [
+                 create(:submission_file, :with_attachment, filename: 'not-really-an.xls')
+               ],
                aasm_state: 'completed'
       end
 
@@ -38,6 +41,11 @@ RSpec.describe Export::Submissions::Extract do
           expect(extract_no_business_submission._invoice_entry_count).to be_zero
           expect(extract_file_submission._invoice_entry_count).to eql(2)
         end
+      end
+
+      describe '#_first_filename as a projection on the Submission model' do
+        subject { extract_file_submission._first_filename }
+        it { is_expected.to eql('not-really-an.xls') }
       end
     end
   end

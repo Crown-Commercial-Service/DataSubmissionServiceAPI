@@ -40,7 +40,7 @@ module Export
       end
 
       def submission_file_type
-        MISSING
+        File.extname(submission._first_filename).downcase[1..-1]
       end
 
       def to_csv_line
