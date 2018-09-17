@@ -10,8 +10,8 @@ FactoryBot.define do
     end
 
     transient do
-      invoice_entries { 0 }
-      order_entries { 0 }
+      invoice_entries 0
+      order_entries 0
     end
 
     after(:create) do |submission, evaluator|
@@ -20,10 +20,8 @@ FactoryBot.define do
     end
 
     factory :submission_with_pending_entries do
-      after(:create) do |submission, _evaluator|
-        create_list(:invoice_entry, 2, submission: submission)
-        create_list(:order_entry, 1, submission: submission)
-      end
+      invoice_entries 2
+      order_entries 1
     end
 
     factory :submission_with_validated_entries do
