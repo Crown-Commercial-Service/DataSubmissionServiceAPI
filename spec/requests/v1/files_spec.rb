@@ -11,7 +11,7 @@ RSpec.describe '/v1' do
           attributes: {
             entry_type: 'invoice',
             source: {
-              sheet: 'InvoicesReceived',
+              sheet: 'InvoicesRaised',
               row: 42
             },
             data: {
@@ -33,7 +33,7 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_attribute(:submission_file_id).with_value(file.id)
       expect(json['data']).to have_attribute(:submission_id).with_value(file.submission.id)
 
-      expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'InvoicesReceived'
+      expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'InvoicesRaised'
       expect(json.dig('data', 'attributes', 'source', 'row')).to eql 42
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end

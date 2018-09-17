@@ -5,12 +5,12 @@ FactoryBot.define do
 
     trait :invoice do
       entry_type 'invoice'
-      source(sheet: 'InvoicesReceived', row: 1)
+      source(sheet: 'InvoicesRaised', row: 1)
     end
 
     trait :order do
       entry_type 'order'
-      source(sheet: 'OrdersRaised', row: 1)
+      source(sheet: 'OrdersReceived', row: 1)
     end
 
     factory :validated_submission_entry do
