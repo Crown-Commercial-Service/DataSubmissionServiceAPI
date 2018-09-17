@@ -31,8 +31,8 @@ module Export
 
     def run
       output.puts(CSV.generate_line(HEADER))
-      submissions.each do |task|
-        output.puts(Row.new(task).to_csv_line)
+      submissions.each do |submission|
+        output.puts(Row.new(submission).to_csv_line)
       end
     end
   end

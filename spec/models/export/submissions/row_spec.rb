@@ -1,28 +1,62 @@
 require 'rails_helper'
 
 RSpec.describe Export::Submissions::Row do
+  let(:submission) { double('Submission') }
+
   let(:row) { Export::Submissions::Row.new(submission) }
 
   describe '#status' do
     subject!(:status) { row.status }
 
     context 'the submission state is completed' do
-      let(:submission) { build_stubbed :submission, aasm_state: 'completed' }
+      let(:submission) { double 'Submission', aasm_state: 'completed' }
       it { is_expected.to eql('supplier_accepted') }
     end
 
     context 'the submission state is validation_failed' do
-      let(:submission) { build_stubbed :submission, aasm_state: 'validation_failed' }
+      let(:submission) { double 'Submission', aasm_state: 'validation_failed' }
       it { is_expected.to eql('validation_failed') }
     end
 
     context 'the submission state is not one that should be in the output at all' do
-      let(:submission) { build_stubbed :submission, aasm_state: 'in_review' }
+      let(:submission) { double 'Submission', aasm_state: 'in_review' }
       it { is_expected.to eql('#ERROR') }
 
       it 'adds the error to a hash' do
         expect(row.errors['Status']).to eql(['in_review is not mapped to Submission column Status'])
       end
     end
+  end
+
+  describe '#submission_type and its dependence on _ projected fields' do
+    before do
+      allow(row).to receive(:invoice_entry_count).and_return(invoices)
+      allow(row).to receive(:order_entry_count).and_return(orders)
+    end
+
+    subject { row.submission_type }
+
+    context 'there are no invoices or order entries' do
+      let(:invoices) { 0 }
+      let(:orders) { 0 }
+      it { is_expected.to eql('no_business') }
+    end
+
+    context 'there is at least one invoice entry' do
+      let(:invoices) { 1 }
+      let(:orders) { 0 }
+      it { is_expected.to eql('file') }
+    end
+
+    context 'there is at least one order entry' do
+      let(:invoices) { 0 }
+      let(:orders) { 1 }
+      it { is_expected.to eql('file') }
+    end
+  end
+
+  describe '#submission_file_type' do
+    subject { row.submission_file_type }
+    it { is_expected.to eql('#MISSING') }
   end
 end

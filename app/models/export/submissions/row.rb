@@ -1,7 +1,8 @@
 module Export
   class Submissions
     class Row
-      ERROR = '#ERROR'
+      ERROR   = '#ERROR'.freeze
+      MISSING = '#MISSING'.freeze
 
       attr_reader :submission, :errors
 
@@ -14,7 +15,13 @@ module Export
         [
           submission.task_id,
           submission.id,
-          status
+          status,
+          submission_type,
+          submission_file_type,
+          order_entry_count,
+          order_value,
+          invoice_entry_count,
+          invoice_value
         ]
       end
 
@@ -28,8 +35,34 @@ module Export
         ERROR
       end
 
+      def submission_type
+        (invoice_entry_count + order_entry_count).zero? ? 'no_business' : 'file'
+      end
+
+      def submission_file_type
+        MISSING
+      end
+
       def to_csv_line
         CSV.generate_line(row_values)
+      end
+
+      def invoice_value
+        MISSING
+      end
+
+      def order_value
+        MISSING
+      end
+
+      private
+
+      def order_entry_count
+        submission._order_entry_count
+      end
+
+      def invoice_entry_count
+        submission._invoice_entry_count
       end
     end
   end
