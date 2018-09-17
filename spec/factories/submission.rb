@@ -9,6 +9,16 @@ FactoryBot.define do
       association :task, status: 'completed'
     end
 
+    transient do
+      invoice_entries { 0 }
+      order_entries { 0 }
+    end
+
+    after(:create) do |submission, evaluator|
+      create_list(:invoice_entry, evaluator.invoice_entries, submission: submission)
+      create_list(:order_entry, evaluator.order_entries, submission: submission)
+    end
+
     factory :submission_with_pending_entries do
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, submission: submission)
