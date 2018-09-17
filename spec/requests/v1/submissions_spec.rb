@@ -73,7 +73,8 @@ RSpec.describe '/v1' do
         data: {
           type: 'submissions',
           attributes: {
-            task_id: task.id
+            task_id: task.id,
+            purchase_order_number: 'INV-123'
           }
         }
       }
@@ -88,6 +89,7 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
       expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
       expect(json['data']).to have_attribute(:task_id).with_value(task.id)
+      expect(json['data']).to have_attribute(:purchase_order_number).with_value('INV-123')
     end
   end
 
@@ -148,16 +150,6 @@ RSpec.describe '/v1' do
       expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'InvoicesReceived'
       expect(json.dig('data', 'attributes', 'source', 'row')).to eql 42
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
-    end
-  end
-
-  describe 'GET /submissions/:submission_id/calculate' do
-    it 'invokes the calculate lambda function successfully' do
-      submission = FactoryBot.create(:submission)
-
-      post "/v1/submissions/#{submission.id}/calculate", params: {}, headers: json_headers
-
-      expect(response).to have_http_status(:no_content)
     end
   end
 

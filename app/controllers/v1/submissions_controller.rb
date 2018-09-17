@@ -8,14 +8,12 @@ class V1::SubmissionsController < ApplicationController
   end
 
   def create
-    task = Task.find(create_submission_params[:task_id])
-    framework = task.framework
-    supplier = task.supplier
+    task = Task.find(params.dig(:submission, :task_id))
 
-    submission = Submission.new(
-      task: task,
-      framework: framework,
-      supplier: supplier
+    submission = task.submissions.new(
+      framework: task.framework,
+      supplier: task.supplier,
+      purchase_order_number: params.dig(:submission, :purchase_order_number)
     )
 
     if submission.save
@@ -37,14 +35,6 @@ class V1::SubmissionsController < ApplicationController
     end
   end
 
-  def calculate
-    submission = Submission.find(params[:id])
-    # Trigger lambda invocation
-    AWSLambdaService.new(submission_id: submission.id).trigger
-
-    head :no_content
-  end
-
   def complete
     submission = Submission.find(params[:id])
     complete_submission!(submission)
@@ -60,10 +50,6 @@ class V1::SubmissionsController < ApplicationController
 
   def complete_submission!(submission)
     SubmissionCompletion.new(submission).perform!
-  end
-
-  def create_submission_params
-    params.require(:submission).permit(:task_id)
   end
 
   def update_submission_params
