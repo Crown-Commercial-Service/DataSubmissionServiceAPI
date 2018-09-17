@@ -45,7 +45,7 @@ RSpec.describe SubmissionStatusUpdate do
       context 'with some "pending" entries and some "errored" entries' do
         let(:submission) do
           FactoryBot.create(:submission_with_pending_entries, aasm_state: :processing).tap do |submission|
-            create(:errored_submission_entry, submission: submission)
+            create(:invoice_entry, :errored, submission: submission)
           end
         end
 
