@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :submission_entry do
     submission
-    submission_file
     data(test_key: 'some data')
 
     trait :invoice do
