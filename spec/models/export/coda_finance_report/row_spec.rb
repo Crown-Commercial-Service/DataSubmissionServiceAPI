@@ -56,35 +56,40 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
     let!(:home_office_invoice_entry) do
       FactoryBot.create(
-        :validated_invoice_submission_entry,
+        :invoice_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => '801.50', 'Customer URN' => home_office.urn }
       )
     end
     let!(:health_dept_invoice_entry) do
       FactoryBot.create(
-        :validated_invoice_submission_entry,
+        :invoice_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => '428.95', 'Customer URN' => health_dept.urn }
       )
     end
     let!(:bobs_charity_invoice_entry) do
       FactoryBot.create(
-        :validated_invoice_submission_entry,
+        :invoice_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => '-428.95', 'Customer URN' => bobs_charity.urn }
       )
     end
     let!(:home_office_order_entry) do
       FactoryBot.create(
-        :validated_order_submission_entry,
+        :order_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => '1000.00', 'Customer URN' => home_office.urn }
       )
     end
     let!(:bobs_charity_order_entry) do
       FactoryBot.create(
-        :validated_order_submission_entry,
+        :order_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => '1200.00', 'Customer URN' => bobs_charity.urn }
       )
@@ -102,7 +107,8 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
     it 'handles sales amounts written as a human-readable number' do
       FactoryBot.create(
-        :validated_invoice_submission_entry,
+        :invoice_entry,
+        :valid,
         submission: submission,
         data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
       )
