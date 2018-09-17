@@ -8,7 +8,7 @@ class SubmissionStatusUpdate
   def perform!
     return unless submission.entries.any?
 
-    trigger_levy_calculation if all_entries_valid?
+    trigger_management_charge_calculation if all_entries_valid?
     transition_to_in_review if no_entries_pending? && some_entries_errored?
   end
 
@@ -30,7 +30,7 @@ class SubmissionStatusUpdate
     submission.entries.errored.any?
   end
 
-  def trigger_levy_calculation
+  def trigger_management_charge_calculation
     AWSLambdaService.new(submission_id: submission.id).trigger
   end
 end

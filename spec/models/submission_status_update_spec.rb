@@ -19,7 +19,7 @@ RSpec.describe SubmissionStatusUpdate do
           expect(submission).to be_processing
         end
 
-        it 'does not trigger a levy calculation' do
+        it 'does not trigger a management charge calculation' do
           expect(aws_lambda_service_double).not_to receive(:trigger)
 
           submission_status_check.perform!
@@ -35,7 +35,7 @@ RSpec.describe SubmissionStatusUpdate do
           expect(submission).to be_processing
         end
 
-        it 'triggers a levy calculation' do
+        it 'triggers a management charge calculation' do
           expect(aws_lambda_service_double).to receive(:trigger)
 
           submission_status_check.perform!
@@ -55,7 +55,7 @@ RSpec.describe SubmissionStatusUpdate do
           expect(submission).to be_processing
         end
 
-        it 'does not trigger a levy calculation' do
+        it 'does not trigger a management charge calculation' do
           expect(aws_lambda_service_double).not_to receive(:trigger)
 
           submission_status_check.perform!
@@ -71,7 +71,7 @@ RSpec.describe SubmissionStatusUpdate do
           expect(submission).to be_validation_failed
         end
 
-        it 'does not trigger a levy calculation' do
+        it 'does not trigger a management charge calculation' do
           expect(aws_lambda_service_double).not_to receive(:trigger)
 
           submission_status_check.perform!

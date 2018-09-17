@@ -25,7 +25,7 @@ class V1::SubmissionsController < ApplicationController
 
   def update
     submission = Submission.find(params[:id])
-    submission.levy = update_submission_params[:levy] * 100
+    submission.management_charge = params.dig(:submission, :management_charge) * 100
     submission.ready_for_review!
 
     if submission.save
@@ -50,9 +50,5 @@ class V1::SubmissionsController < ApplicationController
 
   def complete_submission!(submission)
     SubmissionCompletion.new(submission).perform!
-  end
-
-  def update_submission_params
-    params.require(:submission).permit(:levy)
   end
 end

@@ -101,7 +101,7 @@ RSpec.describe '/v1' do
         data: {
           type: 'submissions',
           attributes: {
-            levy: 42.50
+            management_charge: 42.50
           }
         }
       }
@@ -112,7 +112,7 @@ RSpec.describe '/v1' do
 
       submission.reload
 
-      expect(submission.levy).to eql 4250
+      expect(submission.management_charge).to eql 4250
       expect(submission).to be_in_review
     end
   end
