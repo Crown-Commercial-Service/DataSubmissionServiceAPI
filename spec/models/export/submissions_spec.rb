@@ -10,6 +10,7 @@ RSpec.describe Export::Submissions do
         :submission,
         task: task,
         aasm_state: 'completed',
+        management_charge: 450,
         entries: [
           create(:submission_entry),
           create(:submission_entry)
@@ -42,7 +43,7 @@ RSpec.describe Export::Submissions do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         <<~LINE.chomp
-          #{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING
+          #{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450
         LINE
       )
     end

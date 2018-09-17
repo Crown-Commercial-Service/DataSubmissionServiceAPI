@@ -60,4 +60,10 @@ RSpec.describe Export::Submissions::Row do
     subject { row.submission_file_type }
     it { is_expected.to eql('xls') }
   end
+
+  describe '#management_charge_value' do
+    let(:submission) { double 'Submission', management_charge: 450.00 }
+    subject { row.management_charge_value }
+    it { is_expected.to eql(450.00) }
+  end
 end

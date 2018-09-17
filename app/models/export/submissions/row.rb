@@ -21,7 +21,8 @@ module Export
           order_entry_count,
           order_value,
           invoice_entry_count,
-          invoice_value
+          invoice_value,
+          management_charge_value
         ]
       end
 
@@ -41,6 +42,10 @@ module Export
 
       def submission_file_type
         File.extname(submission._first_filename).downcase[1..-1]
+      end
+
+      def management_charge_value
+        submission.management_charge
       end
 
       def to_csv_line
