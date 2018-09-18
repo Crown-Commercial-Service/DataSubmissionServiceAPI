@@ -70,7 +70,7 @@ RSpec.describe Export::Submissions::Row do
   describe '#management_charge_rate' do
     subject { row.management_charge_value }
     it 'is fixed to a constant at present, expected to change Oct 2018' do
-      expect(row.management_charge_rate).to eql(BigDecimal('1.5'))
+      expect(row.management_charge_rate).to eql('0.015')
     end
   end
 

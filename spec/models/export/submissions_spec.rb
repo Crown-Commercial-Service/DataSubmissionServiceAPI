@@ -45,7 +45,7 @@ RSpec.describe Export::Submissions do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450," \
-        '1.5,2018-09-18T14:20:35Z,,,,,PO1234'
+        '0.015,2018-09-18T14:20:35Z,,,,,PO1234'
       )
     end
 
