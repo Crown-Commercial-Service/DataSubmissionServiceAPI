@@ -12,6 +12,7 @@ RSpec.describe Export::Submissions do
         aasm_state: 'completed',
         created_at: Time.zone.local(2018, 9, 18, 14, 20, 35),
         management_charge: 450,
+        purchase_order_number: 'PO1234',
         entries: [
           create(:submission_entry),
           create(:submission_entry)
@@ -44,7 +45,7 @@ RSpec.describe Export::Submissions do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450," \
-        '1.5,2018-09-18T14:20:35Z,,,,,'
+        '1.5,2018-09-18T14:20:35Z,,,,,PO1234'
       )
     end
 

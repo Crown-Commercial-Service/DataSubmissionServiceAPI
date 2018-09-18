@@ -81,6 +81,12 @@ RSpec.describe Export::Submissions::Row do
     end
   end
 
+  describe '#po_number' do
+    let(:submission) { double 'Submission', purchase_order_number: 'PO1234' }
+    subject { row.po_number }
+    it { is_expected.to eql('PO1234') }
+  end
+
   describe 'the fields that are absent for MVP' do
     describe '#created_by' do
       subject { row.created_by }
@@ -99,11 +105,6 @@ RSpec.describe Export::Submissions::Row do
 
     describe '#finance_export_date' do
       subject { row.finance_export_date }
-      it { is_expected.to be_nil }
-    end
-
-    describe '#po_number' do
-      subject { row.po_number }
       it { is_expected.to be_nil }
     end
   end

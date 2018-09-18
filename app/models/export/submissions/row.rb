@@ -63,6 +63,10 @@ module Export
         submission.created_at.utc.iso8601
       end
 
+      def po_number
+        submission.purchase_order_number
+      end
+
       # Fields that are nil for MVP
       def created_by; end
 
@@ -71,8 +75,6 @@ module Export
       def supplier_approved_by; end
 
       def finance_export_date; end
-
-      def po_number; end
 
       def to_csv_line
         CSV.generate_line(row_values)
