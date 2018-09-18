@@ -25,7 +25,7 @@ RSpec.describe Export::Tasks do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         <<~LINE.chomp
-          #{first_task.id},201808,#{first_task.supplier.id},#{first_task.framework.id},unstarted,1,,
+          #{first_task.id},2018-08,#{first_task.supplier.id},#{first_task.framework.id},unstarted,1,,
         LINE
       )
     end

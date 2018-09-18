@@ -12,7 +12,7 @@ module Export
       end
 
       def year_and_month
-        "#{task.period_year}#{format('%02d', task.period_month)}"
+        "#{task.period_year}-#{format('%02d', task.period_month)}"
       end
 
       def row_values
