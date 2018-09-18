@@ -42,9 +42,8 @@ RSpec.describe Export::Submissions do
     it 'writes each submission to that output' do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
-        <<~LINE.chomp
-          #{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450
-        LINE
+        "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450," \
+        '1.5'
       )
     end
   end

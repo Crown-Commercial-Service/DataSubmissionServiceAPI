@@ -63,7 +63,7 @@ module Export
       end
 
       def management_charge_rate
-        BigDecimal('1.5')
+        Framework::TMP_FIXED_CHARGE_RATE
       end
 
       def numeric_string_to_number(numeric_string)

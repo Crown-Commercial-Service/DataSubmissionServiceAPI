@@ -22,7 +22,8 @@ module Export
           order_value,
           invoice_entry_count,
           invoice_value,
-          management_charge_value
+          management_charge_value,
+          management_charge_rate
         ]
       end
 
@@ -46,6 +47,10 @@ module Export
 
       def management_charge_value
         submission.management_charge
+      end
+
+      def management_charge_rate
+        Framework::TMP_FIXED_CHARGE_RATE
       end
 
       def to_csv_line
