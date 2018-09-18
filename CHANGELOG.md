@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-9] - 2018-09-18
+
+- Removed redundant calculate action
+- Added support for setting a purchase order number on submissions
+- Submissions now include a count of their invoices and orders
+- Renamed "levy" to "management charge"
+
 ## [release-8] - 2018-09-13
 
 - Introduce new "validation_failed" state to submissions
