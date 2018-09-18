@@ -73,4 +73,12 @@ RSpec.describe Export::Submissions::Row do
       expect(row.management_charge_rate).to eql(BigDecimal('1.5'))
     end
   end
+
+  describe '#created_date' do
+    let(:submission) { double 'Submission', created_at: Time.zone.local(2018, 9, 18, 14, 20, 35) }
+    it 'is an ISO8601 date/time in UTC' do
+      expect(row.created_date).to eql('2018-09-18T14:20:35Z')
+    end
+  end
 end
+

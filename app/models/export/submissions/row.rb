@@ -23,7 +23,8 @@ module Export
           invoice_entry_count,
           invoice_value,
           management_charge_value,
-          management_charge_rate
+          management_charge_rate,
+          created_date
         ]
       end
 
@@ -51,6 +52,10 @@ module Export
 
       def management_charge_rate
         Framework::TMP_FIXED_CHARGE_RATE
+      end
+
+      def created_date
+        submission.created_at.utc.iso8601
       end
 
       def to_csv_line
