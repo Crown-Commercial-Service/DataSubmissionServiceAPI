@@ -44,7 +44,13 @@ RSpec.describe Export::Submissions do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450," \
-        '1.5,2018-09-18T14:20:35Z'
+        '1.5,2018-09-18T14:20:35Z,,,,,'
+      )
+    end
+
+    it 'has as many headers as row values' do
+      expect(Export::Submissions::HEADER.length).to eql(
+        Export::Submissions::Row.new(submission).row_values.length
       )
     end
   end

@@ -2,7 +2,7 @@ module Export
   class Submissions
     class Row
       ERROR   = '#ERROR'.freeze
-      MISSING = '#MISSING'.freeze
+      MISSING = '#MISSING'.freeze # fields that are needed for MVP that we don't have yet
 
       attr_reader :submission, :errors
 
@@ -24,7 +24,12 @@ module Export
           invoice_value,
           management_charge_value,
           management_charge_rate,
-          created_date
+          created_date,
+          created_by,
+          supplier_approved_date,
+          supplier_approved_by,
+          finance_export_date,
+          po_number
         ]
       end
 
@@ -57,6 +62,17 @@ module Export
       def created_date
         submission.created_at.utc.iso8601
       end
+
+      # Fields that are nil for MVP
+      def created_by; end
+
+      def supplier_approved_date; end
+
+      def supplier_approved_by; end
+
+      def finance_export_date; end
+
+      def po_number; end
 
       def to_csv_line
         CSV.generate_line(row_values)

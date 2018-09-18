@@ -80,5 +80,31 @@ RSpec.describe Export::Submissions::Row do
       expect(row.created_date).to eql('2018-09-18T14:20:35Z')
     end
   end
-end
 
+  describe 'the fields that are absent for MVP' do
+    describe '#created_by' do
+      subject { row.created_by }
+      it { is_expected.to be_nil }
+    end
+
+    describe '#supplier_approved_date' do
+      subject { row.supplier_approved_date }
+      it { is_expected.to be_nil }
+    end
+
+    describe '#supplier_approved_by' do
+      subject { row.supplier_approved_by }
+      it { is_expected.to be_nil }
+    end
+
+    describe '#finance_export_date' do
+      subject { row.finance_export_date }
+      it { is_expected.to be_nil }
+    end
+
+    describe '#po_number' do
+      subject { row.po_number }
+      it { is_expected.to be_nil }
+    end
+  end
+end
