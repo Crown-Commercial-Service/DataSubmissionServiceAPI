@@ -51,7 +51,7 @@ module Export
       end
 
       def management_charge_rate
-        format('%0.3f', Framework::TMP_FIXED_CHARGE_RATE / 100)
+        (Framework::TMP_FIXED_CHARGE_RATE / 100).to_s
       end
 
       def created_date
