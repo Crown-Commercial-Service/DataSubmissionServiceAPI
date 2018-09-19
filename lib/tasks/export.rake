@@ -17,4 +17,13 @@ namespace :export do
       Export::Submissions.new(Export::Submissions::Extract.all_relevant, file).run
     end
   end
+
+  desc 'Export invoice entities to CSV'
+  task invoices: :environment do
+    filename = "/tmp/invoices_#{Time.zone.today}.csv"
+    warn("Exporting invoices to #{filename}")
+    File.open(filename, 'w+') do |file|
+      Export::Invoices.new(Export::Invoices::Extract.all_relevant, file).run
+    end
+  end
 end
