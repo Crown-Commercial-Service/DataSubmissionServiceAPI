@@ -20,7 +20,7 @@ RSpec.describe Export::Submissions do
       )
     end
 
-    let(:submissions) { [submission, create(:submission)] }
+    let(:submissions) { [submission, create(:submission, aasm_state: 'validation_failed')] }
 
     let(:output) { StringIO.new }
     subject(:output_lines) { output.string.split("\n") }

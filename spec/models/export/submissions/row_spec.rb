@@ -6,7 +6,7 @@ RSpec.describe Export::Submissions::Row do
   let(:row) { Export::Submissions::Row.new(submission) }
 
   describe '#status' do
-    subject!(:status) { row.status }
+    subject(:status) { row.status }
 
     context 'the submission state is completed' do
       let(:submission) { double 'Submission', aasm_state: 'completed' }
@@ -20,10 +20,8 @@ RSpec.describe Export::Submissions::Row do
 
     context 'the submission state is not one that should be in the output at all' do
       let(:submission) { double 'Submission', aasm_state: 'in_review' }
-      it { is_expected.to eql('#ERROR') }
-
-      it 'adds the error to a hash' do
-        expect(row.errors['Status']).to eql(['in_review is not mapped to Submission column Status'])
+      it 'blows up and stops the whole export (there is no error handling)' do
+        expect { status }.to raise_error(KeyError)
       end
     end
   end
