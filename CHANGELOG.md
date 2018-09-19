@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-10] - 2018-09-19
+
+- Adjusted terraform config for zero-downtime deploys
+
 ## [release-9] - 2018-09-18
 
 - Removed redundant calculate action
