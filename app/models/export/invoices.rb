@@ -3,7 +3,7 @@ require 'csv'
 module Export
   class Invoices
     HEADER = %w[
-      Foo
+      SubmissionID
     ].freeze
 
     attr_reader :invoices, :output
