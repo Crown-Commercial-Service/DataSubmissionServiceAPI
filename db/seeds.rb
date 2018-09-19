@@ -42,6 +42,10 @@ task_processing = Task.find_or_create_by!(
 )
 processing_submission = supplier.submissions.find_or_create_by!(framework: framework_processing, task: task_processing, aasm_state: "processing")
 submission_file = processing_submission.files.find_or_create_by!(rows: 2)
+submission_file.file.attach(
+  io: File.open("spec/fixtures/not-really-an.xls"),
+  filename: 'not-really-an.xls'
+)
 processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
 
@@ -59,6 +63,10 @@ task_in_review = Task.find_or_create_by!(
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review", management_charge: 3000)
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
+submission_file.file.attach(
+  io: File.open("spec/fixtures/not-really-an.xls"),
+  filename: 'not-really-an.xls'
+)
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 1 })
@@ -78,6 +86,10 @@ task_in_review_with_errors = Task.find_or_create_by!(
 )
 invalid_submission = supplier.submissions.find_or_create_by!(framework: framework_invalid, task: task_in_review_with_errors, aasm_state: "validation_failed")
 submission_file = invalid_submission.files.find_or_create_by!(rows: 2)
+submission_file.file.attach(
+  io: File.open("spec/fixtures/not-really-an.xls"),
+  filename: 'not-really-an.xls'
+)
 invalid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 invalid_submission.entries.find_or_create_by!(
   submission_file: submission_file,
@@ -100,5 +112,9 @@ task_completed = Task.find_or_create_by!(
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_completed, task: task_completed, aasm_state: "completed")
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
+submission_file.file.attach(
+  io: File.open("spec/fixtures/not-really-an.xls"),
+  filename: 'not-really-an.xls'
+)
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
