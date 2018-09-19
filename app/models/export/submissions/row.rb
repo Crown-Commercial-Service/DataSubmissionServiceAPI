@@ -48,7 +48,7 @@ module Export
       end
 
       def submission_file_type
-        File.extname(submission._first_filename).downcase[1..-1]
+        File.extname(submission._first_filename).downcase[1..-1] if submission._first_filename
       end
 
       def management_charge_value

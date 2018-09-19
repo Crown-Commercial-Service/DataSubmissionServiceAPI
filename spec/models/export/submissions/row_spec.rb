@@ -56,9 +56,17 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe '#submission_file_type' do
-    let(:submission) { double 'Submission', _first_filename: 'it-is-an.XLS' }
     subject { row.submission_file_type }
-    it { is_expected.to eql('xls') }
+
+    context 'a file submission' do
+      let(:submission) { double 'Submission', _first_filename: 'it-is-an.XLS' }
+      it { is_expected.to eql('xls') }
+    end
+
+    context 'a no-business submission' do
+      let(:submission) { double 'Submission', _first_filename: nil }
+      it { is_expected.to be_nil }
+    end
   end
 
   describe '#management_charge_value' do

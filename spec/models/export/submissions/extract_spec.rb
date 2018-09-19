@@ -44,8 +44,15 @@ RSpec.describe Export::Submissions::Extract do
       end
 
       describe '#_first_filename as a projection on the Submission model' do
-        subject { extract_file_submission._first_filename }
-        it { is_expected.to eql('not-really-an.xls') }
+        context 'on a file submission' do
+          subject { extract_file_submission._first_filename }
+          it { is_expected.to eql('not-really-an.xls') }
+        end
+
+        context 'on a no-business submission' do
+          subject { extract_no_business_submission._first_filename }
+          it { is_expected.to be_nil }
+        end
       end
     end
   end
