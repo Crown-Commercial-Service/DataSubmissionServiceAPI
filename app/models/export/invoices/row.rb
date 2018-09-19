@@ -1,6 +1,8 @@
 module Export
   class Invoices
     class Row
+      MISSING = '#MISSING'.freeze
+
       attr_reader :invoice
 
       def initialize(invoice)
@@ -10,7 +12,22 @@ module Export
       def row_values
         [
           invoice.submission_id,
+          customer_urn,
+          customer_name,
+          customer_postcode
         ]
+      end
+
+      def customer_urn
+        MISSING
+      end
+
+      def customer_name
+        MISSING
+      end
+
+      def customer_postcode
+        MISSING
       end
 
       def to_csv_line

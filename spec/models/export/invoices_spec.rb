@@ -15,14 +15,14 @@ RSpec.describe Export::Invoices do
 
     it 'writes a header to that output' do
       expect(output_lines.first).to eql(
-        'SubmissionID'
+        'SubmissionID,CustomerURN,CustomerName,CustomerPostcode'
       )
     end
 
     it 'writes each invoice to that output' do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
-        "#{invoice.submission_id}"
+        "#{invoice.submission_id},#MISSING,#MISSING,#MISSING"
       )
     end
 

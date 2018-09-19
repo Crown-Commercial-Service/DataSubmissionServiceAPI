@@ -4,6 +4,9 @@ module Export
   class Invoices
     HEADER = %w[
       SubmissionID
+      CustomerURN
+      CustomerName
+      CustomerPostcode
     ].freeze
 
     attr_reader :invoices, :output
