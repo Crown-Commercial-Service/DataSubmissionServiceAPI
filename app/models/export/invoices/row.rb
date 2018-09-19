@@ -14,7 +14,9 @@ module Export
           invoice.submission_id,
           customer_urn,
           customer_name,
-          customer_postcode
+          customer_postcode,
+          invoice_date,
+          invoice_number
         ]
       end
 
@@ -27,6 +29,14 @@ module Export
       end
 
       def customer_postcode
+        MISSING
+      end
+
+      def invoice_date
+        MISSING
+      end
+
+      def invoice_number
         MISSING
       end
 

@@ -7,6 +7,8 @@ module Export
       CustomerURN
       CustomerName
       CustomerPostcode
+      InvoiceDate
+      InvoiceNumber
     ].freeze
 
     attr_reader :invoices, :output

@@ -19,4 +19,15 @@ RSpec.describe Export::Invoices::Row do
       it { is_expected.to eql('#MISSING') }
     end
   end
+
+  describe 'Invoice fields are currently MISSING' do
+    describe '#invoice_date' do
+      subject { row.invoice_date }
+      it { is_expected.to eql('#MISSING') }
+    end
+    describe '#invoice_number' do
+      subject { row.invoice_number }
+      it { is_expected.to eql('#MISSING') }
+    end
+  end
 end
