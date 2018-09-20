@@ -1,4 +1,6 @@
 class SerializableSubmission < JSONAPI::Serializable::Resource
+  ERRORED_ROW_LIMIT = 10
+
   type 'submissions'
 
   belongs_to :framework
@@ -22,9 +24,24 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
     submission.entries.orders.count
   end
 
+  attribute :sheet_errors do
+    Hash[submission.sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
+  end
+
   private
 
   def submission
     @object
+  end
+
+  def errors_for(sheet_name)
+    submission
+      .entries
+      .sheet(sheet_name)
+      .errored
+      .ordered_by_row
+      .limit(ERRORED_ROW_LIMIT)
+      .pluck(:validation_errors)
+      .flatten
   end
 end

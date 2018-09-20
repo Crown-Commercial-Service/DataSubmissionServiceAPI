@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :submission_entry do
     transient do
       row 1
+      column 'Column'
       sheet_name 'Some sheet'
     end
 
@@ -24,7 +25,10 @@ FactoryBot.define do
     end
 
     trait :errored do
+      transient { error_message 'Required value missing' }
+
       aasm_state :errored
+      validation_errors { [{ 'message' => error_message, 'location' => { 'row' => row, 'column' => column } }] }
     end
   end
 end
