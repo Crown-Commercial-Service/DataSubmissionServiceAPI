@@ -11,14 +11,20 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
   attribute :purchase_order_number
 
   attribute :status do
-    @object.aasm.current_state
+    submission.aasm.current_state
   end
 
   attribute :invoice_count do
-    @object.entries.invoices.count
+    submission.entries.invoices.count
   end
 
   attribute :order_count do
-    @object.entries.orders.count
+    submission.entries.orders.count
+  end
+
+  private
+
+  def submission
+    @object
   end
 end
