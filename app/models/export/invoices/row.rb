@@ -1,13 +1,7 @@
 module Export
   class Invoices
-    class Row
-      MISSING = '#MISSING'.freeze
-
-      attr_reader :invoice
-
-      def initialize(invoice)
-        @invoice = invoice
-      end
+    class Row < Export::CsvRow
+      alias_method :invoice, :model
 
       def row_values
         [
@@ -38,10 +32,6 @@ module Export
 
       def invoice_number
         MISSING
-      end
-
-      def to_csv_line
-        CSV.generate_line(row_values)
       end
     end
   end
