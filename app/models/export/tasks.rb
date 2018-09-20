@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class Tasks
+  class Tasks < ToIO
     HEADER = %w[
       TaskID
       Month
@@ -12,19 +12,5 @@ module Export
       StartedDate
       CompletedDate
     ].freeze
-
-    attr_reader :tasks, :output
-
-    def initialize(tasks, output)
-      @tasks = tasks
-      @output = output
-    end
-
-    def run
-      output.puts(CSV.generate_line(HEADER))
-      tasks.each do |task|
-        output.puts(Row.new(task).to_csv_line)
-      end
-    end
   end
 end
