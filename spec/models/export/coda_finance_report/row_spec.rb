@@ -9,44 +9,44 @@ RSpec.describe Export::CodaFinanceReport::Row do
   subject(:wps_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:wider_public_sector]) }
 
   it 'reports the submission ID as ‘RunID’' do
-    expect(cg_report_row.data['RunID']).to eq submission.id
+    expect(cg_report_row.run_id).to eq submission.id
   end
 
   it 'reports the framework’s coda_reference as ‘Nominal’' do
-    expect(cg_report_row.data['Nominal']).to eq framework.coda_reference
+    expect(cg_report_row.nominal).to eq framework.coda_reference
   end
 
   it 'reports the framework’ short_name as ‘Contract ID' do
-    expect(cg_report_row.data['Contract ID']).to eq framework.short_name
+    expect(cg_report_row.contract_id).to eq framework.short_name
   end
 
   it 'reports the framework’ name as ‘Lot Description’' do
-    expect(cg_report_row.data['Lot Description']).to eq framework.name
+    expect(cg_report_row.lot_description).to eq framework.name
   end
 
   it 'reports the supplier’s coda_reference as ‘Customer Code’' do
-    expect(cg_report_row.data['Customer Code']).to eq supplier.coda_reference
+    expect(cg_report_row.customer_code).to eq supplier.coda_reference
   end
 
   it 'reports the supplier’s name as ‘Customer Name’' do
-    expect(cg_report_row.data['Customer Name']).to eq supplier.name
+    expect(cg_report_row.customer_name).to eq supplier.name
   end
 
   it 'also reports the supplier’s name as ‘Submitter’ for now as we don’t record the submitting user' do
-    expect(cg_report_row.data['Submitter']).to eq supplier.name
+    expect(cg_report_row.submitter).to eq supplier.name
   end
 
   it 'reports the task’s period in the format "Month YEAR" as ‘Month’' do
-    expect(cg_report_row.data['Month']).to eq 'August 2018'
+    expect(cg_report_row.month).to eq 'August 2018'
   end
 
   it 'reports the management charge rate as ‘Commission %’' do
-    expect(cg_report_row.data['Commission %']).to eq '0.015'
+    expect(cg_report_row.commission_percent).to eq '0.015'
   end
 
   it 'reports the sector as ‘End User’' do
-    expect(cg_report_row.data['End User']).to eq 'UCGV'
-    expect(wps_report_row.data['End User']).to eq 'UWPS'
+    expect(cg_report_row.end_user).to eq 'UCGV'
+    expect(wps_report_row.end_user).to eq 'UWPS'
   end
 
   describe 'the calculations' do
@@ -96,13 +96,13 @@ RSpec.describe Export::CodaFinanceReport::Row do
     end
 
     it 'reports the total invoiced sales, scoped to the sector, as ‘Inf Sales’' do
-      expect(cg_report_row.data['Inf Sales']).to eq '1230.45'
-      expect(wps_report_row.data['Inf Sales']).to eq '-428.95'
+      expect(cg_report_row.inf_sales).to eq '1230.45'
+      expect(wps_report_row.inf_sales).to eq '-428.95'
     end
 
     it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
-      expect(cg_report_row.data['Commission']).to eq '18.45'
-      expect(wps_report_row.data['Commission']).to eq '-6.43'
+      expect(cg_report_row.commission).to eq '18.45'
+      expect(wps_report_row.commission).to eq '-6.43'
     end
 
     it 'handles sales amounts written as a human-readable number' do
@@ -112,16 +112,16 @@ RSpec.describe Export::CodaFinanceReport::Row do
         submission: submission,
         data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
       )
-      expect(cg_report_row.data['Inf Sales']).to eq '3659.40'
-      expect(cg_report_row.data['Commission']).to eq '54.89'
+      expect(cg_report_row.inf_sales).to eq '3659.40'
+      expect(cg_report_row.commission).to eq '54.89'
     end
 
     it 'handles no business submissions, reporting them as zero sales and commission' do
       no_business_submission = FactoryBot.create(:no_business_submission)
       row = Export::CodaFinanceReport::Row.new(no_business_submission, Customer.sectors[:central_government])
 
-      expect(row.data['Inf Sales']).to eq '0.00'
-      expect(row.data['Commission']).to eq '0.00'
+      expect(row.inf_sales).to eq '0.00'
+      expect(row.commission).to eq '0.00'
     end
   end
 end
