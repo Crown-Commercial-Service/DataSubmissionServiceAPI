@@ -31,4 +31,14 @@ RSpec.describe SubmissionEntry do
       expect(SubmissionEntry.wider_public_sector).to contain_exactly(bobs_charity_entry)
     end
   end
+
+  describe 'ordered_by_row' do
+    let!(:third_row)  { FactoryBot.create(:submission_entry, source: { 'row' => 3 }) }
+    let!(:first_row)  { FactoryBot.create(:submission_entry, source: { 'row' => 1 }) }
+    let!(:second_row) { FactoryBot.create(:submission_entry, source: { 'row' => 2 }) }
+
+    it 'returns entries ordered by their source row' do
+      expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, third_row]
+    end
+  end
 end

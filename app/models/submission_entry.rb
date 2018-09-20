@@ -10,6 +10,7 @@ class SubmissionEntry < ApplicationRecord
   scope :sheet, ->(sheet_name) { where("source->>'sheet' = ?", sheet_name) }
   scope :invoices, -> { where(entry_type: 'invoice') }
   scope :orders, -> { where(entry_type: 'order') }
+  scope :ordered_by_row, -> { order(Arel.sql("source->>'row' ASC")) }
   scope :sector, lambda { |sector|
     joins("INNER JOIN customers ON customers.urn = CAST(submission_entries.data->>'Customer URN' AS INTEGER)")
       .where('customers.sector = ?', sector)
