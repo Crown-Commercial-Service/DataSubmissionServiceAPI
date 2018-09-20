@@ -26,8 +26,8 @@ RSpec.describe Submission do
 
   describe '#sheet_names' do
     let(:submission) { FactoryBot.create(:submission) }
-    let!(:invoice) { FactoryBot.create(:submission_entry, submission: submission, source: { 'sheet' => 'Invoices' }) }
-    let!(:order) { FactoryBot.create(:submission_entry, submission: submission, source: { 'sheet' => 'Orders' }) }
+    let!(:invoice) { FactoryBot.create(:submission_entry, submission: submission, sheet_name: 'Invoices') }
+    let!(:order) { FactoryBot.create(:submission_entry, submission: submission, sheet_name: 'Orders') }
 
     it 'returns the sheets that the submission has entries for' do
       expect(submission.sheet_names).to match_array %w[Invoices Orders]

@@ -7,9 +7,9 @@ RSpec.describe SubmissionEntry do
   it { is_expected.to validate_presence_of(:data) }
 
   describe 'sheet scope' do
-    let(:sheet_1_entry) { FactoryBot.create(:submission_entry, source: { 'sheet' => 'Sheet 1' }) }
-    let(:another_sheet_1_entry) { FactoryBot.create(:submission_entry, source: { 'sheet' => 'Sheet 1' }) }
-    let(:sheet_2_entry) { FactoryBot.create(:submission_entry, source: { 'sheet' => 'Sheet 2' }) }
+    let(:sheet_1_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 1') }
+    let(:another_sheet_1_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 1') }
+    let(:sheet_2_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 2') }
 
     it 'returns entries for the specified sheet' do
       expect(SubmissionEntry.sheet('Sheet 1')).to contain_exactly(sheet_1_entry, another_sheet_1_entry)
@@ -33,9 +33,9 @@ RSpec.describe SubmissionEntry do
   end
 
   describe 'ordered_by_row' do
-    let!(:third_row)  { FactoryBot.create(:submission_entry, source: { 'row' => 3 }) }
-    let!(:first_row)  { FactoryBot.create(:submission_entry, source: { 'row' => 1 }) }
-    let!(:second_row) { FactoryBot.create(:submission_entry, source: { 'row' => 2 }) }
+    let!(:third_row)  { FactoryBot.create(:submission_entry, row: 3) }
+    let!(:first_row)  { FactoryBot.create(:submission_entry, row: 1) }
+    let!(:second_row) { FactoryBot.create(:submission_entry, row: 2) }
 
     it 'returns entries ordered by their source row' do
       expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, third_row]

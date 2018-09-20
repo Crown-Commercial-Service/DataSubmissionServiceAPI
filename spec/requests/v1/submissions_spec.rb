@@ -18,7 +18,8 @@ RSpec.describe '/v1' do
       entry = FactoryBot.create(:submission_entry,
                                 submission: submission,
                                 submission_file: file,
-                                source: { sheet: 'Orders', row: 23 },
+                                sheet_name: 'Orders',
+                                row: 23,
                                 data: { test: 'test' })
 
       get "/v1/submissions/#{submission.id}?include=entries"

@@ -1,16 +1,22 @@
 FactoryBot.define do
   factory :submission_entry do
+    transient do
+      row 1
+      sheet_name 'Some sheet'
+    end
+
     submission
-    data(test_key: 'some data')
+    entry_type 'invoice'
+    data { { test_key: 'some data' } }
+    source { { sheet: sheet_name, row: row } }
 
     factory :invoice_entry do
-      entry_type 'invoice'
-      source(sheet: 'InvoicesRaised', row: 1)
+      sheet_name 'InvoicesRaised'
     end
 
     factory :order_entry do
       entry_type 'order'
-      source(sheet: 'OrdersReceived', row: 1)
+      sheet_name 'OrdersReceived'
     end
 
     trait :valid do
