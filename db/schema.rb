@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_17_160328) do
+ActiveRecord::Schema.define(version: 2018_09_24_083639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_160328) do
     t.string "entry_type"
     t.index ["aasm_state"], name: "index_submission_entries_on_aasm_state"
     t.index ["entry_type"], name: "index_submission_entries_on_entry_type"
+    t.index ["source"], name: "index_submission_entries_on_source", using: :gin
     t.index ["submission_file_id"], name: "index_submission_entries_on_submission_file_id"
     t.index ["submission_id"], name: "index_submission_entries_on_submission_id"
   end
