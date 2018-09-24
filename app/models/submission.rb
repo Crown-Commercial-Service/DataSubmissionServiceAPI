@@ -32,4 +32,8 @@ class Submission < ApplicationRecord
   def all_entries_valid?
     entries.validated.count == entries.count
   end
+
+  def sheet_names
+    entries.distinct.pluck(Arel.sql("source->>'sheet'"))
+  end
 end
