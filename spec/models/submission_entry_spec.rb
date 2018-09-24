@@ -33,12 +33,12 @@ RSpec.describe SubmissionEntry do
   end
 
   describe 'ordered_by_row' do
-    let!(:third_row)  { FactoryBot.create(:submission_entry, row: 3) }
+    let!(:tenth_row) { FactoryBot.create(:submission_entry, row: 10) }
     let!(:first_row)  { FactoryBot.create(:submission_entry, row: 1) }
     let!(:second_row) { FactoryBot.create(:submission_entry, row: 2) }
 
     it 'returns entries ordered by their source row' do
-      expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, third_row]
+      expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, tenth_row]
     end
   end
 end
