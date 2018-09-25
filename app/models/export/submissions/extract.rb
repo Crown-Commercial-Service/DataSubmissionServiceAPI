@@ -5,8 +5,8 @@ module Export
 
       def self.all_relevant
         Submission.select('submissions.*,' \
-                          'COUNT(DISTINCT orders) AS _order_entry_count,' \
-                          'COUNT(DISTINCT invoices) AS _invoice_entry_count,' \
+                          'COUNT(DISTINCT orders.id) AS _order_entry_count,' \
+                          'COUNT(DISTINCT invoices.id) AS _invoice_entry_count,' \
                           'MIN(blobs.filename)::text AS _first_filename')
                   .joins('LEFT JOIN submission_entries orders ON ' \
                          "(orders.submission_id = submissions.id AND orders.entry_type = 'order')")
