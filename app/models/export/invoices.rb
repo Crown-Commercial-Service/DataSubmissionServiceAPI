@@ -23,6 +23,7 @@ module Export
       InvoiceValue
       Expenses
       VATCharged
+      PromotionCode
     ].freeze
   end
 end

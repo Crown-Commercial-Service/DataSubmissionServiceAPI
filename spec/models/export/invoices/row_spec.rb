@@ -112,4 +112,9 @@ RSpec.describe Export::Invoices::Row do
     subject { row.expenses }
     it { is_expected.to eql(Export::CsvRow::MISSING) }
   end
+
+  describe '#promotion_code' do
+    subject { row.promotion_code }
+    it { is_expected.to be_nil }
+  end
 end

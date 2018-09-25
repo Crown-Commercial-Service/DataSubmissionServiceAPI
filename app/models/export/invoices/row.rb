@@ -24,7 +24,8 @@ module Export
           unit_quantity,
           invoice_value,
           expenses,
-          vat_charged
+          vat_charged,
+          promotion_code
         ]
       end
 
@@ -102,6 +103,10 @@ module Export
 
       def vat_charged
         value_for('VATCharged')
+      end
+
+      def promotion_code
+        value_for('PromotionCode', default: nil)
       end
 
       private
