@@ -10,7 +10,9 @@ module Export
           customer_name,
           customer_postcode,
           invoice_date,
-          invoice_number
+          invoice_number,
+          supplier_reference_number,
+          customer_reference_number
         ]
       end
 
@@ -32,6 +34,14 @@ module Export
 
       def invoice_number
         value_for('InvoiceNumber')
+      end
+
+      def supplier_reference_number
+        value_for('SupplierReferenceNumber')
+      end
+
+      def customer_reference_number
+        nil
       end
 
       private

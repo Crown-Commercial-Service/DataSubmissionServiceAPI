@@ -2,11 +2,12 @@ module Export
   module Template
     # Mapping direction: destination_field in export => source_field from submission_entries.data
     LEGAL_FRAMEWORK = {
-      'CustomerURN'      => 'Customer URN',
-      'CustomerName'     => 'Customer Organisation Name',
-      'CustomerPostCode' => 'Customer Post Code',
-      'InvoiceDate'      => 'Customer Invoice Date',
-      'InvoiceNumber'    => 'Customer Invoice Number',
+      'CustomerURN'             => 'Customer URN',
+      'CustomerName'            => 'Customer Organisation Name',
+      'CustomerPostCode'        => 'Customer Post Code',
+      'InvoiceDate'             => 'Customer Invoice Date',
+      'InvoiceNumber'           => 'Customer Invoice Number',
+      'SupplierReferenceNumber' => 'Supplier Reference Number'
     }.freeze
 
     BY_FRAMEWORK = {

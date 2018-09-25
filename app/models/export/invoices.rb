@@ -9,6 +9,8 @@ module Export
       CustomerPostcode
       InvoiceDate
       InvoiceNumber
+      SupplierReferenceNumber
+      CustomerReferenceNumber
     ].freeze
   end
 end

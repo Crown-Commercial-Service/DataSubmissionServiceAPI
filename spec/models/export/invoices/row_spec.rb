@@ -45,6 +45,13 @@ RSpec.describe Export::Invoices::Row do
       subject { row.customer_postcode }
       it { is_expected.to eql(invoice_entry.data['Customer Post Code']) }
     end
+    describe '#customer_reference_number' do
+      subject { row.customer_reference_number }
+
+      context 'in legal frameworks' do
+        it { is_expected.to be_nil }
+      end
+    end
   end
 
   describe 'Invoice fields' do
@@ -56,6 +63,10 @@ RSpec.describe Export::Invoices::Row do
     describe '#invoice_number' do
       subject { row.invoice_number }
       it { is_expected.to eql(invoice_entry.data['Customer Invoice Number']) }
+    end
+    describe '#supplier_reference_number' do
+      subject { row.supplier_reference_number }
+      it { is_expected.to eql(invoice_entry.data['Supplier Reference Number']) }
     end
   end
 
