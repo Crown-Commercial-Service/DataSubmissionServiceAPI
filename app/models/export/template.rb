@@ -15,6 +15,12 @@ module Export
       'UnitQuantity'            => 'Quantity',
       'InvoiceValue'            => 'Total Cost (ex VAT)',
       'VATCharged'              => 'VAT Amount Charged',
+      'Additional1'             => 'Matter Name',
+      'Additional2'             => 'Pro-Bono Price per Unit',
+      'Additional3'             => 'Pro-Bono Quantity',
+      'Additional4'             => 'Pro-Bono Total Value',
+      'Additional5'             => 'Sub-Contractor Name (If Applicable)',
+      'Additional6'             => 'Pricing Mechanism',
     }.freeze
 
     BY_FRAMEWORK = {

@@ -3,6 +3,7 @@ module Export
     class Row < Export::CsvRow
       alias_method :invoice, :model
 
+      # rubocop:disable Metrics/AbcSize
       def row_values
         [
           invoice.submission_id,
@@ -25,9 +26,18 @@ module Export
           invoice_value,
           expenses,
           vat_charged,
-          promotion_code
+          promotion_code,
+          additional1,
+          additional2,
+          additional3,
+          additional4,
+          additional5,
+          additional6,
+          additional7,
+          additional8,
         ]
       end
+      # rubocop:enable Metrics/AbcSize
 
       def customer_urn
         value_for('CustomerURN')
@@ -107,6 +117,12 @@ module Export
 
       def promotion_code
         value_for('PromotionCode', default: nil)
+      end
+
+      (1..8).each do |n|
+        define_method "additional#{n}" do
+          value_for("Additional#{n}", default: nil)
+        end
       end
 
       private

@@ -29,7 +29,8 @@ RSpec.describe Export::Invoices do
         'SubmissionID,CustomerURN,CustomerName,CustomerPostcode,InvoiceDate,InvoiceNumber,'\
         'SupplierReferenceNumber,CustomerReferenceNumber,LotNumber,ProductDescription,'\
         'ProductGroup,ProductClass,ProductSubClass,ProductCode,UnitType,UnitPrice,UnitQuantity,'\
-        'InvoiceValue,Expenses,VATCharged,PromotionCode'\
+        'InvoiceValue,Expenses,VATCharged,PromotionCode,'\
+        'Additional1,Additional2,Additional3,Additional4,Additional5,Additional6,Additional7,Additional8'
       )
     end
 
@@ -37,14 +38,16 @@ RSpec.describe Export::Invoices do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         "#{invoice.submission_id},10012345,Department for Education,SW1P 3ZZ,5/31/18,3307957,DEP/0008.00032,,1,"\
-        '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,Hourly,151.09,-0.9,-135.98,#MISSING,-27.20,'
+        '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,Hourly,151.09,-0.9,-135.98,#MISSING,-27.20,'\
+        ',GITIS Terms and Conditions,0.00,0.00,0.00,N/A,Time and Material,,'
       )
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
         "#{invoice.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA,"\
-        '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#MISSING,#NOTINDATA,'
+        '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#MISSING,#NOTINDATA,'\
+        ',,,,,,,,'
       )
     end
 
