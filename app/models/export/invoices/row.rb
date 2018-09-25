@@ -15,23 +15,33 @@ module Export
       end
 
       def customer_urn
-        invoice.data['Customer URN'] || NOT_IN_DATA
+        value_for('CustomerURN')
       end
 
       def customer_name
-        invoice.data['Customer Organisation Name'] || NOT_IN_DATA
+        value_for('CustomerName')
       end
 
       def customer_postcode
-        invoice.data['Customer Post Code'] || NOT_IN_DATA
+        value_for('CustomerPostCode')
       end
 
       def invoice_date
-        invoice.data['Customer Invoice Date'] || NOT_IN_DATA
+        value_for('InvoiceDate')
       end
 
       def invoice_number
-        invoice.data['Customer Invoice Number'] || NOT_IN_DATA
+        value_for('InvoiceNumber')
+      end
+
+      private
+
+      def value_for(destination_field, default: NOT_IN_DATA)
+        source_field = Export::Template.source_field_for(
+          destination_field,
+          invoice._framework_short_name
+        )
+        invoice.data.fetch(source_field, default)
       end
     end
   end
