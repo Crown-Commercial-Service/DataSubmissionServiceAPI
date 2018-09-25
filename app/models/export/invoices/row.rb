@@ -15,23 +15,23 @@ module Export
       end
 
       def customer_urn
-        MISSING
+        invoice.data['Customer URN'] || NOT_IN_DATA
       end
 
       def customer_name
-        MISSING
+        invoice.data['Customer Organisation Name'] || NOT_IN_DATA
       end
 
       def customer_postcode
-        MISSING
+        invoice.data['Customer Post Code'] || NOT_IN_DATA
       end
 
       def invoice_date
-        MISSING
+        invoice.data['Customer Invoice Date'] || NOT_IN_DATA
       end
 
       def invoice_number
-        MISSING
+        invoice.data['Customer Invoice Number'] || NOT_IN_DATA
       end
     end
   end
