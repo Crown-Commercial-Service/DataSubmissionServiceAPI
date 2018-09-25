@@ -41,6 +41,10 @@ RSpec.describe Export::Invoices::Row do
       subject { row.invoice_number }
       it { is_expected.to eql(invoice_entry.data['Customer Invoice Number']) }
     end
+    describe '#invoice_value' do
+      subject { row.invoice_value }
+      it { is_expected.to eql(invoice_entry.data['Total Cost (ex VAT)']) }
+    end
     describe '#supplier_reference_number' do
       subject { row.supplier_reference_number }
       it { is_expected.to eql(invoice_entry.data['Supplier Reference Number']) }

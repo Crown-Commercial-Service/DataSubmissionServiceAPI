@@ -13,6 +13,7 @@ module Export
       'UnitType'                => 'Unit of Purchase',
       'UnitPrice'               => 'Price per Unit',
       'UnitQuantity'            => 'Quantity',
+      'InvoiceValue'            => 'Total Cost (ex VAT)'
     }.freeze
 
     BY_FRAMEWORK = {

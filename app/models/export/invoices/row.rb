@@ -22,6 +22,7 @@ module Export
           unit_type,
           unit_price,
           unit_quantity,
+          invoice_value
         ]
       end
 
@@ -87,6 +88,10 @@ module Export
 
       def unit_quantity
         value_for('UnitQuantity')
+      end
+
+      def invoice_value
+        value_for('InvoiceValue')
       end
 
       private

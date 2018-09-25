@@ -20,6 +20,7 @@ module Export
       UnitType
       UnitPrice
       UnitQuantity
+      InvoiceValue
     ].freeze
   end
 end
