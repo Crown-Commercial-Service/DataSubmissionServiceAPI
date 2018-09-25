@@ -8,7 +8,11 @@ module Export
       'InvoiceDate'             => 'Customer Invoice Date',
       'InvoiceNumber'           => 'Customer Invoice Number',
       'SupplierReferenceNumber' => 'Supplier Reference Number',
-      'LotNumber'               => 'Tier Number'
+      'LotNumber'               => 'Tier Number',
+      # Missing product codes
+      'UnitType'                => 'Unit of Purchase',
+      'UnitPrice'               => 'Price per Unit',
+      'UnitQuantity'            => 'Quantity',
     }.freeze
 
     BY_FRAMEWORK = {

@@ -17,6 +17,9 @@ module Export
       ProductClass
       ProductSubClass
       ProductCode
+      UnitType
+      UnitPrice
+      UnitQuantity
     ].freeze
   end
 end

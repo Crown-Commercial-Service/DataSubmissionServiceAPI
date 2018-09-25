@@ -19,6 +19,9 @@ module Export
           product_class,
           product_subclass,
           product_code,
+          unit_type,
+          unit_price,
+          unit_quantity,
         ]
       end
 
@@ -72,6 +75,18 @@ module Export
 
       def product_code
         MISSING
+      end
+
+      def unit_type
+        value_for('UnitType')
+      end
+
+      def unit_price
+        value_for('UnitPrice')
+      end
+
+      def unit_quantity
+        value_for('UnitQuantity')
       end
 
       private

@@ -84,4 +84,19 @@ RSpec.describe Export::Invoices::Row do
       it { is_expected.to eql(Export::CsvRow::MISSING) }
     end
   end
+
+  describe 'Unit* fields' do
+    describe '#unit_type' do
+      subject { row.unit_type }
+      it { is_expected.to eql(invoice_entry.data['Unit of Purchase']) }
+    end
+    describe '#unit_price' do
+      subject { row.unit_price }
+      it { is_expected.to eql(invoice_entry.data['Price per Unit']) }
+    end
+    describe '#unit_quantity' do
+      subject { row.unit_quantity }
+      it { is_expected.to eql(invoice_entry.data['Quantity']) }
+    end
+  end
 end
