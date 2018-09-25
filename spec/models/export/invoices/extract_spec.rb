@@ -16,6 +16,10 @@ RSpec.describe Export::Invoices::Extract do
         expect(all_relevant.map(&:entry_type)).to all(eql('invoice'))
         expect(all_relevant.map(&:submission_id)).to all(eql(complete_submission.id))
       end
+
+      it 'projects a _framework_short_name field onto every invoice' do
+        expect(all_relevant.map(&:_framework_short_name)).to all(eql(complete_submission.framework.short_name))
+      end
     end
   end
 end
