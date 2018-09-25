@@ -23,7 +23,8 @@ module Export
           unit_price,
           unit_quantity,
           invoice_value,
-          expenses
+          expenses,
+          vat_charged
         ]
       end
 
@@ -97,6 +98,10 @@ module Export
 
       def expenses
         MISSING
+      end
+
+      def vat_charged
+        value_for('VATCharged')
       end
 
       private

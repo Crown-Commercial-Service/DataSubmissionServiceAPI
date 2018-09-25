@@ -22,6 +22,7 @@ module Export
       UnitQuantity
       InvoiceValue
       Expenses
+      VATCharged
     ].freeze
   end
 end

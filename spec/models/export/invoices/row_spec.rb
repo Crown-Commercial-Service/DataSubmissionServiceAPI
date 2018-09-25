@@ -49,6 +49,10 @@ RSpec.describe Export::Invoices::Row do
       subject { row.supplier_reference_number }
       it { is_expected.to eql(invoice_entry.data['Supplier Reference Number']) }
     end
+    describe '#vat_charged' do
+      subject { row.vat_charged }
+      it { is_expected.to eql(invoice_entry.data['VAT Amount Charged']) }
+    end
   end
 
   describe 'what happens when a key is missing in the model’s data' do
