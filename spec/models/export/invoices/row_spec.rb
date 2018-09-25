@@ -103,4 +103,9 @@ RSpec.describe Export::Invoices::Row do
       it { is_expected.to eql(invoice_entry.data['Quantity']) }
     end
   end
+
+  describe '#expenses' do
+    subject { row.expenses }
+    it { is_expected.to eql(Export::CsvRow::MISSING) }
+  end
 end

@@ -21,6 +21,7 @@ module Export
       UnitPrice
       UnitQuantity
       InvoiceValue
+      Expenses
     ].freeze
   end
 end

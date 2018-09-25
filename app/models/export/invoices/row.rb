@@ -22,7 +22,8 @@ module Export
           unit_type,
           unit_price,
           unit_quantity,
-          invoice_value
+          invoice_value,
+          expenses
         ]
       end
 
@@ -92,6 +93,10 @@ module Export
 
       def invoice_value
         value_for('InvoiceValue')
+      end
+
+      def expenses
+        MISSING
       end
 
       private
