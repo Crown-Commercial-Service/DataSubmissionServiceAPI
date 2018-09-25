@@ -13,7 +13,12 @@ module Export
           invoice_number,
           supplier_reference_number,
           customer_reference_number,
-          lot_number
+          lot_number,
+          product_description,
+          product_group,
+          product_class,
+          product_subclass,
+          product_code,
         ]
       end
 
@@ -47,6 +52,26 @@ module Export
 
       def lot_number
         value_for('LotNumber')
+      end
+
+      def product_description
+        MISSING
+      end
+
+      def product_group
+        MISSING
+      end
+
+      def product_class
+        MISSING
+      end
+
+      def product_subclass
+        MISSING
+      end
+
+      def product_code
+        MISSING
       end
 
       private

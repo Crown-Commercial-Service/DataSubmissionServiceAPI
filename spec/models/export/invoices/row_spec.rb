@@ -61,4 +61,27 @@ RSpec.describe Export::Invoices::Row do
     subject { row.lot_number }
     it { is_expected.to eql(invoice_entry.data['Tier Number']) }
   end
+
+  describe 'Product fields' do
+    describe '#product_description' do
+      subject { row.product_description }
+      it { is_expected.to eql(Export::CsvRow::MISSING) }
+    end
+    describe '#product_group' do
+      subject { row.product_group }
+      it { is_expected.to eql(Export::CsvRow::MISSING) }
+    end
+    describe '#product_class' do
+      subject { row.product_class }
+      it { is_expected.to eql(Export::CsvRow::MISSING) }
+    end
+    describe '#product_subclass' do
+      subject { row.product_subclass }
+      it { is_expected.to eql(Export::CsvRow::MISSING) }
+    end
+    describe '#product_code' do
+      subject { row.product_code }
+      it { is_expected.to eql(Export::CsvRow::MISSING) }
+    end
+  end
 end
