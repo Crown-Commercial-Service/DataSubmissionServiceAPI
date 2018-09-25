@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-11] - 2018-09-25
+
+- Optimise Submission endpoint by no longer returning all entries
+- Added fetching of validation errors. This returns at most ten
+    errors, ordered by source row number
+- Added scripts for exporting submissions
+
 ## [release-10] - 2018-09-19
 
 - Adjusted terraform config for zero-downtime deploys
