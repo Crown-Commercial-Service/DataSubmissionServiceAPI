@@ -7,7 +7,8 @@ module Export
       'CustomerPostCode'        => 'Customer Post Code',
       'InvoiceDate'             => 'Customer Invoice Date',
       'InvoiceNumber'           => 'Customer Invoice Number',
-      'SupplierReferenceNumber' => 'Supplier Reference Number'
+      'SupplierReferenceNumber' => 'Supplier Reference Number',
+      'LotNumber'               => 'Tier Number'
     }.freeze
 
     BY_FRAMEWORK = {

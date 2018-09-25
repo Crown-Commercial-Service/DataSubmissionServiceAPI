@@ -10,17 +10,7 @@ RSpec.describe Export::Invoices do
     end
 
     let!(:invoice) do
-      create :invoice_entry,
-             submission: complete_submission,
-             data: {
-               'Customer URN' => '10012345',
-               'Customer Post Code' => 'SW1P 3ZZ',
-               'Total Cost (ex VAT)' => '-135.98',
-               'Customer Invoice Date' => '5/31/18',
-               'Customer Invoice Number' => '3307957',
-               'Customer Organisation Name' => 'Department for Education',
-               'Supplier Reference Number' => 'DEP/0008.00032',
-             }
+      create :invoice_entry, :legal_framework_data, submission: complete_submission
     end
 
     let!(:invoice2) { create(:invoice_entry, submission: complete_submission) }
@@ -37,20 +27,20 @@ RSpec.describe Export::Invoices do
     it 'writes a header to that output' do
       expect(output_lines.first).to eql(
         'SubmissionID,CustomerURN,CustomerName,CustomerPostcode,InvoiceDate,InvoiceNumber,'\
-        'SupplierReferenceNumber,CustomerReferenceNumber'\
+        'SupplierReferenceNumber,CustomerReferenceNumber,LotNumber'\
       )
     end
 
     it 'writes each invoice to that output' do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
-        "#{invoice.submission_id},10012345,Department for Education,SW1P 3ZZ,5/31/18,3307957,DEP/0008.00032,"
+        "#{invoice.submission_id},10012345,Department for Education,SW1P 3ZZ,5/31/18,3307957,DEP/0008.00032,,1"
       )
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
-        "#{invoice.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,"
+        "#{invoice.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA"
       )
     end
 

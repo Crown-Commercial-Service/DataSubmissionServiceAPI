@@ -12,7 +12,8 @@ module Export
           invoice_date,
           invoice_number,
           supplier_reference_number,
-          customer_reference_number
+          customer_reference_number,
+          lot_number
         ]
       end
 
@@ -42,6 +43,10 @@ module Export
 
       def customer_reference_number
         nil
+      end
+
+      def lot_number
+        value_for('LotNumber')
       end
 
       private

@@ -11,6 +11,7 @@ module Export
       InvoiceNumber
       SupplierReferenceNumber
       CustomerReferenceNumber
+      LotNumber
     ].freeze
   end
 end
