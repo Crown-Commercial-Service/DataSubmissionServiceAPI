@@ -1,5 +1,8 @@
 # Tasks to export per-entity CSV files for CCS BI
 namespace :export do
+  desc 'Export everything to CSV'
+  task all: %i[environment tasks submissions invoices]
+
   desc 'Export task entities to CSV'
   task tasks: :environment do
     filename = "/tmp/tasks_#{Time.zone.today}.csv"
