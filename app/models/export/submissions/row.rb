@@ -1,13 +1,7 @@
 module Export
   class Submissions
-    class Row
-      MISSING = '#MISSING'.freeze # fields that are needed for MVP that we don't have yet
-
-      attr_reader :submission
-
-      def initialize(submission)
-        @submission = submission
-      end
+    class Row < Export::CsvRow
+      alias_method :submission, :model
 
       def row_values
         [
@@ -70,10 +64,6 @@ module Export
       def supplier_approved_by; end
 
       def finance_export_date; end
-
-      def to_csv_line
-        CSV.generate_line(row_values)
-      end
 
       def invoice_value
         MISSING

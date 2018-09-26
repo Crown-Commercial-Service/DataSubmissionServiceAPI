@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class Submissions
+  class Submissions < ToIO
     HEADER = %w[
       TaskID
       SubmissionID
@@ -21,19 +21,5 @@ module Export
       FinanceExportDate
       PONumber
     ].freeze
-
-    attr_reader :submissions, :output
-
-    def initialize(submissions, output)
-      @submissions = submissions
-      @output = output
-    end
-
-    def run
-      output.puts(CSV.generate_line(HEADER))
-      submissions.each do |submission|
-        output.puts(Row.new(submission).to_csv_line)
-      end
-    end
   end
 end
