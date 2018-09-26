@@ -108,7 +108,7 @@ module Export
       end
 
       def expenses
-        MISSING
+        value_for('Expenses', default: nil)
       end
 
       def vat_charged
