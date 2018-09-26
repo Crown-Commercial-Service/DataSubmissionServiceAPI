@@ -21,6 +21,11 @@ module Export
         'UnitQuantity'            => 'Quantity',
         'InvoiceValue'            => 'Total Cost (ex VAT)',
         'VATCharged'              => 'VAT Amount Charged',
+        # Product
+        'ProductDescription'      => 'Primary Specialism',
+        'ProductGroup'            => 'Practitioner Grade',
+        'ProductSubClass'         => 'Pricing Mechanism',
+        'ProductCode'             => 'UNSPSC',
         # Additional fields
         'Additional1'             => 'Matter Name',
         'Additional2'             => 'Pro-Bono Price per Unit',
