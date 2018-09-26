@@ -4,12 +4,8 @@ namespace :export do
   task all: %i[environment tasks submissions invoices]
 
   desc 'Export task entities to CSV'
-  task tasks: :environment do
-    filename = "/tmp/tasks_#{Time.zone.today}.csv"
-    warn("Exporting tasks to #{filename}")
-    File.open(filename, 'w+') do |file|
-      Export::Tasks.new(Task.all, file).run
-    end
+  task :tasks, [:output] => [:environment] do |_task, args|
+    Export::Anything.new(Task.all, args[:output]).run
   end
 
   desc 'Export submission entities to CSV'

@@ -5,36 +5,36 @@ RSpec.describe 'rake export:tasks', type: :task do
     expect(task.prerequisites).to include 'environment'
   end
 
-  context 'no date is given' do
-    let(:task_exporter)   { spy('Export::Tasks') }
-    let(:tasks_to_export) { [double('Task'), double('Task')] }
-    let(:todays_filename) { "/tmp/tasks_#{Time.zone.today}.csv" }
+  context 'no args are given' do
+    let!(:first_task)  { create(:task, status: :unstarted, period_year: 2018, period_month: 8) }
+    let!(:second_task) { create(:task) }
 
-    after { File.delete(todays_filename) }
+    let(:output_filename) { '/tmp/tasks_2018-12-25.csv' }
+    let(:args)            { {} }
+    let(:output_lines)    { File.read(output_filename).split("\n") }
 
-    before do
-      allow(Task).to receive(:all).and_return(tasks_to_export)
-      allow(Export::Tasks).to receive(:new).with(
-        tasks_to_export, duck_type(:puts)
-      ).and_return(
-        task_exporter
+    around(:example) do |example|
+      travel_to(Date.new(2018, 12, 25)) { example.run }
+    end
+
+    before { task.execute(args) }
+    after  { File.delete(output_filename) }
+
+    it 'writes a header to that output' do
+      expect(output_lines.first).to eql(
+        <<~HEADER.chomp
+          TaskID,Month,SupplierID,FrameworkID,Status,TaskType,StartedDate,CompletedDate
+      HEADER
       )
-
-      task.execute
     end
 
-    it 'forwards the request to Export::Tasks#run' do
-      expect(task_exporter).to have_received(:run)
-    end
-
-    it 'creates that file' do
-      expect(File).to exist(todays_filename)
-    end
-
-    it 'tells us what file it’s creating on STDERR' do
-      expect { task.execute }.to output(
-        "Exporting tasks to #{todays_filename}\n"
-      ).to_stderr
+    it 'writes each task to that output' do
+      expect(output_lines.length).to eql(3)
+      expect(output_lines[1]).to eql(
+        <<~LINE.chomp
+          #{first_task.id},2018-08,#{first_task.supplier.id},#{first_task.framework.id},unstarted,1,,
+        LINE
+      )
     end
   end
 end
