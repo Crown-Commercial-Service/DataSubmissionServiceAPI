@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-12] - 2018-09-26
+
+- Performance enhancements to data warehouse export script
+- Data migrations to onboard October frameworks and suppliers
+- Added invoices to data warehouse export
+
 ## [release-11] - 2018-09-25
 
 - Optimise Submission endpoint by no longer returning all entries
