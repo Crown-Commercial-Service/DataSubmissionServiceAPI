@@ -71,26 +71,26 @@ RSpec.describe Export::Invoices::Row do
       it { is_expected.to eql(invoice_entry.data['Tier Number']) }
     end
 
-    describe 'Product fields' do
+    describe 'Product fields are not captured in legal frameworks' do
       describe '#product_description' do
         subject { row.product_description }
-        it { is_expected.to eql(Export::CsvRow::MISSING) }
+        it { is_expected.to be_nil }
       end
       describe '#product_group' do
         subject { row.product_group }
-        it { is_expected.to eql(Export::CsvRow::MISSING) }
+        it { is_expected.to be_nil }
       end
       describe '#product_class' do
         subject { row.product_class }
-        it { is_expected.to eql(Export::CsvRow::MISSING) }
+        it { is_expected.to be_nil }
       end
       describe '#product_subclass' do
         subject { row.product_subclass }
-        it { is_expected.to eql(Export::CsvRow::MISSING) }
+        it { is_expected.to be_nil }
       end
       describe '#product_code' do
         subject { row.product_code }
-        it { is_expected.to eql(Export::CsvRow::MISSING) }
+        it { is_expected.to be_nil }
       end
     end
 

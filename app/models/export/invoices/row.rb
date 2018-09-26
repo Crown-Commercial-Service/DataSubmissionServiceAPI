@@ -72,23 +72,23 @@ module Export
       end
 
       def product_description
-        MISSING
+        value_for('ProductDescription', default: nil)
       end
 
       def product_group
-        MISSING
+        value_for('ProductGroup', default: nil)
       end
 
       def product_class
-        MISSING
+        value_for('ProductClass', default: nil)
       end
 
       def product_subclass
-        MISSING
+        value_for('ProductSubClass', default: nil)
       end
 
       def product_code
-        MISSING
+        value_for('ProductCode', default: nil)
       end
 
       def unit_type
