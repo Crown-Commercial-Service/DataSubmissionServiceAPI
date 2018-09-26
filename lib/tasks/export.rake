@@ -9,12 +9,8 @@ namespace :export do
   end
 
   desc 'Export submission entities to CSV'
-  task submissions: :environment do
-    filename = "/tmp/submissions_#{Time.zone.today}.csv"
-    warn("Exporting submissions to #{filename}")
-    File.open(filename, 'w+') do |file|
-      Export::Submissions.new(Export::Submissions::Extract.all_relevant, file).run
-    end
+  task :submissions, [:output] => [:environment] do |_task, args|
+    Export::Anything.new(Export::Submissions::Extract.all_relevant, args[:output]).run
   end
 
   desc 'Export invoice entities to CSV'
