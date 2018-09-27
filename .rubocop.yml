@@ -17,6 +17,9 @@ Rails/Output:
     Exclude:
         - 'db/data_migrate/**/*'
 
+Style/AndOr:
+    Enabled: false
+
 Style/Alias:
     Enabled: false
 
