@@ -20,5 +20,14 @@ RSpec.describe Export::Template do
         it { is_expected.to eql('Customer URN') }
       end
     end
+
+    context 'an entry_type is given' do
+      let(:entry_type) { 'contract' }
+      let(:dest_field_name) { 'ProductThing' }
+
+      it 'gets the value specific to the contract variant' do
+
+      end
+    end
   end
 end

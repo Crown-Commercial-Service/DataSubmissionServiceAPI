@@ -10,6 +10,12 @@ module Export
       SupplierReferenceNumber
       CustomerReferenceNumber
       LotNumber
+      ProductDescription
+      ProductGroup
+      ProductClass
+      ProductSubClass
+      ProductCode
+      ProductLevel6
     ].freeze
   end
 end
