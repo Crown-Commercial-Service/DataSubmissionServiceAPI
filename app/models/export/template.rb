@@ -21,6 +21,9 @@ module Export
       'Additional4'             => 'Pro-Bono Total Value',
       'Additional5'             => 'Sub-Contractor Name (If Applicable)',
       'Additional6'             => 'Pricing Mechanism',
+      # Contract-specific values
+      'ContractStartDate'       => 'Contract Start Date',
+      'ContractEndDate'         => 'Contract End Date',
     }.freeze
 
     BY_FRAMEWORK = {
