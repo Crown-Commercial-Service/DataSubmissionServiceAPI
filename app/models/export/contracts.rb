@@ -16,6 +16,9 @@ module Export
       ProductSubClass
       ProductCode
       ProductLevel6
+      CustomerContactName
+      CustomerContactNumber
+      CustomerContactEmail
     ].freeze
   end
 end

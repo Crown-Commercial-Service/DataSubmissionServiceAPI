@@ -18,6 +18,9 @@ module Export
           value_for('ProductSubClass', default: MISSING),
           value_for('ProductCode', default: MISSING),
           value_for('ProductLevel6', default: MISSING),
+          value_for('CustomerContactName', default: MISSING),
+          value_for('CustomerContactNumber', default: MISSING),
+          value_for('CustomerContactEmail', default: MISSING),
         ]
       end
     end
