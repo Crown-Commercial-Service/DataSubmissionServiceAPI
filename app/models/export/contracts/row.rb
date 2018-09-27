@@ -10,7 +10,7 @@ module Export
           value_for('CustomerName'),
           value_for('CustomerPostCode'),
           value_for('SupplierReferenceNumber'),
-          value_for('CustomerReferenceNumber'),
+          value_for('CustomerReferenceNumber', default: nil),
           value_for('LotNumber'),
         ]
       end
