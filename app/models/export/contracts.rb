@@ -5,6 +5,11 @@ module Export
     HEADER = %w[
       SubmissionID
       CustomerURN
+      CustomerName
+      CustomerPostCode
+      SupplierReferenceNumber
+      CustomerReferenceNumber
+      LotNumber
     ].freeze
   end
 end

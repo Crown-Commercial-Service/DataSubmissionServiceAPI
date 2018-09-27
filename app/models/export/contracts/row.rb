@@ -4,10 +4,14 @@ module Export
       alias_method :contract, :model
 
       def row_values
-        puts contract.data.inspect
         [
           contract.submission_id,
-          value_for('CustomerURN')
+          value_for('CustomerURN'),
+          value_for('CustomerName'),
+          value_for('CustomerPostCode'),
+          value_for('SupplierReferenceNumber'),
+          value_for('CustomerReferenceNumber'),
+          value_for('LotNumber'),
         ]
       end
 

@@ -33,26 +33,26 @@ RSpec.describe 'rake export:contracts', type: :task do
     before do
       expect(contract.created_at).to be < contract2.created_at
       task.execute(args)
-      puts output_lines
     end
     after { File.delete(output_filename) }
 
     it 'writes a header to that output' do
       expect(output_lines.first).to eql(
-        'SubmissionID,CustomerURN'
+        'SubmissionID,CustomerURN,CustomerName,CustomerPostCode,SupplierReferenceNumber,'\
+        'CustomerReferenceNumber,LotNumber'
       )
     end
 
     it 'writes each contract to that output' do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
-        "#{contract.submission_id},10010915"
+        "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,#NOTINDATA,1"
       )
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
-        "#{contract2.submission_id},#NOTINDATA"
+        "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA"
       )
     end
 
