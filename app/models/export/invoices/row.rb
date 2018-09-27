@@ -27,14 +27,7 @@ module Export
           expenses,
           vat_charged,
           promotion_code,
-          additional1,
-          additional2,
-          additional3,
-          additional4,
-          additional5,
-          additional6,
-          additional7,
-          additional8,
+          *values_for_additional
         ]
       end
       # rubocop:enable Metrics/AbcSize

@@ -41,7 +41,8 @@ RSpec.describe 'rake export:contracts', type: :task do
         'SubmissionID,CustomerURN,CustomerName,CustomerPostCode,SupplierReferenceNumber,'\
         'CustomerReferenceNumber,LotNumber,ProductDescription,ProductGroup,ProductClass,ProductSubClass,ProductCode,'\
         'ProductLevel6,CustomerContactName,CustomerContactNumber,CustomerContactEmail,'\
-        'ContractStartDate,ContractEndDate,ContractValue,ContractAwardChannel'
+        'ContractStartDate,ContractEndDate,ContractValue,ContractAwardChannel,'\
+        'Additional1,Additional2,Additional3,Additional4,Additional5,Additional6,Additional7,Additional8'
       )
     end
 
@@ -50,7 +51,7 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines[1]).to eql(
         "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,,1," \
         '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,'\
-        '6/27/18,6/27/20,5000.00,Further Competition'
+        '6/27/18,6/27/20,5000.00,Further Competition,DWP - Claim by Mr I Dontexist,,,,,,,'
       )
     end
 
@@ -58,7 +59,7 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines[2]).to eql(
         "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA," \
         '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,' \
-        '#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA'
+        '#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,,,,,,,'
       )
     end
 

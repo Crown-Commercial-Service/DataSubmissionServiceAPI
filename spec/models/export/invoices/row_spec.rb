@@ -121,28 +121,28 @@ RSpec.describe Export::Invoices::Row do
     end
 
     describe 'additional fields' do
-      describe '#additional1' do
-        subject { row.additional1 }
+      describe 'Additional 1' do
+        subject { row.value_for('Additional1') }
         it { is_expected.to eql(invoice_entry.data['Matter Name']) }
       end
-      describe '#additional2' do
-        subject { row.additional2 }
+      describe 'Additional 2' do
+        subject { row.value_for('Additional2') }
         it { is_expected.to eql(invoice_entry.data['Pro-Bono Price per Unit']) }
       end
-      describe '#additional3' do
-        subject { row.additional3 }
+      describe 'Additional 3' do
+        subject { row.value_for('Additional3') }
         it { is_expected.to eql(invoice_entry.data['Pro-Bono Quantity']) }
       end
-      describe '#additional4' do
-        subject { row.additional4 }
+      describe 'Additional 4' do
+        subject { row.value_for('Additional4') }
         it { is_expected.to eql(invoice_entry.data['Pro-Bono Total Value']) }
       end
-      describe '#additional5' do
-        subject { row.additional5 }
+      describe 'Additional 5' do
+        subject { row.value_for('Additional5') }
         it { is_expected.to eql(invoice_entry.data['Sub-Contractor Name (If Applicable)']) }
       end
-      describe '#additional6' do
-        subject { row.additional6 }
+      describe 'Additional 6' do
+        subject { row.value_for('Additional6') }
         it { is_expected.to eql(invoice_entry.data['Pricing Mechanism']) }
       end
     end

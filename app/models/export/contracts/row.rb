@@ -25,6 +25,7 @@ module Export
           value_for('ContractEndDate'),
           value_for('ContractValue'),
           value_for('ContractAwardChannel'),
+          *values_for_additional
         ]
       end
     end
