@@ -1,6 +1,6 @@
 module Export
   class Invoices
-    class Row < Export::CsvRow
+    class Row < SubmissionEntryRow
       alias_method :invoice, :model
 
       # rubocop:disable Metrics/AbcSize
@@ -117,22 +117,6 @@ module Export
 
       def promotion_code
         value_for('PromotionCode', default: nil)
-      end
-
-      (1..8).each do |n|
-        define_method "additional#{n}" do
-          value_for("Additional#{n}", default: nil)
-        end
-      end
-
-      private
-
-      def value_for(destination_field, default: NOT_IN_DATA)
-        source_field = Export::Template.source_field_for(
-          destination_field,
-          invoice._framework_short_name
-        )
-        invoice.data.fetch(source_field, default)
       end
     end
   end
