@@ -31,7 +31,7 @@ FactoryBot.define do
       validation_errors { [{ 'message' => error_message, 'location' => { 'row' => row, 'column' => column } }] }
     end
 
-    trait :legal_framework_data do
+    trait :legal_framework_invoice_data do
       data do
         {
           'UNSPSC' => '80120000',

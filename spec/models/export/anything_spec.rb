@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Export::Anything do
-  let(:tasks)          { [double('Task'), double('Task')] }
-  let(:tasks_relation) { double 'ActiveRecord::Relation', klass: 'Task', each: tasks }
-  let(:export_tasks)   { double 'Export::Tasks', run: true }
+  let(:models)            { [double('Task'), double('Task')] }
+  let(:relation)          { double 'ActiveRecord::Relation', klass: 'Task', each: models }
+  let(:exporter_instance) { double 'Export::Tasks', run: true }
 
-  subject(:exporter) { Export::Anything.new(tasks_relation, output) }
+  let(:exporter_class) { Export::Tasks }
+
+  subject(:exporter) { Export::Anything.new(relation, output) }
 
   before do
-    allow(Export::Tasks).to receive(:new).and_return(export_tasks)
+    allow(exporter_class).to receive(:new).and_return(exporter_instance)
     allow(STDERR).to receive(:puts)
 
     exporter.run
@@ -26,12 +28,25 @@ RSpec.describe Export::Anything do
     after { File.delete(expected_filename) }
 
     it 'runs an exporter that streams to a File' do
-      expect(Export::Tasks).to have_received(:new).with(tasks_relation, kind_of(File))
-      expect(export_tasks).to have_received(:run)
+      expect(exporter_class).to have_received(:new).with(relation, kind_of(File))
+      expect(exporter_instance).to have_received(:run)
     end
 
-    it 'tells us that it’s streaming to /tmp' do
+    it 'tells us that it’s streaming tasks to /tmp' do
       expect(STDERR).to have_received(:puts).with("Exporting tasks to #{expected_filename}")
+    end
+
+    context 'we are exporting contracts' do
+      let(:exporter_class)    { Export::Contracts }
+      let(:models)            { [double('Contract'), double('Contract')] }
+      let(:relation)          { double 'ActiveRecord::Relation', klass: 'Contract', each: models }
+      let(:exporter_instance) { double 'Export::Contracts', run: true }
+
+      let(:expected_filename) { '/tmp/contracts_2018-12-25.csv' }
+
+      it 'tells us that it’s streaming contracts to /tmp' do
+        expect(STDERR).to have_received(:puts).with("Exporting contracts to #{expected_filename}")
+      end
     end
   end
 
@@ -50,8 +65,8 @@ RSpec.describe Export::Anything do
       let(:output) { 'stdout' }
 
       it 'exports to STDOUT using a class derived from the relation' do
-        expect(Export::Tasks).to have_received(:new).with(tasks_relation, STDOUT)
-        expect(export_tasks).to have_received(:run)
+        expect(exporter_class).to have_received(:new).with(relation, STDOUT)
+        expect(exporter_instance).to have_received(:run)
       end
     end
   end

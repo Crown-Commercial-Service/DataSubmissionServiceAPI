@@ -19,8 +19,11 @@ module Export
     private
 
     def model_classname
-      if @relation.klass == SubmissionEntry && @relation.any? && @relation.first.is_a?(SubmissionEntry)
-        'Invoice'
+      if @relation.klass == SubmissionEntry
+        {
+          'invoice' => 'Invoice',
+          'order' => 'Contract'
+        }.fetch(@relation.first.entry_type)
       else
         @relation.klass.to_s
       end

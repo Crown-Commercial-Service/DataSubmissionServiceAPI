@@ -10,8 +10,8 @@ RSpec.describe 'rake export:invoices', type: :task do
   let!(:invoice) do
     # Explicit times are necessary because Export::Invoices::Extract.all_relevant
     # relies on order(:created_date)
-    create :invoice_entry, :legal_framework_data, submission: complete_submission,
-                                                  created_at: Time.zone.local(2018, 12, 25, 13, 55, 59)
+    create :invoice_entry, :legal_framework_invoice_data, submission: complete_submission,
+                                                          created_at: Time.zone.local(2018, 12, 25, 13, 55, 59)
   end
 
   let!(:invoice2) do

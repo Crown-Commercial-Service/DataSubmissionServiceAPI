@@ -7,7 +7,8 @@ RSpec.describe Export::Invoices::Row do
     let(:invoice_entry) do
       double 'SubmissionEntry',
              _framework_short_name: 'RM3786',
-             data: attributes_for(:submission_entry, :legal_framework_data).fetch(:data)
+             entry_type: 'invoice',
+             data: attributes_for(:submission_entry, :legal_framework_invoice_data).fetch(:data)
     end
 
     describe 'Customer fields' do
