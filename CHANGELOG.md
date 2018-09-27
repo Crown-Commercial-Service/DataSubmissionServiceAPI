@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-13] - 2018-09-27
+
+- Updated Customer URN list for October
+- Added data migration to seed agreements for October suppliers
+- Added code to generate tasks for September submissions
+
 ## [release-12] - 2018-09-26
 
 - Performance enhancements to data warehouse export script
