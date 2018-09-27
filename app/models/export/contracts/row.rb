@@ -23,6 +23,7 @@ module Export
           value_for('CustomerContactEmail', default: MISSING),
           value_for('ContractStartDate'),
           value_for('ContractEndDate'),
+          value_for('ContractValue'),
         ]
       end
     end

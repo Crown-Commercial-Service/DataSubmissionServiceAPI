@@ -24,6 +24,7 @@ module Export
       # Contract-specific values
       'ContractStartDate'       => 'Contract Start Date',
       'ContractEndDate'         => 'Contract End Date',
+      'ContractValue'           => 'Expected Total Order Value',
     }.freeze
 
     BY_FRAMEWORK = {

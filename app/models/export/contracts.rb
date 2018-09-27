@@ -21,6 +21,7 @@ module Export
       CustomerContactEmail
       ContractStartDate
       ContractEndDate
+      ContractValue
     ].freeze
   end
 end
