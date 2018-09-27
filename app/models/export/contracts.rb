@@ -22,6 +22,7 @@ module Export
       ContractStartDate
       ContractEndDate
       ContractValue
+      ContractAwardChannel
     ].freeze
   end
 end

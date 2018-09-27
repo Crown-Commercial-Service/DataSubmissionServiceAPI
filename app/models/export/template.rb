@@ -25,6 +25,7 @@ module Export
       'ContractStartDate'       => 'Contract Start Date',
       'ContractEndDate'         => 'Contract End Date',
       'ContractValue'           => 'Expected Total Order Value',
+      'ContractAwardChannel'    => 'Award Procedure',
     }.freeze
 
     BY_FRAMEWORK = {
