@@ -5,10 +5,6 @@ RSpec.describe SubmissionStatusUpdate do
     let(:aws_lambda_service_double) { double(trigger: true) }
     let(:submission_status_check) { SubmissionStatusUpdate.new(submission) }
 
-    before do
-      allow(AWSLambdaService).to receive(:new).and_return(aws_lambda_service_double)
-    end
-
     context 'given a "processing" submission' do
       context 'with "pending" entries' do
         let(:submission) { FactoryBot.create(:submission_with_pending_entries, aasm_state: :processing) }
@@ -29,16 +25,10 @@ RSpec.describe SubmissionStatusUpdate do
       context 'with all entries validated' do
         let(:submission) { FactoryBot.create(:submission_with_validated_entries, aasm_state: :processing) }
 
-        it 'leaves the submission in a "processing" state' do
+        it 'transitions the submission to "in_review"' do
           submission_status_check.perform!
 
-          expect(submission).to be_processing
-        end
-
-        it 'triggers a management charge calculation' do
-          expect(aws_lambda_service_double).to receive(:trigger)
-
-          submission_status_check.perform!
+          expect(submission).to be_in_review
         end
       end
 
