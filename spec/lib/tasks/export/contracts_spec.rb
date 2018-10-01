@@ -51,7 +51,7 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines[1]).to eql(
         "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,,1," \
         '#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,#MISSING,'\
-        '6/27/18,6/27/20,5000.00,Further Competition,DWP - Claim by Mr I Dontexist,,,,,,,'
+        '6/27/18,6/27/20,5000.00,Further Competition,N/A,,Central Government Department,N,0.00,N,15,'
       )
     end
 
