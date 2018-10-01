@@ -50,7 +50,7 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines.length).to eql(3)
       expect(output_lines[1]).to eql(
         "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,,1," \
-        'Contentious Employment,,,,,,#MISSING,#MISSING,#MISSING,'\
+        'Contentious Employment,,,,,,,,,'\
         '6/27/18,6/27/20,5000.00,Further Competition,N/A,,Central Government Department,N,0.00,N,15,'
       )
     end
@@ -58,7 +58,7 @@ RSpec.describe 'rake export:contracts', type: :task do
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
         "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA," \
-        ',,,,,,#MISSING,#MISSING,#MISSING,' \
+        ',,,,,,,,,' \
         '#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,,,,,,,'
       )
     end
