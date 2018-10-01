@@ -13,19 +13,19 @@ RSpec.describe Export::Invoices::Row do
 
     describe 'Customer fields' do
       describe '#customer_urn' do
-        subject { row.customer_urn }
+        subject { row.value_for('CustomerURN') }
         it { is_expected.to eql(invoice_entry.data['Customer URN']) }
       end
       describe '#customer_name' do
-        subject { row.customer_name }
+        subject { row.value_for('CustomerName') }
         it { is_expected.to eql('Department for Education') }
       end
       describe '#customer_postcode' do
-        subject { row.customer_postcode }
+        subject { row.value_for('CustomerPostCode') }
         it { is_expected.to eql(invoice_entry.data['Customer Post Code']) }
       end
       describe '#customer_reference_number' do
-        subject { row.customer_reference_number }
+        subject { row.value_for('Customer Reference Number', default: nil) }
 
         context 'in legal frameworks' do
           it { is_expected.to be_nil }
@@ -36,23 +36,23 @@ RSpec.describe Export::Invoices::Row do
     describe 'Invoice fields' do
       describe '#invoice_date' do
         it 'passes through the date without transformation to ISO8601 (this may/should change)' do
-          expect(row.invoice_date).to eql(invoice_entry.data['Customer Invoice Date'])
+          expect(row.value_for('InvoiceDate')).to eql(invoice_entry.data['Customer Invoice Date'])
         end
       end
       describe '#invoice_number' do
-        subject { row.invoice_number }
+        subject { row.value_for('InvoiceNumber') }
         it { is_expected.to eql(invoice_entry.data['Customer Invoice Number']) }
       end
       describe '#invoice_value' do
-        subject { row.invoice_value }
+        subject { row.value_for('InvoiceValue') }
         it { is_expected.to eql(invoice_entry.data['Total Cost (ex VAT)']) }
       end
       describe '#supplier_reference_number' do
-        subject { row.supplier_reference_number }
+        subject { row.value_for('SupplierReferenceNumber') }
         it { is_expected.to eql(invoice_entry.data['Supplier Reference Number']) }
       end
       describe '#vat_charged' do
-        subject { row.vat_charged }
+        subject { row.value_for('VATCharged') }
         it { is_expected.to eql(invoice_entry.data['VAT Amount Charged']) }
       end
     end
@@ -63,60 +63,60 @@ RSpec.describe Export::Invoices::Row do
       end
 
       it 'substitutes #NOT_IN_DATA' do
-        expect(row.customer_postcode).to eql('#NOTINDATA')
+        expect(row.value_for('CustomerPostCode')).to eql('#NOTINDATA')
       end
     end
 
     describe '#lot_number' do
-      subject { row.lot_number }
+      subject { row.value_for('LotNumber') }
       it { is_expected.to eql(invoice_entry.data['Tier Number']) }
     end
 
     describe 'Product fields' do
       describe '#product_description' do
-        subject { row.product_description }
+        subject { row.value_for('ProductDescription', default: nil) }
         it { is_expected.to eql(invoice_entry.data['Primary Specialism']) }
       end
       describe '#product_group' do
-        subject { row.product_group }
+        subject { row.value_for('ProductGroup', default: nil) }
         it { is_expected.to eql(invoice_entry.data['Practitioner Grade']) }
       end
       describe '#product_class' do
-        subject { row.product_class }
+        subject { row.value_for('ProductClass', default: nil) }
         it { is_expected.to be_nil }
       end
       describe '#product_subclass' do
-        subject { row.product_subclass }
+        subject { row.value_for('ProductSubClass', default: nil) }
         it { is_expected.to eql(invoice_entry.data['Pricing Mechanism']) }
       end
       describe '#product_code' do
-        subject { row.product_code }
+        subject { row.value_for('ProductCode', default: nil) }
         it { is_expected.to eql(invoice_entry.data['UNSPSC']) }
       end
     end
 
     describe 'Unit* fields' do
       describe '#unit_type' do
-        subject { row.unit_type }
+        subject { row.value_for('UnitType') }
         it { is_expected.to eql(invoice_entry.data['Unit of Purchase']) }
       end
       describe '#unit_price' do
-        subject { row.unit_price }
+        subject { row.value_for('UnitPrice') }
         it { is_expected.to eql(invoice_entry.data['Price per Unit']) }
       end
       describe '#unit_quantity' do
-        subject { row.unit_quantity }
+        subject { row.value_for('UnitQuantity') }
         it { is_expected.to eql(invoice_entry.data['Quantity']) }
       end
     end
 
     describe '#expenses' do
-      subject { row.expenses }
+      subject { row.value_for('Expenses', default: nil) }
       it { is_expected.to be_nil }
     end
 
     describe '#promotion_code' do
-      subject { row.promotion_code }
+      subject { row.value_for('PromotionCode', default: nil) }
       it { is_expected.to be_nil }
     end
 
