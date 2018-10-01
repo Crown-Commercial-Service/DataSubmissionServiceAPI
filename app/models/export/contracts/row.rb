@@ -3,6 +3,7 @@ module Export
     class Row < SubmissionEntryRow
       alias_method :contract, :model
 
+      # rubocop:disable Metrics/AbcSize
       def row_values
         [
           contract.submission_id,
@@ -12,12 +13,12 @@ module Export
           value_for('SupplierReferenceNumber'),
           value_for('CustomerReferenceNumber', default: nil),
           value_for('LotNumber'),
-          value_for('ProductDescription', default: MISSING),
-          value_for('ProductGroup', default: MISSING),
-          value_for('ProductClass', default: MISSING),
-          value_for('ProductSubClass', default: MISSING),
-          value_for('ProductCode', default: MISSING),
-          value_for('ProductLevel6', default: MISSING),
+          value_for('ProductDescription', default: nil),
+          value_for('ProductGroup', default: nil),
+          value_for('ProductClass', default: nil),
+          value_for('ProductSubClass', default: nil),
+          value_for('ProductCode', default: nil),
+          value_for('ProductLevel6', default: nil),
           value_for('CustomerContactName', default: MISSING),
           value_for('CustomerContactNumber', default: MISSING),
           value_for('CustomerContactEmail', default: MISSING),
@@ -28,6 +29,7 @@ module Export
           *values_for_additional
         ]
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

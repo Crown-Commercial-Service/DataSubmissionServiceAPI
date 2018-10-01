@@ -35,6 +35,7 @@ module Export
         'ContractEndDate'         => 'Contract End Date',
         'ContractValue'           => 'Expected Total Order Value',
         'ContractAwardChannel'    => 'Award Procedure',
+        'ProductDescription'      => 'Matter Description',
         'Additional1'             => 'Sub-Contractor Name',
         'Additional3'             => 'Call Off Managing Entity',
         'Additional4'             => 'Pro-bono work included? (Y/N)',
