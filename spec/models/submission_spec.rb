@@ -8,7 +8,7 @@ RSpec.describe Submission do
   it { is_expected.to have_many(:files) }
   it { is_expected.to have_many(:entries) }
 
-  describe 'state machine' do
+  describe '#ready_for_review state machine event' do
     it 'transitions from processing to in_review, with a valid submission' do
       submission = FactoryBot.create(:submission_with_validated_entries, aasm_state: :processing)
       submission.ready_for_review

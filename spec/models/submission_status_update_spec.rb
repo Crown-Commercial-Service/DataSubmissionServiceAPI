@@ -67,6 +67,25 @@ RSpec.describe SubmissionStatusUpdate do
           submission_status_check.perform!
         end
       end
+
+      context 'with ingest still in progress (i.e. entries count doesn’t match files#rows)' do
+        let(:submission) do
+          FactoryBot.create(
+            :submission_with_validated_entries,
+            files: [FactoryBot.build(:submission_file)],
+            aasm_state: :processing
+          ).tap do |submission|
+            entries_count = submission.entries.count
+            submission.files.last.update!(rows: (entries_count + 1))
+          end
+        end
+
+        it 'leaves the submission in a "processing"' do
+          submission_status_check.perform!
+
+          expect(submission).to be_processing
+        end
+      end
     end
   end
 end
