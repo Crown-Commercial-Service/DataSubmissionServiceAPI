@@ -34,7 +34,7 @@ module Export
       'RM3787' => LEGAL_FRAMEWORK,
     }.freeze
 
-    def self.source_field_for(dest_field_name, framework_short_name)
+    def source_field_for(dest_field_name, framework_short_name)
       template_fields = BY_FRAMEWORK.fetch(framework_short_name)
       template_fields[dest_field_name]
     end

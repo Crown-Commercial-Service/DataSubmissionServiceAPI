@@ -6,8 +6,10 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
+    include Export::Template
+
     def value_for(destination_field, default: NOT_IN_DATA)
-      source_field = Export::Template.source_field_for(
+      source_field = source_field_for(
         destination_field,
         model._framework_short_name
       )

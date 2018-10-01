@@ -1,13 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Export::Template do
+  class TemplateUserRow
+    include Export::Template
+  end
+
+  let(:submission_entry) { TemplateUserRow.new }
+
   describe '.source_field_for' do
-    subject { Export::Template.source_field_for(dest_field_name, framework_short_name) }
+    subject { submission_entry.source_field_for(dest_field_name, framework_short_name) }
 
     context 'the framework does not exist' do
       it 'tells us with a KeyError' do
         expect do
-          Export::Template.source_field_for('some_field', 'NON-EXISTENT FRAMEWORK')
+          submission_entry.source_field_for('some_field', 'NON-EXISTENT FRAMEWORK')
         end.to raise_error(KeyError)
       end
     end
