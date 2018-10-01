@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-14] - 2018-10-01
+
+- Data migration to import non-Active customers to database
+- Temporary bypass of broken management charge calculation to avoid blocking
+  user submission
+
 ## [release-13] - 2018-09-27
 
 - Updated Customer URN list for October
@@ -68,3 +74,6 @@
 ## [release-1] - 2018-07-31
 
 Initial release
+
+
+[release-14]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-14...release-13
