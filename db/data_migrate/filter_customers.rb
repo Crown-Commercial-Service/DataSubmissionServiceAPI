@@ -11,14 +11,11 @@ csv = CSV.read(customers_csv_path, headers: true, header_converters: :symbol)
 warn 'Filtering customers...'
 bar = ProgressBar.new(csv.count)
 
-INTERNAL_CCS_SUPPLIER = /99[0-9]{2}00/
-
 def needs_importing?(customer_row)
-  # We're only interested in customers that are active that we don't have
-  # that aren't internal CCS suppliers
-  customer_row[:active] == 'True' &&
-    !Customer.exists?(urn: customer_row[:urn]) &&
-    customer_row[:urn] !~ INTERNAL_CCS_SUPPLIER
+  # We're only interested in customers that don't already exist and that have
+  # non-internal URN numbers (real URN numbers appear to start at 10000000, with
+  # URNs below that being used for testing purposes)
+  !Customer.exists?(urn: customer_row[:urn]) && customer_row[:urn].to_i > 10000000
 end
 
 def customers_header(customers_csv_path)
