@@ -8,6 +8,11 @@ module Export
     end
 
     def run
+      if @relation.empty?
+        STDERR.puts "No #{model_plural} to export"
+        return
+      end
+
       output_io do |output|
         export_class.new(@relation, output).run
       end

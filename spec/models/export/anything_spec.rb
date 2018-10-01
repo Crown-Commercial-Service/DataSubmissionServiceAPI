@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Export::Anything do
   let(:models)            { [double('Task'), double('Task')] }
-  let(:relation)          { double 'ActiveRecord::Relation', klass: 'Task', each: models }
+  let(:relation)          { double 'ActiveRecord::Relation', klass: 'Task', each: models, empty?: false }
   let(:exporter_instance) { double 'Export::Tasks', run: true }
 
   let(:exporter_class) { Export::Tasks }
@@ -25,7 +25,7 @@ RSpec.describe Export::Anything do
       travel_to(Date.new(2018, 12, 25)) { example.run }
     end
 
-    after { File.delete(expected_filename) }
+    after { File.delete(expected_filename) if expected_filename }
 
     it 'runs an exporter that streams to a File' do
       expect(exporter_class).to have_received(:new).with(relation, kind_of(File))
@@ -39,13 +39,22 @@ RSpec.describe Export::Anything do
     context 'we are exporting contracts' do
       let(:exporter_class)    { Export::Contracts }
       let(:models)            { [double('Contract'), double('Contract')] }
-      let(:relation)          { double 'ActiveRecord::Relation', klass: 'Contract', each: models }
+      let(:relation)          { double 'ActiveRecord::Relation', klass: 'Contract', each: models, empty?: false }
       let(:exporter_instance) { double 'Export::Contracts', run: true }
 
       let(:expected_filename) { '/tmp/contracts_2018-12-25.csv' }
 
       it 'tells us that it’s streaming contracts to /tmp' do
         expect(STDERR).to have_received(:puts).with("Exporting contracts to #{expected_filename}")
+      end
+    end
+
+    context 'there is nothing to export' do
+      let(:relation) { double 'ActiveRecord::Relation', klass: 'Task', empty?: true }
+      let(:expected_filename) { nil }
+
+      it 'tells us' do
+        expect(STDERR).to have_received(:puts).with('No tasks to export')
       end
     end
   end
