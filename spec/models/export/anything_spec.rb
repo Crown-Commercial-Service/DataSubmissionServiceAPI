@@ -1,22 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Export::Anything do
-  let(:models)            { [double('Task'), double('Task')] }
-  let(:relation)          { double 'ActiveRecord::Relation', klass: 'Task', each: models, empty?: false }
-  let(:exporter_instance) { double 'Export::Tasks', run: true }
-
-  let(:exporter_class) { Export::Tasks }
+  let!(:thing_to_export)  { create(:task) }
+  let(:relation)          { Task.all }
 
   subject(:exporter) { Export::Anything.new(relation, output) }
 
   before do
-    allow(exporter_class).to receive(:new).and_return(exporter_instance)
     allow(STDERR).to receive(:puts)
+    allow(STDOUT).to receive(:puts)
 
     exporter.run
   end
 
-  context 'no output is given' do
+  context 'no output is given / defaulting to file' do
     let(:output) { nil }
 
     let(:expected_filename) { '/tmp/tasks_2018-12-25.csv' }
@@ -27,20 +24,24 @@ RSpec.describe Export::Anything do
 
     after { File.delete(expected_filename) if expected_filename }
 
-    it 'runs an exporter that streams to a File' do
-      expect(exporter_class).to have_received(:new).with(relation, kind_of(File))
-      expect(exporter_instance).to have_received(:run)
-    end
-
     it 'tells us that it’s streaming tasks to /tmp' do
       expect(STDERR).to have_received(:puts).with("Exporting tasks to #{expected_filename}")
     end
 
     context 'we are exporting contracts' do
-      let(:exporter_class)    { Export::Contracts }
-      let(:models)            { [double('Contract'), double('Contract')] }
-      let(:relation)          { double 'ActiveRecord::Relation', klass: 'Contract', each: models, empty?: false }
-      let(:exporter_instance) { double 'Export::Contracts', run: true }
+      let!(:thing_to_export) do
+        create(
+          :order_entry,
+          submission: create(
+            :submission, aasm_state: 'completed',
+                         framework: create(:framework, short_name: 'RM3756')
+          )
+        )
+      end
+
+      let(:relation) do
+        Export::Contracts::Extract.all_relevant
+      end
 
       let(:expected_filename) { '/tmp/contracts_2018-12-25.csv' }
 
@@ -50,11 +51,11 @@ RSpec.describe Export::Anything do
     end
 
     context 'there is nothing to export' do
-      let(:relation) { double 'ActiveRecord::Relation', klass: 'Task', empty?: true }
+      let(:relation) { Submission.all }
       let(:expected_filename) { nil }
 
       it 'tells us' do
-        expect(STDERR).to have_received(:puts).with('No tasks to export')
+        expect(STDERR).to have_received(:puts).with('No submissions to export')
       end
     end
   end
@@ -73,9 +74,8 @@ RSpec.describe Export::Anything do
     context 'it is :stdout' do
       let(:output) { 'stdout' }
 
-      it 'exports to STDOUT using a class derived from the relation' do
-        expect(exporter_class).to have_received(:new).with(relation, STDOUT)
-        expect(exporter_instance).to have_received(:run)
+      it 'exports to STDOUT' do
+        expect(STDOUT).to have_received(:puts).with("#{Export::Tasks::HEADER.join(',')}\n")
       end
     end
   end
