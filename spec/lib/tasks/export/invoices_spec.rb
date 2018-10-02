@@ -31,7 +31,8 @@ RSpec.describe 'rake export:invoices', type: :task do
     end
 
     before do
-      expect(invoice.created_at).to be < invoice2.created_at
+      expect(invoice.created_at).to be < invoice2.created_at,
+                                    'precondition: these specs depend on created_at order'
       task.execute(args)
     end
     after { File.delete(output_filename) }

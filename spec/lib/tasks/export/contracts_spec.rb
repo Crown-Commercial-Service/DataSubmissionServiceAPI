@@ -31,7 +31,8 @@ RSpec.describe 'rake export:contracts', type: :task do
     end
 
     before do
-      expect(contract.created_at).to be < contract2.created_at
+      expect(contract.created_at).to be < contract2.created_at,
+                                     'precondition: these specs depend on created_at order'
       task.execute(args)
     end
     after { File.delete(output_filename) }
