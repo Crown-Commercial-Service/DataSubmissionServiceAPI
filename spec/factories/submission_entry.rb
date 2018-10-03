@@ -15,7 +15,7 @@ FactoryBot.define do
       sheet_name 'InvoicesRaised'
     end
 
-    factory :order_entry do
+    factory :order_entry, aliases: [:contract_entry] do
       entry_type 'order'
       sheet_name 'OrdersReceived'
     end
@@ -31,7 +31,7 @@ FactoryBot.define do
       validation_errors { [{ 'message' => error_message, 'location' => { 'row' => row, 'column' => column } }] }
     end
 
-    trait :legal_framework_data do
+    trait :legal_framework_invoice_data do
       data do
         {
           'UNSPSC' => '80120000',
@@ -56,6 +56,30 @@ FactoryBot.define do
           'Supplier Reference Number' => 'DEP/0008.00032',
           'Customer Organisation Name' => 'Department for Education',
           'Sub-Contractor Name (If Applicable)' => 'N/A'
+        }
+      end
+    end
+
+    trait :legal_framework_contract_data do
+      data do
+        {
+          'Matter Name' => 'DWP - Claim by Mr I Dontexist',
+          'Tier Number' => '1',
+          'Customer URN' => '10010915',
+          'Award Procedure' => 'Further Competition',
+          'Contract End Date' => '6/27/20',
+          'Customer Post Code' => 'WC1B 4ZZ',
+          'Matter Description' => 'Contentious Employment',
+          'Contract Start Date' => '6/27/18',
+          'Sub-Contractor Name' => 'N/A',
+          'Customer Response Time' => '15',
+          'Expected Pro-Bono value' => '0.00',
+          'Call Off Managing Entity' => 'Central Government Department',
+          'Supplier Reference Number' => '471600.00001',
+          'Customer Organisation Name' => 'Government Legal Department',
+          'Expected Total Order Value' => '5000.00',
+          'Pro-bono work included? (Y/N)' => 'N',
+          'Expression Of Interest Used (Y/N)' => 'N'
         }
       end
     end

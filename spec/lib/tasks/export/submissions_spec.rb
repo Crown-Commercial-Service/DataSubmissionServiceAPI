@@ -5,36 +5,62 @@ RSpec.describe 'rake export:submissions', type: :task do
     expect(task.prerequisites).to include 'environment'
   end
 
-  context 'no date is given' do
-    let(:submission_exporter)   { spy('Export::Submissions') }
-    let(:submissions_to_export) { [double('Submission'), double('Submission')] }
-    let(:todays_filename)       { "/tmp/submissions_#{Time.zone.today}.csv" }
+  context 'no args are given' do
+    let(:args) { {} }
 
-    after { File.delete(todays_filename) }
+    let!(:no_business_submission) do
+      create(:no_business_submission)
+    end
 
-    before do
-      allow(Export::Submissions::Extract).to receive(:all_relevant).and_return(submissions_to_export)
-      allow(Export::Submissions).to receive(:new).with(
-        submissions_to_export, duck_type(:puts)
-      ).and_return(
-        submission_exporter
+    let!(:submission) do
+      create(
+        :submission,
+        aasm_state: 'completed',
+        created_at: Time.zone.local(2018, 9, 18, 14, 20, 35),
+        management_charge: 45000,
+        purchase_order_number: 'PO1234',
+        files: [
+          create(:submission_file, :with_attachment)
+        ],
+        entries: [
+          create(:invoice_entry),
+          create(:order_entry)
+        ]
       )
-
-      task.execute
     end
 
-    it 'forwards the request to Export::Submissions#run' do
-      expect(submission_exporter).to have_received(:run)
+    let(:extracted_submissions) { Export::Submissions::Extract.all_relevant }
+
+    let(:output_filename) { '/tmp/submissions_2018-12-25.csv' }
+    let(:output_lines)    { File.read(output_filename).split("\n") }
+
+    around(:example) do |example|
+      travel_to(Date.new(2018, 12, 25)) { example.run }
     end
 
-    it 'creates that file' do
-      expect(File).to exist(todays_filename)
+    before { task.execute(args) }
+    after  { File.delete(output_filename) }
+
+    it 'writes a header to that output' do
+      expect(output_lines.first).to eql(
+        'TaskID,SubmissionID,Status,SubmissionType,SubmissionFileType,ContractEntryCount,' \
+        'ContractValue,InvoiceEntryCount,InvoiceValue,CCSManagementChargeValue,CCSManagementChargeRate,' \
+        'CreatedDate,CreatedBy,SupplierApprovedDate,SupplierApprovedBy,FinanceExportDate,PONumber'
+      )
     end
 
-    it 'tells us what file it’s creating on STDERR' do
-      expect { task.execute }.to output(
-        "Exporting submissions to #{todays_filename}\n"
-      ).to_stderr
+    it 'writes each submission to that output' do
+      expect(output_lines.length).to eql(3)
+      expect(output_lines.find { |line| line.match('PO1234') }).to eql(
+        "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,#MISSING,1,#MISSING,450.00," \
+        '0.015,2018-09-18T14:20:35Z,,,,,PO1234'
+      )
+    end
+
+    it 'has as many headers as row values' do
+      expect(Export::Submissions::HEADER.length).to eql(
+        Export::Submissions::Row.new(extracted_submissions.first).row_values.length
+      )
     end
   end
 end
