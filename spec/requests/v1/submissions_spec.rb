@@ -128,6 +128,34 @@ RSpec.describe '/v1' do
       expect(json.dig('data', 'attributes', 'source', 'row')).to eql 42
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end
+
+    context 'an entry for the same row/sheet already exists' do
+      it 'does not add the entry and returns HTTP 204 No Content' do
+        submission = FactoryBot.create(:submission)
+        FactoryBot.create(:invoice_entry, row: 1234, submission: submission, sheet_name: 'InvoicesRaised')
+
+        params = {
+          data: {
+            type: 'submission_entries',
+            attributes: {
+              source: {
+                sheet: 'InvoicesRaised',
+                row: 1234
+              },
+              data: {
+                test: 'test'
+              }
+            }
+          }
+        }
+
+        expect do
+          post "/v1/submissions/#{submission.id}/entries", params: params.to_json, headers: json_headers
+        end.to_not change { submission.entries.count }
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
   end
 
   describe 'POST /submissions/:submission_id/complete' do

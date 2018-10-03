@@ -5,6 +5,8 @@ class V1::SubmissionEntriesController < ApplicationController
     entry = initialize_submission_entry
     entry.attributes = submission_entry_params
 
+    return head :no_content if SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
+
     if entry.save
       render jsonapi: entry, status: :created
     else
