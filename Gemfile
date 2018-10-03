@@ -35,6 +35,9 @@ gem 'aws-sdk-s3', require: false
 # Exception tracking
 gem 'rollbar'
 
+# Logging
+gem 'lograge'
+
 gem 'rubocop'
 
 gem 'progress_bar', require: false

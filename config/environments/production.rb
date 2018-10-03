@@ -42,6 +42,22 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  # Don't log SQL in production
+  config.active_record.logger = nil
+
+  # Use lograge for cleaner logging
+  config.lograge.enabled = true
+  config.lograge.ignore_actions = ['CheckController#index']
+  config.lograge.logger = ActiveSupport::Logger.new(STDOUT)
+
+  config.lograge.custom_options = lambda do |event|
+    exceptions = ['controller', 'action', 'format', 'id']
+
+    {
+      params: event.payload[:params].except(*exceptions)
+    }
+  end
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
