@@ -13,7 +13,7 @@ module Export
           value_for('InvoiceDate'),
           value_for('InvoiceNumber'),
           value_for('SupplierReferenceNumber'),
-          value_for('Customer Reference Number', default: nil),
+          value_for('CustomerReferenceNumber', default: nil),
           value_for('LotNumber'),
           value_for('ProductDescription', default: nil),
           value_for('ProductGroup', default: nil),
