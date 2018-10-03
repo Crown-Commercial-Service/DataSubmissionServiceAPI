@@ -73,6 +73,10 @@ Metrics/BlockLength:
     Exclude:
         - 'spec/**/*'
 
+Naming/ClassAndModuleCamelCase:
+    Exclude:
+        - 'app/models/framework/definition/*'
+
 Lint/AmbiguousBlockAssociation:
     Exclude:
         - 'spec/**/*'
