@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-15] - 2018-10-03
+
+- Ignore duplicate entries sent by ingest lambda
+- Added rake task to export contracts
+- Remove spaces in "Customer Reference Number" in export
+
 ## [release-14] - 2018-10-01
 
 - Data migration to import non-Active customers to database
