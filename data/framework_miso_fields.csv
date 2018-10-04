@@ -4,8 +4,8 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 5942,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,MilesTravelled,XCol9,Miles Travelled,Additional6,"decimal(18,4)",,System.Decimal,False,False,Travel,RM807
 5943,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,RefulChgincfuelExVAT,XCol10,Refuelling Charges inc fuel ex VAT,Additional7,"decimal(18,4)",,System.Decimal,False,False,Travel,RM807
 5944,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,RentalCompany,XCol11,Rental Company,Additional8,varchar,100,System.String,False,False,Travel,RM807
-5945,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,BookingMethod,XCol12,Booking Method,need a field for this?,varchar,50,System.String,False,False,Travel,RM807
-5946,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,OnLineBookingDscnt,XCol13,On line booking discount,need a field for this?,"decimal(18,4)",,System.Decimal,False,False,Travel,RM807
+5945,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,BookingMethod,XCol12,Booking Method,,varchar,50,System.String,False,False,Travel,RM807
+5946,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,OnLineBookingDscnt,XCol13,On line booking discount,,"decimal(18,4)",,System.Decimal,False,False,Travel,RM807
 5917,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,5,System.String,True,False,Travel,RM807
 5918,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,10,System.String,False,False,Travel,RM807
 5919,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,100,System.String,True,False,Travel,RM807
@@ -15,7 +15,7 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 5923,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,InvoiceNumber,varchar,50,System.String,True,False,Travel,RM807
 5924,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,CustInvoiceLineNum,CustInvoiceLineNum,Customer Invoice Line Number,! do not export,varchar,20,System.String,True,False,Travel,RM807
 5925,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Invoice Line Product/Service Description,ProductDescription,varchar,250,System.String,True,False,Travel,RM807
-5927,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,need a field for this?,int,,System.Int32,False,False,Travel,RM807
+5927,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,int,,System.Int32,False,False,Travel,RM807
 5928,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,UnitOfPurchase,UnitOfPurchase,Unit of Purchase,UnitType,varchar,50,System.String,True,False,Travel,RM807
 5929,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,UnitPrice,UnitPrice,Price per Unit,UnitPrice,"decimal(18,4)",,System.Decimal,True,False,Travel,RM807
 5930,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,UnitQuantity,UnitQuantity,Invoice Line Quantity,UnitQuantity,"decimal(18,4)",,System.Decimal,True,False,Travel,RM807
@@ -23,12 +23,12 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 5932,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,VATIncluded,VATIncluded,VAT Applicable,VATIncluded,bit,5,System.Boolean,True,False,Travel,RM807
 5933,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,"decimal(18,4)",,System.Decimal,True,False,Travel,RM807
 5934,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,Default,PromotionCode,PromotionCode,Promotion Code,PromotionCode,varchar,50,System.String,False,False,Travel,RM807
-5926,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,InvLineProdSveGrping,XCol1,Invoice Line Product/Service Grouping,ProductGroup?,varchar,50,System.String,True,False,Travel,RM807
+5926,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,InvLineProdSveGrping,XCol1,Invoice Line Product/Service Grouping,ProductGroup,varchar,50,System.String,True,False,Travel,RM807
 5935,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,RentalPeriod,XCol2,Rental Period,Additional1,varchar,50,System.String,False,False,Travel,RM807
 5936,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleGroupBooked,XCol3,Vehicle Group Booked,Additional2,varchar,50,System.String,False,False,Travel,RM807
 5937,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleGroupSupplied,XCol4,Vehicle Group Supplied,Additional3,varchar,50,System.String,False,False,Travel,RM807
-5938,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleMake,XCol5,Vehicle Make,ProductClass?,varchar,50,System.String,False,False,Travel,RM807
-5939,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleDerivative,XCol6,Vehicle Derivative,ProductSubClass?,varchar,50,System.String,False,False,Travel,RM807
+5938,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleMake,XCol5,Vehicle Make,ProductClass,varchar,50,System.String,False,False,Travel,RM807
+5939,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,VehicleDerivative,XCol6,Vehicle Derivative,ProductSubClass,varchar,50,System.String,False,False,Travel,RM807
 5940,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,FuelType,XCol7,Fuel Type,Additional4,varchar,50,System.String,False,False,Travel,RM807
 5941,230,394,Vehicle Hire (RM807),InvoicesRaised,Invoices,User Defined,CO2EmissionLevel,XCol8,CO2 Emission Level,Additional5,varchar,50,System.String,False,False,Travel,RM807
 10450,446,412,Laundry Services - Wave 2,Invoices,Invoices,Default,CustPostCode,CustPostCode,Customer Postcode,CustomerPostCode,varchar,20,System.String,False,False,Workplace,CM/OSG/05/3565
@@ -51,7 +51,7 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 16545,446,412,Laundry Services - Wave 2,Invoices,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,False,,Workplace,CM/OSG/05/3565
 7545,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,5,System.String,True,False,Fleet,RM858
 7546,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,10,System.String,False,False,Fleet,RM858
-7547,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,customer_organisation,varchar,100,System.String,True,False,Fleet,RM858
+7547,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,100,System.String,True,False,Fleet,RM858
 7548,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,int,,System.Int32,True,False,Fleet,RM858
 7549,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustInvoiceDate,CustInvoiceDate,Customer Invoice Date,InvoiceDate,date,,System.Date,True,False,Fleet,RM858
 7550,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,InvoiceNumber,varchar,50,System.String,True,False,Fleet,RM858
@@ -65,17 +65,17 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 7559,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,"decimal(18,4)",,System.Decimal,True,False,Fleet,RM858
 7560,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,Default,PromotionCode,PromotionCode,Spend Code,PromotionCode,varchar,20,System.String,True,False,Fleet,RM858
 7553,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,InvLineProdSveGrping,XCol1,Invoice Line Product / Service Grouping,ProductGroup,varchar,50,System.String,True,False,Fleet,RM858
-7561,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,CAPCode,XCol2,CAP Code,ProductCode?,varchar,20,System.String,False,False,Fleet,RM858
-7562,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleMake,XCol3,Vehicle Make,ProductClass?,varchar,50,System.String,False,False,Fleet,RM858
-7563,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleModel,XCol4,Vehicle Model,ProductSubClass?,varchar,50,System.String,False,False,Fleet,RM858
-7564,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleDerivative,XCol5,Vehicle Derivative,Additional1?,varchar,100,System.String,False,False,Fleet,RM858
-7565,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,ProductClssfctn,XCol6,Product Classification,Additional2?,varchar,100,System.String,False,False,Fleet,RM858
-7566,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleRegistration,XCol7,Vehicle Registration,Additional3?,varchar,20,System.String,False,False,Fleet,RM858
-7567,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VhcleConvertorsName,XCol8,Vehicle Convertors Name,Additional4?,varchar,50,System.String,False,False,Fleet,RM858
-7568,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VhcleConversionType,XCol9,Vehicle Conversion Type,Additional5?,varchar,50,System.String,False,False,Fleet,RM858
-7569,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleType,XCol10,Vehicle Type,Additional6?,varchar,50,System.String,False,False,Fleet,RM858
-7570,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,FuelType,XCol11,Fuel Type,Additional7?,varchar,50,System.String,False,False,Fleet,RM858
-7571,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,CO2EmissionLevel,XCol12,CO2 Emission Levels,Additional8?,varchar,50,System.String,False,False,Fleet,RM858
+7561,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,CAPCode,XCol2,CAP Code,ProductCode,varchar,20,System.String,False,False,Fleet,RM858
+7562,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleMake,XCol3,Vehicle Make,ProductClass,varchar,50,System.String,False,False,Fleet,RM858
+7563,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleModel,XCol4,Vehicle Model,ProductSubClass,varchar,50,System.String,False,False,Fleet,RM858
+7564,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleDerivative,XCol5,Vehicle Derivative,Additional1,varchar,100,System.String,False,False,Fleet,RM858
+7565,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,ProductClssfctn,XCol6,Product Classification,Additional2,varchar,100,System.String,False,False,Fleet,RM858
+7566,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleRegistration,XCol7,Vehicle Registration,Additional3,varchar,20,System.String,False,False,Fleet,RM858
+7567,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VhcleConvertorsName,XCol8,Vehicle Convertors Name,Additional4,varchar,50,System.String,False,False,Fleet,RM858
+7568,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VhcleConversionType,XCol9,Vehicle Conversion Type,Additional5,varchar,50,System.String,False,False,Fleet,RM858
+7569,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,VehicleType,XCol10,Vehicle Type,Additional6,varchar,50,System.String,False,False,Fleet,RM858
+7570,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,FuelType,XCol11,Fuel Type,Additional7,varchar,50,System.String,False,False,Fleet,RM858
+7571,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,CO2EmissionLevel,XCol12,CO2 Emission Levels,Additional8,varchar,50,System.String,False,False,Fleet,RM858
 7572,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,LeasePeriod,XCol13,Lease Period,,varchar,20,System.String,False,False,Fleet,RM858
 7573,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,XCol14,XCol14,Lease Start Date,,date,,System.Date,False,False,Fleet,RM858
 7574,315,480,Pan Govt Vehicle Leasing & Fleet Outsource Solutio,InvoicesRaised,Invoices,User Defined,XCol15,XCol15,Lease End Date,,date,,System.Date,False,False,Fleet,RM858
@@ -119,18 +119,18 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 10164,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,False,Workplace,RM849
 10165,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,int,-1,System.Int32,True,False,Workplace,RM849
 10166,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Customer Order Number,CustomerReferenceNumber,varchar,50,System.String,False,False,Workplace,RM849
-10167,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustOrderDate,CustOrderDate,Customer Order Date,Additional1?,date,-1,System.Date,False,False,Workplace,RM849
-10168,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Customer Contract Start Date,contract_start_date,date,-1,System.Date,False,False,Workplace,RM849
-10169,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Customer Contract End Date,contract_end_date,date,-1,System.Date,False,False,Workplace,RM849
+10167,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustOrderDate,CustOrderDate,Customer Order Date,Orders needs field for this?,date,-1,System.Date,False,False,Workplace,RM849
+10168,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Customer Contract Start Date,ContractStartDate,date,-1,System.Date,False,False,Workplace,RM849
+10169,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Customer Contract End Date,ContractEndDate,date,-1,System.Date,False,False,Workplace,RM849
 10170,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Project Name,ProductDescription,varchar,255,System.String,True,False,Workplace,RM849
 10171,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,int,-1,System.Int32,False,False,Workplace,RM849
-10172,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Quantity,Quantity,Number of items,Additional2?,int,-1,System.Int32,False,False,Workplace,RM849
-10173,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Value,Value,Customer Order/Contract Value,contract_value,"decimal(18,4)",-1,System.Decimal,True,False,Workplace,RM849
-10174,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Invoice Line Service Grouping,contract_award_channel,varchar,3,System.String,True,False,Workplace,RM849
-10175,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,User Defined,InvLineDesc,XCol1,Invoice Line Product / Service Description,Additional3?,varchar,255,System.String,True,False,Workplace,RM849
+10172,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Quantity,Quantity,Number of items,Orders needs field for this?,int,-1,System.Int32,False,False,Workplace,RM849
+10173,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Value,Value,Customer Order/Contract Value,ContactValue,"decimal(18,4)",-1,System.Decimal,True,False,Workplace,RM849
+10174,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Invoice Line Service Grouping,ContractAwardChannel,varchar,3,System.String,True,False,Workplace,RM849
+10175,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,User Defined,InvLineDesc,XCol1,Invoice Line Product / Service Description,Additional1,varchar,255,System.String,True,False,Workplace,RM849
 17434,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,20,System.String,True,False,Fleet,RM1070
 17435,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,20,System.String,False,,Fleet,RM1070
-17436,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,customer_organisation,varchar,255,System.String,True,,Fleet,RM1070
+17436,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,,Fleet,RM1070
 17437,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Fleet,RM1070
 17438,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustInvoiceDate,CustInvoiceDate,Customer Invoice Date,InvoiceDate,varchar,,System.Date,True,,Fleet,RM1070
 17439,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Invoice Number,InvoiceNumber,varchar,50,System.String,True,,Fleet,RM1070
@@ -150,14 +150,14 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 17455,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Vehicle Trim/Derivative,ProductDescription,varchar,255,System.String,True,,Fleet,RM1070
 17464,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Fleet,RM1070
 17465,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Fleet,RM1070
-17445,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration Number,Additional3?,varchar,20,System.String,True,,Fleet,RM1070
-17451,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,All Conversion and third party conversion costs excluding factory fit options,Additional4?,varchar,,System.Decimal,True,,Fleet,RM1070
-17456,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol3,XCol3,CO2 Emissions,Additional5?,varchar,,System.Decimal,True,,Fleet,RM1070
-17457,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Fuel Type,Additional6?,varchar,13,System.String,True,,Fleet,RM1070
-17458,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Customer Support Terms,Additional7?,varchar,,System.Decimal,True,,Fleet,RM1070
-17459,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Leasing Company,Additional8?,varchar,66,System.String,True,False,Fleet,RM1070
-17460,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Additional support terms given to Lease companies,,varchar,,System.Decimal,True,,Fleet,RM1070
-17461,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Invoice Price Excluding Options,,varchar,,System.Decimal,True,,Fleet,RM1070
+17445,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration Number,Additional1,varchar,20,System.String,True,,Fleet,RM1070
+17451,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,All Conversion and third party conversion costs excluding factory fit options,Additional2,varchar,,System.Decimal,True,,Fleet,RM1070
+17456,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol3,XCol3,CO2 Emissions,Additional3,varchar,,System.Decimal,True,,Fleet,RM1070
+17457,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Fuel Type,Additional4,varchar,13,System.String,True,,Fleet,RM1070
+17458,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Customer Support Terms,Additional5,varchar,,System.Decimal,True,,Fleet,RM1070
+17459,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Leasing Company,Additional6,varchar,66,System.String,True,False,Fleet,RM1070
+17460,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Additional support terms given to Lease companies,Additional7,varchar,,System.Decimal,True,,Fleet,RM1070
+17461,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Invoice Price Excluding Options,Additional8,varchar,,System.Decimal,True,,Fleet,RM1070
 17462,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol9,XCol9,List Price Excluding Options,,varchar,,System.Decimal,True,,Fleet,RM1070
 17463,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,User Defined,XCol10,XCol10,eAuction Contract No,,varchar,20,System.String,True,,Fleet,RM1070
 18015,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,20,System.String,True,False,Fleet,RM3710
@@ -180,14 +180,14 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 18034,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,varchar,,System.Int32,True,,Fleet,RM3710
 18050,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,False,,Fleet,RM3710
 18051,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,False,,Fleet,RM3710
-18027,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,,varchar,255,System.String,True,,Fleet,RM3710
-18029,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration,,varchar,20,System.String,True,,Fleet,RM3710
-18035,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Fuel Type,,varchar,8,System.String,True,False,Fleet,RM3710
-18036,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,CO2 Emission Levels,,varchar,,System.Decimal,True,,Fleet,RM3710
-18037,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Vehicle Convertors Name,,varchar,255,System.String,True,,Fleet,RM3710
-18038,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Vehicle Conversion Type,,varchar,255,System.String,True,,Fleet,RM3710
-18039,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Vehicle Type,,varchar,255,System.String,True,,Fleet,RM3710
-18040,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Lease Start Date,,varchar,,System.Date,True,,Fleet,RM3710
+18027,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,Additional2,varchar,255,System.String,True,,Fleet,RM3710
+18029,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration,Additional1,varchar,20,System.String,True,,Fleet,RM3710
+18035,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Fuel Type,Additional4,varchar,8,System.String,True,False,Fleet,RM3710
+18036,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,CO2 Emission Levels,Additional3,varchar,,System.Decimal,True,,Fleet,RM3710
+18037,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Vehicle Convertors Name,Additional5,varchar,255,System.String,True,,Fleet,RM3710
+18038,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Vehicle Conversion Type,Additional6,varchar,255,System.String,True,,Fleet,RM3710
+18039,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Vehicle Type,Additional7,varchar,255,System.String,True,,Fleet,RM3710
+18040,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Lease Start Date,Additional8,varchar,,System.Date,True,,Fleet,RM3710
 18041,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol9,XCol9,Lease End Date,,varchar,,System.Date,True,,Fleet,RM3710
 18042,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol10,XCol10,Lease Period (Months),,varchar,,System.Int32,True,,Fleet,RM3710
 18043,786,651,Vehicle Lease and Fleet Management,InvoicesRaised,Invoices,User Defined,XCol11,XCol11,Payment Profile,,varchar,20,System.String,True,False,Fleet,RM3710
@@ -211,17 +211,17 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 19776,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,UnitPrice,UnitPrice,Price per Unit,UnitPrice,varchar,,System.Decimal,True,,Workplace,RM1031
 19777,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,UnitQuantity,UnitQuantity,Quantity,UnitQuantity,varchar,,System.Decimal,True,,Workplace,RM1031
 19778,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Charge (Ex VAT),InvoiceValue,varchar,,System.Decimal,True,,Workplace,RM1031
-19779,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,vat_harged,varchar,,System.Decimal,True,,Workplace,RM1031
+19779,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,varchar,,System.Decimal,True,,Workplace,RM1031
 19781,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre ,! do not export,varchar,255,System.String,True,,Workplace,RM1031
 19782,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Workplace,RM1031
-19774,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Baseline Price,Additional2,varchar,,System.Decimal,True,,Workplace,RM1031
-19780,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,Additional3,varchar,255,System.String,True,,Workplace,RM1031
+19774,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Baseline Price,Additional1,varchar,,System.Decimal,True,,Workplace,RM1031
+19780,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,Additional2,varchar,255,System.String,True,,Workplace,RM1031
 19771,869,666,Laundry and Linen Services (RM1031),InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Item,ProductDescription,varchar,255,System.String,True,,Workplace,RM1031
 19758,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,False,Workplace,RM1031
 19759,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,20,System.String,False,,Workplace,RM1031
 19760,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Workplace,RM1031
-19762,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,Quantity,Quantity,Number of items,Additional1,varchar,,System.Decimal,True,,Workplace,RM1031
-19763,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,Value,Value,Customer Order/Contract Value,contract_value,varchar,,System.Decimal,True,,Workplace,RM1031
+19762,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,Quantity,Quantity,Number of items,Orders needs field for this?,varchar,,System.Decimal,True,,Workplace,RM1031
+19763,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,Default,Value,Value,Customer Order/Contract Value,ContractValue,varchar,,System.Decimal,True,,Workplace,RM1031
 19761,868,666,Laundry and Linen Services (RM1031),Orders Received,Orders,User Defined,XCol1,XCol1,Project Name,ProductDescription,varchar,255,System.String,True,,Workplace,RM1031
 20141,886,672,Vehicle Telematics,InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Fleet,RM3754
 20142,886,672,Vehicle Telematics,InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,20,System.String,False,False,Fleet,RM3754
@@ -237,9 +237,9 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 20154,886,672,Vehicle Telematics,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,varchar,,System.Decimal,True,,Fleet,RM3754
 20156,886,672,Vehicle Telematics,InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Fleet,RM3754
 20157,886,672,Vehicle Telematics,InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Fleet,RM3754
-20150,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration No,Additional3,varchar,10,System.String,True,,Fleet,RM3754
-20153,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Payment Profile,Additional4,varchar,9,System.String,True,,Fleet,RM3754
-20155,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Subcontractor Supplier Name,Additional5,varchar,255,System.String,True,,Fleet,RM3754
+20150,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Vehicle Registration No,Additional1,varchar,10,System.String,True,,Fleet,RM3754
+20153,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Payment Profile,Additional2,varchar,9,System.String,True,,Fleet,RM3754
+20155,886,672,Vehicle Telematics,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Subcontractor Supplier Name,Additional3,varchar,255,System.String,True,,Fleet,RM3754
 20575,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,False,Workplace,RM3772
 20581,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,ProductClass,ProductClass,Category,ProductClass,varchar,255,System.String,True,,Workplace,RM3772
 20582,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Item,ProductDescription,varchar,255,System.String,True,,Workplace,RM3772
@@ -257,13 +257,13 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 20590,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,varchar,,System.Decimal,True,,Workplace,RM3772
 20592,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre ,! do not export,varchar,255,System.String,True,,Workplace,RM3772
 20593,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Workplace,RM3772
-20585,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Baseline Price,Additional3,varchar,,System.Decimal,True,,Workplace,RM3772
-20591,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,Additional4,varchar,255,System.String,True,,Workplace,RM3772
+20585,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Baseline Price,Additional1,varchar,,System.Decimal,True,,Workplace,RM3772
+20591,911,682,"Specialist Laundry Services (for Surgical Gowns, D",InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Subcontractor Supplier Name,Additional2,varchar,255,System.String,True,,Workplace,RM3772
 20569,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,False,Workplace,RM3772
 20570,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,20,System.String,False,,Workplace,RM3772
 20571,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Workplace,RM3772
-20573,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,Quantity,Quantity,Number of items,Additional1,varchar,,System.Decimal,True,,Workplace,RM3772
-20574,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,Value,Value,Customer Order/Contract Value,contract_value,varchar,,System.Decimal,True,,Workplace,RM3772
+20573,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,Quantity,Quantity,Number of items,Orders needs field for this?,varchar,,System.Decimal,True,,Workplace,RM3772
+20574,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,Default,Value,Value,Customer Order/Contract Value,ContractValue,varchar,,System.Decimal,True,,Workplace,RM3772
 20572,910,682,"Specialist Laundry Services (for Surgical Gowns, D",Orders Received,Orders,User Defined,XCol1,XCol1,Project Name,ProductDescription,varchar,255,System.String,True,,Workplace,RM3772
 20649,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,20,System.String,True,False,Fleet,RM3767
 20650,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,False,Fleet,RM3767
@@ -290,14 +290,14 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 20668,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,varchar,,System.Decimal,True,False,Fleet,RM3767
 20675,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Fleet,RM3767
 20676,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Fleet,RM3767
-20660,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Tyre Grade,,varchar,9,System.String,True,,Fleet,RM3767
-20662,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Run Flats (Y/N),,varchar,1,System.String,True,False,Fleet,RM3767
-20669,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Core Tyre Price,,varchar,,System.Decimal,True,,Fleet,RM3767
-20670,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Valve Cost,,varchar,,System.Decimal,True,,Fleet,RM3767
-20671,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Fitment Cost,,varchar,,System.Decimal,True,,Fleet,RM3767
-20672,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Balance Cost,,varchar,,System.Decimal,True,,Fleet,RM3767
-20673,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Disposal Cost,,varchar,,System.Decimal,True,,Fleet,RM3767
-20674,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Subcontractor Name,,varchar,255,System.String,True,False,Fleet,RM3767
+20660,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Tyre Grade,Additional1,varchar,9,System.String,True,,Fleet,RM3767
+20662,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Run Flats (Y/N),Additional2,varchar,1,System.String,True,False,Fleet,RM3767
+20669,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Core Tyre Price,Additional3,varchar,,System.Decimal,True,,Fleet,RM3767
+20670,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Valve Cost,Additional4,varchar,,System.Decimal,True,,Fleet,RM3767
+20671,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Fitment Cost,Additional5,varchar,,System.Decimal,True,,Fleet,RM3767
+20672,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Balance Cost,Additional6,varchar,,System.Decimal,True,,Fleet,RM3767
+20673,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Disposal Cost,Additional7,varchar,,System.Decimal,True,,Fleet,RM3767
+20674,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol8,XCol8,Subcontractor Name,Additional8,varchar,255,System.String,True,False,Fleet,RM3767
 20992,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Document Management & Logistics,RM3797
 20993,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer PostCode,CustomerPostCode,varchar,20,System.String,True,False,Document Management & Logistics,RM3797
 20994,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation,CustomerName,varchar,255,System.String,True,,Document Management & Logistics,RM3797
@@ -325,7 +325,6 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 21558,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,InvoiceNumber,varchar,50,System.String,True,,Professional Services,RM3786
 21559,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,ProductGroup,ProductGroup,Service Type,ProductGroup,varchar,33,System.String,True,False,Professional Services,RM3786
 21560,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Primary Specialism,ProductDescription,varchar,255,System.String,True,False,Professional Services,RM3786
-21561,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Service/Specialism Description,?,varchar,255,System.String,True,,Professional Services,RM3786
 21562,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,ProductSubClass,ProductSubClass,Practitioner Grade,ProductSubClass,varchar,31,System.String,True,False,Professional Services,RM3786
 21564,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,varchar,,System.Int32,True,,Professional Services,RM3786
 21568,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,UnitOfPurchase,UnitOfPurchase,Unit of Purchase,UnitType,varchar,11,System.String,True,False,Professional Services,RM3786
@@ -335,37 +334,37 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 21572,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,varchar,,System.Decimal,True,,Professional Services,RM3786
 21574,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Professional Services,RM3786
 21575,965,698,General Legal Advice Services,InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Professional Services,RM3786
-21556,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Matter Name,Additional1,varchar,255,System.String,True,,Professional Services,RM3786
-21563,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Pricing Mechanism,Additional6,varchar,17,System.String,True,,Professional Services,RM3786
-21565,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Price per Unit,Additional2,varchar,,System.Decimal,True,False,Professional Services,RM3786
-21566,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Quantity,Additional3,varchar,,System.Decimal,True,False,Professional Services,RM3786
-21567,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Pro-Bono Total Value,Additional4,varchar,,System.Decimal,True,False,Professional Services,RM3786
-21573,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Sub-Contractor Name (If Applicable),Additional5,varchar,255,System.String,True,False,Professional Services,RM3786
-21543,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,,varchar,,System.Date,True,,Professional Services,RM3786
-21544,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,,varchar,,System.Date,True,,Professional Services,RM3786
-21547,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Award Procedure,,varchar,19,System.String,True,,Professional Services,RM3786
-21550,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,,varchar,,System.Decimal,True,,Professional Services,RM3786
-21542,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol1,XCol1,Sub-Contractor Name,,varchar,255,System.String,True,False,Professional Services,RM3786
-21545,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol2,XCol2,Lead Counsel / Matter Owner,,varchar,255,System.String,True,,Professional Services,RM3786
-21546,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Call Off Managing Entity,,varchar,29,System.String,True,False,Professional Services,RM3786
-21548,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Pro-bono work included? (Y/N),,varchar,1,System.String,True,,Professional Services,RM3786
-21535,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,LotNumber,LotNumber,Tier Number,,varchar,20,System.String,True,False,Professional Services,RM3786
-21536,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,,varchar,50,System.String,True,,Professional Services,RM3786
-21537,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,,varchar,,System.Int32,True,,Professional Services,RM3786
-21538,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustName,CustName,Customer Organisation Name,,varchar,255,System.String,True,,Professional Services,RM3786
-21539,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustPostCode,CustPostCode,Customer Post Code,,varchar,20,System.String,True,,Professional Services,RM3786
-21540,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Matter Name,,varchar,255,System.String,True,,Professional Services,RM3786
-21541,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Matter Description,,varchar,255,System.String,True,,Professional Services,RM3786
-21549,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Expected Pro-Bono value,,varchar,,System.Decimal,True,False,Professional Services,RM3786
-22549,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Expression Of Interest Used (Y/N),,,1,System.String,True,False,Professional Services,RM3786
-22548,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Customer Response Time,,varchar,100,System.String,True,False,Professional Services,RM3786
+21556,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Matter Name,CustomerReferenceNumber,varchar,255,System.String,True,,Professional Services,RM3786
+21563,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Pricing Mechanism,Additional5,varchar,17,System.String,True,,Professional Services,RM3786
+21565,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Price per Unit,Additional1,varchar,,System.Decimal,True,False,Professional Services,RM3786
+21566,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Quantity,Additional2,varchar,,System.Decimal,True,False,Professional Services,RM3786
+21567,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Pro-Bono Total Value,Additional3,varchar,,System.Decimal,True,False,Professional Services,RM3786
+21573,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Sub-Contractor Name (If Applicable),Additional4,varchar,255,System.String,True,False,Professional Services,RM3786
+21543,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,ContactStartDate,varchar,,System.Date,True,,Professional Services,RM3786
+21544,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,ContractEndDate,varchar,,System.Date,True,,Professional Services,RM3786
+21547,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Award Procedure,ContractAwardChannel,varchar,19,System.String,True,,Professional Services,RM3786
+21550,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,ContactValue,varchar,,System.Decimal,True,,Professional Services,RM3786
+21542,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol1,XCol1,Sub-Contractor Name,Additional1,varchar,255,System.String,True,False,Professional Services,RM3786
+21545,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol2,XCol2,Lead Counsel / Matter Owner,Additional7,varchar,255,System.String,True,,Professional Services,RM3786
+21546,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Call Off Managing Entity,Additional3,varchar,29,System.String,True,False,Professional Services,RM3786
+21548,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Pro-bono work included? (Y/N),Additional4,varchar,1,System.String,True,,Professional Services,RM3786
+21535,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,LotNumber,LotNumber,Tier Number,LotNumber,varchar,20,System.String,True,False,Professional Services,RM3786
+21536,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,SupplierReferenceNumber,varchar,50,System.String,True,,Professional Services,RM3786
+21537,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Professional Services,RM3786
+21538,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustName,CustName,Customer Organisation Name,CustomerName,varchar,255,System.String,True,,Professional Services,RM3786
+21539,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustPostCode,CustPostCode,Customer Post Code,CustomerPostCode,varchar,20,System.String,True,,Professional Services,RM3786
+21540,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Matter Name,CustomerReferenceNumber,varchar,255,System.String,True,,Professional Services,RM3786
+21541,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Matter Description,ProductDescription,varchar,255,System.String,True,,Professional Services,RM3786
+21549,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Expected Pro-Bono value,Additional5,varchar,,System.Decimal,True,False,Professional Services,RM3786
+22549,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Expression Of Interest Used (Y/N),Additional2,,1,System.String,True,False,Professional Services,RM3786
+22548,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Customer Response Time,Additional6,varchar,100,System.String,True,False,Professional Services,RM3786
 22047,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Tier Number,LotNumber,varchar,20,System.String,True,False,Professional Services,RM3756
 22048,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,SupplierReferenceNumber,varchar,50,System.String,True,,Professional Services,RM3756
 22049,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Professional Services,RM3756
 22050,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation Name,CustomerName,varchar,255,System.String,True,,Professional Services,RM3756
 22051,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustPostCode,CustPostCode,Customer Post Code,CustomerPostCode,varchar,20,System.String,True,,Professional Services,RM3756
 22053,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustInvoiceDate,CustInvoiceDate,Customer Invoice Date,InvoiceDate,varchar,,System.Date,True,,Professional Services,RM3756
-22054,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,invoice_name,varchar,50,System.String,True,,Professional Services,RM3756
+22054,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,InvoiceNumber,varchar,50,System.String,True,,Professional Services,RM3756
 22055,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,ProductGroup,ProductGroup,Service Type,ProductGroup,varchar,28,System.String,True,,Professional Services,RM3756
 22056,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Primary Specialism,ProductDescription,varchar,45,System.String,True,,Professional Services,RM3756
 22057,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,ProductSubClass,ProductSubClass,Practitioner Grade,ProductSubClass,varchar,31,System.String,True,False,Professional Services,RM3756
@@ -377,13 +376,13 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 22068,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,varchar,,System.Decimal,True,False,Professional Services,RM3756
 22070,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Professional Services,RM3756
 22071,993,700,Rail Legal Services,InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Professional Services,RM3756
-22052,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Matter Name,Additional1,varchar,255,System.String,True,,Professional Services,RM3756
-22058,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Pricing Mechanism,Additional6,varchar,17,System.String,True,,Professional Services,RM3756
-22060,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Award Procedure,Additional7,varchar,19,System.String,True,,Professional Services,RM3756
-22061,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Price per Unit,Additional2,varchar,,System.Decimal,True,False,Professional Services,RM3756
-22062,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Quantity,Additional3,varchar,,System.Decimal,True,False,Professional Services,RM3756
-22063,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Pro-Bono Total Value,Additional4,varchar,,System.Decimal,True,False,Professional Services,RM3756
-22069,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Sub-Contractor Name (If Applicable),Additional5,varchar,255,System.String,True,,Professional Services,RM3756
+22052,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Matter Name,CustomerReferenceNumber,varchar,255,System.String,True,,Professional Services,RM3756
+22058,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol6,XCol6,Pricing Mechanism,Additional5,varchar,17,System.String,True,,Professional Services,RM3756
+22060,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol7,XCol7,Award Procedure,Additional6,varchar,19,System.String,True,,Professional Services,RM3756
+22061,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Price per Unit,Additional1,varchar,,System.Decimal,True,False,Professional Services,RM3756
+22062,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Quantity,Additional2,varchar,,System.Decimal,True,False,Professional Services,RM3756
+22063,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Pro-Bono Total Value,Additional3,varchar,,System.Decimal,True,False,Professional Services,RM3756
+22069,993,700,Rail Legal Services,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Sub-Contractor Name (If Applicable),Additional4,varchar,255,System.String,True,,Professional Services,RM3756
 22030,992,700,Rail Legal Services,OrdersReceived,Orders,Default,LotNumber,LotNumber,Tier Number,LotNumber,varchar,20,System.String,True,False,Professional Services,RM3756
 22031,992,700,Rail Legal Services,OrdersReceived,Orders,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,SupplierReferenceNumber,varchar,50,System.String,True,,Professional Services,RM3756
 22032,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Professional Services,RM3756
@@ -391,16 +390,16 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 22034,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustPostCode,CustPostCode,Customer Post Code,CustomerPostCode,varchar,20,System.String,True,,Professional Services,RM3756
 22035,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Matter Name,CustomerReferenceNumber,varchar,255,System.String,True,,Professional Services,RM3756
 22036,992,700,Rail Legal Services,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Matter Description,ProductDescription,varchar,255,System.String,True,,Professional Services,RM3756
-22038,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,contract_start_Date,varchar,,System.Date,True,,Professional Services,RM3756
-22039,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,contract_end_date,varchar,,System.Date,True,,Professional Services,RM3756
-22043,992,700,Rail Legal Services,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Award Procedure,,varchar,19,System.String,True,,Professional Services,RM3756
-22046,992,700,Rail Legal Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,,varchar,,System.Decimal,True,,Professional Services,RM3756
-22037,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol1,XCol1,Sub-Contractor Name,,varchar,255,System.String,True,,Professional Services,RM3756
-22040,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Expression Of Interest Used (Y/N),,varchar,1,System.String,True,,Professional Services,RM3756
-22041,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Customer Response Time,,varchar,100,System.String,True,False,Professional Services,RM3756
-22042,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Call Off Managing Entity,,varchar,29,System.String,True,,Professional Services,RM3756
-22044,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Pro-bono work included? (Y/N),,varchar,1,System.String,True,,Professional Services,RM3756
-22045,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Expected Pro-Bono value,,varchar,,System.Decimal,True,,Professional Services,RM3756
+22038,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,ContractStartDate,varchar,,System.Date,True,,Professional Services,RM3756
+22039,992,700,Rail Legal Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,ContractEndDate,varchar,,System.Date,True,,Professional Services,RM3756
+22043,992,700,Rail Legal Services,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Award Procedure,ContractAwardChannel,varchar,19,System.String,True,,Professional Services,RM3756
+22046,992,700,Rail Legal Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,ContractValue,varchar,,System.Decimal,True,,Professional Services,RM3756
+22037,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol1,XCol1,Sub-Contractor Name,Additional1,varchar,255,System.String,True,,Professional Services,RM3756
+22040,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Expression Of Interest Used (Y/N),Additional2,varchar,1,System.String,True,,Professional Services,RM3756
+22041,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Customer Response Time,Additional6,varchar,100,System.String,True,False,Professional Services,RM3756
+22042,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Call Off Managing Entity,Additional3,varchar,29,System.String,True,,Professional Services,RM3756
+22044,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Pro-bono work included? (Y/N),Additional4,varchar,1,System.String,True,,Professional Services,RM3756
+22045,992,700,Rail Legal Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Expected Pro-Bono value,Additional5,varchar,,System.Decimal,True,,Professional Services,RM3756
 22527,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,SupplierReferenceNumber,varchar,50,System.String,True,False,Professional Services,RM3787
 22528,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Professional Services,RM3787
 22529,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,CustName,CustName,Customer Organisation Name,CustomerName,varchar,255,System.String,True,,Professional Services,RM3787
@@ -416,25 +415,25 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 22539,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitOfPurchase,UnitOfPurchase,Unit of Purchase,UnitType,varchar,11,System.String,True,,Professional Services,RM3787
 22540,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitPrice,UnitPrice,Price per Unit,UnitPrice,varchar,,System.Decimal,True,,Professional Services,RM3787
 22541,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitQuantity,UnitQuantity,Quantity,UnitQuantity,varchar,,System.Decimal,True,,Professional Services,RM3787
-22542,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (ex VAT),total_cost,varchar,,System.Decimal,True,,Professional Services,RM3787
+22542,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (ex VAT),InvoiceTotal,varchar,,System.Decimal,True,,Professional Services,RM3787
 22543,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,varchar,,System.Decimal,True,,Professional Services,RM3787
 22544,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Pro-Bono Price per Unit,Additional1,varchar,,System.Decimal,True,,Professional Services,RM3787
 22545,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Quantity,Additional2,varchar,,System.Decimal,True,,Professional Services,RM3787
 22546,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Total Value,Additional3,varchar,,System.Decimal,True,,Professional Services,RM3787
 22547,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Sub-Contractor Name (If Applicable),Additional4,varchar,255,System.String,True,,Professional Services,RM3787
-22511,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,,varchar,50,System.String,True,False,Professional Services,RM3787
-22512,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,,varchar,,System.Int32,True,,Professional Services,RM3787
-22513,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustName,CustName,Customer Organisation Name,,varchar,255,System.String,True,,Professional Services,RM3787
-22514,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustPostCode,CustPostCode,Customer Post Code,,varchar,20,System.String,True,,Professional Services,RM3787
-22515,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Matter Name,,varchar,255,System.String,True,,Professional Services,RM3787
-22516,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Matter Description,,varchar,255,System.String,True,,Professional Services,RM3787
-22518,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,,varchar,,System.Date,True,,Professional Services,RM3787
-22519,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,,varchar,,System.Date,True,,Professional Services,RM3787
-22526,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,,varchar,,System.Decimal,True,,Professional Services,RM3787
-22517,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol2,XCol2,Sub-Contractor Name,,varchar,255,System.String,True,,Professional Services,RM3787
-22520,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Expression Of Interest Used (Y/N),,varchar,1,System.String,True,,Professional Services,RM3787
-22521,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Customer Response Time,,varchar,100,System.String,True,False,Professional Services,RM3787
-22522,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Call Off Managing Entity,,varchar,29,System.String,True,,Professional Services,RM3787
-22523,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Award Procedure,,varchar,19,System.String,True,,Professional Services,RM3787
-22524,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Pro-bono work included? (Y/N),,varchar,1,System.String,True,,Professional Services,RM3787
-22525,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol8,XCol8,Expected Pro-Bono value,,varchar,,System.Decimal,True,,Professional Services,RM3787
+22511,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,SupplierOrderNumber,SupplierOrderNumber,Supplier Reference Number,SupplierReferenceNumber,varchar,50,System.String,True,False,Professional Services,RM3787
+22512,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustURN,CustURN,Customer URN,CustomerURN,varchar,,System.Int32,True,,Professional Services,RM3787
+22513,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustName,CustName,Customer Organisation Name,CustomerName,varchar,255,System.String,True,,Professional Services,RM3787
+22514,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustPostCode,CustPostCode,Customer Post Code,CustomerPostcode,varchar,20,System.String,True,,Professional Services,RM3787
+22515,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustOrderNum,CustOrderNum,Matter Name,CustomerReferenceNumber,varchar,255,System.String,True,,Professional Services,RM3787
+22516,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Matter Description,ProductDescription,varchar,255,System.String,True,,Professional Services,RM3787
+22518,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,ContractStartDate,varchar,,System.Date,True,,Professional Services,RM3787
+22519,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,ContractEndDate,varchar,,System.Date,True,,Professional Services,RM3787
+22526,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,ContractValue,varchar,,System.Decimal,True,,Professional Services,RM3787
+22517,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol2,XCol2,Sub-Contractor Name,Additional1,varchar,255,System.String,True,,Professional Services,RM3787
+22520,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Expression Of Interest Used (Y/N),Additional2,varchar,1,System.String,True,,Professional Services,RM3787
+22521,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol4,XCol4,Customer Response Time,Additional6,varchar,100,System.String,True,False,Professional Services,RM3787
+22522,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol5,XCol5,Call Off Managing Entity,Additional3,varchar,29,System.String,True,,Professional Services,RM3787
+22523,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol6,XCol6,Award Procedure,ContractAwardChannel,varchar,19,System.String,True,,Professional Services,RM3787
+22524,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol7,XCol7,Pro-bono work included? (Y/N),Additional4,varchar,1,System.String,True,,Professional Services,RM3787
+22525,1025,739,Finance & Complex Legal Services,OrdersReceived,Orders,User Defined,XCol8,XCol8,Expected Pro-Bono value,Additional5,varchar,,System.Decimal,True,,Professional Services,RM3787
