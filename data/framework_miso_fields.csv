@@ -340,10 +340,10 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 21566,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol3,XCol3,Pro-Bono Quantity,Additional2,varchar,,System.Decimal,True,False,Professional Services,RM3786
 21567,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol4,XCol4,Pro-Bono Total Value,Additional3,varchar,,System.Decimal,True,False,Professional Services,RM3786
 21573,965,698,General Legal Advice Services,InvoicesRaised,Invoices,User Defined,XCol5,XCol5,Sub-Contractor Name (If Applicable),Additional4,varchar,255,System.String,True,False,Professional Services,RM3786
-21543,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,ContactStartDate,varchar,,System.Date,True,,Professional Services,RM3786
+21543,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractStart,CustContractStart,Contract Start Date,ContractStartDate,varchar,,System.Date,True,,Professional Services,RM3786
 21544,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,CustContractEnd,CustContractEnd,Contract End Date,ContractEndDate,varchar,,System.Date,True,,Professional Services,RM3786
 21547,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Award Procedure,ContractAwardChannel,varchar,19,System.String,True,,Professional Services,RM3786
-21550,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,ContactValue,varchar,,System.Decimal,True,,Professional Services,RM3786
+21550,964,698,General Legal Advice Services,OrdersReceived,Orders,Default,Value,Value,Expected Total Order Value,ContractValue,varchar,,System.Decimal,True,,Professional Services,RM3786
 21542,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol1,XCol1,Sub-Contractor Name,Additional1,varchar,255,System.String,True,False,Professional Services,RM3786
 21545,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol2,XCol2,Lead Counsel / Matter Owner,Additional7,varchar,255,System.String,True,,Professional Services,RM3786
 21546,964,698,General Legal Advice Services,OrdersReceived,Orders,User Defined,XCol3,XCol3,Call Off Managing Entity,Additional3,varchar,29,System.String,True,False,Professional Services,RM3786
