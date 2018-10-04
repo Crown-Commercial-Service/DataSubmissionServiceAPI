@@ -1,6 +1,6 @@
 class Framework
-  class Definition
-    class <%= sanitised_framework_short_name %> < Definition
+  module Definition
+    class <%= sanitised_framework_short_name %> < Base
       framework_short_name '<%= framework_short_name %>'
       framework_name       '<%= framework_name %>'
 

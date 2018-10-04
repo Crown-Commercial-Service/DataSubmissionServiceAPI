@@ -17,8 +17,8 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
     let(:generator_arguments)      { %w[RM3786] }
     let(:expected_definition_file) { 'RM3786.rb' }
 
-    it 'has a class derived from Framework::Definition' do
-      expect(definition).to match 'class RM3786 < Definition'
+    it 'has a class derived from Framework::Definition::Base' do
+      expect(definition).to match 'class RM3786 < Base'
     end
     it 'Has the framework_short_name as class method metadata' do
       expect(definition).to match "framework_short_name 'RM3786'"
@@ -44,8 +44,8 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
     let(:generator_arguments)      { %w[CM/OSG/05/3565] }
     let(:expected_definition_file) { 'CM_OSG_05_3565.rb' }
 
-    it 'has an underscored class derived from Framework::Definition' do
-      expect(definition).to match 'class CM_OSG_05_3565 < Definition'
+    it 'has an underscored class derived from Framework::Definition::Base' do
+      expect(definition).to match 'class CM_OSG_05_3565 < Base'
     end
     it 'Has the original framework_short_name as class method metadata' do
       expect(definition).to match "framework_short_name 'CM/OSG/05/3565'"
