@@ -6,6 +6,7 @@ AllCops:
         - 'db/schema.rb'
         - 'db/seeds.rb'
         - 'bin/**/*'
+        - 'tmp/**/*'
 
 Rails:
     Enabled: true
@@ -75,7 +76,7 @@ Metrics/BlockLength:
 
 Naming/ClassAndModuleCamelCase:
     Exclude:
-        - 'app/models/framework/definition/*'
+        - 'app/models/framework/definition/**/*'
 
 Lint/AmbiguousBlockAssociation:
     Exclude:

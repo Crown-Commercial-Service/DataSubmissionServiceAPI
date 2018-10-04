@@ -1,4 +1,5 @@
 require 'csv'
+require 'framework' # failure to require this here will result in autoload problems
 
 class Framework
   ##
