@@ -6,7 +6,7 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
-    include Export::Template
+    include Export::SheetMappings
 
     def value_for(destination_field, default: NOT_IN_DATA)
       source_field = source_field_for(

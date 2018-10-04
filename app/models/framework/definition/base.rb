@@ -1,5 +1,7 @@
 class Framework
   module Definition
+    class MissingError < StandardError; end
+
     ##
     # Base class for a framework definition with metadata methods
     class Base
