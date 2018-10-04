@@ -12,8 +12,9 @@ module Export
     private
 
     def sheet_definition(framework_short_name, entry_type)
+      require_dependency "framework/definition/#{framework_short_name}"
       "Framework::Definition::#{framework_short_name}::#{entry_type.titleize}".constantize
-    rescue NameError
+    rescue LoadError
       raise Framework::Definition::MissingError, %(Please run rails g framework:definition "#{framework_short_name}")
     end
   end
