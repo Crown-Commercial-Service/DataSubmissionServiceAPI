@@ -2,6 +2,13 @@ class Framework
   module Definition
     class MissingError < StandardError; end
 
+    def self.[](framework_short_name)
+      sanitized_framework_short_name = framework_short_name.tr('/', '_')
+      "Framework::Definition::#{sanitized_framework_short_name}".constantize
+    rescue NameError
+      raise Framework::Definition::MissingError, %(Please run rails g framework:definition "#{framework_short_name}")
+    end
+
     ##
     # Base class for a framework definition with metadata methods
     class Base

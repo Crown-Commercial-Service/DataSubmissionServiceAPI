@@ -20,14 +20,9 @@ module Export
     private
 
     def source_field_for(destination_field)
-      sheet_definition = sheet_definition(model._framework_short_name, model.entry_type)
+      framework_definition = Framework::Definition[model._framework_short_name]
+      sheet_definition = "#{framework_definition}::#{model.entry_type.capitalize}".constantize
       sheet_definition.export_mappings[destination_field]
-    end
-
-    def sheet_definition(framework_short_name, entry_type)
-      "Framework::Definition::#{framework_short_name}::#{entry_type.titleize}".constantize
-    rescue NameError
-      raise Framework::Definition::MissingError, %(Please run rails g framework:definition "#{framework_short_name}")
     end
   end
 end
