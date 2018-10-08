@@ -65,6 +65,7 @@ Metrics/AbcSize:
     Max: 21
     Exclude:
         - 'spec/**/*'
+        - 'lib/console_helpers.rb'
 
 Metrics/LineLength:
     Max: 120

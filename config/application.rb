@@ -36,5 +36,14 @@ module DataSubmissionServiceApi
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
+
+    console do
+      require './lib/console_helpers'
+      if defined?(Pry)
+        TOPLEVEL_BINDING.eval('self').extend ConsoleHelpers
+      else
+        Rails::ConsoleMethods.include ConsoleHelpers
+      end
+    end
   end
 end
