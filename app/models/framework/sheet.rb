@@ -8,6 +8,12 @@ class Framework
       end
 
       ##
+      # E.g. 'Total Cost (ex VAT)'
+      def total_value_field(value = nil)
+        @total_value_field ||= value
+      end
+
+      ##
       # Define a field using an ActiveModel-compatible syntax.
       # This is intended to pass through to ActiveModel::Attributes.attribute,
       # but adds options that we need. Right now that's exports_to.

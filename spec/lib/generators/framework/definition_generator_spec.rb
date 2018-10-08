@@ -29,8 +29,14 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
     it 'has a Sheet class for Invoices' do
       expect(definition).to match 'Invoice < Sheet'
     end
+    it 'defines the total value field for Invoices' do
+      expect(definition).to match(/Invoice < Sheet.*\n\s+total_value_field 'Total Cost \(ex VAT\)'/i)
+    end
     it 'has a Sheet class for Orders' do
       expect(definition).to match 'Order < Sheet'
+    end
+    it 'defines the total value field for Orders' do
+      expect(definition).to match(/Order < Sheet.*\n\s+total_value_field 'Expected Total Order Value'/i)
     end
     it 'maps mandatory fields using exports_to' do
       expect(definition).to match "field 'Customer URN', :integer, exports_to: 'CustomerURN'"
