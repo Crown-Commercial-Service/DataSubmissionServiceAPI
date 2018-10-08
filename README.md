@@ -48,6 +48,15 @@ A [full list of the API endpoints](endpoints.md) is available in a separate docu
 
 See [this guide](importing.md) to see how to import users and suppliers.
 
+## Reporting rake tasks
+
+There are Rake tasks to report the status of the month's tasks:
+
+```
+  # Report the status of the month's tasks
+  $ bundle exec rake report:submission_stats
+```
+
 ## Console helpers
 
 There are some handy methods available in the Rails console for debugging
