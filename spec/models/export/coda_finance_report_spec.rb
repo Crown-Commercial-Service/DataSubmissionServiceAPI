@@ -21,7 +21,8 @@ RSpec.describe Export::CodaFinanceReport do
       entries: [submission_entry_1, submission_entry_2],
       supplier: supplier_2,
       framework: framework,
-      task: task_1
+      task: task_1,
+      purchase_order_number: 'PO-123'
     )
   end
   let(:submission_entry_1) do
@@ -43,8 +44,8 @@ RSpec.describe Export::CodaFinanceReport do
   let(:expected_csv) do
     <<~CSV
       RunID,Nominal,Customer Code,Customer Name,Contract ID,Order Number,Lot Description,Inf Sales,Commission,Commission %,End User,Submitter,Month,M_Q
-      #{submission.id},409999,C011111,Mary,RM3787,,G CLOUD,802.00,12.03,0.015,UCGV,Mary,August 2018,M
-      #{submission.id},409999,C011111,Mary,RM3787,,G CLOUD,0.00,0.00,0.015,UWPS,Mary,August 2018,M
+      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,802.00,12.03,0.015,UCGV,Mary,August 2018,M
+      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,0.00,0.00,0.015,UWPS,Mary,August 2018,M
       #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,0.015,UCGV,Bob,August 2018,M
       #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,0.015,UWPS,Bob,August 2018,M
     CSV
