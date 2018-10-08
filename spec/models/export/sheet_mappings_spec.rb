@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Export::Template do
+RSpec.describe Export::SheetMappings do
   describe '.source_field_for' do
     # rubocop:disable Style/StructInheritance
     class TemplateUserRow < Struct.new(:model)
-      include Export::Template
+      include Export::SheetMappings
     end
     # rubocop:enable Style/StructInheritance
 
@@ -15,10 +15,10 @@ RSpec.describe Export::Template do
 
     context 'the framework does not exist' do
       let(:entry_type) { 'invoice' }
-      it 'tells us with a KeyError' do
+      it 'tells us what to do about that' do
         expect do
-          submission_entry.source_field_for('some_field', 'NON-EXISTENT FRAMEWORK')
-        end.to raise_error(KeyError)
+          submission_entry.source_field_for('some_field', 'RM12345')
+        end.to raise_error(Framework::Definition::MissingError, /Please run rails g framework:definition "RM12345"/)
       end
     end
 
