@@ -1,5 +1,3 @@
-require 'framework/definitions'
-
 module Export
   ##
   # Included on SubmissionEntryRow to let us map per-template fields
