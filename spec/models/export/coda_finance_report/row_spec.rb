@@ -4,7 +4,15 @@ RSpec.describe Export::CodaFinanceReport::Row do
   let(:task) { FactoryBot.create(:task, framework: framework, supplier: supplier, period_month: 8, period_year: 2018) }
   let(:framework) { FactoryBot.create(:framework, coda_reference: 401234) }
   let(:supplier) { FactoryBot.create(:supplier, coda_reference: 'C012345') }
-  let(:submission) { FactoryBot.create(:submission, framework: framework, task: task, supplier: supplier) }
+  let(:submission) do
+    FactoryBot.create(
+      :submission,
+      framework: framework,
+      task: task,
+      supplier: supplier,
+      purchase_order_number: 'PO999'
+    )
+  end
   subject(:cg_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:central_government]) }
   subject(:wps_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:wider_public_sector]) }
 
@@ -18,6 +26,10 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
   it 'reports the framework’ short_name as ‘Contract ID' do
     expect(cg_report_row.contract_id).to eq framework.short_name
+  end
+
+  it '#order_number returns the submission’s purchase_order_number' do
+    expect(cg_report_row.order_number).to eq 'PO999'
   end
 
   it 'reports the framework’ name as ‘Lot Description’' do

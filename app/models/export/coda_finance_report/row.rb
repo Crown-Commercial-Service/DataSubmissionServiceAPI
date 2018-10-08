@@ -50,7 +50,7 @@ module Export
       end
 
       def order_number
-        BLANK_FOR_NOW
+        submission.purchase_order_number
       end
 
       def lot_description
