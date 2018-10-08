@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-16] - 2018-10-08
+
+- Reduce logging in production environments
+- Updated dependency with security fixes
+- Established framework definition mappings
+- Added helper code for debugging submissions and reporting submission stats
+
 ## [release-15] - 2018-10-03
 
 - Ignore duplicate entries sent by ingest lambda
@@ -84,4 +91,6 @@
 Initial release
 
 
+[release-16]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-15...release-16
+[release-15]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-14...release-15
 [release-14]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-13...release-14
