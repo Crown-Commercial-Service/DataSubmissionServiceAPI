@@ -5,6 +5,8 @@ class Framework
       framework_name       'Rail Legal Services'
 
       class Invoice < Sheet
+        total_value_field 'Total Cost (ex VAT)'
+
         field 'Tier Number', :string, exports_to: 'LotNumber'
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'
@@ -33,6 +35,8 @@ class Framework
       end
 
       class Order < Sheet
+        total_value_field 'Expected Total Order Value'
+
         field 'Tier Number', :string, exports_to: 'LotNumber'
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'

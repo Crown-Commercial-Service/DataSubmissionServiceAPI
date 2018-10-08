@@ -5,6 +5,8 @@ class Framework
       framework_name       'Finance & Complex Legal Services'
 
       class Invoice < Sheet
+        total_value_field 'Total Cost (ex VAT)'
+
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName'
@@ -20,7 +22,7 @@ class Framework
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Price per Unit', :decimal, exports_to: 'UnitPrice'
         field 'Quantity', :decimal, exports_to: 'UnitQuantity'
-        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceTotal'
+        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue'
         field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged'
         field 'Pro-Bono Price per Unit', :decimal, exports_to: 'Additional1'
         field 'Pro-Bono Quantity', :decimal, exports_to: 'Additional2'
@@ -29,6 +31,8 @@ class Framework
       end
 
       class Order < Sheet
+        total_value_field 'Expected Total Order Value'
+
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName'
