@@ -415,7 +415,7 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 22539,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitOfPurchase,UnitOfPurchase,Unit of Purchase,UnitType,varchar,11,System.String,True,,Professional Services,RM3787
 22540,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitPrice,UnitPrice,Price per Unit,UnitPrice,varchar,,System.Decimal,True,,Professional Services,RM3787
 22541,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,UnitQuantity,UnitQuantity,Quantity,UnitQuantity,varchar,,System.Decimal,True,,Professional Services,RM3787
-22542,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (ex VAT),InvoiceTotal,varchar,,System.Decimal,True,,Professional Services,RM3787
+22542,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (ex VAT),InvoiceValue,varchar,,System.Decimal,True,,Professional Services,RM3787
 22543,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,varchar,,System.Decimal,True,,Professional Services,RM3787
 22544,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Pro-Bono Price per Unit,Additional1,varchar,,System.Decimal,True,,Professional Services,RM3787
 22545,1026,739,Finance & Complex Legal Services,InvoicesRaised,Invoices,User Defined,XCol2,XCol2,Pro-Bono Quantity,Additional2,varchar,,System.Decimal,True,,Professional Services,RM3787

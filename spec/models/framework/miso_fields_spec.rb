@@ -55,4 +55,48 @@ RSpec.describe Framework::MisoFields do
     subject { miso_fields.framework_name }
     it { is_expected.to eql('Finance & Complex Legal Services') }
   end
+
+  describe '#invoice_total_value_field' do
+    subject(:invoice_total_value_field) { miso_fields.invoice_total_value_field }
+
+    it 'returns that field' do
+      expect(invoice_total_value_field).to eql('Total Cost (ex VAT)')
+    end
+
+    context 'the invoice total field is unmapped' do
+      before do
+        # throw a nil spanner in the ExportsTo field
+        row = miso_fields.invoice_fields.find { |f| f['ExportsTo'] == 'InvoiceValue' }
+        row['ExportsTo'] = nil
+      end
+
+      it 'raises an ArgumentError' do
+        expect do
+          miso_fields.invoice_total_value_field
+        end.to raise_error(ArgumentError, "no InvoiceValue field found for framework 'RM3787'")
+      end
+    end
+  end
+
+  describe '#order_total_value_field' do
+    subject(:order_total_value_field) { miso_fields.order_total_value_field }
+
+    it 'returns that field' do
+      expect(order_total_value_field).to eql('Expected Total Order Value')
+    end
+
+    context 'the order total field is unmapped' do
+      before do
+        # throw a nil spanner in the ExportsTo field
+        row = miso_fields.order_fields.find { |f| f['ExportsTo'] == 'ContractValue' }
+        row['ExportsTo'] = nil
+      end
+
+      it 'raises an ArgumentError' do
+        expect do
+          miso_fields.order_total_value_field
+        end.to raise_error(ArgumentError, "no ContractValue field found for framework 'RM3787'")
+      end
+    end
+  end
 end

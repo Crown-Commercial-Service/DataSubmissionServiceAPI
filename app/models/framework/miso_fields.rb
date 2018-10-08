@@ -21,6 +21,18 @@ class Framework
       @invoice_fields ||= framework_fields.select { |row| row['DestinationTable'] == 'Invoices' }
     end
 
+    def invoice_total_value_field
+      row = invoice_fields.find { |f| f['ExportsTo'] == 'InvoiceValue' } or
+        raise ArgumentError, "no InvoiceValue field found for framework '#{framework_short_name}'"
+      row['DisplayName']
+    end
+
+    def order_total_value_field
+      row = order_fields.find { |f| f['ExportsTo'] == 'ContractValue' } or
+        raise ArgumentError, "no ContractValue field found for framework '#{framework_short_name}'"
+      row['DisplayName']
+    end
+
     def order_fields
       @order_fields ||= framework_fields.select { |row| row['DestinationTable'] == 'Orders' }
     end
