@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-17] - 2018-10-09
+
+- Include submission purchase order number in finance export
+- Make 'total_value' a first class attribute of SubmissionEntry
+- Made temporary code for reporting spend and management charge into a rake
+    task
+- Fixed issue that was stopping '£' to be typed into the Docker console
+
 ## [release-16] - 2018-10-08
 
 - Reduce logging in production environments
@@ -91,6 +99,7 @@
 Initial release
 
 
+[release-17]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-16...release-17
 [release-16]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-15...release-16
 [release-15]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-14...release-15
 [release-14]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-13...release-14
