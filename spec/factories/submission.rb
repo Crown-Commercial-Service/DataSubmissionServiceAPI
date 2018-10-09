@@ -26,8 +26,8 @@ FactoryBot.define do
 
     factory :submission_with_validated_entries do
       after(:create) do |submission, _evaluator|
-        create_list(:invoice_entry, 2, :valid, submission: submission)
-        create_list(:order_entry, 1, :valid, submission: submission)
+        create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 10.00)
+        create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)
         if submission.files.empty?
           create_list(:submission_file, 1, submission: submission, rows: submission.entries.count)
         end
