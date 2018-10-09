@@ -41,6 +41,10 @@ class Framework
       @miso_fields ||= Framework::MisoFields.new(framework_short_name)
     end
 
+    def quote(field_name)
+      field_name.match?(/'/) ? %("#{field_name}") : "'#{field_name}'"
+    end
+
     def exports_to(field)
       value = field['ExportsTo']
       should_export = value.present? && !value&.match(/[!?]/)
