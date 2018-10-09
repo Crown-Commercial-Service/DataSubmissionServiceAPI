@@ -16,7 +16,7 @@ module Export
           task.id,
           year_and_month,
           task.supplier_id,
-          task.framework_id,
+          task.framework.short_name,
           task.status,
           FIXED_TASK_TYPE,
           EMPTY_FOR_NOW,

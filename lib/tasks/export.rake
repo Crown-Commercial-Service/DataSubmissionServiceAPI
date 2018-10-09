@@ -5,7 +5,7 @@ namespace :export do
 
   desc 'Export task entities to CSV'
   task :tasks, [:output] => [:environment] do |_task, args|
-    Export::Anything.new(Task.all, args[:output]).run
+    Export::Anything.new(Task.includes(:framework), args[:output]).run
   end
 
   desc 'Export submission entities to CSV'
