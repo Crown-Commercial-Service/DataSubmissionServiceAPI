@@ -3,15 +3,23 @@ namespace :report do
   task :submission_stats, %i[month year] => :environment do |_task, args|
     month = args[:month] || (Time.zone.today - 1.month).month
     year = args[:year] || Time.zone.today.year
+    reporting_period_date = Date.new(year.to_i, month.to_i)
 
-    reporting_period = Date.new(year.to_i, month.to_i)
-
-    task_period_scope = Task.where(period_year: reporting_period.year, period_month: reporting_period.month)
-
-    puts "\nStats for #{reporting_period.strftime('%B %Y')} tasks"
+    task_period_scope = Task.where(period_year: reporting_period_date.year, period_month: reporting_period_date.month)
+    puts "\nStats for #{reporting_period_date.strftime('%B %Y')} tasks"
     puts "Unstarted:\t#{task_period_scope.unstarted.count}"
     puts "Completed:\t#{task_period_scope.completed.count} (#{business_no_business_state(task_period_scope)})"
     puts "In Progress:\t#{task_period_scope.in_progress.count} (#{latest_submission_state(task_period_scope)})"
+  end
+
+  desc 'Report spend and management charge. Defaults to the current month’s tasks. Override with [MM,YYYY]'
+  task :spend_and_management_charge, %i[month year] => :environment do |_task, args|
+    require 'temporary_totals_reporter'
+    month = args[:month] || (Time.zone.today - 1.month).month
+    year = args[:year] || Time.zone.today.year
+    reporting_period_date = Date.new(year.to_i, month.to_i)
+
+    TemporaryTotalsReporter.new(reporting_period_date).report
   end
 
   private
