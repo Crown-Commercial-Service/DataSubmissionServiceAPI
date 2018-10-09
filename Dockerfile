@@ -2,9 +2,9 @@ FROM ruby:2.5.1
 
 MAINTAINER dxw <rails@dxw.com>
 
-RUN apt-get update && apt-get install -qq -y build-essential libpq-dev --fix-missing --no-install-recommends
-
-ENV INSTALL_PATH /srv/dss-api
+RUN apt-get update && apt-get install -qq -y build-essential libpq-dev locales --fix-missing --no-install-recommends
+RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
+ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8 INSTALL_PATH=/srv/dss-api
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
