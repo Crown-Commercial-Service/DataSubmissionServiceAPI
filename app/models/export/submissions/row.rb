@@ -10,7 +10,7 @@ module Export
           status,
           submission_type,
           submission_file_type,
-          order_entry_count,
+          contract_entry_count,
           order_value,
           invoice_entry_count,
           invoice_value,
@@ -33,7 +33,7 @@ module Export
       end
 
       def submission_type
-        (invoice_entry_count + order_entry_count).zero? ? 'no_business' : 'file'
+        (invoice_entry_count + contract_entry_count).zero? ? 'no_business' : 'file'
       end
 
       def submission_file_type
@@ -66,21 +66,26 @@ module Export
       def finance_export_date; end
 
       def invoice_value
-        MISSING
+        format_money(submission._total_invoice_value)
       end
 
       def order_value
-        MISSING
+        format_money(submission._total_order_value)
       end
 
       private
 
-      def order_entry_count
+      def contract_entry_count
         submission._order_entry_count
       end
 
       def invoice_entry_count
         submission._invoice_entry_count
+      end
+
+      def format_money(amount)
+        return '0.00' if amount.nil?
+        format '%.2f', amount.truncate(2)
       end
     end
   end

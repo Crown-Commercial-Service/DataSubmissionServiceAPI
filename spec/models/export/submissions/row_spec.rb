@@ -29,7 +29,7 @@ RSpec.describe Export::Submissions::Row do
   describe '#submission_type and its dependence on _ projected fields' do
     before do
       allow(row).to receive(:invoice_entry_count).and_return(invoices)
-      allow(row).to receive(:order_entry_count).and_return(orders)
+      allow(row).to receive(:contract_entry_count).and_return(orders)
     end
 
     subject { row.submission_type }
