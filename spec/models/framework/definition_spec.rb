@@ -28,4 +28,11 @@ RSpec.describe Framework::Definition do
       end
     end
   end
+
+  describe '.all' do
+    it 'gets everything that is descended from Framework::Definition::Base and nothing else' do
+      expect(Framework::Definition.all.length).to be > 0
+      expect(Framework::Definition.all).to all(satisfy { |c| c.ancestors.include?(Framework::Definition::Base) })
+    end
+  end
 end
