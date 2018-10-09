@@ -6,7 +6,23 @@ RSpec.describe Export::SubmissionEntryRow do
 
     subject(:value) { row.value_for(field) }
 
-    context 'An invoice entry for RM3786' do
+    context 'An invoice entry for a non-existent framework' do
+      let(:entry) do
+        double 'SubmissionEntry',
+               _framework_short_name: 'RM12345', entry_type: 'invoice'
+      end
+
+      it 'tells us what to do about that' do
+        expect do
+          row.value_for('some_field')
+        end.to raise_error(
+          Framework::Definition::MissingError,
+          /Please run rails g framework:definition "RM12345"/
+        )
+      end
+    end
+
+    context 'An invoice entry for existing framework RM3786' do
       let(:entry) do
         double 'SubmissionEntry',
                _framework_short_name: 'RM3786', entry_type: 'invoice',

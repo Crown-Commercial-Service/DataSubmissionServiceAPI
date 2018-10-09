@@ -46,5 +46,13 @@ class Framework
       should_export = value.present? && !value&.match(/[!?]/)
       ", exports_to: '#{value}'" if should_export
     end
+
+    def invoice_total_value_field
+      "total_value_field '#{miso_fields.invoice_total_value_field}'"
+    end
+
+    def order_total_value_field
+      "total_value_field '#{miso_fields.order_total_value_field}'"
+    end
   end
 end

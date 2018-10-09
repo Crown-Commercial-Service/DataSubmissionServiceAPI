@@ -6,13 +6,8 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
-    include Export::SheetMappings
-
     def value_for(destination_field, default: NOT_IN_DATA)
-      source_field = source_field_for(
-        destination_field,
-        model._framework_short_name
-      )
+      source_field = source_field_for(destination_field)
       model.data.fetch(source_field, default)
     end
 
@@ -20,6 +15,14 @@ module Export
       (1..8).map do |n|
         value_for("Additional#{n}", default: nil)
       end
+    end
+
+    private
+
+    def source_field_for(destination_field)
+      framework_definition = Framework::Definition[model._framework_short_name]
+      sheet_definition = "#{framework_definition}::#{model.entry_type.capitalize}".constantize
+      sheet_definition.export_mappings[destination_field]
     end
   end
 end

@@ -5,6 +5,8 @@ class Framework
       framework_name       'General Legal Advice Services'
 
       class Invoice < Sheet
+        total_value_field 'Total Cost (ex VAT)'
+
         field 'Tier Number', :string, exports_to: 'LotNumber'
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'
@@ -32,6 +34,8 @@ class Framework
       end
 
       class Order < Sheet
+        total_value_field 'Expected Total Order Value'
+
         field 'Contract Start Date', :date, exports_to: 'ContractStartDate'
         field 'Contract End Date', :date, exports_to: 'ContractEndDate'
         field 'Award Procedure', :string, exports_to: 'ContractAwardChannel'
