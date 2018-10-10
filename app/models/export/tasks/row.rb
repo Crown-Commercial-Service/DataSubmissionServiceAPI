@@ -15,7 +15,7 @@ module Export
         [
           task.id,
           year_and_month,
-          task.supplier_id,
+          task.supplier.salesforce_id,
           task.framework.short_name,
           task.status,
           FIXED_TASK_TYPE,
