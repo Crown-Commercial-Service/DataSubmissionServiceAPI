@@ -45,7 +45,7 @@ module Export
       end
 
       def management_charge_rate
-        (Framework::TMP_FIXED_CHARGE_RATE / 100).to_s
+        (framework_definition.management_charge_rate / 100).to_s
       end
 
       def created_date
@@ -74,6 +74,10 @@ module Export
       end
 
       private
+
+      def framework_definition
+        @framework_definition ||= Framework::Definition[submission._framework_short_name]
+      end
 
       def contract_entry_count
         submission._order_entry_count

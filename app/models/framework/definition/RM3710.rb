@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM3710'
       framework_name       'Vehicle Lease and Fleet Management'
 
+      management_charge_rate BigDecimal('0.5')
+
       class Invoice < Sheet
         total_value_field 'Total Charge (Ex VAT)'
 

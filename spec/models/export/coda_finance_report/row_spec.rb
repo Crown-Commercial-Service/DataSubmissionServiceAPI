@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Export::CodaFinanceReport::Row do
   let(:task) { FactoryBot.create(:task, framework: framework, supplier: supplier, period_month: 8, period_year: 2018) }
-  let(:framework) { FactoryBot.create(:framework, coda_reference: 401234) }
+  let(:framework) { FactoryBot.create(:framework, short_name: 'RM1070', coda_reference: 401234) }
   let(:supplier) { FactoryBot.create(:supplier, coda_reference: 'C012345') }
   let(:submission) do
     FactoryBot.create(
@@ -53,7 +53,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
   end
 
   it 'reports the management charge rate as ‘Commission %’' do
-    expect(cg_report_row.commission_percent).to eq '0.015'
+    expect(cg_report_row.commission_percent).to eq '0.005'
   end
 
   it 'reports the sector as ‘End User’' do
@@ -113,8 +113,8 @@ RSpec.describe Export::CodaFinanceReport::Row do
     end
 
     it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
-      expect(cg_report_row.commission).to eq '18.45'
-      expect(wps_report_row.commission).to eq '-6.43'
+      expect(cg_report_row.commission).to eq '6.15'
+      expect(wps_report_row.commission).to eq '-2.14'
     end
 
     it 'handles sales amounts written as a human-readable number' do
@@ -125,11 +125,11 @@ RSpec.describe Export::CodaFinanceReport::Row do
         data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
       )
       expect(cg_report_row.inf_sales).to eq '3659.40'
-      expect(cg_report_row.commission).to eq '54.89'
+      expect(cg_report_row.commission).to eq '18.29'
     end
 
     it 'handles no business submissions, reporting them as zero sales and commission' do
-      no_business_submission = FactoryBot.create(:no_business_submission)
+      no_business_submission = FactoryBot.create(:no_business_submission, framework: framework)
       row = Export::CodaFinanceReport::Row.new(no_business_submission, Customer.sectors[:central_government])
 
       expect(row.inf_sales).to eq '0.00'

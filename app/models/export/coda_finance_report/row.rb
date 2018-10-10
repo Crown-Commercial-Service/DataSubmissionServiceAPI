@@ -66,7 +66,7 @@ module Export
       end
 
       def commission_percent
-        format_percentage(management_charge_rate)
+        percentage_as_decimal(management_charge_rate)
       end
 
       def end_user
@@ -107,7 +107,7 @@ module Export
       end
 
       def management_charge_rate
-        Framework::TMP_FIXED_CHARGE_RATE
+        framework.management_charge_rate
       end
 
       def numeric_string_to_number(numeric_string)
@@ -118,7 +118,7 @@ module Export
         format '%.2f', amount.truncate(2)
       end
 
-      def format_percentage(percentage)
+      def percentage_as_decimal(percentage)
         (percentage / 100).to_s
       end
 

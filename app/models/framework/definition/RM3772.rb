@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM3772'
       framework_name       'Specialist Laundry Services (for Surgical Gowns, D'
 
+      management_charge_rate BigDecimal('0.5')
+
       class Invoice < Sheet
         total_value_field 'Total Charge (Ex VAT)'
 

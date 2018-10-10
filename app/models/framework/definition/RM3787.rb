@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM3787'
       framework_name       'Finance & Complex Legal Services'
 
+      management_charge_rate BigDecimal('1.5')
+
       class Invoice < Sheet
         total_value_field 'Total Cost (ex VAT)'
 
