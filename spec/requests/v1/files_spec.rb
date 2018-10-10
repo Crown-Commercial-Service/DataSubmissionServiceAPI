@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe '/v1' do
   describe 'POST /files/:file_id/entries' do
     it 'stores a submission entry, associated with a file' do
-      file = FactoryBot.create(:submission_file)
+      framework = FactoryBot.create(:framework, short_name: 'RM3756')
+      submission = FactoryBot.create(:submission, framework: framework)
+      file = FactoryBot.create(:submission_file, submission: submission)
 
       params = {
         data: {
@@ -39,12 +41,15 @@ RSpec.describe '/v1' do
     end
 
     it 'returns an error if the "data" parameter is omitted' do
-      file = FactoryBot.create(:submission_file)
+      framework = FactoryBot.create(:framework, short_name: 'RM3756')
+      submission = FactoryBot.create(:submission, framework: framework)
+      file = FactoryBot.create(:submission_file, submission: submission)
 
       params = {
         data: {
           type: 'submission_entries',
           attributes: {
+            entry_type: 'order',
             source: {
               sheet: 'Orders',
               row: 1

@@ -96,12 +96,14 @@ RSpec.describe '/v1' do
 
   describe 'POST /submissions/:submission_id/entries' do
     it 'stores a submission entry, not associated with a file' do
-      submission = FactoryBot.create(:submission)
+      framework = FactoryBot.create(:framework, short_name: 'RM3756')
+      submission = FactoryBot.create(:submission, framework: framework)
 
       params = {
         data: {
           type: 'submission_entries',
           attributes: {
+            entry_type: 'invoice',
             source: {
               sheet: 'InvoicesRaised',
               row: 42
@@ -129,21 +131,48 @@ RSpec.describe '/v1' do
       expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
     end
 
+    it 'sets the total_value from the relevant data field based on the framework definition' do
+      framework = FactoryBot.create(:framework, short_name: 'RM3756')
+      submission = FactoryBot.create(:submission, framework: framework)
+
+      params = {
+        data: {
+          type: 'submission_entries',
+          attributes: {
+            entry_type: 'invoice',
+            source: {
+              sheet: 'InvoicesRaised',
+              row: 1
+            },
+            data: {
+              'Total Cost (ex VAT)': 12.34
+            }
+          }
+        }
+      }
+
+      post "/v1/submissions/#{submission.id}/entries", params: params.to_json, headers: json_headers
+
+      expect(submission.entries.first.total_value).to eql 12.34
+    end
+
     context 'an entry for the same row/sheet already exists' do
       it 'does not add the entry and returns HTTP 204 No Content' do
-        submission = FactoryBot.create(:submission)
+        framework = FactoryBot.create(:framework, short_name: 'RM3756')
+        submission = FactoryBot.create(:submission, framework: framework)
         FactoryBot.create(:invoice_entry, row: 1234, submission: submission, sheet_name: 'InvoicesRaised')
 
         params = {
           data: {
             type: 'submission_entries',
             attributes: {
+              entry_type: 'invoice',
               source: {
                 sheet: 'InvoicesRaised',
                 row: 1234
               },
               data: {
-                test: 'test'
+                'Total Cost (ex VAT)': 0
               }
             }
           }
