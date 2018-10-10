@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_163133) do
+ActiveRecord::Schema.define(version: 2018_10_10_111040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(version: 2018_10_08_163133) do
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "coda_reference", limit: 7
+    t.string "salesforce_id"
+    t.index ["salesforce_id"], name: "index_suppliers_on_salesforce_id", unique: true
   end
 
   create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
