@@ -72,4 +72,13 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
       expect(definition).to match "field 'Cost Centre', :string"
     end
   end
+
+  context 'Single quotes in fields – RM3797' do
+    let(:generator_arguments)      { %w[RM3797] }
+    let(:expected_definition_file) { 'RM3797.rb' }
+
+    it %(escapes the "Publisher's Name" field) do
+      expect(definition).to include(%(field "Publisher's Name"))
+    end
+  end
 end
