@@ -68,6 +68,14 @@ RSpec.describe Export::Submissions::Extract do
           it { is_expected.to be_nil }
         end
       end
+
+      describe '#_framework_short_name as a projection on the Submission model' do
+        it 'returns the submission’s framework short_name' do
+          expect(extract_file_submission._framework_short_name).to eq(file_submission.framework.short_name)
+          expect(extract_no_business_submission._framework_short_name)
+            .to eq(extract_no_business_submission.framework.short_name)
+        end
+      end
     end
   end
 end

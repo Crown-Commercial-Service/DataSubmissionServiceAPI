@@ -9,12 +9,13 @@ RSpec.describe 'rake export:submissions', type: :task do
     let(:args) { {} }
 
     let!(:no_business_submission) do
-      create(:no_business_submission)
+      create(:no_business_submission, framework: create(:framework, short_name: 'RM3756'))
     end
 
     let!(:submission) do
       create(
         :submission,
+        framework: create(:framework, short_name: 'RM3767'),
         aasm_state: 'completed',
         created_at: Time.zone.local(2018, 9, 18, 14, 20, 35),
         management_charge: 45000,
@@ -53,7 +54,7 @@ RSpec.describe 'rake export:submissions', type: :task do
       expect(output_lines.length).to eql(3)
       expect(output_lines.find { |line| line.match('PO1234') }).to eql(
         "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,804.00,1,179.00,450.00," \
-        '0.015,2018-09-18T14:20:35Z,,,,,PO1234'
+        '0.01,2018-09-18T14:20:35Z,,,,,PO1234'
       )
     end
 

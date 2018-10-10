@@ -82,9 +82,9 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe '#management_charge_rate' do
-    subject { row.management_charge_value }
-    it 'is fixed to a constant at present, expected to change Oct 2018' do
-      expect(row.management_charge_rate).to eql('0.015')
+    let(:submission) { double 'Submission', _framework_short_name: 'RM1031' }
+    it 'returns the rate for the framework identified by _framework_short_name as a decimal' do
+      expect(row.management_charge_rate).to eql('0.005')
     end
   end
 

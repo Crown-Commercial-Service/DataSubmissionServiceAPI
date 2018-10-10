@@ -7,6 +7,7 @@ module Export
         Submission.select(
           <<~POSTGRESQL
             submissions.*,
+            frameworks.short_name             AS _framework_short_name,
             orders.total_value                AS _total_order_value,
             COALESCE(orders.entry_count, 0)   AS _order_entry_count,
             invoices.total_value              AS _total_invoice_value,
@@ -15,6 +16,7 @@ module Export
           POSTGRESQL
         ).joins(
           <<~POSTGRESQL
+            LEFT JOIN frameworks ON frameworks.id = submissions.framework_id
             LEFT JOIN (SELECT
                          submission_id,
                          SUM(total_value) AS total_value,
@@ -37,7 +39,7 @@ module Export
         ).where(
           aasm_state: RELEVANT_STATUSES
         ).group(
-          'submissions.id, orders.total_value, invoices.total_value,'\
+          'submissions.id, frameworks.short_name, orders.total_value, invoices.total_value,'\
           'orders.entry_count, invoices.entry_count'
         )
       end
