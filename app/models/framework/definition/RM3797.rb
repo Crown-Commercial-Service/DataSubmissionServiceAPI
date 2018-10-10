@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM3797'
       framework_name       'Journal Subscriptions'
 
+      management_charge_rate BigDecimal('1')
+
       class Invoice < Sheet
         total_value_field 'Total Charge (Ex VAT)'
 

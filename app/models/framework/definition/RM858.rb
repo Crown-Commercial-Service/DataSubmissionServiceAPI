@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM858'
       framework_name       'Pan Govt Vehicle Leasing & Fleet Outsource Solutio'
 
+      management_charge_rate BigDecimal('0.5')
+
       class Invoice < Sheet
         total_value_field 'Invoice Line Total Value ex VAT'
 

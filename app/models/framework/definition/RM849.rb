@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM849'
       framework_name       'Laundry & Linen Services Framework'
 
+      management_charge_rate BigDecimal('0.5')
+
       class Invoice < Sheet
         total_value_field 'Invoice Line Total Value ex VAT and Expenses'
 

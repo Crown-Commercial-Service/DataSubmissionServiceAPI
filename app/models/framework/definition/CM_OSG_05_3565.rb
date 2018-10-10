@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'CM/OSG/05/3565'
       framework_name       'Laundry Services - Wave 2'
 
+      management_charge_rate BigDecimal('0')
+
       class Invoice < Sheet
         total_value_field 'Total Spend'
 

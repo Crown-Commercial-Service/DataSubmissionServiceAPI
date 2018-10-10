@@ -33,6 +33,12 @@ class Framework
         def framework_short_name(value = nil)
           @framework_short_name ||= value
         end
+
+        ##
+        # E.g. BigDecimal.new('1.5')
+        def management_charge_rate(charge_rate = nil)
+          @management_charge_rate ||= charge_rate
+        end
       end
     end
 

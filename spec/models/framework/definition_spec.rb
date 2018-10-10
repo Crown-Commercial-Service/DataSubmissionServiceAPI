@@ -10,12 +10,20 @@ RSpec.describe Framework::Definition do
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
         end
+
+        it 'reports the management charge' do
+          expect(definition.management_charge_rate).to eq(BigDecimal('1.5'))
+        end
       end
 
       context 'and it has slashes in it' do
         let(:framework_short_name) { 'CM/OSG/05/3565' }
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
+        end
+
+        it 'reports the management charge' do
+          expect(definition.management_charge_rate).to eq(BigDecimal('0'))
         end
       end
     end

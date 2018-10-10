@@ -4,6 +4,8 @@ class Framework
       framework_short_name 'RM1070'
       framework_name       'Vehicle Purchase (RM1070)'
 
+      management_charge_rate BigDecimal('0.5')
+
       class Invoice < Sheet
         total_value_field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
 
