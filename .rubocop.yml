@@ -69,6 +69,8 @@ Metrics/AbcSize:
 
 Metrics/LineLength:
     Max: 120
+    Exclude:
+        - 'app/models/framework/definition/**/*'
 
 Metrics/BlockLength:
     Max: 40
