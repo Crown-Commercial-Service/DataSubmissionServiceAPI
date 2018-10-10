@@ -107,7 +107,7 @@ module Export
       end
 
       def management_charge_rate
-        Framework::TMP_FIXED_CHARGE_RATE
+        framework.management_charge_rate
       end
 
       def numeric_string_to_number(numeric_string)
