@@ -17,7 +17,7 @@ class Framework
         <%= order_total_value_field %>
 
         <%- order_fields.each do |field| -%>
-        field '<%= quote(field['DisplayName']) %>, <%= activemodel_data_type field['SystemDataType'] %><%= exports_to(field) %>
+        field <%= quote(field['DisplayName']) %>, <%= activemodel_data_type field['SystemDataType'] %><%= exports_to(field) %>
         <%- end -%>
       end
       <%- end -%>
