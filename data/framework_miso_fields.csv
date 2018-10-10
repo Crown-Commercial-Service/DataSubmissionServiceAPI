@@ -125,7 +125,7 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 10170,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,ProductDescription,ProductDescription,Project Name,ProductDescription,varchar,255,System.String,True,False,Workplace,RM849
 10171,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,int,-1,System.Int32,False,False,Workplace,RM849
 10172,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Quantity,Quantity,Number of items,Orders needs field for this?,int,-1,System.Int32,False,False,Workplace,RM849
-10173,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Value,Value,Customer Order/Contract Value,ContactValue,"decimal(18,4)",-1,System.Decimal,True,False,Workplace,RM849
+10173,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,Value,Value,Customer Order/Contract Value,ContractValue,"decimal(18,4)",-1,System.Decimal,True,False,Workplace,RM849
 10174,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,Default,OrderChannel,OrderChannel,Invoice Line Service Grouping,ContractAwardChannel,varchar,3,System.String,True,False,Workplace,RM849
 10175,427,485,Laundry & Linen Services Framework,OrdersReceived,Orders,User Defined,InvLineDesc,XCol1,Invoice Line Product / Service Description,Additional1,varchar,255,System.String,True,False,Workplace,RM849
 17434,758,644,Vehicle Purchase (RM1070),InvoicesRaised,Invoices,Default,LotNumber,LotNumber,Lot Number,LotNumber,varchar,20,System.String,True,False,Fleet,RM1070
