@@ -66,7 +66,7 @@ module Export
       end
 
       def commission_percent
-        format_percentage(management_charge_rate)
+        percentage_as_decimal(management_charge_rate)
       end
 
       def end_user
@@ -118,7 +118,7 @@ module Export
         format '%.2f', amount.truncate(2)
       end
 
-      def format_percentage(percentage)
+      def percentage_as_decimal(percentage)
         (percentage / 100).to_s
       end
 
