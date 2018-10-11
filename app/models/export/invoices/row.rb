@@ -10,7 +10,7 @@ module Export
           value_for('CustomerURN'),
           value_for('CustomerName'),
           value_for('CustomerPostCode'),
-          value_for('InvoiceDate'),
+          invoice_date,
           value_for('InvoiceNumber'),
           value_for('SupplierReferenceNumber', default: nil),
           value_for('CustomerReferenceNumber', default: nil),
@@ -31,6 +31,12 @@ module Export
         ]
       end
       # rubocop:enable Metrics/AbcSize
+
+      private
+
+      def invoice_date
+        formatted_date value_for('InvoiceDate')
+      end
     end
   end
 end

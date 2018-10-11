@@ -22,14 +22,24 @@ module Export
           value_for('CustomerContactName', default: nil),
           value_for('CustomerContactNumber', default: nil),
           value_for('CustomerContactEmail', default: nil),
-          value_for('ContractStartDate', default: nil),
-          value_for('ContractEndDate', default: nil),
+          contract_start_date,
+          contract_end_date,
           value_for('ContractValue'),
           value_for('ContractAwardChannel'),
           *values_for_additional
         ]
       end
       # rubocop:enable Metrics/AbcSize
+
+      private
+
+      def contract_start_date
+        formatted_date value_for('ContractStartDate', default: nil)
+      end
+
+      def contract_end_date
+        formatted_date value_for('ContractEndDate', default: nil)
+      end
     end
   end
 end
