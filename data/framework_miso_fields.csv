@@ -285,9 +285,9 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 20663,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,varchar,,System.Int32,True,False,Fleet,RM3767
 20664,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,UnitOfPurchase,UnitOfPurchase,Unit of Purchase,UnitType,varchar,4,System.String,True,False,Fleet,RM3767
 20665,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,UnitPrice,UnitPrice,Price per Unit,UnitPrice,varchar,,System.Decimal,True,False,Fleet,RM3767
-20666,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (Ex VAT),InvoiceValue,varchar,,System.Decimal,True,False,Fleet,RM3767
+20666,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,InvoiceLineTotal,InvoiceLineTotal,Total Cost (ex VAT),InvoiceValue,varchar,,System.Decimal,True,False,Fleet,RM3767
 20667,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,UnitQuantity,UnitQuantity,Quantity,UnitQuantity,varchar,,System.Decimal,True,False,Fleet,RM3767
-20668,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT amount charged,VATCharged,varchar,,System.Decimal,True,False,Fleet,RM3767
+20668,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,VATCharged,VATCharged,VAT Amount Charged,VATCharged,varchar,,System.Decimal,True,False,Fleet,RM3767
 20675,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,CostCentre,CostCentre,Cost Centre,! do not export,varchar,255,System.String,True,,Fleet,RM3767
 20676,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,Default,ContractNumber,ContractNumber,Contract Number,! do not export,varchar,255,System.String,True,,Fleet,RM3767
 20660,915,683,Supply and Fit of Tyres (RM3767),InvoicesRaised,Invoices,User Defined,XCol1,XCol1,Tyre Grade,Additional1,varchar,9,System.String,True,,Fleet,RM3767
