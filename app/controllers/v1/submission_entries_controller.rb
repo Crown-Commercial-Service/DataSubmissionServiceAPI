@@ -3,7 +3,10 @@ class V1::SubmissionEntriesController < ApplicationController
 
   def create
     entry = initialize_submission_entry
-    entry.attributes = submission_entry_params
+    entry.attributes = IngestPostProcessor.new(
+      params: submission_entry_params,
+      framework: entry.submission.framework
+    ).resolve_parameters
 
     return head :no_content if SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
 
