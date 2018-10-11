@@ -29,9 +29,9 @@ class Framework
         field 'UNSPSC', :integer, exports_to: 'UNSPSC'
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Price per Unit', :decimal, exports_to: 'UnitPrice'
-        field 'Total Cost (Ex VAT)', :decimal, exports_to: 'InvoiceValue'
+        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue'
         field 'Quantity', :decimal, exports_to: 'UnitQuantity'
-        field 'VAT amount charged', :decimal, exports_to: 'VATCharged'
+        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged'
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Tyre Grade', :string, exports_to: 'Additional1'
