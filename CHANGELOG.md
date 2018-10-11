@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-18] - 2018-10-11
+
+- data migration to back-full total_value for existing submission entries
+- added framework definitions for all October frameworks
+- add management charge rate on framework definitions
+- exports and finance report contain correct management charge rate
+- corrected framework identifier reporting in tasks export
+- Suppliers now have a salesforce_id
+
 ## [release-17] - 2018-10-09
 
 - Include submission purchase order number in finance export
@@ -99,6 +108,7 @@
 Initial release
 
 
+[release-18]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-17...release-18
 [release-17]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-16...release-17
 [release-16]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-15...release-16
 [release-15]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-14...release-15
