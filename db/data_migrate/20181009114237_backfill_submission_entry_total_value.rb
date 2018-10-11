@@ -53,6 +53,7 @@ ActiveRecord::Base.connection.execute(
               ELSE data ->> 'Expected Total Order Value'
             END)
         ), '£ ,', ''
-      ) :: decimal;
+      ) :: decimal
+    WHERE submission_entries.aasm_state = 'validated';
 POSTGRESQL
 )
