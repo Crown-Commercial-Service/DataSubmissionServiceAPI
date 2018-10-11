@@ -27,12 +27,18 @@ RSpec.describe Export::CodaFinanceReport do
   end
   let(:submission_entry_1) do
     FactoryBot.build(
-      :invoice_entry, :valid, data: { 'Total Cost (ex VAT)' => '678.55', 'Customer URN' => home_office.urn }
+      :invoice_entry,
+      :valid,
+      total_value: 678.55,
+      data: { 'Total Cost (ex VAT)' => '678.55', 'Customer URN' => home_office.urn }
     )
   end
   let(:submission_entry_2) do
     FactoryBot.build(
-      :invoice_entry, :valid, data: { 'Total Cost (ex VAT)' => '123.45', 'Customer URN' => home_office.urn },
+      :invoice_entry,
+      :valid,
+      total_value: 123.45,
+      data: { 'Total Cost (ex VAT)' => '123.45', 'Customer URN' => home_office.urn },
     )
   end
 

@@ -71,6 +71,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        total_value: 801.50,
         data: { 'Total Cost (ex VAT)' => '801.50', 'Customer URN' => home_office.urn }
       )
     end
@@ -79,6 +80,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        total_value: 428.95,
         data: { 'Total Cost (ex VAT)' => '428.95', 'Customer URN' => health_dept.urn }
       )
     end
@@ -87,6 +89,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        total_value: -428.95,
         data: { 'Total Cost (ex VAT)' => '-428.95', 'Customer URN' => bobs_charity.urn }
       )
     end
@@ -95,6 +98,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :order_entry,
         :valid,
         submission: submission,
+        total_value: 1000,
         data: { 'Total Cost (ex VAT)' => '1000.00', 'Customer URN' => home_office.urn }
       )
     end
@@ -103,6 +107,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :order_entry,
         :valid,
         submission: submission,
+        total_value: 1200,
         data: { 'Total Cost (ex VAT)' => '1200.00', 'Customer URN' => bobs_charity.urn }
       )
     end
@@ -115,17 +120,6 @@ RSpec.describe Export::CodaFinanceReport::Row do
     it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
       expect(cg_report_row.commission).to eq '6.15'
       expect(wps_report_row.commission).to eq '-2.14'
-    end
-
-    it 'handles sales amounts written as a human-readable number' do
-      FactoryBot.create(
-        :invoice_entry,
-        :valid,
-        submission: submission,
-        data: { 'Total Cost (ex VAT)' => ' 2,428.95 ', 'Customer URN' => health_dept.urn }
-      )
-      expect(cg_report_row.inf_sales).to eq '3659.40'
-      expect(cg_report_row.commission).to eq '18.29'
     end
 
     it 'handles no business submissions, reporting them as zero sales and commission' do
