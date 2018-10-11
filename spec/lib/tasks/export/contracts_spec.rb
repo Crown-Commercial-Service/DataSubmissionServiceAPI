@@ -59,8 +59,8 @@ RSpec.describe 'rake export:contracts', type: :task do
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
         "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA," \
-        ',,,,,,,,,' \
-        '#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,,,,,,,'
+        ',,,,,,,,,,,' \
+        '#NOTINDATA,#NOTINDATA,,,,,,,,'
       )
     end
 

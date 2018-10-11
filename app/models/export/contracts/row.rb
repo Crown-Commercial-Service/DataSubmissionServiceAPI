@@ -22,8 +22,8 @@ module Export
           value_for('CustomerContactName', default: nil),
           value_for('CustomerContactNumber', default: nil),
           value_for('CustomerContactEmail', default: nil),
-          value_for('ContractStartDate'),
-          value_for('ContractEndDate'),
+          value_for('ContractStartDate', default: nil),
+          value_for('ContractEndDate', default: nil),
           value_for('ContractValue'),
           value_for('ContractAwardChannel'),
           *values_for_additional
