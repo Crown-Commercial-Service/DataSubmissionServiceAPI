@@ -32,6 +32,7 @@ FactoryBot.define do
     end
 
     trait :legal_framework_invoice_data do
+      total_value(-135.98)
       data do
         {
           'UNSPSC' => '80120000',
@@ -61,6 +62,7 @@ FactoryBot.define do
     end
 
     trait :legal_framework_contract_data do
+      total_value 5000
       data do
         {
           'Matter Name' => 'DWP - Claim by Mr I Dontexist',
