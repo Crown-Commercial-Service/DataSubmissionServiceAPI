@@ -41,7 +41,7 @@ module Export
       end
 
       def management_charge_value
-        format('%0.2f', submission.management_charge / 100.0) if submission.management_charge
+        format_money(submission._total_management_charge_value)
       end
 
       def management_charge_rate
