@@ -100,7 +100,7 @@ module Export
       end
 
       def management_charge
-        (total_sales * management_charge_rate / 100)
+        submission.entries.invoices.sector(sector).sum(:management_charge)
       end
 
       def management_charge_rate

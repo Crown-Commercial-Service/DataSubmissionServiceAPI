@@ -72,6 +72,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :valid,
         submission: submission,
         total_value: 801.50,
+        management_charge: 4.00,
         data: { 'Total Cost (ex VAT)' => '801.50', 'Customer URN' => home_office.urn }
       )
     end
@@ -81,6 +82,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :valid,
         submission: submission,
         total_value: 428.95,
+        management_charge: 2.1447,
         data: { 'Total Cost (ex VAT)' => '428.95', 'Customer URN' => health_dept.urn }
       )
     end
@@ -90,6 +92,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :valid,
         submission: submission,
         total_value: -428.95,
+        management_charge: -2.1447,
         data: { 'Total Cost (ex VAT)' => '-428.95', 'Customer URN' => bobs_charity.urn }
       )
     end
@@ -99,6 +102,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :valid,
         submission: submission,
         total_value: 1000,
+        management_charge: 5,
         data: { 'Total Cost (ex VAT)' => '1000.00', 'Customer URN' => home_office.urn }
       )
     end
@@ -108,6 +112,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :valid,
         submission: submission,
         total_value: 1200,
+        management_charge: 6,
         data: { 'Total Cost (ex VAT)' => '1200.00', 'Customer URN' => bobs_charity.urn }
       )
     end
@@ -117,8 +122,8 @@ RSpec.describe Export::CodaFinanceReport::Row do
       expect(wps_report_row.inf_sales).to eq '-428.95'
     end
 
-    it 'reports the total management charge, scoped to the sector, as ‘Commission’' do
-      expect(cg_report_row.commission).to eq '6.15'
+    it 'reports the total management charge to 2dp, scoped to the sector, as ‘Commission’' do
+      expect(cg_report_row.commission).to eq '6.14'
       expect(wps_report_row.commission).to eq '-2.14'
     end
 
