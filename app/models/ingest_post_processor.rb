@@ -18,7 +18,7 @@ class IngestPostProcessor
   end
 
   def total_value_field
-    "#{framework.definition}::#{entry_type.capitalize}".constantize.total_value_field
+    framework.definition.for_entry_type(entry_type).total_value_field
   end
 
   def entry_type
