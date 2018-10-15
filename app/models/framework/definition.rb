@@ -24,14 +24,14 @@ class Framework
       class << self
         ##
         # E.g. "Rail Legal Services"
-        def framework_name(value = nil)
-          @framework_name ||= value
+        def framework_name(framework_name = nil)
+          @framework_name ||= framework_name
         end
 
         ##
         # E.g. "RM3786"
-        def framework_short_name(value = nil)
-          @framework_short_name ||= value
+        def framework_short_name(framework_short_name = nil)
+          @framework_short_name ||= framework_short_name
         end
 
         ##
