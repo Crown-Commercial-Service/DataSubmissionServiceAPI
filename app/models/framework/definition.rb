@@ -39,6 +39,10 @@ class Framework
         def management_charge_rate(charge_rate = nil)
           @management_charge_rate ||= charge_rate
         end
+
+        def management_charge(value)
+          (value * (management_charge_rate / 100)).truncate(4)
+        end
       end
     end
 
