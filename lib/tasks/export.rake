@@ -22,4 +22,11 @@ namespace :export do
   task :contracts, [:output] => [:environment] do |_task, args|
     Export::Anything.new(Export::Contracts::Extract.all_relevant, args[:output]).run
   end
+
+  desc 'Export coda finance report to CSV'
+  task coda_finance_report: :environment do
+    export_path = "/tmp/coda_finance_report_#{Time.zone.today}.csv"
+    puts "Exporting to #{export_path}"
+    Export::CodaFinanceReport.new(Submission.completed, File.open(export_path, 'w')).run
+  end
 end

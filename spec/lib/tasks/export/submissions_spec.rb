@@ -18,13 +18,12 @@ RSpec.describe 'rake export:submissions', type: :task do
         framework: create(:framework, short_name: 'RM3767'),
         aasm_state: 'completed',
         created_at: Time.zone.local(2018, 9, 18, 14, 20, 35),
-        management_charge: 45000,
         purchase_order_number: 'PO1234',
         files: [
           create(:submission_file, :with_attachment)
         ],
         entries: [
-          create(:invoice_entry, total_value: 179.00),
+          create(:invoice_entry, total_value: 179.12, management_charge: 1.7912),
           create(:order_entry, total_value: 804.00)
         ]
       )
@@ -53,7 +52,7 @@ RSpec.describe 'rake export:submissions', type: :task do
     it 'writes each submission to that output' do
       expect(output_lines.length).to eql(3)
       expect(output_lines.find { |line| line.match('PO1234') }).to eql(
-        "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,804.00,1,179.00,450.00," \
+        "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,804.00,1,179.12,1.79," \
         '0.01,2018-09-18T14:20:35Z,,,,,PO1234'
       )
     end

@@ -68,16 +68,10 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe '#management_charge_value' do
-    subject { row.management_charge_value }
+    let(:submission) { double 'Submission', _total_management_charge_value: 13.23 }
 
-    context 'Submission#management_charge is present in pence' do
-      let(:submission) { double 'Submission', management_charge: 45000 }
-      it { is_expected.to eql('450.00') }
-    end
-
-    context 'Submission#management_charge is absent' do
-      let(:submission) { double 'Submission', management_charge: nil }
-      it { is_expected.to be_nil }
+    it 'presents the charge identified by the _total_management_charge_value projected field' do
+      expect(row.management_charge_value).to eq '13.23'
     end
   end
 

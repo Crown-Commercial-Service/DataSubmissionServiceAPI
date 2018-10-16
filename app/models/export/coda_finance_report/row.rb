@@ -96,14 +96,11 @@ module Export
       end
 
       def total_sales
-        submission.entries
-                  .invoices
-                  .sector(sector)
-                  .sum { |entry| numeric_string_to_number(entry.data['Total Cost (ex VAT)']) }
+        submission.entries.invoices.sector(sector).sum(:total_value)
       end
 
       def management_charge
-        (total_sales * management_charge_rate / 100)
+        submission.entries.invoices.sector(sector).sum(:management_charge)
       end
 
       def management_charge_rate

@@ -43,4 +43,12 @@ RSpec.describe Framework::Definition do
       expect(Framework::Definition.all).to all(satisfy { |c| c.ancestors.include?(Framework::Definition::Base) })
     end
   end
+
+  describe 'Base.management_charge' do
+    it 'returns the management charge based on the framework’s management charge rate, rounded to 4 decimal places' do
+      expect(Framework::Definition::RM3756.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('1531.8484')
+      expect(Framework::Definition::RM1070.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('510.6161')
+      expect(Framework::Definition::CM_OSG_05_3565.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('0')
+    end
+  end
 end

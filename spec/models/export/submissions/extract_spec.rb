@@ -57,6 +57,13 @@ RSpec.describe Export::Submissions::Extract do
         end
       end
 
+      describe '#_total_management_charge_value as a projection on the Submission model' do
+        it 'is nil on the no-business and 20.0 on the file' do
+          expect(extract_no_business_submission._total_invoice_value).to be_nil
+          expect(extract_file_submission._total_management_charge_value.to_digits).to eql('0.2')
+        end
+      end
+
       describe '#_first_filename as a projection on the Submission model' do
         context 'on a file submission' do
           subject { extract_file_submission._first_filename }

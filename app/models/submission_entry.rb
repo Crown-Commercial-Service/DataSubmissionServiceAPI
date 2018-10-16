@@ -3,6 +3,7 @@ class SubmissionEntry < ApplicationRecord
 
   belongs_to :submission
   belongs_to :submission_file, optional: true
+  has_one :framework, through: :submission
 
   validates :data, presence: true
   validates :entry_type, inclusion: { in: %w[invoice order] }, allow_blank: true
