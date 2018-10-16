@@ -1,5 +1,16 @@
 # Change Log
 
+## [release-19] - 2018-10-16
+
+- Submission entries now store "total value" as column on ingest
+- Script to backfill total_value for existing submission entries
+- Fixed case mismatch in RM3767
+- Consistent formatting of dates in data warehouse export
+- Data migration to add missing inactive customers
+- Per-row management charge field and backfill script added
+- Finance report updated to report based on per-row management charge
+- Data warehouse export updated to report based on per-row management charge
+
 ## [release-18] - 2018-10-11
 
 - data migration to back-full total_value for existing submission entries
@@ -108,6 +119,7 @@
 Initial release
 
 
+[release-19]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-18...release-19
 [release-18]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-17...release-18
 [release-17]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-16...release-17
 [release-16]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-15...release-16
