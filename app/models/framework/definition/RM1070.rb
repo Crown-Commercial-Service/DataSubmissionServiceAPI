@@ -41,6 +41,23 @@ class Framework
         field 'Invoice Price Excluding Options', :decimal, exports_to: 'Additional8'
         field 'List Price Excluding Options', :decimal
         field 'eAuction Contract No', :string
+
+        validates 'Lot Number', 'Customer Organisation', 'Customer URN', 'Customer Invoice Date', 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', presence: true
+
+        validates 'Lot Number', inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
+        validates 'VAT Applicable?', inclusion: { in: [true, false] }
+        validates 'Customer URN', urn: true
+
+        validates 'Invoice Price Per Vehicle', numericality: true, allow_nil: true
+        validates 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', numericality: true
+        validates 'Additional Expenditure to provide goods', numericality: true, allow_nil: true
+        validates 'VAT amount charged', numericality: true, allow_nil: true
+        validates 'All Conversion and third party conversion costs excluding factory fit options', numericality: true, allow_nil: true
+        validates 'CO2 Emissions', numericality: true, allow_nil: true
+        validates 'Customer Support Terms', numericality: true, allow_nil: true
+        validates 'Additional support terms given to Lease companies', numericality: true, allow_nil: true
+        validates 'Invoice Price Excluding Options', numericality: true, allow_nil: true
+        validates 'List Price Excluding Options', numericality: true, allow_nil: true
       end
     end
   end

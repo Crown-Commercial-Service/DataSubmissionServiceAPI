@@ -2,7 +2,22 @@ class Framework
   ##
   # Define a Sheet for Orders/Invoices on a field-by-field basis
   class Sheet
+    include ActiveModel::Attributes
+    include ActiveModel::Validations
+
     class << self
+      def new_from_params(params)
+        instance = new
+
+        params.each_pair do |param, value|
+          next unless instance.attributes.key?(param)
+
+          instance.send("#{param}=", value)
+        end
+
+        instance
+      end
+
       def export_mappings
         @export_mappings ||= {}
       end
@@ -20,13 +35,13 @@ class Framework
       def field(*args)
         options = args.extract_options!
         exports_to = options.delete(:exports_to)
+
         if exports_to
           field_name = args.first
           export_mappings[exports_to] = field_name
         end
 
-        true # avoid Rubocop guard clause before we can start calling ActiveModel
-        # attribute(*args, options) # call ActiveModel for validations
+        attribute(*args, options)
       end
     end
   end
