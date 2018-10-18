@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_145547) do
+ActiveRecord::Schema.define(version: 2018_10_17_153723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_145547) do
     t.string "entry_type"
     t.decimal "total_value"
     t.decimal "management_charge", precision: 18, scale: 4
+    t.integer "customer_urn"
     t.index ["aasm_state"], name: "index_submission_entries_on_aasm_state"
     t.index ["entry_type"], name: "index_submission_entries_on_entry_type"
     t.index ["source"], name: "index_submission_entries_on_source", using: :gin
@@ -164,6 +165,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_145547) do
 
   add_foreign_key "framework_lots", "frameworks"
   add_foreign_key "memberships", "suppliers"
+  add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
   add_foreign_key "submission_entries", "submission_files"
   add_foreign_key "submission_entries", "submissions"
   add_foreign_key "submission_files", "submissions"

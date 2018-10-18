@@ -41,4 +41,11 @@ RSpec.describe SubmissionEntry do
       expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, tenth_row]
     end
   end
+
+  it 'is associated with a customer via the customer‘s URN' do
+    customer = FactoryBot.create(:customer)
+    submission_entry = FactoryBot.create(:submission_entry, customer_urn: customer.urn)
+
+    expect(submission_entry.customer).to eq customer
+  end
 end
