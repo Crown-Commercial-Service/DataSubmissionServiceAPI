@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe '/v1' do
   let(:submission) { FactoryBot.create(:submission, framework: framework) }
   let(:framework) { FactoryBot.create(:framework, short_name: 'RM3756') }
+  let(:customer) { FactoryBot.create(:customer) }
   let(:valid_params) do
     {
       data: {
@@ -14,7 +15,8 @@ RSpec.describe '/v1' do
             row: 42
           },
           data: {
-            'Total Cost (ex VAT)': 12.34
+            'Total Cost (ex VAT)': 12.34,
+            'Customer URN': customer.urn
           }
         }
       }
@@ -30,6 +32,7 @@ RSpec.describe '/v1' do
 
         entry = SubmissionEntry.first
         expect(entry.total_value).to eq 12.34
+        expect(entry.customer).to eq customer
 
         expect(json['data']).to have_id(entry.id)
         expect(json['data']).to have_attribute(:submission_id).with_value(submission.id)
@@ -49,6 +52,20 @@ RSpec.describe '/v1' do
         end.to_not change { submission.entries.count }
 
         expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    describe 'POST with a duff customer URN' do
+      let(:invalid_urn_params) { valid_params.deep_merge(data: { attributes: { data: { 'Customer URN': '00000' } } }) }
+
+      it 'still ingests the entry' do
+        post "/v1/submissions/#{submission.id}/entries", params: invalid_urn_params.to_json, headers: json_headers
+
+        expect(response).to have_http_status(:created)
+
+        entry = SubmissionEntry.first
+        expect(entry.total_value).to eq 12.34
+        expect(entry.customer).to be_nil
       end
     end
 
@@ -80,6 +97,7 @@ RSpec.describe '/v1' do
 
         entry = SubmissionEntry.first
         expect(entry.total_value).to eq 12.34
+        expect(entry.customer).to eq customer
 
         expect(json['data']).to have_id(entry.id)
         expect(json['data']).to have_attribute(:submission_id).with_value(submission.id)
