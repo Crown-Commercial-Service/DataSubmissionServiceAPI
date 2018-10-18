@@ -7,15 +7,15 @@ class IngestPostProcessor
   end
 
   def resolve_parameters
-    params[:total_value] = total_value_from_data_hash
+    params[:total_value] = total_value
     params
   end
 
-  private
-
-  def total_value_from_data_hash
+  def total_value
     params.dig(:data, total_value_field)
   end
+
+  private
 
   def total_value_field
     framework.definition.for_entry_type(entry_type).total_value_field
