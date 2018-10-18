@@ -22,9 +22,9 @@ RSpec.describe SubmissionEntry do
     let(:health_dept) { FactoryBot.create(:customer, :central_government, name: 'Department for Health') }
     let(:bobs_charity) { FactoryBot.create(:customer, :wider_public_sector, name: 'Bob’s Charity') }
 
-    let!(:home_office_entry) { FactoryBot.create(:submission_entry, data: { 'Customer URN' => home_office.urn }) }
-    let!(:health_dept_entry) { FactoryBot.create(:submission_entry, data: { 'Customer URN' => health_dept.urn }) }
-    let!(:bobs_charity_entry) { FactoryBot.create(:submission_entry, data: { 'Customer URN' => bobs_charity.urn }) }
+    let!(:home_office_entry) { FactoryBot.create(:submission_entry, customer_urn: home_office.urn) }
+    let!(:health_dept_entry) { FactoryBot.create(:submission_entry, customer_urn: health_dept.urn) }
+    let!(:bobs_charity_entry) { FactoryBot.create(:submission_entry, customer_urn: bobs_charity.urn) }
 
     it 'return entries for the specified sectors' do
       expect(SubmissionEntry.central_government).to contain_exactly(home_office_entry, health_dept_entry)

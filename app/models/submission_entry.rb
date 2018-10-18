@@ -13,10 +13,7 @@ class SubmissionEntry < ApplicationRecord
   scope :invoices, -> { where(entry_type: 'invoice') }
   scope :orders, -> { where(entry_type: 'order') }
   scope :ordered_by_row, -> { order(Arel.sql("(source->>'row')::integer ASC")) }
-  scope :sector, lambda { |sector|
-    joins("INNER JOIN customers ON customers.urn = CAST(submission_entries.data->>'Customer URN' AS INTEGER)")
-      .where('customers.sector = ?', sector)
-  }
+  scope :sector, ->(sector) { joins(:customer).merge(Customer.where(sector: sector)) }
   scope :central_government, -> { sector(Customer.sectors[:central_government]) }
   scope :wider_public_sector, -> { sector(Customer.sectors[:wider_public_sector]) }
 
