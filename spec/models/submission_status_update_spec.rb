@@ -8,27 +8,27 @@ RSpec.describe SubmissionStatusUpdate do
     context 'given a "processing" submission' do
       context 'with "pending" entries' do
         let(:submission) { FactoryBot.create(:submission_with_pending_entries, aasm_state: :processing) }
+        before { submission_status_check.perform! }
 
         it 'leaves the submission in a "processing" state' do
-          submission_status_check.perform!
-
           expect(submission).to be_processing
         end
 
-        it 'does not trigger a management charge calculation' do
-          expect(aws_lambda_service_double).not_to receive(:trigger)
-
-          submission_status_check.perform!
+        it 'does not queue a management charge calculation' do
+          expect(SubmissionManagementChargeCalculationJob).not_to have_been_enqueued.with(submission)
         end
       end
 
       context 'with all entries validated' do
         let(:submission) { FactoryBot.create(:submission_with_validated_entries, aasm_state: :processing) }
+        before { submission_status_check.perform! }
 
-        it 'transitions the submission to "in_review"' do
-          submission_status_check.perform!
+        it 'leaves the submission in a "processing" state' do
+          expect(submission).to be_processing
+        end
 
-          expect(submission).to be_in_review
+        it 'queues a management charge calculation' do
+          expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission)
         end
       end
 
@@ -38,33 +38,27 @@ RSpec.describe SubmissionStatusUpdate do
             create(:invoice_entry, :errored, submission: submission)
           end
         end
+        before { submission_status_check.perform! }
 
         it 'leaves the submission in a "processing"' do
-          submission_status_check.perform!
-
           expect(submission).to be_processing
         end
 
-        it 'does not trigger a management charge calculation' do
-          expect(aws_lambda_service_double).not_to receive(:trigger)
-
-          submission_status_check.perform!
+        it 'does not queue a management charge calculation' do
+          expect(SubmissionManagementChargeCalculationJob).not_to have_been_enqueued.with(submission)
         end
       end
 
       context 'with no "pending" entries remaining, but some having failed validation' do
         let(:submission) { FactoryBot.create(:submission_with_invalid_entries, aasm_state: :processing) }
+        before { submission_status_check.perform! }
 
         it 'transitions the submission to "validation_failed"' do
-          submission_status_check.perform!
-
           expect(submission).to be_validation_failed
         end
 
-        it 'does not trigger a management charge calculation' do
-          expect(aws_lambda_service_double).not_to receive(:trigger)
-
-          submission_status_check.perform!
+        it 'does not queue a management charge calculation' do
+          expect(SubmissionManagementChargeCalculationJob).not_to have_been_enqueued.with(submission)
         end
       end
 
@@ -79,11 +73,14 @@ RSpec.describe SubmissionStatusUpdate do
             submission.files.last.update!(rows: (entries_count + 1))
           end
         end
+        before { submission_status_check.perform! }
 
         it 'leaves the submission in a "processing"' do
-          submission_status_check.perform!
-
           expect(submission).to be_processing
+        end
+
+        it 'does not queue a management charge calculation' do
+          expect(SubmissionManagementChargeCalculationJob).not_to have_been_enqueued.with(submission)
         end
       end
     end
