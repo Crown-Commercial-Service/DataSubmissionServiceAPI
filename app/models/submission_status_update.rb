@@ -6,9 +6,9 @@ class SubmissionStatusUpdate
   end
 
   def perform!
-    return unless submission.entries.any?
+    return unless all_entries_ingested? && no_entries_pending?
 
-    submission.ready_for_review! if all_entries_ingested? && no_entries_pending?
+    all_entries_validated? ? calculate_management_charge : submission.ready_for_review!
   end
 
   private
@@ -19,5 +19,13 @@ class SubmissionStatusUpdate
 
   def no_entries_pending?
     submission.entries.pending.none?
+  end
+
+  def all_entries_validated?
+    submission.entries.validated.count == submission.entries.count
+  end
+
+  def calculate_management_charge
+    SubmissionManagementChargeCalculationJob.perform_later(submission)
   end
 end
