@@ -51,4 +51,14 @@ RSpec.describe Framework::Definition do
       expect(Framework::Definition::CM_OSG_05_3565.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('0')
     end
   end
+
+  describe 'Base.for_entry_type' do
+    it 'returns the framework’s Invoice definition for an ‘invoice’ entry_type' do
+      expect(Framework::Definition::RM3756.for_entry_type('invoice')).to eq Framework::Definition::RM3756::Invoice
+    end
+
+    it 'returns the framework’s Order definition for an ‘order’ entry_type' do
+      expect(Framework::Definition::RM3756.for_entry_type('order')).to eq Framework::Definition::RM3756::Order
+    end
+  end
 end

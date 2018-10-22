@@ -1,39 +1,71 @@
 require 'rails_helper'
 
 RSpec.describe IngestPostProcessor do
-  describe '#resolved_parameters' do
-    it 'extracts the relevant fields from the data parameter for an invoice entry and sets the total_value' do
-      framework = create(:framework, short_name: 'RM3756')
-      submission = create(:submission, framework: framework)
+  let(:framework) { FactoryBot.create(:framework, short_name: 'RM3756') }
+  let(:processor) { IngestPostProcessor.new(params: params, framework: framework) }
 
-      params = ActionController::Parameters.new(
-        submission_id: submission.id,
-        entry_type: 'invoice',
-        data: {
-          'Total Cost (ex VAT)': 12.34
-        }
-      )
+  describe '#total_value' do
+    subject(:total_value) { processor.total_value }
 
-      resolved_params = IngestPostProcessor.new(params: params, framework: framework).resolve_parameters
+    context 'given parameters for an "invoice" submission entry' do
+      let(:params) { { entry_type: 'invoice', data: { 'Total Cost (ex VAT)' => 12.34 } } }
 
-      expect(resolved_params[:total_value]).to eql(12.34)
+      it 'extracts the total value from the data field specified in the framework definition' do
+        expect(total_value).to eql(12.34)
+      end
     end
 
-    it 'extracts the relevant fields from the data parameter for an order entry and sets the total_value' do
-      framework = create(:framework, short_name: 'RM3756')
-      submission = create(:submission, framework: framework)
+    context 'given parameters for an "order" submission entry' do
+      let(:params) { { entry_type: 'order', data: { 'Expected Total Order Value' => 66 } } }
 
-      params = ActionController::Parameters.new(
-        submission_id: submission.id,
-        entry_type: 'order',
-        data: {
-          'Expected Total Order Value': -1234.56
-        }
-      )
+      it 'extracts the total value from the data field specified in the framework definition' do
+        expect(total_value).to eql(66)
+      end
+    end
+  end
 
-      resolved_params = IngestPostProcessor.new(params: params, framework: framework).resolve_parameters
+  describe '#customer_urn' do
+    let(:customer) { FactoryBot.create(:customer) }
+    subject(:customer_urn) { processor.customer_urn }
 
-      expect(resolved_params[:total_value]).to eql(-1234.56)
+    context 'given parameters for an "invoice" submission entry' do
+      let(:params) { { entry_type: 'invoice', data: { 'Customer URN' => customer.urn } } }
+
+      it 'extracts the customer URN from the data field specified in the framework definition export mapping' do
+        expect(customer_urn).to eql customer.urn
+      end
+    end
+
+    context 'given parameters for an "order" submission entry' do
+      let(:params) { { entry_type: 'order', data: { 'Customer URN' => customer.urn } } }
+
+      it 'extracts the customer URN from the data field specified in the framework definition export mapping' do
+        expect(customer_urn).to eql customer.urn
+      end
+    end
+
+    context 'given a URN that doesn’t match any known customers' do
+      let(:params) { { entry_type: 'invoice', data: { 'Customer URN' => '000000' } } }
+
+      it 'returns nil instead of the duff customer URN' do
+        expect(customer_urn).to be_nil
+      end
+    end
+  end
+
+  describe '#resolved_parameters' do
+    let(:customer) { FactoryBot.create(:customer) }
+    let(:params) { { entry_type: 'invoice', data: { 'Customer URN' => customer.urn, 'Total Cost (ex VAT)' => 12.34 } } }
+
+    it 'returns the passed-in parameters merged with the extra extracted attributes' do
+      resolved_params = processor.resolve_parameters
+
+      expected_extra_attributes = {
+        customer_urn: customer.urn,
+        total_value: 12.34
+      }
+
+      expect(resolved_params).to eq params.merge(expected_extra_attributes)
     end
   end
 end

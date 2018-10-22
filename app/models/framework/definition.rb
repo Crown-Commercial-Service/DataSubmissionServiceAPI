@@ -43,6 +43,10 @@ class Framework
         def management_charge(value)
           (value * (management_charge_rate / 100)).truncate(4)
         end
+
+        def for_entry_type(entry_type)
+          entry_type == 'invoice' ? self::Invoice : self::Order
+        end
       end
     end
 

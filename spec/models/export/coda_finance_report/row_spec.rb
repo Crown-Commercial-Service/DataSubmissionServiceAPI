@@ -71,9 +71,9 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        customer_urn: home_office.urn,
         total_value: 801.50,
-        management_charge: 4.00,
-        data: { 'Total Cost (ex VAT)' => '801.50', 'Customer URN' => home_office.urn }
+        management_charge: 4.00
       )
     end
     let!(:health_dept_invoice_entry) do
@@ -81,9 +81,9 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        customer_urn: health_dept.urn,
         total_value: 428.95,
-        management_charge: 2.1447,
-        data: { 'Total Cost (ex VAT)' => '428.95', 'Customer URN' => health_dept.urn }
+        management_charge: 2.1447
       )
     end
     let!(:bobs_charity_invoice_entry) do
@@ -91,9 +91,9 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :invoice_entry,
         :valid,
         submission: submission,
+        customer_urn: bobs_charity.urn,
         total_value: -428.95,
-        management_charge: -2.1447,
-        data: { 'Total Cost (ex VAT)' => '-428.95', 'Customer URN' => bobs_charity.urn }
+        management_charge: -2.1447
       )
     end
     let!(:home_office_order_entry) do
@@ -101,9 +101,9 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :order_entry,
         :valid,
         submission: submission,
+        customer_urn: home_office.urn,
         total_value: 1000,
-        management_charge: 5,
-        data: { 'Total Cost (ex VAT)' => '1000.00', 'Customer URN' => home_office.urn }
+        management_charge: 5
       )
     end
     let!(:bobs_charity_order_entry) do
@@ -111,9 +111,9 @@ RSpec.describe Export::CodaFinanceReport::Row do
         :order_entry,
         :valid,
         submission: submission,
+        customer_urn: bobs_charity.urn,
         total_value: 1200,
-        management_charge: 6,
-        data: { 'Total Cost (ex VAT)' => '1200.00', 'Customer URN' => bobs_charity.urn }
+        management_charge: 6
       )
     end
 
