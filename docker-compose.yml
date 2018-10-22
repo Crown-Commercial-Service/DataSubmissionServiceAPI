@@ -13,6 +13,7 @@ services:
       - docker-compose.env
     depends_on:
       - db
+      - redis
     tty: true
     stdin_open: true
     restart: on-failure
@@ -27,6 +28,9 @@ services:
       - pg_data:/var/lib/postgresql/data/:cached
     restart: on-failure
     container_name: "data-submission-service-api_db"
-
+  redis:
+    image: redis
+    expose:
+    - 6379
 volumes:
   pg_data: {}
