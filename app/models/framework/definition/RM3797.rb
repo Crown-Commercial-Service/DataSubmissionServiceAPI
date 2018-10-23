@@ -15,7 +15,7 @@ class Framework
         field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate'
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber'
         field 'Product Group', :string, exports_to: 'ProductGroup'
-        field "Publisher's Name", :string, exports_to: 'ProductClass'
+        field 'Publisher Name', :string, exports_to: 'ProductClass'
         field 'Product Description', :string, exports_to: 'ProductDescription'
         field 'Crown Commercial Service Unique Product Codes', :string, exports_to: 'ProductCode'
         field 'UNSPSC', :integer, exports_to: 'UNSPSC'
