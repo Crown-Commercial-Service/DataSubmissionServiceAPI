@@ -37,6 +37,9 @@ module DataSubmissionServiceApi
       g.orm :active_record, primary_key_type: :uuid
     end
 
+    # Use Sidekiq for background jobs
+    config.active_job.queue_adapter = :sidekiq
+
     console do
       require './lib/console_helpers'
       if defined?(Pry)
