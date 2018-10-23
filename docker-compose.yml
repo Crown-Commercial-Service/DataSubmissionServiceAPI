@@ -21,7 +21,26 @@ services:
       - .:/srv/dss-api:cached
     command: bash -c "rm -f tmp/pids/server.pid && rails s"
     container_name: "data-submission-service-api_web"
-
+  worker:
+    build:
+      context: .
+      args:
+        RAILS_ENV: "development"
+    environment:
+      RAILS_ENV: "development"
+    env_file:
+      - docker-compose.env
+    depends_on:
+      - db
+      - redis
+      - web
+    tty: true
+    stdin_open: true
+    restart: on-failure
+    volumes:
+      - .:/srv/dss-api:cached
+    command: bash -c "bundle exec sidekiq"
+    container_name: "data-submission-service-api_worker"
   db:
     image: postgres
     volumes:
@@ -31,6 +50,6 @@ services:
   redis:
     image: redis
     expose:
-    - 6379
+      - 6379
 volumes:
   pg_data: {}
