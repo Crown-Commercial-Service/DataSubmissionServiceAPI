@@ -35,7 +35,7 @@ class Framework
       name
     end
 
-    delegate :framework_name, :invoice_fields, :order_fields, to: :miso_fields
+    delegate :framework_name, :invoice_fields, :invoice_validations, :order_fields, :order_validations, to: :miso_fields
 
     def miso_fields
       @miso_fields ||= Framework::MisoFields.new(framework_short_name)
@@ -48,7 +48,7 @@ class Framework
     def exports_to(field)
       value = field['ExportsTo']
       should_export = value.present? && !value&.match(/[!?]/)
-      ", exports_to: '#{value}'" if should_export
+      "exports_to: '#{value}'" if should_export
     end
 
     def invoice_total_value_field

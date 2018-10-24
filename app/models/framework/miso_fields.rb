@@ -27,14 +27,22 @@ class Framework
       row['DisplayName']
     end
 
+    def invoice_validations
+      @invoice_validations ||= MisoFieldValidations.new(invoice_fields).rules
+    end
+
+    def order_fields
+      @order_fields ||= framework_fields.select { |row| row['DestinationTable'] == 'Orders' }
+    end
+
     def order_total_value_field
       row = order_fields.find { |f| f['ExportsTo'] == 'ContractValue' } or
         raise ArgumentError, "no ContractValue field found for framework '#{framework_short_name}'"
       row['DisplayName']
     end
 
-    def order_fields
-      @order_fields ||= framework_fields.select { |row| row['DestinationTable'] == 'Orders' }
+    def order_validations
+      @order_validations ||= MisoFieldValidations.new(order_fields).rules
     end
 
     private
