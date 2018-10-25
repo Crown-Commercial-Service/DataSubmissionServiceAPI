@@ -50,11 +50,14 @@ See [this guide](importing.md) to see how to import users and suppliers.
 
 ## Reporting rake tasks
 
-There are Rake tasks to report the status of the month's tasks:
+There are Rake tasks to report the status of monthly tasks:
 
 ```
-  # Report the status of the month's tasks
+  # Reports monthly task statistics. Defaults to the current month’s tasks.
   $ bundle exec rake report:submission_stats
+
+  # Report spend and management charge. Defaults to the current month’s tasks.
+  $ bundle exec rake report:spend_and_management_charge
 ```
 
 ## Console helpers
