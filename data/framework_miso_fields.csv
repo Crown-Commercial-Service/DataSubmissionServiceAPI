@@ -304,7 +304,7 @@ ColumnId,TemplateId,FrameworkId,Name,SheetName,DestinationTable,FieldGroup,Short
 20995,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,CustInvoiceDate,CustInvoiceDate,Customer Invoice Date,InvoiceDate,varchar,,System.Date,True,,Document Management & Logistics,RM3797
 20996,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,CustInvoiceNum,CustInvoiceNum,Customer Invoice Number,InvoiceNumber,varchar,50,System.String,True,,Document Management & Logistics,RM3797
 20997,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,ProductGroup,ProductGroup,Product Group,ProductGroup,varchar,255,System.String,True,,Document Management & Logistics,RM3797
-20998,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,ProductClass,ProductClass,Publisher's Name,ProductClass,varchar,255,System.String,True,,Document Management & Logistics,RM3797
+20998,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,ProductClass,ProductClass,Publisher Name,ProductClass,varchar,255,System.String,True,,Document Management & Logistics,RM3797
 20999,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,ProductDescription,ProductDescription,Product Description,ProductDescription,varchar,255,System.String,True,,Document Management & Logistics,RM3797
 21000,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,ProductCode,ProductCode,Crown Commercial Service Unique Product Codes,ProductCode,varchar,255,System.String,True,,Document Management & Logistics,RM3797
 21001,933,684,Journal Subscriptions,InvoicesRaised,Invoices,Default,UNSPSC,UNSPSC,UNSPSC,UNSPSC,varchar,,System.Int32,True,,Document Management & Logistics,RM3797
