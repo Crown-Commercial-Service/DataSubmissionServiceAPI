@@ -34,14 +34,13 @@ class Framework
       # but adds options that we need. Right now that's exports_to.
       def field(*args)
         options = args.extract_options!
+        field_name = args.first
         exports_to = options.delete(:exports_to)
 
-        if exports_to
-          field_name = args.first
-          export_mappings[exports_to] = field_name
-        end
+        export_mappings[exports_to] = field_name if exports_to
 
-        attribute(*args, options)
+        attribute(*args)
+        validates(field_name, options) if options.present?
       end
     end
   end

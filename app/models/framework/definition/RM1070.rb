@@ -9,11 +9,11 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber'
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
-        field 'Customer Organisation', :string, exports_to: 'CustomerName'
-        field 'Customer URN', :integer, exports_to: 'CustomerURN'
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate'
+        field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
+        field 'Customer URN', :integer, exports_to: 'CustomerURN', presence: true, urn: true
+        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', presence: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber'
         field 'Invoice Line Number', :string
         field 'Vehicle Model', :string, exports_to: 'ProductSubClass'
@@ -21,43 +21,26 @@ class Framework
         field 'Vehicle Segment', :string, exports_to: 'ProductGroup'
         field 'UNSPSC', :integer, exports_to: 'UNSPSC'
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Invoice Price Per Vehicle', :decimal, exports_to: 'UnitPrice'
+        field 'Invoice Price Per Vehicle', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
         field 'Quantity', :integer, exports_to: 'UnitQuantity'
-        field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :decimal, exports_to: 'InvoiceValue'
-        field 'Additional Expenditure to provide goods', :decimal, exports_to: 'Expenses'
-        field 'VAT Applicable?', :boolean, exports_to: 'VATIncluded'
-        field 'VAT amount charged', :decimal, exports_to: 'VATCharged'
+        field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :decimal, exports_to: 'InvoiceValue', presence: true, numericality: true
+        field 'Additional Expenditure to provide goods', :decimal, exports_to: 'Expenses', numericality: true, allow_nil: true
+        field 'VAT Applicable?', :boolean, exports_to: 'VATIncluded', inclusion: { in: [true, false] }
+        field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
         field 'Vehicle CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Trim/Derivative', :string, exports_to: 'ProductDescription'
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Vehicle Registration Number', :string, exports_to: 'Additional1'
-        field 'All Conversion and third party conversion costs excluding factory fit options', :decimal, exports_to: 'Additional2'
-        field 'CO2 Emissions', :decimal, exports_to: 'Additional3'
+        field 'All Conversion and third party conversion costs excluding factory fit options', :decimal, exports_to: 'Additional2', numericality: true, allow_nil: true
+        field 'CO2 Emissions', :decimal, exports_to: 'Additional3', numericality: true, allow_nil: true
         field 'Fuel Type', :string, exports_to: 'Additional4'
-        field 'Customer Support Terms', :decimal, exports_to: 'Additional5'
+        field 'Customer Support Terms', :decimal, exports_to: 'Additional5', numericality: true, allow_nil: true
         field 'Leasing Company', :string, exports_to: 'Additional6'
-        field 'Additional support terms given to Lease companies', :decimal, exports_to: 'Additional7'
-        field 'Invoice Price Excluding Options', :decimal, exports_to: 'Additional8'
-        field 'List Price Excluding Options', :decimal
+        field 'Additional support terms given to Lease companies', :decimal, exports_to: 'Additional7', numericality: true, allow_nil: true
+        field 'Invoice Price Excluding Options', :decimal, exports_to: 'Additional8', numericality: true, allow_nil: true
+        field 'List Price Excluding Options', :decimal, numericality: true, allow_nil: true
         field 'eAuction Contract No', :string
-
-        validates 'Lot Number', 'Customer Organisation', 'Customer URN', 'Customer Invoice Date', 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', presence: true
-
-        validates 'Lot Number', inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
-        validates 'VAT Applicable?', inclusion: { in: [true, false] }
-        validates 'Customer URN', urn: true
-
-        validates 'Invoice Price Per Vehicle', numericality: true, allow_nil: true
-        validates 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', numericality: true
-        validates 'Additional Expenditure to provide goods', numericality: true, allow_nil: true
-        validates 'VAT amount charged', numericality: true, allow_nil: true
-        validates 'All Conversion and third party conversion costs excluding factory fit options', numericality: true, allow_nil: true
-        validates 'CO2 Emissions', numericality: true, allow_nil: true
-        validates 'Customer Support Terms', numericality: true, allow_nil: true
-        validates 'Additional support terms given to Lease companies', numericality: true, allow_nil: true
-        validates 'Invoice Price Excluding Options', numericality: true, allow_nil: true
-        validates 'List Price Excluding Options', numericality: true, allow_nil: true
       end
     end
   end
