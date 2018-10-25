@@ -48,6 +48,15 @@ A [full list of the API endpoints](endpoints.md) is available in a separate docu
 
 See [this guide](importing.md) to see how to import users and suppliers.
 
+## Generating monthly tasks
+
+Monthly tasks are be generated manually using the following rake task:
+
+```
+  # Generates tasks based on existing agreements for September 2018
+  $ rake generate:tasks[9,2018]
+```
+
 ## Reporting rake tasks
 
 There are Rake tasks to report the status of monthly tasks:
