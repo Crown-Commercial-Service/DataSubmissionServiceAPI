@@ -44,9 +44,10 @@ Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up
 
 A [full list of the API endpoints](endpoints.md) is available in a separate document.
 
-## Importing users
+## Onboarding suppliers and users
 
-See [this guide](importing.md) to see how to import users and suppliers.
+See [this guide](docs/onboarding-suppliers.md) for details on onboarding suppliers
+and their users.
 
 ## Generating monthly tasks
 
