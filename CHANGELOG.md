@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-20] - 2018-10-25
+
+- Explicit link between SubmissionEntry and Customer
+- Introduced sidekiq for performing background jobs
+- Added Ruby-based management charge calculation
+
 ## [release-19] - 2018-10-16
 
 - Submission entries now store "total value" as column on ingest
@@ -119,6 +125,7 @@
 Initial release
 
 
+[release-20]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-19...release-20
 [release-19]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-18...release-19
 [release-18]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-17...release-18
 [release-17]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-16...release-17
