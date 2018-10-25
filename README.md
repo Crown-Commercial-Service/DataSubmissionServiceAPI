@@ -44,17 +44,30 @@ Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up
 
 A [full list of the API endpoints](endpoints.md) is available in a separate document.
 
-## Importing users
+## Onboarding suppliers and users
 
-See [this guide](importing.md) to see how to import users and suppliers.
+See [this guide](docs/onboarding-suppliers.md) for details on onboarding suppliers
+and their users.
+
+## Generating monthly tasks
+
+Monthly tasks are be generated manually using the following rake task:
+
+```
+  # Generates tasks based on existing agreements for September 2018
+  $ rake generate:tasks[9,2018]
+```
 
 ## Reporting rake tasks
 
-There are Rake tasks to report the status of the month's tasks:
+There are Rake tasks to report the status of monthly tasks:
 
 ```
-  # Report the status of the month's tasks
+  # Reports monthly task statistics. Defaults to the current month’s tasks.
   $ bundle exec rake report:submission_stats
+
+  # Report spend and management charge. Defaults to the current month’s tasks.
+  $ bundle exec rake report:spend_and_management_charge
 ```
 
 ## Console helpers
