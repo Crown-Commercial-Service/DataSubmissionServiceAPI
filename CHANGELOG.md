@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-21] - 2018-10-30
+
+- Rename "Publisher's Name" to "Publisher Name" in RM3797
+- Data migration to add October customers
+- Data migration for users with multiple suppliers
+- Bump loofah from 2.2.2 to 2.2.3
+
 ## [release-20] - 2018-10-25
 
 - Explicit link between SubmissionEntry and Customer
@@ -125,6 +132,7 @@
 Initial release
 
 
+[release-21]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-20...release-21
 [release-20]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-19...release-20
 [release-19]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-18...release-19
 [release-18]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-17...release-18
