@@ -16,7 +16,7 @@ RSpec.describe SubmissionValidationJob do
         'Customer URN' => '12345678',
         'Customer Invoice Date' => '01/01/2018',
         'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT' => 12.34,
-        'VAT Applicable?' => 'n'
+        'VAT Applicable?' => 'N'
       }
       # rubocop:enable Metrics/LineLength
 
@@ -25,7 +25,7 @@ RSpec.describe SubmissionValidationJob do
         'Customer Organisation' => 'Example Ltd',
         'Customer URN' => '00000000',
         'Customer Invoice Date' => '01/01/2018',
-        'VAT Applicable?' => 'n'
+        'VAT Applicable?' => 'N'
       }
 
       FactoryBot.create(:invoice_entry, submission: submission, data: good_data)
