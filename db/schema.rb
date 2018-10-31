@@ -162,6 +162,15 @@ ActiveRecord::Schema.define(version: 2018_10_31_170112) do
     t.index ["supplier_id"], name: "index_tasks_on_supplier_id"
   end
 
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "auth_id"
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auth_id"], name: "index_users_on_auth_id", unique: true
+  end
+
   add_foreign_key "framework_lots", "frameworks"
   add_foreign_key "memberships", "suppliers"
   add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
