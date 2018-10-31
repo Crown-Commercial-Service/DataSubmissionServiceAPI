@@ -13,7 +13,7 @@ class Framework
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', presence: true, urn: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', presence: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', presence: true, ingested_date: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber'
         field 'Invoice Line Number', :string
         field 'Vehicle Model', :string, exports_to: 'ProductSubClass'

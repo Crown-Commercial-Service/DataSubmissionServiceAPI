@@ -69,6 +69,21 @@ RSpec.describe Framework::Definition::RM1070 do
       end
     end
 
+    describe '"Customer Invoice Date" field' do
+      it 'validates as an ingested date field' do
+        ['9/14/18', '9/10/17', '12/10/2018', '30/10/2019'].each do |valid_date_string|
+          expect(invoice_from_params('Customer Invoice Date' => valid_date_string)).to be_valid
+        end
+
+        ['13/10/18', '12/20/2018', 'Bob'].each do |bad_date_string|
+          invoice = invoice_from_params('Customer Invoice Date' => bad_date_string)
+          expect(invoice).not_to be_valid
+          expect(invoice.errors['Customer Invoice Date'].first)
+            .to eq('must be in the format dd/mm/yyyy')
+        end
+      end
+    end
+
     def invoice_from_params(overrides)
       Framework::Definition::RM1070::Invoice.new_from_params valid_params.merge(overrides)
     end
