@@ -23,18 +23,6 @@ class V1::SubmissionsController < ApplicationController
     end
   end
 
-  def update
-    submission = Submission.find(params[:id])
-    submission.management_charge = params.dig(:submission, :management_charge) * 100
-    submission.ready_for_review!
-
-    if submission.save
-      head :no_content
-    else
-      render jsonapi_errors: submission.errors, status: :bad_request
-    end
-  end
-
   def complete
     submission = Submission.find(params[:id])
     complete_submission!(submission)

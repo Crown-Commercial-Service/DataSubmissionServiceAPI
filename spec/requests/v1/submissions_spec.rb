@@ -70,30 +70,6 @@ RSpec.describe '/v1' do
     end
   end
 
-  describe 'PATCH /submission/:submission_id' do
-    it 'updates the given submission' do
-      submission = FactoryBot.create(:submission)
-
-      params = {
-        data: {
-          type: 'submissions',
-          attributes: {
-            management_charge: 42.50
-          }
-        }
-      }
-
-      patch "/v1/submissions/#{submission.id}", params: params.to_json, headers: json_headers
-
-      expect(response).to have_http_status(:no_content)
-
-      submission.reload
-
-      expect(submission.management_charge).to eql 4250
-      expect(submission).to be_in_review
-    end
-  end
-
   describe 'POST /submissions/:submission_id/complete' do
     context 'given a valid submission' do
       it 'marks the submission as complete' do
