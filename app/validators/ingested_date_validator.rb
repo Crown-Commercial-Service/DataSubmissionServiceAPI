@@ -1,20 +1,9 @@
+require './lib/string_utils'
+
 class IngestedDateValidator < ActiveModel::EachValidator
-  US_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{2})$)
-  UK_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{4})$)
+  include StringUtils
 
   def validate_each(record, attribute, value)
-    record.errors.add(attribute, :invalid_ingested_date) unless valid_date_string?(value)
-  end
-
-  private
-
-  def valid_date_string?(value)
-    case value
-    when UK_DATE_FORMAT then Date.strptime(value, '%d/%m/%Y')
-    when US_DATE_FORMAT then Date.strptime(value, '%m/%d/%y')
-    else false
-    end
-  rescue ArgumentError
-    false
+    record.errors.add(attribute, :invalid_ingested_date) unless parse_date_string(value)
   end
 end

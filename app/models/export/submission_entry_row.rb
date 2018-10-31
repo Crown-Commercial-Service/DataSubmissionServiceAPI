@@ -1,3 +1,5 @@
+require './lib/string_utils'
+
 module Export
   ##
   # Used for SubmissionEntries with entry_types of
@@ -6,8 +8,7 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
-    US_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{2})$)
-    UK_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{4})$)
+    include StringUtils
 
     def value_for(destination_field, default: NOT_IN_DATA)
       source_field = source_field_for(destination_field)
@@ -21,15 +22,7 @@ module Export
     end
 
     def formatted_date(date_string)
-      if date_string&.match UK_DATE_FORMAT
-        Date.strptime(date_string, '%d/%m/%Y').iso8601
-      elsif date_string&.match US_DATE_FORMAT
-        Date.strptime(date_string, '%m/%d/%y').iso8601
-      else
-        date_string
-      end
-    rescue ArgumentError
-      date_string
+      parse_date_string(date_string)&.iso8601 || date_string
     end
 
     private
