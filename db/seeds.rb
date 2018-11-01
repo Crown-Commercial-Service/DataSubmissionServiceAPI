@@ -61,7 +61,7 @@ task_in_review = Task.find_or_create_by!(
   period_year: Date.today.year,
   description: 'In review task (validated submission)'
 )
-valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review", management_charge: 3000)
+valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review")
 submission_file = valid_submission.files.find_or_create_by!(rows: 2)
 submission_file.file.attach(
   io: File.open("spec/fixtures/not-really-an.xls"),

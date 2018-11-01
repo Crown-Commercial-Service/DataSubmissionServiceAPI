@@ -10,7 +10,6 @@ services:
       RAILS_ENV: "test"
       DATABASE_URL: "postgres://postgres@db-test:5432/DataSubmissionServiceApi_test?template=template0&pool=5&encoding=unicode"
       AWS_S3_REGION: 'eu-west-2'
-      AWS_LAMBDA_CALCULATE: "dummy"
     env_file:
       - docker-compose.env
     volumes:

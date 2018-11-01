@@ -8,7 +8,6 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
   has_many :files
 
   attributes :framework_id, :supplier_id, :task_id
-  attribute :management_charge
   attribute :purchase_order_number
 
   attribute :status do
