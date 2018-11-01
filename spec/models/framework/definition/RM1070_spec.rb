@@ -84,6 +84,45 @@ RSpec.describe Framework::Definition::RM1070 do
       end
     end
 
+    describe '"Total Supplier price including standard factory fit options..." field' do
+      let(:field_name) do
+        'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
+      end
+
+      it 'validates as a numeric amount' do
+        expect(invoice_from_params(field_name => 12.12)).to be_valid
+        expect(invoice_from_params(field_name => -1234)).to be_valid
+        expect(invoice_from_params(field_name => '12.12')).to be_valid
+        expect(invoice_from_params(field_name => '-124.12')).to be_valid
+
+        expect(invoice_from_params(field_name => nil)).not_to be_valid
+        expect(invoice_from_params(field_name => '£123')).not_to be_valid
+        expect(invoice_from_params(field_name => 'Bob')).not_to be_valid
+      end
+    end
+
+    [
+      'Invoice Price Per Vehicle',
+      'Additional Expenditure to provide goods',
+      'VAT amount charged',
+      'Invoice Price Excluding Options',
+      'List Price Excluding Options'
+    ].each do |field_name|
+      describe "'#{field_name} field" do
+        it 'validates as a numeric amount or as nil' do
+          expect(invoice_from_params(field_name => nil)).to be_valid
+          expect(invoice_from_params(field_name => 0)).to be_valid
+          expect(invoice_from_params(field_name => 12.12)).to be_valid
+          expect(invoice_from_params(field_name => -1234)).to be_valid
+          expect(invoice_from_params(field_name => '12.12')).to be_valid
+          expect(invoice_from_params(field_name => '-124.12')).to be_valid
+
+          expect(invoice_from_params(field_name => '£123')).not_to be_valid
+          expect(invoice_from_params(field_name => 'Bob')).not_to be_valid
+        end
+      end
+    end
+
     def invoice_from_params(overrides)
       Framework::Definition::RM1070::Invoice.new_from_params valid_params.merge(overrides)
     end
