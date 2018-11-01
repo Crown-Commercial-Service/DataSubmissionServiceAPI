@@ -2,7 +2,7 @@ class SubmissionValidationJob < ApplicationJob
   def perform(submission, calculation_job = SubmissionManagementChargeCalculationJob)
     framework_definition = submission.framework.definition
 
-    submission.entries.pending.each do |entry|
+    submission.entries.pending.find_each do |entry|
       sheet_definition = framework_definition.for_entry_type(entry.entry_type)
       entry_data = sheet_definition.new_from_params(entry.data)
 
