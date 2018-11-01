@@ -19,10 +19,10 @@ class Framework
         field 'Vehicle Model', :string, exports_to: 'ProductSubClass'
         field 'Vehicle Make', :string, exports_to: 'ProductClass'
         field 'Vehicle Segment', :string, exports_to: 'ProductGroup'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC'
+        field 'UNSPSC', :string, exports_to: 'UNSPSC'
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Invoice Price Per Vehicle', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
-        field 'Quantity', :integer, exports_to: 'UnitQuantity'
+        field 'Quantity', :string, exports_to: 'UnitQuantity'
         field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :decimal, exports_to: 'InvoiceValue', presence: true, numericality: true
         field 'Additional Expenditure to provide goods', :decimal, exports_to: 'Expenses', numericality: true, allow_nil: true
         field 'VAT Applicable?', :string, exports_to: 'VATIncluded', inclusion: { in: ['Y', 'N'], message: "Is VAT applicable on this product or service? Enter 'Y' or 'N'" }
