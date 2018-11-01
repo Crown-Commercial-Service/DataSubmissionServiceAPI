@@ -1,5 +1,5 @@
 class SubmissionValidationJob < ApplicationJob
-  def perform(submission, calculation_job = SubmissionManagementChargeCalculationJob)
+  def perform(submission)
     framework_definition = submission.framework.definition
 
     submission.entries.pending.find_each do |entry|
@@ -16,6 +16,10 @@ class SubmissionValidationJob < ApplicationJob
       entry.save!
     end
 
-    calculation_job.perform_later(submission)
+    if submission.entries.errored.any?
+      submission.ready_for_review!
+    else
+      SubmissionManagementChargeCalculationJob.perform_later(submission)
+    end
   end
 end
