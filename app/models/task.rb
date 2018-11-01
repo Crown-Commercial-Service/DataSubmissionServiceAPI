@@ -19,10 +19,9 @@ class Task < ApplicationRecord
   has_many :submissions, dependent: :nullify
   has_one :latest_submission, -> { order(created_at: :desc) }, inverse_of: :task, class_name: 'Submission'
 
-  def self.for_user_id(user_id)
-    supplier_ids = Membership
-                   .where(user_id: user_id)
-                   .pluck(:supplier_id)
+  def self.for_auth_id(user_auth_id)
+    user = User.find_by!(auth_id: user_auth_id)
+    supplier_ids = user.memberships.pluck(:supplier_id)
 
     where(supplier_id: supplier_ids)
   end

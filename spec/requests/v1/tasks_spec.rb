@@ -116,7 +116,7 @@ RSpec.describe '/v1' do
     end
   end
 
-  describe 'GET /tasks?filter[user_id]=' do
+  describe 'GET /tasks?filter[auth_id]=' do
     it 'returns a filtered list of tasks for a user\'s suppliers' do
       user = FactoryBot.create(:user)
 
@@ -128,7 +128,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
       FactoryBot.create(:task, supplier: another_supplier)
 
-      get "/v1/tasks?filter[user_id]=#{user.id}"
+      get "/v1/tasks?filter[auth_id]=#{CGI.escape(user.auth_id)}"
 
       expect(response).to be_successful
 
