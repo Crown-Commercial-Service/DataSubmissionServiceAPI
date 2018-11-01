@@ -9,11 +9,11 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
+        field 'Lot Number', :string, exports_to: 'LotNumber', inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer URN', :string, exports_to: 'CustomerURN', presence: true, urn: true
-        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', presence: true, ingested_date: true
+        field 'Customer URN', :string, exports_to: 'CustomerURN', urn: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber'
         field 'Invoice Line Number', :string
         field 'Vehicle Model', :string, exports_to: 'ProductSubClass'
@@ -23,7 +23,7 @@ class Framework
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Invoice Price Per Vehicle', :string, exports_to: 'UnitPrice', numericality: true, allow_nil: true
         field 'Quantity', :string, exports_to: 'UnitQuantity'
-        field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :string, exports_to: 'InvoiceValue', presence: true, numericality: true
+        field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :string, exports_to: 'InvoiceValue', numericality: true
         field 'Additional Expenditure to provide goods', :string, exports_to: 'Expenses', numericality: true, allow_nil: true
         field 'VAT Applicable?', :string, exports_to: 'VATIncluded', inclusion: { in: ['Y', 'N'], message: "Is VAT applicable on this product or service? Enter 'Y' or 'N'" }
         field 'VAT amount charged', :string, exports_to: 'VATCharged', numericality: true, allow_nil: true
