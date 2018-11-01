@@ -10,7 +10,7 @@ class SubmissionValidationJob < ApplicationJob
         entry.aasm_state = :validated
       else
         entry.aasm_state = :errored
-        entry.validation_errors = entry_data.errors.details
+        entry.validation_errors = validation_errors_hash(entry_data.errors, entry.source['row'])
       end
 
       entry.save!
@@ -20,6 +20,20 @@ class SubmissionValidationJob < ApplicationJob
       submission.ready_for_review!
     else
       SubmissionManagementChargeCalculationJob.perform_later(submission)
+    end
+  end
+
+  private
+
+  def validation_errors_hash(errors, row)
+    errors.to_hash.map do |field, messages|
+      {
+        message: messages.to_sentence,
+        location: {
+          column: field,
+          row: row,
+        },
+      }
     end
   end
 end
