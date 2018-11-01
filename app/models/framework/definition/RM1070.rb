@@ -12,7 +12,7 @@ class Framework
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer URN', :integer, exports_to: 'CustomerURN', presence: true, urn: true
+        field 'Customer URN', :string, exports_to: 'CustomerURN', presence: true, urn: true
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', presence: true, ingested_date: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber'
         field 'Invoice Line Number', :string
