@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :membership do
-    user_id { SecureRandom.uuid }
+    user
     supplier
   end
 end

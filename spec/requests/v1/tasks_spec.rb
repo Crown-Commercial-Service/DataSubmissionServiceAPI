@@ -118,17 +118,17 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks?filter[user_id]=' do
     it 'returns a filtered list of tasks for a user\'s suppliers' do
-      user_id = SecureRandom.uuid
+      user = FactoryBot.create(:user)
 
       current_supplier = FactoryBot.create(:supplier)
       another_supplier = FactoryBot.create(:supplier)
 
-      FactoryBot.create(:membership, supplier: current_supplier, user_id: user_id)
+      FactoryBot.create(:membership, supplier: current_supplier, user: user)
 
       FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
       FactoryBot.create(:task, supplier: another_supplier)
 
-      get "/v1/tasks?filter[user_id]=#{user_id}"
+      get "/v1/tasks?filter[user_id]=#{user.id}"
 
       expect(response).to be_successful
 
