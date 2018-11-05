@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-22] - 2018-11-05
+
+- Add User model
+- Various cleanup
+
 ## [release-21] - 2018-10-30
 
 - Rename "Publisher's Name" to "Publisher Name" in RM3797
@@ -132,6 +137,7 @@
 Initial release
 
 
+[release-22]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-21...release-22
 [release-21]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-20...release-21
 [release-20]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-19...release-20
 [release-19]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-18...release-19
