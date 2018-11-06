@@ -24,6 +24,8 @@ class Framework
 
     def generate_mandatory_field_rules
       fields
+        .reject { |field| field['ExportsTo'] == 'CustomerURN' }
+        .reject { |field| %w[System.Decimal System.Int32 System.Date].include?(field['SystemDataType']) }
         .select { |field| field['Mandatory'] == 'True' }
         .each do |field|
           validations[field['DisplayName']] << 'presence: true'
