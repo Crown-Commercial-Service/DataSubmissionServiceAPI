@@ -14,12 +14,12 @@ namespace :report do
 
   desc 'Report spend and management charge. Defaults to the current month’s tasks. Override with [MM,YYYY]'
   task :spend_and_management_charge, %i[month year] => :environment do |_task, args|
-    require 'temporary_totals_reporter'
+    require 'totals_reporter'
     month = args[:month] || (Time.zone.today - 1.month).month
     year = args[:year] || Time.zone.today.year
     reporting_period_date = Date.new(year.to_i, month.to_i)
 
-    TemporaryTotalsReporter.new(reporting_period_date).report
+    TotalsReporter.new(reporting_period_date).report
   end
 
   private
