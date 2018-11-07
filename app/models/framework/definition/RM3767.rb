@@ -7,7 +7,7 @@ class Framework
       management_charge_rate BigDecimal('1')
 
       class Invoice < Sheet
-        total_value_field 'Total Cost (Ex VAT)'
+        total_value_field 'Total Cost (ex VAT)'
 
         field 'Lot Number', :string, exports_to: 'LotNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN'
