@@ -11,6 +11,7 @@ RSpec.describe 'rake export:invoices', type: :task do
     # Explicit times are necessary because Export::Invoices::Extract.all_relevant
     # relies on order(:created_date)
     create :invoice_entry, :legal_framework_invoice_data, submission: complete_submission,
+                                                          management_charge: 142.99,
                                                           created_at: Time.zone.local(2018, 12, 25, 13, 55, 59)
   end
 
@@ -42,7 +43,7 @@ RSpec.describe 'rake export:invoices', type: :task do
         'SubmissionID,CustomerURN,CustomerName,CustomerPostcode,InvoiceDate,InvoiceNumber,'\
         'SupplierReferenceNumber,CustomerReferenceNumber,LotNumber,ProductDescription,'\
         'ProductGroup,ProductClass,ProductSubClass,ProductCode,UnitType,UnitPrice,UnitQuantity,'\
-        'InvoiceValue,Expenses,VATCharged,PromotionCode,'\
+        'InvoiceValue,Expenses,VATCharged,PromotionCode,ManagementChargeValue,'\
         'Additional1,Additional2,Additional3,Additional4,Additional5,Additional6,Additional7,Additional8'
       )
     end
@@ -52,14 +53,14 @@ RSpec.describe 'rake export:invoices', type: :task do
       expect(output_lines[1]).to eql(
         "#{invoice.submission_id},10012345,Department for Education,SW1P 3ZZ,2018-05-31,3307957,DEP/0008.00032,"\
         'GITIS Terms and Conditions,1,Contracts,Core,,Legal Director/Senior Solicitor,,Hourly,151.09,-0.9,-135.98,,'\
-        '-27.20,,0.00,0.00,0.00,N/A,Time and Material,,,'
+        '-27.20,,142.99,0.00,0.00,0.00,N/A,Time and Material,,,'
       )
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
       expect(output_lines[2]).to eql(
         "#{invoice.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,,,"\
-        ',,,,,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA,'\
+        ',,,,,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA,,'\
         ',,,,,,,,'
       )
     end
