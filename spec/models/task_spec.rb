@@ -12,7 +12,7 @@ RSpec.describe Task do
     expect(Task.new.status).to eq 'unstarted'
   end
 
-  describe '.for_user_id' do
+  describe '.for_auth_id' do
     it 'returns tasks for all suppliers that the current user is a member of' do
       user = FactoryBot.create(:user)
 
@@ -27,7 +27,7 @@ RSpec.describe Task do
       task2 = FactoryBot.create(:task, supplier: users_supplier2)
       task3 = FactoryBot.create(:task, supplier: other_supplier)
 
-      tasks = Task.for_user_id(user.id)
+      tasks = Task.for_auth_id(user.auth_id)
 
       expect(tasks).to include(task1)
       expect(tasks).to include(task2)
