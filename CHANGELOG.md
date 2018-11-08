@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-24] - 2018-11-08
+
+- Include the management charge in the 'invoices' export
+- Use AuthID and local users table to find tasks
+
 ## [release-23] - 2018-11-08
 
 - Create background job for performing validations
@@ -143,6 +148,7 @@
 Initial release
 
 
+[release-24]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-23...release-24
 [release-23]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-22...release-23
 [release-22]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-21...release-22
 [release-21]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-20...release-21
