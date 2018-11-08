@@ -27,6 +27,7 @@ module Export
           value_for('Expenses', default: nil),
           value_for('VATCharged'),
           value_for('PromotionCode', default: nil),
+          invoice.management_charge,
           *values_for_additional
         ]
       end

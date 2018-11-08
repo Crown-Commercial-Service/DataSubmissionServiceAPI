@@ -24,6 +24,7 @@ module Export
       Expenses
       VATCharged
       PromotionCode
+      ManagementChargeValue
       Additional1
       Additional2
       Additional3
