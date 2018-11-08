@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-23] - 2018-11-08
+
+- Create background job for performing validations
+- Add validation rules for RM1070
+- Fix typo in RM3767 which prevented management charge calculation
+
 ## [release-22] - 2018-11-05
 
 - Add User model
@@ -137,6 +143,7 @@
 Initial release
 
 
+[release-23]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-22...release-23
 [release-22]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-21...release-22
 [release-21]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-20...release-21
 [release-20]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-19...release-20
