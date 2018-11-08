@@ -32,4 +32,6 @@ class Task < ApplicationRecord
       submissions.create!(framework: framework, supplier: supplier, aasm_state: :completed)
     end
   end
+
+  delegate :name, to: :supplier, prefix: true
 end
