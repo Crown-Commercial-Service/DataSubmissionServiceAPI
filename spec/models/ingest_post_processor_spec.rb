@@ -22,6 +22,14 @@ RSpec.describe IngestPostProcessor do
         expect(total_value).to eql(66)
       end
     end
+
+    context 'given parameters with invalid characters' do
+      let(:params) { { entry_type: 'invoice', data: { 'Total Cost (ex VAT)' => ' £ 12,345.67 xxx ' } } }
+
+      it 'removes those values when extracting the total value from the data field' do
+        expect(total_value).to eql(12345.67)
+      end
+    end
   end
 
   describe '#customer_urn' do
