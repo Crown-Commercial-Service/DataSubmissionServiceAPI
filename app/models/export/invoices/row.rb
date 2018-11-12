@@ -21,11 +21,11 @@ module Export
           value_for('ProductSubClass', default: nil),
           value_for('ProductCode', default: nil),
           value_for('UnitType'),
-          value_for('UnitPrice'),
+          unit_price,
           value_for('UnitQuantity'),
-          value_for('InvoiceValue'),
+          invoice_value,
           value_for('Expenses', default: nil),
-          value_for('VATCharged'),
+          vat_charged,
           value_for('PromotionCode', default: nil),
           invoice.management_charge,
           *values_for_additional
@@ -37,6 +37,18 @@ module Export
 
       def invoice_date
         formatted_date value_for('InvoiceDate')
+      end
+
+      def unit_price
+        formatted_decimal value_for('UnitPrice')
+      end
+
+      def invoice_value
+        formatted_decimal value_for('InvoiceValue')
+      end
+
+      def vat_charged
+        formatted_decimal value_for('VATCharged')
       end
     end
   end

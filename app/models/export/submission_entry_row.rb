@@ -25,6 +25,13 @@ module Export
       parse_date_string(date_string)&.iso8601 || date_string
     end
 
+    def formatted_decimal(value)
+      return '#NOTINDATA' if value == '#NOTINDATA'
+
+      value = value.gsub(/([^0-9.\-]+)/, '').to_f if value.is_a?(String)
+      value
+    end
+
     private
 
     def source_field_for(destination_field)
