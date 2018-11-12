@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-25] - 2018-11-12
+
+- Bug fix: Strip invalid characters when extracting total_value
+
 ## [release-24] - 2018-11-08
 
 - Include the management charge in the 'invoices' export
@@ -148,6 +152,7 @@
 Initial release
 
 
+[release-25]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-24...release-25
 [release-24]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-23...release-24
 [release-23]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-22...release-23
 [release-22]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-21...release-22
