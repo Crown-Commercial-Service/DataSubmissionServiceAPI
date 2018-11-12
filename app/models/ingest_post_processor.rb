@@ -18,7 +18,9 @@ class IngestPostProcessor
   end
 
   def total_value
-    params.dig(:data, framework_definition.total_value_field)
+    value = params.dig(:data, framework_definition.total_value_field)
+    value = value.gsub(/([^0-9.]+)/, '').to_f if value.is_a?(String)
+    value
   end
 
   private
