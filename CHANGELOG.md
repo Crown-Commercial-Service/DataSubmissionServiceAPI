@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-26] - 2018-11-13
+
+- Include minus sign '-' in the whitelist
+- Format decimal fields correctly in export
+
 ## [release-25] - 2018-11-12
 
 - Bug fix: Strip invalid characters when extracting total_value
@@ -152,6 +157,7 @@
 Initial release
 
 
+[release-26]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-25...release-26
 [release-25]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-24...release-25
 [release-24]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-23...release-24
 [release-23]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-22...release-23
