@@ -78,4 +78,30 @@ RSpec.describe Export::SubmissionEntryRow do
       expect(row.formatted_date('13/28/19')).to eq '13/28/19'
     end
   end
+
+  describe '#format_decimal strips non-numeric characters' do
+    let(:row) { Export::SubmissionEntryRow.new(entry) }
+    let(:entry) { double 'SubmissionEntry' }
+
+    it 'handles integers' do
+      expect(row.formatted_decimal(42)).to eql 42
+      expect(row.formatted_decimal(-1234)).to eql(-1234)
+    end
+
+    it 'handles floats' do
+      expect(row.formatted_decimal(42.42)).to eql 42.42
+      expect(row.formatted_decimal(-12.34)).to eql(-12.34)
+    end
+
+    it 'handles strings containing invalid characters' do
+      expect(row.formatted_decimal('  12.34   ')).to eql 12.34
+      expect(row.formatted_decimal('€5.12')).to eql 5.12
+      expect(row.formatted_decimal('- $10.99')).to eql(-10.99)
+      expect(row.formatted_decimal(' 4,321.99 ')).to eql(4321.99)
+    end
+
+    it 'handles strings that do not contain a number' do
+      expect(row.formatted_decimal(' N/A ')).to eql 0.0
+    end
+  end
 end
