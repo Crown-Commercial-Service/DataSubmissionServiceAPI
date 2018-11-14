@@ -45,6 +45,8 @@ RSpec.describe Framework::MisoFieldValidations do
 
       it 'returns URN validations' do
         expect(validation.rules['Customer URN']).to include('urn: true')
+        expect(validation.rules['Customer URN']).not_to include('presence: true')
+        expect(validation.rules['Customer URN']).not_to include('numericality: { only_integer: true }')
       end
     end
   end

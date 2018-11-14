@@ -78,7 +78,7 @@ class Framework
       urn_field = fields.find { |f| f['ExportsTo'] == 'CustomerURN' }
       return if urn_field.nil?
 
-      validations[urn_field['DisplayName']] << 'urn: true'
+      validations[urn_field['DisplayName']] = 'urn: true'
     end
   end
 end
