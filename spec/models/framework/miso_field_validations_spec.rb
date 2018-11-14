@@ -48,4 +48,13 @@ RSpec.describe Framework::MisoFieldValidations do
       end
     end
   end
+
+  context 'RM807' do
+    let(:framework_short_name) { 'RM807' }
+
+    it 'includes allow_nil rule for optional decimal and integer fields' do
+      expect(validation.rules['UNSPSC']).to include('allow_nil: true')
+      expect(validation.rules['On line booking discount']).to include('allow_nil: true')
+    end
+  end
 end

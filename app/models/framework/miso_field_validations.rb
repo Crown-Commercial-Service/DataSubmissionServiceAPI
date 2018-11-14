@@ -11,6 +11,7 @@ class Framework
       fields.each { |field| validations[field['DisplayName']] = [] }
 
       generate_mandatory_field_rules
+      generate_optional_decimal_field_rules
       generate_boolean_field_rules
       generate_decimal_field_rules
       generate_integer_field_rules
@@ -29,6 +30,15 @@ class Framework
         .select { |field| field['Mandatory'] == 'True' }
         .each do |field|
           validations[field['DisplayName']] << 'presence: true'
+        end
+    end
+
+    def generate_optional_decimal_field_rules
+      fields
+        .select { |field| %w[System.Decimal System.Int32].include?(field['SystemDataType']) }
+        .reject { |field| field['Mandatory'] == 'True' }
+        .each do |field|
+          validations[field['DisplayName']] << 'allow_nil: true'
         end
     end
 
