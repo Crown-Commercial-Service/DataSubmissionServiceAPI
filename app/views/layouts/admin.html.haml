@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+  %body
+  - if current_user
+    = current_user[:name]
+    = link_to 'log out', sign_out_path
+  - else
+    = link_to 'login', '/auth/google_oauth2'
+  = yield
