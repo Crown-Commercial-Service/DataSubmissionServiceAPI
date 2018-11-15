@@ -9,37 +9,37 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Cost (ex VAT)'
 
-        field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
-        field 'Customer URN', :integer, exports_to: 'CustomerURN'
-        field 'Customer Organisation Name', :string, exports_to: 'CustomerName'
-        field 'Customer Post Code', :string, exports_to: 'CustomerPostCode'
-        field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber'
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate'
-        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber'
-        field 'Service Type', :string, exports_to: 'ProductGroup'
-        field 'Primary Specialism', :string, exports_to: 'ProductClass'
-        field 'Practitioner Grade', :string, exports_to: 'ProductDescription'
-        field 'Pricing Mechanism', :string, exports_to: 'ProductSubClass'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC'
-        field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :decimal, exports_to: 'UnitPrice'
-        field 'Quantity', :decimal, exports_to: 'UnitQuantity'
-        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue'
-        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged'
-        field 'Pro-Bono Price per Unit', :decimal, exports_to: 'Additional1'
-        field 'Pro-Bono Quantity', :decimal, exports_to: 'Additional2'
-        field 'Pro-Bono Total Value', :decimal, exports_to: 'Additional3'
-        field 'Sub-Contractor Name (If Applicable)', :string, exports_to: 'Additional4'
+        field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
+        field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
+        field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
+        field 'Customer Post Code', :string, exports_to: 'CustomerPostCode', presence: true
+        field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
+        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
+        field 'Service Type', :string, exports_to: 'ProductGroup', presence: true
+        field 'Primary Specialism', :string, exports_to: 'ProductClass', presence: true
+        field 'Practitioner Grade', :string, exports_to: 'ProductDescription', presence: true
+        field 'Pricing Mechanism', :string, exports_to: 'ProductSubClass', presence: true
+        field 'UNSPSC', :integer, exports_to: 'UNSPSC', numericality: { only_integer: true }
+        field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
+        field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true
+        field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
+        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
+        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true
+        field 'Pro-Bono Price per Unit', :decimal, exports_to: 'Additional1', numericality: true
+        field 'Pro-Bono Quantity', :decimal, exports_to: 'Additional2', numericality: true
+        field 'Pro-Bono Total Value', :decimal, exports_to: 'Additional3', numericality: true
+        field 'Sub-Contractor Name (If Applicable)', :string, exports_to: 'Additional4', presence: true
       end
 
       class Order < Sheet
         total_value_field 'Expected Total Order Value'
 
-        field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
-        field 'Customer URN', :integer, exports_to: 'CustomerURN'
-        field 'Customer Organisation Name', :string, exports_to: 'CustomerName'
-        field 'Customer Post Code', :string, exports_to: 'CustomerPostcode'
-        field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber'
+        field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
+        field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
+        field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
+        field 'Customer Post Code', :string, exports_to: 'CustomerPostcode', presence: true
+        field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
         field 'Matter Description', :string, exports_to: 'ProductDescription'
         field 'Contract Start Date', :date, exports_to: 'ContractStartDate'
         field 'Contract End Date', :date, exports_to: 'ContractEndDate'
