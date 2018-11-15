@@ -1,4 +1,4 @@
-class V1::FrameworksController < ApplicationController
+class V1::FrameworksController < APIController
   def index
     render jsonapi: Framework.all
   end

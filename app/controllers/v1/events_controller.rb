@@ -1,4 +1,4 @@
-class V1::EventsController < ApplicationController
+class V1::EventsController < APIController
   def user_signed_in
     event_store.publish_event(
       UserSignedIn.new(

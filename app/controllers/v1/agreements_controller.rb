@@ -1,4 +1,4 @@
-class V1::AgreementsController < ApplicationController
+class V1::AgreementsController < APIController
   def create
     framework = Framework.find(agreement_params[:framework_id])
     supplier = Supplier.find(agreement_params[:supplier_id])

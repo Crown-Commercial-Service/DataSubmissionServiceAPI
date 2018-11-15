@@ -1,4 +1,4 @@
-class V1::MembershipsController < ApplicationController
+class V1::MembershipsController < APIController
   deserializable_resource :membership, only: [:create]
 
   def index

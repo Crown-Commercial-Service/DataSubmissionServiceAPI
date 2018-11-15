@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::SubmissionFileBlobsController < ApplicationController
+class V1::SubmissionFileBlobsController < APIController
   deserializable_resource :file_blob
 
   def create

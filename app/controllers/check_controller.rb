@@ -1,4 +1,4 @@
-class CheckController < ApplicationController
+class CheckController < APIController
   def index
     # NO OP
   end
