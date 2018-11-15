@@ -4,6 +4,7 @@ class Supplier < ApplicationRecord
   has_many :submissions, dependent: :nullify
   has_many :tasks, inverse_of: :supplier, dependent: :destroy
   has_many :memberships, dependent: :destroy
+  has_many :users, through: :memberships
 
   validates :name, presence: true
   validates :coda_reference, allow_nil: true, format: {
