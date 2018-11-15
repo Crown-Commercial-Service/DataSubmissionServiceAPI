@@ -12,6 +12,10 @@ RSpec.describe SerializableSubmission do
     it 'exposes a count of the number of order entries' do
       expect(serialized_submission.as_jsonapi[:attributes][:order_count]).to eq(3)
     end
+
+    it 'exposes a report_no_business? boolean' do
+      expect(serialized_submission.as_jsonapi[:attributes][:report_no_business?]).to eq(true)
+    end
   end
 
   describe '#sheet_errors' do

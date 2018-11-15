@@ -36,4 +36,8 @@ class Submission < ApplicationRecord
   def sheet_names
     entries.distinct.pluck(Arel.sql("source->>'sheet'"))
   end
+
+  def report_no_business?
+    files.count.zero?
+  end
 end

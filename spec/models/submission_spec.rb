@@ -33,4 +33,13 @@ RSpec.describe Submission do
       expect(submission.sheet_names).to match_array %w[Invoices Orders]
     end
   end
+
+  describe '#report_no_business?' do
+    it 'returns false if submission has files' do
+      expect(FactoryBot.create(:submission_with_validated_entries).report_no_business?).to be(false)
+    end
+    it 'returns true if submission has no files' do
+      expect(FactoryBot.create(:submission).report_no_business?).to be(true)
+    end
+  end
 end

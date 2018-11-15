@@ -26,6 +26,8 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
     Hash[submission.sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
   end
 
+  attribute :report_no_business?
+
   private
 
   def submission
