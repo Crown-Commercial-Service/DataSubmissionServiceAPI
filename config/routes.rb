@@ -35,8 +35,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#index'
+    get '/sign_out', to: 'sessions#destroy', as: :sign_out
   end
 
   get '/auth/:provider/callback', to: 'admin/sessions#create'
-  get '/sign_out', to: 'admin/sessions#destroy', as: :sign_out
 end
