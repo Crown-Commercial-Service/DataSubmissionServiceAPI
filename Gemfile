@@ -35,6 +35,8 @@ gem 'omniauth-google-oauth2'
 
 # Admin Frontend
 gem 'haml-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
 
 gem 'aws-sdk-s3', require: false
 

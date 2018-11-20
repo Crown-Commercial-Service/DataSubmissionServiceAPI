@@ -1,0 +1,8 @@
+%aside.ccs-task_signpost
+  %h2
+    - if task.description.present?
+      = task.description
+      %br
+    = local_assigns.fetch(:action, 'Report management information for')
+    = task.framework.short_name
+    = task.framework.name

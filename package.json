@@ -1,5 +1,8 @@
 {
   "name": "DataSubmissionServiceAPI",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "accessible-autocomplete": "^1.6.2",
+    "govuk-frontend": "^2.4.0"
+  }
 }

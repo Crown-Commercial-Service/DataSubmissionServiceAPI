@@ -1,0 +1,28 @@
+@import "govuk-frontend/components/inset-text/inset-text";
+
+//==============//MIXINS
+//background-color lighten and border color for alert messages
+@mixin bgalert-color-borderleft-color($bordercolour, $percentage) {
+  border-left-color: $bordercolour;
+  background-color: lighten($bordercolour, $percentage);
+};
+
+.ccs-in-service-alert {
+  @extend .govuk-inset-text;
+}
+
+.ccs-in-service-alert--notice {
+  @include bgalert-color-borderleft-color(govuk-colour("grey-1"), 50%);
+}
+
+.ccs-in-service-alert--failure {
+  @include bgalert-color-borderleft-color(govuk-colour("failure"), 55%);
+}
+
+.ccs-in-service-alert--success {
+  @include bgalert-color-borderleft-color(govuk-colour("success"), 55%);
+}
+
+.ccs-in-service-alert--warning {
+  @include bgalert-color-borderleft-color(govuk-colour("warning"), 40%);
+}

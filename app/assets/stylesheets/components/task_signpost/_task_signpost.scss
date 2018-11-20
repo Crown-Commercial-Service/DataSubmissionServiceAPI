@@ -1,0 +1,9 @@
+.ccs-task-signpost {
+  @include govuk-responsive-margin(3, "bottom");
+}
+
+.ccs-task-signpost__heading {
+  @include govuk-font(19);
+  margin: 0;
+  color: govuk-colour("grey-1");
+}

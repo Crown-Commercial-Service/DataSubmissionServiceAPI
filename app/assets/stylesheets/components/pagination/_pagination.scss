@@ -1,0 +1,46 @@
+
+.ccs-pagination {
+  display: flex;
+  @include govuk-font(19);
+  @include govuk-media-query($until: tablet) {
+    flex-direction: column;
+  }
+  @include govuk-responsive-margin(4, "bottom");
+  @include govuk-responsive-margin(9, "top");
+}
+
+.ccs-pagination__summary {
+  flex-grow: 1;
+}
+
+.ccs-pagination__pager {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  flex-grow: 1;
+  justify-content: flex-end;
+  @include govuk-media-query($until: tablet) {
+    justify-content: flex-start;
+    @include govuk-responsive-margin(4, "top");
+  }
+}
+
+.css-pagination__item {
+  display: block;
+}
+
+.ccs-pagination__link {
+  padding: 0 .53em;
+}
+
+.ccs-pagination__link--current,
+.ccs-pagination__link--current:hover,
+.ccs-pagination__link--current:active,
+.ccs-pagination__link--current:visited {
+  @include govuk-font(19, bold);
+  @include govuk-text-colour;
+  text-decoration: none;
+  cursor: default;
+}
+

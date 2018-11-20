@@ -1,0 +1,11 @@
+%footer.govuk-footer{:role => "contentinfo"}
+  .govuk-width-container
+    .govuk-footer__meta
+      .govuk-footer__meta-item.govuk-footer__meta-item--grow
+        %span.govuk-footer__licence-description
+          Having problems using this service? Email
+          = mail_to(support_email_address, nil,{:class => "govuk-footer__link"})
+          for support.
+      .govuk-footer__meta-item
+        %a.govuk-footer__link.govuk-footer__copyright-logo{:href => "https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"} © Crown copyright
+
