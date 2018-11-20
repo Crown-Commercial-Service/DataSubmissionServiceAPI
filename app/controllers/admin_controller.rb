@@ -13,6 +13,6 @@ class AdminController < ActionController::Base
   def ensure_user_signed_in
     return if current_user.present? && ENV['ADMIN_EMAILS'].split(',').include?(current_user['email'])
 
-    redirect_to '/auth/google_oauth2'
+    redirect_to admin_sign_in_path
   end
 end

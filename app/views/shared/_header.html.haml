@@ -16,8 +16,5 @@
         %nav
           %ul#navigation.govuk-header__navigation{"aria-label" => "Top Level Navigation"}
             - if current_user
-              = current_user['name']
-              = link_to 'log out', admin_sign_out_path
-            - else
-              = link_to 'login', '/auth/google_oauth2'
-            = yield
+              %li.govuk-header__navigation-item
+                = link_to 'Sign out', admin_sign_out_path, {:class=>"govuk-header__link"}
