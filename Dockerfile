@@ -2,9 +2,21 @@ FROM ruby:2.5.1
 
 MAINTAINER dxw <rails@dxw.com>
 
-RUN apt-get update && apt-get install -qq -y build-essential libpq-dev locales --fix-missing --no-install-recommends
+RUN apt-get update && apt-get install -qq -y build-essential libpq-dev nodejs locales --fix-missing --no-install-recommends
 RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
 ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8 INSTALL_PATH=/srv/dss-api
+
+RUN YARN_VERSION=1.9.4 \
+  set -ex \
+  && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && mkdir -p /opt/yarn \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
+  && rm yarn-v$YARN_VERSION.tar.gz
+
+RUN ln -s /usr/bin/nodejs /usr/local/bin/node
+
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
@@ -16,6 +28,9 @@ ENV RACK_ENV=${RAILS_ENV:-production}
 
 COPY Gemfile $INSTALL_PATH/Gemfile
 COPY Gemfile.lock $INSTALL_PATH/Gemfile.lock
+COPY package.json yarn.lock $INSTALL_PATH/
+
+RUN yarn
 
 RUN gem install bundler
 
