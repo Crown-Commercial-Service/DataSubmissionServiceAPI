@@ -12,7 +12,7 @@ class Framework
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Product Description', :string, exports_to: 'ProductDescription', presence: true
         field 'UNSPSC', :integer, exports_to: 'UNSPSC', numericality: { only_integer: true }

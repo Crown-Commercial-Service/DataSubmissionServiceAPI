@@ -13,7 +13,7 @@ class Framework
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
         field 'Price per Unit (Ex VAT)', :decimal, exports_to: 'UnitPrice', numericality: true
@@ -36,8 +36,8 @@ class Framework
         field 'Vehicle Convertors Name', :string, exports_to: 'Additional5', presence: true
         field 'Vehicle Conversion Type', :string, exports_to: 'Additional6', presence: true
         field 'Vehicle Type', :string, exports_to: 'Additional7', presence: true
-        field 'Lease Start Date', :date, exports_to: 'Additional8', ingested_date: true
-        field 'Lease End Date', :date, ingested_date: true
+        field 'Lease Start Date', :string, exports_to: 'Additional8', ingested_date: true
+        field 'Lease End Date', :string, ingested_date: true
         field 'Lease Period (Months)', :integer, numericality: { only_integer: true }
         field 'Payment Profile', :string, presence: true
         field 'Annual Lease Mileage', :decimal, numericality: true

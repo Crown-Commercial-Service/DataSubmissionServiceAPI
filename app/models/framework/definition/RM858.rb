@@ -13,7 +13,7 @@ class Framework
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string, presence: true
         field 'Invoice Line Product / Service Description', :string, exports_to: 'ProductDescription', presence: true
@@ -37,8 +37,8 @@ class Framework
         field 'Fuel Type', :string, exports_to: 'Additional7'
         field 'CO2 Emission Levels', :string, exports_to: 'Additional8'
         field 'Lease Period', :string
-        field 'Lease Start Date', :date, ingested_date: true
-        field 'Lease End Date', :date, ingested_date: true
+        field 'Lease Start Date', :string, ingested_date: true
+        field 'Lease End Date', :string, ingested_date: true
         field 'Payment Profile', :string
         field 'Annual Lease Mileage', :decimal, allow_nil: true, numericality: true
         field 'Base Vehicle Price ex VAT', :decimal, allow_nil: true, numericality: true

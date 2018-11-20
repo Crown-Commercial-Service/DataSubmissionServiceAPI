@@ -14,7 +14,7 @@ class Framework
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Post Code', :string, exports_to: 'CustomerPostCode'
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Service Type', :string, exports_to: 'ProductGroup', presence: true
         field 'Primary Specialism', :string, exports_to: 'ProductDescription', presence: true
@@ -38,8 +38,8 @@ class Framework
       class Order < Sheet
         total_value_field 'Expected Total Order Value'
 
-        field 'Contract Start Date', :date, exports_to: 'ContractStartDate'
-        field 'Contract End Date', :date, exports_to: 'ContractEndDate'
+        field 'Contract Start Date', :string, exports_to: 'ContractStartDate'
+        field 'Contract End Date', :string, exports_to: 'ContractEndDate'
         field 'Award Procedure', :string, exports_to: 'ContractAwardChannel'
         field 'Expected Total Order Value', :decimal, exports_to: 'ContractValue'
         field 'Sub-Contractor Name', :string, exports_to: 'Additional1'

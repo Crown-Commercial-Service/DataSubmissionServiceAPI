@@ -21,7 +21,7 @@ class Framework
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Agreement Number/Reference', :string, exports_to: 'CustomerReferenceNumber', presence: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string, presence: true
         field 'Invoice Line Product/Service Description', :string, exports_to: 'ProductDescription', presence: true

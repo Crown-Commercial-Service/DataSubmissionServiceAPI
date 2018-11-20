@@ -19,7 +19,7 @@ class Framework
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Service Type', :string, exports_to: 'ProductGroup', presence: true
         field 'Total Charge (Ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true

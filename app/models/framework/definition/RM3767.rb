@@ -21,7 +21,7 @@ class Framework
         field 'Speed Index', :string, presence: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode', presence: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string, presence: true
         field 'Product Type', :string, exports_to: 'ProductGroup', presence: true

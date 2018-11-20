@@ -15,7 +15,7 @@ class Framework
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Order Number', :string, exports_to: 'CustomerReferenceNumber'
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string, exports_to: 'Additional1'
         field 'Invoice Line Product / Service Description', :string, exports_to: 'ProductDescription'
@@ -40,9 +40,9 @@ class Framework
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Order Number', :string, exports_to: 'CustomerReferenceNumber'
-        field 'Customer Order Date', :date
-        field 'Customer Contract Start Date', :date, exports_to: 'ContractStartDate'
-        field 'Customer Contract End Date', :date, exports_to: 'ContractEndDate'
+        field 'Customer Order Date', :string
+        field 'Customer Contract Start Date', :string, exports_to: 'ContractStartDate'
+        field 'Customer Contract End Date', :string, exports_to: 'ContractEndDate'
         field 'Project Name', :string, exports_to: 'ProductDescription'
         field 'UNSPSC', :integer, exports_to: 'UNSPSC'
         field 'Number of items', :integer
