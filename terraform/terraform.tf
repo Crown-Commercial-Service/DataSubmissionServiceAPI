@@ -201,5 +201,35 @@ resource "aws_codepipeline" "pipeline" {
         FileName    = "imagedefinitions.json"
       }
     }
+
+    action {
+      name            = "Deploy-Public"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      input_artifacts = ["imagedefinitions"]
+      version         = "1"
+
+      configuration {
+        ClusterName = "${var.ecs_cluster_name}"
+        ServiceName = "${var.ecs_service_name}p"
+        FileName    = "imagedefinitions.json"
+      }
+    }
+
+    action {
+      name            = "Deploy-Public-Daemon"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      input_artifacts = ["imagedefinitions"]
+      version         = "1"
+
+      configuration {
+        ClusterName = "${var.ecs_cluster_name}"
+        ServiceName = "${var.ecs_service_name}p-daemon"
+        FileName    = "imagedefinitions.json"
+      }
+    }
   }
 }
