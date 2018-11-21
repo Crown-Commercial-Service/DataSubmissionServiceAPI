@@ -4,7 +4,7 @@ MAINTAINER dxw <rails@dxw.com>
 
 RUN apt-get update && apt-get install -qq -y build-essential libpq-dev nodejs locales --fix-missing --no-install-recommends
 RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
-ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8 INSTALL_PATH=/srv/dss-api
+ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
 
 RUN YARN_VERSION=1.9.4 \
   set -ex \
@@ -17,6 +17,7 @@ RUN YARN_VERSION=1.9.4 \
 
 RUN ln -s /usr/bin/nodejs /usr/local/bin/node
 
+ENV INSTALL_PATH /srv/dss-api
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
@@ -44,6 +45,8 @@ RUN \
   fi
 
 COPY . $INSTALL_PATH
+
+RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile
 
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
