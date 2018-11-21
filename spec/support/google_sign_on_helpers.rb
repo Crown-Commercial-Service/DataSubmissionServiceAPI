@@ -1,4 +1,10 @@
 module SingleSignOnHelpers
+  def sign_in_as_admin
+    mock_sso_with(email: 'admin@example.com')
+    visit admin_root_path
+    click_on 'Start now'
+  end
+
   def mock_sso_with(email: 'john@example.com', uid: '123456')
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
       'provider' => 'google_oauth2',
