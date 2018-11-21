@@ -37,6 +37,22 @@ RSpec.describe '/v1' do
   end
 
   describe 'GET /tasks' do
+    it 'returns 401 if authentication needed and not provided' do
+      ClimateControl.modify API_PASSWORD: 'sdfhg' do
+        get '/v1/tasks'
+        expect(response.status).to eq(401)
+      end
+    end
+
+    it 'returns ok if authentication needed and provided' do
+      ClimateControl.modify API_PASSWORD: 'sdfhg' do
+        get '/v1/tasks', params: {}, headers: {
+          HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg')
+        }
+        expect(response).to be_successful
+      end
+    end
+
     it 'returns a list of tasks' do
       task2 = FactoryBot.create(:task, status: 'unstarted')
       task3 = FactoryBot.create(:task, status: 'in_progress')

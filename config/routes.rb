@@ -32,4 +32,12 @@ Rails.application.routes.draw do
       post 'user_signed_out'
     end
   end
+
+  namespace :admin do
+    root 'users#index'
+    get '/sign_in', to: 'sessions#new', as: :sign_in
+    get '/sign_out', to: 'sessions#destroy', as: :sign_out
+  end
+
+  get '/auth/:provider/callback', to: 'admin/sessions#create'
 end

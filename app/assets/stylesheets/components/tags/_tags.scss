@@ -1,0 +1,23 @@
+@import "govuk-frontend/components/tag/tag";
+
+.govuk-tag {
+  padding-bottom: 4px;
+  background-color: govuk-colour("secondary");
+  line-height: 1em;
+}
+
+.govuk-tag__failure {
+  background-color: govuk-colour("failure");
+}
+
+.govuk-tag__warning {
+  background-color: govuk-colour("warning");
+}
+
+.govuk-tag__success {
+  background-color: govuk-colour("success");
+}
+
+.govuk-tag__notice {
+  background-color: govuk-colour("grey-1");
+}

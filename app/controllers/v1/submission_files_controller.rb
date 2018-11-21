@@ -1,4 +1,4 @@
-class V1::SubmissionFilesController < ApplicationController
+class V1::SubmissionFilesController < APIController
   deserializable_resource :submission_file, only: %i[update]
   def create
     submission = Submission.find(params[:submission_id])

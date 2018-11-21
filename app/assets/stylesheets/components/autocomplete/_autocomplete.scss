@@ -1,0 +1,10 @@
+@import "accessible-autocomplete/src/autocomplete";
+
+.autocomplete__option--focused,
+.autocomplete__option:hover {
+  background-color: govuk-colour("secondary");
+}
+
+.autocomplete__option {
+  @include govuk-font(19);
+}

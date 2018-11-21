@@ -30,6 +30,14 @@ gem 'rails_event_store'
 # Auth0
 gem 'auth0', require: false
 
+# Google Login
+gem 'omniauth-google-oauth2'
+
+# Admin Frontend
+gem 'haml-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+
 gem 'aws-sdk-s3', require: false
 
 # Exception tracking
@@ -66,4 +74,6 @@ group :test do
   gem 'rails_event_store-rspec'
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'climate_control'
 end

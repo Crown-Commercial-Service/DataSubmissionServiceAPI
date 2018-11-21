@@ -1,0 +1,38 @@
+!!!
+%html{ lang: 'en-GB', class: 'govuk-template' }
+  %head
+    %meta{ content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type' }/
+    %title RMI Admin
+
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }/
+    %meta{ 'http-equiv': 'x-ua-compatible', content: 'ie-edge' }/
+    %meta{ name: 'format-detection', content: 'telephone=no' }/
+
+    = content_for(:head)
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = render('shared/analytics') if ENV['GOOGLE_TAG_MANAGER_ID']
+
+  %body.govuk-template__body.app-body-class
+    %script
+      document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+
+    %a{ href: '#main-content', class: 'govuk-skip-link' }
+      Skip to main content
+
+    = render 'shared/header', no_navigation: false
+
+    .govuk-width-container
+      .govuk-phase-banner
+        %p.govuk-phase-banner__content
+          %strong.govuk-tag.govuk-phase-banner__content__tag
+            beta
+
+      %main{ role: 'main', id: 'main-content', class: 'govuk-main-wrapper'}
+
+      = render 'shared/alert' if flash[:alert]
+
+      = yield
+
+    = render 'shared/footer'

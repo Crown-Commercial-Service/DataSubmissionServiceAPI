@@ -1,0 +1,54 @@
+.ccs-task {
+  display: flex;
+  padding-top: govuk-spacing(5);
+  border-top: 1px solid govuk-colour("grey-2");
+  background-color: govuk-colour("white");
+  flex-direction: column;
+}
+
+h3 {
+  margin-bottom: govuk-spacing(1);
+}
+
+.ccs-task__information {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ccs-task__body {
+  flex-grow: 2;
+}
+
+.ccs-task__statuses {
+  text-align: right;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.css-task__information--empty {
+  max-width: 66.666%;
+  flex-direction: row;
+}
+
+.ccs-task__action {
+  display: flex;
+  flex-direction: row-reverse;
+  @include govuk-media-query($until: tablet) {
+    flex-direction: column;
+  }
+}
+
+.ccs-task__action--primary {
+  text-align: right;
+  flex-grow: 3;
+  align-items: flex-end;
+}
+
+.ccs-task__action--secondary {
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.ccs-task:last-of-type {
+  border-bottom: 1px solid govuk-colour("grey-2");
+}
