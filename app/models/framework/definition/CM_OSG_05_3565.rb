@@ -20,7 +20,7 @@ class Framework
         field 'Item Code', :string, exports_to: 'ProductCode'
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
         field 'Price per Item', :decimal, exports_to: 'UnitPrice', numericality: true
-        field 'VAT Included', :boolean, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[true false] }
+        field 'Vat Included', :string, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[Y N y n] }
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
         field 'Total Spend', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'Manufacturers Product Code', :string, exports_to: 'Additional1', presence: true

@@ -25,7 +25,7 @@ class Framework
         field 'Quantity', :integer, exports_to: 'UnitQuantity', numericality: { only_integer: true }
         field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'Additional Expenditure to provide goods', :decimal, exports_to: 'Expenses', numericality: true
-        field 'VAT Applicable?', :boolean, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[true false] }
+        field 'VAT Applicable?', :string, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[Y N y n] }
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true
         field 'Vehicle CAP Code', :string, exports_to: 'ProductCode', presence: true
         field 'Vehicle Trim/Derivative', :string, exports_to: 'ProductDescription', presence: true

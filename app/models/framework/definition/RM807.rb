@@ -30,7 +30,7 @@ class Framework
         field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true
         field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
         field 'Total Charges (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
-        field 'VAT Applicable', :boolean, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[true false] }
+        field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[Y N y n] }
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true
         field 'Promotion Code', :string, exports_to: 'PromotionCode'
         field 'Invoice Line Product/Service Grouping', :string, exports_to: 'ProductGroup', presence: true
