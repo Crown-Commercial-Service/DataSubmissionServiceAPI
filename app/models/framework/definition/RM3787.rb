@@ -40,17 +40,17 @@ class Framework
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Post Code', :string, exports_to: 'CustomerPostcode', presence: true
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
-        field 'Matter Description', :string, exports_to: 'ProductDescription'
-        field 'Contract Start Date', :string, exports_to: 'ContractStartDate'
-        field 'Contract End Date', :string, exports_to: 'ContractEndDate'
-        field 'Expected Total Order Value', :decimal, exports_to: 'ContractValue'
-        field 'Sub-Contractor Name', :string, exports_to: 'Additional1'
-        field 'Expression Of Interest Used (Y/N)', :string, exports_to: 'Additional2'
-        field 'Customer Response Time', :string, exports_to: 'Additional6'
-        field 'Call Off Managing Entity', :string, exports_to: 'Additional3'
-        field 'Award Procedure', :string, exports_to: 'ContractAwardChannel'
-        field 'Pro-bono work included? (Y/N)', :string, exports_to: 'Additional4'
-        field 'Expected Pro-Bono value', :decimal, exports_to: 'Additional5'
+        field 'Matter Description', :string, exports_to: 'ProductDescription', presence: true
+        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
+        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true
+        field 'Expected Total Order Value', :decimal, exports_to: 'ContractValue', numericality: true
+        field 'Sub-Contractor Name', :string, exports_to: 'Additional1', presence: true
+        field 'Expression Of Interest Used (Y/N)', :string, exports_to: 'Additional2', presence: true
+        field 'Customer Response Time', :string, exports_to: 'Additional6', presence: true
+        field 'Call Off Managing Entity', :string, exports_to: 'Additional3', presence: true
+        field 'Award Procedure', :string, exports_to: 'ContractAwardChannel', presence: true
+        field 'Pro-bono work included? (Y/N)', :string, exports_to: 'Additional4', presence: true
+        field 'Expected Pro-Bono value', :decimal, exports_to: 'Additional5', presence: true
       end
     end
   end

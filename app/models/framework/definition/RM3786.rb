@@ -9,7 +9,7 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Cost (ex VAT)'
 
-        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
@@ -25,8 +25,8 @@ class Framework
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
         field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true
-        field 'Cost Centre', :string, presence: true
-        field 'Contract Number', :string, presence: true
+        field 'Cost Centre', :string
+        field 'Contract Number', :string
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
         field 'Pricing Mechanism', :string, exports_to: 'Additional5', presence: true
         field 'Pro-Bono Price per Unit', :decimal, exports_to: 'Additional1', numericality: true

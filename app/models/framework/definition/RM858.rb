@@ -15,15 +15,15 @@ class Framework
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
-        field 'Customer Invoice Line Number', :string, presence: true
-        field 'Invoice Line Product / Service Description', :string, exports_to: 'ProductDescription', presence: true
+        field 'Customer Invoice Line Number', :string
+        field 'Invoice Line Product / Service Description', :string, exports_to: 'ProductDescription'
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
-        field 'Price per Unit ex VAT', :decimal, exports_to: 'UnitPrice', numericality: true
-        field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
+        field 'Price per Unit ex VAT', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
+        field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
         field 'Invoice Line Total Value ex VAT', :decimal, exports_to: 'InvoiceValue', numericality: true
-        field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[Y N y n] }
-        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true
-        field 'Spend Code', :string, exports_to: 'PromotionCode', presence: true
+        field 'VAT Applicable', :string, exports_to: 'VATIncluded', inclusion: { in: %w[Y N y n] }
+        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
+        field 'Spend Code', :string, exports_to: 'PromotionCode'
         field 'Invoice Line Product / Service Grouping', :string, exports_to: 'ProductGroup', presence: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Make', :string, exports_to: 'ProductClass'

@@ -25,11 +25,11 @@ class Framework
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
         field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true
-        field 'Cost Centre', :string, presence: true
-        field 'Contract Number', :string, presence: true
+        field 'Cost Centre', :string
+        field 'Contract Number', :string
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
         field 'Pricing Mechanism', :string, exports_to: 'Additional5', presence: true
-        field 'Award Procedure', :string, exports_to: 'Additional6', presence: true
+        # field 'Award Procedure', :string, exports_to: 'Additional6', presence: true
         field 'Pro-Bono Price per Unit', :decimal, exports_to: 'Additional1', numericality: true
         field 'Pro-Bono Quantity', :decimal, exports_to: 'Additional2', numericality: true
         field 'Pro-Bono Total Value', :decimal, exports_to: 'Additional3', numericality: true
