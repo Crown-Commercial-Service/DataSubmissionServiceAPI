@@ -1,8 +1,16 @@
-%form{method: 'get'}
-  .govuk-form-group
-    %label.govuk-label{for: 'search'} Search
-    %input#search.govuk-input{name: 'search', type: 'text'}
-    %button.govuk-button Search
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Users
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %form{method: 'get'}
+      .ccs-search-form-group
+        %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
+        %input#search.govuk-input{name: 'search', type: 'text'}
+        %button.govuk-button Search
+
 
 %table.govuk-table
   %thead.govuk-table__head
