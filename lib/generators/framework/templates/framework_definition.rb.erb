@@ -8,7 +8,12 @@ class Framework
         <%= invoice_total_value_field %>
 
         <%- invoice_fields.each do |field| -%>
-        field <%= quote(field['DisplayName']) %>, <%= activemodel_data_type field['SystemDataType'] %><%= exports_to(field) %>
+        <%= [
+              "field #{quote(field['DisplayName'])}",
+              activemodel_data_type(field['SystemDataType']),
+              exports_to(field),
+              invoice_validations[field['DisplayName']]
+            ].flatten.compact.join(', ') %>
         <%- end -%>
       end
       <%- if order_fields.any? -%>
@@ -17,7 +22,12 @@ class Framework
         <%= order_total_value_field %>
 
         <%- order_fields.each do |field| -%>
-        field <%= quote(field['DisplayName']) %>, <%= activemodel_data_type field['SystemDataType'] %><%= exports_to(field) %>
+        <%= [
+              "field #{quote(field['DisplayName'])}",
+              activemodel_data_type(field['SystemDataType']),
+              exports_to(field),
+              invoice_validations[field['DisplayName']]
+            ].flatten.compact.join(', ') %>
         <%- end -%>
       end
       <%- end -%>
