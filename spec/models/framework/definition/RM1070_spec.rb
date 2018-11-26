@@ -61,11 +61,11 @@ RSpec.describe Framework::Definition::RM1070 do
 
         invoice = invoice_from_params('VAT Applicable?' => 'Yes')
         expect(invoice).not_to be_valid
-        expect(invoice.errors['VAT Applicable?'].first).to match("Enter 'Y' or 'N'")
+        expect(invoice.errors['VAT Applicable?'].first).to match("must be 'Y' or 'N'")
 
         invoice = invoice_from_params('VAT Applicable?' => true)
         expect(invoice).not_to be_valid
-        expect(invoice.errors['VAT Applicable?'].first).to match("Enter 'Y' or 'N'")
+        expect(invoice.errors['VAT Applicable?'].first).to match("must be 'Y' or 'N'")
       end
     end
 

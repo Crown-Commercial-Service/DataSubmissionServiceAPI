@@ -9,7 +9,7 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3 4 5 6 7 8 9] }
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
@@ -25,7 +25,7 @@ class Framework
         field 'Quantity', :integer, exports_to: 'UnitQuantity', numericality: { only_integer: true }, allow_nil: true
         field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'Additional Expenditure to provide goods', :decimal, exports_to: 'Expenses', numericality: true, allow_nil: true
-        field 'VAT Applicable?', :string, exports_to: 'VATIncluded', inclusion: { in: %w[Y N y n] }
+        field 'VAT Applicable?', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
         field 'Vehicle CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Trim/Derivative', :string, exports_to: 'ProductDescription'

@@ -9,7 +9,7 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Cost (ex VAT)'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         # field 'Tyre Specification', :string, exports_to: 'ProductCode', presence: true
         field 'Vehicle Category', :string, exports_to: 'ProductSubClass'
@@ -35,7 +35,7 @@ class Framework
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Tyre Grade', :string, exports_to: 'Additional1'
-        field 'Run Flats (Y/N)', :string, exports_to: 'Additional2', presence: true, inclusion: { in: %w[Y N y n] }
+        field 'Run Flats (Y/N)', :string, exports_to: 'Additional2', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         # field 'Core Tyre Price', :decimal, exports_to: 'Additional3', numericality: true
         # field 'Valve Cost', :decimal, exports_to: 'Additional4', numericality: true
         # field 'Fitment Cost', :decimal, exports_to: 'Additional5', numericality: true

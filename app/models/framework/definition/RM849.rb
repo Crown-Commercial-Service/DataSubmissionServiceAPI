@@ -26,7 +26,7 @@ class Framework
         field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
         field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
         field 'Invoice Line Total Value ex VAT and Expenses', :decimal, exports_to: 'InvoiceValue', numericality: true
-        field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, inclusion: { in: %w[Y N y n] }
+        field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
         field 'Contract Number', :string
         field 'Cost Centre', :string

@@ -9,7 +9,7 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Charge (Ex VAT)'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3] }
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
@@ -19,7 +19,7 @@ class Framework
         field 'Price per Unit (Ex VAT)', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
         field 'Total Charge (Ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
-        field 'VAT Applicable', :string, exports_to: 'VATIncluded', inclusion: { in: %w[Y N y n] }
+        field 'VAT Applicable', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Make', :string, exports_to: 'ProductClass'

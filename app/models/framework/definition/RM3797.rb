@@ -24,8 +24,8 @@ class Framework
         field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
         field 'Total Charge (Ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
         field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true
-        field 'Cost Centre', :string, presence: true
-        field 'Contract Number', :string, presence: true
+        field 'Cost Centre', :string
+        field 'Contract Number', :string
         field 'Publisher List Price', :decimal, exports_to: 'Additional2', numericality: true, allow_nil: true
       end
     end
