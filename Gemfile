@@ -77,4 +77,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'climate_control'
+  gem 'webmock'
 end

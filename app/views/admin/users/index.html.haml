@@ -6,11 +6,18 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
     %form{method: 'get'}
+      %h4.govuk-heading-s
+        Search
       .ccs-search-form-group
         %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
         %input#search.govuk-input{name: 'search', type: 'text'}
         %button.govuk-button Search
 
+  .govuk-grid-column-one-third
+    %h4.govuk-heading-s
+      Actions
+    %p
+      = link_to 'Add a new user', new_admin_user_path
 
 %table.govuk-table
   %thead.govuk-table__head

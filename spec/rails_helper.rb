@@ -69,8 +69,8 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter.performed_jobs = []
   end
 
-  config.around(:each, type: :feature) do |example|
-    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com' do
+  config.around(:each) do |example|
+    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com', AUTH0_DOMAIN: 'testdomain' do
       example.run
     end
   end
