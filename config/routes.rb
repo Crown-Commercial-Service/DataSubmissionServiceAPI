@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :suppliers, only: %i[index]
     resources :memberships, only: %i[index create destroy]
     resources :agreements, only: %i[create]
+    resources :users, only: %i[index]
     resources :submissions, only: %i[show create update] do
       member do
         post 'complete', to: 'submissions#complete'

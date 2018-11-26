@@ -5,7 +5,7 @@ class SerializableTask < JSONAPI::Serializable::Resource
   has_many :submissions
   belongs_to :framework
 
-  attributes :status, :framework_id, :supplier_id
+  attributes :status, :framework_id, :supplier_id, :supplier_name
   attributes :description, :due_on
   attributes :period_year, :period_month
 end
