@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-28] - 2018-11-26
+
+- Secure sign in for support admin users
+- Generate validation rules from MISO export
+
 ## [release-27] - 2018-11-20
 
 - Expose a report_no_business property on submission in the API
@@ -164,6 +169,7 @@
 Initial release
 
 
+[release-28]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-27...release-28
 [release-27]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-26...release-27
 [release-26]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-25...release-26
 [release-25]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-24...release-25
