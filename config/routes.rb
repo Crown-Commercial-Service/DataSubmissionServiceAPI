@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#index'
+    resources :users, only: %i[index show]
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
   end

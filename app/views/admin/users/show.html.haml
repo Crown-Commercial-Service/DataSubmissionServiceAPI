@@ -1,0 +1,52 @@
+%h1.govuk-heading-xl User
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h3.govuk-heading-m= @user.name
+    %p= @user.email
+    %p
+      Account active since:
+      = @user.created_at.to_s(:short)
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h3.govuk-heading-m Linked Suppliers
+
+    %table.govuk-table
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Name
+      %tbody.govuk-table__body
+        - @user.suppliers.each do |supplier|
+          %tr.govuk-table__row
+            %td.govuk-table__cell= supplier.name
+
+    %h3.govuk-heading-m Frameworks
+
+    %table.govuk-table
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Name
+          %th.govuk-table__header Supplier
+      %tbody.govuk-table__body
+        - @user.suppliers.each do |supplier|
+          - supplier.frameworks.each do |framework|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= framework.name
+              %td.govuk-table__cell= supplier.name
+
+    %h3.govuk-heading-m Recent Tasks
+
+    %table.govuk-table
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Framework
+          %th.govuk-table__header Supplier
+          %th.govuk-table__header Status
+      %tbody.govuk-table__body
+        - @user.suppliers.each do |supplier|
+          - supplier.tasks.each do |task|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= task.framework.name
+              %td.govuk-table__cell= supplier.name
+              %td.govuk-table__cell= task.status

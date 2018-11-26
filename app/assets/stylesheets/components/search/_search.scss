@@ -1,0 +1,7 @@
+.ccs-search-form-group {
+  display:flex;
+  @include govuk-media-query($until: tablet) {
+    display:block;
+  }
+}
+

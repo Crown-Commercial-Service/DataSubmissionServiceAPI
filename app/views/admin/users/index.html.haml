@@ -1,1 +1,28 @@
-Users
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Users
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %form{method: 'get'}
+      .ccs-search-form-group
+        %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
+        %input#search.govuk-input{name: 'search', type: 'text'}
+        %button.govuk-button Search
+
+
+%table.govuk-table
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__header Name
+      %th.govuk-table__header Email
+      %th.govuk-table__header Linked suppliers
+  %tbody.govuk-table__body
+    - @users.each do |user|
+      %tr.govuk-table__row
+        %td.govuk-table__cell= link_to user.name, admin_user_path(user)
+        %td.govuk-table__cell= user.email
+        %td.govuk-table__cell= user.suppliers.collect(&:name).to_sentence
+
+= paginate @users
