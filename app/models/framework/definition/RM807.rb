@@ -11,11 +11,11 @@ class Framework
 
         field 'Contract Number', :string
         field 'Cost Centre', :string
-        field 'Miles Travelled', :decimal, exports_to: 'Additional6', allow_nil: true, numericality: true
-        field 'Refuelling Charges inc fuel ex VAT', :decimal, exports_to: 'Additional7', allow_nil: true, numericality: true
+        field 'Miles Travelled', :string, exports_to: 'Additional6', allow_nil: true, ingested_numericality: true
+        field 'Refuelling Charges inc fuel ex VAT', :string, exports_to: 'Additional7', allow_nil: true, ingested_numericality: true
         field 'Rental Company', :string, exports_to: 'Additional8'
         field 'Booking Method', :string
-        field 'On line booking discount', :decimal, allow_nil: true, numericality: true
+        field 'On line booking discount', :string, allow_nil: true, ingested_numericality: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
@@ -25,13 +25,13 @@ class Framework
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string
         field 'Invoice Line Product/Service Description', :string, exports_to: 'ProductDescription'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC', allow_nil: true, numericality: { only_integer: true }
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', allow_nil: true, ingested_numericality: { only_integer: true }
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true
-        field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true
-        field 'Total Charges (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Invoice Line Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Total Charges (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
         field 'Promotion Code', :string, exports_to: 'PromotionCode'
         field 'Invoice Line Product/Service Grouping', :string, exports_to: 'ProductGroup'
         field 'Rental Period', :string, exports_to: 'Additional1'

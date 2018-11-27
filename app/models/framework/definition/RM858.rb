@@ -18,11 +18,11 @@ class Framework
         field 'Customer Invoice Line Number', :string
         field 'Invoice Line Product / Service Description', :string, exports_to: 'ProductDescription'
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
-        field 'Price per Unit ex VAT', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
-        field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
-        field 'Invoice Line Total Value ex VAT', :decimal, exports_to: 'InvoiceValue', numericality: true
+        field 'Price per Unit ex VAT', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Invoice Line Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
+        field 'Invoice Line Total Value ex VAT', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
+        field 'VAT Amount Charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
         field 'Spend Code', :string, exports_to: 'PromotionCode'
         field 'Invoice Line Product / Service Grouping', :string, exports_to: 'ProductGroup', presence: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
@@ -40,17 +40,17 @@ class Framework
         field 'Lease Start Date', :string, ingested_date: true
         field 'Lease End Date', :string, ingested_date: true
         field 'Payment Profile', :string
-        field 'Annual Lease Mileage', :decimal, allow_nil: true, numericality: true
-        field 'Base Vehicle Price ex VAT', :decimal, allow_nil: true, numericality: true
-        field 'Lease Cost excluding Optional Extras and Conversion ex VAT', :decimal, allow_nil: true, numericality: true
-        field 'Lease Finance Charge ex VAT', :decimal, allow_nil: true, numericality: true
-        field 'Lease Finance Margin ex VAT', :decimal, allow_nil: true, numericality: true
+        field 'Annual Lease Mileage', :string, allow_nil: true, ingested_numericality: true
+        field 'Base Vehicle Price ex VAT', :string, allow_nil: true, ingested_numericality: true
+        field 'Lease Cost excluding Optional Extras and Conversion ex VAT', :string, allow_nil: true, ingested_numericality: true
+        field 'Lease Finance Charge ex VAT', :string, allow_nil: true, ingested_numericality: true
+        field 'Lease Finance Margin ex VAT', :string, allow_nil: true, ingested_numericality: true
         field 'Vehicle Purchase Terms', :string
-        field 'Standard Vehicle Discount (%)', :decimal, allow_nil: true, numericality: true
-        field 'Enhanced Vehicle Discount (%)', :decimal, allow_nil: true, numericality: true
-        field 'Annual Service Maintenance & Repair Costs ex VAT', :decimal, allow_nil: true, numericality: true
-        field 'Annual Breakdown & Recovery Costs ex VAT', :decimal, allow_nil: true, numericality: true
-        field 'Residual Value', :decimal, allow_nil: true, numericality: true
+        field 'Standard Vehicle Discount (%)', :string, allow_nil: true, ingested_numericality: true
+        field 'Enhanced Vehicle Discount (%)', :string, allow_nil: true, ingested_numericality: true
+        field 'Annual Service Maintenance & Repair Costs ex VAT', :string, allow_nil: true, ingested_numericality: true
+        field 'Annual Breakdown & Recovery Costs ex VAT', :string, allow_nil: true, ingested_numericality: true
+        field 'Residual Value', :string, allow_nil: true, ingested_numericality: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
       end

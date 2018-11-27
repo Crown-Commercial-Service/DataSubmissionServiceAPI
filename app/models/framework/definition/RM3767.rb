@@ -26,21 +26,21 @@ class Framework
         field 'Customer Invoice Line Number', :string
         field 'Product Type', :string, exports_to: 'ProductGroup'
         field 'Tyre Brand', :string, exports_to: 'ProductClass'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC', numericality: { only_integer: true }
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
-        field 'Total Cost (ex VAT)', :decimal, exports_to: 'InvoiceValue', numericality: true
-        field 'Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
-        field 'VAT Amount Charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Total Cost (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
+        field 'VAT Amount Charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Tyre Grade', :string, exports_to: 'Additional1'
         field 'Run Flats (Y/N)', :string, exports_to: 'Additional2', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        # field 'Core Tyre Price', :decimal, exports_to: 'Additional3', numericality: true
-        # field 'Valve Cost', :decimal, exports_to: 'Additional4', numericality: true
-        # field 'Fitment Cost', :decimal, exports_to: 'Additional5', numericality: true
-        # field 'Balance Cost', :decimal, exports_to: 'Additional6', numericality: true
-        # field 'Disposal Cost', :decimal, exports_to: 'Additional7', numericality: true
+        # field 'Core Tyre Price', :string, exports_to: 'Additional3', ingested_numericality: true
+        # field 'Valve Cost', :string, exports_to: 'Additional4', ingested_numericality: true
+        # field 'Fitment Cost', :string, exports_to: 'Additional5', ingested_numericality: true
+        # field 'Balance Cost', :string, exports_to: 'Additional6', ingested_numericality: true
+        # field 'Disposal Cost', :string, exports_to: 'Additional7', ingested_numericality: true
         field 'Subcontractor Name', :string, exports_to: 'Additional8'
       end
     end

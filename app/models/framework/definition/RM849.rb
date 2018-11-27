@@ -23,11 +23,11 @@ class Framework
         field 'UNSPSC', :string, exports_to: 'UNSPSC'
         field 'Product Code', :string, exports_to: 'ProductCode'
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :decimal, exports_to: 'UnitPrice', numericality: true, allow_nil: true
-        field 'Invoice Line Quantity', :decimal, exports_to: 'UnitQuantity', numericality: true, allow_nil: true
-        field 'Invoice Line Total Value ex VAT and Expenses', :decimal, exports_to: 'InvoiceValue', numericality: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Invoice Line Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
+        field 'Invoice Line Total Value ex VAT and Expenses', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        field 'VAT amount charged', :decimal, exports_to: 'VATCharged', numericality: true, allow_nil: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
         field 'Contract Number', :string
         field 'Cost Centre', :string
       end
@@ -44,9 +44,9 @@ class Framework
         field 'Customer Contract Start Date', :string, exports_to: 'ContractStartDate'
         field 'Customer Contract End Date', :string, exports_to: 'ContractEndDate'
         field 'Project Name', :string, exports_to: 'ProductDescription'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC'
-        field 'Number of items', :integer
-        field 'Customer Order/Contract Value', :decimal, exports_to: 'ContractValue', numericality: true, allow_nil: true
+        field 'UNSPSC', :string, exports_to: 'UNSPSC'
+        field 'Number of items', :string
+        field 'Customer Order/Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true, allow_nil: true
         field 'Invoice Line Service Grouping', :string, exports_to: 'ContractAwardChannel', presence: true
         field 'Invoice Line Product / Service Description', :string, exports_to: 'Additional1'
       end
