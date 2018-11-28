@@ -2,7 +2,7 @@
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    %h3.govuk-heading-m= @user.name
+    %h2.govuk-heading-m= @user.name
     %p= @user.email
     %p
       Account active since:
@@ -12,7 +12,7 @@
 
 .govuk-grid-row
   .govuk-grid-column-full
-    %h3.govuk-heading-m Linked Suppliers
+    %h2.govuk-heading-m Linked Suppliers
 
     %table.govuk-table
       %thead.govuk-table__head
@@ -25,7 +25,7 @@
             %td.govuk-table__cell= membership.supplier.name
             %td.govuk-table__cell= link_to 'Unlink', admin_user_membership_path(@user, membership)
 
-    %h3.govuk-heading-m Frameworks
+    %h2.govuk-heading-m Frameworks
 
     %table.govuk-table
       %thead.govuk-table__head
@@ -39,7 +39,7 @@
               %td.govuk-table__cell= framework.name
               %td.govuk-table__cell= supplier.name
 
-    %h3.govuk-heading-m Recent Tasks
+    %h2.govuk-heading-m Recent Tasks
 
     %table.govuk-table
       %thead.govuk-table__head
