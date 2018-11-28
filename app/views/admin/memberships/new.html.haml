@@ -1,0 +1,13 @@
+%table
+  %thead
+    %tr
+      %th Supplier
+      %th Actions
+  %tbody
+    - @suppliers.each do |supplier|
+      %tr
+        %td= supplier.name
+        %td
+          = form_for [:admin, @user, Membership.new] do |form|
+            = form.hidden_field :supplier_id, value: supplier.id
+            = form.submit 'Link user'

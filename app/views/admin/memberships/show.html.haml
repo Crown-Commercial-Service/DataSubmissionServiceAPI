@@ -1,0 +1,7 @@
+%h1 Unlink user from a supplier
+%h2= @user.name
+%p= @user.email
+%p This user will no longer be able to complete tasks on behalf of the following supplier:textile
+%h2= @membership.supplier.name
+= form_for [:admin, @user, @membership], method: :delete do |form|
+  = form.submit 'Unlink user'

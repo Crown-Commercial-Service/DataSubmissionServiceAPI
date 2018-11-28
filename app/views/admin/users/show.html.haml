@@ -8,6 +8,8 @@
       Account active since:
       = @user.created_at.to_s(:short)
 
+= link_to 'Link to a supplier', new_admin_user_membership_path(@user)
+
 .govuk-grid-row
   .govuk-grid-column-full
     %h3.govuk-heading-m Linked Suppliers
@@ -16,10 +18,12 @@
       %thead.govuk-table__head
         %tr.govuk-table__row
           %th.govuk-table__header Name
+          %th.govuk-table__header Actions
       %tbody.govuk-table__body
-        - @user.suppliers.each do |supplier|
+        - @user.memberships.each do |membership|
           %tr.govuk-table__row
-            %td.govuk-table__cell= supplier.name
+            %td.govuk-table__cell= membership.supplier.name
+            %td.govuk-table__cell= link_to 'Unlink', admin_user_membership_path(@user, membership)
 
     %h3.govuk-heading-m Frameworks
 
