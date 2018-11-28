@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-29] - 2018-11-28
+
+- Add the supplier name to the Task returned by the API
+- Add a User endpoint to the API that shows a given user name, email and a boolean to show if the user has multiple suppliers
+- Admin users can locate a supplier user
+- [Security] Bump rails from 5.2.0 to 5.2.1.1
+- Admin can create a new user
+
 ## [release-28] - 2018-11-26
 
 - Secure sign in for support admin users
@@ -169,6 +177,7 @@
 Initial release
 
 
+[release-29]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-28...release-29
 [release-28]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-27...release-28
 [release-27]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-26...release-27
 [release-26]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-25...release-26
