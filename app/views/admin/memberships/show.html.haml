@@ -10,5 +10,5 @@
     %h2.govuk-heading-m= @membership.supplier.name
     .govuk-form-group
       = form_for [:admin, @user, @membership], method: :delete do |form|
-        = form.submit 'Unlink user', class: 'govuk-button'
+        = form.submit 'Unlink user', 'aria-label' => "Unlink user #{@user.name} from a #{@membership.supplier.name}", class: 'govuk-button'
 

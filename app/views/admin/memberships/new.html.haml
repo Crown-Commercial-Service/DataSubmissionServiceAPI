@@ -1,9 +1,7 @@
 .govuk-grid-row
   .govuk-grid-column-full
-    %fieldset.govuk-fieldset
-      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
-        %h1.govuk-fieldset__heading
-          Link to a supplier
+    %h1.govuk-heading-xl
+      Link to a supplier
     %table.govuk-table
       %thead.govuk-table__head
         %tr.govuk-table__row
@@ -16,4 +14,4 @@
             %td.govuk-table__cell
               = form_for [:admin, @user, Membership.new] do |form|
                 = form.hidden_field :supplier_id, value: supplier.id
-                = form.submit 'Link user', class: 'govuk-button govuk-!-margin-bottom-0'
+                = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
