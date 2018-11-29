@@ -2,26 +2,35 @@
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    %h3.govuk-heading-m= @user.name
+    %h2.govuk-heading-m= @user.name
     %p= @user.email
     %p
       Account active since:
       = @user.created_at.to_s(:short)
+  .govuk-grid-column-one-third
+    %h2.govuk-heading-s
+      Actions
+    %p
+      = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
 
-.govuk-grid-row
+.govuk-grid-row{:class => 'govuk-!-margin-top-7'}
   .govuk-grid-column-full
-    %h3.govuk-heading-m Linked Suppliers
+    %h2.govuk-heading-m
+      Linked Suppliers
 
     %table.govuk-table
       %thead.govuk-table__head
         %tr.govuk-table__row
           %th.govuk-table__header Name
+          %th.govuk-table__header Actions
       %tbody.govuk-table__body
-        - @user.suppliers.each do |supplier|
+        - @user.memberships.each do |membership|
           %tr.govuk-table__row
-            %td.govuk-table__cell= supplier.name
+            %td.govuk-table__cell= membership.supplier.name
+            %td.govuk-table__cell= link_to 'Unlink', admin_user_membership_path(@user, membership)
 
-    %h3.govuk-heading-m Frameworks
+    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
+      Frameworks
 
     %table.govuk-table
       %thead.govuk-table__head
@@ -35,7 +44,8 @@
               %td.govuk-table__cell= framework.name
               %td.govuk-table__cell= supplier.name
 
-    %h3.govuk-heading-m Recent Tasks
+    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
+      Recent Tasks
 
     %table.govuk-table
       %thead.govuk-table__head

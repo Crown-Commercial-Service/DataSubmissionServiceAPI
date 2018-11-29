@@ -6,7 +6,7 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
     %form{method: 'get'}
-      %h4.govuk-heading-s
+      %h2.govuk-heading-s
         Search
       .ccs-search-form-group
         %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
@@ -14,12 +14,12 @@
         %button.govuk-button Search
 
   .govuk-grid-column-one-third
-    %h4.govuk-heading-s
+    %h2.govuk-heading-s
       Actions
     %p
       = link_to 'Add a new user', new_admin_user_path
 
-%table.govuk-table
+%table.govuk-table{:class => 'govuk-!-margin-top-7'}
   %thead.govuk-table__head
     %tr.govuk-table__row
       %th.govuk-table__header Name

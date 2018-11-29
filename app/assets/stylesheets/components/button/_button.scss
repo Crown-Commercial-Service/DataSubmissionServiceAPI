@@ -50,4 +50,31 @@ $button-shadow-size: $govuk-border-width-form-element;
   }
 }
 
+.govuk-button--as-link {
+  border:none;
+  padding: 0;
+  margin-bottom: 0;
+  text-decoration: underline;
+  color: govuk-colour("blue");
+  @include govuk-font(19);
+  &:link {
+    color: $govuk-link-colour;
+  }
+
+  &:visited {
+    color: $govuk-link-visited-colour;
+  }
+
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
+
+  &:active {
+    color: $govuk-link-active-colour;
+  }
+  &:focus {
+    @include govuk-focusable-fill();
+  }
+}
+
 
