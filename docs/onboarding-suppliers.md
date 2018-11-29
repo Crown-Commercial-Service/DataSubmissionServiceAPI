@@ -16,40 +16,27 @@ in the next step.
 
 ## 2. Add users to Auth0 and local database, and create memberships
 
-This can be performed using the `Auth0AuthenticatedUser` utility class.
-
 Below is an example Ruby script demonstrating its use. It assumes the following:
 - There is a CSV file containing the user details with headers: Supplier Name,
   User Name, Email
 - All suppliers have already been created in step 1
-- AUTH0 environment variables are set, including one called `AUTH0_API_TOKEN`
-  that contains a valid API token. One can be acquired from "API Explorer" tab
-  in the API section of Auth0.
 
 ```ruby
-require 'auth0'
 require 'csv'
- # set this based on the output from the supplier data migration that is run on the API
- auth0_client = Auth0Client.new(
-  client_id: ENV['AUTH0_CLIENT_ID'],
-  domain: ENV['AUTH0_DOMAIN'],
-  token: ENV['AUTH0_API_TOKEN'], # This needs to be generated/acquired from Auth0
-  api_version: 2
-)
  # copy the csv to the docker container using docker cp. Make sure to cleanup after!
 CSV.read('./tmp/users.csv', headers: true, header_converters: :symbol).each do |row|
   user_name = row.fetch(:user_name)
   email = row.fetch(:email)
   supplier_name = row.fetch(:supplier_name)
   supplier = Supplier.find_by!(name: supplier_name)
-  user = if User.exists?(email: email)
+  if User.exists?(email: email)
     p "found #{email}"
-    User.find_by(email: email)
+    user = User.find_by(email: email)
   else
     sleep(0.5)
     p "created #{email}"
-    auth0_authenticated_user = Auth0AuthenticatedUser.new(auth0_client, user_name, email, supplier_name, supplier.id)
-    auth0_authenticated_user.create!
+    user = User.create!(name: user_name, email: email)
+    user.create_with_auth0
   end
   supplier.users << user unless supplier.users.include?(user)
   p "added #{email} to #{supplier_name}"
