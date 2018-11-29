@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :submissions, only: %i[show create update] do
       member do
         post 'complete', to: 'submissions#complete'
+        post :validate
       end
 
       resources :files, only: %i[create update show], controller: 'submission_files'

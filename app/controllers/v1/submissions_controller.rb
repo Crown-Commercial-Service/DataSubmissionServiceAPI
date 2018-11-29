@@ -34,6 +34,13 @@ class V1::SubmissionsController < APIController
     end
   end
 
+  def validate
+    submission = Submission.find(params[:id])
+    SubmissionValidationJob.perform_later(submission)
+
+    head :no_content
+  end
+
   private
 
   def complete_submission!(submission)
