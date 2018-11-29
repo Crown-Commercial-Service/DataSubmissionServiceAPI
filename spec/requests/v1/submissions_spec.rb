@@ -114,4 +114,15 @@ RSpec.describe '/v1' do
       end
     end
   end
+
+  describe 'POST /submissions/:submission_id/validate' do
+    it 'triggers the validation of the requested submission' do
+      submission = FactoryBot.create(:submission_with_pending_entries)
+
+      post "/v1/submissions/#{submission.id}/validate"
+
+      expect(response).to have_http_status(:no_content)
+      expect(SubmissionValidationJob).to have_been_enqueued.with(submission)
+    end
+  end
 end
