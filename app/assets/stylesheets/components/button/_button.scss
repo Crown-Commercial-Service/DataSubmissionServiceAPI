@@ -51,6 +51,9 @@ $button-shadow-size: $govuk-border-width-form-element;
 }
 
 .govuk-button--as-link {
+  border:none;
+  padding: 0;
+  margin-bottom: 0;
   text-decoration: underline;
   color: govuk-colour("blue");
   @include govuk-font(19);
@@ -70,12 +73,8 @@ $button-shadow-size: $govuk-border-width-form-element;
     color: $govuk-link-active-colour;
   }
   &:focus {
-    color: $govuk-focus-text-colour;
+    @include govuk-focusable-fill();
   }
 }
-//input type submit, default styles override
-input[type="submit"].govuk-button--as-link {
-  border:none;
-  padding: 0;
-  margin-bottom: 0;
-}
+
+
