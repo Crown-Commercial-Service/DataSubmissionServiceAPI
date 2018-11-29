@@ -1,7 +1,14 @@
-%h1 Unlink user from a supplier
-%h2= @user.name
-%p= @user.email
-%p This user will no longer be able to complete tasks on behalf of the following supplier:textile
-%h2= @membership.supplier.name
-= form_for [:admin, @user, @membership], method: :delete do |form|
-  = form.submit 'Unlink user'
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %fieldset.govuk-fieldset
+      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+        %h1.govuk-fieldset__heading
+          Unlink user from a supplier
+    %h2.govuk-heading-m= @user.name
+    %p= @user.email
+    %p This user will no longer be able to complete tasks on behalf of the following supplier
+    %h2.govuk-heading-m= @membership.supplier.name
+    .govuk-form-group
+      = form_for [:admin, @user, @membership], method: :delete do |form|
+        = form.submit 'Unlink user', class: 'govuk-button'
+
