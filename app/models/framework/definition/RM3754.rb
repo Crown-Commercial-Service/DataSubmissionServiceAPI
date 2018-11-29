@@ -9,18 +9,18 @@ class Framework
       class Invoice < Sheet
         total_value_field 'Total Charge (ex VAT)'
 
-        field 'Customer URN', :integer, exports_to: 'CustomerURN'
+        field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
-        field 'Customer Organisation', :string, exports_to: 'CustomerName'
-        field 'Customer Invoice Date', :date, exports_to: 'InvoiceDate'
-        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber'
+        field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
+        field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
+        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Product Description', :string, exports_to: 'ProductDescription'
-        field 'UNSPSC', :integer, exports_to: 'UNSPSC'
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :decimal, exports_to: 'UnitPrice'
-        field 'Total Number of Units', :decimal, exports_to: 'UnitQuantity'
-        field 'Total Charge (ex VAT)', :decimal, exports_to: 'InvoiceValue'
-        field 'VAT amount charged', :decimal, exports_to: 'VATCharged'
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Total Number of Units', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
+        field 'Total Charge (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Vehicle Registration No', :string, exports_to: 'Additional1'
