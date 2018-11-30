@@ -108,39 +108,6 @@ RSpec.describe '/v1' do
       end
     end
 
-    describe 'PATCH against a pending submission entry' do
-      let(:entry) { FactoryBot.create(:submission_entry, submission: submission, submission_file: submission_file) }
-      let(:params) do
-        {
-          data: {
-            type: 'submission_entries',
-            attributes: {
-              status: 'errored',
-              validation_errors: [
-                {
-                  location: { row: 20, column: 2 },
-                  message: 'Required value error'
-                }
-              ]
-            }
-          }
-        }
-      end
-
-      it 'updates the submission entry attributes and triggers a submission status update' do
-        status_update_double = double
-        expect(status_update_double).to receive(:perform!)
-        expect(SubmissionStatusUpdate).to receive(:new).with(submission).and_return(status_update_double)
-
-        patch "/v1/files/#{submission_file.id}/entries/#{entry.id}", params: params.to_json, headers: json_headers
-
-        expect(response).to have_http_status(:no_content)
-        expect(entry.reload).to be_errored
-        expect(entry.validation_errors[0]['message']).to eq 'Required value error'
-        expect(entry.validation_errors[0]['location']).to eq('row' => 20, 'column' => 2)
-      end
-    end
-
     describe 'GET with an entry ID' do
       let(:submission_entry) do
         FactoryBot.create(
