@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-30] - 2018-11-30
+
+- Admin user can link/unlink users to/from suppliers
+- Migrate validation rules from existing lambda implementation
+- Add API endpoint to trigger validation
+- Updated Customer URN list for November
+
 ## [release-29] - 2018-11-28
 
 - Add the supplier name to the Task returned by the API
@@ -176,7 +183,7 @@
 
 Initial release
 
-
+[release-30]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-29...release-30
 [release-29]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-28...release-29
 [release-28]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-27...release-28
 [release-27]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-26...release-27
