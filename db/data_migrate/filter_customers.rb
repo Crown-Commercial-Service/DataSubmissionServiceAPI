@@ -6,7 +6,7 @@ require 'progress_bar'
 
 warn 'Reading CSV file...'
 customers_csv_path = Rails.root.join('db', 'data_migrate', 'new-big-customer.csv')
-csv = CSV.read(customers_csv_path, headers: true, header_converters: :symbol)
+csv = CSV.read(customers_csv_path, headers: true, header_converters: :symbol, encoding: 'ISO-8859-1')
 
 warn 'Filtering customers...'
 bar = ProgressBar.new(csv.count)
@@ -18,12 +18,10 @@ def needs_importing?(customer_row)
   !Customer.exists?(urn: customer_row[:urn]) && customer_row[:urn].to_i > 10000000
 end
 
-def customers_header(customers_csv_path)
-  File.open(customers_csv_path, &:readline)
-end
-
-puts customers_header(customers_csv_path)
-csv.each do |customer_row|
-  puts CSV.generate_line(customer_row) if needs_importing?(customer_row)
-  bar.increment!
+CSV.open('import.csv', 'w') do |output_csv|
+  output_csv << csv.headers
+  csv.each do |customer_row|
+    output_csv << customer_row if needs_importing?(customer_row)
+    bar.increment!
+  end
 end
