@@ -30,4 +30,38 @@ RSpec.describe User, type: :model do
       expect(user.auth_id).to eq(nil)
     end
   end
+
+  describe '.search' do
+    let!(:bob) { FactoryBot.create(:user, name: 'Bob Booker', email: 'bob@sheffield.com') }
+    let!(:bobby) { FactoryBot.create(:user, name: 'Bobby Brown', email: 'bobby_b_66@hotmail.com') }
+
+    before do
+      bob.suppliers << FactoryBot.create(:supplier, name: 'Brentford FC')
+    end
+
+    it 'returns users with names matching the supplied search term' do
+      expect(User.search('bob')).to match_array([bob, bobby])
+      expect(User.search('Frank')).to match_array([])
+    end
+
+    it 'returns users with email addresses matching the supplied search term' do
+      expect(User.search('sheffield.com')).to match_array([bob])
+      expect(User.search('bobby_b')).to match_array([bobby])
+      expect(User.search('foobar')).to match_array([])
+    end
+
+    it 'returns users linked to a supplier matching the supplied search term' do
+      expect(User.search('Brentford')).to match_array([bob])
+    end
+
+    context 'when user is associated with multiple suppliers' do
+      before do
+        bob.suppliers << FactoryBot.create(:supplier, name: 'Sheffield United')
+      end
+
+      it 'doesn’t return multiple results for the matching user' do
+        expect(User.search('booker')).to match_array([bob])
+      end
+    end
+  end
 end
