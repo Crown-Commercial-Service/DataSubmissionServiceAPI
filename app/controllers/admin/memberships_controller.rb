@@ -1,7 +1,7 @@
 class Admin::MembershipsController < AdminController
   before_action :find_user
   def new
-    @suppliers = Supplier.all - @user.suppliers
+    @suppliers = Supplier.excluding(@user.suppliers).page(params[:page])
   end
 
   def create

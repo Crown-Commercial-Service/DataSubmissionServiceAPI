@@ -11,4 +11,6 @@ class Supplier < ApplicationRecord
     with: /\AC0\d{5}\z/,
     message: 'must start with “C0” and have five additional numbers, for example: “C012345”'
   }
+
+  scope :excluding, ->(suppliers) { where.not(id: suppliers) }
 end

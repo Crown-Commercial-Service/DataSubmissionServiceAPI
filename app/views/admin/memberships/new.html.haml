@@ -17,3 +17,5 @@
               = form_for [:admin, @user, Membership.new] do |form|
                 = form.hidden_field :supplier_id, value: supplier.id
                 = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
+
+= paginate @suppliers
