@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-31] - 2018-12-04
+
+- Update RM3710 to mark lease date fields as optional
+
 ## [release-30] - 2018-11-30
 
 - Admin user can link/unlink users to/from suppliers
