@@ -13,4 +13,8 @@ class Supplier < ApplicationRecord
   }
 
   scope :excluding, ->(suppliers) { where.not(id: suppliers) }
+
+  def self.search(query)
+    query.blank? ? all : where('name ILIKE :query', query: "%#{query}%")
+  end
 end
