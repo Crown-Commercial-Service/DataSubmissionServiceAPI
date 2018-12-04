@@ -8,4 +8,9 @@ module Auth0Helpers
     stub_request(:delete, "https://testdomain/api/v2/users/#{user.auth_id}")
       .to_return(status: 200, body: '')
   end
+
+  def stub_auth0_create_user_request
+    stub_request(:post, 'https://testdomain/api/v2/users')
+      .to_return(status: 200, body: '{"user_id":"auth0|TEST"}')
+  end
 end
