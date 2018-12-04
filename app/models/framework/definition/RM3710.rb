@@ -36,8 +36,8 @@ class Framework
         field 'Vehicle Convertors Name', :string, exports_to: 'Additional5'
         field 'Vehicle Conversion Type', :string, exports_to: 'Additional6'
         field 'Vehicle Type', :string, exports_to: 'Additional7'
-        field 'Lease Start Date', :string, exports_to: 'Additional8', ingested_date: true
-        field 'Lease End Date', :string, ingested_date: true
+        field 'Lease Start Date', :string, exports_to: 'Additional8', ingested_date: true, allow_nil: true
+        field 'Lease End Date', :string, ingested_date: true, allow_nil: true
         field 'Lease Period (Months)', :string, ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Payment Profile', :string
         field 'Annual Lease Mileage', :string, ingested_numericality: true, allow_nil: true
