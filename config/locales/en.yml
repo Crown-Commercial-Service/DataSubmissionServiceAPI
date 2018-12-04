@@ -4,3 +4,4 @@ en:
     messages:
       invalid_urn: 'is not a recognised URN'
       invalid_ingested_date: 'must be in the format dd/mm/yyyy'
+      invalid_optional_ingested_date: 'must be in the format dd/mm/yyyy or left blank'
