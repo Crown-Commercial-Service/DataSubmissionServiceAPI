@@ -12,6 +12,8 @@
       Actions
     %p
       = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
+    %p
+      = link_to 'Delete user', confirm_delete_admin_user_path(@user)
 
 .govuk-grid-row{:class => 'govuk-!-margin-top-7'}
   .govuk-grid-column-full

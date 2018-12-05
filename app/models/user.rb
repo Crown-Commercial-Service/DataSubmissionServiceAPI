@@ -33,4 +33,10 @@ class User < ApplicationRecord
     )
     update auth_id: auth0_response.fetch('user_id')
   end
+
+  def delete_on_auth0
+    auth0_client = Auth0Api.new.client
+    auth0_client.delete_user(auth_id)
+    update auth_id: nil
+  end
 end
