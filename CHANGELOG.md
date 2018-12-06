@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-32] - 2018-12-06
+
+- Admin user can delete users
+- Remove now-redundant submission entry endpoint from API
+
 ## [release-31] - 2018-12-04
 
 - Update RM3710 to mark lease date fields as optional
@@ -187,6 +192,8 @@
 
 Initial release
 
+[release-32]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-31...release-32
+[release-31]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-30...release-31
 [release-30]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-29...release-30
 [release-29]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-28...release-29
 [release-28]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-27...release-28
