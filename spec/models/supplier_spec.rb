@@ -22,4 +22,21 @@ RSpec.describe Supplier do
       expect(supplier.errors[:coda_reference]).to be_present
     end
   end
+
+  describe '.search' do
+    let!(:east_wind) { FactoryBot.create(:supplier, name: 'East Wind') }
+    let!(:ecm) { FactoryBot.create(:supplier, name: 'ECM') }
+    let!(:impulse) { FactoryBot.create(:supplier, name: 'Impulse') }
+    let!(:strata_east) { FactoryBot.create(:supplier, name: 'Strata East') }
+
+    it 'returns suppliers with names matching the query' do
+      expect(Supplier.search('east')).to match_array([east_wind, strata_east])
+      expect(Supplier.search('strata')).to match_array([strata_east])
+      expect(Supplier.search('bob')).to be_empty
+    end
+
+    it 'returns the scope for all suppliers if the query is blank' do
+      expect(Supplier.search(nil)).to eq Supplier.all
+    end
+  end
 end

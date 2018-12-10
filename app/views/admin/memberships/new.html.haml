@@ -4,6 +4,19 @@
       Link
       = @user.name
       to a supplier
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %form{method: 'get'}
+      %h2.govuk-heading-s
+        Search suppliers
+      .ccs-search-form-group
+        %label.govuk-label.govuk-visually-hidden{ for: 'search' } Search
+        %input#search.govuk-input{ name: 'search', type: 'text', value: params[:search], autofocus: true }
+        %button.govuk-button Search
+
+.govuk-grid-row
+  .govuk-grid-column-full
     %table.govuk-table
       %thead.govuk-table__head
         %tr.govuk-table__row
@@ -17,3 +30,5 @@
               = form_for [:admin, @user, Membership.new] do |form|
                 = form.hidden_field :supplier_id, value: supplier.id
                 = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
+
+= paginate @suppliers
