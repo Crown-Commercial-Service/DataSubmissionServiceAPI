@@ -48,4 +48,55 @@ RSpec.describe SubmissionEntry do
 
     expect(submission_entry.customer).to eq customer
   end
+
+  describe 'validate_against_framework_definition!' do
+    let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
+    let(:framework) { FactoryBot.create(:framework, short_name: 'RM3767') }
+    let(:submission) { FactoryBot.create(:submission, framework: framework) }
+    let(:entry) { FactoryBot.create(:invoice_entry, submission: submission, data: data_hash) }
+    let(:valid_data_hash) do
+      {
+        'Lot Number' => '1',
+        'Customer URN' => '12345678',
+        'Customer Organisation Name' => 'Organisation Name',
+        'Customer Invoice Date' => '01/01/2018',
+        'UNSPSC' => '1',
+        'Total Cost (ex VAT)' => 12.34,
+        'Run Flats (Y/N)' => 'N'
+      }
+    end
+
+    before { entry.validate_against_framework_definition! }
+
+    context 'with a valid data hash' do
+      let(:data_hash) { valid_data_hash }
+
+      it 'transitions state to validated' do
+        expect(entry.reload).to be_validated
+        expect(entry.validation_errors).to eq(nil)
+      end
+    end
+
+    context 'with an invalid data hash' do
+      let(:data_hash) { valid_data_hash.merge('UNSPSC' => nil) }
+
+      it 'transitions state to errored' do
+        expect(entry.reload).to be_errored
+      end
+
+      it 'sets the validation errors' do
+        expect(entry.validation_errors).to eq(
+          [
+            {
+              'message' => 'is not a number',
+              'location' => {
+                'row' => entry.source['row'],
+                'column' => 'UNSPSC',
+              },
+            }
+          ]
+        )
+      end
+    end
+  end
 end
