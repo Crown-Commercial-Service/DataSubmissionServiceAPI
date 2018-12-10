@@ -44,7 +44,7 @@ RSpec.describe Framework::Definition::RM1070 do
     # rubocop:enable Metrics/LineLength
 
     it 'validates valid invoice entry data' do
-      invoice = Framework::Definition::RM1070::Invoice.new_from_params(valid_params)
+      invoice = invoice_from_params
 
       expect(invoice).to be_valid
     end
@@ -123,8 +123,8 @@ RSpec.describe Framework::Definition::RM1070 do
       end
     end
 
-    def invoice_from_params(overrides)
-      Framework::Definition::RM1070::Invoice.new_from_params valid_params.merge(overrides)
+    def invoice_from_params(overrides = {})
+      Framework::Definition::RM1070::Invoice.new(SubmissionEntry.new(data: valid_params.merge(overrides)))
     end
   end
 end

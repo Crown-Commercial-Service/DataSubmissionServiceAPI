@@ -5,19 +5,16 @@ class Framework
     include ActiveModel::Attributes
     include ActiveModel::Validations
 
-    class << self
-      def new_from_params(params)
-        instance = new
+    def initialize(entry)
+      super()
+      entry.data.each_pair do |param, value|
+        next unless attributes.key?(param)
 
-        params.each_pair do |param, value|
-          next unless instance.attributes.key?(param)
-
-          instance.send("#{param}=", value)
-        end
-
-        instance
+        send("#{param}=", value)
       end
+    end
 
+    class << self
       def export_mappings
         @export_mappings ||= {}
       end

@@ -24,7 +24,7 @@ class SubmissionEntry < ApplicationRecord
   end
 
   def validate_against_framework_definition!
-    entry_data = entry_type_framework_definition.new_from_params(data)
+    entry_data = entry_type_framework_definition.new(self)
 
     if entry_data.valid?
       self.aasm_state = :validated

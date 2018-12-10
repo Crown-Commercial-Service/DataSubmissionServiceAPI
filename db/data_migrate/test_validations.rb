@@ -13,7 +13,7 @@ Framework.all.find_each do |framework|
 
   entries.find_each do |entry|
     entry_data_definition = framework_definition.for_entry_type(entry.entry_type)
-    entry_data = entry_data_definition.new_from_params(entry.data)
+    entry_data = entry_data_definition.new(entry)
     entry_data.validate
 
     print '.'
