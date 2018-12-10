@@ -7,12 +7,8 @@ class User < ApplicationRecord
 
   def self.search(query)
     if query.present?
-      joins(:suppliers).where(
-        'users.name ILIKE ? OR email ILIKE ? OR suppliers.name ILIKE ?',
-        "%#{query}%",
-        "%#{query}%",
-        "%#{query}%",
-      )
+      eager_load(:suppliers)
+        .where('users.name ILIKE :query OR email ILIKE :query OR suppliers.name ILIKE :query', query: "%#{query}%")
     else
       where(nil)
     end
