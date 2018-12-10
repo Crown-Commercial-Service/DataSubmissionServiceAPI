@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_170112) do
+ActiveRecord::Schema.define(version: 2018_12_10_133832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 2018_10_31_170112) do
     t.uuid "framework_id", null: false
     t.string "number", null: false
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["framework_id", "number"], name: "index_framework_lots_on_framework_id_and_number", unique: true
     t.index ["framework_id"], name: "index_framework_lots_on_framework_id"
   end
