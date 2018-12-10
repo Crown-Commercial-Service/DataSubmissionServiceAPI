@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('0')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Spend'
 
         field 'Customer Postcode', :string, exports_to: 'CustomerPostCode'

@@ -1,7 +1,7 @@
 class Framework
   ##
   # Define a Sheet for Orders/Invoices on a field-by-field basis
-  class Sheet
+  class EntryData
     include ActiveModel::Attributes
     include ActiveModel::Validations
 

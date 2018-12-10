@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Charges (ex VAT)'
 
         field 'Contract Number', :string

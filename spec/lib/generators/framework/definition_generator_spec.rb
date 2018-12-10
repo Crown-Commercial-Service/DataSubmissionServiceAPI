@@ -26,17 +26,17 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
     it 'Has the framework_name looked up from the MISO CSV' do
       expect(definition).to match(/framework_name\s+'General Legal Advice Services'/)
     end
-    it 'has a Sheet class for Invoices' do
-      expect(definition).to match 'Invoice < Sheet'
+    it 'has a EntryData class for Invoices' do
+      expect(definition).to match 'Invoice < EntryData'
     end
     it 'defines the total value field for Invoices' do
-      expect(definition).to match(/Invoice < Sheet.*\n\s+total_value_field 'Total Cost \(ex VAT\)'/i)
+      expect(definition).to match(/Invoice < EntryData.*\n\s+total_value_field 'Total Cost \(ex VAT\)'/i)
     end
-    it 'has a Sheet class for Orders' do
-      expect(definition).to match 'Order < Sheet'
+    it 'has a EntryData class for Orders' do
+      expect(definition).to match 'Order < EntryData'
     end
     it 'defines the total value field for Orders' do
-      expect(definition).to match(/Order < Sheet.*\n\s+total_value_field 'Expected Total Order Value'/i)
+      expect(definition).to match(/Order < EntryData.*\n\s+total_value_field 'Expected Total Order Value'/i)
     end
     it 'maps mandatory fields using exports_to' do
       expect(definition).to match "field 'Customer URN', :integer, exports_to: 'CustomerURN'"
@@ -59,11 +59,11 @@ RSpec.describe Framework::DefinitionGenerator, type: :generator do
     it 'Has the framework_name looked up from the MISO CSV' do
       expect(definition).to match(/framework_name\s+'Laundry Services - Wave 2'/)
     end
-    it 'has a Sheet class for Invoices' do
-      expect(definition).to match 'Invoice < Sheet'
+    it 'has a EntryData class for Invoices' do
+      expect(definition).to match 'Invoice < EntryData'
     end
-    it 'has no Sheet class for Orders, as the CSV does not define any fields' do
-      expect(definition).not_to match 'Order < Sheet'
+    it 'has no EntryData class for Orders, as the CSV does not define any fields' do
+      expect(definition).not_to match 'Order < EntryData'
     end
     it 'maps mandatory fields using the exports_to: option' do
       expect(definition).to match "field 'Customer URN', :integer, exports_to: 'CustomerURN'"

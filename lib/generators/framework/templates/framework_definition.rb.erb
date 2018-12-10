@@ -4,7 +4,7 @@ class Framework
       framework_short_name '<%= framework_short_name %>'
       framework_name       '<%= framework_name %>'
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         <%= invoice_total_value_field %>
 
         <%- invoice_fields.each do |field| -%>
@@ -18,7 +18,7 @@ class Framework
       end
       <%- if order_fields.any? -%>
 
-      class Order < Sheet
+      class Order < EntryData
         <%= order_total_value_field %>
 
         <%- order_fields.each do |field| -%>

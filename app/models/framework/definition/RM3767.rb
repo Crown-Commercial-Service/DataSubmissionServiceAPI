@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('1')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
 
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }

@@ -81,7 +81,7 @@ class Framework
         '3rd Party Contracting Partner'
       ].freeze
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
 
         field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }
@@ -110,7 +110,7 @@ class Framework
         field 'Sub-Contractor Name (If Applicable)', :string, exports_to: 'Additional4', presence: true
       end
 
-      class Order < Sheet
+      class Order < EntryData
         total_value_field 'Expected Total Order Value'
 
         field 'Contract Start Date', :string, exports_to: 'ContractStartDate'
