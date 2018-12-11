@@ -2,30 +2,21 @@ require 'rails_helper'
 
 RSpec.describe SubmissionValidationJob do
   describe '#perform' do
-    # rubocop:disable Metrics/LineLength
-    let(:total_value_field) { 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT' }
-    # rubocop:enable Metrics/LineLength
-    let(:framework) { FactoryBot.create(:framework, short_name: 'RM1070') }
+    let(:framework) { FactoryBot.create(:framework, short_name: 'RM1031') }
     let(:submission) { FactoryBot.create(:submission, framework: framework) }
     let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
     let(:good_data) do
       {
-        'Lot Number' => '1',
+
         'Customer Organisation' => 'Example Ltd',
         'Customer URN' => '12345678',
         'Customer Invoice Date' => '01/01/2018',
-        total_value_field => 12.34,
-        'VAT Applicable?' => 'N'
+        'Customer Invoice Number' => '123',
+        'Total Charge (Ex VAT)' => 12.34,
       }
     end
     let(:bad_data) do
-      {
-        'Lot Number' => '1',
-        'Customer Organisation' => 'Example Ltd',
-        'Customer URN' => '12345678',
-        'Customer Invoice Date' => '01/01/2018',
-        'VAT Applicable?' => 'N'
-      }
+      good_data.merge('Total Charge (Ex VAT)' => nil)
     end
 
     context 'with all valid rows' do
@@ -58,7 +49,7 @@ RSpec.describe SubmissionValidationJob do
               'message' => 'is not a number',
               'location' => {
                 'row' => bad_row.source['row'],
-                'column' => total_value_field,
+                'column' => 'Total Charge (Ex VAT)',
               },
             }
           ]
