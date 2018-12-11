@@ -1,0 +1,1495 @@
+﻿framework_number,lot_number,lot_description
+06/GEN/SS/1030,1,Service Providers Lot1
+06/GEN/SS/1030,2,Master Vendor Lot2
+A206100,1,Property and Facilities Management Services
+A217832,4,Finance & Audit
+A217832,5,PPM
+A217832,6,One Stop Shop
+A217832,1,IT
+A217832,2,Admininstration/support staff
+A217832,3,HR
+A217833,4,Peripherals
+A217833,5,IT Consumables & Accessories
+A217833,2,Network Infrastructure Equipment
+A217833,7,"Office Productivity, Tools, Miscellaneous Applications & Database Software"
+A217833,1s,Reseller (Software)
+A217833,1h,Reseller (Hardware)
+A217833,3,Client Devices
+A217833,8,"Network, Security, Maintenance Software"
+A217833,11,Enterprise Resourcing Planning (ERP) Application Software
+A217833,10,"Data Management, Utilities, Storage Software"
+A217833,6,Operating System Software
+A217833,9,"Development, Design, Test Software"
+A217834,3,e-Business
+A217834,4,IT Security Consultancy
+A217834,5,Telecommunications Consultancy
+A217834,6,Application Design Consultancy
+A217834,7,Emerging Technology Consultancy
+A217834,1,Business Strategy
+A217834,2,IT Architecture Design including Networking & Communications
+A217834,8,Enterprise Resource Planning Consultancy
+A217835,2.6,Organisational Development - Education and Children's Services
+A217835,1,Business Strategy
+A217835,2.2,Organisational Development - Local Government and Local Organisations
+A217835,3,Outsourcing
+A217835,2.1,Organisational Development - Central Civil Government
+A217835,2.4,Organisational Development - Police & Criminal Justice
+A217835,2.5,Organisational Development - Defence
+A217835,2.3,Organisational Development - Health
+A217836,1,Financial Management Consultancy
+A217836,3,Audit and Assurance Services
+A217836,2,Accountancy Services
+A217837,2,Data Solutions
+A217837,3,Convergent Solutions
+A217837,4b,Specialised Communications Solutions - Satellite
+A217837,8,eTransaction Solutions
+A217837,9,Application Development
+A217837,1,Voice Solutions
+A217837,10,Customer Relationship Management (CRM) Solutions
+A217837,12,Enterprise Resource Planning (ERP) Solutions
+A217837,4d,Specialised Communications Solutions - Conferencing
+A217837,4c,Specialised Communications Solutions - Microwave
+A217837,4e,Specialised Communications Solutions - CCTV
+A217837,7,Web Hosting Solutions
+A217837,6,"Web Design, Development and Content Management Solutions"
+A217837,11,Electronic Document & Records Management (EDRM) Solutions
+A217837,5,Managed Desktop Solutions
+A217837,4a,Specialised Communications Solutions - Radio
+A217840,1,Board or Executive Committee level across all market sectors
+A217840,2,Local Authorities And Education for all Interim Managers
+A217840,4,Defence for all Interim Managers
+A217840,5,Central Civil Government and Other Public Sector Bodies
+A217840,3,Health for all Interim Managers
+A217841,2,Procurement Consultancy
+A217841,3,Project & Programme Management Consultancy
+A217841,1,HR Consultancy
+A217841,4,Marketing Consultancy & Market Research
+A337223,2,Service
+A337223,1,Hardware
+A337571,1,Electronic E Sourcing
+A607817,1,Travel - Rail Ticket Booking Services
+A607818,1,Travel - Air And Ferry Ticket Booking
+A607819,1,Travel - Hotel Room Booking
+A607820,1,Travel - Conference Facilities Booking Services
+A607821,1,Travel - Vehicle Hire
+ADOS0001,2,Electronic Office Supplies & Magnetic Media
+ADOS0001,1,Stationery
+ADOS0001,4,Paper
+BS1,1A2,"Indirect Voice & Internet Access, Subscriber Line, Other Bearer"
+BS1,1A3,Internet Access
+BS1,1B1,"Subscriber line, Voice & Internet Access"
+BS1,1B2,"Indirect Voice & Internet Access, Subscriber Line, Other Bearer"
+BS1,1B3,Internet Access
+BS1,1B4,Indirect Internet Access
+BS1,1A1,"Subscriber Line, Voice & Internet Access"
+BS1,1A4,Indirect Internet Access
+BS1,1A5,Subscriber Line and Voice
+BS1,1A6,Indirect Outbound Voice
+BS1,1A7,Bare Wire Subscriber Line
+BS1,1B5,"Subscriber Line, Voice (inc Centrex Services)"
+BS1,1MC,BS Mini Competition
+BS1,1B6,Indirect Voice (inc Centrex Services)
+BS1,1C1,Short Haul Interconnections
+BS1,1C2,Back Haul & Internet Connections
+CBS0002,3,DECC
+CBS0002,1,Bureau Service
+CBS0002,2,Energy Consultancy
+CIPHER,1,DWP CIPHER Managed Service Provision
+CM/AMN/07/4820,1,Medical Locums
+CM/ANS/08/4961,1,National Agency Nursing Framework Agreement
+CM/AST/08/4966,1,Temporary staff Allied health professionals and associated staff health sci
+CM/FMA/05/4206,1,Water coolers and dispensers
+CM/FMM/04/2500,1,Supply and installation of Signage
+CM/FMM/07/4789,1,Estates Multi FA
+CM/FMM/08/5012,5,"Water Systems,Servicing Legionella Testing, Thermostatic mixing valves, Wat"
+CM/FMM/08/5012,13,Fully Managed Building and Engineering Maintenance Services.
+CM/FMM/08/5012,6.4,Portable fire appliances
+CM/FMM/08/5012,6.5,Sprinkler systems
+CM/FMM/08/5012,6.1,Fire alarm systems
+CM/FMM/08/5012,6.2,Fixed fire fighting equipment
+CM/FMM/08/5012,6.3,Suppression fire extinguisher systems
+CM/FMM/08/5012,3,"Lifts, Escalators and Conveyance Systems"
+CM/FMM/08/5012,7,Boilers and associated plant.
+CM/FMM/08/5012,8,Building Management Systems & Automatic Control Systems.
+CM/FMM/08/5012,1,"Cooling and Refrigeration Chillers, Condensers, Split A/C's"
+CM/FMM/08/5012,2,"Air Handling Units, Filters, Ventilation & Extraction."
+CM/FMM/08/5012,9,Security Access Control Intruder and CCTV Systems
+CM/FMM/08/5012,10,UPS and Generators
+CM/FMM/08/5012,12,Automatic Doors
+CM/FMM/08/5012,11.1,Portable Appliance Testing (PAT)
+CM/FMM/08/5012,11.2,Fixed Installation Testing
+CM/FMM/08/5028,1,Signage Solutions Framework for NHS and Pan-Government
+CM/FMT/05/4368,1,Accident and Emergency Ambulances
+CM/FMT/07/4898,1,Vehicle Insurance
+CM/FMT/08/4984,1,Vehicle Conversion
+CM/FMT/08/5046,1,Trailers and Mobile Units
+CM/OSG/05/3565,1,Laundry Services - Wave 2
+CMAAC095124,1a,Employment Agency
+CMAAC095124,1b,Employment Business
+DFFS/5012,1,Aviation and Marine
+DFG/0001,1,Marine and Aviation Fuel
+DFG2a1665,1,Lubricants
+FATS-3,1,Financial And Technical Services (3)
+FCMT0029,1,Furniture repair and renovation
+Framework 98,3,Installation of Commercial Catering Equipment
+Framework 98,4.01,Hire of Commercial Kitchen Pods (Portable Kitchens and Catering Facilities)
+Framework 98,5.01,Service and Maintenance of Domestic Kitchen Equipment
+Framework 98,2.02,Supply of Commercial Catering Equipment - Beverage Equipment
+Framework 98,2.08,Supply of Commercial Catering Equipment - Refrigeration
+Framework 98,2.09,Supply of Commercial Catering Equipment - Shelving and Storage
+Framework 98,2.1,Supply of Commercial Catering Equipment - General Fabrication
+Framework 98,2.11,Supply of Commercial Catering Equipment - Commercial Kitchen Extractions
+Framework 98,1,Design and Layout of Kitchen Refurbishments and New Build Projects
+Framework 98,2.01,Supply of Commercial Catering Equipment - Prime Cooking Equipment
+Framework 98,2.03,Supply of Commercial Catering Equipment - Warewashing
+Framework 98,2.04,Supply of Commercial Catering Equipment - Beverage Equipment
+Framework 98,2.05,Supply of Commercial Catering Equipment - Potato Ovens
+Framework 98,2.06,Supply of Commercial Catering Equipment - Heated and Ambient Display
+Framework 98,2.07,Supply of Commercial Catering Equipment - Insect Control
+Framework 98,2.12,Supply of Commercial Catering Equipment - Cash Registers
+Framework 98,4.02,Hire of Commercial Catering Equipment
+Framework 98,5.02,Service and Maintenance of Commercial Catering Equipment
+GCAT,2,Telecommunication
+GCAT,5,IT Managed Services
+GCAT,3,Software
+GCAT,1,Hardware
+GCAT,4,Maintenance
+GCAT,7,Solution Provision
+GCAT,6,Value Added Reseller
+GTC01,1AM,Packaged solution Application/Managed
+GTC01,1AMT,Packaged Solution Applicatio/Managed/Telecom
+GTC01,1MT,Packaged solution Managed/Telecom
+GTC01,1T,Telecommunications
+GTC01,1M,Managed
+GTC01,1AT,Packaged solution Application/Telecom
+GTC01,1M1,Managed special CJIT/CW
+GTC01,1MGTN,Managed CW GTN
+GTC01,1A,Applications
+GTC99,1C13,EDI & Other Messaging Cat
+GTC99,1C14,News and Information Cat
+GTC99,1C15,Video Conferencing Cat
+GTC99,1C2,Fixed PSTN Cat
+GTC99,1C7,Mobile Communications Cat
+GTC99,1C8,Network Management Cat
+GTC99,1C9,Bureau Services Cat
+GTC99,1CP1,Packaged Solutions Cat voice
+GTC99,1C4,Managed Voice Cat
+GTC99,1C5,Maintenance of Telcoms Equipment Cat
+GTC99,1CP2,Packaged solutions Cat non voice
+GTC99,1C1,Wide Area Network Cat
+GTC99,1C10,Internet & Web Management Cat
+GTC99,1C11,Directory Information Cat
+GTC99,1C12,"E-Commerce Security, TTP Cat"
+GTC99,1C3,Local Area Network Cat
+GTC99,1C6,Site Cabling Cat
+HMRC01,1,Print
+HMRC02,1,Print
+ISS/IA/480085P2P,1,MOD IA
+ISS/IA/480086P2P,1,MOD IA
+ISS/IA/480087P2P,1,MOD IA
+LCDOPS1430,1,"Stationery, Paper, Computer Consumables and Listing Paper"
+MoU,7,Default
+MoU01,1,Adobe MoU
+MoU03,2,Citrix MoU
+MoU04,3,Microsoft MoU
+MoU04,4,Microsoft PSA09 MoU
+MoU05,9,Microsoft Schools MOU
+MoU06,5,Oracle MoU
+MoU07,6,SAP MoU
+MoU08,1,Northgate MoU spend under management
+NPU 08 10 9 1,3,Hotels
+NPU 08 10 9 1,4,Conference Facilities
+PCS,5,Building Regulation Compliance (A206879)
+PCS,9a,Architectural Services Historical Buildings (A206743)
+PCS,2,Construction and Property Professional Services (A207547)
+PCS,3a,Space Planning (A207108)
+PCS,3c,Space Planning (A206990)
+PCS,1a,Project Management (A206101)
+PCS,4,Property Management (A206782)
+PCS,7,Estates Professional Services (A207546)
+PCS,8a,Rating Support (A207573)
+PCS,3b,Space Planning (A206989)
+PCS,14,Technical Assurance (A206742)
+PCS,8b,Rating Support (A206755)
+PCS,6,Capital Charging Valuation Services (A206738)
+PCS,10,"Environmental Advice, Support & Delivery (A917812)"
+PCS,11,Enviromental Surveying & Monitoring Advice (A20672
+PCS,1b,Project Management (A206902)
+PCS,1e,Project Management (A206902A for Cabinet Office  Turner & Townsend only)
+PCS,1d,Project Management (A206902B for Forensic Science Service NI)
+PCS,12,Quantity Surveying & Contract Advice (A206730)
+PCS,1c,Project Management (A206902C For DWP  Drivers Jonas only)
+PCS,15a,Planned Preventative Maintenance (A206909)
+PCS,15b,Planned Preventative Maintenance (A206905)
+PCS,13,Property Advice & Body Shop Services (A206781)
+PCS,9b,Architectural Services Historical Buildings (A206743B only)
+PCS,16,Measured Term Contracts  Building (A206773)
+PCS,17,Measured Term Contracts  M&E (A206777)
+PCS,3d,Space Planning (A723617)
+PPRO,9,Duplication
+PPRO,2,Digital Printing
+PPRO,3,Litho B2
+PPRO,7,Forms and Continuous Stationary
+PPRO,4,Litho B1
+PPRO,5,Posters
+PPRO,6,Binders and Wallets
+PPRO,8,Label and Tape Printing
+PPRO,11,Print Management
+PPRO,1,Web Offset Litho
+PROCSCOT01,1,Procurement Scotland Half Hourly
+PROCSCOT01,2,Procurement Scotland Non Half Hourly
+PS 09 93,1,Merchant Acquirer
+RM1002,1,Agile Route to Market
+RM1006,2,Next Day
+RM1006,6,Mail Screening
+RM1006,7h,Same Day Regional (North West)
+RM1006,2(H),Next Day (HMRC)
+RM1006,3,International
+RM1006,4a,Dangerous/Hazardous Goods (Explosives)
+RM1006,1,Same Day National
+RM1006,7d,Same Day Regional (Inner London)
+RM1006,4b,Dangerous/Hazardous Goods (Gases)
+RM1006,4c,Dangerous/Hazardous Goods (Flammable Liquids)
+RM1006,4h,Dangerous/Hazardous Goods (Corrosive Substances)
+RM1006,4i,Dangerous/Hazardous Goods (Miscellaneous)
+RM1006,4d,Dangerous/Hazardous Goods (Flammable Solids)
+RM1006,4e,Dangerous/Hazardous Goods (Oxidizing Agents and Organic Peroxides)
+RM1006,4f,Dangerous/Hazardous Goods (Toxic and Infectious Substances)
+RM1006,4g,Dangerous/Hazardous Goods (Radioactive Substances)
+RM1006,1(H),Same Day National (HMRC)
+RM1006,5a,Secure Services (Valuable Goods)
+RM1006,7e,Same Day Regional (Outer London)
+RM1006,5b,Secure Services (Restricted Goods)
+RM1006,5c,Secure Services (Seized Goods)
+RM1006,5d,Secure Services (Documents)
+RM1006,6(H),Mail Screening (HMRC)
+RM1006,7i,Same Day Regional (Yorkshire and the Humber)
+RM1006,7i (H),Same Day Regional (Yorkshire and the Humber) (HMRC)
+RM1006,5e,Secure Services (Cash)
+RM1006,5e (H),Secure Services (Cash) (HMRC)
+RM1006,7g,Same Day Regional (North East)
+RM1006,7g (H),Same Day Regional (North East) (HMRC)
+RM1006,7c,Same Day Regional (East of England)
+RM1006,7c (H),Same Day Regional (East of England) (HMRC)
+RM1006,7f,Same Day Regional (West Midlands)
+RM1006,7f (H),Same Day Regional (West Midlands) (HMRC)
+RM1006,7b,Same Day Regional (South East)
+RM1006,7b (H),Same Day Regional (South East) (HMRC)
+RM1006,7a,Same Day Regional (South West)
+RM1006,7a (H),Same Day Regional (South West) (HMRC)
+RM1006,3(H),International (HMRC)
+RM1006,7j,Same Day Regional (Scotland)
+RM1006,7j (H),Same Day Regional (Scotland) (HMRC)
+RM1006,0,Nil Return (HMRC)
+RM1006,7d (H),Same Day Regional (Inner London) (HMRC)
+RM1006,4a (H),Dangerous/Hazardous Goods (Explosives) (HMRC)
+RM1008,1,Seasonal Courier Services
+RM1011,1,Marketing and Communications Strategy Development
+RM1011,2,Communications Channel Strategy and Planning
+RM1013,114,Heating Oil Northern Ireland
+RM1013,214,Automotive Fuel Northern Ireland
+RM1013,101,Heating Oil Scotland North
+RM1013,102,Heating Oil Scotland West
+RM1013,103,Heating Oil Scotland Central
+RM1013,104,Heating Oil Scotland South
+RM1013,204,Automotive Fuel Scotland South
+RM1013,301,Marine Oil UK excluding Northern Ireland
+RM1013,201,Automotive Fuel Scotland North
+RM1013,202,Automotive Fuel Scotland West (Duplicate - Removed)
+RM1013,203,Automotive Fuel Scotland Central
+RM1013,401,One Stop Shop UK excluding Northern Ireland
+RM1013,202,Automotive Fuel Scotland West
+RM1013,302,Marine Oil Northern Ireland
+RM1013,402,One Stop Shop Northern Ireland
+RM1013,209,Automotive Fuel England London and South East
+RM1013,210,Automotive Fuel England South
+RM1013,109,Heating Oil England London and South East
+RM1013,110,Heating Oil England South
+RM1013,111,Heating Oil England South West
+RM1013,112,Heating Oil South Wales
+RM1013,113,Heating Oil North Wales
+RM1013,205,Automotive Fuel England North West
+RM1013,206,Automotive Fuel England North East
+RM1013,207,Automotive Fuel England Midlands
+RM1013,212,Automotive Fuel South Wales
+RM1013,213,Automotive Fuel North Wales
+RM1013,105,Heating Oil England North West
+RM1013,106,Heating Oil England North East
+RM1013,107,Heating Oil England Midlands
+RM1013,108,Heating Oil England East Anglia
+RM1013,208,Automotive Fuel England East Anglia
+RM1013,211,Automotive Fuel England South West
+RM1014,1,Telecoms Expense Management
+RM1016,1,Data Access Processing and Analytics Services
+RM1018,4,Creative Industries ?Screen Sector Specialists
+RM1018,5,Creative Industries ? Design & Furniture Sector
+RM1018,6,Creative Industries ? Music Sector Specialists
+RM1018,7,Creative Industries ? Publishing Specialists
+RM1018,12,Advanced Engineering Sector Specialists
+RM1018,13,Financial & Professional Services Sector Specialists
+RM1018,1,Stand Design & Construction
+RM1018,2,Event Management
+RM1018,3,ICT Sector Specialists
+RM1018,8,Life Sciences ? Biotechnology Sector Specialists
+RM1018,9,Life Sciences ? Pharmaceuticals Sector Specialists
+RM1018,10,Life Sciences ? Healthcare & medical Sector Specialists
+RM1018,11,Energy Sector Specialists
+RM1020,1,Creative Media Services
+RM1022,1,Full Service
+RM1022,2,Design for Print
+RM1022,3,Digital Design
+RM1027,1,Fuel Card and Associated Services
+RM1028,1,Strategic and Business Change
+RM1028,2,Strategic Finance
+RM1028,4,Human Resources
+RM1028,3,Operational Finance
+RM1030,1,T-TEAR
+RM1030,2,Roads
+RM1030,3,Rail
+RM1031,1,"Processing (collection, wash, finish and return) of linen items/linen hire items"
+RM1032,1,Oracle E Business Suite Enterprise Application Support
+RM1032,2,SAP Enterprise Application Support Services
+RM1032,4m,Other Non-Specified Enterprise Application Support Services
+RM1032,3c,Other Specified Enterprise Application Support Services
+RM1032,4c,Other Non-Specified Enterprise Application Support Services
+RM1032,3h,Other Specified Enterprise Application Support Services
+RM1032,4h,Other Non-Specified Enterprise Application Support Services
+RM1032,3a,Other Specified Enterprise Application Support Services
+RM1032,4a,Other Non-Specified Enterprise Application Support Services
+RM1032,4f,Other Non-Specified Enterprise Application Support Services
+RM1032,3f,Other Specified Enterprise Application Support Services
+RM1032,3b,Other Specified Enterprise Application Support Services
+RM1032,4b,Other Non-Specified Enterprise Application Support Services
+RM1032,4l,Other Non-Specified Enterprise Application Support Services
+RM1032,3j,Other Specified Enterprise Application Support Services
+RM1032,3g,Other Specified Enterprise Application Support Services
+RM1032,4g,Other Non-Specified Enterprise Application Support Services
+RM1032,4k,Other Non-Specified Enterprise Application Support Services
+RM1032,4i,Other Non-Specified Enterprise Application Support Services
+RM1032,3i,Other Specified Enterprise Application Support Services
+RM1032,4j,Other Non-Specified Enterprise Application Support Services
+RM1032,3d,Other Specified Enterprise Application Support Services
+RM1032,4d,Other Non-Specified Enterprise Application Support Services
+RM1032,3e,Other Specified Enterprise Application Support Services
+RM1032,4e,Other Non-Specified Enterprise Application Support Services
+RM1032,3k,Other Specified Enterprise Application Support Services
+RM1033,1,Individuals Quantative Categories
+RM1033,2,Business Quantative Categories
+RM1033,3,Qualitative Categories
+RM1033,4,Desk Research
+RM1033,5,Innovations
+RM1034,3,One Stop Shop Travel Management Services
+RM1034,1,Online Rail and Hotel
+RM1034,2,"Online and Offline Rail, Hotel and Air"
+RM1035,1,Traditional Telephony Services
+RM1035,2,Inbound Services
+RM1037,1,Spend Analysis & Recovery Services
+RM1040,1,Residual Central Government MFD Spend
+RM1042,1,Enterprise Resource Planning Software Solutions
+RM1042,2,Finance IT Software Solutions
+RM1042,3,Human Resources (HR) and Payroll Software Solutions
+RM1042,7,Mobile Application Solutions
+RM1042,4,Customer Relationship Management (CRM) Solutions
+RM1042,5,Enterprise Content Management (ECM) Software Solutions
+RM1042,6,Data Management and Reporting Systems (DMRS) Software Solutions
+RM1043,1,Digital Services
+RM1043.5,1,Digital Outcomes
+RM1043.5,2,Digital Specialists
+RM1043.5,3,User Research Studios
+RM1043.5,4,User Research Participants
+RM1043ii,1,Digital Services 2
+RM1043iii,1,Digital Outcomes
+RM1043iii,2,Digital Specialists
+RM1043iii,3,User Research Studios
+RM1043iii,4,User Research Participants
+RM1043iv,1,Digital Outcomes
+RM1043iv,2,Digital Specialists
+RM1043iv,4,User Research Participants
+RM1043iv,3,User Research Studios
+RM1045,5,IP telephony services
+RM1045,6,Mobile voice and data services
+RM1045,8,Video-conferencing services
+RM1045,9,Audio-conferencing services
+RM1045,7,Paging services
+RM1045,1,Data access services
+RM1045,2,Local connectivity services
+RM1045,3,Traditional telephony services
+RM1045,4,Inbound telephony services
+RM1045,10,Integrated communications
+RM1045,11,Agency Services
+RM1047,1,e-Channel
+RM1047,2,Telephony Channel
+RM1047,3,Face to Face
+RM1049,1,"Event Planning, Management and Delivery Services"
+RM1049,2,"Audio Visual (AV) Equipment, Services, Design and Integration"
+RM1050,1,ICT Services for Education
+RM1051,1,Media Buying
+RM1051,2,Media Buying - International
+RM1054,1,Technology Hardware
+RM1054,4,End User Devices
+RM1054,3,Secure Technology Products and Disposals
+RM1054,2,Packaged Software
+RM1056,1,Total Facilities Management
+RM1056,2,Hard Facilities Management
+RM1056,3,Soft Facilities Management
+RM1058,5,"Infrastructure and Platform, Maintenance and Support"
+RM1058,6,Audit Services & Asset Management
+RM1058,7,IT Infrastructure Transition Services & Delivery
+RM1058,8,Service Integration/Service Integrator
+RM1058,1,Help Desk/Service Desk
+RM1058,2,Desktop Support
+RM1058,4,Network and Content Security
+RM1058,9,Disaster Recovery/Business Continuity
+RM1058,10,Backup and Data Services
+RM1058,3,Network Management
+RM1058,11,Asset Disposal
+RM1059,11,Other Local Authority business systems
+RM1059,1,Revenues and Benefits systems
+RM1059,2,Payment Processing and Cash Receipting systems
+RM1059,3,"Environmental, Planning, Building Control, Trading Standards and Licencing syste"
+RM1059,4,Libraries systems
+RM1059,9,"Open Government Systems, Interoperability and Integration Services"
+RM1059,10,Democratic and Citizen Engagement systems
+RM1059,5,Housing and Property systems
+RM1059,6,Social Care systems
+RM1059,8,Civil Enforcement systems
+RM1059,7,Public Health systems
+RM1062,5,UK Car Share
+RM1062,6,International Vehicle Hire
+RM1062,1,"UK Passenger Car Hire, Light Commercial Vehicle (LCV) Hire, General on road 4x4'"
+RM1062,2,UK 4x4 Wheel Vehicle Hire (with full off-road capability)
+RM1062,3,UK Minibus Hire
+RM1062,4,Heavy Goods Vehicles (HGV's) and Heavy Commercial Vehicles (HCV's) over 3.5 tonn
+RM1063,7,Off-Site Digital Inbound Mail Solution
+RM1063,1,Collection and Delivery
+RM1063,2,Hybrid Mail On-Site Solution
+RM1063,3,Hybrid Mail Off-Site Solution
+RM1063,4,International Mail Services
+RM1063,6,On-Site Inbound Mail Solution
+RM1063,5,Franking Machines and Mailroom Equipment
+RM1069,1,Data Centre Co-location Services
+RM1070,1,Cars including 4x4 Variants
+RM1070,2,Light to Medium Commercial Vehicles up to but not including 7.5 tonnes (includin
+RM1070,7,Blue Light Cars including 4x4 Variants
+RM1070,8,"Blue Light, Light to Medium Commercial Vehicles"
+RM1070,5,Buses and Coaches
+RM1070,3,Medium to Heavy Commercial Vehicles 7.5 tonnes and above
+RM1070,9,Blue Light Motorcycles (including Quad Bikes and Scooters)
+RM1070,4,Motorcycles (including Quad Bikes and Scooters)
+RM1070,6,Vehicles for Overseas
+RM1072,1,Workforce Management
+RM1075,1,Provision of Electricity Supply and Ancillary Services
+RM1075,2,Wider Public Sector
+RM1076,1,Supply of Natural Gas (Daily / Non Daily Metered) and Ancillary Services
+RM1076,1a,Supply of Natural Gas (Daily / Non Daily Metered) and Ancillary Services
+RM1078,1,Printing and Specialist Paper
+RM1085,1,Small Volume Email Implementation (0-9999 Mailboxes)
+RM1085,2,Medium Volume Email Implementation (between 10000 and 99999 Mailboxes)
+RM1085,3,Large Volume Email Implementation (100000+ Mailboxes)
+RM1086,6,Research Support Services
+RM1086,2,Strategic Planning and Development
+RM1086,3,Develop and Test Concepts for Communication Products and Services
+RM1086,4,Performance/Reputation Audit and Customer/Stakeholder Satisfaction
+RM1086,5,Communications Evaluation Research
+RM1086,7,Panels
+RM1086,8.1,Specialist Audiences ? Young People
+RM1086,8.2,Specialist Audiences - Language and Culture
+RM1086,1,Secondary Research
+RM1086,8.3,Specialist Audiences - Hidden Populations
+RM1089,15,Catalogue for Lots 1-14
+RM1089,12,Traffic Management Professional Services
+RM1089,9,Street and Exterior Lighting
+RM1089,10,Sustainable Transport Infrastructure
+RM1089,11,Traffic Management Communications
+RM1089,1,"Traffic Signal Junctions, Controlled Pedestrian Crossings and Ramp Metering"
+RM1089,2,Traffic Monitoring and Traffic Enforcement Cameras
+RM1089,3,Geographic Information Systems (GIS) Data Systems
+RM1089,4,Variable Message Signs
+RM1089,7,Urban Traffic Management Control and Common Database Systems
+RM1089,8,Asset Data Capture and Management
+RM1089,13,Ancillary Roadside Equipment
+RM1089,15.03,Catalogue - Geographic Information Systems (GIS) Data Systems
+RM1089,15.04,Catalogue - Variable Message Signs
+RM1089,15.07,Catalogue - Urban Traffic Management Control and Common Database Systems
+RM1089,15.09,Catalogue - Street and Exterior Lighting
+RM1089,15.10,Catalogue - Sustainable Transport Infrastructure
+RM1089,15.11,Catalogue - Traffic Management Communications
+RM1089,15.14,Catalogue - Intelligent Transport Systems
+RM1089,14,Intelligent Transport Systems (ITS)
+RM1089,15.01,"Catalogue - Traffic Signal Junctions, Controlled Pedestrian Crossings and Ramp M"
+RM1089,15.02,Catalogue - Traffic Monitoring and Traffic Enforcement Cameras
+RM1089,15.05,Catalogue - Parking and Access Control Systems
+RM1089,15.06,Catalogue - Environmental Monitoring Systems
+RM1089,15.08,Catalogue - Asset Data Capture and Management
+RM1089,15.12,Catalogue - Traffic Management Professional Services
+RM1089,15.13,Catalogue - Ancillary Roadside Equipment
+RM1089,6,Environmental Monitoring Systems (Fixed and Mobile)
+RM1089,5,Parking and Access Control Systems
+RM1092,2,"Written Translation, Transcription and Ancillary Services"
+RM1092,4d,Non Spoken Face to Face and Video Language Services North England
+RM1092,4e,Non Spoken Face to Face and Video Language Services Scotland and Northern Irelan
+RM1092,5a,Spoken Face to Face Interpreting Services Greater London
+RM1092,5b,Spoken Face to Face Interpreting Services South West England
+RM1092,5c,Spoken Face to Face Interpreting Services South Central England
+RM1092,5f,Spoken Face to Face Interpreting Services East Midlands
+RM1092,5g,Spoken Face to Face Interpreting Services West Midlands
+RM1092,5h,Spoken Face to Face Interpreting Services Yorkshire and Humberside
+RM1092,5l,Spoken Face to Face Interpreting Services Wales
+RM1092,5m,Spoken Face to Face Interpreting Services Northern Ireland
+RM1092,1,Managed Service Provision of Language Services
+RM1092,4a,Non Spoken Face to Face and Video Language Services Greater London and Overseas
+RM1092,4b,Non Spoken Face to Face and Video Language Services Southern England
+RM1092,4c,Non Spoken Face to Face and Video Language Services Midlands and East England
+RM1092,5d,Spoken Face to Face Interpreting Services South East England
+RM1092,5e,Spoken Face to Face Interpreting Services East of England
+RM1092,5i,Spoken Face to Face Interpreting Services North West England
+RM1092,5j,Spoken Face to Face Interpreting Services North East England
+RM1092,5k,Spoken Face to Face Interpreting Services Scotland
+RM1092,5n,Spoken Face to Face Interpreting Services UK and Overseas
+RM1092,3,Telephone Interpreting and Video Language Services
+RM1095,1,Wider Public Sector
+RM1095,2,Central Government
+RM1498,3,Conferencing Services
+RM1498,4,Managed Equipment Room Services
+RM1498,5,Contact Centre Services
+RM1498,7,Paging Services
+RM1498,2,CCTV & Physical Security Monitoring Services
+RM1498,9,Gateway Services
+RM1498,10,Unified Services
+RM1498,1,Communications Services
+RM1498,8,LAN Services
+RM1498,6,Mobile Voice & Data Services
+RM1500,2,Learning Services
+RM1500,1,Information Management
+RM1501,1,Office Furniture
+RM1501,2,Residential Furniture
+RM1501,4,Repair and Renovation of Furniture
+RM1501,3,High Density Steel Storage Furniture
+RM1502,1,Multi Specialism Programme Delivery
+RM1502,2.1,Policy Development and Advice
+RM1502,3.2,Human Resource Management
+RM1502,4.4,Economic Analysis
+RM1502,3.3,Procurement
+RM1502,3.4,Information & Communications Technology
+RM1502,4.3,Finance Operations Support
+RM1502,3.1,Change Management (PPM)
+RM1502,4.1,Corporate Finance and Financial Strategy
+RM1502,5.4,External Audit and Advice
+RM1502,2.2,Organisational Strategy
+RM1502,5.1,Internal Audit and Advice
+RM1502,5.2,Other Assurance and Advice
+RM1502,5.3,Financial Audit and Investigation
+RM1502,4.2,Investment and Banking Services
+RM1555,1,Provison of Booking Services for Meeting and Events across Central Governme
+RM1557,1,IaaS - Cloud Infrastructure as a Service
+RM1557,3,SaaS - Cloud Software as a Service
+RM1557,4,Specialist Cloud Services
+RM1557,2,PaaS - Cloud Platform as a Service
+RM1557.10,3,Cloud Support
+RM1557.10,1,Cloud Hosting
+RM1557.10,2,Cloud Software
+RM1557ii,4,Specialist Cloud Services
+RM1557ii,1,Infrastructure as a Service (IaaS)
+RM1557ii,3,Software as a Service (SaaS)
+RM1557ii,2,Platform as a Service (PaaS)
+RM1557iii,3,Software as a Service (SaaS)
+RM1557iii,4,Specialist Cloud Services
+RM1557iii,1,Infrastructure as a Service (IaaS)
+RM1557iii,2,Platform as a Service (PaaS)
+RM1557iv,1,Infrastructure as a Service (IaaS)
+RM1557iv,3,Software as a Service (SaaS)
+RM1557iv,4,Specialist Cloud Services
+RM1557iv,2,Platform as a Service (PaaS)
+RM1557ix,2,Cloud Software
+RM1557ix,3,Cloud Support
+RM1557ix,1,Cloud Hosting
+RM1557v,4,Specialist Cloud Services
+RM1557v,1,Infrastructure as a Service (IaaS)
+RM1557v,3,Software as a Service
+RM1557v,2,Platform as a Service (PaaS)
+RM1557vi,3,Software as a Service
+RM1557vi,4,Specialist Cloud Services
+RM1557vi,1,Infrastructure as a Service (IaaS)
+RM1557vi,2,Platform as a Service (PaaS)
+RM1557vii,1,Infrastructure as a Service (IaaS)
+RM1557vii,3,Software as a Service
+RM1557vii,4,Specialist Cloud Services
+RM1557vii,2,Platform as a Service (PaaS)
+RM1557viii,3,Software as a Service
+RM1557viii,1,Infrastructure as a Service (IaaS)
+RM1557viii,4,Specialist Cloud Services
+RM1557viii,2,Platform as a Service (PaaS)
+RM1559,1,Financial Analysis Services
+RM1568,1,Civil Service Learning
+RM1570,2,Resource pool management: managed service provision for the supply of locum
+RM1570,3,Resource pool management: managed service provision for the introduction of
+RM1570,1,Managed service provision for either the: a) supply of or b) introduction o
+RM1599,3,Managed Print Services
+RM1599,2,Full Catalogue offering of Multifunctional Devices and Services (inc. Print
+RM1599,4,Print Audit Services
+RM1599,1,Limited Range of Standard Specification Devices and Services
+RM1675,2,"Adverse Costs & Recovery of Costs Low Value(less than £75,000)or Routine Ca"
+RM1675,1,"Adverse Costs and Recovery of Costs in High Value (£75,000+)or Complex Case"
+RM1687 Lot 1,1,Managed Printing and eCommunications Services
+RM1687 Lot 1,1a,Managed Printing and eCommunications Services (Non Commissionable)
+RM1687 Lot 2,2,Operational Print Services
+RM1689,2,On Site Storage
+RM1689,3,Combined On and Off Site Document Storage Services
+RM1689,1,Off Site Document Storage
+RM1689,4,Document Scanning and Related Services
+RM1692,6,Standard Servers
+RM1692,7,Standard Storage
+RM1692,1,Standard Client device
+RM1692,2,Standard Laptop device
+RM1692,3,Standard Tablet/Slate device
+RM1692,4,Standard Monitor device
+RM1692,5,Standard Thin Client device
+RM1692,10,Standard Peripherals
+RM1692,9,Standard Printer ? Desktop
+RM1692,11,Non Standard Desktop
+RM1692,12,Non Standard Infrastructure
+RM1692,8,Standard Switch Device
+RM1704,1,Media Buying - Domestic
+RM1704,2,Media Buying - International
+RM1705,1.2b,Marketing and Communication ?Strategy Implementation - B2C
+RM1705,1.2c,Marketing and Communication ?Strategy Implementation - Social Marketing
+RM1705,1.1a,Marketing and Communication ? Strategy Development - B2B 
+RM1705,1.1b,Marketing and Communication ? Strategy Development - B2C
+RM1705,1.1c,Marketing and Communication ? Strategy Development - Social Marketing
+RM1705,1.2a,Marketing and Communication ?Strategy Implementation - B2B
+RM1705,10.5,Marketing and Communication ? Innovation
+RM1705,20.1,Stakeholder Communication ? Stakeholder Strategy
+RM1705,20.2,Stakeholder Communication ? Stakeholder Management
+RM1705,30.1,Branding ? Strategy Development
+RM1705,40.5,Insight and Modelling ? Behaviour Change
+RM1705,50.1,Business Strategy ? Business Planning
+RM1705,50.2,Business Strategy ? Market Analysis
+RM1705,50.3,Business Strategy ? Corporate Social Responsibility (CSR)
+RM1705,10.3,Marketing and Communication ? Planning and Planning Analysis
+RM1705,10.4,"Marketing and Communication ? Education, Training and Course Planning"
+RM1705,30.2,Branding ? Strategy Implementation
+RM1705,40.1,Insight and Modelling ? Consumer Insight
+RM1705,40.2,Insight and Modelling ? Future Trend Forecasting
+RM1705,40.3,Insight and Modelling ?Modelling and Segmentation
+RM1705,40.4,Insight and Modelling ? Scenario Planning
+RM1705,60.1,Concept Development ? Concept and Proposition Development
+RM1705,60.2,Concept Development ? Concept and Proposition Testing
+RM1705,70.1,"Evaluation ? Measurement, Analysis and Evaluation"
+RM1705,70.2,Evaluation ? Econometric
+RM1707,2,"Digital Design, Development and Delivery"
+RM1707,3,Specialist Digital Media Solutions and Services
+RM1707,1,Digital Strategy
+RM1707,4,User Experience Evaluation and Analytics Services
+RM1708,3,Direct Marketing Operational Services ? Contact Centre Response Handling
+RM1708,4,Direct Marketing Operational Services ? Mailing House Work
+RM1708,1,Direct Marketing (Creative) Agency Services
+RM1708,6,Direct Marketing Operational Services ? Specialist Services
+RM1708,2,Direct Marketing Operational Services ? Field Marketing
+RM1708,5,Direct Marketing Operational Services ? Database Building/Hosting and Data
+RM1709,1.1,Live Event Production - Low production value events
+RM1709,1.2,Live Event Production - Mid Level Production Value Events
+RM1709,1.3,Live Event Production - High Level Production Value Events
+RM1709,2,Experiential
+RM1709,3.1,Management and Delivery of Large Scale Public Events
+RM1709,3.2,"Large Scale Exhibition, Event and Road-Show Management (including marketing"
+RM1709,3.4,"Exhibition Stands, Graphic Design and Build Services"
+RM1709,4,Facsimiles
+RM1709,3.3,"Medium Scale Exhibition, Event and Road-Show Management (including marketin"
+RM1709,3.9,Event/Exhibition Asset Management
+RM1709,5.1,Event Multi Media Production Services - Presentation Graphics
+RM1709,5.2,Event Multi Media Production Services - Webcasting
+RM1709,7.2,Audio Visual (AV) Services - AV Services: Medium Production
+RM1709,7.3,Audio Visual (AV) Services - AV Services: High Production
+RM1709,7.4,"Audio Visual (AV) Services - Interpreters, Interpretation and Microphone Di"
+RM1709,7.5,Audio Visual (AV) Services ? Video Conferencin
+RM1709,10,Audio Visual System Design and Integration
+RM1709,3.5,Purpose Built Exhibition Supply and Construction
+RM1709,3.6,Modular Display Supply and Construction
+RM1709,3.7,Graphics and Display Systems Production and Supply
+RM1709,3.8,Signage Design and Production
+RM1709,6.1,Events Interactive Technology - Voting Handsets
+RM1709,6.2,Events Interactive Technology - Bespoke Audience Response Systems
+RM1709,6.3,Events Interactive Technology - Interactive Displays
+RM1709,7.1,Audio Visual (AV) Services - AV Services: Minimal Equipment Provision
+RM1709,8.2,Writing and Transcription services ? Legal Verbatim
+RM1709,9.1,Scenic - Set and Staging
+RM1709,9.2,Scenic - Drapes and Rigging
+RM1709,8.1,Writing and Transcription services ? General Event Transcription
+RM1710,30.2,Workshop design and facilitiation ? Lead Facilitation
+RM1710,30.3,Workshop design and facilitiation ? Table/Group Facilitiation
+RM1710,30.4,Workshop design and facilitiation ? Scribing
+RM1710,40.1,Analytical and Reporting Services ? Consultation and Analysis
+RM1710,1,External Stakeholder Engagement and Consultation
+RM1710,30.1,Workshop design and facilitiation ? Workshop Design
+RM1710,40.2,Analytical and Reporting Services ? Interpretation of Consultation Outputs
+RM1710,40.3,Analytical and Reporting Services ? Data Analysis Tools
+RM1710,5,"Measurement, Analysis and Evaluation"
+RM1710,2,Project Management
+RM1710,6,Digital Infrastructure
+RM1712,2.3,Nations and Government regions Northern Ireland
+RM1712,2.4,Nations and Government regions London
+RM1712,2.5,Nations and Government regions South East
+RM1712,2.6,Nations and Government regions South West
+RM1712,2.11,Nations and Government regions North East
+RM1712,2.12,Nations and Government regions North West
+RM1712,0,Nil
+RM1712,1,UK
+RM1712,2.1,Nations and Government regions Scotland
+RM1712,2.2,Nations and Government regions Wales
+RM1712,2.7,Nations and Government regions East of England
+RM1712,2.8,Nations and Government regions East Midlands
+RM1712,2.9,Nations and Government regions West Midlands
+RM1712,2.1,Nations and Government regions Yorkshire & Humberside
+RM1712,3,International public relations
+RM1713,1,Recruitment Marketing
+RM1713,5,"Recruitment Marketing for NHS Strategic Health Authorities, NHS Trusts and"
+RM1713,2,Public Notice Advertising
+RM1713,3,Directories Advertising
+RM1714,5,South East
+RM1714,6,South West
+RM1714,7,Scotland
+RM1714,8,Wales
+RM1714,1,North West
+RM1714,2,"North East, Yorkshire and The Humber"
+RM1714,3,Midlands
+RM1714,4,East of England
+RM1714,9,Northern Ireland
+RM1715,10.1,Qualitative Research ? Face to Face
+RM1715,10.2,Qualitative Research ? Online
+RM1715,20.1,Quantatives Research ? Face to Face
+RM1715,20.2,Quantatives Research ? Online
+RM1715,30.4,Deliberative Engagement ? Citizens Juries and Deliberative Research
+RM1715,40.1,Desk Research ? Evidence Review of Provided Sources
+RM1715,40.2,Desk Research ? Sourcing and Reviewing New Material
+RM1715,50.1,Omnibus ? Face to Face
+RM1715,20.3,Quantatives Research ? Telephone
+RM1715,30.1,Deliberative Engagement ? Large Scale Summits
+RM1715,30.2,Deliberative Engagement ? Multiple Site Citizens Forums
+RM1715,30.3,Deliberative Engagement ? Individual Citizens Forum
+RM1715,50.2,Omnibus - Telephone
+RM1715,50.3,Omnibus ? Online
+RM1720,1,Advertising Agencies
+RM1721,1,Communications Planning
+RM1722,1,Design and Creative For Print
+RM1724,1,Media Buying- Door Drop
+RM1725,1,Partnership Marketing
+RM1726,1,Press Cuttings
+RM1824,1,Flex
+RM240,1,Provision Of Postal Services
+RM341,2,GI Mapping Services
+RM341,1,GI Solutions
+RM341,3,GI Data Services
+RM353,1,Multi Disciplinary Consultancy
+RM365,1,Technical Assurance
+RM3702,3,"Merchant Acquiring Services, Merchant Acquiring Equipment and Payment Gateway Se"
+RM3702,1,Merchant Acquiring Services and Merchant Acquiring Equipment
+RM3702,2,Merchant Acquiring Services and Payment Gateway Services
+RM3703,1,Office Supplies for the Wider Public Sector
+RM3704,1,Employee Services
+RM3707,1,Front Office Counters Service (FOCS)
+RM3708,2,Social Media Monitoring and Analysis Tool
+RM3708,1,Media Monitoring and Evaluation and Related Services
+RM3710,1,Lease of passenger motor vehicles and light commercial vehicles up to 3.5 tonnes
+RM3710,3,"Provision of Fleet Management Services, including the management, sourcing and s"
+RM3710,2,"Lease of commercial vehicles 3.5 tonnes and above, including buses, coaches, tra"
+RM3711,1,Multidisciplinary Temporary Healthcare Personnel
+RM3711,2,Locum Doctors
+RM3711,3,Nursing
+RM3717,5,Document Processing
+RM3717,8,Presentation at Trial
+RM3717,3,Project Management & Advice
+RM3717,4,Data Preservation & Collection
+RM3717,6,Document Review & Document Production
+RM3717,9,End to End Service (up to and including 'Secret' and 'Top Secret')
+RM3717,1,Low Volume Work Service Package
+RM3717,2,End to End Service Package
+RM3717,7,Disclosure from Other Opponent Parties
+RM3719,7,"Specialist corporate finance advice in relation to portfolios of, or discrete, f"
+RM3719,3,Advice on and execution of specific equity or equity related capital markets tra
+RM3719,4,Advice on and execution of specific debt capital markets transactions
+RM3719,1,"General corporate finance advice, separate to any transaction execution"
+RM3719,2,Advice on and execution of specific corporate transactions
+RM3719,6,Specialist corporate finance advice in relation to the infrastructure sector
+RM3719,5,Specialist retail offer advice and execution in relation to specific capital mar
+RM3720,1,FM Assurance (Helpdesk and CAFM) Services
+RM3723,1,Office Supplies
+RM3723,2,Electronic Office Supplies
+RM3727,1,Media Audit Services
+RM373,5,Corporate Finance
+RM373,6,Intellectual Property
+RM373,7,Full Commercial
+RM373,8,Major Projects
+RM373,1,IT Telecoms and eCommerce
+RM373,2,Property and Estates
+RM373,3,Construction
+RM373,4,Employment and Pensions
+RM3731,1,Insurance and associated support services
+RM3731,2,Insurance brokerage and associated support services
+RM3731,4,Insurance brokerage and associated support services for the Ministry of Defence
+RM3731,5,Compensation claims handling and associated support services
+RM3733,1,Technology Hardware
+RM3733,6,Catalogue
+RM3733,2,Packaged Software
+RM3733,3,Combined Hardware and Packaged Software
+RM3733,4,Information Assured Products
+RM3733,5,Volume Hardware Requirements (Direct from Original Equipment Manufacturer (OEM))
+RM3735,1,Domestic and International Travel Booking and Management Services with a Signifi
+RM3735,2,Domestic and International Business Travel Booking and Management Services with
+RM3735,4,Meeting & Conference Venue Services
+RM3735,3,Domestic and International Business Travel Booking and Management Services with
+RM374,5,Connectivity to the Kerb
+RM374,6,Wireless Data Services
+RM374,7,Networking Equipment
+RM374,8,ISP Services
+RM374,9,Contingency Services ? EGTPS
+RM374,1,Voice Calls and Line Rentals
+RM374,3,Infrastructure / Multipoint Connectivity
+RM374,4,Dark Fibre
+RM374,11,3rd-Party Maintenance
+RM374,12,Billing Audit Services
+RM374,2,Point-to-point Circuits / Leased Lines
+RM374,10,Structured Cabling
+RM3741,4,Cost Management Services
+RM3741,5,Civil and Structural Engineering Services and Environmental Services
+RM3741,3,Architectural Services
+RM3741,6,Building Services Engineering and Environmental Services
+RM3741,1,Multi-Disciplinary Services
+RM3741,2,Project Management Services
+RM3742,1,Behavioural Insights Consulting and Research
+RM3745,7,Infrastructure
+RM3745,6,Education
+RM3745,4,HR
+RM3745,5,Health and Community
+RM3745,2,Finance
+RM3745,3,Audit
+RM3745,8,ICT and Digital
+RM3747,3,Electrical
+RM3747,2,Plumbing and Heating
+RM3747,5,"Workshop, Industrial and Electrical Tools"
+RM3747,7,Flooring
+RM3747,1,Building Materials and Associated Services - One Stop Shop
+RM3747,8,Small Tool and Plant Hire Services
+RM3747,4,Timber and Joinery
+RM3747,6,Paints and solvents
+RM3749,1,Public Sector Resourcing
+RM3754,1,Vehicle Telematics
+RM3756,1,Rail Legal Services Tier 1
+RM3756,2,Rail Legal Services Tier 2
+RM3763,1,One Stop Shop
+RM3763,6,Specialist
+RM3764,2,Risk Assessment
+RM3764,3,Risk Management
+RM3764,4,Security Architecture
+RM3764,5,Information Assurance Methodol
+RM3764,1,Policy & Standards
+RM3764,6,Audit and Review
+RM3764,7,Incident Management
+RM3764ii,3,Cyber Incidents (CIR)
+RM3764ii,1.2,Certified Cyber Consultancy - Risk Management
+RM3764ii,4,Tailored Evaluations (CTAS)
+RM3764ii,1.1,Certified Cyber Consultancy - Risk Assessment
+RM3764ii,2,Penetration Testing (CHECK)
+RM3764ii,1.4,Certified Cyber Consultancy - Audit and Review
+RM3764ii,1.5,Certified Cyber Consultancy - Incident Management
+RM3764ii,1.3,Certified Cyber Consultancy - Security Architecture
+RM3765,1,Assisted Digital Support
+RM3765,2,Digital Inclusion Research And Analysis
+RM3765,3,"Digital Inclusion Training Course, Product Or Service Design"
+RM3765,4,"Digital Inclusion Training Course, Product Or Service Delivery"
+RM3765,5,Digital Inclusion Marketing
+RM3767,2,The supply and fit of tyres and associated services to the blue lights emergency
+RM3767,1,The supply and fit of tyres and associated services to the blue lights emergency
+RM3768,1,National Framework for Energy Performance Contracting (RE:FIT)
+RM3769,2,Core Curriculum
+RM3769,1,SCS Learning
+RM3772,1,Processing of linen items and linen hire items
+RM3774,1,Campaign Solutions
+RM3777,1,Records Management Service Contract
+RM3781,6,Sensitivity Review Service
+RM3781,2,Multifunctional Devices and Print Management Software and Services
+RM3781,4,Records Information Management Service
+RM3781,1,Print Equipment and Entry Level Print Management Software
+RM3781,3,Managed Print and Content Management Services
+RM3781,5,Scanning services
+RM3781,7,Audit and Consultancy Services
+RM3784,1,PEPPOL Access Point Services
+RM3785,2,Tailored Managed Print Solutions
+RM3785,1,Fully Managed End to End Print and Digital Solutions
+RM3786,1,General Legal Services Tier 1
+RM3786,2,General Legal Services Tier 2
+RM3787,1,Finance & Complex Legal Services
+RM3788,2a,Full Service Firms - England & Wales
+RM3788,3,Property & Construction
+RM3788,2b,Full Service Firms - Scotland
+RM3788,2c,Full Service Firms - Northern Ireland
+RM3788,4,Transport Rail
+RM3788,1,Regional Service Provision
+RM3790,2,Ancillary Services
+RM3790,3,One Stop Shop
+RM3790,1,Water Supply and Sewerage Services
+RM3791,1,The Supply of Non Half Hourly Electricity and Ancillary Services
+RM3792,1,Demand Side Response
+RM3795,3,Employee Assistance Programmes
+RM3795,2,Occupational Health Services
+RM3795,1,Full Service for Occupational Health Services and Employee Assistance Programmes
+RM3795,4,Eye Care Services
+RM3796,2,Events
+RM3796,3,Channel Strategy and Planning
+RM3796,1,Specialist Consultancy Services
+RM3796,7,Digital Marketing and Social Media
+RM3796,11,International
+RM3796,6,Creative Development and Delivery
+RM3796,8,Data Strategy and Management
+RM3796,4,Public Relations (Specialist and Regional)
+RM3796,9,Production
+RM3796,5,Proposition Development
+RM3796,10,Editorial
+RM3797,1,Journal Subscriptions (Print and Electronic)
+RM3798,1,Collection and delivery of documents and parcels
+RM3798,2,Secure collection and delivery of sensitive documents and parcels
+RM3798,5,Dedicated network vehicle movements and sortation courier services
+RM3798,3,"Secure collection, storage and delivery of examination and test papers and mater"
+RM3798,6,Security screening of internal mail documents and parcels
+RM3799,2,Controlled Drugs and Pharmaceuticals
+RM3799,1,Class 6.2 Infectious Substances (Category A and Category B)
+RM3799,7,Radioactive Materials (Class 7)
+RM3799,4,Explosive Substances (Class 1) and Firearms
+RM3799,5,"The Haulage, Storage and Disposal of Seized Goods"
+RM3799,6,"The Haulage, Storage and Disposal of Vehicles"
+RM3800,8,Utilities Management Software
+RM3800,4,Water Metering Services
+RM3800,3,Gas Metering Services
+RM3800,5,Fuels Metering Services
+RM3800,6,Steam Metering Services
+RM3800,7,Heating and Chilling Metering Services
+RM3800,2,Electricity Metering Services
+RM3800,9,Utilities Bureau Services
+RM3800,1,Half Hourly Electricity Meter Operator Services
+RM3801,2,Liquified Gas
+RM3801,114,Liquid Fuel - Northern Ireland
+RM3801,4,"Grease, Lubricants and Antifreeze"
+RM3801,101,Liquid Fuel - Scotland North
+RM3801,102,Liquid Fuel - Scotland West
+RM3801,103,Liquid Fuel - Scotland Central
+RM3801,104,Liquid Fuel - Scotland South
+RM3801,5,Associated Products and Services
+RM3801,110,Liquid Fuel - England South
+RM3801,109,Liquid Fuel - England London and South East
+RM3801,107,Liquid Fuel - England Midlands
+RM3801,108,Liquid Fuel - England East Anglia
+RM3801,105,Liquid Fuel - England North West
+RM3801,106,Liquid Fuel - England North East
+RM3801,112,Liquid Fuel - South Wales
+RM3801,111,Liquid Fuel - England South West
+RM3801,113,Liquid Fuel - North Wales
+RM3801,3,Solid Fuel and Biomass Fuel
+RM3802,1,Technology Expense Management
+RM3804,4a,Programmes and Large Projects - Government Official Security Classification
+RM3804,4b,Programmes and Large Projects - Above Government Official Classification
+RM3804,3c,Operational Services - Technical Management
+RM3804,3d,Operational Services - Application and Data Management
+RM3804,3a,Operational Services - End User Services
+RM3804,3b,Operational Services - Operational Management
+RM3804,2,Transition and Transformation
+RM3804,1,Technology Strategy and Service Design
+RM3810,3,Load & Performance Testing
+RM3810,4,Functional Testing
+RM3810,5,Infrastructure Testing and Environments
+RM3810,8,Strategic QA Consultancy
+RM3810,1,QA & Testing Specialists
+RM3810,2,"Automation, Agile & Dev-Ops"
+RM3810,6,Operational Acceptance Testing (OAT) and Disaster Recovery (DR)
+RM3810,7,QA & Testing Management
+RM3812,1,GPU Hub Programme
+RM3812,2,Office Furniture
+RM3812,3,Residential Furniture
+RM3812,4,High Density Steel Storage
+RM3812,5,Repair and Renovation
+RM3814,1,Vehicle Conversion DPS
+RM3815,2,Contact Centre Services
+RM3815,1,Specialist Contact Centre Consultancy Services
+RM3816,1,National
+RM3816,4,Facilities Management and Property Services
+RM3816,2H,Wales and South West
+RM3816,2B,East and West Midlands
+RM3816,2D,North East England
+RM3816,2C,London and South East
+RM3816,2E,North West England and North Wales
+RM3816,3,Vertical Real Estate
+RM3816,2G,Scotland
+RM3816,2A,East Anglia
+RM3816,2F,Northern Ireland
+RM3820,4,Contract Compliance - Telecoms/Mobiles
+RM3820,2,End to End Review
+RM3820,5,Contract Compliance — Contingent Labour/Agency Staff
+RM3820,6,Contract Compliance - VAT
+RM3820,3,Contract Compliance - Utilities
+RM3820,1,Transaction Review
+RM3820,7,Contract Compliance — Property/Rental Review
+RM3822,5,Additional Services
+RM3822,4,Contract Management Services
+RM3822,3,Administration and Support Services
+RM3822,2,Sourcing Services
+RM3822,1,Managed Learning Service
+RM3823,5b,Finance and Tax (all Contracting Authorities)
+RM3823,1a,Leadership and Management (CSL)
+RM3823,6a,Higher Level Digital (CSL)
+RM3823,6b,Higher Level Digital (all Contracting Authorities)
+RM3823,8b,Customer Service (all Contracting Authorities)
+RM3823,10a,Higher Level Leadership and Management (CSL)
+RM3823,2b,Project Management (all Contracting Authorities)
+RM3823,7a,Digital (CSL)
+RM3823,7b,Digital (all Contracting Authorities)
+RM3823,1b,Leadership and Management (all Contracting Authorities)
+RM3823,2a,Project Management (CSL)
+RM3823,11b,Business and Administration (all Contracting Authorities)
+RM3823,10b,Higher Level Leadership and Management (all Contracting Authorities)
+RM3823,9a,Commercial (CSL)
+RM3823,3a,Operational Delivery (CSL)
+RM3823,3b,Operational Delivery (all Contracting Authorities)
+RM3823,8a,Customer Service (CSL)
+RM3823,9b,Commercial (all Contracting Authorities)
+RM3823,11a,Business and Administration (CSL)
+RM3823,4b,Human Resources (all Contracting Authorities)
+RM3823,12b,Property (all Contracting Authorities)
+RM3823,5a,Finance and Tax (CSL)
+RM3823,4a,Human Resources (CSL)
+RM3825,1,HSCN Access Services
+RM3826,1,Preferred Supplier List
+RM3826,2,Master Vendor
+RM3826,3,Neutral Vendor
+RM3828,1,Public Sector Card
+RM3828,2,Pre-Paid Cards
+RM3828,3,Fund Disbursement Solutions
+RM3830,1c,Total contract value £50M+
+RM3830,1b,Total contract value £7M - £50M
+RM3830,1a,Total contract value up to £7M
+RM390,2,Supply & Installation of flooring
+RM390,1,Supply of Textile Floor Coverings
+RM397,1,Estates Professional Services
+RM440,1,General office furniture at the mid market level including all relevant acc
+RM440,3,"Supply, Delivery and Installation of Residential Furniture & Supply"
+RM440,5,Delivery and Installation of Service Family Accommodation Furniture and ass
+RM440,2,"Supply, Delivery and Installation of Courtroom/Bespoke Furniture and associ"
+RM440,4,Delivery and Installation of Mess and Barracks Furniture & Supply
+RM440,6,"Supply, Delivery and Installation of High Density Steel Storage including r"
+RM449,1,Warewash
+RM449,2,Waste Disposal
+RM450,1,Hardware
+RM450,2,Services
+RM457,1,Project Management and Full Design Team Services
+RM464B,1,Specialist Recruitment Services
+RM464B,2,Volume Recruitment Services
+RM464C,19,Procurement
+RM464C,17,Organisational Development
+RM464C,2,Communications & Marketing
+RM464C,3,Customer Service
+RM464C,4,Diversity & Equal Opportunities
+RM464C,10,Human Resources
+RM464C,12,Information Technology
+RM464C,20,Programme & Project Management
+RM464C,7,Finance
+RM464C,9,Health & Welfare
+RM464C,16,Management & Leadership
+RM464C,22,Security
+RM464C,11,Information & Records Management
+RM464C,21,Specialist Services
+RM464C,8,Vocational Training
+RM464C,5a,Bespoke eLearning
+RM464C,5b,Generic eLearning
+RM464C,1,Skills for Life
+RM464C,13,Social Awareness
+RM464C,6,Working with Ministers
+RM464C,18,Policy Skills
+RM464C,15,Legal
+RM464C,14,Languages
+RM467,1,Automated Meter Reading
+RM467,2,Site Works
+RM467,3,Energy Services
+RM489,2,Conference Services (One Stop Shop)
+RM489,1,Air and Ferry Services (One Stop Shop)
+RM489,3,Hotel Services (One Stop Shop)
+RM489,4,Rail Services (One Stop Shop)
+RM489,5,Other Travel Services (One Stop Shop)
+RM489,99,Non Framework Spend
+RM505,1,Spend Analysis
+RM526,2,Wide-Area Paging & Messaging
+RM526,1,Mobile Voice & Data Services
+RM526,3,Bespoke Solutions
+RM526,4,Unspecified Lot (for MI return use only)
+RM526,99,Business relating to MSI -A217838 (for MI return use only)
+RM536,1,Fuel Cards & Associated Products
+RM536,2,Fuel Management/Audit & Associated Services including Web-based data integr
+RM537,2,"Pre Payment Cards, Contactless Cards & Associated Services."
+RM537,1,"Payment Cards, Travel Cards, Integrated Cards, Commercial Cards & Associate"
+RM537,3,"Web Based Integration Solutions, Expenses Management & Associated."
+RM591,2,Application Consultancy & Delivery Services
+RM591,3,ICT Architecture and Infrastructure Consultancy & Delivery Services
+RM591,4a,ICT Security Consultancy & Delivery Services - Planning & Design
+RM591,4d,ICT Security Consultancy & Delivery Services - Day to Day Analysis & Consul
+RM591,1,ICT Strategy Consultancy & Development
+RM591,4b,ICT Security Consultancy & Delivery Services - Testing
+RM591,4c,ICT Security Consultancy & Delivery Services - ICT Investigative Services
+RM6000,1,Fuel Cards and Associated Services
+RM6001,1,Supplier Early Payment Solutions
+RM6002,2,"General Recruitment - Digital, Data and Technology (DDaT)"
+RM6002,5,General Recruitment - Project Delivery
+RM6002,3,General Recruitment - Corporate
+RM6002,6,"Executive Search - Digital, Data and Technology (DDaT)"
+RM6002,4,General Recruitment - Finance
+RM6002,1,General Recruitment - Administrative & Operational Roles
+RM6002,7,Executive Search - Senior Roles
+RM6002,8,Talent Mapping
+RM6003,1,Media Buying
+RM6004,1,Behavioural Insights
+RM6007,5,CONTACT CENTRE SERVICES FOR DIRECT RESPONSE MARKETING AND RELATED SERVICES
+RM6007,5.0,CONTACT CENTRE SERVICES FOR DIRECT RESPONSE MARKETING AND RELATED SERVICES
+RM6008,1,Business Consultancy Services
+RM6008,2,"Procurement, Supply Chain And Commercial Consultancy Services"
+RM6008,3,Complex And Transformation Consultancy Services
+RM6008,4,Strategic Consultancy Services
+RM6016,4,Offline and Online Travel Solution
+RM6016,5,"Venue Find, Group Accommodation and Supporting Services"
+RM6016,3,Online Air Solution
+RM6016,1,Online Rail Solution
+RM6016,2,Online Accommodation Solution
+RM6018,1,Research Marketplace
+RM6064,1,DTA
+RM6073,1,National UK coverage for work over £25m
+RM6073,2,Northern UK coverage for work under £25m
+RM6073,3,Southern UK coverage for work under £25m
+RM613,1,esourcing
+RM623,1,Software
+RM632,5,"Supply and Delivery of Personal Protective Equipment, Safety Equipment/Trai"
+RM632,3,Supply and Delivery of Electrical Hardware
+RM632,2,Supply and Delivery of Industrial Heating and Pipeline Supplies
+RM632,4,"Supply and Delivery of Workshop, Industrial and Electrical Tools"
+RM632,1,Supply and Delivery of Building Materials & Associated Managed Services
+RM632,6,Supply and Delivery of Plant Hire
+RM646,1,General Fleet Mgmt Services
+RM646,2,Fleet Development & Improvement Services
+RM646,3,Fleet Mgmt Services for customers with enhanced security.
+RM653,1,Desktop 21
+RM655,1,Supply of Printing and Copier Papers (Recycled and Virgin Fibre)
+RM662,7,HR Consultancy
+RM662,3,Business Strategy Consultancy ? Local Government
+RM662,6,Organisation and Change Management Consultancy ? Local Government
+RM662,1,Business Strategy
+RM662,4,Organisation and Change Management Consultancy
+RM662,9,Programme and Project Management Consultancy
+RM662,10,Marketing Consultancy
+RM662,2,Business strategy Consultancy ? Health
+RM662,11,Financial and Economic Consultancy
+RM662,5,Organisation and Change Management Consultancy ? Health
+RM662,8,Procurement Consultancy
+RM662,12,Accounting Advice and Services
+RM662,13,Audit and Assurance Advice and Services
+RM673,1,Commercial Refrigeration and Cold Stores
+RM673,2,Medical Refrigeration and Mortuary Chambers
+RM679,2,Gas Billing Meters
+RM679,3,Water Billing Meters
+RM679,4,"Sub-Metering, other Utilities, Meter Network & aM&T Software"
+RM679,5,One-Stop-Shop Solution
+RM679,1,Electric Billing Meters
+RM683,1,Heating Oil and Automotive Fuels Pasa contract ref CM/GAO/08/5032
+RM683,2,Heating Oil and Automative Fuel
+RM692,1a,One Stop Shop WPS
+RM692,1b,One Stop Shop CCG
+RM692,4b,Finance & Audit CCG
+RM692,5a,Human Resources WPS
+RM692,5b,Human Resources CCG
+RM692,10b,Marketing & Communications CCG
+RM692,4a,Finance & Audit WPS
+RM692,8a,Procurement & Purchasing WPS
+RM692,8b,Procurement & Purchasing CCG
+RM692,10a,Marketing & Communications WPS
+RM692,2a,Programme & Programme Management WPS
+RM692,2b,Programme & Project Management CCG
+RM692,3a,Information & Communication Technology WPS
+RM692,3b,Information & Communication Technology CCG
+RM692,6a,Board & Executive WPS
+RM692,6b,Board & Executive CCG
+RM708,1,Facilities Management
+RM713,1,Bespoke Solutions
+RM713,2,Customer / Citizen Relationship Management & Case Management Solutions
+RM713,3,Document & Records Management Solutions
+RM713,4,"HR, Finance, Procurement, Transactions Management & ERP Solutions"
+RM713,5,Information Management Applications
+RM713,6,Web Design & Content Management Services
+RM717,1,IT Managed Services
+RM720,1,ICT Products & Services
+RM721,2,Infrastructure Hardware
+RM721,1,Desktop Hardware
+RM721,3,Specialist Channel partners for Software
+RM722,3,Furniture and associated products through supported businesses
+RM722,4,Document Management Services through supported businesses
+RM722,1,ICT Disposal - Secure disposal through supported businesses.
+RM722,2,ICT Disposal - Non secure disposal through supported businesses
+RM722,3,Furniture & Associated Products through Supported Businesses.
+RM738,1,Face-to-Face Interpreting Services
+RM738,2,Language Skills Training
+RM781,1,One Stop Shop (= Lots 2 + 3 + 4)
+RM781,2,"Desktop Office Supplies, Cut paper, Business and Specialist Stationery"
+RM781,3,Electronic Office Supplies and Electronic Storage Media
+RM781,4,Small Business Machines
+RM782,4a,Customer direct access
+RM782,5a,Pre-sortation for inbound delivery
+RM782,6a,PO Boxes
+RM782,7a,Response services
+RM782,13a,Document exchange
+RM782,14a,Description Data cleansing/Address Management
+RM782,1,Collection and delivery to addressee
+RM782,2,Consolidation of mail
+RM782,3,Secure Mail
+RM782,4,Customer direct access
+RM782,9,Undeliverables/goneaways
+RM782,10,Hybrid Mail
+RM782,11,Mail consultancy
+RM782,12,Mail audits
+RM782,1a,Collection and delivery to addressee
+RM782,2a,Consolidation of mail
+RM782,3a,Secure Mail
+RM782,8a,Redirection
+RM782,9a,Undeliverables/goneaways
+RM782,10a,Hybrid Mail
+RM782,11a,Mail consultancy
+RM782,12a,Mail audits
+RM782,5,Pre-sortation for inbound delivery
+RM782,6,PO Boxes
+RM782,7,Response services
+RM782,8,Redirection
+RM782,13,Document exchange
+RM782,14,Data cleansing/Address Management
+RM782,99,Wider Public Sector Spend (DX Group)
+RM784,5,Telecoaching Products and Services
+RM784,6,Managed Services
+RM784,3,Telehealth Products
+RM784,4,Telehealth Services
+RM784,1,Telecare Products
+RM784,2,Telecare Services
+RM807,1,Passenger and Light Commercial Vehicles up to 3.5 tonnes
+RM807,3,"Passenger Vehicles, Light Commercial Vehicles up to3.5 tonnes & Heavy Comme to"
+RM807,2,Light Commercial Vehicles up to 3.5 tonnes & Heavy Commercial Vehicles up
+RM808,2,Air
+RM808,1,Rail
+RM808,99,Non Framework Spend
+RM808,6,Total Services
+RM808,3,Hotels
+RM808,4,Conference Facilities
+RM808,5,Serviced Accommodation
+RM820,23d,Masters in Public Administration (MPA) delivered through distance learning.
+RM820,23b,Masters in Business Administration (MBA) Delivered through distance learnin
+RM820,23c,Masters in Public Administration (MPA) delivered by executive and/or tradit
+RM820,23a,Masters in Business Administration(MBA)delivered by executive and/or tradit
+RM827,1,Managed Telecommunications Convergence Framework (MTCF)
+RM828,1,GSI Convergence Framework (GCF)
+RM830,5,Policy and technical advice - noise and statutory nuisance
+RM830,8,Support and deliveries - air
+RM830,15,Sustainability
+RM830,16,Built environment
+RM830,1,Policy and technical advice - air
+RM830,2,Policy and technical advice - biodiversity
+RM830,3,Policy and technical advice - climate change
+RM830,10,Support and deliveries - climate change
+RM830,11,Support and deliveries - landscapes and seascapes
+RM830,12,Support and deliveries - noise and statutory nuisance
+RM830,18,Economics
+RM830,6,Policy and technical advice - waste
+RM830,13,Support and deliveries - waste
+RM830,14,Support and deliveries - water
+RM830,9,Support and deliveries - biodiversity
+RM830,4,Policy and technical advice - landscapes and seascapes
+RM830,7,Policy and technical advice - water
+RM830,17,Statistics
+RM848,1,Information Management Services
+RM848,2,Data Storage Consultancy
+RM848,6,Data Quality Solutions
+RM848,7,Digital Archiving Solutions
+RM848,5,e-Discovery Solutions
+RM848,3,Data Conversion and Migration Services
+RM849,1,Wash and Return
+RM849,2,Linen Hire
+RM849,4,Mop Hire
+RM849,3,Re-useable Theatre Drapes and Gowns
+RM858,1,Vehicle Lease - contract hire of passenger vehicles(inc 4x4s & mini buses)
+RM858,7,Vehicle Lease-single source supply of leased passenger vehicles & comm vehi
+RM858,2,Vehicle Lease-(contract hire of pass vehicles(inc 4x4 & mini buses) Light c
+RM858,6,Vehicle Lease-contract hire of motorcycles with the option to supply quad b
+RM858,8,Vehicle Lease - fleet outsource  solution for the total mngmt & sourcing of
+RM858,4,Vehicle Lease-contract hire of commercial vehicles 7.5 tonnes & above for a
+RM858,5,Vehicle Lease-contract hire of buses & coaches excluding mini buses
+RM858,3,Vehicle Lease-contract hire of commercial vehicles 7.5 tonnes & above inc t
+RM859,1,Cars including 4x4s
+RM859,2,Light to Medium Commercial Vehicles
+RM859,4,Motorbikes and Scooters
+RM859,5,Buses and Coaches
+RM859,3,Heavy Commercial Vehicles
+RM860,1,PSN Connectivity
+RM865,2,"MANAGEMENT & FINANCE ? Performance Management, Planning and Decision Making"
+RM865,5,"Social Care & Education - Libraries, Museums and Leisure related SAS"
+RM865,7,Communities - Social Housing Software Application Solutions
+RM865,8,Environment & Public Protection - Waste and Environmental Health SAS
+RM865,9,Environment & Public Protection - Highways and Transport SAS
+RM865,1,"MANAGEMENT & FINANCE ? Revenue, Benefits and Finance SAS"
+RM865,3,Social Care & Education - Social Care related SAS
+RM865,10,Environment & Public Protection - Planning related SAS
+RM865,6,Communities - Electoral Services Software Application Solutions
+RM869,8,Traffic Management Research and Consultancy
+RM869,4,Traffic and Vehicle Monitoring Services
+RM869,7,"National Traffic Control, Urban Traffic Control and Common Database Systems"
+RM869,1,Traffic Management Solutions
+RM869,2,Traffic Signals and Ramp Metering
+RM869,9,Street Lighting Services
+RM869,3,Electronic and Interactive Message Signs
+RM869,5,Parking and Access Control Services
+RM869,6,Environmental Monitoring Services
+RM869,10,Traffic Safety
+RM869,11,Ancillary Equipment
+RM875,3,Generic Steel Framed Buildings - Purchase
+RM875,4,Generic Steel Framed Buildings - Lease/Hire
+RM875,5,Catering Units - Purchase
+RM875,10,Healthcare Units - Lease/ Hire
+RM875,6,Catering Units - Lease/Hire
+RM875,7,Educational Units - Purchase
+RM875,8,Educational Units - Lease/ Hire
+RM875,9,Healthcare Units - Purchase
+RM875,1,Generic timber framed Buildings - Purchase
+RM875,2,Generic Timber Framed Buildings - Lease/ Hire
+RM887,1,Payroll Human Resources (HR) and Finance Services
+RM917,1,"PG1: Office Stationery, Paper, Janitorial, Machines & Closed Loop"
+RM917,2,PG2: Electronic Office Consumables
+RM918,1,Global Travel
+RM918,2,Domestic Travel
+RM919,1,"IT Telecoms, Media and e-commerce"
+RM919,7,General Litigation and legal support service
+RM919,8,Major or complex projects
+RM919,5,Finance and Regulation
+RM919,4,General Corporate including tax and inslovency
+RM919,2,Property and Estates
+RM919,3,Employment and Pensions
+RM919,6,General Commercial
+RM921,1,Print Management Service including Paper (LCD\00013\2010)
+RM922,6,Warewash and Waste Disposal Equipment
+RM922,1,Prime Cooking Equipment
+RM922,2,Food Preparation Equipment
+RM924,1,eDisclosure & Hard Copy Review Services
+RM928,1,Estates Professional Services
+RM930,1,HMRC Royal Mail Wholesale
+RM932,1,Occupational Health Services
+RM932,2,Employee Assistance Programmes
+RM938,1,Provision of Gas Tight Suits
+RM949,5,Grants and Programme Services Managed Services
+RM949,2,Communication Promotions and Support to understand Grants and Programme Services
+RM949,3,Grants and Programme Services Policy Design and Implementation
+RM949,4,Grants and Programme Services Programme Evaluation
+RM949,1,Grants and Programme Services Administration Services
+RM955,4,Motorcycle
+RM955,1,Police
+RM955,2,"Car, 4x4, Van"
+RM955,3,Truck
+RM955,5,Agrarian
+RM956,4,"Trailers (including semi-trailers) and Conversions O1, O2, and O3 & O4"
+RM956,1,M1 & N1 Conversions and Modifications (and Specialist variants)
+RM956,2,M2 & N2 Conversions & Bodybuild (and Specialist variants)
+RM956,3,N3 Conversions & Bodybuild
+RM956,5,Conversion and Bodybuild of Special Purpose Vehicles
+RM956,6,Conversion and Bodybuild of Stretcher Bearing Vehicles
+RM956,7,Electrical installation - Supply and Fit
+RM958,1,Insurance
+RM958,2,Multi Supplier Insurance Brokerage
+RM958,4,Insurance Services (no management charge)
+RM958,3,Single Supplier Insurance Brokerage
+RM959,3,Allied Health Professionals
+RM959,4,Health Science Services
+RM959,2,Master Vendor Managed Services
+RM959,1,Neutral Vendor Managed Services
+RM960,3,Managed Service Provision (Provision of Operational and Support Staff roles
+RM960,2,Managed Service Provision (Provision of Administration and Clerical roles)
+RM960,1,Neutral Vendor
+RM963,1,Dedicated Courier Network Service
+RM964,1,Demand Side Response Services
+RM966,3,TNT UK Ltd - Document Storage - Spend Under Management Contract
+RM966,1,Capita Document Storage - Spend Under Management Contract
+RM966,2,Iron Mountain Document Storage - Spend Under Management Contract
+RM966,4,Derwent Living - Document Storage - Spend Under Management Contract
+RM970,2,General
+RM970,3,Mental Health
+RM970,4,Community and Social Care
+RM970,5,Specialist (Midwife/Critical)
+RM970,1,Neutral Vendor
+RM971,8,Ancillary staff
+RM971,4,Corporate Functions
+RM971,5,IT Professionals
+RM971,6,Legal
+RM971,7,Clinical coding
+RM971,3,Admin and Clerical
+RM971,2,Master Vendor
+RM971,1,Neutral Vendor
+RM976,3,BT Premier Value - Option 3
+RM976,1,BT Premier Value - Option 1
+RM976,2,BT Premier Value - Option 2
+RM977,2,BT MoU Citizen Contact  (Cloud Services)
+RM977,1,BT MOU Citizen Contact (Standard)
+RM977,3,BT MoU Citizen Contact (Other Services)
+RM978,2,BT Accumulate (Higher Discount)
+RM978,3,BT Accumulate (New Higher)
+RM978,1,BT Accumulate (Standard Discount)
+RM978,4,BT Accumulate (250K)
+RM978,5,BT Accumulate (1 Million)
+RM979,1,BT Netstream Corporate Egilible
+RM979,2,BT Netstream Corporate Non-Egilible
+RM979,3,BT Netstream Corporate Contributory
+RM980,3,BT Conferencing - (MS Live)
+RM980,4,BT Conferencing - (Mixed Services)
+RM980,1,BT Conferencing (Audio)
+RM980,2,BT Conferencing (Webex)
+RM987,1,Translation and Transcription services
+RM988,2,DIRECT MARKETING AND RELATED SERVICES
+RM988,3,DIGITAL MARKETING AND RELATED SERVICES
+RM988,1,MARKETING COMMUNICATIONS AND RELATED SERVICES
+RM988,4,PUBLIC RELATIONS AND RELATED SERVICES
+RM990,1,Postal Services - Royal Mail Initiative
+RM990,1a,Postal Services - Royal Mail Initiative
+RM995,1,Computer Based Testing Services
+RM999,1,Electricity Supply and Ancillary Services - Additional
+RM999,2,Electricity Supply and Ancillary Services - Standard
+SCAT,1,IS Strategy
+SCAT,6,eCommerce Consultancy
+SCAT,7,Security Consultancy and Support
+SCAT,11,Application Development
+SCAT,10c,Recruitment
+SCAT,10d,Training
+SCAT,12,Business and Management Cons.
+SCAT,9,Telcomms Consultancy
+SCAT,3,IT Architecture Design
+SCAT,10a,HR Consultancy
+SCAT,2,Programme & Project Management
+SCAT,4,Requirements Specification
+SCAT,10b,Interim Management
+SCAT,13,Record And data Mangement
+SCAT,5,Body Shop
+SCAT,8,PublicPrivate Partnerships
+SCAT,14a,Financial Services  Accountancy
+SCAT,14b,Financial Services  Audit
+SCAT,15c,GIS Application Development
+SCAT,15d,GIS Software Provision
+SCAT,15f,GIS Training
+SCAT,16a,General Information Services
+SCAT,16c,Property And Construction Services
+SCAT,14c,Financial Consultancy
+SCAT,14d,Financial Training
+SCAT,15a,GIS Strategy And Technical Services
+SCAT,15h,GIS Webmap Authoring
+SCAT,16d,IT And Telecomms Services
+SCAT,15g,GIS Recruitment
+SCAT,15i,GIS Aerial Map Services
+SCAT,15b,GIS Geospatial Data
+SCAT,15j,GIS Map Making And Reproduction
+SCAT,15e,GIS Data Capture Services
+SCAT,4a,Requirements Specification (Logica CMG only)
+SCAT,16b,Legal Information Services
+SCAT,15,Geographical Information
+SCAT,10,HR
+SCAT,14,Financial Services
+SP-11-010,1,ELECTRICITY Scotland
+SP-12-005,1,GAS Scotland
