@@ -5,5 +5,6 @@ class Agreement < ApplicationRecord
   has_many :framework_lots, through: :agreement_framework_lots
 
   validates :supplier_id, presence: true
-  validates :framework_id, presence: true
+  validates :framework_id, presence: true,
+    uniqueness: { scope: :supplier_id, message: 'agreement already exists for this supplier' }
 end
