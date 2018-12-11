@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Framework::Definition::RM1070 do
   let(:customer) { FactoryBot.create(:customer) }
+  let(:agreement_lot) { FactoryBot.create(:agreement_framework_lot) }
+  let(:agreement) { agreement_lot.agreement }
+  let(:framework) { agreement.framework }
+  let(:supplier) { agreement.supplier }
+  let(:lot_number) { agreement.lot_numbers.first }
+
+  let(:submission) { FactoryBot.create(:submission, supplier: supplier, framework: framework) }
 
   describe Framework::Definition::RM1070::Invoice do
     # rubocop:disable Metrics/LineLength
@@ -10,7 +17,7 @@ RSpec.describe Framework::Definition::RM1070 do
         'UNSPSC' => 25101503,
         'Quantity' => 1,
         'Fuel Type' => 'DIESEL',
-        'Lot Number' => 7,
+        'Lot Number' => lot_number,
         'Cost Centre' => 'N/A',
         'Customer URN' => customer.urn,
         'Vehicle Make' => 'Vauxhall',
@@ -124,7 +131,9 @@ RSpec.describe Framework::Definition::RM1070 do
     end
 
     def invoice_from_params(overrides = {})
-      Framework::Definition::RM1070::Invoice.new(SubmissionEntry.new(data: valid_params.merge(overrides)))
+      data = valid_params.merge(overrides)
+      submission_entry = FactoryBot.create(:submission_entry, submission: submission, data: data)
+      Framework::Definition::RM1070::Invoice.new(submission_entry)
     end
   end
 end

@@ -51,12 +51,18 @@ RSpec.describe SubmissionEntry do
 
   describe 'validate_against_framework_definition!' do
     let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
-    let(:framework) { FactoryBot.create(:framework, short_name: 'RM3767') }
+    let(:supplier) { submission.supplier }
+    let(:framework) { FactoryBot.create(:framework, lot_count: 2, short_name: 'RM3767') }
     let(:submission) { FactoryBot.create(:submission, framework: framework) }
     let(:entry) { FactoryBot.create(:invoice_entry, submission: submission, data: data_hash) }
+    let(:agreement) { FactoryBot.create(:agreement, framework: framework, supplier: supplier) }
+    let(:valid_lot_number) { agreement.lot_numbers.first }
+    let!(:agreement_framework_lot) do
+      FactoryBot.create(:agreement_framework_lot, agreement: agreement, framework_lot: framework.lots.first)
+    end
     let(:valid_data_hash) do
       {
-        'Lot Number' => '1',
+        'Lot Number' => valid_lot_number,
         'Customer URN' => '12345678',
         'Customer Organisation Name' => 'Organisation Name',
         'Customer Invoice Date' => '01/01/2018',
@@ -92,6 +98,28 @@ RSpec.describe SubmissionEntry do
               'location' => {
                 'row' => entry.source['row'],
                 'column' => 'UNSPSC',
+              },
+            }
+          ]
+        )
+      end
+    end
+
+    context 'with a lot number the supplier does not have an agreement against' do
+      let(:data_hash) { valid_data_hash.merge('Lot Number' => 'XXX') }
+
+      it 'transitions state to errored' do
+        expect(entry.reload).to be_errored
+      end
+
+      it 'sets the validation errors' do
+        expect(entry.validation_errors).to eq(
+          [
+            {
+              'message' => 'is not included in the supplier framework agreement',
+              'location' => {
+                'row' => entry.source['row'],
+                'column' => 'Lot Number',
               },
             }
           ]

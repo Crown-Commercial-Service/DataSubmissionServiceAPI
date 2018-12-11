@@ -5,13 +5,20 @@ class Framework
     include ActiveModel::Attributes
     include ActiveModel::Validations
 
+    attr_reader :entry
+
     def initialize(entry)
       super()
+      @entry = entry
       entry.data.each_pair do |param, value|
         next unless attributes.key?(param)
 
         send("#{param}=", value)
       end
+    end
+
+    def valid_lot_numbers
+      entry.submission.agreement.lot_numbers
     end
 
     class << self

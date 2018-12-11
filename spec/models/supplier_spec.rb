@@ -39,4 +39,19 @@ RSpec.describe Supplier do
       expect(Supplier.search(nil)).to eq Supplier.all
     end
   end
+
+  describe '#agreement_for_framework' do
+    let(:supplier) { FactoryBot.create(:supplier) }
+    let(:framework) { FactoryBot.create(:framework) }
+
+    it 'returns the agreement a supplier has for a given framework' do
+      agreement = FactoryBot.create(:agreement, supplier: supplier, framework: framework)
+
+      expect(supplier.agreement_for_framework(framework)).to eq agreement
+    end
+
+    it 'it raises an error if the supplier does not have an agreement on the framework' do
+      expect { supplier.agreement_for_framework(framework) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end

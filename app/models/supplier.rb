@@ -17,4 +17,8 @@ class Supplier < ApplicationRecord
   def self.search(query)
     query.blank? ? all : where('name ILIKE :query', query: "%#{query}%")
   end
+
+  def agreement_for_framework(framework)
+    agreements.find_by!(framework: framework)
+  end
 end

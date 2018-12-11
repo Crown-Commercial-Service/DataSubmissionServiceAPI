@@ -26,4 +26,19 @@ RSpec.describe Framework::EntryData do
       expect(entry_data.attributes).not_to include('Missing from Sheet')
     end
   end
+
+  describe '#valid_lot_numbers' do
+    let(:agreement) { FactoryBot.create(:agreement, framework: framework) }
+    let(:framework) { FactoryBot.create(:framework, lot_count: 2) }
+    let(:submission) { FactoryBot.create(:submission, framework: framework, supplier: agreement.supplier) }
+    let(:submission_entry) { FactoryBot.create(:submission_entry, submission: submission) }
+    let(:entry_data) { entry_data_class.new(submission_entry) }
+
+    it 'returns the lot numbers the supplier’s agreement is valid against' do
+      expect(entry_data.valid_lot_numbers).to eq []
+
+      agreement.agreement_framework_lots.create!(framework_lot: framework.lots.first)
+      expect(entry_data.valid_lot_numbers).to eq [framework.lots.first.number]
+    end
+  end
 end
