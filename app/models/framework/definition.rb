@@ -11,7 +11,7 @@ class Framework
       end
 
       def [](framework_short_name)
-        sanitized_framework_short_name = framework_short_name.tr('/', '_')
+        sanitized_framework_short_name = framework_short_name.tr('/.', '_')
         "Framework::Definition::#{sanitized_framework_short_name}".constantize
       rescue NameError
         raise Framework::Definition::MissingError, %(Please run rails g framework:definition "#{framework_short_name}")
