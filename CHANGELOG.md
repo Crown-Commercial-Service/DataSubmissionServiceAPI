@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-33] - 2018-12-12
+
+- Added lots modelling and validation
+- Added supplier search to user management
+- Fixed a bug in user search that wouldn't show a user if they were not
+  associated with a supplier
+- Fixed a bug in user search where users would appear multiple times if they
+  were associated with more than one supplier
+
 ## [release-32] - 2018-12-06
 
 - Admin user can delete users
@@ -192,6 +201,7 @@
 
 Initial release
 
+[release-33]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-32...release-33
 [release-32]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-31...release-32
 [release-31]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-30...release-31
 [release-30]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-29...release-30
