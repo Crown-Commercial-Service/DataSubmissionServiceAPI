@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Charge (Ex VAT)'
 
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
@@ -30,7 +30,7 @@ class Framework
         field 'Item', :string, exports_to: 'ProductDescription'
       end
 
-      class Order < Sheet
+      class Order < EntryData
         total_value_field 'Customer Order/Contract Value'
 
         field 'Customer Organisation', :string, exports_to: 'CustomerName'

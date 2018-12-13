@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Charges (ex VAT)'
 
         field 'Contract Number', :string
@@ -16,7 +16,7 @@ class Framework
         field 'Rental Company', :string, exports_to: 'Additional8'
         field 'Booking Method', :string
         field 'On line booking discount', :string, allow_nil: true, ingested_numericality: true
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true

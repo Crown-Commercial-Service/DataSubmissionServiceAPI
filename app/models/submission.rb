@@ -40,4 +40,8 @@ class Submission < ApplicationRecord
   def report_no_business?
     files.count.zero?
   end
+
+  def agreement
+    supplier.agreement_for_framework(framework)
+  end
 end

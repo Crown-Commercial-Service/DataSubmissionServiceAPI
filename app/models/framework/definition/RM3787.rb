@@ -62,7 +62,7 @@ class Framework
         '3rd Party Contracting Partner'
       ].freeze
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
 
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
@@ -88,7 +88,7 @@ class Framework
         field 'Sub-Contractor Name (If Applicable)', :string, exports_to: 'Additional4', presence: true
       end
 
-      class Order < Sheet
+      class Order < EntryData
         total_value_field 'Expected Total Order Value'
 
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true

@@ -1,23 +1,27 @@
 class Framework
   ##
   # Define a Sheet for Orders/Invoices on a field-by-field basis
-  class Sheet
+  class EntryData
     include ActiveModel::Attributes
     include ActiveModel::Validations
 
-    class << self
-      def new_from_params(params)
-        instance = new
+    attr_reader :entry
 
-        params.each_pair do |param, value|
-          next unless instance.attributes.key?(param)
+    def initialize(entry)
+      super()
+      @entry = entry
+      entry.data.each_pair do |param, value|
+        next unless attributes.key?(param)
 
-          instance.send("#{param}=", value)
-        end
-
-        instance
+        send("#{param}=", value)
       end
+    end
 
+    def valid_lot_numbers
+      entry.submission.agreement.lot_numbers
+    end
+
+    class << self
       def export_mappings
         @export_mappings ||= {}
       end

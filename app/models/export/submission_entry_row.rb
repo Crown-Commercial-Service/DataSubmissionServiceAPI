@@ -36,8 +36,8 @@ module Export
 
     def source_field_for(destination_field)
       framework_definition = Framework::Definition[model._framework_short_name]
-      sheet_definition = framework_definition.for_entry_type(model.entry_type)
-      sheet_definition.export_mappings[destination_field]
+      entry_data_definition = framework_definition.for_entry_type(model.entry_type)
+      entry_data_definition.export_mappings[destination_field]
     end
   end
 end

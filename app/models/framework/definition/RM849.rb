@@ -6,10 +6,10 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Invoice Line Total Value ex VAT and Expenses'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Supplier Order Number', :string, exports_to: 'SupplierReferenceNumber'
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName'
@@ -32,10 +32,10 @@ class Framework
         field 'Cost Centre', :string
       end
 
-      class Order < Sheet
+      class Order < EntryData
         total_value_field 'Customer Order/Contract Value'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber'
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true

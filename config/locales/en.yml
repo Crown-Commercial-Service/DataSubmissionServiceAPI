@@ -5,3 +5,4 @@ en:
       invalid_urn: 'is not a recognised URN'
       invalid_ingested_date: 'must be in the format dd/mm/yyyy'
       invalid_optional_ingested_date: 'must be in the format dd/mm/yyyy or left blank'
+      invalid_lot_number: 'is not included in the supplier framework agreement'

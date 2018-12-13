@@ -57,10 +57,10 @@ class Framework
         'Fixed Price'
       ].freeze
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
 
-        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }
+        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
@@ -87,10 +87,10 @@ class Framework
         field 'Sub-Contractor Name (If Applicable)', :string, exports_to: 'Additional4', presence: true
       end
 
-      class Order < Sheet
+      class Order < EntryData
         total_value_field 'Expected Total Order Value'
 
-        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2] }
+        field 'Tier Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true

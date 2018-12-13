@@ -6,7 +6,7 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Total Charge (ex VAT)'
 
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true

@@ -6,10 +6,10 @@ class Framework
 
       management_charge_rate BigDecimal('0.5')
 
-      class Invoice < Sheet
+      class Invoice < EntryData
         total_value_field 'Invoice Line Total Value ex VAT'
 
-        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, inclusion: { in: %w[1 2 3 4 5 6 7 8] }
+        field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
