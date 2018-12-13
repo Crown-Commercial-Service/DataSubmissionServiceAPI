@@ -26,6 +26,18 @@ RSpec.describe Framework::Definition do
           expect(definition.management_charge_rate).to eq(BigDecimal('0'))
         end
       end
+
+      context 'and it has full-stops in it' do
+        let(:framework_short_name) { 'RM1043.5' }
+
+        it 'returns that framework' do
+          expect(definition.framework_short_name).to eql(framework_short_name)
+        end
+
+        it 'reports the management charge' do
+          expect(definition.management_charge_rate). to eq(BigDecimal('1'))
+        end
+      end
     end
 
     context 'the framework does not exist' do
