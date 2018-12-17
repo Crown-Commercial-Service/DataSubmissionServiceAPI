@@ -9,8 +9,9 @@ module Auth0Helpers
       .to_return(status: 200, body: '')
   end
 
-  def stub_auth0_create_user_request
+  def stub_auth0_create_user_request(email)
     stub_request(:post, 'https://testdomain/api/v2/users')
-      .to_return(status: 200, body: '{"user_id":"auth0|TEST"}')
+      .with(body: hash_including(email: email))
+      .to_return(status: 200, body: "{\"user_id\":\"auth0|#{email}\"}")
   end
 end
