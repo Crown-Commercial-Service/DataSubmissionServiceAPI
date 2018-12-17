@@ -1,6 +1,4 @@
 class Framework < ApplicationRecord
-  TMP_FIXED_CHARGE_RATE = BigDecimal('1.5') # percent
-
   has_many :lots, dependent: :nullify, class_name: 'FrameworkLot'
   has_many :submissions, dependent: :nullify
 
