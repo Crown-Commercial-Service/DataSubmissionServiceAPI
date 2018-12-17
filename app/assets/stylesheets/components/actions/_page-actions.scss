@@ -1,0 +1,10 @@
+.govuk-page-actions--actions {
+  @include govuk-font(19);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.govuk-page-actions--action {
+  margin-bottom: govuk-spacing(2);
+}

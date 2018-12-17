@@ -1,0 +1,15 @@
+.govuk-table-actions--actions {
+  @include govuk-font(19);
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.govuk-table-actions--action {
+  margin-right: govuk-spacing(4);
+}
+
+.govuk-table-actions--action:last-child {
+  margin-right: 0;
+}

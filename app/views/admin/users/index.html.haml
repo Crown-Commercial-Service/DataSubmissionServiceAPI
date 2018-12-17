@@ -14,10 +14,11 @@
         %button.govuk-button Search
 
   .govuk-grid-column-one-third
-    %h2.govuk-heading-s
-      Actions
-    %p
-      = link_to 'Add a new user', new_admin_user_path
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Add a new user', new_admin_user_path
 
 %table.govuk-table{:class => 'govuk-!-margin-top-7'}
   %thead.govuk-table__head

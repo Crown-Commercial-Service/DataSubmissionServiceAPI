@@ -27,8 +27,14 @@
           %tr.govuk-table__row
             %td.govuk-table__cell= supplier.name
             %td.govuk-table__cell
-              = form_for [:admin, @user, Membership.new] do |form|
-                = form.hidden_field :supplier_id, value: supplier.id
-                = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
+              %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
+                %h3#table-actions-title-1.govuk-visually-hidden Row actions
+                %ul.govuk-table-actions--actions
+                  %li.govuk-table-actions--action
+                    = form_for [:admin, @user, Membership.new] do |form|
+                      = form.hidden_field :supplier_id, value: supplier.id
+                      = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
 
 = paginate @suppliers
+
+

@@ -8,12 +8,13 @@
       Account active since:
       = @user.created_at.to_s(:short)
   .govuk-grid-column-one-third
-    %h2.govuk-heading-s
-      Actions
-    %p
-      = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
-    %p
-      = link_to 'Delete user', confirm_delete_admin_user_path(@user)
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
+        %li.govuk-page-actions--action
+          = link_to 'Delete user', confirm_delete_admin_user_path(@user)
 
 .govuk-grid-row{:class => 'govuk-!-margin-top-7'}
   .govuk-grid-column-full
@@ -29,7 +30,12 @@
         - @user.memberships.each do |membership|
           %tr.govuk-table__row
             %td.govuk-table__cell= membership.supplier.name
-            %td.govuk-table__cell= link_to 'Unlink', admin_user_membership_path(@user, membership)
+            %td.govuk-table__cell
+              %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
+                %h3#table-actions-title-1.govuk-visually-hidden Row actions
+                %ul.govuk-table-actions--actions
+                  %li.govuk-table-actions--action
+                    = link_to 'Unlink', admin_user_membership_path(@user, membership)
 
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Frameworks
