@@ -46,6 +46,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge'
+gem 'skylight'
 
 gem 'rubocop'
 
