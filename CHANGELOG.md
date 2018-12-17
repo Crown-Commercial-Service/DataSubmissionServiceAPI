@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-34] - 2018-12-17
+
+- Add framework definition for RM1043.5 (aka DOS 3)
+- Data migration to set lots and coda ref on DOS3
+- Add Skylight
+- Expose Sidekiq web UI
+
 ## [release-33] - 2018-12-12
 
 - Added lots modelling and validation
@@ -201,6 +208,7 @@
 
 Initial release
 
+[release-34]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-33...release-34
 [release-33]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-32...release-33
 [release-32]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-31...release-32
 [release-31]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-30...release-31
