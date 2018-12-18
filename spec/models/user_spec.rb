@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   describe '#create_with_auth0' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:auth0_create_call) { stub_auth0_create_user_request }
+    let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
 
     before { stub_auth0_token_request }
 
@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
       user.create_with_auth0
 
       expect(auth0_create_call).to have_been_requested
-      expect(user.auth_id).to eq('auth0|TEST')
+      expect(user.auth_id).to eq("auth0|#{user.email}")
     end
   end
 

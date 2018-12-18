@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Adding a user' do
+  let(:email) { 'new@example.com' }
+
   before do
     stub_auth0_token_request
-    stub_auth0_create_user_request
+    stub_auth0_create_user_request(email)
 
     sign_in_as_admin
   end
@@ -11,7 +13,7 @@ RSpec.feature 'Adding a user' do
     click_on 'Users'
     click_on 'Add a new user'
     fill_in 'Name', with: 'New User'
-    fill_in 'Email address', with: 'new@example.com'
+    fill_in 'Email address', with: email
     click_button 'Add new user'
     expect(page).to have_content('New User')
     expect(page).to have_content('new@example.com')
