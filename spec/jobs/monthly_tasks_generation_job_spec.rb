@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe MonthlyTasksGenerationJob do
+  before { stub_govuk_bank_holidays_request }
+
   describe '#perform' do
     let!(:agreement) { FactoryBot.create(:agreement) }
     let!(:supplier) { agreement.supplier }
@@ -26,7 +28,7 @@ RSpec.describe MonthlyTasksGenerationJob do
         expect(supplier_task.framework).to eq framework
         expect(supplier_task.period_month).to eq 12
         expect(supplier_task.period_year).to eq 2018
-        expect(supplier_task.due_on).to eq Date.new(2019, 1, 7)
+        expect(supplier_task.due_on).to eq Date.new(2019, 1, 8)
       end
     end
   end
