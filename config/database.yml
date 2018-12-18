@@ -5,7 +5,7 @@ default: &default
   host: localhost
   username: postgres
   password:
-  pool: 5
+  pool: <%= ENV['DATABASE_POOL_SIZE'] %>
 
 development:
   <<: *default
