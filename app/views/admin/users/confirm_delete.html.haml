@@ -1,25 +1,25 @@
-.govuk-grid-row
-  .govuk-grid-column-full
-    %fieldset.govuk-fieldset
-      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
-        %h1.govuk-fieldset__heading
-          Delete this User?
-.govuk-grid-row
-  .govuk-grid-column-two-thirds
-    %p
-      This user will no longer have access to the service
+= form_for [:admin, @user], method: :delete do |form|
+  .govuk-grid-row
+    .govuk-grid-column-full
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h1.govuk-fieldset__heading
+            Delete this User?
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds
+      %p
+        This user will no longer have access to the service
 
-.govuk-grid-row
-  .govuk-grid-column-full
-    %table.govuk-table
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Name
-          %th.govuk-table__header Email
-      %tbody.govuk-table__body
-        %tr.govuk-table__row
-          %td.govuk-table__cell= @user.name
-          %td.govuk-table__cell= @user.email
-    .govuk-form-group
-      = form_for [:admin, @user], method: :delete do |form|
+  .govuk-grid-row
+    .govuk-grid-column-full
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Name
+            %th.govuk-table__header Email
+        %tbody.govuk-table__body
+          %tr.govuk-table__row
+            %td.govuk-table__cell= @user.name
+            %td.govuk-table__cell= @user.email
+      .govuk-form-group
         = form.submit 'Delete user', class: 'govuk-button'

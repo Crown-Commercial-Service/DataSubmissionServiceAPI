@@ -36,8 +36,8 @@
 
       %main{ role: 'main', id: 'main-content', class: 'govuk-main-wrapper'}
 
-      = render 'shared/alert' if flash[:alert]
+        = render 'shared/alert' if flash[:alert]
 
-      = yield
+        = yield
 
     = render 'shared/footer'
