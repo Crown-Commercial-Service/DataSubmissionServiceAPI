@@ -28,17 +28,19 @@ module Import
     DEFAULT_WAIT = 0.2
     EXPECTED_HEADERS = %I[supplier_salesforce_id email name].freeze
 
-    attr_reader :wait_time
+    attr_reader :logger, :wait_time
 
-    def initialize(csv_path, wait_time: DEFAULT_WAIT)
+    def initialize(csv_path, wait_time: DEFAULT_WAIT, logger: Logger.new(STDOUT))
       @csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
+      @logger = logger
       @wait_time = wait_time
       verify_csv_headers!
     end
 
     def run
       @csv.each do |row_data|
-        Row.new(row_data).import!
+        user = Row.new(row_data).import!
+        log "User #{user.email} is associated with #{user.suppliers.map(&:name).to_sentence}"
         wait
       end
     end
@@ -47,6 +49,10 @@ module Import
 
     def wait
       sleep(wait_time)
+    end
+
+    def log(message)
+      logger.info message
     end
 
     def verify_csv_headers!

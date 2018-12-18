@@ -19,7 +19,7 @@ RSpec.describe Import::Users do
     let!(:jamila_company) { FactoryBot.create(:supplier, salesforce_id: jamila_company_salesforce_id) }
     let!(:seema_company) { FactoryBot.create(:supplier, salesforce_id: seema_company_salesforce_id) }
 
-    let(:importer) { Import::Users.new(csv_path, wait_time: 0) }
+    let(:importer) { Import::Users.new(csv_path, wait_time: 0, logger: Logger.new('/dev/null')) }
 
     before do
       stub_auth0_create_user_request(jamila_email)
