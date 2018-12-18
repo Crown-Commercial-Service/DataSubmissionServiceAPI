@@ -46,7 +46,7 @@ class Framework
         field 'Annual Service Maintenance & Repair Costs ex VAT', :string, ingested_numericality: true, allow_nil: true
         field 'Residual Value', :string, ingested_numericality: true, allow_nil: true
         field 'Total Manufacturer Discount (%)', :string, ingested_numericality: true, allow_nil: true
-        field 'Spend Code', :string, exports_to: 'PromotionCode'
+        field 'Spend Code', :string, exports_to: 'PromotionCode', inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
       end
     end
   end
