@@ -1,9 +1,11 @@
 .govuk-grid-row
-  .govuk-grid-column-two-thirds
+  .govuk-grid-column-full
     %fieldset.govuk-fieldset
-      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
-        %h1.govuk-fieldset__heading
-          Unlink user from a supplier
+    %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+      %h1.govuk-fieldset__heading
+        Unlink user from a supplier
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
     %h2.govuk-heading-m= @user.name
     %p= @user.email
     %p This user will no longer be able to complete tasks on behalf of the following supplier

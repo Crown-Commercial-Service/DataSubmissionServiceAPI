@@ -1,4 +1,6 @@
-%h1.govuk-heading-xl User
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl User
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds
@@ -37,6 +39,8 @@
                   %li.govuk-table-actions--action
                     = link_to 'Unlink', admin_user_membership_path(@user, membership)
 
+.govuk-grid-row
+  .govuk-grid-column-full
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Frameworks
 
@@ -52,6 +56,8 @@
               %td.govuk-table__cell= framework.name
               %td.govuk-table__cell= supplier.name
 
+.govuk-grid-row
+  .govuk-grid-column-full
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Recent Tasks
 
