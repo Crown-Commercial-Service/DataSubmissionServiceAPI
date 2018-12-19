@@ -1,41 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe '/v1' do
-  describe 'POST /tasks' do
-    it 'creates a new task' do
-      supplier = FactoryBot.create(:supplier)
-      framework = FactoryBot.create(:framework)
-
-      params = {
-        data: {
-          type: 'tasks',
-          attributes: {
-            supplier_id: supplier.id,
-            framework_id: framework.id,
-            due_on: '2020-12-25',
-            period_month: 11,
-            period_year: 2019,
-            description: 'test'
-          }
-        }
-      }
-
-      post '/v1/tasks', params: params.to_json, headers: json_headers
-
-      expect(response).to have_http_status(:created)
-
-      task = Task.first
-
-      expect(json['data']).to have_id(task.id)
-      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
-      expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
-      expect(json['data']).to have_attribute(:due_on).with_value('2020-12-25')
-      expect(json['data']).to have_attribute(:period_month).with_value(11)
-      expect(json['data']).to have_attribute(:period_year).with_value(2019)
-      expect(json['data']).to have_attribute(:description).with_value('test')
-    end
-  end
-
   describe 'GET /tasks' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do

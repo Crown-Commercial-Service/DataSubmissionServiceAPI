@@ -1,16 +1,6 @@
 class V1::TasksController < APIController
   deserializable_resource :task, only: %i[create update]
 
-  def create
-    task = Task.new(task_params)
-
-    if task.save
-      render jsonapi: task, status: :created
-    else
-      render jsonapi_errors: task.errors, status: :bad_request
-    end
-  end
-
   def index
     tasks = Task.where(nil)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)

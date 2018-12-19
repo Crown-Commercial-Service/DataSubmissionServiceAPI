@@ -1,5 +1,5 @@
 class V1::SubmissionEntriesController < APIController
-  deserializable_resource :submission_entry, only: %i[create update]
+  deserializable_resource :submission_entry, only: %i[create]
 
   def create
     entry = initialize_submission_entry
@@ -35,13 +35,6 @@ class V1::SubmissionEntriesController < APIController
     SubmissionEntry.import(entries)
 
     render plain: 'success', status: :created
-  end
-
-  def show
-    submission_file = SubmissionFile.find(params[:file_id])
-    entry = submission_file.entries.find(params[:id])
-
-    render jsonapi: entry, status: :ok
   end
 
   private

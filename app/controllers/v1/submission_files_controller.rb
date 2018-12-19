@@ -1,5 +1,6 @@
 class V1::SubmissionFilesController < APIController
   deserializable_resource :submission_file, only: %i[update]
+
   def create
     submission = Submission.find(params[:submission_id])
     submission_file = submission.files.new
