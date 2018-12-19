@@ -1,6 +1,8 @@
 class V1::SubmissionEntriesController < APIController
   deserializable_resource :submission_entry, only: %i[create]
 
+  skip_before_action :reject_without_user!, only: %i[create bulk]
+
   def create
     entry = initialize_submission_entry
     entry.attributes = IngestPostProcessor.new(

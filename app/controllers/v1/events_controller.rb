@@ -1,4 +1,6 @@
 class V1::EventsController < APIController
+  skip_before_action :reject_without_user!
+
   def user_signed_in
     event_store.publish_event(
       UserSignedIn.new(

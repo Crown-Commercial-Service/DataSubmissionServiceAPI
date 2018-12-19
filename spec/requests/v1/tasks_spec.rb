@@ -1,18 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe '/v1' do
+  let(:user) { FactoryBot.create(:user) }
+
+  let(:supplier) do
+    supplier = FactoryBot.create(:supplier)
+    Membership.create(supplier: supplier, user: user)
+    supplier
+  end
+
   describe 'GET /tasks' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/tasks'
+        get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
         expect(response.status).to eq(401)
       end
+    end
+
+    it 'returns 500 if X-Auth-Id header missing' do
+      expect { get '/v1/tasks' }.to raise_error(ActionController::BadRequest)
     end
 
     it 'returns ok if authentication needed and provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
         get '/v1/tasks', params: {}, headers: {
-          HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg')
+          HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg'),
+          'X-Auth-Id' => user.auth_id
         }
         expect(response).to be_successful
       end
@@ -22,7 +35,7 @@ RSpec.describe '/v1' do
       task2 = FactoryBot.create(:task, status: 'unstarted')
       task3 = FactoryBot.create(:task, status: 'in_progress')
 
-      get '/v1/tasks'
+      get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -37,7 +50,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
 
-      get '/v1/tasks?include=submissions'
+      get '/v1/tasks?include=submissions', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(task.id)
@@ -52,7 +65,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
 
-      get '/v1/tasks?include=latest_submission'
+      get '/v1/tasks?include=latest_submission', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(task.id)
@@ -71,7 +84,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, status: 'unstarted')
       FactoryBot.create(:task, status: 'completed')
 
-      get '/v1/tasks?filter[status]=completed'
+      get '/v1/tasks?filter[status]=completed', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -88,7 +101,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
       FactoryBot.create(:task, supplier: another_supplier)
 
-      get "/v1/tasks?filter[supplier_id]=#{current_supplier.id}"
+      get "/v1/tasks?filter[supplier_id]=#{current_supplier.id}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -109,7 +122,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
       FactoryBot.create(:task, supplier: another_supplier)
 
-      get "/v1/tasks?filter[auth_id]=#{CGI.escape(user.auth_id)}"
+      get "/v1/tasks?filter[auth_id]=#{CGI.escape(user.auth_id)}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -127,7 +140,7 @@ RSpec.describe '/v1' do
         description: 'MI submission for December 2018 (cboard6)'
       )
 
-      get "/v1/tasks/#{task.id}"
+      get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -147,7 +160,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
 
-      get "/v1/tasks/#{task.id}?include=submissions"
+      get "/v1/tasks/#{task.id}?include=submissions", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
       expect(json['data']).to have_id(task.id)
@@ -161,7 +174,7 @@ RSpec.describe '/v1' do
   describe 'POST /v1/tasks/:task_id/no_business' do
     let(:task) { FactoryBot.create(:task) }
 
-    before { post "/v1/tasks/#{task.id}/no_business" }
+    before { post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id } }
 
     it 'marks the task as completed' do
       expect(task.reload).to be_completed
@@ -189,7 +202,7 @@ RSpec.describe '/v1' do
     it "changes a task's status to completed" do
       task = FactoryBot.create(:task)
 
-      post "/v1/tasks/#{task.id}/complete"
+      post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -212,7 +225,7 @@ RSpec.describe '/v1' do
         }
       }
 
-      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: json_headers
+      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: json_headers.merge('X-Auth-Id' => user.auth_id)
 
       expect(response).to be_successful
 

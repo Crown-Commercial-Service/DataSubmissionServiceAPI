@@ -5,7 +5,7 @@ RSpec.describe '/v1' do
     it 'returns the details of a given user' do
       user = FactoryBot.create(:user)
 
-      get "/v1/users?filter[auth_id]=#{CGI.escape(user.auth_id)}"
+      get "/v1/users?filter[auth_id]=#{CGI.escape(user.auth_id)}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
       expect(json['data'].size).to eql 1
@@ -22,7 +22,7 @@ RSpec.describe '/v1' do
       user = FactoryBot.create(:user)
       user.suppliers << FactoryBot.create_list(:supplier, 2)
 
-      get "/v1/users?filter[auth_id]=#{CGI.escape(user.auth_id)}"
+      get "/v1/users?filter[auth_id]=#{CGI.escape(user.auth_id)}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(json['data'].size).to eql 1
       expect(response).to be_successful
@@ -33,10 +33,10 @@ RSpec.describe '/v1' do
   end
   describe 'GET /v1/users' do
     it 'to return all users when no auth_id parameter is supplied' do
-      FactoryBot.create(:user)
+      user = FactoryBot.create(:user)
       FactoryBot.create(:user)
 
-      get '/v1/users'
+      get '/v1/users', headers: { 'X-Auth-Id' => user.auth_id }
       expect(json['data'].size).to eql 2
       expect(response).to be_successful
     end

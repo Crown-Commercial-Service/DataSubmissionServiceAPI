@@ -38,11 +38,13 @@ RSpec.describe '/v1' do
   end
 
   describe 'GET /submissions/:submission_id/files/:id' do
+    let(:user) { FactoryBot.create(:user) }
+
     it 'retrieves a submission file data associated with a submission' do
       submission = FactoryBot.create(:submission)
       file = FactoryBot.create(:submission_file, submission_id: submission.id, rows: 40)
 
-      get "/v1/submissions/#{submission.id}/files/#{file.id}"
+      get "/v1/submissions/#{submission.id}/files/#{file.id}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to have_http_status(:ok)
 
