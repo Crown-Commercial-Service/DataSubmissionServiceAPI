@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-35] - 2018-12-19
+
+- Updates to admin layout and markup
+- Enhanced validations for RM858 and RM3710
+- RM1043.5 (DOS3) supplier onboarding
+
 ## [release-34] - 2018-12-17
 
 - Add framework definition for RM1043.5 (aka DOS 3)
@@ -208,6 +214,7 @@
 
 Initial release
 
+[release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-34...release-35
 [release-34]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-33...release-34
 [release-33]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-32...release-33
 [release-32]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-31...release-32
