@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Task::Generator do
   describe '#generate!' do
+    before { stub_govuk_bank_holidays_request }
+
     context 'given some agreements' do
       let!(:agreement_1) { FactoryBot.create(:agreement) }
       let!(:agreement_2) { FactoryBot.create(:agreement) }
@@ -10,7 +12,7 @@ RSpec.describe Task::Generator do
       let!(:framework_1) { agreement_1.framework }
       let!(:framework_2) { agreement_2.framework }
 
-      it 'creates a new task for the specified period for each agreement' do
+      it 'creates a new task for the specified period for each agreement, with a due date 7 days into the month' do
         expect { Task::Generator.new(month: 8, year: 2018).generate! }.to change { Task.count }.by 2
 
         supplier_1_task = supplier_1.tasks.first
@@ -24,6 +26,12 @@ RSpec.describe Task::Generator do
         expect(supplier_2_task.period_month).to eq 8
         expect(supplier_2_task.period_year).to eq 2018
         expect(supplier_2_task.due_on).to eq Date.new(2018, 9, 7)
+      end
+
+      it 'adjusts the due date when there are bank holidays so there are always at least 5 working days' do
+        Task::Generator.new(month: 12, year: 2018).generate!
+        task = supplier_1.tasks.order(:created_at).last
+        expect(task.due_on).to eq Date.new(2019, 1, 8)
       end
 
       context 'given a task already exists for the agreement and period' do

@@ -29,6 +29,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Auth0Helpers
+  config.include BankHolidaysHelpers
   config.include SingleSignOnHelpers, type: :feature
   config.include JSONAPI::RSpec
   config.include StorageHelpers
