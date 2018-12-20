@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-36] - 2018-12-20
+
+- Add rake task to create monthly tasks, triggered on schedule on AWS
+- Add DATABASE_POOL_SIZE environment variable which controls the size of the
+  database pool and Sidekiq's concurrency
+
 ## [release-35] - 2018-12-19
 
 - Updates to admin layout and markup
@@ -214,6 +220,7 @@
 
 Initial release
 
+[release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-35...release-36
 [release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-34...release-35
 [release-34]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-33...release-34
 [release-33]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-32...release-33
