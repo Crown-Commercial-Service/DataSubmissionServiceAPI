@@ -3,6 +3,32 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { is_expected.to have_many(:memberships) }
 
+  describe 'validations' do
+    it 'fails for duplicate email address, with differing case' do
+      FactoryBot.create(:user, email: 'Jo.Soap@example.com')
+      new_user = FactoryBot.build(:user, email: 'jo.soap@example.com')
+
+      expect(new_user).not_to be_valid
+      expect(new_user.errors[:email]).to be_present
+    end
+  end
+
+  describe '#name=' do
+    it 'strips whitespace when set' do
+      user = FactoryBot.create(:user, name: '   Jo   Soap ')
+
+      expect(user.name).to eql 'Jo Soap'
+    end
+  end
+
+  describe '#email=' do
+    it 'strips whitespace when set' do
+      user = FactoryBot.create(:user, email: '  jo.soap@example.com     ')
+
+      expect(user.email).to eql 'jo.soap@example.com'
+    end
+  end
+
   describe '#create_with_auth0' do
     let(:user) { FactoryBot.create(:user) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }

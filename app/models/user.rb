@@ -3,7 +3,15 @@ require './lib/auth0_api'
 class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :suppliers, through: :memberships
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def name=(value)
+    super value.squish
+  end
+
+  def email=(value)
+    super value.squish
+  end
 
   def self.search(query)
     if query.present?
