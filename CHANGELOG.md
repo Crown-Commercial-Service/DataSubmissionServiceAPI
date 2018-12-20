@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-37] - 2018-12-20
+
+- Add endpoint to allow bulk loading of submission entries to prevent the API
+  server becoming swamped with requests from ingest
+- Prevent admins from creating users with duplicate email addresses (with
+  differing case)
+
 ## [release-36] - 2018-12-20
 
 - Add rake task to create monthly tasks, triggered on schedule on AWS
@@ -220,7 +227,8 @@
 
 Initial release
 
-[release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-35...release-36
+[release-37]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-36...release-37
+[release-36]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-35...release-36
 [release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-34...release-35
 [release-34]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-33...release-34
 [release-33]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-32...release-33
