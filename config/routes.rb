@@ -30,7 +30,11 @@ Rails.application.routes.draw do
       end
 
       resources :files, only: %i[create update show], controller: 'submission_files'
-      resources :entries, only: %i[create], controller: 'submission_entries'
+      resources :entries, only: %i[create], controller: 'submission_entries' do
+        collection do
+          post :bulk
+        end
+      end
     end
     resources :tasks, only: %i[index show create update] do
       member do
@@ -40,7 +44,11 @@ Rails.application.routes.draw do
     end
 
     resources :files, only: [] do
-      resources :entries, only: %i[show create], controller: 'submission_entries'
+      resources :entries, only: %i[show create], controller: 'submission_entries' do
+        collection do
+          post :bulk
+        end
+      end
       resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
