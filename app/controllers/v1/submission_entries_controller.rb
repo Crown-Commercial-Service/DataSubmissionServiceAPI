@@ -17,6 +17,19 @@ class V1::SubmissionEntriesController < APIController
     end
   end
 
+  def bulk
+    params[:_jsonapi][:data].each do |entry_params|
+      entry = initialize_submission_entry
+      entry.attributes = IngestPostProcessor.new(
+        params: params_from_bulk(entry_params),
+        framework: entry.submission.framework
+      ).resolve_parameters
+
+      entry.save unless SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
+    end
+    render plain: 'success', status: :created
+  end
+
   def show
     submission_file = SubmissionFile.find(params[:file_id])
     entry = submission_file.entries.find(params[:id])
@@ -40,5 +53,9 @@ class V1::SubmissionEntriesController < APIController
     params
       .require(:submission_entry)
       .permit(:entry_type, source: {}, data: {})
+  end
+
+  def params_from_bulk(entry_params)
+    entry_params.require(:attributes).permit(:entry_type, source: {}, data: {})
   end
 end

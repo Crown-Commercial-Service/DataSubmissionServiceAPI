@@ -22,6 +22,40 @@ RSpec.describe '/v1' do
       }
     }
   end
+  let(:valid_bulk_params) do
+    {
+      data: [
+        {
+          type: 'submission_entries',
+          attributes: {
+            entry_type: 'invoice',
+            source: {
+              sheet: 'InvoicesRaised',
+              row: 42
+            },
+            data: {
+              'Total Cost (ex VAT)': 12.34,
+              'Customer URN': customer.urn
+            }
+          }
+        },
+        {
+          type: 'submission_entries',
+          attributes: {
+            entry_type: 'invoice',
+            source: {
+              sheet: 'InvoicesRaised',
+              row: 43
+            },
+            data: {
+              'Total Cost (ex VAT)': 12.35,
+              'Customer URN': customer.urn
+            }
+          }
+        }
+      ]
+    }
+  end
 
   context 'scoped to a submission' do
     describe 'POST with valid params' do
@@ -84,6 +118,46 @@ RSpec.describe '/v1' do
         expect(response).to have_http_status(:no_content)
       end
     end
+
+    describe 'POST multiple valid entries' do
+      it 'creates the submission entries, extracting relevant data from the data hash and responds with JSON' do
+        post "/v1/submissions/#{submission.id}/entries/bulk", params: valid_bulk_params.to_json, headers: json_headers
+
+        expect(response).to have_http_status(:created)
+
+        expect(submission.entries.count).to eq 2
+
+        entry = submission.entries.where(total_value: 12.35).first
+        expect(entry.customer).to eq customer
+      end
+    end
+
+    describe 'POST multiple entries with one invalid' do
+      it 'creates valid submission entries, ignores invalid entries' do
+        invalid_bulk_params = valid_bulk_params
+        invalid_bulk_params[:data][1][:attributes][:data] = nil
+        post "/v1/submissions/#{submission.id}/entries/bulk", params: invalid_bulk_params.to_json, headers: json_headers
+
+        expect(response).to have_http_status(:created)
+
+        expect(submission.entries.count).to eq 1
+      end
+    end
+
+    describe 'POST multiple entries with one that already exists' do
+      let(:params_row_num) { valid_bulk_params[:data][0][:attributes][:source][:row] }
+
+      before do
+        FactoryBot.create(:invoice_entry, row: params_row_num, submission: submission, sheet_name: 'InvoicesRaised')
+      end
+
+      it 'creates valid submission entries, ignores existing entries' do
+        post "/v1/submissions/#{submission.id}/entries/bulk", params: valid_bulk_params.to_json, headers: json_headers
+
+        expect(response).to have_http_status(:created)
+        expect(submission.entries.count).to eq 2
+      end
+    end
   end
 
   context 'scoped to a submission file' do
@@ -105,6 +179,19 @@ RSpec.describe '/v1' do
         expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'InvoicesRaised'
         expect(json.dig('data', 'attributes', 'source', 'row')).to eql 42
         expect(json.dig('data', 'attributes', 'data', 'Total Cost (ex VAT)')).to eql 12.34
+      end
+    end
+
+    describe 'POST multiple valid entries' do
+      it 'creates the submission entries, extracting relevant data from the data hash and responds with JSON' do
+        post "/v1/files/#{submission_file.id}/entries/bulk", params: valid_bulk_params.to_json, headers: json_headers
+
+        expect(response).to have_http_status(:created)
+
+        expect(submission.entries.count).to eq 2
+
+        entry = submission.entries.where(total_value: 12.35).first
+        expect(entry.customer).to eq customer
       end
     end
 
