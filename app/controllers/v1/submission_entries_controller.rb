@@ -18,6 +18,8 @@ class V1::SubmissionEntriesController < APIController
   end
 
   def bulk
+    entries = []
+
     params[:_jsonapi][:data].each do |entry_params|
       entry = initialize_submission_entry
       @framework ||= entry.submission.framework
@@ -27,8 +29,10 @@ class V1::SubmissionEntriesController < APIController
         framework: @framework
       ).resolve_parameters
 
-      entry.save unless SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
+      entries << entry unless SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
     end
+
+    SubmissionEntry.import(entries)
 
     render plain: 'success', status: :created
   end

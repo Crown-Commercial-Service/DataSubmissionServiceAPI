@@ -385,6 +385,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  activerecord-import
   auth0
   aws-sdk-lambda
   aws-sdk-s3
