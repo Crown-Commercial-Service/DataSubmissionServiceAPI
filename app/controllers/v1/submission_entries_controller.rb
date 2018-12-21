@@ -20,13 +20,16 @@ class V1::SubmissionEntriesController < APIController
   def bulk
     params[:_jsonapi][:data].each do |entry_params|
       entry = initialize_submission_entry
+      @framework ||= entry.submission.framework
+
       entry.attributes = IngestPostProcessor.new(
         params: params_from_bulk(entry_params),
-        framework: entry.submission.framework
+        framework: @framework
       ).resolve_parameters
 
       entry.save unless SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
     end
+
     render plain: 'success', status: :created
   end
 
@@ -41,11 +44,11 @@ class V1::SubmissionEntriesController < APIController
 
   def initialize_submission_entry
     if params[:file_id].present?
-      file = SubmissionFile.find(params[:file_id])
-      file.entries.new(submission: file.submission)
+      @file ||= SubmissionFile.find(params[:file_id])
+      @file.entries.new(submission_id: @file.submission_id)
     else
-      submission = Submission.find(params[:submission_id])
-      submission.entries.new
+      @submission ||= Submission.find(params[:submission_id])
+      @submission.entries.new
     end
   end
 
