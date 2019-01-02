@@ -1,2 +1,3 @@
 ignored_endpoints:
   - CheckController#index
+enable_sidekiq: true
