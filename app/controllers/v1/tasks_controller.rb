@@ -2,16 +2,15 @@ class V1::TasksController < APIController
   deserializable_resource :task, only: %i[create update]
 
   def index
-    tasks = Task.where(nil)
+    tasks = current_user.tasks
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
-    tasks = tasks.for_auth_id(params.dig(:filter, :auth_id)) if params.dig(:filter, :auth_id)
 
     render jsonapi: tasks, include: params.dig(:include)
   end
 
   def show
-    task = Task.find(params[:id])
+    task = current_user.tasks.find(params[:id])
 
     render jsonapi: task, include: params.dig(:include)
   end
@@ -28,7 +27,7 @@ class V1::TasksController < APIController
   end
 
   def no_business
-    task = Task.find(params[:id])
+    task = current_user.tasks.find(params[:id])
     if task.completed?
       render jsonapi: task.submissions.first, status: :not_modified
     else
@@ -39,7 +38,7 @@ class V1::TasksController < APIController
   end
 
   def complete
-    task = Task.find(params[:id])
+    task = current_user.tasks.find(params[:id])
     task.status = 'completed'
 
     if task.save

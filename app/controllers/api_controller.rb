@@ -12,7 +12,11 @@ class APIController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by(auth_id: request.headers['X-Auth-Id'])
+    @current_user ||= User.find_by(auth_id: current_auth_id)
+  end
+
+  def current_auth_id
+    request.headers['X-Auth-Id']
   end
 
   private

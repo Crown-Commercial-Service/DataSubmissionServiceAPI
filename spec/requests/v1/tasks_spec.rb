@@ -32,23 +32,35 @@ RSpec.describe '/v1' do
     end
 
     it 'returns a list of tasks' do
-      task2 = FactoryBot.create(:task, status: 'unstarted')
-      task3 = FactoryBot.create(:task, status: 'in_progress')
+      task2 = FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
+      task3 = FactoryBot.create(:task, status: 'in_progress', supplier: supplier)
 
       get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
-      expect(json['data'][0]).to have_id(task2.id)
-      expect(json['data'][0]).to have_attribute(:status).with_value('unstarted')
+      expect(json['data'][0]).to have_id(task3.id)
+      expect(json['data'][0]).to have_attribute(:status).with_value('in_progress')
 
-      expect(json['data'][1]).to have_id(task3.id)
-      expect(json['data'][1]).to have_attribute(:status).with_value('in_progress')
+      expect(json['data'][1]).to have_id(task2.id)
+      expect(json['data'][1]).to have_attribute(:status).with_value('unstarted')
+    end
+
+    it 'does not include tasks that do not belong to the current user' do
+      FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
+      FactoryBot.create(:task, status: 'in_progress')
+
+      get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
+
+      expect(response).to be_successful
+
+      expect(json['data'].size).to eql 1
+      expect(json['data'][0]).to have_attribute(:status).with_value('unstarted')
     end
 
     it 'can optionally include submissions' do
-      task = FactoryBot.create(:task)
-      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+      task = FactoryBot.create(:task, supplier: supplier)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
       get '/v1/tasks?include=submissions', headers: { 'X-Auth-Id' => user.auth_id }
 
@@ -62,8 +74,8 @@ RSpec.describe '/v1' do
     end
 
     it 'can optionally include the latest_submission' do
-      task = FactoryBot.create(:task)
-      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+      task = FactoryBot.create(:task, supplier: supplier)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
       get '/v1/tasks?include=latest_submission', headers: { 'X-Auth-Id' => user.auth_id }
 
@@ -80,9 +92,9 @@ RSpec.describe '/v1' do
 
   describe 'GET /tasks?filter[status]=' do
     it 'returns a filtered list of tasks matching the statue value in the URL' do
-      FactoryBot.create(:task, status: 'unstarted')
-      FactoryBot.create(:task, status: 'unstarted')
-      FactoryBot.create(:task, status: 'completed')
+      FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
+      FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
+      FactoryBot.create(:task, status: 'completed', supplier: supplier)
 
       get '/v1/tasks?filter[status]=completed', headers: { 'X-Auth-Id' => user.auth_id }
 
@@ -98,31 +110,13 @@ RSpec.describe '/v1' do
       current_supplier = FactoryBot.create(:supplier)
       another_supplier = FactoryBot.create(:supplier)
 
+      user.memberships.create(supplier: current_supplier)
+      user.memberships.create(supplier: another_supplier)
+
       FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
       FactoryBot.create(:task, supplier: another_supplier)
 
       get "/v1/tasks?filter[supplier_id]=#{current_supplier.id}", headers: { 'X-Auth-Id' => user.auth_id }
-
-      expect(response).to be_successful
-
-      expect(json['data'].size).to eql 1
-      expect(json['data'][0]).to have_attribute(:description).with_value('hello')
-    end
-  end
-
-  describe 'GET /tasks?filter[auth_id]=' do
-    it 'returns a filtered list of tasks for a user\'s suppliers' do
-      user = FactoryBot.create(:user)
-
-      current_supplier = FactoryBot.create(:supplier)
-      another_supplier = FactoryBot.create(:supplier)
-
-      FactoryBot.create(:membership, supplier: current_supplier, user: user)
-
-      FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
-      FactoryBot.create(:task, supplier: another_supplier)
-
-      get "/v1/tasks?filter[auth_id]=#{CGI.escape(user.auth_id)}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
@@ -137,7 +131,8 @@ RSpec.describe '/v1' do
         :task,
         due_on: '2019-01-07',
         status: 'in_progress',
-        description: 'MI submission for December 2018 (cboard6)'
+        description: 'MI submission for December 2018 (cboard6)',
+        supplier: supplier
       )
 
       get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => user.auth_id }
@@ -157,8 +152,8 @@ RSpec.describe '/v1' do
     end
 
     it 'can optionally return included models' do
-      task = FactoryBot.create(:task)
-      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending')
+      task = FactoryBot.create(:task, supplier: supplier)
+      submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
       get "/v1/tasks/#{task.id}?include=submissions", headers: { 'X-Auth-Id' => user.auth_id }
 
@@ -169,18 +164,30 @@ RSpec.describe '/v1' do
       expect(json['included'][0])
         .to have_id(submission.id)
     end
+
+    it "prevents a user seeing someone else's task" do
+      task = FactoryBot.create(:task)
+
+      expect do
+        get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => user.auth_id }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'POST /v1/tasks/:task_id/no_business' do
-    let(:task) { FactoryBot.create(:task) }
-
-    before { post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id } }
-
     it 'marks the task as completed' do
+      task = FactoryBot.create(:task, supplier: supplier)
+
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
       expect(task.reload).to be_completed
     end
 
     it 'creates and returns a completed submissions' do
+      task = FactoryBot.create(:task, supplier: supplier)
+
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
       expect(response).to have_http_status(:created)
 
       submission = task.submissions.last
@@ -189,10 +196,20 @@ RSpec.describe '/v1' do
       expect(json['data']['attributes']['status']).to eq 'completed'
     end
 
-    context 'if task already completed' do
-      let(:task) { FactoryBot.create(:task, status: 'completed') }
+    it "prevents a user from reporting no business on someone else's task" do
+      task = FactoryBot.create(:task)
 
+      expect do
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    context 'if task already completed' do
       it 'should do nothing and return succesfully' do
+        task = FactoryBot.create(:task, supplier: supplier, status: 'completed')
+
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
         expect(response).to have_http_status(:not_modified)
       end
     end
@@ -200,7 +217,7 @@ RSpec.describe '/v1' do
 
   describe 'POST /v1/tasks/:task_id/complete' do
     it "changes a task's status to completed" do
-      task = FactoryBot.create(:task)
+      task = FactoryBot.create(:task, supplier: supplier)
 
       post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
 
@@ -210,11 +227,19 @@ RSpec.describe '/v1' do
 
       expect(task).to be_completed
     end
+
+    it "prevents a user completing someone else's task" do
+      task = FactoryBot.create(:task)
+
+      expect do
+        post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'PATCH /v1/tasks/:task_id' do
     it "updates a task's attributes" do
-      task = FactoryBot.create(:task)
+      task = FactoryBot.create(:task, supplier: supplier)
 
       params = {
         data: {
