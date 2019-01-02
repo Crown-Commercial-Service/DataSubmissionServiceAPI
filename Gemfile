@@ -9,7 +9,6 @@ gem 'rails', '~> 5.2.1'
 # State machine
 gem 'aasm'
 
-gem 'aws-sdk-lambda'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
