@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-38] - 2019-01-03
+
+- Add skylight sidekiq support
+- Use bulk SQL insertion to improve ingest performance
+
 ## [release-37] - 2018-12-20
 
 - Add endpoint to allow bulk loading of submission entries to prevent the API
@@ -227,6 +232,7 @@
 
 Initial release
 
+[release-38]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-37...release-38
 [release-37]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-36...release-37
 [release-36]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-35...release-36
 [release-35]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-34...release-35
