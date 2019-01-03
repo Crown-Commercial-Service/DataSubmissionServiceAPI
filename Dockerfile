@@ -32,7 +32,7 @@ COPY Gemfile.lock $INSTALL_PATH/Gemfile.lock
 COPY package.json yarn.lock $INSTALL_PATH/
 
 RUN yarn
-
+RUN gem update --system 3.0.0
 RUN gem install bundler
 
 # bundle ruby gems based on the current environment, default to production
