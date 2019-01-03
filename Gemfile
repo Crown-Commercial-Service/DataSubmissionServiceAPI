@@ -54,6 +54,8 @@ gem 'progress_bar', require: false
 
 gem 'sidekiq'
 
+gem 'activerecord-import'
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
