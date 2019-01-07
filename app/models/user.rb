@@ -32,7 +32,7 @@ class User < ApplicationRecord
       name,
       email: email,
       email_verified: true,
-      password: SecureRandom.urlsafe_base64,
+      password: temporary_password,
       connection: 'Username-Password-Authentication',
     )
     update auth_id: auth0_response.fetch('user_id')
@@ -42,5 +42,9 @@ class User < ApplicationRecord
     auth0_client = Auth0Api.new.client
     auth0_client.delete_user(auth_id)
     update auth_id: nil
+  end
+
+  def temporary_password
+    "#{SecureRandom.urlsafe_base64}aA1!"
   end
 end
