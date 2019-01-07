@@ -210,6 +210,14 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_id submission.id
       expect(json['data']['attributes']['status']).to eq 'completed'
     end
+
+    context 'if task already completed' do
+      let(:task) { FactoryBot.create(:task, status: 'completed') }
+
+      it 'should do nothing and return succesfully' do
+        expect(response).to have_http_status(:not_modified)
+      end
+    end
   end
 
   describe 'POST /v1/tasks/:task_id/complete' do
