@@ -28,8 +28,17 @@ RSpec.describe Import::Users::Row do
         expect(auth0_create_call).to have_been_requested
       end
 
-      it 'associates the user with it’s supplier' do
+      it 'associates the user with its supplier' do
         expect(result.suppliers).to contain_exactly(matching_supplier)
+      end
+
+      context 'when Auth0 errors' do
+        let!(:auth0_create_call) { stub_auth0_create_user_request_failure(email) }
+
+        it 'does not save the user' do
+          expect { row.import! }.to raise_error(Auth0::ServerError)
+          expect(User.find_by(email: email)).to be_nil
+        end
       end
     end
 
