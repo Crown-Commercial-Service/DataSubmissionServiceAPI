@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-39] - 2019-01-09
+
+- Make the "no business" API endpoint idempotent
+- Ensure the temporary generated password complies with the Auth0 criteria
+- Ensure users do not get persisted without an Auth0 account
+- Fix submission_stats rake task year bug
+- Remove unused aws-sdk-lambda gem
+
 ## [release-38] - 2019-01-03
 
 - Add skylight sidekiq support
@@ -232,6 +240,7 @@
 
 Initial release
 
+[release-39]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-38...release-39
 [release-38]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-37...release-38
 [release-37]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-36...release-37
 [release-36]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-35...release-36
