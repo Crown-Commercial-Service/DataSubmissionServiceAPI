@@ -2,7 +2,7 @@ namespace :report do
   desc 'Reports monthly task statistics. Defaults to the current month’s tasks. Override with [MM,YYYY]'
   task :submission_stats, %i[month year] => :environment do |_task, args|
     month = args[:month] || (Time.zone.today - 1.month).month
-    year = args[:year] || Time.zone.today.year
+    year = args[:year] || (Time.zone.today - 1.month).year
     reporting_period_date = Date.new(year.to_i, month.to_i)
 
     task_period_scope = Task.where(period_year: reporting_period_date.year, period_month: reporting_period_date.month)
