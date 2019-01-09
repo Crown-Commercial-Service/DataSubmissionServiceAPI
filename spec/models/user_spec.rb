@@ -43,6 +43,17 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#temporary_password' do
+    it 'conforms to the Auth0 criteria' do
+      password = User.new.temporary_password
+
+      expect(password).to match(/[a-z]/)
+      expect(password).to match(/[A-Z]/)
+      expect(password).to match(/[0-9]/)
+      expect(password).to match(/[!@#$%^&*]/)
+    end
+  end
+
   describe '#delete_on_auth0' do
     let(:user) { FactoryBot.create(:user) }
     let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
