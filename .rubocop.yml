@@ -51,6 +51,9 @@ Style/WordArray:
 Style/ClassAndModuleChildren:
     Enabled: false
 
+Layout/AlignHash:
+    Enabled: false
+
 Layout/TrailingBlankLines:
     Enabled: true
 
