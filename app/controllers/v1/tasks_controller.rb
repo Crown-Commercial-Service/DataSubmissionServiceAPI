@@ -29,7 +29,7 @@ class V1::TasksController < APIController
   def no_business
     task = current_user.tasks.find(params[:id])
     if task.completed?
-      render jsonapi: task.submissions.first, status: :not_modified
+      render jsonapi: task.submissions.first
     else
       task.file_no_business!
       submission = task.latest_submission
