@@ -103,6 +103,8 @@ GEM
       railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     erubis (2.7.0)
+    et-orbi (1.1.6)
+      tzinfo
     execjs (2.7.0)
     factory_bot (4.10.0)
       activesupport (>= 3.0.0)
@@ -112,6 +114,9 @@ GEM
     faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
+    fugit (1.1.6)
+      et-orbi (~> 1.1, >= 1.1.6)
+      raabro (~> 1.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -229,6 +234,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
+    raabro (1.1.6)
     rack (2.0.6)
     rack-protection (2.0.4)
       rack
@@ -343,6 +349,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-cron (1.0.4)
+      fugit (~> 1.1)
+      sidekiq (>= 4.2.1)
     skylight (4.0.0.alpha)
       skylight-core (= 4.0.0.alpha)
     skylight-core (4.0.0.alpha)
@@ -421,6 +430,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   shoulda-matchers
   sidekiq
+  sidekiq-cron
   skylight (= 4.0.0.alpha)
   spring
   spring-watcher-listen (~> 2.0.0)

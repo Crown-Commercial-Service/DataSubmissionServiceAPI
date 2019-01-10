@@ -53,6 +53,7 @@ gem 'rubocop'
 gem 'progress_bar', require: false
 
 gem 'sidekiq'
+gem 'sidekiq-cron'
 
 gem 'activerecord-import'
 
