@@ -51,6 +51,9 @@ Style/WordArray:
 Style/ClassAndModuleChildren:
     Enabled: false
 
+Layout/AlignHash:
+    Enabled: false
+
 Layout/TrailingBlankLines:
     Enabled: true
 
@@ -81,6 +84,11 @@ Metrics/BlockLength:
 Naming/ClassAndModuleCamelCase:
     Exclude:
         - 'app/models/framework/definition/**/*'
+
+Naming/FileName:
+    Exclude:
+        - 'app/models/framework/definition/**/*'
+        - 'spec/models/framework/definition/RM1070_spec.rb'
 
 Lint/AmbiguousBlockAssociation:
     Exclude:

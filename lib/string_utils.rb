@@ -1,6 +1,6 @@
 module StringUtils
-  US_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{2})$)
-  UK_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{4})$)
+  US_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{2})$).freeze
+  UK_DATE_FORMAT = %r(^(\d{1,2})\/(\d{1,2})\/(\d{4})$).freeze
 
   # Parses the two formats of dates that we currently see returned by the ingest
   # process: 'DD/MM/YYYY' and 'MM/DD/YY'

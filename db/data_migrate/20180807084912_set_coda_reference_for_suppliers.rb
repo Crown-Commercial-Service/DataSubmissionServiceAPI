@@ -1,4 +1,3 @@
-
 NAME_TO_CODA_REFERENCE_MAPPING = {
   'Addleshaw Goddard LLP' => 'C000976',
   'Ashurst LLP' => 'C005187',
