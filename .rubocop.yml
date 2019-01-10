@@ -18,10 +18,6 @@ Rails/Output:
     Exclude:
         - 'db/data_migrate/**/*'
 
-Rails/HttpPositionalArguments:
-    Exclude:
-        - 'spec/requests/**/*'
-
 Style/AndOr:
     Enabled: false
 
