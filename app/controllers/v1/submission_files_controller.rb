@@ -1,5 +1,8 @@
 class V1::SubmissionFilesController < APIController
   deserializable_resource :submission_file, only: %i[update]
+
+  skip_before_action :reject_without_user!, except: %i[show]
+
   def create
     submission = Submission.find(params[:submission_id])
     submission_file = submission.files.new

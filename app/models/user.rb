@@ -3,6 +3,8 @@ require './lib/auth0_api'
 class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :suppliers, through: :memberships
+  has_many :submissions, through: :suppliers
+  has_many :tasks, through: :suppliers
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def name=(value)

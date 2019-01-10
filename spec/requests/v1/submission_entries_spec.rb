@@ -194,31 +194,5 @@ RSpec.describe '/v1' do
         expect(entry.customer).to eq customer
       end
     end
-
-    describe 'GET with an entry ID' do
-      let(:submission_entry) do
-        FactoryBot.create(
-          :submission_entry,
-          submission_id: submission.id,
-          submission_file_id: submission_file.id,
-          sheet_name: 'Orders',
-          row: 23,
-          data: { test: 'test' }
-        )
-      end
-
-      it 'responds with JSON data for the entry' do
-        get "/v1/files/#{submission_file.id}/entries/#{submission_entry.id}"
-
-        expect(response).to have_http_status(:ok)
-
-        expect(json['data']).to have_id(submission_entry.id)
-        expect(json['data']).to have_attribute(:submission_id).with_value(submission.id)
-        expect(json['data']).to have_attribute(:submission_file_id).with_value(submission_file.id)
-        expect(json.dig('data', 'attributes', 'source', 'sheet')).to eql 'Orders'
-        expect(json.dig('data', 'attributes', 'source', 'row')).to eql 23
-        expect(json.dig('data', 'attributes', 'data', 'test')).to eql 'test'
-      end
-    end
   end
 end
