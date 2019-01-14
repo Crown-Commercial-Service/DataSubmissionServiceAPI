@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     # Protect against timing attacks:
     # - See https://codahale.com/a-lesson-in-timing-attacks/

@@ -1,0 +1,4 @@
+queue_size_metric:
+  cron: "*/30 * * * * *"
+  class: "QueueSizeMetricJob"
+  queue: default
