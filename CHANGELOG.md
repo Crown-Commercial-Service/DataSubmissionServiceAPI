@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-40] - 2019-01-14
+
+- Lock scoping of user/task/submissions to current user
+- Report background job queue size to AWS
+- Update code linting library and configuration
+
 ## [release-39] - 2019-01-09
 
 - Make the "no business" API endpoint idempotent
@@ -240,6 +246,7 @@
 
 Initial release
 
+[release-40]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-39...release-40
 [release-39]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-38...release-39
 [release-38]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-37...release-38
 [release-37]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-36...release-37
