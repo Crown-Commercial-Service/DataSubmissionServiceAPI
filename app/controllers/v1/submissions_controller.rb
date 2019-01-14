@@ -1,8 +1,10 @@
 class V1::SubmissionsController < APIController
   deserializable_resource :submission, only: %i[create update]
 
+  skip_before_action :reject_without_user!, only: %i[validate]
+
   def show
-    submission = Submission.find(params[:id])
+    submission = current_user.submissions.find(params[:id])
 
     render jsonapi: submission, include: params.dig(:include)
   end

@@ -89,6 +89,7 @@ module Export
 
       def format_money(amount)
         return '0.00' if amount.nil?
+
         format '%.2f', amount.truncate(2)
       end
     end

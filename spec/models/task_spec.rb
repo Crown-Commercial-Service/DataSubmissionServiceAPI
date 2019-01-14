@@ -12,29 +12,6 @@ RSpec.describe Task do
     expect(Task.new.status).to eq 'unstarted'
   end
 
-  describe '.for_auth_id' do
-    it 'returns tasks for all suppliers that the current user is a member of' do
-      user = FactoryBot.create(:user)
-
-      users_supplier1 = FactoryBot.create(:supplier)
-      users_supplier2 = FactoryBot.create(:supplier)
-      other_supplier = FactoryBot.create(:supplier)
-
-      FactoryBot.create(:membership, supplier: users_supplier1, user: user)
-      FactoryBot.create(:membership, supplier: users_supplier2, user: user)
-
-      task1 = FactoryBot.create(:task, supplier: users_supplier1)
-      task2 = FactoryBot.create(:task, supplier: users_supplier2)
-      task3 = FactoryBot.create(:task, supplier: other_supplier)
-
-      tasks = Task.for_auth_id(user.auth_id)
-
-      expect(tasks).to include(task1)
-      expect(tasks).to include(task2)
-      expect(tasks).to_not include(task3)
-    end
-  end
-
   describe '#latest_submission' do
     let(:task) { FactoryBot.create(:task) }
 

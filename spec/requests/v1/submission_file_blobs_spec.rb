@@ -4,7 +4,14 @@ require 'rails_helper'
 
 RSpec.describe '/v1' do
   describe 'POST /files/:file_id/blobs' do
-    let(:submission_file) { FactoryBot.create(:submission_file) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:supplier) do
+      supplier = FactoryBot.create(:supplier)
+      Membership.create(supplier: supplier, user: user)
+      supplier
+    end
+    let(:submission) { FactoryBot.create(:submission, supplier: supplier) }
+    let(:submission_file) { FactoryBot.create(:submission_file, submission: submission) }
     let(:params) do
       {
         data: {
@@ -21,7 +28,11 @@ RSpec.describe '/v1' do
     end
 
     it 'creates the file attachment against the submission file' do
-      post v1_file_blobs_path(submission_file.id), params: params.to_json, headers: json_headers
+      post(
+        v1_file_blobs_path(submission_file.id),
+        params: params.to_json,
+        headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+      )
 
       expect(response).to have_http_status(:created)
       expect(json['data']).to have_id(submission_file.id)

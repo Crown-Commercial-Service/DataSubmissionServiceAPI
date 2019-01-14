@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     # Protect against timing attacks:
     # - See https://codahale.com/a-lesson-in-timing-attacks/
@@ -19,10 +21,8 @@ Rails.application.routes.draw do
   get '/check', to: 'check#index', defaults: { format: :json }
 
   namespace :v1, defaults: { format: :json } do
-    resources :frameworks, only: %i[index show]
-    resources :suppliers, only: %i[index]
-    resources :agreements, only: %i[create]
     resources :users, only: %i[index]
+
     resources :submissions, only: %i[show create update] do
       member do
         post 'complete', to: 'submissions#complete'
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :tasks, only: %i[index show create update] do
+    resources :tasks, only: %i[index show update] do
       member do
         post :complete
         post :no_business
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     end
 
     resources :files, only: [] do
-      resources :entries, only: %i[show create], controller: 'submission_entries' do
+      resources :entries, only: %i[create], controller: 'submission_entries' do
         collection do
           post :bulk
         end
