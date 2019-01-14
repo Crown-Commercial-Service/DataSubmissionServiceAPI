@@ -15,6 +15,17 @@ RSpec.describe QueueSizeMetric do
       expect(executed_request[:params][:metric_data][0][:metric_name]).to eq 'Queue Size'
       expect(executed_request[:params][:metric_data][0][:value]).to eq Sidekiq::Stats.new.enqueued
     end
+
+    it 'can override the namespace with an environment variable' do
+      stub_sidekiq_stats
+      metric = QueueSizeMetric.new(stub_responses: true)
+
+      ClimateControl.modify INFRASTRUCTURE_ENVIRONMENT: 'bob' do
+        metric.publish
+        executed_request = metric.aws_client.api_requests[0]
+        expect(executed_request[:params][:namespace]).to eq 'api-worker-bob'
+      end
+    end
   end
 
   def stub_sidekiq_stats
