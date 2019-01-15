@@ -57,6 +57,10 @@ gem 'sidekiq-cron'
 
 gem 'activerecord-import'
 
+# SOAP-related libraries for Workday integration
+gem 'lolsoap', require: false
+gem 'akami', require: false
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
