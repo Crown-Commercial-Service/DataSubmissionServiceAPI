@@ -64,11 +64,11 @@ module Workday
     end
 
     def management_charge
-      format '%.2f', submission.entries.invoices.sum(:management_charge).truncate(2)
+      format '%.2f', submission.management_charge.truncate(2)
     end
 
     def total_spend
-      format '%.2f', submission.entries.invoices.sum(:total_value).truncate(2)
+      format '%.2f', submission.total_spend.truncate(2)
     end
 
     def supplier_salesforce_id

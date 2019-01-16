@@ -44,4 +44,12 @@ class Submission < ApplicationRecord
   def agreement
     supplier.agreement_for_framework(framework)
   end
+
+  def management_charge
+    entries.invoices.sum(:management_charge)
+  end
+
+  def total_spend
+    entries.invoices.sum(:total_value)
+  end
 end
