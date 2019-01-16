@@ -17,4 +17,20 @@ module ConsoleHelpers
       STDERR.puts "\n"
     end
   end
+
+  # Outputs email addresses for users that have outstanding tasks for the given
+  # month and year, including the Frameworks they are overdue with.
+  def naughty_list(month:, year:)
+    late_tasks_scope = Task.where(period_month: month, period_year: year).where.not(status: :completed)
+    suppliers = Supplier.joins(:tasks).merge(late_tasks_scope)
+
+    suppliers.each do |supplier|
+      late_frameworks = supplier.tasks.merge(late_tasks_scope).map(&:framework)
+      framework_short_names = late_frameworks.map(&:short_name).join(',')
+      supplier.users.each do |user|
+        STDERR.puts "#{user.name} <#{user.email}>,#{framework_short_names}"
+      end
+    end
+    STDERR.puts "\n"
+  end
 end
