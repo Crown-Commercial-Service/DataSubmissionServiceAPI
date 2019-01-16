@@ -7,8 +7,7 @@ module Workday
   class SubmitCustomerInvoiceRequest
     def initialize(submission)
       @submission = submission
-      @client = LolSoap::Client.new(File.read('data/workday_revenue_management_v31.0.xml'))
-      @request = @client.request('Submit_Customer_Invoice')
+      @request = Workday.client.request('Submit_Customer_Invoice')
 
       prepare_request_body
       set_wsse_header

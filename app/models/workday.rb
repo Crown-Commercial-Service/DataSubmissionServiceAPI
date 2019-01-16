@@ -7,6 +7,10 @@ module Workday
     @config ||= {}
   end
 
+  def self.client
+    @client ||= LolSoap::Client.new(File.read('data/workday_revenue_management_v31.0.xml'))
+  end
+
   def self.api_username=(username)
     config[:username] = username
   end
