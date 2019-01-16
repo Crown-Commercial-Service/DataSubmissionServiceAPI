@@ -14,6 +14,36 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
   end
 
   describe '#content' do
+    describe 'Security header' do
+      let(:wsse_namespace) do
+        { 'xmlns:wsse' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' }
+      end
+
+      around(:example) do |example|
+        old_username = Workday.api_username
+        old_password = Workday.api_password
+        Workday.api_username = 'a_username'
+        Workday.api_password = 'some_password'
+
+        example.run
+
+        Workday.api_username = old_username
+        Workday.api_password = old_password
+      end
+
+      it 'sets a wsse:UsernameToken security header for authenticating against the API' do
+        header = Nokogiri::XML(request.content).at_xpath('//soap:Envelope//soap:Header')
+
+        expect(
+          header.at_xpath('//wsse:Security//wsse:UsernameToken//wsse:Username', wsse_namespace).text
+        ).to eq 'a_username'
+
+        expect(
+          header.at_xpath('//wsse:Security//wsse:UsernameToken//wsse:Password', wsse_namespace).text
+        ).to eq 'some_password'
+      end
+    end
+
     it 'sets Company_Reference with the CCS Workday Company_Reference_ID' do
       expect(
         text_at_xpath("//ns0:Company_Reference//ns0:ID[@ns0:type='Company_Reference_ID']")

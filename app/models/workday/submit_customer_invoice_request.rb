@@ -1,4 +1,5 @@
 require 'lolsoap'
+require 'akami'
 
 module Workday
   CCS_COMPANY_REFERENCE = 'Crown_Commercial_Service'.freeze
@@ -10,6 +11,7 @@ module Workday
       @request = @client.request('Submit_Customer_Invoice')
 
       prepare_request_body
+      set_wsse_header
     end
 
     delegate :url, :content, to: :request
@@ -69,6 +71,12 @@ module Workday
 
     def total_spend
       format '%.2f', submission.total_spend.truncate(2)
+    end
+
+    def set_wsse_header
+      wsse = Akami.wsse
+      wsse.credentials(Workday.api_username, Workday.api_password)
+      request.header.__node__.parent << wsse.to_xml
     end
 
     def supplier_salesforce_id
