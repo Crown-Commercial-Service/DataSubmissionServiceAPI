@@ -27,7 +27,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
     end
 
     it 'sets From_Date with the date the Submission is being made against' do
-      expect(text_at_xpath('//ns0:From_Date')).to eq Date.new(task.period_year, task.period_month).to_s
+      expect(text_at_xpath('//ns0:From_Date')).to eq task.period_date.to_s
     end
 
     it 'sets Customer_PO_Number with the Submission’s purchase order number' do

@@ -24,7 +24,7 @@ module Workday
         body.Customer_Invoice_Data do |invoice|
           invoice.Company_Reference.ID    CCS_COMPANY_REFERENCE, 'ns0:type': 'Company_Reference_ID'
           invoice.Customer_Reference.ID   supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
-          invoice.From_Date               task_period_date.to_s
+          invoice.From_Date               task.period_date.to_s
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
 
@@ -79,12 +79,8 @@ module Workday
       submission.task
     end
 
-    def task_period_date
-      Date.new(task.period_year, task.period_month)
-    end
-
     def task_period_in_words
-      task_period_date.strftime('%B %Y')
+      task.period_date.strftime('%B %Y')
     end
   end
 end

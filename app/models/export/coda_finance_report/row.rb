@@ -88,7 +88,7 @@ module Export
       private
 
       def task_period
-        Date.new(task.period_year, task.period_month).strftime('%B %Y')
+        task.period_date.strftime('%B %Y')
       end
 
       def sector_identifier
