@@ -2,6 +2,8 @@ require 'lolsoap'
 require 'akami'
 
 module Workday
+  class Fault < StandardError; end
+
   CCS_COMPANY_REFERENCE = 'Crown_Commercial_Service'.freeze
 
   class SubmitCustomerInvoiceRequest
@@ -14,6 +16,14 @@ module Workday
     end
 
     delegate :url, :content, to: :request
+
+    def perform
+      raw_response = HTTP.headers(request.headers).post(request.url, body: request.content)
+      response = Workday.client.response(@request, raw_response)
+      raise Fault, response.fault.reason if response.fault
+
+      response.body_hash.fetch('Customer_Invoice_Reference').fetch('ID').first
+    end
 
     private
 

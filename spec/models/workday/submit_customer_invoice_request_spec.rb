@@ -106,4 +106,33 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       Nokogiri::XML(request.content).at_xpath(xpath).text
     end
   end
+
+  describe '#perform' do
+    let!(:stub) do
+      stub_request(:post, request.url)
+        .with(body: request.content)
+        .to_return(status: 200, body: File.read(Rails.root.join('spec', 'fixtures', response)))
+    end
+
+    describe 'when successful' do
+      let(:response) { 'created_invoice_response.xml' }
+
+      it 'makes the POST request to the Workday SOAP endpoint' do
+        request.perform
+        expect(stub).to have_been_requested
+      end
+
+      it 'it returns the ID for the invoice' do
+        expect(request.perform).to eq('25354762f7398134ecf5593c822aa50c')
+      end
+    end
+
+    describe 'when there is a fault returned by workday' do
+      let(:response) { 'workday_auth_failure.xml' }
+
+      it 'raises an exception with the fault reason as the message' do
+        expect { request.perform }.to raise_error(Workday::Fault, 'invalid username or password')
+      end
+    end
+  end
 end
