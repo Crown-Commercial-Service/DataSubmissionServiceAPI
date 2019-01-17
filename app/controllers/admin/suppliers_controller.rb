@@ -1,6 +1,6 @@
 class Admin::SuppliersController < AdminController
   def index
-    @suppliers = Supplier.page(params[:page])
+    @suppliers = Supplier.search(params[:search]).page(params[:page])
   end
 
   def show
