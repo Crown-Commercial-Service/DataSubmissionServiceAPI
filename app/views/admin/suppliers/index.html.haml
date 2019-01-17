@@ -1,0 +1,17 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Suppliers
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Name
+      %tbody.govuk-table__body
+        - @suppliers.each do |supplier|
+          %tr.govuk-table__row
+            %td.govuk-table__cell= supplier.name
+
+    = paginate @suppliers

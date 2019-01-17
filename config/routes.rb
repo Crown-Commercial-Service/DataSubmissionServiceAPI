@@ -66,6 +66,7 @@ Rails.application.routes.draw do
         get :confirm_delete
       end
     end
+    resources :suppliers, only: %i[index]
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
   end
