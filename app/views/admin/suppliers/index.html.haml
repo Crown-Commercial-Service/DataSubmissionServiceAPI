@@ -12,6 +12,6 @@
       %tbody.govuk-table__body
         - @suppliers.each do |supplier|
           %tr.govuk-table__row
-            %td.govuk-table__cell= supplier.name
+            %td.govuk-table__cell= link_to supplier.name, admin_supplier_path(supplier)
 
     = paginate @suppliers

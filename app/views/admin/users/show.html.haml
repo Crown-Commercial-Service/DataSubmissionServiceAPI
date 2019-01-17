@@ -31,7 +31,7 @@
       %tbody.govuk-table__body
         - @user.memberships.each do |membership|
           %tr.govuk-table__row
-            %td.govuk-table__cell= membership.supplier.name
+            %td.govuk-table__cell= link_to membership.supplier.name, admin_supplier_path(membership.supplier)
             %td.govuk-table__cell
               %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
                 %h3#table-actions-title-1.govuk-visually-hidden Row actions
