@@ -20,6 +20,41 @@ RSpec.describe SubmissionCompletion do
 
           expect(task).to be_completed
         end
+
+        context 'when SUBMIT_INVOICES env flag is set' do
+          around do |example|
+            ClimateControl.modify SUBMIT_INVOICES: 'true' do
+              example.run
+            end
+          end
+
+          it 'creates a SubmissionInvoiceSubmissionJob' do
+            complete_submission.perform!
+            expect(SubmissionInvoiceCreationJob).to have_been_enqueued.with(submission)
+          end
+
+          context 'when submission is report_no_business' do
+            let(:submission) { FactoryBot.create(:no_business_submission, aasm_state: 'in_review', task: task) }
+
+            it 'does not create a SubmissionInvoiceSubmissionJob' do
+              complete_submission.perform!
+              expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
+            end
+          end
+        end
+
+        context 'when SUBMIT_INVOICES env flag is not set' do
+          around do |example|
+            ClimateControl.modify SUBMIT_INVOICES: nil do
+              example.run
+            end
+          end
+
+          it 'does not create a SubmissionInvoiceSubmissionJob' do
+            complete_submission.perform!
+            expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
+          end
+        end
       end
 
       context 'with some invalid entries' do
