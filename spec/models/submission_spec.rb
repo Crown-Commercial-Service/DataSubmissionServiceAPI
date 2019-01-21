@@ -42,4 +42,26 @@ RSpec.describe Submission do
       expect(FactoryBot.create(:submission).report_no_business?).to be(true)
     end
   end
+
+  describe 'sums on invoice entries' do
+    let(:submission) do
+      FactoryBot.create(:submission).tap do |submission|
+        submission.entries << FactoryBot.build(:invoice_entry, :valid, total_value: 100.00, management_charge: 1)
+        submission.entries << FactoryBot.build(:invoice_entry, :valid, total_value: 460.00, management_charge: 4.6)
+        submission.entries << FactoryBot.build(:order_entry, :valid, total_value: 99.00)
+      end
+    end
+
+    describe '#management_charge' do
+      it 'returns the sum of all the management charges for the entries of type "invoice"' do
+        expect(submission.management_charge).to eq BigDecimal('5.60')
+      end
+    end
+
+    describe '#total_spend' do
+      it 'returns the sum of all the total_values for the entries of type "invoice"' do
+        expect(submission.total_spend).to eq BigDecimal('560')
+      end
+    end
+  end
 end

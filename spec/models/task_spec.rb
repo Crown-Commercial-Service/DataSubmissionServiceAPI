@@ -43,4 +43,11 @@ RSpec.describe Task do
       expect(task.reload).to be_completed
     end
   end
+
+  describe '#period_date' do
+    it 'returns a date for the task’s period' do
+      task = Task.new(period_year: 2020, period_month: 5)
+      expect(task.period_date).to eq Date.new(2020, 5, 1)
+    end
+  end
 end
