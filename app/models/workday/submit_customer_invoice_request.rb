@@ -58,12 +58,12 @@ module Workday
 
     # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
     def framework_cost_center_id
-      'e02956ef5ea301814e48cb47a267e959'
+      'd19d3c5849dc01dae8faf3b96d146f5f'
     end
 
     # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
     def framework_revenue_category_id
-      'a2f06ac13aa001298fa4baeb696a06f3'
+      'cab066ff165e0120b19039874b126b13'
     end
 
     def invoice_memo
