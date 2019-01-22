@@ -10,14 +10,14 @@ RSpec.describe SubmissionInvoiceCreationJob do
     end
 
     it 'calls SubmitCustomerInvoiceRequest with correct submission' do
-      SubmissionInvoiceCreationJob.perform_now(submission)
+      SubmissionInvoiceCreationJob.perform_now(submission.id)
 
       expect(submit_invoice_request_double).to have_received(:perform)
     end
 
     it 'creates a SubmissionInvoice with the correct workday_reference' do
       expect do
-        SubmissionInvoiceCreationJob.perform_now(submission)
+        SubmissionInvoiceCreationJob.perform_now(submission.id)
       end.to change { SubmissionInvoice.count }.by(1)
       expect(submission.invoice.workday_reference).to eq('INVOICE_ID')
     end
@@ -25,7 +25,7 @@ RSpec.describe SubmissionInvoiceCreationJob do
     it 'raise if an invoice already exists' do
       submission.invoice = FactoryBot.create(:submission_invoice)
       expect do
-        SubmissionInvoiceCreationJob.perform_now(submission)
+        SubmissionInvoiceCreationJob.perform_now(submission.id)
       end.to raise_error(/already has an invoice/)
       expect(submit_invoice_request_double).to_not have_received(:perform)
     end

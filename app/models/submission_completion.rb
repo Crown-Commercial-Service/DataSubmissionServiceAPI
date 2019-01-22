@@ -10,7 +10,9 @@ class SubmissionCompletion
       submission.task.completed!
     end
 
-    SubmissionInvoiceCreationJob.perform_later(submission) if !submission.report_no_business? && ENV['SUBMIT_INVOICES']
+    if !submission.report_no_business? && ENV['SUBMIT_INVOICES']
+      SubmissionInvoiceCreationJob.perform_later(submission.id)
+    end
 
     submission
   end

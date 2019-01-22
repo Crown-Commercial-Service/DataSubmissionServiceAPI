@@ -30,7 +30,7 @@ RSpec.describe SubmissionCompletion do
 
           it 'creates a SubmissionInvoiceSubmissionJob' do
             complete_submission.perform!
-            expect(SubmissionInvoiceCreationJob).to have_been_enqueued.with(submission)
+            expect(SubmissionInvoiceCreationJob).to have_been_enqueued.with(submission.id)
           end
 
           context 'when submission is report_no_business' do
