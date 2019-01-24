@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-41] - 2019-01-24
+
+- Added Workday invoice generation code
+- Added new SubmissionInvoice model to storing reference for Workday invoices
+- Switched to using IAM role on the container for AWS API authentication
+- Fixed bug caused by double-clicking during submission
+
 ## [release-40] - 2019-01-14
 
 - Lock scoping of user/task/submissions to current user
@@ -246,6 +253,7 @@
 
 Initial release
 
+[release-41]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-40...release-41
 [release-40]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-39...release-40
 [release-39]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-38...release-39
 [release-38]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-37...release-38
