@@ -5,6 +5,7 @@ class Admin::UsersController < AdminController
 
   def show
     @user = User.find(params[:id])
+    @memberships = @user.memberships.includes(:supplier)
   end
 
   def new
