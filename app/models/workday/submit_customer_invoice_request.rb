@@ -38,6 +38,7 @@ module Workday
           invoice.From_Date               task.period_date.to_s
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
+          invoice.Submit                  false
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|
             invoice_line.Line_Item_Description      line_item_description
