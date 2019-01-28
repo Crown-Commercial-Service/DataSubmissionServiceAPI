@@ -56,9 +56,11 @@ module Export
         submission.purchase_order_number
       end
 
-      # Fields that are nil for MVP
-      def created_by; end
+      def created_by
+        submission.created_by.try(:name)
+      end
 
+      # Fields that are nil for MVP
       def supplier_approved_date; end
 
       def supplier_approved_by; end
