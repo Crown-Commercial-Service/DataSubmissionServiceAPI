@@ -28,9 +28,10 @@ RSpec.describe Task do
 
   describe '#file_no_business!' do
     let(:task) { FactoryBot.create(:task) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'creates an empty completed submission' do
-      expect { task.file_no_business! }.to change { task.submissions.count }.by 1
+      expect { task.file_no_business!(user) }.to change { task.submissions.count }.by 1
 
       submission = task.latest_submission
 
@@ -39,8 +40,15 @@ RSpec.describe Task do
     end
 
     it 'transitions the task to "completed"' do
-      task.file_no_business!
+      task.file_no_business!(user)
       expect(task.reload).to be_completed
+    end
+
+    it 'records the user who submitted it' do
+      task.file_no_business!(user)
+      submission = task.latest_submission
+
+      expect(submission.created_by).to eq(user)
     end
   end
 
