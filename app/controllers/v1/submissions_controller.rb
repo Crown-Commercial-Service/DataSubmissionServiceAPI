@@ -15,6 +15,7 @@ class V1::SubmissionsController < APIController
     submission = task.submissions.new(
       framework: task.framework,
       supplier: task.supplier,
+      created_by: current_user,
       purchase_order_number: params.dig(:submission, :purchase_order_number)
     )
 
