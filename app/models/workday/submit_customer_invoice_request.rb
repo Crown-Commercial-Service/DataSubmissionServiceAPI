@@ -44,9 +44,8 @@ module Workday
             invoice_line.Line_Item_Description      line_item_description
             invoice_line.Extended_Amount            management_charge
             invoice_line.Analytical_Amount          total_spend
-            invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'WID'
-            invoice_line.Worktags_Reference.ID      framework_cost_center_id, 'ns0:type': 'WID'
             invoice_line.Worktags_Reference.ID      framework.short_name, 'ns0:type': 'Custom_Organization_Reference_ID'
+            invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'WID'
           end
         end
       end
@@ -55,11 +54,6 @@ module Workday
 
     def framework
       submission.framework
-    end
-
-    # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
-    def framework_cost_center_id
-      'd19d3c5849dc01dae8faf3b96d146f5f'
     end
 
     # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
