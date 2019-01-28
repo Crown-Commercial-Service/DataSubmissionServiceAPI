@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Workday::SubmitCustomerInvoiceRequest do
+RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
   let(:submission) { FactoryBot.create(:submission_with_validated_entries, purchase_order_number: '123') }
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
-  let(:request) { Workday::SubmitCustomerInvoiceRequest.new(submission) }
+  let(:request) { Workday::SubmitCustomerInvoiceAdjustmentRequest.new(submission) }
 
   it_behaves_like 'a workday request'
 
@@ -83,7 +83,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
     end
 
     describe 'when successful' do
-      let(:response) { 'created_invoice_response.xml' }
+      let(:response) { 'created_invoice_adjustment_response.xml' }
 
       it 'makes the POST request to the Workday SOAP endpoint' do
         request.perform
@@ -91,7 +91,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       end
 
       it 'it returns the ID for the invoice' do
-        expect(request.perform).to eq('25354762f7398134ecf5593c822aa50c')
+        expect(request.perform).to eq('2a743abbf5e3819a6451179ed62d1c06')
       end
     end
 
