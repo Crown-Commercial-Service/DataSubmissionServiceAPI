@@ -1,0 +1,47 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl= @supplier.name
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
+      Users
+
+    -if @supplier.users.present?
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Name
+            %th.govuk-table__header Email
+        %tbody.govuk-table__body
+          - @supplier.users.each do |user|
+            %tr.govuk-table__row
+              %td.govuk-table__cell
+                = link_to user.name, admin_user_path(user)
+              %td.govuk-table__cell
+                = user.email
+    -else
+      %p
+        No users linked to
+        = @supplier.name
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
+      Frameworks
+
+    -if @supplier.frameworks.present?
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Name
+        %tbody.govuk-table__body
+          - @supplier.frameworks.each do |framework|
+            %tr.govuk-table__row
+              %td.govuk-table__cell
+                = framework.short_name
+                = framework.name
+    -else
+      %p
+        No frameworks for
+        = @supplier.name
