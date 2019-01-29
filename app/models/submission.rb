@@ -4,6 +4,7 @@ class Submission < ApplicationRecord
   belongs_to :framework
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User', optional: true
+  belongs_to :submitted_by, class_name: 'User', optional: true
   belongs_to :task
 
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
