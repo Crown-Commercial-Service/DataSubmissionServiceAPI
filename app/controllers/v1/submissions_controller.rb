@@ -47,6 +47,6 @@ class V1::SubmissionsController < APIController
   private
 
   def complete_submission!(submission)
-    SubmissionCompletion.new(submission).perform!
+    SubmissionCompletion.new(submission, current_user).perform!
   end
 end
