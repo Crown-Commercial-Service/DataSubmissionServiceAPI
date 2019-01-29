@@ -1,3 +1,6 @@
+# the following require 'forwardable' is to avoid rspec/json_expectations randomly failing.
+# It can be removed if https://github.com/waterlink/rspec-json_expectations/pull/26 is merged.
+require 'forwardable'
 require 'rspec/json_expectations'
 require 'aasm/rspec'
 require 'webmock/rspec'

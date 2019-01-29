@@ -49,6 +49,9 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     aggregate_root (0.30.0)
+    akami (1.3.1)
+      gyoku (>= 0.4.0)
+      nokogiri
     arel (9.0.0)
     arkency-command_bus (0.4.0)
       thread_safe
@@ -119,6 +122,8 @@ GEM
       raabro (~> 1.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -136,8 +141,15 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    http (4.0.0)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    http-form_data (2.1.1)
+    http_parser.rb (0.6.0)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.2)
@@ -179,6 +191,8 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
+    lolsoap (0.9.0)
+      nokogiri (~> 1.5)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -397,6 +411,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   activerecord-import
+  akami
   auth0
   aws-sdk-cloudwatch
   aws-sdk-s3
@@ -409,12 +424,14 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   haml-rails
+  http
   jbuilder (~> 2.5)
   jsonapi-rails
   jsonapi-rspec
   kaminari
   listen (>= 3.0.5, < 3.2)
   lograge
+  lolsoap
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
   progress_bar

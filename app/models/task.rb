@@ -19,6 +19,8 @@ class Task < ApplicationRecord
   has_many :submissions, dependent: :nullify
   has_one :latest_submission, -> { order(created_at: :desc) }, inverse_of: :task, class_name: 'Submission'
 
+  delegate :name, to: :supplier, prefix: true
+
   def file_no_business!
     transaction do
       completed!
@@ -26,5 +28,7 @@ class Task < ApplicationRecord
     end
   end
 
-  delegate :name, to: :supplier, prefix: true
+  def period_date
+    Date.new(period_year, period_month)
+  end
 end

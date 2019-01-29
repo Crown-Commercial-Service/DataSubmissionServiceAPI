@@ -7,6 +7,7 @@ class Submission < ApplicationRecord
 
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
   has_many :entries, dependent: :nullify, class_name: 'SubmissionEntry'
+  has_one :invoice, dependent: :nullify, class_name: 'SubmissionInvoice'
 
   aasm do
     state :pending, initial: true
@@ -43,5 +44,13 @@ class Submission < ApplicationRecord
 
   def agreement
     supplier.agreement_for_framework(framework)
+  end
+
+  def management_charge
+    entries.invoices.sum(:management_charge)
+  end
+
+  def total_spend
+    entries.invoices.sum(:total_value)
   end
 end

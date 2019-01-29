@@ -1,0 +1,8 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Body>
+      <SOAP-ENV:Fault xmlns:wd="urn:com.workday/bsvc">
+         <faultcode>SOAP-ENV:Client.authenticationError</faultcode>
+         <faultstring>invalid username or password</faultstring>
+      </SOAP-ENV:Fault>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

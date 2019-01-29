@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+  <env:Body>
+    <wd:Submit_Customer_Invoice_Response xmlns:wd="urn:com.workday/bsvc" wd:version="v31.0">
+      <wd:Customer_Invoice_Reference>
+        <wd:ID wd:type="WID">25354762f7398134ecf5593c822aa50c</wd:ID>
+        <wd:ID wd:type="Customer_Invoice_Reference_ID">CUSTOMER_INVOICE-6-2205</wd:ID>
+      </wd:Customer_Invoice_Reference>
+    </wd:Submit_Customer_Invoice_Response>
+  </env:Body>
+</env:Envelope>
