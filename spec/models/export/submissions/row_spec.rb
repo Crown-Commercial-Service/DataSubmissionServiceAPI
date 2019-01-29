@@ -108,6 +108,42 @@ RSpec.describe Export::Submissions::Row do
     end
   end
 
+  describe '#supplier_approved_by' do
+    context 'when it is present on the submission' do
+      let(:submission) { double 'Submission', submitted_by: double('User', name: 'Forename Surname') }
+
+      it 'is the name of the user who submitted it' do
+        expect(row.supplier_approved_by).to eq('Forename Surname')
+      end
+    end
+
+    context 'when it is not present on the submission' do
+      let(:submission) { double 'Submission', submitted_by: nil }
+
+      it 'is nil' do
+        expect(row.supplier_approved_by).to be_nil
+      end
+    end
+  end
+
+  describe '#supplier_approved_date' do
+    context 'when it is present on the submission' do
+      let(:submission) { double 'Submission', submitted_at: Time.zone.local(2018, 9, 20, 10, 11, 12) }
+
+      it 'is the time of submission' do
+        expect(row.supplier_approved_date).to eq('2018-09-20T10:11:12Z')
+      end
+    end
+
+    context 'when it is not present on the submission' do
+      let(:submission) { double 'Submission', submitted_at: nil }
+
+      it 'is nil' do
+        expect(row.supplier_approved_date).to be_nil
+      end
+    end
+  end
+
   describe '#po_number' do
     let(:submission) { double 'Submission', purchase_order_number: 'PO1234' }
     subject { row.po_number }
@@ -115,16 +151,6 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe 'the fields that are absent for MVP' do
-    describe '#supplier_approved_date' do
-      subject { row.supplier_approved_date }
-      it { is_expected.to be_nil }
-    end
-
-    describe '#supplier_approved_by' do
-      subject { row.supplier_approved_by }
-      it { is_expected.to be_nil }
-    end
-
     describe '#finance_export_date' do
       subject { row.finance_export_date }
       it { is_expected.to be_nil }
