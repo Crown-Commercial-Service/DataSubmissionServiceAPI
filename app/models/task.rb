@@ -21,10 +21,10 @@ class Task < ApplicationRecord
 
   delegate :name, to: :supplier, prefix: true
 
-  def file_no_business!
+  def file_no_business!(user)
     transaction do
       completed!
-      submissions.create!(framework: framework, supplier: supplier, aasm_state: :completed)
+      submissions.create!(framework: framework, supplier: supplier, created_by: user, aasm_state: :completed)
     end
   end
 

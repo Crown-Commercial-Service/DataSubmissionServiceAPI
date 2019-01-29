@@ -175,17 +175,15 @@ RSpec.describe '/v1' do
   end
 
   describe 'POST /v1/tasks/:task_id/no_business' do
-    it 'marks the task as completed' do
-      task = FactoryBot.create(:task, supplier: supplier)
+    let(:task) { FactoryBot.create(:task, supplier: supplier) }
 
+    it 'marks the task as completed' do
       post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(task.reload).to be_completed
     end
 
-    it 'creates and returns a completed submissions' do
-      task = FactoryBot.create(:task, supplier: supplier)
-
+    it 'creates and returns a completed submission' do
       post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to have_http_status(:created)
@@ -194,6 +192,14 @@ RSpec.describe '/v1' do
 
       expect(json['data']).to have_id submission.id
       expect(json['data']['attributes']['status']).to eq 'completed'
+    end
+
+    it 'records the user who submitted' do
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
+      submission = task.submissions.last
+
+      expect(submission.created_by).to eq(user)
     end
 
     it "prevents a user from reporting no business on someone else's task" do
@@ -206,8 +212,7 @@ RSpec.describe '/v1' do
 
     context 'if task already completed' do
       it 'should do nothing and return succesfully' do
-        task = FactoryBot.create(:task, supplier: supplier)
-        task.file_no_business!
+        task.file_no_business!(user)
 
         post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
 
