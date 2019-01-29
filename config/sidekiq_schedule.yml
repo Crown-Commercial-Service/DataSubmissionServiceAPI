@@ -2,3 +2,7 @@ queue_size_metric:
   cron: "*/30 * * * * *"
   class: "QueueSizeMetricJob"
   queue: default
+update_framework_revenue_categories:
+  cron: "0 12 * * 1-5"
+  class: "UpdateFrameworkRevenueCategoriesJob"
+  queue: default
