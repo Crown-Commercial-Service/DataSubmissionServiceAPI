@@ -52,9 +52,8 @@ module Workday
       submission.framework
     end
 
-    # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
     def framework_revenue_category_id
-      'cab066ff165e0120b19039874b126b13'
+      framework.revenue_category_wid
     end
 
     def invoice_memo

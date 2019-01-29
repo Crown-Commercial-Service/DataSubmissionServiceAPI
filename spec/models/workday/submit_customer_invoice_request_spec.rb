@@ -57,16 +57,10 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
         ).to eq framework.short_name
       end
 
-      pending 'sets Revenue_Category_Reference//ID as the revenue category Worday ID for the Framework' do
+      it 'sets Revenue_Category_Reference//ID as the revenue category Worday ID for the Framework' do
         expect(
           text_at_xpath("//ns0:Revenue_Category_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A revenue category ID from workday'
-      end
-
-      pending 'sets a Worktags_Reference//ID with the cost center Workday ID for the Framework' do
-        expect(
-          text_at_xpath("//ns0:Worktags_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A cost center ID from Workday'
+        ).to eq 'd19d3c5849dc01117ee5b3b96d141f5f'
       end
     end
 
