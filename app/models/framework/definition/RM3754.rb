@@ -18,14 +18,14 @@ class Framework
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Vehicle Registration No', :string, exports_to: 'Additional1'
         field 'Total Number of Units', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
         field 'Total Charge (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
+        field 'Payment Profile', :string, exports_to: 'Additional2'
         field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
+        field 'Subcontractor Supplier Name', :string, exports_to: 'Additional3'
         field 'Cost Centre', :string
         field 'Contract Number', :string
-        field 'Vehicle Registration No', :string, exports_to: 'Additional1'
-        field 'Payment Profile', :string, exports_to: 'Additional2'
-        field 'Subcontractor Supplier Name', :string, exports_to: 'Additional3'
       end
     end
   end
