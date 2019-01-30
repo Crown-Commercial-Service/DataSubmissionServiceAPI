@@ -20,19 +20,17 @@ class Framework
         field 'Vehicle Make', :string, exports_to: 'ProductClass'
         field 'Vehicle Segment', :string, exports_to: 'ProductGroup'
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
+        field 'Vehicle Registration Number', :string, exports_to: 'Additional1'
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Invoice Price Per Vehicle', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'Additional Expenditure to provide goods', :string, exports_to: 'Expenses', ingested_numericality: true, allow_nil: true
+        field 'All Conversion and third party conversion costs excluding factory fit options', :string, exports_to: 'Additional2', ingested_numericality: true, allow_nil: true
         field 'VAT Applicable?', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
         field 'Vehicle CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Trim/Derivative', :string, exports_to: 'ProductDescription'
-        field 'Cost Centre', :string
-        field 'Contract Number', :string
-        field 'Vehicle Registration Number', :string, exports_to: 'Additional1'
-        field 'All Conversion and third party conversion costs excluding factory fit options', :string, exports_to: 'Additional2', ingested_numericality: true, allow_nil: true
         field 'CO2 Emissions', :string, exports_to: 'Additional3', ingested_numericality: true, allow_nil: true
         field 'Fuel Type', :string, exports_to: 'Additional4'
         field 'Customer Support Terms', :string, exports_to: 'Additional5'
@@ -41,6 +39,8 @@ class Framework
         field 'Invoice Price Excluding Options', :string, exports_to: 'Additional8', ingested_numericality: true, allow_nil: true
         field 'List Price Excluding Options', :string, ingested_numericality: true, allow_nil: true
         field 'eAuction Contract No', :string
+        field 'Cost Centre', :string
+        field 'Contract Number', :string
       end
     end
   end
