@@ -32,6 +32,7 @@ module Workday
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
           invoice.Submit                  false
+          invoice.Note_Data.Note_Content  submitted_by_note_content
           invoice.Adjustment_Reason_Reference 'ns0:Descriptor': 'Incorrect MI Return' do |reason|
             reason.ID 'Incorrect MI Return', 'ns0:type': 'Adjustment_Reason_ID'
           end
@@ -59,6 +60,10 @@ module Workday
 
     def invoice_memo
       "Submission ID: #{submission.id}"
+    end
+
+    def submitted_by_note_content
+      submission.submitted_by.name if submission.submitted_by.present?
     end
 
     def line_item_description
