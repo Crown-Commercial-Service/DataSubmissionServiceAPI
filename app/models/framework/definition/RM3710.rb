@@ -14,22 +14,22 @@ class Framework
         field 'Customer PostCode', :string, exports_to: 'CustomerPostCode'
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
-        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber'
-        field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit (Ex VAT)', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
+        field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
+        field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
+        field 'Price per Unit (Ex VAT)', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
         field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
         field 'Subcontractor Supplier Name', :string, exports_to: 'Additional2', presence: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Registration', :string, exports_to: 'Additional1', presence: true
-        field 'Vehicle Make', :string, exports_to: 'ProductClass'
-        field 'Vehicle Model', :string, exports_to: 'ProductSubClass'
-        field 'Product Description - Vehicle Derivative / Fleet Management Services', :string, exports_to: 'ProductDescription'
-        field 'Product Classification', :string, exports_to: 'ProductGroup'
+        field 'Vehicle Make', :string, exports_to: 'ProductClass', presence: true
+        field 'Vehicle Model', :string, exports_to: 'ProductSubClass', presence: true
+        field 'Product Description - Vehicle Derivative / Fleet Management Services', :string, exports_to: 'ProductDescription', presence: true
+        field 'Product Classification', :string, exports_to: 'ProductGroup', presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
-        field 'Fuel Type', :string, exports_to: 'Additional4'
+        field 'Fuel Type', :string, exports_to: 'Additional4', presence: true
         field 'CO2 Emission Levels', :string, exports_to: 'Additional3', ingested_numericality: true, allow_nil: true
         field 'Vehicle Convertors Name', :string, exports_to: 'Additional5'
         field 'Vehicle Conversion Type', :string, exports_to: 'Additional6'
