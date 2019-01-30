@@ -21,16 +21,14 @@ class Framework
         field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
+        field 'Subcontractor Supplier Name', :string, exports_to: 'Additional2', presence: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
+        field 'Vehicle Registration', :string, exports_to: 'Additional1', presence: true
         field 'Vehicle Make', :string, exports_to: 'ProductClass'
         field 'Vehicle Model', :string, exports_to: 'ProductSubClass'
         field 'Product Description - Vehicle Derivative / Fleet Management Services', :string, exports_to: 'ProductDescription'
         field 'Product Classification', :string, exports_to: 'ProductGroup'
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
-        field 'Cost Centre', :string
-        field 'Contract Number', :string
-        field 'Subcontractor Supplier Name', :string, exports_to: 'Additional2', presence: true
-        field 'Vehicle Registration', :string, exports_to: 'Additional1', presence: true
         field 'Fuel Type', :string, exports_to: 'Additional4'
         field 'CO2 Emission Levels', :string, exports_to: 'Additional3', ingested_numericality: true, allow_nil: true
         field 'Vehicle Convertors Name', :string, exports_to: 'Additional5'
@@ -46,6 +44,8 @@ class Framework
         field 'Annual Service Maintenance & Repair Costs ex VAT', :string, ingested_numericality: true, allow_nil: true
         field 'Residual Value', :string, ingested_numericality: true, allow_nil: true
         field 'Total Manufacturer Discount (%)', :string, ingested_numericality: true, allow_nil: true
+        field 'Cost Centre', :string
+        field 'Contract Number', :string
         field 'Spend Code', :string, exports_to: 'PromotionCode', inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
       end
     end
