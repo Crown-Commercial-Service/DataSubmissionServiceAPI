@@ -11,7 +11,6 @@ class Framework
 
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
-        # field 'Tyre Specification', :string, exports_to: 'ProductCode', presence: true
         field 'Vehicle Category', :string, exports_to: 'ProductSubClass'
         field 'Associated Service', :string, exports_to: 'ProductDescription'
         field 'Tyre Width', :string
@@ -36,11 +35,6 @@ class Framework
         field 'Contract Number', :string
         field 'Tyre Grade', :string, exports_to: 'Additional1'
         field 'Run Flats (Y/N)', :string, exports_to: 'Additional2', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
-        # field 'Core Tyre Price', :string, exports_to: 'Additional3', ingested_numericality: true
-        # field 'Valve Cost', :string, exports_to: 'Additional4', ingested_numericality: true
-        # field 'Fitment Cost', :string, exports_to: 'Additional5', ingested_numericality: true
-        # field 'Balance Cost', :string, exports_to: 'Additional6', ingested_numericality: true
-        # field 'Disposal Cost', :string, exports_to: 'Additional7', ingested_numericality: true
         field 'Subcontractor Name', :string, exports_to: 'Additional8'
       end
     end
