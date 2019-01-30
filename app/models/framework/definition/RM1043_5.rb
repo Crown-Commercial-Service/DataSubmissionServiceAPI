@@ -11,7 +11,7 @@ class Framework
         'Each'
       ].freeze
 
-      SERVICE_PROVIDED_VALUES = [
+      LOT_1_SERVICES = [
         'User Experience and Design',
         'Performance Analysis and Data',
         'Security',
@@ -20,6 +20,9 @@ class Framework
         'Support and Operations',
         'Testing and Auditing',
         'User Research',
+      ].freeze
+
+      LOT_2_SERVICES = [
         'Agile Coach',
         'Business Analyst',
         'Communications Manager',
@@ -40,9 +43,31 @@ class Framework
         'Technical Architect',
         'User Researcher',
         'Web Operations Engineer',
+      ].freeze
+
+      LOT_3_SERVICES = [
         'User Research Studios',
+      ].freeze
+
+      LOT_4_SERVICES = [
         'User Research Participants'
       ].freeze
+
+      SERVICE_PROVIDED_VALUES = (
+        LOT_1_SERVICES +
+        LOT_2_SERVICES +
+        LOT_3_SERVICES +
+        LOT_4_SERVICES
+      ).freeze
+
+      MAPPING = {
+        'Lot Number' => {
+          '1' => LOT_1_SERVICES,
+          '2' => LOT_2_SERVICES,
+          '3' => LOT_3_SERVICES,
+          '4' => LOT_4_SERVICES,
+        }
+      }.freeze
 
       class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
@@ -53,7 +78,7 @@ class Framework
         field 'Customer Invoice/Credit Note Date', :string, exports_to: 'Invoice Date', ingested_date: true, presence: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
-        field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, case_insensitive_inclusion: { in: SERVICE_PROVIDED_VALUES }
+        field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }, case_insensitive_inclusion: { in: SERVICE_PROVIDED_VALUES }
         field 'Unit of Measure', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true

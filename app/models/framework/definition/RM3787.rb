@@ -12,15 +12,7 @@ class Framework
         'Mixture'
       ].freeze
 
-      PRICING_MECHANISM_VALUES = [
-        'Time and Material',
-        'Fixed',
-        'Risk-Reward',
-        'Gain-Share',
-        'Pro-Bono'
-      ].freeze
-
-      PRIMARY_SPECIALISM_VALUES = [
+      CORE_SPECIALISMS = [
         'Corporate Finance',
         'Rescue, Restructuring &  Insolvency',
         'Financial services, market and completion regulation',
@@ -33,12 +25,36 @@ class Framework
         'High Value or complex transactions and disputes',
         'High value or complex merger and acquisition activity',
         'Projects of exceptional innovation and complexity',
+      ].freeze
+
+      NON_CORE_SPECIALISMS = [
         'Sovereign debt restructuring including international and EU structures and processes',
         'International development/aid funding',
         'International Financial organisations',
         'All aspects of law and practice relating to international trade agreements investments and associated regulations, and to the United Kingdom’s exit from the European Union, in so far as they relate to the above projects',
         'Credit / bond insurance, counter indemnities, alternative risk transfer mechanisms'
       ].freeze
+
+      PRICING_MECHANISM_VALUES = [
+        'Time and Material',
+        'Fixed',
+        'Risk-Reward',
+        'Gain-Share',
+        'Pro-Bono'
+      ].freeze
+
+      PRIMARY_SPECIALISM_VALUES = (
+        CORE_SPECIALISMS +
+        NON_CORE_SPECIALISMS
+      ).freeze
+
+      MAPPING = {
+        'Service Type' => {
+          'core' => CORE_SPECIALISMS,
+          'non-core' => NON_CORE_SPECIALISMS,
+          'mixture' => PRIMARY_SPECIALISM_VALUES,
+        }
+      }.freeze
 
       PRACTITIONER_GRADE_VALUES = [
         'Partner',
@@ -73,7 +89,7 @@ class Framework
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Service Type', :string, exports_to: 'ProductGroup', presence: true, case_insensitive_inclusion: { in: SERVICE_TYPE_VALUES }
-        field 'Primary Specialism', :string, exports_to: 'ProductClass', presence: true, case_insensitive_inclusion: { in: PRIMARY_SPECIALISM_VALUES, message: 'must match the selected service type. For a list of service types and specialisms, check the lookups tab in the template.' }
+        field 'Primary Specialism', :string, exports_to: 'ProductClass', presence: true, dependent_field_inclusion: { parent: 'Service Type', in: MAPPING }, case_insensitive_inclusion: { in: PRIMARY_SPECIALISM_VALUES, message: 'must match the selected service type. For a list of service types and specialisms, check the lookups tab in the template.' }
         field 'Practitioner Grade', :string, exports_to: 'ProductDescription', presence: true, case_insensitive_inclusion: { in: PRACTITIONER_GRADE_VALUES }
         field 'Pricing Mechanism', :string, exports_to: 'ProductSubClass', presence: true, case_insensitive_inclusion: { in: PRICING_MECHANISM_VALUES }
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }

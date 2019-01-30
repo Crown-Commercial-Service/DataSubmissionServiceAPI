@@ -1,0 +1,66 @@
+require 'rails_helper'
+
+RSpec.describe DependentFieldInclusionValidator do
+  let(:entry_data_class) do
+    Class.new(Framework::EntryData) do
+      extend ActiveModel::Naming
+
+      def self.name
+        'Validator'
+      end
+
+      mapping = {
+        'Service Type' => {
+          'core'     => ['Corporate Finance'],
+          'non-core' => ['Equity Capital Markets'],
+          'mixture'  => ['Asset Finance']
+        }
+      }
+
+      field 'Service Type', :string
+      field 'Primary Specialism', :string, dependent_field_inclusion: { parent: 'Service Type', in: mapping }
+    end
+  end
+
+  let(:submission) { FactoryBot.create(:submission, framework: framework) }
+  let(:framework)  { FactoryBot.create(:framework, short_name: 'RM3787') }
+  let(:agreement)  { FactoryBot.create(:agreement, framework: framework, supplier: submission.supplier) }
+  let(:entry)      { SubmissionEntry.new(submission: submission, data: data) }
+
+  before { entry_data.validate }
+
+  subject(:entry_data) { entry_data_class.new(entry) }
+
+  context 'the primary specialism corresponds to the service type' do
+    let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'Corporate Finance' } }
+    it { is_expected.to be_valid }
+  end
+
+  context 'the primary specialism corresponds to the service type case-insensitively' do
+    let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'CorPoRate FiNaNce' } }
+
+    it { is_expected.to be_valid }
+  end
+
+  context 'the primary specialism does not correspond to the service type' do
+    let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'Equity Capital Markets' } }
+
+    it { is_expected.to_not be_valid }
+    it 'has an error message' do
+      expect(entry_data.errors['Primary Specialism'].first).to eql(
+        '"Equity Capital Markets" is not a valid Primary Specialism for the given Service Type of "Core"'
+      )
+    end
+  end
+
+  context 'the primary specialism value is invalid' do
+    let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'something else' } }
+
+    it { is_expected.to_not be_valid }
+    it 'has an error message' do
+      expect(entry_data.errors['Primary Specialism'].first).to eql(
+        '"something else" is not a valid Primary Specialism for the given Service Type of "Core"'
+      )
+    end
+  end
+end
