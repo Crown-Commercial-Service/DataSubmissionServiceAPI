@@ -32,6 +32,7 @@ module Workday
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
           invoice.Submit                  false
+          invoice.Note_Data.Note_Content  submitted_by_note_content
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|
             invoice_line.Line_Item_Description      line_item_description
@@ -56,6 +57,10 @@ module Workday
 
     def invoice_memo
       "Submission ID: #{submission.id}"
+    end
+
+    def submitted_by_note_content
+      submission.submitted_by.name if submission.submitted_by.present?
     end
 
     def line_item_description

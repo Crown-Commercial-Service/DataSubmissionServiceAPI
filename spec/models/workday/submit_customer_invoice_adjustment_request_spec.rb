@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
-  let(:submission) { FactoryBot.create(:submission_with_validated_entries, purchase_order_number: '123') }
+  let(:user) { FactoryBot.create(:user, name: 'Forename Surname') }
+  let(:submission) do
+    FactoryBot.create(:submission_with_validated_entries,
+                      purchase_order_number: '123',
+                      submitted_by: user)
+  end
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
@@ -34,6 +39,10 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
 
     it 'sets Memo with the Submission’s ID' do
       expect(text_at_xpath('//ns0:Memo')).to eq "Submission ID: #{submission.id}"
+    end
+
+    it 'sets Note_Data with the name of the user who submitted the Submission' do
+      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
     end
 
     describe '//Customer_Invoice_Line_Replacement_Data' do
