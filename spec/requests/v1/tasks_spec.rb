@@ -194,12 +194,32 @@ RSpec.describe '/v1' do
       expect(json['data']['attributes']['status']).to eq 'completed'
     end
 
-    it 'records the user who submitted' do
+    it 'records the user who created the submission' do
       post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
 
       submission = task.submissions.last
 
       expect(submission.created_by).to eq(user)
+    end
+
+    it 'records the user who completed the submission' do
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
+      submission = task.submissions.last
+
+      expect(submission.submitted_by).to eq(user)
+    end
+
+    it 'records the time of submission' do
+      submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+
+      travel_to(submission_time) do
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+
+        submission = task.submissions.last
+
+        expect(submission.submitted_at).to eq(submission_time)
+      end
     end
 
     it "prevents a user from reporting no business on someone else's task" do

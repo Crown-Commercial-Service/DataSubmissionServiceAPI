@@ -24,7 +24,14 @@ class Task < ApplicationRecord
   def file_no_business!(user)
     transaction do
       completed!
-      submissions.create!(framework: framework, supplier: supplier, created_by: user, aasm_state: :completed)
+      submissions.create!(
+        framework: framework,
+        supplier: supplier,
+        created_by: user,
+        submitted_by: user,
+        submitted_at: Time.zone.now,
+        aasm_state: :completed
+      )
     end
   end
 

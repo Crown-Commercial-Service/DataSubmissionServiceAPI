@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_154948) do
+ActiveRecord::Schema.define(version: 2019_01_29_173334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -154,9 +154,12 @@ ActiveRecord::Schema.define(version: 2019_01_28_154948) do
     t.datetime "updated_at", null: false
     t.string "purchase_order_number"
     t.uuid "created_by_id"
+    t.uuid "submitted_by_id"
+    t.datetime "submitted_at"
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
     t.index ["created_by_id"], name: "index_submissions_on_created_by_id"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
+    t.index ["submitted_by_id"], name: "index_submissions_on_submitted_by_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
     t.index ["task_id"], name: "index_submissions_on_task_id"
   end
@@ -205,6 +208,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_154948) do
   add_foreign_key "submissions", "suppliers"
   add_foreign_key "submissions", "tasks"
   add_foreign_key "submissions", "users", column: "created_by_id"
+  add_foreign_key "submissions", "users", column: "submitted_by_id"
   add_foreign_key "tasks", "frameworks"
   add_foreign_key "tasks", "suppliers"
 end

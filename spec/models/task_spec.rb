@@ -44,11 +44,29 @@ RSpec.describe Task do
       expect(task.reload).to be_completed
     end
 
-    it 'records the user who submitted it' do
+    it 'records the user who created the submission' do
       task.file_no_business!(user)
       submission = task.latest_submission
 
       expect(submission.created_by).to eq(user)
+    end
+
+    it 'records the user who completed the submission' do
+      task.file_no_business!(user)
+      submission = task.latest_submission
+
+      expect(submission.submitted_by).to eq(user)
+    end
+
+    it 'records the submission time' do
+      submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+
+      travel_to(submission_time) do
+        task.file_no_business!(user)
+        submission = task.latest_submission
+
+        expect(submission.submitted_at).to eq(submission_time)
+      end
     end
   end
 
