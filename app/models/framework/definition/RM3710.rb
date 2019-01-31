@@ -4,7 +4,15 @@ class Framework
       framework_short_name 'RM3710'
       framework_name       'Vehicle Lease and Fleet Management'
 
-      management_charge_rate BigDecimal('0.5')
+      management_charge_rate ManagementChargeCalculator::ColumnBased.new(
+        column: 'Spend Code',
+        value_to_percentage: {
+          'Lease Rental': BigDecimal('0.5'),
+          'Fleet Management Fee': BigDecimal('0.5'),
+          'Damage': 0,
+          'Other Re-charges': 0,
+        }
+      )
 
       class Invoice < EntryData
         total_value_field 'Total Charge (Ex VAT)'

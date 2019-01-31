@@ -38,8 +38,14 @@ class Framework
 
         ##
         # E.g. BigDecimal.new('1.5')
-        def management_charge_rate(charge_rate = nil)
-          @management_charge_rate ||= ManagementChargeCalculator::FlatRate.new(percentage: charge_rate)
+        def management_charge_rate(calculator = nil)
+          @management_charge_rate ||= begin
+                                        if calculator.is_a?(BigDecimal)
+                                          ManagementChargeCalculator::FlatRate.new(percentage: calculator)
+                                        else
+                                          calculator
+                                        end
+                                      end
         end
 
         def calculate_management_charge(entry)
