@@ -12,7 +12,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate).to eq(BigDecimal('1.5'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1.5'))
         end
       end
 
@@ -23,7 +23,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate).to eq(BigDecimal('0'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('0'))
         end
       end
 
@@ -35,7 +35,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate). to eq(BigDecimal('1'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1'))
         end
       end
     end

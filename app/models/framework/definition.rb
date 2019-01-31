@@ -21,6 +21,8 @@ class Framework
     ##
     # Base class for a framework definition with metadata methods
     class Base
+      include Framework::ManagementChargeCalculator
+
       class << self
         ##
         # E.g. "Rail Legal Services"
@@ -37,11 +39,11 @@ class Framework
         ##
         # E.g. BigDecimal.new('1.5')
         def management_charge_rate(charge_rate = nil)
-          @management_charge_rate ||= charge_rate
+          @management_charge_rate ||= ManagementChargeCalculator::FlatRate.new(percentage: charge_rate)
         end
 
         def calculate_management_charge(entry)
-          (entry.total_value * (management_charge_rate / 100)).truncate(4)
+          management_charge_rate.calculate_for(entry)
         end
 
         def for_entry_type(entry_type)
