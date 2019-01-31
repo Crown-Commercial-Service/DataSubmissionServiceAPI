@@ -40,8 +40,8 @@ class Framework
           @management_charge_rate ||= charge_rate
         end
 
-        def management_charge(value)
-          (value * (management_charge_rate / 100)).truncate(4)
+        def calculate_management_charge(entry)
+          (entry.total_value * (management_charge_rate / 100)).truncate(4)
         end
 
         def for_entry_type(entry_type)
