@@ -88,6 +88,12 @@ RSpec.describe SubmissionCompletion do
       context 'with some invalid entries' do
         let(:submission) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
 
+        around do |example|
+          ClimateControl.modify SUBMIT_INVOICES: 'true' do
+            example.run
+          end
+        end
+
         it 'leaves the submission in the "in_review" state' do
           expect { complete_submission.perform! }.not_to change { submission.aasm_state }
         end
@@ -102,6 +108,11 @@ RSpec.describe SubmissionCompletion do
 
         it 'leaves the task in the "in_progress" state' do
           expect { complete_submission.perform! }.not_to change { task.status }
+        end
+
+        it 'does not create a SubmissionInvoiceSubmissionJob' do
+          complete_submission.perform!
+          expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
         end
       end
     end

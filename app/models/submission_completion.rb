@@ -12,9 +12,9 @@ class SubmissionCompletion
       submission.submitted_at = Time.zone.now
       submission.save
       submission.task.completed!
-    end
 
-    SubmissionInvoiceCreationJob.perform_later(submission) if create_invoice_for?(submission)
+      SubmissionInvoiceCreationJob.perform_later(submission) if create_invoice_for?(submission)
+    end
 
     submission
   end
