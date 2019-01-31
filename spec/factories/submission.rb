@@ -69,5 +69,12 @@ FactoryBot.define do
         create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: -0.1)
       end
     end
+
+    factory :submission_with_zero_management_charge do
+      after(:create) do |submission, _evaluator|
+        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: 0, total_value: 0)
+        create_list(:submission_file, 1, submission: submission, rows: submission.entries.count)
+      end
+    end
   end
 end

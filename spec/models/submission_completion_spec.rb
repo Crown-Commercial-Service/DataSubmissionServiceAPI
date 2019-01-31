@@ -58,6 +58,15 @@ RSpec.describe SubmissionCompletion do
               expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
             end
           end
+
+          context 'when submission has 0 management_charge' do
+            let(:submission) { FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'in_review', task: task) }
+
+            it 'does not create a SubmissionInvoiceSubmissionJob' do
+              complete_submission.perform!
+              expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
+            end
+          end
         end
 
         context 'when SUBMIT_INVOICES env flag is not set' do
