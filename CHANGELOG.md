@@ -1,5 +1,16 @@
 # Change Log
 
+## [release-42] - 2019-01-31
+
+- Added Workday invoice adjustment (AKA credit note) generation code
+- Capture the user that creates submissions
+- Capture the user that completes a submission
+- Report created_by, submitted_by, and submitted_at for submissions to data
+  warehouse
+- Remove unnecessary AWS credentials from configuration
+- Added Suppliers section to admin section
+- Added product table validations
+
 ## [release-41] - 2019-01-24
 
 - Added Workday invoice generation code
