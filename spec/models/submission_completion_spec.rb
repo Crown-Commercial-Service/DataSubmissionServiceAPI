@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SubmissionCompletion do
   describe '#perform' do
-    let(:complete_submission) { SubmissionCompletion.new(submission) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:complete_submission) { SubmissionCompletion.new(submission, user) }
     let(:task) { FactoryBot.create(:task, status: :in_progress) }
 
     context 'given an "in review" submission' do
@@ -19,6 +20,22 @@ RSpec.describe SubmissionCompletion do
           complete_submission.perform!
 
           expect(task).to be_completed
+        end
+
+        it 'records the user who completed the submission' do
+          complete_submission.perform!
+
+          expect(submission.submitted_by).to eq(user)
+        end
+
+        it 'records the submission time' do
+          submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+
+          travel_to(submission_time) do
+            complete_submission.perform!
+
+            expect(submission.submitted_at).to eq(submission_time)
+          end
         end
 
         context 'when SUBMIT_INVOICES env flag is set' do
@@ -62,6 +79,14 @@ RSpec.describe SubmissionCompletion do
 
         it 'leaves the submission in the "in_review" state' do
           expect { complete_submission.perform! }.not_to change { submission.aasm_state }
+        end
+
+        it 'does not record the user who tried to complete the submission' do
+          expect { complete_submission.perform! }.not_to change { submission.submitted_by }
+        end
+
+        it 'does not record the attempted submission time' do
+          expect { complete_submission.perform! }.not_to change { submission.submitted_at }
         end
 
         it 'leaves the task in the "in_progress" state' do

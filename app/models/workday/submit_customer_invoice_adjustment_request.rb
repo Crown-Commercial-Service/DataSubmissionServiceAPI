@@ -1,8 +1,8 @@
 module Workday
-  class SubmitCustomerInvoiceRequest < Base
+  class SubmitCustomerInvoiceAdjustmentRequest < Base
     def initialize(submission)
       @submission = submission
-      @request = Workday.client.request('Submit_Customer_Invoice')
+      @request = Workday.client.request('Submit_Customer_Invoice_Adjustment')
 
       prepare_request_body
       set_wsse_header
@@ -15,7 +15,7 @@ module Workday
       response = Workday.client.response(@request, raw_response)
       raise Fault, response.fault.reason if response.fault
 
-      response.body_hash.fetch('Customer_Invoice_Reference').fetch('ID').first
+      response.body_hash.fetch('Customer_Invoice_Adjustment_Reference').fetch('ID').first
     end
 
     private
@@ -25,13 +25,16 @@ module Workday
     # rubocop:disable Metrics/AbcSize
     def prepare_request_body
       @request.body do |body|
-        body.Customer_Invoice_Data do |invoice|
+        body.Customer_Invoice_Adjustment_Data do |invoice|
           invoice.Company_Reference.ID    CCS_COMPANY_REFERENCE, 'ns0:type': 'Company_Reference_ID'
           invoice.Customer_Reference.ID   supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
           invoice.From_Date               task.period_date.to_s
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
           invoice.Submit                  false
+          invoice.Adjustment_Reason_Reference 'ns0:Descriptor': 'Incorrect MI Return' do |reason|
+            reason.ID 'Incorrect MI Return', 'ns0:type': 'Adjustment_Reason_ID'
+          end
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|
             invoice_line.Line_Item_Description      line_item_description

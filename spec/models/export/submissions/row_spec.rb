@@ -84,8 +84,63 @@ RSpec.describe Export::Submissions::Row do
 
   describe '#created_date' do
     let(:submission) { double 'Submission', created_at: Time.zone.local(2018, 9, 18, 14, 20, 35) }
+
     it 'is an ISO8601 date/time in UTC' do
       expect(row.created_date).to eql('2018-09-18T14:20:35Z')
+    end
+  end
+
+  describe '#created_by' do
+    context 'when it is present on the submission' do
+      let(:submission) { double 'Submission', created_by: double('User', name: 'Forename Surname') }
+
+      it 'is the name of the user who submitted it' do
+        expect(row.created_by).to eq('Forename Surname')
+      end
+    end
+
+    context 'when it is not present on the submission' do
+      let(:submission) { double 'Submission', created_by: nil }
+
+      it 'is nil' do
+        expect(row.created_by).to be_nil
+      end
+    end
+  end
+
+  describe '#supplier_approved_by' do
+    context 'when it is present on the submission' do
+      let(:submission) { double 'Submission', submitted_by: double('User', name: 'Forename Surname') }
+
+      it 'is the name of the user who submitted it' do
+        expect(row.supplier_approved_by).to eq('Forename Surname')
+      end
+    end
+
+    context 'when it is not present on the submission' do
+      let(:submission) { double 'Submission', submitted_by: nil }
+
+      it 'is nil' do
+        expect(row.supplier_approved_by).to be_nil
+      end
+    end
+  end
+
+  describe '#supplier_approved_date' do
+    context 'when it is present on the submission' do
+      let(:submission) { double 'Submission', submitted_at: Time.zone.local(2018, 9, 20, 10, 11, 12) }
+
+      it 'is the time of submission' do
+        expect(row.supplier_approved_date).to eq('2018-09-20T10:11:12Z')
+      end
+    end
+
+    context 'when it is not present on the submission' do
+      let(:submission) { double 'Submission', submitted_at: nil }
+
+      it 'is nil' do
+        expect(row.supplier_approved_date).to be_nil
+      end
     end
   end
 
@@ -96,21 +151,6 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe 'the fields that are absent for MVP' do
-    describe '#created_by' do
-      subject { row.created_by }
-      it { is_expected.to be_nil }
-    end
-
-    describe '#supplier_approved_date' do
-      subject { row.supplier_approved_date }
-      it { is_expected.to be_nil }
-    end
-
-    describe '#supplier_approved_by' do
-      subject { row.supplier_approved_by }
-      it { is_expected.to be_nil }
-    end
-
     describe '#finance_export_date' do
       subject { row.finance_export_date }
       it { is_expected.to be_nil }

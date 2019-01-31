@@ -31,7 +31,7 @@ class V1::TasksController < APIController
     if task.completed?
       render jsonapi: task.submissions.first
     else
-      task.file_no_business!
+      task.file_no_business!(current_user)
       submission = task.latest_submission
       render jsonapi: submission, status: :created
     end

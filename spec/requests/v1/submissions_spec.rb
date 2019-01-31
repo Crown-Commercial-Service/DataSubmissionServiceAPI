@@ -58,11 +58,10 @@ RSpec.describe '/v1' do
   end
 
   describe 'POST /submissions' do
-    it 'creates a new submission and returns its id' do
-      framework = FactoryBot.create(:framework)
-      task = FactoryBot.create(:task, framework: framework, supplier: supplier)
-
-      params = {
+    let(:framework) { FactoryBot.create(:framework) }
+    let(:task) { FactoryBot.create(:task, framework: framework, supplier: supplier) }
+    let(:params) do
+      {
         data: {
           type: 'submissions',
           attributes: {
@@ -71,7 +70,9 @@ RSpec.describe '/v1' do
           }
         }
       }
+    end
 
+    it 'creates a new submission and returns its id' do
       post "/v1/submissions?task_id=#{task.id}",
            params: params.to_json,
            headers: json_headers.merge('X-Auth-Id' => user.auth_id)
@@ -86,19 +87,30 @@ RSpec.describe '/v1' do
       expect(json['data']).to have_attribute(:task_id).with_value(task.id)
       expect(json['data']).to have_attribute(:purchase_order_number).with_value('INV-123')
     end
+
+    it 'records the user who created the submission' do
+      post "/v1/submissions?task_id=#{task.id}",
+           params: params.to_json,
+           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+
+      submission = Submission.first
+
+      expect(submission.created_by).to eq(user)
+    end
   end
 
   describe 'POST /submissions/:submission_id/complete' do
     context 'given a valid submission' do
-      it 'marks the submission as complete' do
-        task = FactoryBot.create(:task, status: :in_progress)
-
-        submission = FactoryBot.create(
+      let(:task) { FactoryBot.create(:task, status: :in_progress) }
+      let(:submission) do
+        FactoryBot.create(
           :submission_with_validated_entries,
           aasm_state: :in_review,
           task: task
         )
+      end
 
+      it 'marks the submission as complete' do
         post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
 
         expect(response).to be_successful
@@ -107,6 +119,26 @@ RSpec.describe '/v1' do
 
         expect(submission).to be_completed
         expect(submission.task).to be_completed
+      end
+
+      it 'records the user who completed the submission' do
+        post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+
+        submission.reload
+
+        expect(submission.submitted_by).to eq(user)
+      end
+
+      it 'records the submission completion time' do
+        submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+
+        travel_to(submission_time) do
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+
+          submission.reload
+
+          expect(submission.submitted_at).to eq(submission_time)
+        end
       end
     end
 

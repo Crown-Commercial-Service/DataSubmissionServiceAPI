@@ -56,13 +56,19 @@ module Export
         submission.purchase_order_number
       end
 
+      def created_by
+        submission.created_by.try(:name)
+      end
+
+      def supplier_approved_by
+        submission.submitted_by.try(:name)
+      end
+
+      def supplier_approved_date
+        submission.submitted_at.utc.iso8601 if submission.submitted_at.present?
+      end
+
       # Fields that are nil for MVP
-      def created_by; end
-
-      def supplier_approved_date; end
-
-      def supplier_approved_by; end
-
       def finance_export_date; end
 
       def invoice_value

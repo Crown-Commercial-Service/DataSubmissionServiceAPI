@@ -1,10 +1,6 @@
 .govuk-grid-row
-  .govuk-grid-column-full
-    %h1.govuk-heading-xl User
-
-.govuk-grid-row
   .govuk-grid-column-two-thirds
-    %h2.govuk-heading-m= @user.name
+    %h1.govuk-heading-xl= @user.name
     %p= @user.email
     %p
       Account active since:
@@ -23,54 +19,23 @@
     %h2.govuk-heading-m
       Linked Suppliers
 
-    %table.govuk-table
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Name
-          %th.govuk-table__header Actions
-      %tbody.govuk-table__body
-        - @user.memberships.each do |membership|
+    - if @memberships.present?
+      %table.govuk-table
+        %thead.govuk-table__head
           %tr.govuk-table__row
-            %td.govuk-table__cell= membership.supplier.name
-            %td.govuk-table__cell
-              %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
-                %h3#table-actions-title-1.govuk-visually-hidden Row actions
-                %ul.govuk-table-actions--actions
-                  %li.govuk-table-actions--action
-                    = link_to 'Unlink', admin_user_membership_path(@user, membership)
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Frameworks
-
-    %table.govuk-table
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Name
-          %th.govuk-table__header Supplier
-      %tbody.govuk-table__body
-        - @user.suppliers.each do |supplier|
-          - supplier.frameworks.each do |framework|
+            %th.govuk-table__header Name
+            %th.govuk-table__header Actions
+        %tbody.govuk-table__body
+          - @memberships.each do |membership|
             %tr.govuk-table__row
-              %td.govuk-table__cell= framework.name
-              %td.govuk-table__cell= supplier.name
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Recent Tasks
-
-    %table.govuk-table
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Framework
-          %th.govuk-table__header Supplier
-          %th.govuk-table__header Status
-      %tbody.govuk-table__body
-        - @user.suppliers.each do |supplier|
-          - supplier.tasks.each do |task|
-            %tr.govuk-table__row
-              %td.govuk-table__cell= task.framework.name
-              %td.govuk-table__cell= supplier.name
-              %td.govuk-table__cell= task.status
+              %td.govuk-table__cell= link_to membership.supplier.name, admin_supplier_path(membership.supplier)
+              %td.govuk-table__cell
+                %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
+                  %h3#table-actions-title-1.govuk-visually-hidden Row actions
+                  %ul.govuk-table-actions--actions
+                    %li.govuk-table-actions--action
+                      = link_to 'Unlink', admin_user_membership_path(@user, membership, return_to: 'user')
+    -else
+      %p
+        No suppliers linked to
+        = @user.name

@@ -1,0 +1,37 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Suppliers
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %form{method: 'get'}
+      %h2.govuk-heading-s
+        Search
+      .ccs-search-form-group
+        %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
+        %input#search.govuk-input{name: 'search', type: 'text', value: params[:search]}
+        %button.govuk-button Search
+
+  .govuk-grid-column-one-third
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @suppliers.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Name
+        %tbody.govuk-table__body
+          - @suppliers.each do |supplier|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= link_to supplier.name, admin_supplier_path(supplier)
+
+      = paginate @suppliers
+    - elsif params[:search]
+      %p
+        No suppliers found for ‘#{params[:search]}’
+    - else
+      %p
+        No suppliers.
+

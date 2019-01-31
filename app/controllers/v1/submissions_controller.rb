@@ -15,6 +15,7 @@ class V1::SubmissionsController < APIController
     submission = task.submissions.new(
       framework: task.framework,
       supplier: task.supplier,
+      created_by: current_user,
       purchase_order_number: params.dig(:submission, :purchase_order_number)
     )
 
@@ -46,6 +47,6 @@ class V1::SubmissionsController < APIController
   private
 
   def complete_submission!(submission)
-    SubmissionCompletion.new(submission).perform!
+    SubmissionCompletion.new(submission, current_user).perform!
   end
 end

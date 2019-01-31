@@ -1,0 +1,10 @@
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+   <env:Body>
+      <wd:Submit_Customer_Invoice_Adjustment_Response wd:version="v31.0" xmlns:wd="urn:com.workday/bsvc">
+         <wd:Customer_Invoice_Adjustment_Reference>
+            <wd:ID wd:type="WID">2a743abbf5e3819a6451179ed62d1c06</wd:ID>
+            <wd:ID wd:type="Customer_Invoice_Adjustment_Reference_ID">CUSTOMER_INVOICE_ADJUSTMENT-6-7</wd:ID>
+         </wd:Customer_Invoice_Adjustment_Reference>
+      </wd:Submit_Customer_Invoice_Adjustment_Response>
+   </env:Body>
+</env:Envelope>
