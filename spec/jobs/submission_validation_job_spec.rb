@@ -7,12 +7,20 @@ RSpec.describe SubmissionValidationJob do
     let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
     let(:good_data) do
       {
-
         'Customer Organisation' => 'Example Ltd',
         'Customer URN' => '12345678',
         'Customer Invoice Date' => '01/01/2018',
         'Customer Invoice Number' => '123',
         'Total Charge (Ex VAT)' => 12.34,
+        'Service Type' => 'CUSTOMER OWNED WASH AND RETURN',
+        'Category' => 'Bags',
+        'Item' => 'Alginate Stitched Bag - Red',
+        'Item Code' => 'L110',
+        'UNSPSC' => 24111506,
+        'Unit of Purchase' => 'Each',
+        'Price per Unit' => 1.23,
+        'Quantity' => 12,
+        'VAT amount charged' => 0,
       }
     end
     let(:bad_data) do
