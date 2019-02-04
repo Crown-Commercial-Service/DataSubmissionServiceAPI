@@ -40,7 +40,8 @@ module Workday
             invoice_line.Extended_Amount            management_charge
             invoice_line.Analytical_Amount          total_spend
             invoice_line.Worktags_Reference.ID      framework.short_name, 'ns0:type': 'Custom_Organization_Reference_ID'
-            invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'WID'
+            invoice_line.Tax_Code_Reference.ID      tax_code_id, 'ns0:type': 'Tax_Code_ID'
+            invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'Revenue_Category_ID'
           end
         end
       end
@@ -51,9 +52,16 @@ module Workday
       submission.framework
     end
 
-    # NOTE: Hardcoded until we have access to the endpoint to identify this ID in Workday
+    def workday_commercial_agreements
+      Workday::CommercialAgreements.new
+    end
+
     def framework_revenue_category_id
-      'cab066ff165e0120b19039874b126b13'
+      workday_commercial_agreements.revenue_category_ids[framework.short_name]
+    end
+
+    def tax_code_id
+      workday_commercial_agreements.tax_code_ids[framework.short_name]
     end
 
     def invoice_memo

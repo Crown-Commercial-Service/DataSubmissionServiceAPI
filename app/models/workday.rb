@@ -26,4 +26,12 @@ module Workday
   def self.api_password
     config[:password]
   end
+
+  def self.username
+    api_username.split('@').first if api_username.present?
+  end
+
+  def self.tenant
+    api_username.split('@').last if api_username.present?
+  end
 end

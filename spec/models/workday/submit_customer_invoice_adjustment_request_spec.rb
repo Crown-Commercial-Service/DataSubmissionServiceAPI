@@ -13,6 +13,14 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
   let(:supplier) { submission.supplier }
   let(:request) { Workday::SubmitCustomerInvoiceAdjustmentRequest.new(submission) }
 
+  before do
+    commercial_agreements = double(
+      revenue_category_ids: { framework.short_name => 'Revenue_Category_WID' },
+      tax_code_ids: { framework.short_name => 'GBC20' }
+    )
+    allow(Workday::CommercialAgreements).to receive(:new).and_return(commercial_agreements)
+  end
+
   it_behaves_like 'a workday request'
 
   describe '#content' do
@@ -72,16 +80,16 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
         ).to eq framework.short_name
       end
 
-      pending 'sets Revenue_Category_Reference//ID as the revenue category Worday ID for the Framework' do
+      it 'sets Revenue_Category_Reference//ID as the revenue category Workday ID for the Framework' do
         expect(
-          text_at_xpath("//ns0:Revenue_Category_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A revenue category ID from workday'
+          text_at_xpath("//ns0:Revenue_Category_Reference//ns0:ID[@ns0:type='Revenue_Category_ID']")
+        ).to eq 'Revenue_Category_WID'
       end
 
-      pending 'sets a Worktags_Reference//ID with the cost center Workday ID for the Framework' do
+      it 'sets Tax_Code_Reference//ID as the tax code Workday ID for the Framework' do
         expect(
-          text_at_xpath("//ns0:Worktags_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A cost center ID from Workday'
+          text_at_xpath("//ns0:Tax_Code_Reference//ns0:ID[@ns0:type='Tax_Code_ID']")
+        ).to eq 'GBC20'
       end
     end
 
