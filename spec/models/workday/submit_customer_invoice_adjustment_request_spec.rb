@@ -5,7 +5,8 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
   let(:submission) do
     FactoryBot.create(:submission_with_validated_entries,
                       purchase_order_number: '123',
-                      submitted_by: user)
+                      submitted_by: user,
+                      task: task)
   end
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
