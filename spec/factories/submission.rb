@@ -60,13 +60,13 @@ FactoryBot.define do
 
     factory :submission_with_positive_management_charge do
       after(:create) do |submission, _evaluator|
-        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: 0.1)
+        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: 0.1, total_value: 10)
       end
     end
 
     factory :submission_with_negative_management_charge do
       after(:create) do |submission, _evaluator|
-        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: -0.1)
+        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: -0.1, total_value: -10)
       end
     end
 

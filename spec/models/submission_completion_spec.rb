@@ -60,7 +60,9 @@ RSpec.describe SubmissionCompletion do
           end
 
           context 'when submission has 0 management_charge' do
-            let(:submission) { FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'in_review', task: task) }
+            let(:submission) do
+              FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'in_review', task: task)
+            end
 
             it 'does not create a SubmissionInvoiceSubmissionJob' do
               complete_submission.perform!

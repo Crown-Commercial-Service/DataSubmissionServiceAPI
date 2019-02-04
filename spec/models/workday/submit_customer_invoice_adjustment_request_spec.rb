@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
   let(:user) { FactoryBot.create(:user, name: 'Forename Surname') }
   let(:submission) do
-    FactoryBot.create(:submission_with_validated_entries,
+    FactoryBot.create(:submission_with_negative_management_charge,
                       purchase_order_number: '123',
                       submitted_by: user,
                       task: task)

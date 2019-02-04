@@ -34,6 +34,7 @@ module Workday
           invoice.Memo                    invoice_memo
           invoice.Submit                  true
           invoice.Note_Data.Note_Content  submitted_by_note_content
+          invoice.Increase_Amount_Due     false
           invoice.Adjustment_Reason_Reference 'ns0:Descriptor': 'Incorrect MI Return' do |reason|
             reason.ID 'Incorrect MI Return', 'ns0:type': 'Adjustment_Reason_ID'
           end
@@ -72,11 +73,11 @@ module Workday
     end
 
     def management_charge
-      format '%.2f', submission.management_charge.truncate(2)
+      format '%.2f', -submission.management_charge.truncate(2)
     end
 
     def total_spend
-      format '%.2f', submission.total_spend.truncate(2)
+      format '%.2f', -submission.total_spend.truncate(2)
     end
 
     def supplier_salesforce_id
