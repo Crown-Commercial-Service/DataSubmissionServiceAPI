@@ -25,13 +25,14 @@ module Workday
     # rubocop:disable Metrics/AbcSize
     def prepare_request_body
       @request.body do |body|
+        body.Business_Process_Parameters.Auto_Complete true
         body.Customer_Invoice_Data do |invoice|
           invoice.Company_Reference.ID    CCS_COMPANY_REFERENCE, 'ns0:type': 'Company_Reference_ID'
           invoice.Customer_Reference.ID   supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
           invoice.From_Date               task.period_date.to_s
           invoice.Customer_PO_Number      submission.purchase_order_number
           invoice.Memo                    invoice_memo
-          invoice.Submit                  false
+          invoice.Submit                  true
           invoice.Note_Data.Note_Content  submitted_by_note_content
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|

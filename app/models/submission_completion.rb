@@ -14,8 +14,14 @@ class SubmissionCompletion
       submission.task.completed!
     end
 
-    SubmissionInvoiceCreationJob.perform_later(submission) if !submission.report_no_business? && ENV['SUBMIT_INVOICES']
+    SubmissionInvoiceCreationJob.perform_later(submission) if create_invoice_for?(submission)
 
     submission
+  end
+
+  private
+
+  def create_invoice_for?(submission)
+    !submission.report_no_business? && submission.total_spend != 0 && ENV['SUBMIT_INVOICES']
   end
 end

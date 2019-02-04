@@ -46,6 +46,11 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
     end
 
+    it 'sets the invoice as submitted' do
+      expect(text_at_xpath('//ns0:Business_Process_Parameters/ns0:Auto_Complete')).to eq 'true'
+      expect(text_at_xpath('//ns0:Submit')).to eq 'true'
+    end
+
     describe '//Customer_Invoice_Line_Replacement_Data' do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
