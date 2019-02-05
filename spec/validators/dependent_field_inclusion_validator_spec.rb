@@ -63,4 +63,16 @@ RSpec.describe DependentFieldInclusionValidator do
       )
     end
   end
+
+  context 'the parent field has a different casing' do
+    let(:data) { { 'service type' => 'Core', 'Primary Specialism' => 'Equity Capital Markets' } }
+
+    it { is_expected.to_not be_valid }
+  end
+
+  context 'the parent field is missing entirely' do
+    let(:data) { { 'Primary Specialism' => 'something else' } }
+
+    it { is_expected.to_not be_valid }
+  end
 end
