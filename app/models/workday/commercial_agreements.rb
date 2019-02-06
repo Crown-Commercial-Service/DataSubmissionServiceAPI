@@ -3,7 +3,7 @@ class Workday::CommercialAgreements
     result = {}
     report_entries.each do |report_entry|
       framework_number = report_entry.at_xpath('wd:Framework_Number').text
-      revenue_category_wid_xml = report_entry.at_xpath('wd:Revenue_Category_ID')
+      revenue_category_wid_xml = report_entry.at_xpath('wd:Revenue_Category_ID/wd:ID[@wd:type="clRevenueCategory"]')
       result[framework_number] = revenue_category_wid_xml.text if revenue_category_wid_xml
     end
     result
