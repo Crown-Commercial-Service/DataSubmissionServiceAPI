@@ -1,0 +1,41 @@
+<wd:Report_Data xmlns:wd="urn:com.workday.report/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category">
+  <wd:Report_Entry>
+    <wd:Framework_Number>A206100</wd:Framework_Number>
+    <wd:Commercial_Agreement wd:Descriptor="A206100 Property & Facilities Management Services">
+      <wd:ID wd:type="WID">d19d3c5849dc01429e67efc2fc14b6a9</wd:ID>
+      <wd:ID wd:type="Organization_Reference_ID">A206100</wd:ID>
+      <wd:ID wd:type="Custom_Organization_Reference_ID">A206100</wd:ID>
+    </wd:Commercial_Agreement>
+    <wd:Revenue_Category_Level wd:Descriptor="Buildings">
+      <wd:ID wd:type="WID">d19d3c5849dc01bae1b19a8dfc1409a8</wd:ID>
+      <wd:ID wd:type="Organization_Reference_ID">CAH_Buildings</wd:ID>
+      <wd:ID wd:type="Custom_Organization_Reference_ID">CAH_Buildings</wd:ID>
+    </wd:Revenue_Category_Level>
+    <wd:Revenue_Category_ID wd:Descriptor="CAH_Workplace">
+      <wd:ID wd:type="WID">23d0733568d730309f9484196abe0089</wd:ID>
+      <wd:ID wd:type="clRevenueCategory">CAH_Workplace</wd:ID>
+    </wd:Revenue_Category_ID>
+    <wd:Cost_Center wd:Descriptor="CC1042 Workplace">
+      <wd:ID wd:type="WID">d19d3c5849dc01117ee5b3b96d141f5f</wd:ID>
+      <wd:ID wd:type="Organization_Reference_ID">CC1042</wd:ID>
+      <wd:ID wd:type="Cost_Center_Reference_ID">CC1042</wd:ID>
+    </wd:Cost_Center>
+    <wd:CO__Commercial_Agreement_Tax_Applicability wd:Descriptor="Sales">
+      <wd:ID wd:type="WID">23d0733568d73030963d0f9339190007</wd:ID>
+      <wd:ID wd:type="commercialAgreementTaxApplicability">Sales</wd:ID>
+    </wd:CO__Commercial_Agreement_Tax_Applicability>
+    <wd:Tax_Code_Reference wd:Descriptor="GBC20">
+      <wd:ID wd:type="WID">23d0733568d73030993b75e70ad70080</wd:ID>
+      <wd:ID wd:type="commercialAgreementTaxCode">GBC20</wd:ID>
+    </wd:Tax_Code_Reference>
+    <wd:L2_Revenue_Category_ID>CAH_Buildings</wd:L2_Revenue_Category_ID>
+  </wd:Report_Entry>
+  <wd:Report_Entry>
+    <wd:Framework_Number>ZDNU WSDS</wd:Framework_Number>
+    <wd:Commercial_Agreement wd:Descriptor="ZDNU Whitehall Standby Distribution System (inactive)">
+      <wd:ID wd:type="WID">cab066ff165e017385343ed74a12b911</wd:ID>
+      <wd:ID wd:type="Organization_Reference_ID">ZDNU WSDS</wd:ID>
+      <wd:ID wd:type="Custom_Organization_Reference_ID">ZDNU WSDS</wd:ID>
+    </wd:Commercial_Agreement>
+  </wd:Report_Entry>
+</wd:Report_Data>

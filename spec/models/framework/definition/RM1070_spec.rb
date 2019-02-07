@@ -116,8 +116,7 @@ RSpec.describe Framework::Definition::RM1070 do
       'List Price Excluding Options'
     ].each do |field_name|
       describe "'#{field_name} field" do
-        it 'validates as a numeric amount or as nil' do
-          expect(invoice_from_params(field_name => nil)).to be_valid
+        it 'validates as a numeric amount' do
           expect(invoice_from_params(field_name => 0)).to be_valid
           expect(invoice_from_params(field_name => 12.12)).to be_valid
           expect(invoice_from_params(field_name => -1234)).to be_valid

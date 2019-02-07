@@ -1,11 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Workday::SubmitCustomerInvoiceRequest do
-  let(:submission) { FactoryBot.create(:submission_with_validated_entries, purchase_order_number: '123') }
+  let(:user) { FactoryBot.create(:user, name: 'Forename Surname') }
+  let(:submission) do
+    FactoryBot.create(:submission_with_validated_entries,
+                      purchase_order_number: '123',
+                      submitted_by: user,
+                      task: task)
+  end
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
   let(:request) { Workday::SubmitCustomerInvoiceRequest.new(submission) }
+
+  before do
+    commercial_agreements = double(
+      revenue_category_ids: { framework.short_name => 'Revenue_Category_WID' },
+      tax_code_ids: { framework.short_name => 'GBC20' }
+    )
+    allow(Workday::CommercialAgreements).to receive(:new).and_return(commercial_agreements)
+  end
 
   it_behaves_like 'a workday request'
 
@@ -36,6 +50,15 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       expect(text_at_xpath('//ns0:Memo')).to eq "Submission ID: #{submission.id}"
     end
 
+    it 'sets Note_Data with the name of the user who submitted the Submission' do
+      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
+    end
+
+    it 'sets the invoice as submitted' do
+      expect(text_at_xpath('//ns0:Business_Process_Parameters/ns0:Auto_Complete')).to eq 'true'
+      expect(text_at_xpath('//ns0:Submit')).to eq 'true'
+    end
+
     describe '//Customer_Invoice_Line_Replacement_Data' do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
@@ -57,16 +80,16 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
         ).to eq framework.short_name
       end
 
-      pending 'sets Revenue_Category_Reference//ID as the revenue category Worday ID for the Framework' do
+      it 'sets Revenue_Category_Reference//ID as the revenue category Workday ID for the Framework' do
         expect(
-          text_at_xpath("//ns0:Revenue_Category_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A revenue category ID from workday'
+          text_at_xpath("//ns0:Revenue_Category_Reference//ns0:ID[@ns0:type='Revenue_Category_ID']")
+        ).to eq 'Revenue_Category_WID'
       end
 
-      pending 'sets a Worktags_Reference//ID with the cost center Workday ID for the Framework' do
+      it 'sets Tax_Code_Reference//ID as the tax code Workday ID for the Framework' do
         expect(
-          text_at_xpath("//ns0:Worktags_Reference//ns0:ID[@ns0:type='WID']")
-        ).to eq 'A cost center ID from Workday'
+          text_at_xpath("//ns0:Tax_Code_Reference//ns0:ID[@ns0:type='Tax_Code_ID']")
+        ).to eq 'GBC20'
       end
     end
 
