@@ -1,5 +1,24 @@
 # Change Log
 
+## [release-43] - 2019-02-07
+
+- Reinstated validations on some October frameworks:
+  - CM/OSG/05/3565
+  - RM1031
+  - RM1070
+  - RM3710
+  - RM3754
+  - RM3767
+- Send the submitter name to Workday
+- Do not send an invoice to Workday if the total spend is 0
+- Invoices are submitted to Workday in 'Approved State'
+- Invoice Adjustments (invoices that have a negative management charge) are
+  submitted to Workday as 'credit'
+- Submit Revenue Category and Tax Code IDs to Workday
+- Fixed a bug in the dependent field inclusion validator that meant some
+  submissions were stuck processing if the dependent field or its parent field
+  were missing
+
 ## [release-42] - 2019-01-31
 
 - Added Workday invoice adjustment (AKA credit note) generation code
