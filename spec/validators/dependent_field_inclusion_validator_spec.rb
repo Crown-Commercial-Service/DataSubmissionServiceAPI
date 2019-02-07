@@ -64,6 +64,18 @@ RSpec.describe DependentFieldInclusionValidator do
     end
   end
 
+  context 'the dependent field value is missing' do
+    let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => nil } }
+
+    it { is_expected.to_not be_valid }
+  end
+
+  context 'the dependent field is missing' do
+    let(:data) { { 'Service Type' => 'Core' } }
+
+    it { is_expected.to_not be_valid }
+  end
+
   context 'the parent field has a different casing' do
     let(:data) { { 'service type' => 'Core', 'Primary Specialism' => 'Equity Capital Markets' } }
 
