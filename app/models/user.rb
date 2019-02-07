@@ -46,6 +46,15 @@ class User < ApplicationRecord
     update auth_id: nil
   end
 
+  def active?
+    !auth_id.nil?
+  end
+
+  def deactivate
+    return unless active?
+    delete_on_auth0
+  end
+
   def temporary_password
     "#{SecureRandom.urlsafe_base64}aA1!"
   end

@@ -35,8 +35,7 @@ class Admin::UsersController < AdminController
 
   def destroy
     @user = User.find(params[:id])
-    @user.delete_on_auth0
-    @user.destroy
+    @user.deactivate
     flash[:alert] = 'User has been deleted'
     redirect_to admin_users_path
   end
