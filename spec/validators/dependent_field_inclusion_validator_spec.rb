@@ -31,21 +31,23 @@ RSpec.describe DependentFieldInclusionValidator do
 
   subject(:entry_data) { entry_data_class.new(entry) }
 
-  context 'the primary specialism corresponds to the service type' do
+  context 'the dependent field corresponds to the parent field' do
     let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'Corporate Finance' } }
+
     it { is_expected.to be_valid }
   end
 
-  context 'the primary specialism corresponds to the service type case-insensitively' do
+  context 'the dependent field corresponds to the parent field case-insensitively' do
     let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'CorPoRate FiNaNce' } }
 
     it { is_expected.to be_valid }
   end
 
-  context 'the primary specialism does not correspond to the service type' do
+  context 'the dependent field does not correspond to the parent field' do
     let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'Equity Capital Markets' } }
 
     it { is_expected.to_not be_valid }
+
     it 'has an error message' do
       expect(entry_data.errors['Primary Specialism'].first).to eql(
         '"Equity Capital Markets" is not a valid Primary Specialism for the given Service Type of "Core"'
@@ -53,10 +55,11 @@ RSpec.describe DependentFieldInclusionValidator do
     end
   end
 
-  context 'the primary specialism value is invalid' do
+  context 'the dependent field value is invalid' do
     let(:data) { { 'Service Type' => 'Core', 'Primary Specialism' => 'something else' } }
 
     it { is_expected.to_not be_valid }
+
     it 'has an error message' do
       expect(entry_data.errors['Primary Specialism'].first).to eql(
         '"something else" is not a valid Primary Specialism for the given Service Type of "Core"'
