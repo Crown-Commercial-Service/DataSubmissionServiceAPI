@@ -147,4 +147,21 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  context 'scopes' do
+    let!(:active_user) { FactoryBot.create(:user) }
+    let!(:inactive_user) { FactoryBot.create(:user, :inactive) }
+
+    describe '.active' do
+      it 'returns only active users' do
+        expect(User.active.count).to eq(1)
+      end
+    end
+
+    describe '.inactive' do
+      it 'returns only inactive users' do
+        expect(User.inactive.count).to eq(1)
+      end
+    end
+  end
 end

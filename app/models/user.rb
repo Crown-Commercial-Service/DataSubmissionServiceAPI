@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :tasks, through: :suppliers
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  scope :active, -> { where.not(auth_id: nil) }
+  scope :inactive, -> { where(auth_id: nil) }
+
   def name=(value)
     super value.squish
   end
