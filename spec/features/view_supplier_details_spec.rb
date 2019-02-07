@@ -1,21 +1,100 @@
 require 'rails_helper'
 RSpec.feature 'Viewing a supplier' do
-  before do
-    @supplier_with_no_framework = FactoryBot.create(:supplier, name: 'No Framework Supplier Ltd')
-    @supplier = FactoryBot.create(:supplier, name: 'Test Supplier Ltd')
-    @framework = FactoryBot.create(:framework, name: 'Test Framework', short_name: 'RM0000')
-    @agreement = FactoryBot.create(:agreement, supplier: @supplier, framework: @framework)
-    sign_in_as_admin
-  end
+  let!(:supplier) { FactoryBot.create(:supplier, name: 'Test Supplier Ltd') }
+  let!(:framework) { FactoryBot.create(:framework, name: 'Test Framework', short_name: 'RM0000') }
+  let!(:agreement) { FactoryBot.create(:agreement, supplier: supplier, framework: framework) }
+
+  before { sign_in_as_admin }
 
   scenario 'lists frameworks the supplier has an agreement for' do
-    visit admin_supplier_path(@supplier)
+    visit admin_supplier_path(supplier)
     expect(page).to have_content 'Test Supplier Ltd'
     expect(page).to have_content 'RM0000 Test Framework'
   end
 
-  scenario 'with no framework agreements shows an empty state' do
-    visit admin_supplier_path(@supplier_with_no_framework)
-    expect(page).to have_content "No frameworks for #{@supplier_with_no_framework.name}"
+  context 'with a task' do
+    let!(:task) { FactoryBot.create(:task, supplier: supplier, framework: framework) }
+
+    scenario 'shows tasks and submission with the status unstarted' do
+      visit admin_supplier_path(supplier)
+      expect(page).to have_content 'Unstarted'
+    end
+
+    context 'that is started' do
+      scenario 'shows the status pending' do
+        FactoryBot.create(
+          :submission_with_pending_entries,
+          supplier: supplier,
+          framework: framework,
+          task: task
+        )
+
+        visit admin_supplier_path(supplier)
+
+        expect(page).to have_content 'Pending'
+      end
+    end
+
+    context 'and a submission file processing' do
+      scenario 'shows the status in processing' do
+        FactoryBot.create(
+          :submission_with_unprocessed_entries,
+          supplier: supplier,
+          framework: framework,
+          task: task
+        )
+
+        visit admin_supplier_path(supplier)
+
+        expect(page).to have_content 'Processing'
+      end
+    end
+
+    context 'and a submission file ingested' do
+      scenario 'shows the status in review' do
+        FactoryBot.create(
+          :submission_with_validated_entries,
+          supplier: supplier,
+          framework: framework,
+          task: task,
+          aasm_state: 'in_review'
+        )
+
+        visit admin_supplier_path(supplier)
+
+        expect(page).to have_content 'In Review'
+      end
+    end
+
+    context 'and a submission file with errors' do
+      scenario 'shows the status validation failed' do
+        FactoryBot.create(
+          :submission_with_invalid_entries,
+          supplier: supplier,
+          framework: framework,
+          task: task
+        )
+
+        visit admin_supplier_path(supplier)
+
+        expect(page).to have_content 'Validation Failed'
+      end
+    end
+
+    context 'that is completed' do
+      scenario 'shows the status completed' do
+        FactoryBot.create(
+          :submission_with_positive_management_charge,
+          supplier: supplier,
+          framework: framework,
+          task: task,
+          aasm_state: 'completed'
+        )
+
+        visit admin_supplier_path(supplier)
+
+        expect(page).to have_content 'Completed'
+      end
+    end
   end
 end

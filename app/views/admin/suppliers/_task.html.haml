@@ -1,0 +1,14 @@
+%tr.govuk-table__row
+  %td.govuk-table__cell
+    = task.framework.short_name
+  %td.govuk-table__cell
+    = task.due_on.to_s(:month_year)
+  %td.govuk-table__cell
+    - if task.latest_submission
+      = task.latest_submission.created_at.to_s(:date_with_utc_time)
+  %td.govuk-table__cell
+    - if task.latest_submission
+      = task.latest_submission.aasm_state.titlecase
+    - else
+      = task.status.titlecase
+
