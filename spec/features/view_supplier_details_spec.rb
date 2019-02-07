@@ -59,10 +59,9 @@ RSpec.feature 'Viewing a supplier' do
           task: task,
           aasm_state: 'in_review'
         )
-
         visit admin_supplier_path(supplier)
-
         expect(page).to have_content 'In Review'
+        expect(page).to have_content 'Download submission file'
       end
     end
 
@@ -78,13 +77,14 @@ RSpec.feature 'Viewing a supplier' do
         visit admin_supplier_path(supplier)
 
         expect(page).to have_content 'Validation Failed'
+        expect(page).to have_content 'Download submission file'
       end
     end
 
     context 'that is completed' do
       scenario 'shows the status completed' do
         FactoryBot.create(
-          :submission_with_positive_management_charge,
+          :submission_with_validated_entries,
           supplier: supplier,
           framework: framework,
           task: task,
@@ -94,6 +94,7 @@ RSpec.feature 'Viewing a supplier' do
         visit admin_supplier_path(supplier)
 
         expect(page).to have_content 'Completed'
+        expect(page).to have_content 'Download submission file'
       end
     end
   end
