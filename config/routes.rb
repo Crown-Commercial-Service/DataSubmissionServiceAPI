@@ -60,7 +60,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#index'
-    resources :users, only: %i[index show new create destroy] do
+    resources :users, only: %i[index show new edit create destroy] do
       resources :memberships, only: %i[new create show destroy]
       member do
         get :confirm_delete

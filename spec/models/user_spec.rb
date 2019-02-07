@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#create_with_auth0' do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user, auth_id: nil) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
 
     before { stub_auth0_token_request }

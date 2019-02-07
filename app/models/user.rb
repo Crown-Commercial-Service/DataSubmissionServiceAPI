@@ -32,7 +32,8 @@ class User < ApplicationRecord
   end
 
   def create_with_auth0
-    auth0_client = Auth0Api.new.client
+    return if active?
+
     auth0_response = auth0_client.create_user(
       name,
       email: email,
@@ -44,7 +45,6 @@ class User < ApplicationRecord
   end
 
   def delete_on_auth0
-    auth0_client = Auth0Api.new.client
     auth0_client.delete_user(auth_id)
     update auth_id: nil
   end
@@ -55,10 +55,17 @@ class User < ApplicationRecord
 
   def deactivate
     return unless active?
+
     delete_on_auth0
   end
 
   def temporary_password
     "#{SecureRandom.urlsafe_base64}aA1!"
+  end
+
+  private
+
+  def auth0_client
+    @auth0_client ||= Auth0Api.new.client
   end
 end

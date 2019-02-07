@@ -1,10 +1,11 @@
 class Admin::UsersController < AdminController
+  before_action :find_user, only: %i[show edit confirm_delete destroy]
+
   def index
-    @users = User.search(params[:search]).page(params[:page])
+    @users = User.active.search(params[:search]).page(params[:page])
   end
 
   def show
-    @user = User.find(params[:id])
     @memberships = @user.memberships.includes(:supplier)
   end
 
@@ -29,18 +30,27 @@ class Admin::UsersController < AdminController
     end
   end
 
-  def confirm_delete
-    @user = User.find(params[:id])
+  def edit
+    @user.create_with_auth0
+  rescue Auth0::Exception
+    flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
+  ensure
+    redirect_to admin_user_path(@user)
   end
 
+  def confirm_delete; end
+
   def destroy
-    @user = User.find(params[:id])
     @user.deactivate
     flash[:alert] = 'User has been deleted'
     redirect_to admin_users_path
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :email)

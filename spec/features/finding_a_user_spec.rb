@@ -5,6 +5,7 @@ RSpec.feature 'Finding a user' do
     @user1 = FactoryBot.create(:user, name: 'User One', email: 'email_one@ccs.co.uk')
     @user2 = FactoryBot.create(:user, name: 'User Two', email: 'email_two@ccs.co.uk')
     @user3 = FactoryBot.create(:user, name: 'User Three', email: 'email_three@ccs.co.uk')
+    @user4 = FactoryBot.create(:user, name: 'Inactive User', email: 'email_four@ccs.co.uk', auth_id: nil)
     @supplier1 = FactoryBot.create(:supplier, name: 'Supplier Alpha')
     @supplier2 = FactoryBot.create(:supplier, name: 'Supplier Beta')
     @user1.suppliers << @supplier1
@@ -13,11 +14,12 @@ RSpec.feature 'Finding a user' do
     sign_in_as_admin
   end
 
-  scenario 'viewing all' do
+  scenario 'Viewing all active users' do
     visit admin_users_path
     expect(page).to have_content 'User One'
     expect(page).to have_content 'User Two'
     expect(page).to have_content 'User Three'
+    expect(page).to_not have_content 'Inactive User'
   end
 
   scenario 'Searching by name' do
