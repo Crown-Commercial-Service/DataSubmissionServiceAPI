@@ -4,7 +4,7 @@ class DependentFieldInclusionValidator < ActiveModel::EachValidator
     parent_field_value = record.attributes[parent_field_name]
 
     if parent_field_value
-      parent_field_value_lookup = parent_field_value.to_s.downcase
+      parent_field_value_lookup = parent_field_value&.downcase
       mapping = options[:in]
 
       valid_values = mapping.dig(parent_field_name, parent_field_value_lookup).map(&:downcase)
