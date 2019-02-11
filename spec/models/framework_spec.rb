@@ -6,14 +6,6 @@ RSpec.describe Framework do
   it { is_expected.to have_many(:suppliers).through(:agreements) }
   it { is_expected.to have_many(:submissions) }
 
-  describe '#management_charge_rate' do
-    let(:rm3756) { Framework.new(short_name: 'RM3756') }
-
-    it 'reports the rate of the framework definition' do
-      expect(rm3756.management_charge_rate).to eq BigDecimal('1.5')
-    end
-  end
-
   describe 'validations' do
     subject { Framework.create(short_name: 'test') }
     it { is_expected.to validate_presence_of(:short_name) }
