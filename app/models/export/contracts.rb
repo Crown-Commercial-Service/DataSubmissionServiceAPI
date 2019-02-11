@@ -23,14 +23,6 @@ module Export
       ContractEndDate
       ContractValue
       ContractAwardChannel
-      Additional1
-      Additional2
-      Additional3
-      Additional4
-      Additional5
-      Additional6
-      Additional7
-      Additional8
-    ].freeze
+    ].concat(SubmissionEntryRow.additional_field_names).freeze
   end
 end
