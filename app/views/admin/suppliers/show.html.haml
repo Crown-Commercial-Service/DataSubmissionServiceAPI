@@ -5,6 +5,28 @@
 .govuk-grid-row
   .govuk-grid-column-full
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
+      Tasks
+
+    -if @tasks.present?
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Framework
+            %th.govuk-table__header Month
+            %th.govuk-table__header Submitted
+            %th.govuk-table__header Status
+            %th.govuk-table__header Submission file
+        %tbody.govuk-table__body
+          = render(collection: @tasks, partial: "task")
+
+    -else
+      %p
+        No tasks for
+        = @supplier.name
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Users
 
     -if @supplier.users.present?

@@ -85,7 +85,7 @@ module Workday
     end
 
     def total_spend
-      format '%.2f', -submission.total_spend.truncate(2)
+      format '%.2f', submission.total_spend.truncate(2)
     end
 
     def supplier_salesforce_id
