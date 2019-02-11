@@ -22,8 +22,8 @@ class Framework
         field 'Invoice Line Service Grouping', :string, exports_to: 'ProductGroup'
         field 'UNSPSC', :string, exports_to: 'UNSPSC'
         field 'Product Code', :string, exports_to: 'ProductCode'
-        field 'Unit of Purchase', :string, exports_to: 'UnitType'
-        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
+        field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
         field 'Invoice Line Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
         field 'Invoice Line Total Value ex VAT and Expenses', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
@@ -46,7 +46,7 @@ class Framework
         field 'Project Name', :string, exports_to: 'ProductDescription'
         field 'UNSPSC', :string, exports_to: 'UNSPSC'
         field 'Number of items', :string
-        field 'Customer Order/Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true, allow_nil: true
+        field 'Customer Order/Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true
         field 'Invoice Line Service Grouping', :string, exports_to: 'ContractAwardChannel', presence: true
         field 'Invoice Line Product / Service Description', :string, exports_to: 'Additional1'
       end

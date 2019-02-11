@@ -6,6 +6,20 @@ class Framework
 
       management_charge_rate BigDecimal('1')
 
+      PRODUCT_GROUPS = [
+        'Print Journal',
+        'Electronic Journal',
+        'Print and Electronic Journal'
+      ].freeze
+
+      UNIT_OF_MEASURE_VALUES = [
+        'Each'
+      ].freeze
+
+      UNSPSC_CODES = [
+        '86141704'
+      ].freeze
+
       class Invoice < EntryData
         total_value_field 'Total Charge (Ex VAT)'
 
@@ -14,12 +28,12 @@ class Framework
         field 'Customer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber'
-        field 'Product Group', :string, exports_to: 'ProductGroup'
+        field 'Product Group', :string, exports_to: 'ProductGroup', case_insensitive_inclusion: { in: PRODUCT_GROUPS }
         field 'Publisher Name', :string, exports_to: 'ProductClass'
         field 'Product Description', :string, exports_to: 'ProductDescription'
         field 'Crown Commercial Service Unique Product Codes', :string, exports_to: 'ProductCode'
-        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
-        field 'Unit of Measure', :string, exports_to: 'UnitType'
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, case_insensitive_inclusion: { in: UNSPSC_CODES }
+        field 'Unit of Measure', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, allow_nil: true
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, allow_nil: true
         field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
