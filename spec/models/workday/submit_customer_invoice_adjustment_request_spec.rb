@@ -63,11 +63,11 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
           text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Line_Item_Description')
-        ).to eq 'Management charge for December 2018 based on £20.00 spend'
+        ).to eq 'Management charge for December 2018 based on £-20.00 spend'
       end
 
       it 'sets Analytical_Amount as the total spend for the submission' do
-        expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Analytical_Amount')).to eq '20.00'
+        expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Analytical_Amount')).to eq '-20.00'
       end
 
       it 'sets Extended_Amount as the management charge for the submission' do
