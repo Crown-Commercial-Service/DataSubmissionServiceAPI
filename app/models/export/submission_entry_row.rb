@@ -8,7 +8,7 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
-    NUMBER_OF_ADDITIONAL_FIELDS = 8
+    NUMBER_OF_ADDITIONAL_FIELDS = 24
 
     include StringUtils
 
