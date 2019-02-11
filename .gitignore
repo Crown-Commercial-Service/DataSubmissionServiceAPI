@@ -28,6 +28,7 @@
 # Environment variables
 .env
 .env.*
+!.env.*.example
 
 docker-compose.env
 
