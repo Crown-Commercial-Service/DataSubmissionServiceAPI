@@ -66,7 +66,7 @@ module Export
       end
 
       def commission_percent
-        percentage_as_decimal(management_charge_rate)
+        '#REMOVED'
       end
 
       def end_user
@@ -101,10 +101,6 @@ module Export
 
       def management_charge
         submission.entries.invoices.sector(sector).sum(:management_charge)
-      end
-
-      def management_charge_rate
-        framework.management_charge_rate
       end
 
       def numeric_string_to_number(numeric_string)

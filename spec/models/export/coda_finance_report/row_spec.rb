@@ -52,10 +52,6 @@ RSpec.describe Export::CodaFinanceReport::Row do
     expect(cg_report_row.month).to eq 'August 2018'
   end
 
-  it 'reports the management charge rate as ‘Commission %’' do
-    expect(cg_report_row.commission_percent).to eq '0.005'
-  end
-
   it 'reports the sector as ‘End User’' do
     expect(cg_report_row.end_user).to eq 'UCGV'
     expect(wps_report_row.end_user).to eq 'UWPS'

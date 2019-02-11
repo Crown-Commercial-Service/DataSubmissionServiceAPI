@@ -45,7 +45,7 @@ module Export
       end
 
       def management_charge_rate
-        (framework_definition.management_charge_rate / 100).to_s
+        '#REMOVED'
       end
 
       def created_date
