@@ -8,6 +8,8 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
+    NUMBER_OF_ADDITIONAL_FIELDS = 24
+
     include StringUtils
 
     def value_for(destination_field, default: NOT_IN_DATA)
@@ -16,7 +18,7 @@ module Export
     end
 
     def values_for_additional
-      (1..8).map do |n|
+      (1..NUMBER_OF_ADDITIONAL_FIELDS).map do |n|
         value_for("Additional#{n}", default: nil)
       end
     end
@@ -30,6 +32,10 @@ module Export
 
       value = value.gsub(/([^0-9.\-]+)/, '').to_f if value.is_a?(String)
       value
+    end
+
+    def self.additional_field_names
+      (1..NUMBER_OF_ADDITIONAL_FIELDS).map { |n| "Additional#{n}" }
     end
 
     private

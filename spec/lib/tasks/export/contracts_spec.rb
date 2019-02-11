@@ -43,7 +43,9 @@ RSpec.describe 'rake export:contracts', type: :task do
         'CustomerReferenceNumber,LotNumber,ProductDescription,ProductGroup,ProductClass,ProductSubClass,ProductCode,'\
         'ProductLevel6,CustomerContactName,CustomerContactNumber,CustomerContactEmail,'\
         'ContractStartDate,ContractEndDate,ContractValue,ContractAwardChannel,'\
-        'Additional1,Additional2,Additional3,Additional4,Additional5,Additional6,Additional7,Additional8'
+        'Additional1,Additional2,Additional3,Additional4,Additional5,Additional6,Additional7,Additional8,'\
+        'Additional9,Additional10,Additional11,Additional12,Additional13,Additional14,Additional15,Additional16,'\
+        'Additional17,Additional18,Additional19,Additional20,Additional21,Additional22,Additional23,Additional24'
       )
     end
 
@@ -52,7 +54,8 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines[1]).to eql(
         "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,"\
         'DWP - Claim by Mr I Dontexist,1,Contentious Employment,,,,,,,,,'\
-        '2018-06-27,2020-06-27,5000.00,Further Competition,N/A,N,Central Government Department,N,0.00,15,,'
+        '2018-06-27,2020-06-27,5000.00,Further Competition,N/A,N,Central Government Department,'\
+        'N,0.00,15,,,,,,,,,,,,,,,,,,'
       )
     end
 
@@ -60,7 +63,7 @@ RSpec.describe 'rake export:contracts', type: :task do
       expect(output_lines[2]).to eql(
         "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA," \
         ',,,,,,,,,,,' \
-        '#NOTINDATA,#NOTINDATA,,,,,,,,'
+        '#NOTINDATA,#NOTINDATA,,,,,,,,,,,,,,,,,,,,,,,,'
       )
     end
 

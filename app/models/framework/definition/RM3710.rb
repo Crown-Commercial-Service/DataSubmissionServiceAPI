@@ -35,15 +35,15 @@ class Framework
         field 'Vehicle Conversion Type', :string, exports_to: 'Additional6'
         field 'Vehicle Type', :string, exports_to: 'Additional7'
         field 'Lease Start Date', :string, exports_to: 'Additional8', ingested_date: true, allow_nil: true
-        field 'Lease End Date', :string, ingested_date: true, allow_nil: true
-        field 'Lease Period (Months)', :string, ingested_numericality: { only_integer: true }, allow_nil: true
-        field 'Payment Profile', :string
-        field 'Annual Lease Mileage', :string, ingested_numericality: true, allow_nil: true
-        field 'Base Vehicle Price ex VAT', :string, ingested_numericality: true, allow_nil: true
-        field 'Lease Finance Charge ex VAT', :string, ingested_numericality: true, allow_nil: true
-        field 'Annual Service Maintenance & Repair Costs ex VAT', :string, ingested_numericality: true, allow_nil: true
-        field 'Residual Value', :string, ingested_numericality: true, allow_nil: true
-        field 'Total Manufacturer Discount (%)', :string, ingested_numericality: true, allow_nil: true
+        field 'Lease End Date', :string, exports_to: 'Additional9', ingested_date: true, allow_nil: true
+        field 'Lease Period (Months)', :string, exports_to: 'Additional10', ingested_numericality: { only_integer: true }, allow_nil: true
+        field 'Payment Profile', :string, exports_to: 'Additional11'
+        field 'Annual Lease Mileage', :string, exports_to: 'Additional12', ingested_numericality: true, allow_nil: true
+        field 'Base Vehicle Price ex VAT', :string, exports_to: 'Additional13', ingested_numericality: true, allow_nil: true
+        field 'Lease Finance Charge ex VAT', :string, exports_to: 'Additional14', ingested_numericality: true, allow_nil: true
+        field 'Annual Service Maintenance & Repair Costs ex VAT', :string, exports_to: 'Additional15', ingested_numericality: true, allow_nil: true
+        field 'Residual Value', :string, exports_to: 'Additional16', ingested_numericality: true, allow_nil: true
+        field 'Total Manufacturer Discount (%)', :string, exports_to: 'Additional17', ingested_numericality: true, allow_nil: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
         field 'Spend Code', :string, exports_to: 'PromotionCode', inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
