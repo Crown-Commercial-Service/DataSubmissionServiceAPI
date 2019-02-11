@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-44] - 2019-02-11
+
+- Admin app see status of submission
+- Admin app download submission file
+
 ## [release-43] - 2019-02-07
 
 - Reinstated validations on some October frameworks:
@@ -283,6 +288,9 @@
 
 Initial release
 
+[release-44]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-43...release-44
+[release-43]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-42...release-43
+[release-42]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-41...release-42
 [release-41]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-40...release-41
 [release-40]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-39...release-40
 [release-39]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-38...release-39
