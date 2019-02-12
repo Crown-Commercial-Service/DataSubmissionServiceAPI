@@ -12,6 +12,15 @@ class Framework
         column_value_for_entry = entry.data.dig(column).to_s
         percentage = value_to_percentage[column_value_for_entry.downcase]
 
+        if percentage.nil?
+          Rollbar.error(
+            "Got value '#{column_value_for_entry}' for '#{column}' on #{entry.framework.short_name}"\
+            "from entry #{entry.id}. Missing validation?"
+          )
+
+          return 0.0
+        end
+
         (entry.total_value * (percentage / 100)).truncate(4)
       end
 
