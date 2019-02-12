@@ -1,6 +1,10 @@
 class Admin::SessionsController < AdminController
   skip_before_action :ensure_user_signed_in
 
+  # Used with OmniAuth::Strategies::DeveloperAdmin as the dev-facing
+  # form it creates doesn't know (and doesn't need to in dev) about our CSRF token
+  skip_before_action :verify_authenticity_token, only: :create if OmniAuth::Strategies::DeveloperAdmin.applies?
+
   def new; end
 
   def create

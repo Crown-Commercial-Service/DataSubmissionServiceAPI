@@ -80,7 +80,18 @@ To run the full test suite - Rubocop, Brakeman and Rspec - before pushing to Git
 
 `$ bundle exec rails s`
 
-The application will run on port 3000 by default
+The application will run on port 3000 by default.
+
+### The admin interface
+
+The admin interface is available at `/admin`. In production its use requires
+OAuth authentication via a Google provider, but there is a `DeveloperAdmin` provider
+which will let you log in locally to develop admin functions without credentials. You
+should not need to do anything to set this up; it will apply by default if either of
+`GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` are missing from your development environment. 
+
+It will use the email address from `.env.development / ADMIN_EMAILS` by default with a 
+default user full name, either of which can be changed at login if you wish.
 
 ## API Endpoints
 

@@ -72,4 +72,6 @@ Rails.application.routes.draw do
   end
 
   get '/auth/:provider/callback', to: 'admin/sessions#create'
+  # The "POST" version of the callback is required for OmniAuth::Strategies::DeveloperAdmin
+  post '/auth/:provider/callback', to: 'admin/sessions#create' if OmniAuth::Strategies::DeveloperAdmin.applies?
 end
