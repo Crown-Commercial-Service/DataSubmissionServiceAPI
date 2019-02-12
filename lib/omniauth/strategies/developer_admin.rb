@@ -18,20 +18,34 @@ module OmniAuth
     class DeveloperAdmin
       include OmniAuth::Strategy
 
-      DEFAULT_EMAIL = 'delia.veloper@dxw.com'.freeze
+      ##
+      # This strategy only applies when the Google credentials are missing
+      # and we're in development
+      def self.applies?
+        Rails.env.development? &&
+          (ENV['GOOGLE_CLIENT_ID'].blank? || ENV['GOOGLE_CLIENT_SECRET'].blank?)
+      end
+
+      def self.admin_email
+        ENV['ADMIN_EMAILS'].presence&.split(',')&.first || 'Please set ADMIN_EMAILS'
+      end
 
       option :name, 'developer_admin'
-      option :email, ENV['ADMIN_EMAILS'] || DEFAULT_EMAIL
+      option :email, DeveloperAdmin.admin_email
       option :users_name, 'Delia Veloper'
 
       uid { 'email' }
 
       def request_phase
         form = OmniAuth::Form.new(
-          title: 'Default developer admin credentials', url: callback_path
+          title: 'Default developer admin credentials – looked up from ADMIN_EMAILS env', url: callback_path
         )
-        form.html "\n<input type='text' id='email' name='email' value='#{options[:email]}'/>"
-        form.html "\n<input type='text' id='name' name='name' value='#{options[:users_name]}'/>"
+        form.html <<~HTML
+          <label for='email'>Email</label>
+          <input type='text' id='email' name='email' value='#{options[:email]}' />
+          <label for='name'>Name</label>
+          <input type='text' id='name' name='name' value='#{options[:users_name]}' />
+        HTML
         form.button 'Sign In'
         form.to_response
       end
@@ -41,14 +55,6 @@ module OmniAuth
           name: request.params['name'],
           email: request.params['email']
         }
-      end
-
-      ##
-      # This strategy only applies when the Google credentials are missing
-      # and we're in development
-      def self.applies?
-        Rails.env.development? &&
-          (ENV['GOOGLE_CLIENT_ID'].blank? || ENV['GOOGLE_CLIENT_SECRET'].blank?)
       end
     end
   end
