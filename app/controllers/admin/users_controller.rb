@@ -1,8 +1,8 @@
 class Admin::UsersController < AdminController
-  before_action :find_user, only: %i[show edit confirm_delete destroy]
+  before_action :find_user, except: %i[index create new]
 
   def index
-    @users = User.active.search(params[:search]).page(params[:page])
+    @users = User.search(params[:search]).page(params[:page])
   end
 
   def show
@@ -40,9 +40,11 @@ class Admin::UsersController < AdminController
 
   def confirm_delete; end
 
+  def confirm_reactivate; end
+
   def destroy
     @user.deactivate
-    flash[:alert] = 'User has been deleted'
+    flash[:alert] = 'User has been deactivated'
     redirect_to admin_users_path
   end
 

@@ -1,14 +1,14 @@
-= form_for [:admin, @user], method: :delete do |form|
+= form_for [:admin, @user], url: edit_admin_user_path(@user), method: :post do |form|
   .govuk-grid-row
     .govuk-grid-column-full
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
           %h1.govuk-fieldset__heading
-            Deactivate this User?
+            Reactivate this User?
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %p
-        This user will no longer have access to the service. However their user record will be retained for auditing purposes.
+        This user will be recreated on Auth0 and will be sent a new password
 
   .govuk-grid-row
     .govuk-grid-column-full
@@ -22,4 +22,4 @@
             %td.govuk-table__cell= @user.name
             %td.govuk-table__cell= @user.email
       .govuk-form-group
-        = form.submit 'Deactivate user', class: 'govuk-button'
+        = form.submit 'Reactivate user', class: 'govuk-button'

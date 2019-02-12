@@ -14,12 +14,12 @@ RSpec.feature 'Finding a user' do
     sign_in_as_admin
   end
 
-  scenario 'Viewing all active users' do
+  scenario 'Viewing all users' do
     visit admin_users_path
     expect(page).to have_content 'User One'
     expect(page).to have_content 'User Two'
     expect(page).to have_content 'User Three'
-    expect(page).to_not have_content 'Inactive User'
+    expect(page).to have_content 'Inactive User'
   end
 
   scenario 'Searching by name' do
@@ -29,6 +29,14 @@ RSpec.feature 'Finding a user' do
     expect(page).to have_content 'User One'
     expect(page).to_not have_content 'User Two'
     expect(page).to_not have_content 'User Three'
+  end
+
+  scenario 'Searching for inactive users by name' do
+    visit admin_users_path
+    fill_in 'Search', with: 'inactive'
+    click_button 'Search'
+    expect(page).to_not have_content 'User One'
+    expect(page).to have_content 'Inactive User'
   end
 
   scenario 'Searching by email' do
