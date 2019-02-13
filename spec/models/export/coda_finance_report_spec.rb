@@ -52,10 +52,10 @@ RSpec.describe Export::CodaFinanceReport do
   let(:expected_csv) do
     <<~CSV
       RunID,Nominal,Customer Code,Customer Name,Contract ID,Order Number,Lot Description,Inf Sales,Commission,Commission %,End User,Submitter,Month,M_Q
-      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,802.00,12.02,0.015,UCGV,Mary,August 2018,M
-      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,0.00,0.00,0.015,UWPS,Mary,August 2018,M
-      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,0.015,UCGV,Bob,August 2018,M
-      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,0.015,UWPS,Bob,August 2018,M
+      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,802.00,12.02,#REMOVED,UCGV,Mary,August 2018,M
+      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,0.00,0.00,#REMOVED,UWPS,Mary,August 2018,M
+      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UCGV,Bob,August 2018,M
+      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UWPS,Bob,August 2018,M
     CSV
   end
 

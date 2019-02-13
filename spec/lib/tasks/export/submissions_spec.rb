@@ -56,7 +56,7 @@ RSpec.describe 'rake export:submissions', type: :task do
       expect(output_lines.length).to eql(3)
       expect(output_lines.find { |line| line.match('PO1234') }).to eql(
         "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,804.00,1,179.12,1.79," \
-        '0.01,2018-09-18T14:20:35Z,CrForename CrSurname,2018-09-20T10:11:12Z,SubForename SubSurname,,PO1234'
+        '#REMOVED,2018-09-18T14:20:35Z,CrForename CrSurname,2018-09-20T10:11:12Z,SubForename SubSurname,,PO1234'
       )
     end
 

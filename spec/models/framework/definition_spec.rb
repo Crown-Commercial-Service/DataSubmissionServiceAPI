@@ -12,7 +12,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate).to eq(BigDecimal('1.5'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1.5'))
         end
       end
 
@@ -23,7 +23,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate).to eq(BigDecimal('0'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('0'))
         end
       end
 
@@ -35,7 +35,7 @@ RSpec.describe Framework::Definition do
         end
 
         it 'reports the management charge' do
-          expect(definition.management_charge_rate). to eq(BigDecimal('1'))
+          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1'))
         end
       end
     end
@@ -56,11 +56,13 @@ RSpec.describe Framework::Definition do
     end
   end
 
-  describe 'Base.management_charge' do
+  describe 'Base.calculate_management_charge' do
     it 'returns the management charge based on the framework’s management charge rate, rounded to 4 decimal places' do
-      expect(Framework::Definition::RM3756.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('1531.8484')
-      expect(Framework::Definition::RM1070.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('510.6161')
-      expect(Framework::Definition::CM_OSG_05_3565.management_charge(BigDecimal('102123.23'))).to eq BigDecimal('0')
+      entry = double('entry', total_value: BigDecimal('102123.23'))
+
+      expect(Framework::Definition::RM3756.calculate_management_charge(entry)).to eq BigDecimal('1531.8484')
+      expect(Framework::Definition::RM1070.calculate_management_charge(entry)).to eq BigDecimal('510.6161')
+      expect(Framework::Definition::CM_OSG_05_3565.calculate_management_charge(entry)).to eq BigDecimal('0')
     end
   end
 

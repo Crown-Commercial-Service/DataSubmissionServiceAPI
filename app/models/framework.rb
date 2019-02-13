@@ -11,8 +11,6 @@ class Framework < ApplicationRecord
     message: 'must start with “40” and have four additional numbers, for example: “401234”'
   }
 
-  delegate :management_charge_rate, to: :definition
-
   def definition
     @definition ||= Definition[short_name]
   end
