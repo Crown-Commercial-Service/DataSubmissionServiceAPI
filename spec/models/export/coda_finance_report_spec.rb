@@ -12,12 +12,13 @@ RSpec.describe Export::CodaFinanceReport do
   let(:supplier_1) { FactoryBot.create(:supplier, name: 'Bob', coda_reference: 'C099999') }
   let(:supplier_2) { FactoryBot.create(:supplier, name: 'Mary', coda_reference: 'C011111') }
 
-  let(:no_business_submission) do
+  let!(:no_business_submission) do
     FactoryBot.create(:no_business_submission, framework: framework, supplier: supplier_1, task: task_1)
   end
-  let(:submission) do
+  let!(:submission) do
     FactoryBot.create(
       :submission,
+      aasm_state: :completed,
       entries: [submission_entry_1, submission_entry_2],
       supplier: supplier_2,
       framework: framework,
@@ -44,27 +45,36 @@ RSpec.describe Export::CodaFinanceReport do
     )
   end
 
-  let(:submissions)      { [submission, no_business_submission] }
+  let(:submissions)      { Submission.completed }
   let(:output)           { StringIO.new }
   let(:report)           { Export::CodaFinanceReport.new(submissions, output) }
   let(:report_timestamp) { Time.zone.now.to_i }
 
-  let(:expected_csv) do
-    <<~CSV
-      RunID,Nominal,Customer Code,Customer Name,Contract ID,Order Number,Lot Description,Inf Sales,Commission,Commission %,End User,Submitter,Month,M_Q
-      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,802.00,12.02,#REMOVED,UCGV,Mary,August 2018,M
-      #{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,0.00,0.00,#REMOVED,UWPS,Mary,August 2018,M
-      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UCGV,Bob,August 2018,M
-      #{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UWPS,Bob,August 2018,M
-    CSV
+  let(:header) do
+    'RunID,Nominal,Customer Code,Customer Name,Contract ID,Order Number,Lot Description,Inf Sales,'\
+    'Commission,Commission %,End User,Submitter,Month,M_Q'
   end
 
   around(:example) do |example|
     freeze_time { example.run }
   end
 
-  it 'generates a CSV file based on the submissions provided' do
-    report.run
-    expect(output.string).to eq expected_csv
+  describe 'the CSV' do
+    subject(:lines) { output.string.split("\n") }
+
+    it 'generates a CSV file based on the submissions provided' do
+      report.run
+
+      expect(lines.first).to eql(header)
+
+      [
+        "#{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,802.00,12.02,#REMOVED,UCGV,Mary,August 2018,M",
+        "#{submission.id},409999,C011111,Mary,RM3787,PO-123,G CLOUD,0.00,0.00,#REMOVED,UWPS,Mary,August 2018,M",
+        "#{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UCGV,Bob,August 2018,M",
+        "#{no_business_submission.id},409999,C099999,Bob,RM3787,,G CLOUD,0.00,0.00,#REMOVED,UWPS,Bob,August 2018,M"
+      ].each do |line|
+        expect(lines).to include(line)
+      end
+    end
   end
 end
