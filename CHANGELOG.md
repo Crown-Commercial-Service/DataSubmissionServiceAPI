@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-45] - 2019-02-13
+
+- Task list should show period_date
+- RUN ON PRODUCTION: remove submissions without task and associated models
+- RM858 and RM3710 changes to DW export
+- Reinstate validations on remaining October frameworks (2/2)
+- Users should be soft deleted
+- Remove Docker configuration for local development
+- Add developer strategy to API/omniauth so that development doesn't require Google auth setup per-developer
+
 ## [release-44] - 2019-02-11
 
 - Admin app see status of submission
@@ -288,6 +298,7 @@
 
 Initial release
 
+[release-45]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-44...release-45
 [release-44]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-43...release-44
 [release-43]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-42...release-43
 [release-42]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-41...release-42
