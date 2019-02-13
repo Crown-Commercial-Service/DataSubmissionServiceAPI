@@ -14,20 +14,11 @@ class Admin::UsersController < AdminController
 
   def create
     @user = User.new(user_params)
+    create_user
 
-    User.transaction do
-      if @user.save
-        @user.create_with_auth0
-        redirect_to admin_user_path(@user)
-      else
-        render action: :new
-      end
-    rescue Auth0::Exception => e
-      flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
-      Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
-      render action: :new
-      raise ActiveRecord::Rollback
-    end
+    return redirect_to admin_user_path(@user) if @user.persisted?
+
+    render action: :new
   end
 
   def edit
@@ -56,6 +47,19 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def create_user
+    User.transaction do
+      @user.save
+      begin
+        @user.create_with_auth0
+      rescue Auth0::Exception => e
+        flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
+        Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email)
