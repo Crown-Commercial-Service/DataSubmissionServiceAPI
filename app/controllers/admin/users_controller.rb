@@ -1,11 +1,10 @@
 class Admin::UsersController < AdminController
-  before_action :find_user, except: %i[index create new]
-
   def index
     @users = User.search(params[:search]).page(params[:page])
   end
 
   def show
+    @user = User.find(params[:id])
     @memberships = @user.memberships.includes(:supplier)
   end
 
@@ -31,6 +30,7 @@ class Admin::UsersController < AdminController
   end
 
   def edit
+    @user = User.find(params[:id])
     @user.create_with_auth0
   rescue Auth0::Exception
     flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
@@ -38,21 +38,22 @@ class Admin::UsersController < AdminController
     redirect_to admin_user_path(@user)
   end
 
-  def confirm_delete; end
+  def confirm_delete
+    @user = User.find(params[:id])
+  end
 
-  def confirm_reactivate; end
+  def confirm_reactivate
+    @user = User.find(params[:id])
+  end
 
   def destroy
+    @user = User.find(params[:id])
     @user.deactivate
     flash[:alert] = 'User has been deactivated'
     redirect_to admin_users_path
   end
 
   private
-
-  def find_user
-    @user = User.find(params[:id])
-  end
 
   def user_params
     params.require(:user).permit(:name, :email)
