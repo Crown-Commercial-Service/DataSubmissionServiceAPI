@@ -4,6 +4,7 @@ RSpec.feature 'Reactivating a user' do
   let(:user) { FactoryBot.create(:user, :inactive) }
 
   before do
+    allow(Rails.logger).to receive(:warn)
     stub_auth0_token_request
     sign_in_as_admin
   end
@@ -28,5 +29,7 @@ RSpec.feature 'Reactivating a user' do
     click_on 'Reactivate user'
 
     expect(page).to have_content('There was an error adding the user to Auth0.')
+    expect(Rails.logger).to have_received(:warn)
+      .with(/Error adding user #{user.email} to Auth0 during User#edit/)
   end
 end
