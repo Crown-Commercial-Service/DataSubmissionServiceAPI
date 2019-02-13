@@ -63,7 +63,9 @@ Rails.application.routes.draw do
     resources :users, only: %i[index show new create destroy] do
       resources :memberships, only: %i[new create show destroy]
       member do
+        post :edit
         get :confirm_delete
+        get :confirm_reactivate
       end
     end
     resources :suppliers, only: %i[index show]

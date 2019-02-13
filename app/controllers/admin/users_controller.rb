@@ -22,22 +22,36 @@ class Admin::UsersController < AdminController
       else
         render action: :new
       end
-    rescue Auth0::Exception
+    rescue Auth0::Exception => e
       flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
+      Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
       render action: :new
       raise ActiveRecord::Rollback
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    @user.create_with_auth0
+  rescue Auth0::Exception => e
+    flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
+    Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#edit, message: #{e.message}")
+  ensure
+    redirect_to admin_user_path(@user)
   end
 
   def confirm_delete
     @user = User.find(params[:id])
   end
 
+  def confirm_reactivate
+    @user = User.find(params[:id])
+  end
+
   def destroy
     @user = User.find(params[:id])
-    @user.delete_on_auth0
-    @user.destroy
-    flash[:alert] = 'User has been deleted'
+    @user.deactivate
+    flash[:alert] = 'User has been deactivated'
     redirect_to admin_users_path
   end
 

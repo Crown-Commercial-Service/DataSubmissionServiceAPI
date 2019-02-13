@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#create_with_auth0' do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user, :inactive) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
 
     before { stub_auth0_token_request }
@@ -54,6 +54,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#active?' do
+    subject { user.active? }
+
+    context 'an active user' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'an inactive user' do
+      let(:user) { FactoryBot.create(:user, :inactive) }
+
+      it { is_expected.to be_falsy }
+    end
+  end
+
   describe '#delete_on_auth0' do
     let(:user) { FactoryBot.create(:user) }
     let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
@@ -65,6 +81,34 @@ RSpec.describe User, type: :model do
 
       expect(auth0_delete_call).to have_been_requested
       expect(user.auth_id).to eq(nil)
+    end
+  end
+
+  describe '#deactivate' do
+    let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
+
+    before { stub_auth0_token_request }
+
+    context 'an active user' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'deletes user on Auth0 and nils auth_id' do
+        user.deactivate
+
+        expect(auth0_delete_call).to have_been_requested
+        expect(user.auth_id).to eq(nil)
+      end
+    end
+
+    context 'an inactive user' do
+      let(:user) { FactoryBot.create(:user, :inactive) }
+
+      it 'does not do anything' do
+        user.deactivate
+
+        expect(auth0_delete_call).not_to have_been_requested
+        expect(user.auth_id).to eq(nil)
+      end
     end
   end
 
@@ -98,6 +142,23 @@ RSpec.describe User, type: :model do
 
       it 'doesn’t return multiple results for the matching user' do
         expect(User.search('booker')).to match_array([bob])
+      end
+    end
+  end
+
+  context 'scopes' do
+    let!(:active_user) { FactoryBot.create(:user) }
+    let!(:inactive_user) { FactoryBot.create(:user, :inactive) }
+
+    describe '.active' do
+      it 'returns only active users' do
+        expect(User.active.count).to eq(1)
+      end
+    end
+
+    describe '.inactive' do
+      it 'returns only inactive users' do
+        expect(User.inactive.count).to eq(1)
       end
     end
   end

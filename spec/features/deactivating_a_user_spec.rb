@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Delating a user' do
+RSpec.feature 'Deactivating a user' do
   let(:user) { FactoryBot.create(:user) }
 
   before do
@@ -12,9 +12,9 @@ RSpec.feature 'Delating a user' do
     sign_in_as_admin
     click_on 'Users'
     click_on user.name
-    click_on 'Delete user'
-    click_on 'Delete user'
+    click_on 'Deactivate user'
+    click_on 'Deactivate user'
 
-    expect(page).to have_content('User has been deleted')
+    expect(page).to have_content('User has been deactivated')
   end
 end

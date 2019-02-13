@@ -4,6 +4,7 @@ RSpec.feature 'Adding a user' do
   let(:email) { 'new@example.com' }
 
   before do
+    allow(Rails.logger).to receive(:warn)
     stub_auth0_token_request
     stub_auth0_create_user_request(email)
 
@@ -43,5 +44,7 @@ RSpec.feature 'Adding a user' do
 
     expect(page).to have_content('There was an error adding the user to Auth0.')
     expect(User.find_by(email: email)).to be_nil
+    expect(Rails.logger).to have_received(:warn)
+      .with(/Error adding user bla@example.com to Auth0 during User#create/)
   end
 end
