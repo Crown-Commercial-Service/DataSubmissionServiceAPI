@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#create_with_auth0' do
-    let(:user) { FactoryBot.create(:user, auth_id: nil) }
+    let(:user) { FactoryBot.create(:user, :inactive) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
 
     before { stub_auth0_token_request }
@@ -55,20 +55,18 @@ RSpec.describe User, type: :model do
   end
 
   describe '#active?' do
+    subject { user.active? }
+
     context 'an active user' do
       let(:user) { FactoryBot.create(:user) }
 
-      it 'returns true' do
-        expect(user.active?).to be_truthy
-      end
+      it { is_expected.to be_truthy }
     end
 
     context 'an inactive user' do
       let(:user) { FactoryBot.create(:user, :inactive) }
 
-      it 'returns false' do
-        expect(user.active?).to be_falsy
-      end
+      it { is_expected.to be_falsy }
     end
   end
 

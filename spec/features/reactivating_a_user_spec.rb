@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Reactivating a user' do
-  let(:user) { FactoryBot.create(:user, auth_id: nil) }
+  let(:user) { FactoryBot.create(:user, :inactive) }
 
   before do
     stub_auth0_token_request
