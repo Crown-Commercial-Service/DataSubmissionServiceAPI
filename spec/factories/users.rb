@@ -7,5 +7,9 @@ FactoryBot.define do
     sequence :email do |n|
       "user#{n}@example.com"
     end
+
+    trait :inactive do
+      auth_id nil
+    end
   end
 end

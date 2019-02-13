@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore database backups
+/backups
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -28,6 +31,7 @@
 # Environment variables
 .env
 .env.*
+!.env.*.example
 
 docker-compose.env
 

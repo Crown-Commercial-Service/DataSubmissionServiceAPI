@@ -36,21 +36,21 @@ class Framework
         field 'Vehicle Type', :string, exports_to: 'Additional6'
         field 'Fuel Type', :string, exports_to: 'Additional7'
         field 'CO2 Emission Levels', :string, exports_to: 'Additional8'
-        field 'Lease Period', :string
-        field 'Lease Start Date', :string, ingested_date: true
-        field 'Lease End Date', :string, ingested_date: true
-        field 'Payment Profile', :string
-        field 'Annual Lease Mileage', :string, allow_nil: true, ingested_numericality: true
-        field 'Base Vehicle Price ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Lease Cost excluding Optional Extras and Conversion ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Lease Finance Charge ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Lease Finance Margin ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Vehicle Purchase Terms', :string
-        field 'Standard Vehicle Discount (%)', :string, allow_nil: true, ingested_numericality: true
-        field 'Enhanced Vehicle Discount (%)', :string, allow_nil: true, ingested_numericality: true
-        field 'Annual Service Maintenance & Repair Costs ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Annual Breakdown & Recovery Costs ex VAT', :string, allow_nil: true, ingested_numericality: true
-        field 'Residual Value', :string, allow_nil: true, ingested_numericality: true
+        field 'Lease Period', :string, exports_to: 'Additional9'
+        field 'Lease Start Date', :string, exports_to: 'Additional10', ingested_date: true
+        field 'Lease End Date', :string, exports_to: 'Additional11', ingested_date: true
+        field 'Payment Profile', :string, exports_to: 'Additional12'
+        field 'Annual Lease Mileage', :string, exports_to: 'Additional13', allow_nil: true, ingested_numericality: true
+        field 'Base Vehicle Price ex VAT', :string, exports_to: 'Additional14', allow_nil: true, ingested_numericality: true
+        field 'Lease Cost excluding Optional Extras and Conversion ex VAT', :string, exports_to: 'Additional15', allow_nil: true, ingested_numericality: true
+        field 'Lease Finance Charge ex VAT', :string, exports_to: 'Additional16', allow_nil: true, ingested_numericality: true
+        field 'Lease Finance Margin ex VAT', :string, exports_to: 'Additional17', allow_nil: true, ingested_numericality: true
+        field 'Vehicle Purchase Terms', :string, exports_to: 'Additional18'
+        field 'Standard Vehicle Discount (%)', :string, exports_to: 'Additional19', allow_nil: true, ingested_numericality: true
+        field 'Enhanced Vehicle Discount (%)', :string, exports_to: 'Additional20', allow_nil: true, ingested_numericality: true
+        field 'Annual Service Maintenance & Repair Costs ex VAT', :string, exports_to: 'Additional21', allow_nil: true, ingested_numericality: true
+        field 'Annual Breakdown & Recovery Costs ex VAT', :string, exports_to: 'Additional22', allow_nil: true, ingested_numericality: true
+        field 'Residual Value', :string, exports_to: 'Additional23', allow_nil: true, ingested_numericality: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
       end

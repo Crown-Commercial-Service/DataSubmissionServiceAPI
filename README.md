@@ -1,44 +1,97 @@
 # Data Submission Service API
 
+This project can be run locally in two ways - with Docker or without. For speed, we recommend running _without_ Docker.
+
+## Running with Docker
+
+See [Running with Docker](docs/running-with-docker.md)
+
+## Without Docker
+
 ### Prerequisites
- - [Docker](https://docs.docker.com/docker-for-mac) greater than or equal to `18.03.1-ce-mac64 (24245)`
+
+#### Postgres
+
+Use Homebrew to install Postgres on MacOS:
+
+`$ brew install postgres`
+
+The application requires a user named `postgres` so create that user if it does not exist already:
+
+`$ createuser postgres`
+
+#### Auth0 Account
+
+Liaise with the team members to get an account on Auth0. Once you have this, log into Auth0 and visit `Applications` to get the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` values for the `.env` files (see next section)
+
+#### Yarn
+
+Install Yarn on MacOS with Homebrew:
+
+`$ brew install yarn`
+
+#### Bundler
+
+Install Bundler:
+
+`$ gem install bundler`
 
 ### Setting up the project
 
-Copy the docker environment variables and fill in any missing secrets:
+Copy `.env.development.example` to `.env.development`. This file contains secrets which are not currently available in 1Password - liaise with team members to get the required values.
 
-```
-$ cp docker-compose.env.sample docker-compose.env
-```
+The Auth0 values can be found in the `Applications` section of the Auth0 dashboard. The application ID for local development is `Report MI Admin (Staging)`
 
-Build the docker container and set up the database
+Once this is done, use Bundler to set up the project:
 
-`bin/drebuild`
+`$ bundle install`
 
-Start the application
+Create & set up the database:
 
-`bin/dstart`
+`$ bundle exec rake db:setup`
+
+Next, copy `.env.test.example` to `.env.test`. This file needs a `SECRET_KEY_BASE` parameter which you can generate with Rake:
+
+`$ rake secret`
+
+Install front-end dependencies:
+
+`$ yarn install`
+
+### Seeding the database
+
+`db/seeds.rb` is out of date at the time of writing. Instead, ask the team for a dump of the live database.
+
+Once you have the database dump, you can import it into your local Postgres with:
+
+`$ pg_restore -h localhost -U postgres -d DataSubmissionServiceApi_development /path/to/database/dump.tar`
 
 ## Running the tests
 
-There are two ways that you can run the tests.
+To run the rspec tests:
 
-### In development
+`$ bundle exec rspec`
 
-Because the setup and teardown introduces quite some latency, we use the spring service to
-start up all dependencies in a docker container. This makes the test run faster.
+To run the full test suite - Rubocop, Brakeman and Rspec - before pushing to Github:
 
-Get the test server up and running
-`bin/dtest-server`
+`$ bundle exec rake` (the default Rake task)
 
-Run the specs. When no arguments are specified, the default rake task is executed.
-`bin/dspec <args>`
+## Run the application
 
-### Full run (before you push to github)
+`$ bundle exec rails s`
 
-Rebuilds the test server, runs rubocop checks, runs the test suite and cleans up.
+The application will run on port 3000 by default.
 
-`bin/dtests`
+### The admin interface
+
+The admin interface is available at `/admin`. In production its use requires
+OAuth authentication via a Google provider, but there is a `DeveloperAdmin` provider
+which will let you log in locally to develop admin functions without credentials. You
+should not need to do anything to set this up; it will apply by default if either of
+`GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` are missing from your development environment. 
+
+It will use the email address from `.env.development / ADMIN_EMAILS` by default with a 
+default user full name, either of which can be changed at login if you wish.
 
 ## API Endpoints
 
