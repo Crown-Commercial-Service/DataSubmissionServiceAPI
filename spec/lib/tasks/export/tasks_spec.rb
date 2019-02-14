@@ -24,13 +24,13 @@ RSpec.describe 'rake export:tasks', type: :task do
       expect(output_lines.first).to eql(
         <<~HEADER.chomp
           TaskID,Month,SupplierID,FrameworkID,Status,TaskType,StartedDate,CompletedDate
-      HEADER
+        HEADER
       )
     end
 
     it 'writes each task to that output' do
       expect(output_lines.length).to eql(3)
-      expect(output_lines[1]).to eql(
+      expect(output_lines.find { |l| l.match '2018-08' }).to eql(
         <<~LINE.chomp
           #{first_task.id},2018-08,#{first_task.supplier.salesforce_id},#{first_task.framework.short_name},unstarted,1,,
         LINE
