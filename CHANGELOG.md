@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-46] - 2019-02-14
+
+- Clean up the admin application
+- Being able to charge the correct management charge for RM858, RM3710
+- RUN ON PRODUCTION: remove submissions without task and associated models, 
+this should have been released in release 45 but wasn't actually merged 
+
 ## [release-45] - 2019-02-13
 
 - Task list should show period_date
@@ -298,6 +305,7 @@
 
 Initial release
 
+[release-46]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-46...release-46
 [release-45]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-44...release-45
 [release-44]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-43...release-44
 [release-43]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-42...release-43

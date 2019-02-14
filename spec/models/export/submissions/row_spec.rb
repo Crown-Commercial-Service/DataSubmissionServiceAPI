@@ -75,13 +75,6 @@ RSpec.describe Export::Submissions::Row do
     end
   end
 
-  describe '#management_charge_rate' do
-    let(:submission) { double 'Submission', _framework_short_name: 'RM1031' }
-    it 'returns the rate for the framework identified by _framework_short_name as a decimal' do
-      expect(row.management_charge_rate).to eql('0.005')
-    end
-  end
-
   describe '#created_date' do
     let(:submission) { double 'Submission', created_at: Time.zone.local(2018, 9, 18, 14, 20, 35) }
 
