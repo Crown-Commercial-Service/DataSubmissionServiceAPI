@@ -10,7 +10,7 @@
         Search
       .ccs-search-form-group
         %label.govuk-label.govuk-visually-hidden{for: 'search'} Search
-        %input#search.govuk-input{name: 'search', type: 'text', value: params[:search]}
+        %input#search{name: 'search', type: 'text', value: params[:search], class: ['govuk-!-width-two-thirds', 'govuk-input']}
         %button.govuk-button Search
 
   .govuk-grid-column-one-third
@@ -22,20 +22,27 @@
 
 .govuk-grid-row
   .govuk-grid-column-full
-    %table.govuk-table{:class => 'govuk-!-margin-top-7'}
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Name
-          %th.govuk-table__header Email
-          %th.govuk-table__header Linked suppliers
-          %th.govuk-table__header Active?
-      %tbody.govuk-table__body
-        - @users.each do |user|
+    - if @users.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
           %tr.govuk-table__row
-            %td.govuk-table__cell= link_to user.name, admin_user_path(user)
-            %td.govuk-table__cell= user.email
-            %td.govuk-table__cell
-              = link_to_suppliers(user.suppliers)
-            %td.govuk-table__cell= user.active? ? 'Active' : 'Inactive'
+            %th.govuk-table__header Name
+            %th.govuk-table__header Email
+            %th.govuk-table__header Linked suppliers
+            %th.govuk-table__header Active?
+        %tbody.govuk-table__body
+          - @users.each do |user|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= link_to user.name, admin_user_path(user)
+              %td.govuk-table__cell= user.email
+              %td.govuk-table__cell
+                = link_to_suppliers(user.suppliers)
+              %td.govuk-table__cell= user.active? ? 'Active' : 'Inactive'
 
-    = paginate @users
+      = paginate @users
+    - elsif params[:search]
+      %p
+        No users found for ‘#{params[:search]}’.
+    - else
+      %p
+        No users.

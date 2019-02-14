@@ -12,7 +12,7 @@
         Search suppliers
       .ccs-search-form-group
         %label.govuk-label.govuk-visually-hidden{ for: 'search' } Search
-        %input#search.govuk-input{ name: 'search', type: 'text', value: params[:search], autofocus: true }
+        %input#search{ name: 'search', type: 'text', value: params[:search], autofocus: true, class: ['govuk-!-width-two-thirds', 'govuk-input'] }
         %button.govuk-button Search
 
 .govuk-grid-row
