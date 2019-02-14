@@ -93,3 +93,6 @@ Naming/FileName:
 Lint/AmbiguousBlockAssociation:
     Exclude:
         - 'spec/**/*'
+
+Performance/Casecmp:
+    Enabled: false

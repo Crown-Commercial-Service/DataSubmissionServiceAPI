@@ -241,6 +241,47 @@ RSpec.describe '/v1' do
         expect(json['data']).to have_id submission.id
       end
     end
+
+    context 'if replacing existing completed submission' do
+      let!(:submission) { FactoryBot.create(:completed_submission, task: task) }
+      let(:body) { { replacement: true }.to_json }
+
+      before do
+        task.update(status: 'completed')
+      end
+
+      it 'updates the old submission to replaced' do
+        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+        submission.reload
+        expect(submission.aasm_state).to eq('replaced')
+      end
+
+      it 'creates a new no business submission' do
+        expect do
+          post "/v1/tasks/#{task.id}/no_business",
+               headers: json_headers.merge('X-Auth-Id' => user.auth_id),
+               params: body
+        end.to change { task.submissions.count }.by(1)
+        expect(task.latest_submission.report_no_business?).to be true
+      end
+
+      it 'returns the completed submission' do
+        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+
+        task.reload
+        new_submission = task.latest_submission
+
+        expect(response).to have_http_status(:created)
+        expect(json['data']).to have_id new_submission.id
+        expect(json['data']['attributes']['status']).to eq 'completed'
+      end
+
+      it 'keeps the task as completed' do
+        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+        task.reload
+        expect(task.status).to eq('completed')
+      end
+    end
   end
 
   describe 'POST /v1/tasks/:task_id/complete' do
