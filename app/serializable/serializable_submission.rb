@@ -8,6 +8,7 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
   has_many :files
 
   attributes :framework_id, :supplier_id, :task_id
+  attributes :updated_at, :submitted_at
   attribute :purchase_order_number
 
   attribute :status do
@@ -26,9 +27,19 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
     Hash[submission.sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
   end
 
+  attribute :invoice_total_value do
+    submission.entries.invoices.sum(:total_value)
+  end
+
+  attribute :order_total_value do
+    submission.entries.orders.sum(:total_value)
+  end
+
   attribute :report_no_business?
 
-  attribute :submitted_at
+  attribute :invoiced? do
+    submission.invoice.present?
+  end
 
   private
 

@@ -9,12 +9,33 @@ RSpec.describe SerializableSubmission do
       expect(serialized_submission.as_jsonapi[:attributes][:invoice_count]).to eq(2)
     end
 
+    it 'exposes the total value of invoice entries' do
+      submission.entries.invoices.update(total_value: 1.23)
+
+      expect(serialized_submission.as_jsonapi[:attributes][:invoice_total_value]).to eq(2.46)
+    end
+
     it 'exposes a count of the number of order entries' do
       expect(serialized_submission.as_jsonapi[:attributes][:order_count]).to eq(3)
     end
 
+    it 'exposes the total value of order entries' do
+      submission.entries.orders.update(total_value: 1.23)
+
+      expect(serialized_submission.as_jsonapi[:attributes][:order_total_value]).to eq(3.69)
+    end
+
     it 'exposes a report_no_business? boolean' do
       expect(serialized_submission.as_jsonapi[:attributes][:report_no_business?]).to eq(true)
+    end
+  end
+
+  context 'given a submission that has been invoiced through workday' do
+    let(:submission) { FactoryBot.create(:submission, :invoiced, invoice_entries: 2) }
+    let(:serialized_submission) { SerializableSubmission.new(object: submission) }
+
+    it 'exposes a invoiced? boolean' do
+      expect(serialized_submission.as_jsonapi[:attributes][:invoiced?]).to eq(true)
     end
   end
 

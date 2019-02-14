@@ -76,5 +76,11 @@ FactoryBot.define do
         create_list(:submission_file, 1, submission: submission, rows: submission.entries.count)
       end
     end
+
+    trait :invoiced do
+      after(:create) do |submission, _evaluator|
+        create(:submission_invoice, submission: submission)
+      end
+    end
   end
 end
