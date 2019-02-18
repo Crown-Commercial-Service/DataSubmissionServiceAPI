@@ -26,7 +26,7 @@ class Admin::UsersController < AdminController
     @user.create_with_auth0
   rescue Auth0::Exception => e
     flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
-    Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#edit, message: #{e.message}")
+    Rails.logger.error("Error adding user #{@user.email} to Auth0 during User#edit, message: #{e.message}")
   ensure
     redirect_to admin_user_path(@user)
   end
@@ -55,7 +55,7 @@ class Admin::UsersController < AdminController
         @user.create_with_auth0
       rescue Auth0::Exception => e
         flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
-        Rails.logger.warn("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
+        Rails.logger.error("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
         raise ActiveRecord::Rollback
       end
     end
