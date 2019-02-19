@@ -1,6 +1,10 @@
 # Data Submission Service API
 
-This project can be run locally in two ways - with Docker or without. For speed, we recommend running _without_ Docker.
+This project can be run locally in two ways - with Docker or without. For
+speed, we recommend running _without_ Docker.
+
+Various parts of the system are documented in `/docs` and also as part of the
+[Service Manual for the service](https://github.com/Crown-Commercial-Service/ReportMI-service-manual).
 
 ## Running with Docker
 
