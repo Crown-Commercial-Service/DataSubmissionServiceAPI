@@ -1,11 +1,17 @@
 # Change Log
 
+## [release-47] - 2019-02-19
+
+- ActiveJob exceptions are sent to Rollbar
+- Optimise memory usage on data warehouse exports
+- Refactor creation of user to catch Auth0 exceptions more reliably
+
 ## [release-46] - 2019-02-14
 
 - Clean up the admin application
 - Being able to charge the correct management charge for RM858, RM3710
-- RUN ON PRODUCTION: remove submissions without task and associated models, 
-this should have been released in release 45 but wasn't actually merged 
+- RUN ON PRODUCTION: remove submissions without task and associated models,
+this should have been released in release 45 but wasn't actually merged
 
 ## [release-45] - 2019-02-13
 
@@ -305,7 +311,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
-[release-46]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-46...release-46
+[release-47]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-46...release-47
+[release-46]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-45...release-46
 [release-45]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-44...release-45
 [release-44]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-43...release-44
 [release-43]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-42...release-43
