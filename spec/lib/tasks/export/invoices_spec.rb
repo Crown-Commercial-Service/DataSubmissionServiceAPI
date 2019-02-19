@@ -52,7 +52,7 @@ RSpec.describe 'rake export:invoices', type: :task do
 
     it 'writes each invoice to that output' do
       expect(output_lines.length).to eql(3)
-      expect(output_lines[1]).to eql(
+      expect(output_lines).to include(
         "#{invoice.submission_id},10012345,Department for Education,SW1P 3ZZ,2018-05-31,3307957,DEP/0008.00032,"\
         'GITIS Terms and Conditions,1,Contracts,Core,,Legal Director/Senior Solicitor,,Hourly,151.09,-0.9,-135.98,,'\
         '-27.2,,142.99,0.00,0.00,0.00,N/A,Time and Material,,,,,,,,,,,,,,,,,,,'
@@ -60,7 +60,7 @@ RSpec.describe 'rake export:invoices', type: :task do
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
-      expect(output_lines[2]).to eql(
+      expect(output_lines.find { |l| l.match 'NOTINDATA' }).to eql(
         "#{invoice.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,,,"\
         ',,,,,#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA,,'\
         ',,,,,,,,,,,,,,,,,,,,,,,,'

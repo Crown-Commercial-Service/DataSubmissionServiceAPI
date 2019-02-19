@@ -51,7 +51,7 @@ RSpec.describe 'rake export:contracts', type: :task do
 
     it 'writes each contract to that output' do
       expect(output_lines.length).to eql(3)
-      expect(output_lines[1]).to eql(
+      expect(output_lines).to include(
         "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,"\
         'DWP - Claim by Mr I Dontexist,1,Contentious Employment,,,,,,,,,'\
         '2018-06-27,2020-06-27,5000.00,Further Competition,N/A,N,Central Government Department,'\
@@ -60,7 +60,7 @@ RSpec.describe 'rake export:contracts', type: :task do
     end
 
     it 'writes #NOTINDATA for fields it cannot map' do
-      expect(output_lines[2]).to eql(
+      expect(output_lines.find { |l| l.match 'NOTINDATA' }).to eql(
         "#{contract2.submission_id},#NOTINDATA,#NOTINDATA,#NOTINDATA,#NOTINDATA,,#NOTINDATA," \
         ',,,,,,,,,,,' \
         '#NOTINDATA,#NOTINDATA,,,,,,,,,,,,,,,,,,,,,,,,'

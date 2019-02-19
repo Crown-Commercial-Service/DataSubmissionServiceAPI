@@ -9,7 +9,7 @@ module Export
 
     def run
       output.puts(CSV.generate_line(self.class::HEADER))
-      relation.each do |model|
+      relation.find_each do |model|
         output_row(model)
       end
     end

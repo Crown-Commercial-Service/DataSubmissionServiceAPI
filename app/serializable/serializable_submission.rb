@@ -28,6 +28,8 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
 
   attribute :report_no_business?
 
+  attribute :submitted_at
+
   private
 
   def submission
