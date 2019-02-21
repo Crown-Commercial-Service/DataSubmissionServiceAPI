@@ -3,10 +3,20 @@ class V1::TasksController < APIController
 
   def index
     tasks = current_user.tasks
+    tasks = tasks.includes(:framework, :supplier, :latest_submission)
+    tasks = tasks.order(params.dig(:sort).to_sym) if params.dig(:sort)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
 
-    render jsonapi: tasks, include: params.dig(:include)
+    # UGH!
+    fields = params.dig(:fields).permit!.to_h.map { |k, v| [k.to_sym, v.split(',').map(&:to_sym)] }.to_h
+
+    # fields = {
+    #   tasks: %i[status period_month period_year due_on supplier_name framework latest_submission],
+    #   submissions: %i[status submitted_at]
+    # }
+
+    render jsonapi: tasks, include: params.dig(:include), fields: fields
   end
 
   def show
