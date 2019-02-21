@@ -21,12 +21,6 @@ RSpec.feature 'Admin users can' do
       expect(page).to have_content 'Last Supplier'
     end
 
-    scenario 'view a supplier' do
-      visit admin_suppliers_path
-      click_on 'First Supplier'
-      expect(page).to have_content 'First Supplier'
-    end
-
     scenario 'find a supplier' do
       visit admin_suppliers_path
       fill_in 'Search', with: 'ast Supp'
