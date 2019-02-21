@@ -11,6 +11,8 @@ class Task < ApplicationRecord
     end
   end
 
+  scope :incomplete, -> { where.not(status: 'completed') }
+
   validates :status, presence: true
 
   belongs_to :framework, optional: true
