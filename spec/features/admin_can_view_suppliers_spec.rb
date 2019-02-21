@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin users can' do
-  context 'when there are no suppliers' do
-    scenario 'view the empty state' do
-      sign_in_as_admin
-      visit admin_suppliers_path
-      expect(page).to have_content 'No suppliers.'
-    end
-  end
-
   context 'when there are suppliers' do
     before do
       FactoryBot.create(:supplier, name: 'First Supplier')
