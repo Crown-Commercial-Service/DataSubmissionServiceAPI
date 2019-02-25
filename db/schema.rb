@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_173334) do
+ActiveRecord::Schema.define(version: 2019_02_25_111223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2019_01_29_173334) do
   create_table "agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "framework_id", null: false
     t.uuid "supplier_id", null: false
+    t.boolean "active", default: true
+    t.index ["active"], name: "index_agreements_on_active"
     t.index ["framework_id"], name: "index_agreements_on_framework_id"
     t.index ["supplier_id"], name: "index_agreements_on_supplier_id"
   end

@@ -7,12 +7,13 @@ RSpec.describe Task::Generator do
     context 'given some agreements' do
       let!(:agreement_1) { FactoryBot.create(:agreement) }
       let!(:agreement_2) { FactoryBot.create(:agreement) }
+      let!(:inactive_agreement) { FactoryBot.create(:agreement, active: false) }
       let!(:supplier_1) { agreement_1.supplier }
       let!(:supplier_2) { agreement_2.supplier }
       let!(:framework_1) { agreement_1.framework }
       let!(:framework_2) { agreement_2.framework }
 
-      it 'creates a new task for the specified period for each agreement, with a due date 7 days into the month' do
+      it 'creates a new task for the specified period for active agreements, with a due date 7 days into the month' do
         expect { Task::Generator.new(month: 8, year: 2018).generate! }.to change { Task.count }.by 2
 
         supplier_1_task = supplier_1.tasks.first
