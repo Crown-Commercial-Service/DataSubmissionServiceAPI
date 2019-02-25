@@ -12,4 +12,8 @@ class Agreement < ApplicationRecord
   def lot_numbers
     framework_lots.pluck(:number)
   end
+
+  def deactivate!
+    update!(active: false)
+  end
 end

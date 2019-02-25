@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#index'
+
     resources :users, only: %i[index show new create destroy] do
       resources :memberships, only: %i[new create show destroy]
       member do
@@ -68,7 +69,14 @@ Rails.application.routes.draw do
         get :confirm_reactivate
       end
     end
-    resources :suppliers, only: %i[index show]
+
+    resources :suppliers, only: %i[index show] do
+      resources :agreements, only: [] do
+        get :confirm_deactivation
+        put :deactivate
+      end
+    end
+
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
   end
