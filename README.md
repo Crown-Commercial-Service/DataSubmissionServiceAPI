@@ -14,11 +14,9 @@ See [Running with Docker](docs/running-with-docker.md)
 
 ### Prerequisites
 
-#### Postgres
+Use Homebrew to install Postgres and Redis on MacOS:
 
-Use Homebrew to install Postgres on MacOS:
-
-`$ brew install postgres`
+`$ brew install postgres redis`
 
 The application requires a user named `postgres` so create that user if it does not exist already:
 
