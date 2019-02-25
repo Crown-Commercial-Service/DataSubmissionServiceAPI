@@ -1,8 +1,15 @@
+require 'framework/definition/AST/creator'
+
 class Framework
   module Definition
     class Language
       def self.generate_framework_definition(source)
-        Class.new(Framework::Definition::Base)
+        cst = Framework::Definition::Parser.new.parse(source)
+        ast = Framework::Definition::AST::Creator.new.apply(cst)
+
+        Class.new(Framework::Definition::Base) do
+          framework_short_name ast.fetch(:framework_short_name)
+        end
       end
     end
   end

@@ -57,6 +57,8 @@ gem 'sidekiq-cron'
 
 gem 'activerecord-import'
 
+gem 'parslet'
+
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', require: false
 gem 'akami', require: false

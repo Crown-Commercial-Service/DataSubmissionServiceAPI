@@ -10,6 +10,10 @@ RSpec.describe Framework::Definition::Language do
       it 'is a Framework::Definition::Base' do
         expect(definition.ancestors).to include(Framework::Definition::Base)
       end
+
+      it 'has the expected framework_short_name' do
+        expect(definition.framework_short_name).to eq('CM/05/3769')
+      end
     end
   end
 end
