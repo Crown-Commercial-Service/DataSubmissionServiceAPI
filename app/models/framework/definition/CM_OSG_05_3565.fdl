@@ -1,5 +1,5 @@
 Framework CM/OSG/05/3565 {
-  FrameworkName 'Laundry Services - Wave 2'
+  Name 'Laundry Services - Wave 2'
   ManagementCharge 0%
 
   InvoiceFields {

@@ -9,6 +9,7 @@ class Framework
 
         Class.new(Framework::Definition::Base) do
           framework_short_name ast.fetch(:framework_short_name)
+          framework_name ast.fetch(:framework_name)
         end
       end
     end
