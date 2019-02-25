@@ -49,8 +49,8 @@ RSpec.describe DependentFieldInclusionValidator do
     it { is_expected.to_not be_valid }
 
     it 'has an error message' do
-      expect(entry_data.errors['Primary Specialism'].first).to eql(
-        '"Equity Capital Markets" is not a valid Primary Specialism for the given Service Type of "Core"'
+      expect(entry_data.errors['Primary Specialism'].first).to include(
+        '"Equity Capital Markets" is not a valid Primary Specialism for the given Service Type of "Core".'
       )
     end
   end
@@ -61,8 +61,8 @@ RSpec.describe DependentFieldInclusionValidator do
     it { is_expected.to_not be_valid }
 
     it 'has an error message' do
-      expect(entry_data.errors['Primary Specialism'].first).to eql(
-        '"something else" is not a valid Primary Specialism for the given Service Type of "Core"'
+      expect(entry_data.errors['Primary Specialism'].first).to include(
+        '"something else" is not a valid Primary Specialism for the given Service Type of "Core".'
       )
     end
   end
