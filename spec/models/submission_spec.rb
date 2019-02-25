@@ -26,6 +26,15 @@ RSpec.describe Submission do
     end
   end
 
+  describe '#replace_with_no_business state machine event' do
+    it 'transitions from completed to replaced' do
+      submission = FactoryBot.create(:completed_submission)
+      submission.replace_with_no_business
+
+      expect(submission).to be_replaced
+    end
+  end
+
   describe '#sheet_names' do
     let(:submission) { FactoryBot.create(:submission) }
     let!(:invoice) { FactoryBot.create(:submission_entry, submission: submission, sheet_name: 'Invoices') }

@@ -28,13 +28,21 @@ class V1::TasksController < APIController
 
   def no_business
     task = current_user.tasks.find(params[:id])
-    if task.completed?
+
+    if task.completed? && !replacement_return?
       render jsonapi: task.submissions.first
-    else
-      task.file_no_business!(current_user)
-      submission = task.latest_submission
-      render jsonapi: submission, status: :created
+      return
     end
+
+    if task.completed? && replacement_return?
+      task.latest_submission.replace_with_no_business!
+      task.reload
+    end
+
+    task.file_no_business!(current_user)
+    submission = task.latest_submission
+
+    render jsonapi: submission, status: :created
   end
 
   def complete
@@ -53,5 +61,9 @@ class V1::TasksController < APIController
   def task_params
     params.require(:task).permit(:supplier_id, :framework_id, :status, :due_on,
                                  :period_month, :period_year, :description)
+  end
+
+  def replacement_return?
+    params.dig('_jsonapi', 'replacement').to_s.downcase == 'true'
   end
 end

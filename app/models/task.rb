@@ -7,7 +7,7 @@ class Task < ApplicationRecord
     state :completed
 
     event :completed do
-      transitions from: %i[unstarted in_progress], to: :completed
+      transitions from: %i[unstarted in_progress completed], to: :completed
     end
   end
 
