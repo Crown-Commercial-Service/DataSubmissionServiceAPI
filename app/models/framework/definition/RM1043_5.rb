@@ -53,13 +53,6 @@ class Framework
         'User Research Participants'
       ].freeze
 
-      SERVICE_PROVIDED_VALUES = (
-        LOT_1_SERVICES +
-        LOT_2_SERVICES +
-        LOT_3_SERVICES +
-        LOT_4_SERVICES
-      ).freeze
-
       MAPPING = {
         'Lot Number' => {
           '1' => LOT_1_SERVICES,
@@ -78,7 +71,7 @@ class Framework
         field 'Customer Invoice/Credit Note Date', :string, exports_to: 'Invoice Date', ingested_date: true, presence: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
-        field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }, case_insensitive_inclusion: { in: SERVICE_PROVIDED_VALUES }
+        field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Unit of Measure', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
