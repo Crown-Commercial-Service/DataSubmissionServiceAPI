@@ -105,26 +105,6 @@ RSpec.describe '/v1' do
     end
   end
 
-  describe 'GET /tasks?filter[supplier_id]=' do
-    it 'returns a filtered list of tasks for a supplier' do
-      current_supplier = FactoryBot.create(:supplier)
-      another_supplier = FactoryBot.create(:supplier)
-
-      user.memberships.create(supplier: current_supplier)
-      user.memberships.create(supplier: another_supplier)
-
-      FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
-      FactoryBot.create(:task, supplier: another_supplier)
-
-      get "/v1/tasks?filter[supplier_id]=#{current_supplier.id}", headers: { 'X-Auth-Id' => user.auth_id }
-
-      expect(response).to be_successful
-
-      expect(json['data'].size).to eql 1
-      expect(json['data'][0]).to have_attribute(:description).with_value('hello')
-    end
-  end
-
   describe 'GET /v1/tasks/:task_id' do
     it 'returns the details of a given task' do
       task = FactoryBot.create(

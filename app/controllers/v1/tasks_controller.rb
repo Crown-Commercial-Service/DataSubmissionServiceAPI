@@ -4,7 +4,6 @@ class V1::TasksController < APIController
   def index
     tasks = current_user.tasks
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
-    tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
 
     render jsonapi: tasks, include: params.dig(:include)
   end
