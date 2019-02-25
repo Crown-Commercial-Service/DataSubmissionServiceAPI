@@ -2,3 +2,7 @@ queue_size_metric:
   cron: "*/30 * * * * *"
   class: "QueueSizeMetricJob"
   queue: default
+monthly_tasks_generation:
+  cron: '0 2 1 * *'
+  class: 'MonthlyTasksGenerationJob'
+  queue: default
