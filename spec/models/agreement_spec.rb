@@ -14,4 +14,11 @@ RSpec.describe Agreement do
     agreement.deactivate!
     expect(agreement).not_to be_active
   end
+
+  it 'can be activated' do
+    agreement = FactoryBot.create(:agreement, active: false)
+
+    agreement.activate!
+    expect(agreement).to be_active
+  end
 end

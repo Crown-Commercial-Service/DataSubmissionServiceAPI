@@ -21,6 +21,27 @@ RSpec.describe 'Managing supplier frameworks' do
 
     within "#framework-#{framework.id}" do
       expect(page).to have_content('Inactive')
+      expect(page).to have_link 'Activate'
+    end
+  end
+
+  scenario 'a supplier can be re-activated on a framework' do
+    agreement.deactivate!
+
+    click_on 'Suppliers'
+    click_on supplier.name
+
+    within "#framework-#{framework.id}" do
+      click_on 'Activate'
+    end
+
+    click_on 'Activate Supplier Ltd on RM-ABC'
+
+    expect(page).to have_content('Activated on RM-ABC')
+
+    within "#framework-#{framework.id}" do
+      expect(page).to have_content('Active')
+      expect(page).to have_link 'Deactivate'
     end
   end
 end

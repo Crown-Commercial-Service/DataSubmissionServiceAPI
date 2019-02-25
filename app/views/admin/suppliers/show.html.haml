@@ -69,7 +69,10 @@
               %td.govuk-table__cell
                 = agreement.active? ? 'Active' : 'Inactive'
               %td.govuk-table__cell
-                = link_to 'Deactivate', admin_supplier_agreement_confirm_deactivation_path(@supplier, agreement)
+                - if agreement.active?
+                  = link_to 'Deactivate', admin_supplier_agreement_confirm_deactivation_path(@supplier, agreement)
+                - else
+                  = link_to 'Activate', admin_supplier_agreement_confirm_activation_path(@supplier, agreement)
     -else
       %p
         No frameworks for
