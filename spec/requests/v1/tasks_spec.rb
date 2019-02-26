@@ -105,6 +105,24 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'GET /tasks with a sparse fieldset specified' do
+    it 'returns a list of tasks with only the attributes specified' do
+      task = FactoryBot.create(:task, supplier: supplier, period_year: 1984)
+      FactoryBot.create(:completed_submission, task: task, purchase_order_number: 'PO123')
+
+      get '/v1/tasks?include=latest_submission&fields[submissions]=status,invoice_count',
+          headers: { 'X-Auth-Id' => user.auth_id }
+
+      expect(response).to be_successful
+
+      expect(json['data'].size).to eql 1
+      expect(json['data'][0]).to have_attribute(:period_year).with_value(1984)
+      expect(json['included'][0]).to have_attribute(:status).with_value('completed')
+      expect(json['included'][0]).to have_attribute(:invoice_count).with_value(2)
+      expect(json['included'][0]).not_to have_attribute(:purchase_order_number)
+    end
+  end
+
   describe 'GET /v1/tasks/:task_id' do
     it 'returns the details of a given task' do
       task = FactoryBot.create(

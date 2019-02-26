@@ -5,7 +5,7 @@ class V1::TasksController < APIController
     tasks = current_user.tasks
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
 
-    render jsonapi: tasks, include: params.dig(:include)
+    render jsonapi: tasks, include: params.dig(:include), fields: sparse_field_params
   end
 
   def show
@@ -60,6 +60,11 @@ class V1::TasksController < APIController
   def task_params
     params.require(:task).permit(:supplier_id, :framework_id, :status, :due_on,
                                  :period_month, :period_year, :description)
+  end
+
+  def sparse_field_params
+    fields_param = params.permit(fields: {}).to_h[:fields] || {}
+    Hash[fields_param.map { |k, v| [k.to_sym, v.split(',').map!(&:to_sym)] }]
   end
 
   def replacement_return?
