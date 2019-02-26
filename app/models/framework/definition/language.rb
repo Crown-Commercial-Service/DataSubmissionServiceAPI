@@ -17,12 +17,12 @@ class Framework
             total_value_field _total_value_def[:from]
 
             ast[:invoice_fields].each do |field_def|
-              field(
-                field_def[:from],
-                exports_to: field_def[:field],
-                presence: true,
-                ingested_numericality: true
-              )
+              _options = { presence: true }.tap do |options|
+                options[:exports_to] = field_def[:field]
+                options[:ingested_numericality] = true if DataWarehouse::KnownFields[field_def[:field]] == :decimal
+              end.compact
+
+              field field_def[:from], _options
             end
           end
           klass.const_set('Invoice', invoice_fields_class)

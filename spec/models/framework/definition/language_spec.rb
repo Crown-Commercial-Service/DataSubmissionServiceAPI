@@ -13,6 +13,7 @@ RSpec.describe Framework::Definition::Language do
 
             InvoiceFields {
               TotalValue from 'Total Spend'
+              CustomerPostCode from 'Customer Postcode'
             }
           }
         FDL
@@ -51,7 +52,7 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['TotalValue']).to eq('Total Spend')
           end
 
-          it 'has the expected validators' do
+          it 'validates numericality and presence' do
             ingested_numericality_validator = invoice_class.validators.find do |v|
               v.class == IngestedNumericalityValidator &&
                 v.attributes == ['Total Spend']
@@ -63,6 +64,26 @@ RSpec.describe Framework::Definition::Language do
 
             expect(ingested_numericality_validator).not_to be_nil
             expect(presence_validator).not_to be_nil
+          end
+        end
+
+        describe 'Customer Postcode – a known string field' do
+          it 'knows where it’s coming from/going to in the data warehouse' do
+            expect(invoice_class.export_mappings['CustomerPostCode']).to eq('Customer Postcode')
+          end
+
+          it 'is assumed present but not numeric' do
+            presence_validator = invoice_class.validators.find do |v|
+              v.class == ActiveModel::Validations::PresenceValidator &&
+                v.attributes == ['Customer Postcode']
+            end
+            ingested_numericality_validator = invoice_class.validators.find do |v|
+              v.class == IngestedNumericalityValidator &&
+                v.attributes == ['Customer Postcode']
+            end
+
+            expect(presence_validator).not_to be_nil
+            expect(ingested_numericality_validator).to be_nil
           end
         end
       end

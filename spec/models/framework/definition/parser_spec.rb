@@ -11,6 +11,7 @@ RSpec.describe Framework::Definition::Parser do
 
         InvoiceFields {
           TotalValue from 'Total Spend'
+          CustomerPostCode from 'Customer Postcode'
         }
       }
     FDL
