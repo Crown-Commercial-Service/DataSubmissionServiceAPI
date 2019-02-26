@@ -1,0 +1,17 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %fieldset.govuk-fieldset
+      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+        %h1.govuk-fieldset__heading
+          = "Activate #{@supplier.name} on #{@framework.short_name}?"
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %p
+      This supplier will be able to report management information on the
+      = @framework.name
+      framework and will receive a new task at the next submission window.
+      This supplier can be deactivated at any time.
+.govuk-grid-row
+  .govuk-grid-column-full
+    .govuk-form-group
+      = button_to "Activate #{@supplier.name} on #{@framework.short_name}", admin_supplier_agreement_activate_path(@supplier, @agreement), method: :put, class: 'govuk-button'

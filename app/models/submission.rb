@@ -17,6 +17,7 @@ class Submission < ApplicationRecord
     state :validation_failed
     state :in_review
     state :completed
+    state :replaced
 
     event :ready_for_review do
       transitions from: %i[pending processing], to: :in_review, guard: :all_entries_valid?
@@ -30,10 +31,18 @@ class Submission < ApplicationRecord
         errors.add(:aasm_state, message: e.message)
       end
     end
+
+    event :replace_with_no_business do
+      transitions from: :completed, to: :replaced, guard: :replaceable?
+    end
   end
 
   def all_entries_valid?
     entries.validated.count == entries.count
+  end
+
+  def replaceable?
+    !report_no_business?
   end
 
   def sheet_names

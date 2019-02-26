@@ -108,7 +108,7 @@ class Framework
         field 'Customer Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Service Type', :string, exports_to: 'ProductGroup', presence: true, case_insensitive_inclusion: { in: SERVICE_TYPE_VALUES }
-        field 'Primary Specialism', :string, exports_to: 'ProductDescription', presence: true, dependent_field_inclusion: { parent: 'Service Type', in: MAPPING }, case_insensitive_inclusion: { in: PRIMARY_SPECIALISM_VALUES, message: 'must match the selected service type. For a list of service types and specialisms, check the lookups tab in the template.' }
+        field 'Primary Specialism', :string, exports_to: 'ProductDescription', presence: true, dependent_field_inclusion: { parent: 'Service Type', in: MAPPING }
         field 'Practitioner Grade', :string, exports_to: 'ProductSubClass', presence: true, case_insensitive_inclusion: { in: PRACTITIONER_GRADE_VALUES }
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true, case_insensitive_inclusion: { in: UNIT_OF_PURCHASE_VALUES }

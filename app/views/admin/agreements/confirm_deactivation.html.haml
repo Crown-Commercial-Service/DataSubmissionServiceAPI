@@ -1,0 +1,17 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %fieldset.govuk-fieldset
+      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+        %h1.govuk-fieldset__heading
+          = "Deactivate #{@supplier.name} from #{@framework.short_name}?"
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %p
+      This supplier will no longer be able to report management information on the
+      = @framework.name
+      framework and will not be asked to report any more returns. This supplier can be reactivated at any time.
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    .govuk-form-group
+      = button_to "Deactivate #{@supplier.name} from #{@framework.short_name}", admin_supplier_agreement_deactivate_path(@supplier, @agreement), method: :put, class: 'govuk-button'

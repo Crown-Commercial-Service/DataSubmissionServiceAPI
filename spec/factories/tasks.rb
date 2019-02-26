@@ -7,5 +7,9 @@ FactoryBot.define do
 
     supplier
     framework
+
+    trait :completed do
+      status 'completed'
+    end
   end
 end

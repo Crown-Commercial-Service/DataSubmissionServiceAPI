@@ -32,7 +32,7 @@ class Task
     private
 
     def agreements
-      Agreement.includes(:framework, :supplier)
+      Agreement.active.includes(:framework, :supplier)
     end
 
     def task_attributes_for_agreement(agreement)

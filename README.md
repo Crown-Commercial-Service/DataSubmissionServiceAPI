@@ -14,11 +14,9 @@ See [Running with Docker](docs/running-with-docker.md)
 
 ### Prerequisites
 
-#### Postgres
+Use Homebrew to install Postgres and Redis on MacOS:
 
-Use Homebrew to install Postgres on MacOS:
-
-`$ brew install postgres`
+`$ brew install postgres redis`
 
 The application requires a user named `postgres` so create that user if it does not exist already:
 
@@ -107,14 +105,15 @@ A [full list of the API endpoints](endpoints.md) is available in a separate docu
 See [this guide](docs/onboarding-suppliers.md) for details on onboarding suppliers
 and their users.
 
+## Scheduled jobs
+
+Job scheduling is handled using the sidekiq-cron gem, with the schedule
+defined in config/sidekiq_schedule.yml.
+
 ## Generating monthly tasks
 
-Monthly tasks are be generated manually using the following rake task:
-
-```
-  # Generates tasks based on existing agreements for September 2018
-  $ rake generate:tasks[9,2018]
-```
+The monthly tasks for suppliers are generated on the 1st of the month via the
+sidekiq schedule described above.
 
 ## Reporting rake tasks
 
