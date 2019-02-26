@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-49] - 2019-02-26
+
+- Admin user can deactivate and activate suppliers on frameworks
+- Added code to automate generation of users with late tasks list
+- Updated API endpoints for replacing a return with a no-business return
+- Simplified scheduling of monthly tasks
+- Removed redundant depedent field validations
+- Improved setup documentation
+
 ## [release-48] - 2019-02-20
 
 - Supplier can view list of history of tasks
@@ -316,6 +325,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-49]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-48...release-49
 [release-48]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-47...release-48
 [release-47]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-46...release-47
 [release-46]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-45...release-46
