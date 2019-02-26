@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Framework::Definition::Language do
   describe '.generate_framework_definition' do
-    subject(:definition) { Framework::Definition::Language.generate_framework_definition(source) }
+    let(:logger)         { spy('Logger') }
+    subject(:definition) { Framework::Definition::Language.generate_framework_definition(source, logger) }
 
     context 'we have some valid FDL' do
       let(:source) do
@@ -92,6 +93,15 @@ RSpec.describe Framework::Definition::Language do
             expect(ingested_numericality_validator).to be_nil
           end
         end
+      end
+    end
+
+    context 'our FDL isn\'t valid' do
+      let(:source) { 'any old rubbish' }
+
+      it 'logs the error and re-raises' do
+        expect { definition }.to raise_error(Parslet::ParseFailed)
+        expect(logger).to have_received(:error).with(/Expected "Framework"/)
       end
     end
   end
