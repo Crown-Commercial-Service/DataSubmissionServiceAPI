@@ -32,7 +32,7 @@ RSpec.describe Framework::Definition::Language do
       end
 
       it 'has the expected management charge percentage' do
-        expect(definition.management_charge_rate.percentage).to eq(BigDecimal(0))
+        expect(definition.management_charge.percentage).to eq(BigDecimal(0))
       end
 
       describe 'the Invoice fields class' do
@@ -41,7 +41,6 @@ RSpec.describe Framework::Definition::Language do
         it 'is a Framework::EntryData' do
           expect(invoice_class).to be < Framework::EntryData
         end
-
 
         describe 'Total Value – a known numeric field' do
           it 'tells the class where the total_value_field is' do
@@ -64,6 +63,13 @@ RSpec.describe Framework::Definition::Language do
 
             expect(ingested_numericality_validator).not_to be_nil
             expect(presence_validator).not_to be_nil
+          end
+
+          it 'is a string at present but should be a decimal when' \
+             'IngestedNumericalityValidator is removed' do
+            expect(invoice_class.attribute_types['Total Spend']).to be_kind_of(
+              ActiveModel::Type::String
+            )
           end
         end
 

@@ -56,7 +56,7 @@ RSpec.describe Framework::Definition::Parser do
 
     it {
       is_expected.to parse("TotalValue from 'Total Spend'").as(
-        { field: 'TotalValue', from: { string: 'Total Spend' } }
+        field: 'TotalValue', from: { string: 'Total Spend' }
       )
     }
   end
