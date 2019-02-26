@@ -3,6 +3,7 @@ class V1::TasksController < APIController
 
   def index
     tasks = current_user.tasks
+    tasks = tasks.includes(:supplier).includes(requested_associations)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
 
     render jsonapi: tasks, include: params.dig(:include), fields: sparse_field_params
@@ -69,5 +70,9 @@ class V1::TasksController < APIController
 
   def replacement_return?
     params.dig('_jsonapi', 'replacement').to_s.downcase == 'true'
+  end
+
+  def requested_associations
+    params.fetch(:include, '').split(',').map(&:to_sym)
   end
 end
