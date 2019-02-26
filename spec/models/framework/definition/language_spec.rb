@@ -20,7 +20,7 @@ RSpec.describe Framework::Definition::Language do
       end
 
       it 'is a Framework::Definition::Base' do
-        expect(definition.ancestors).to include(Framework::Definition::Base)
+        expect(definition).to be < Framework::Definition::Base
       end
 
       it 'has the expected framework_short_name' do
@@ -39,7 +39,7 @@ RSpec.describe Framework::Definition::Language do
         subject(:invoice_class) { definition::Invoice }
 
         it 'is a Framework::EntryData' do
-          expect(invoice_class.ancestors).to include(Framework::EntryData)
+          expect(invoice_class).to be < Framework::EntryData
         end
 
 
