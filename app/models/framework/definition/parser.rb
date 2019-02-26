@@ -9,17 +9,24 @@ class Framework
       end
 
       rule(:framework_identifier) { match(%r{[A-Z0-9/]}).repeat(1).as(:string) }
-      rule(:framework_block)      { str('{') >> spaced(framework_name) >> str('}') }
+      rule(:framework_block)      { str('{') >> spaced(metadata) >> str('}') }
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
+      rule(:management_charge)    { str('ManagementCharge') >> spaced(percentage).as(:management_charge) }
+
+      rule(:percentage)           { decimal.as(:flat_rate) >> str('%') >> space? }
+
+      rule(:metadata)             { framework_name >> management_charge }
 
       rule(:string) do
         str("'") >> (
           str("'").absent? >> any
         ).repeat.as(:string) >> str("'")
       end
+      rule(:integer) { match(/[0-9]/).repeat }
+      rule(:decimal) { (integer >> (str('.') >> match('[0-9]').repeat(1))).as(:decimal) >> space? }
 
-      rule(:space)  { match(/\s/).repeat(1) }
-      rule(:space?) { space.maybe }
+      rule(:space)   { match(/\s/).repeat(1) }
+      rule(:space?)  { space.maybe }
 
       ##
       # It is often the case that we need spaces before and after

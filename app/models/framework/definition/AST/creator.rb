@@ -5,6 +5,7 @@ class Framework
       # an ActiveModel class with validations for a Framework
       class Creator < Parslet::Transform
         rule(string: simple(:s)) { String(s) }
+        rule(decimal: simple(:d)) { BigDecimal(d) }
       end
     end
   end

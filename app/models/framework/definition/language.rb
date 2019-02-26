@@ -10,6 +10,7 @@ class Framework
         Class.new(Framework::Definition::Base) do
           framework_short_name ast.fetch(:framework_short_name)
           framework_name ast.fetch(:framework_name)
+          management_charge_rate ast.dig(:management_charge, :flat_rate)
         end
       end
     end

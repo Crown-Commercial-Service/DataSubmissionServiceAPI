@@ -9,6 +9,7 @@ RSpec.describe Framework::Definition::Language do
         <<~FDL
           Framework CM/05/3769 {
             Name 'Laundry Services - Wave 2'
+            ManagementCharge 0.0%
           }
         FDL
       end
@@ -23,6 +24,10 @@ RSpec.describe Framework::Definition::Language do
 
       it 'has the expected framework name' do
         expect(definition.framework_name).to eq('Laundry Services - Wave 2')
+      end
+
+      it 'has the expected management charge percentage' do
+        expect(definition.management_charge_rate.percentage).to eq(BigDecimal(0))
       end
     end
   end

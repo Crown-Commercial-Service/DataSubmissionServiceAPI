@@ -7,6 +7,7 @@ RSpec.describe Framework::Definition::Parser do
     <<~FDL
       Framework CM/05/3769 {
         Name 'Laundry Services - Wave 2'
+        ManagementCharge 0.0%
       }
     FDL
   end
@@ -31,5 +32,17 @@ RSpec.describe Framework::Definition::Parser do
         framework_name: { string: 'Laundry Services - Wave 2' }
       )
     }
+  end
+
+  describe '#management_charge' do
+    subject { parser.management_charge }
+
+    context 'flat rate' do
+      it {
+        is_expected.to parse('ManagementCharge 0.0%').as(
+          management_charge: { flat_rate: { decimal: '0.0' } }
+        )
+      }
+    end
   end
 end
