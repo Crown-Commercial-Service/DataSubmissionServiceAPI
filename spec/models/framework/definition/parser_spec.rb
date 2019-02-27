@@ -7,7 +7,7 @@ RSpec.describe Framework::Definition::Parser do
     <<~FDL
       Framework CM/05/3769 {
         Name 'Laundry Services - Wave 2'
-        ManagementCharge 0.0%
+        ManagementCharge 0%
 
         InvoiceFields {
           TotalValue from 'Total Spend'
@@ -39,6 +39,13 @@ RSpec.describe Framework::Definition::Parser do
         framework_name: { string: 'Laundry Services - Wave 2' }
       )
     }
+  end
+
+  describe '#percentage' do
+    subject { parser.percentage }
+
+    it { is_expected.to parse('0%') }
+    it { is_expected.to parse('0.0%') }
   end
 
   describe '#management_charge' do

@@ -24,7 +24,7 @@ class Framework
       rule(:additional_field)     { str('String').as(:type) >> space >> additional_field_identifier.as(:field) >> from_specifier }
       rule(:unknown_field)        { str('String').as(:type) >> space >> from_specifier }
 
-      rule(:percentage)           { decimal.as(:flat_rate) >> str('%') >> space? }
+      rule(:percentage)           { (decimal | integer).as(:flat_rate) >> str('%') >> space? }
       rule(:from_specifier)       { spaced(str('from')) >> string.as(:from) }
 
       rule(:metadata)             { framework_name >> management_charge }
