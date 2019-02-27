@@ -53,18 +53,7 @@ RSpec.describe Framework::Definition::Language do
           end
 
           it 'validates numericality and presence' do
-            expect(invoice_class.validators).to include(
-              an_object_having_attributes(
-                class: IngestedNumericalityValidator,
-                attributes: ['Total Spend']
-              )
-            )
-            expect(invoice_class.validators).to include(
-              an_object_having_attributes(
-                class: ActiveModel::Validations::PresenceValidator,
-                attributes: ['Total Spend']
-              )
-            )
+            expect(invoice_class).to have_field('Total Spend').validated_by(:presence, :ingested_numericality)
           end
 
           it 'is a string at present but should be a decimal when' \
@@ -81,17 +70,9 @@ RSpec.describe Framework::Definition::Language do
           end
 
           it 'is assumed present but not numeric' do
-            expect(invoice_class.validators).to include(
-              an_object_having_attributes(
-                class: ActiveModel::Validations::PresenceValidator, attributes: ['Customer Postcode']
-              )
-            )
-
-            expect(invoice_class.validators).not_to include(
-              an_object_having_attributes(
-                class: IngestedNumericalityValidator, attributes: ['Customer Postcode']
-              )
-            )
+            expect(invoice_class).to have_field('Customer Postcode')
+              .validated_by(:presence)
+              .not_validated_by(:ingested_numericality)
           end
         end
       end
