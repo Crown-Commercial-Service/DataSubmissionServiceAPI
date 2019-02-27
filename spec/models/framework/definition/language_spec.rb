@@ -53,17 +53,18 @@ RSpec.describe Framework::Definition::Language do
           end
 
           it 'validates numericality and presence' do
-            ingested_numericality_validator = invoice_class.validators.find do |v|
-              v.class == IngestedNumericalityValidator &&
-                v.attributes == ['Total Spend']
-            end
-            presence_validator = invoice_class.validators.find do |v|
-              v.class == ActiveModel::Validations::PresenceValidator &&
-                v.attributes == ['Total Spend']
-            end
-
-            expect(ingested_numericality_validator).not_to be_nil
-            expect(presence_validator).not_to be_nil
+            expect(invoice_class.validators).to include(
+              an_object_having_attributes(
+                class: IngestedNumericalityValidator,
+                attributes: ['Total Spend']
+              )
+            )
+            expect(invoice_class.validators).to include(
+              an_object_having_attributes(
+                class: ActiveModel::Validations::PresenceValidator,
+                attributes: ['Total Spend']
+              )
+            )
           end
 
           it 'is a string at present but should be a decimal when' \
@@ -80,17 +81,17 @@ RSpec.describe Framework::Definition::Language do
           end
 
           it 'is assumed present but not numeric' do
-            presence_validator = invoice_class.validators.find do |v|
-              v.class == ActiveModel::Validations::PresenceValidator &&
-                v.attributes == ['Customer Postcode']
-            end
-            ingested_numericality_validator = invoice_class.validators.find do |v|
-              v.class == IngestedNumericalityValidator &&
-                v.attributes == ['Customer Postcode']
-            end
+            expect(invoice_class.validators).to include(
+              an_object_having_attributes(
+                class: ActiveModel::Validations::PresenceValidator, attributes: ['Customer Postcode']
+              )
+            )
 
-            expect(presence_validator).not_to be_nil
-            expect(ingested_numericality_validator).to be_nil
+            expect(invoice_class.validators).not_to include(
+              an_object_having_attributes(
+                class: IngestedNumericalityValidator, attributes: ['Customer Postcode']
+              )
+            )
           end
         end
       end
