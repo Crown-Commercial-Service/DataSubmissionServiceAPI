@@ -12,7 +12,9 @@ class Framework
           'ProductClass' => :string,
           'ProductSubClass' => :string,
           'ProductDescription' => :string,
-          'ProductCode' => :string
+          'ProductCode' => :string,
+          'UnitPrice' => :decimal,
+          'UnitType' => :string
         }.freeze
 
         def self.[](value)

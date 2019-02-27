@@ -26,6 +26,9 @@ RSpec.describe Framework::Definition::Language do
 
               String Additional1 from 'Manufacturers Product Code'
               String Additional2 from 'Unit Quantity'
+
+              UnitPrice from 'Price per Item'
+              UnitType from 'Unit of Purchase'
             }
           }
         FDL
