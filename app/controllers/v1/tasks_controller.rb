@@ -3,10 +3,10 @@ class V1::TasksController < APIController
 
   def index
     tasks = current_user.tasks
+    tasks = tasks.includes(:supplier).includes(requested_associations)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
-    tasks = tasks.where(supplier_id: params.dig(:filter, :supplier_id)) if params.dig(:filter, :supplier_id)
 
-    render jsonapi: tasks, include: params.dig(:include)
+    render jsonapi: tasks, include: params.dig(:include), fields: sparse_field_params
   end
 
   def show
@@ -63,7 +63,16 @@ class V1::TasksController < APIController
                                  :period_month, :period_year, :description)
   end
 
+  def sparse_field_params
+    fields_param = params.permit(fields: {}).to_h[:fields] || {}
+    Hash[fields_param.map { |k, v| [k.to_sym, v.split(',').map!(&:to_sym)] }]
+  end
+
   def replacement_return?
     params.dig('_jsonapi', 'replacement').to_s.downcase == 'true'
+  end
+
+  def requested_associations
+    params.fetch(:include, '').split(',').map(&:to_sym)
   end
 end
