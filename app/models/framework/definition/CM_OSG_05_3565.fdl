@@ -1,6 +1,6 @@
 Framework CM/OSG/05/3565 {
   Name 'Laundry Services - Wave 2'
-  ManagementCharge 0%
+  ManagementCharge 0.0%
 
   InvoiceFields {
     TotalValue from 'Total Spend'
@@ -22,7 +22,7 @@ Framework CM/OSG/05/3565 {
 
     VATIncluded from 'Vat Included'
     UnitQuantity from 'Quantity'
-    InvoiceValue from 'Total Spend
+    InvoiceValue from 'Total Spend'
 
     String from 'Cost Centre'
     String from 'Contract Number'
