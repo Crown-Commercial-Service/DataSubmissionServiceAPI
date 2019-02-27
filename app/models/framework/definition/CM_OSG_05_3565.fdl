@@ -24,7 +24,7 @@ Framework CM/OSG/05/3565 {
     UnitQuantity from 'Quantity'
     InvoiceValue from 'Total Spend
 
-    String from CostCentre
-    String from ContractNumber
+    String from 'Cost Centre'
+    String from 'Contract Number'
   }
 }

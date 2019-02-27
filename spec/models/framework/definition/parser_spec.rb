@@ -82,15 +82,18 @@ RSpec.describe Framework::Definition::Parser do
           TotalValue from 'Total Spend'
 
           String Additional1 from 'Manufacturers Product Code'
+
+          String from 'Cost Centre'
         }
       FDL
     end
 
-    it 'has one known field and one Additional field' do
+    it 'has one known field, one Additional field and one unknown field' do
       expect(rule).to parse(fields).as(
         invoice_fields: [
           { field: 'TotalValue', from: { string: 'Total Spend' } },
-          { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } }
+          { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
+          { type: 'String', from: { string: 'Cost Centre' } }
         ]
       )
     end

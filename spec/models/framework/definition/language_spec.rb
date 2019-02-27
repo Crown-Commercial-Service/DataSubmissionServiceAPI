@@ -33,6 +33,9 @@ RSpec.describe Framework::Definition::Language do
               VATIncluded from 'Vat Included'
               UnitQuantity from 'Quantity'
               InvoiceValue from 'Total Spend'
+
+              String from 'Cost Centre'
+              String from 'Contract Number'
             }
           }
         FDL
@@ -143,6 +146,11 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class).to have_field('Vat Included')
               .validated_by(:presence, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" })
           end
+        end
+
+        describe 'Unknown fields - fields which may be validated but do not go to the data warehouse' do
+          it { is_expected.to have_field('Cost Centre').validated_by(:presence) }
+          it { is_expected.to have_field('Contract Number').validated_by(:presence) }
         end
       end
     end
