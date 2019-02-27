@@ -32,9 +32,12 @@ class Framework
             _options = { presence: true }.tap do |options|
               options[:exports_to] = field_def[:field]
               if field_def[:type].nil? # an additional field has a type
-                options[:ingested_numericality] = true if DataWarehouse::KnownFields[field_def[:field]] == :decimal
-                options[:urn] = true if DataWarehouse::KnownFields[field_def[:field]] == :urn
-                options[:ingested_date] = true if DataWarehouse::KnownFields[field_def[:field]] == :date
+                case DataWarehouse::KnownFields[field_def[:field]]
+                when :decimal then options[:ingested_numericality] = true
+                when :urn then options[:urn] = true
+                when :date then options[:ingested_date] = true
+                when :yesno then options[:case_insensitive_inclusion] = { in: %w[Y N], message: "must be 'Y' or 'N'" }
+                end
               end
             end.compact
 

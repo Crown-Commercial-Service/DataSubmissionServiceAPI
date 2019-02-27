@@ -29,6 +29,8 @@ RSpec.describe Framework::Definition::Language do
 
               UnitPrice from 'Price per Item'
               UnitType from 'Unit of Purchase'
+
+              VATIncluded from 'Vat Included'
             }
           }
         FDL
@@ -128,6 +130,17 @@ RSpec.describe Framework::Definition::Language do
           it {
             is_expected.to have_field('Manufacturers Product Code')
           }
+        end
+
+        describe 'VATIncluded - a known field with a yesno validator' do
+          it 'knows where it’s coming from/going to in the data warehouse' do
+            expect(invoice_class.export_mappings['VATIncluded']).to eq('Vat Included')
+          end
+
+          it 'is assumed to be present and implemented as a yesno field' do
+            expect(invoice_class).to have_field('Vat Included')
+              .validated_by(:presence, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" })
+          end
         end
       end
     end
