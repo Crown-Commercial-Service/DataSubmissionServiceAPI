@@ -18,6 +18,11 @@ RSpec.describe Framework::Definition::Language do
               CustomerName from 'Customer Organisation'
               CustomerURN from 'Customer URN'
               InvoiceDate from 'Customer Invoice Date'
+              ProductGroup from 'Service Type'
+              ProductClass from 'Product Group'
+              ProductSubClass from 'Product Classification'
+              ProductDescription from 'Item Name or WAPP'
+              ProductCode from 'Item Code'
             }
           }
         FDL

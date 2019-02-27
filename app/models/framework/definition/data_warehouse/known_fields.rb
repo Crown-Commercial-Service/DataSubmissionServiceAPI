@@ -7,7 +7,12 @@ class Framework
           'CustomerPostCode' => :string,
           'CustomerName' => :string,
           'CustomerURN' => :urn,
-          'InvoiceDate' => :date
+          'InvoiceDate' => :date,
+          'ProductGroup' => :string,
+          'ProductClass' => :string,
+          'ProductSubClass' => :string,
+          'ProductDescription' => :string,
+          'ProductCode' => :string
         }.freeze
 
         def self.[](value)
