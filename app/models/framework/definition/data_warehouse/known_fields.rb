@@ -6,7 +6,8 @@ class Framework
           'TotalValue' => :decimal,
           'CustomerPostCode' => :string,
           'CustomerName' => :string,
-          'CustomerURN' => :urn
+          'CustomerURN' => :urn,
+          'InvoiceDate' => :date
         }.freeze
 
         def self.[](value)

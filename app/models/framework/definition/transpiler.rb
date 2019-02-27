@@ -33,6 +33,7 @@ class Framework
               options[:exports_to] = field_def[:field]
               options[:ingested_numericality] = true if DataWarehouse::KnownFields[field_def[:field]] == :decimal
               options[:urn] = true if DataWarehouse::KnownFields[field_def[:field]] == :urn
+              options[:ingested_date] = true if DataWarehouse::KnownFields[field_def[:field]] == :date
             end.compact
 
             field field_def[:from], :string, _options

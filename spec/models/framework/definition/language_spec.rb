@@ -17,6 +17,7 @@ RSpec.describe Framework::Definition::Language do
               CustomerPostCode from 'Customer Postcode'
               CustomerName from 'Customer Organisation'
               CustomerURN from 'Customer URN'
+              InvoiceDate from 'Customer Invoice Date'
             }
           }
         FDL
@@ -98,6 +99,17 @@ RSpec.describe Framework::Definition::Language do
           it 'is assumed to be present and a valid URN' do
             expect(invoice_class).to have_field('Customer URN')
               .validated_by(:presence, :urn)
+          end
+        end
+
+        describe 'InvoiceDate - a known field with a date validator' do
+          it 'knows where it’s coming from/going to in the data warehouse' do
+            expect(invoice_class.export_mappings['InvoiceDate']).to eq('Customer Invoice Date')
+          end
+
+          it 'is assumed to be present and a valid date' do
+            expect(invoice_class).to have_field('Customer Invoice Date')
+              .validated_by(:presence, :ingested_date)
           end
         end
       end
