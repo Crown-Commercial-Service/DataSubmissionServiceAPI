@@ -16,6 +16,7 @@ RSpec.describe Framework::Definition::Language do
               TotalValue from 'Total Spend'
               CustomerPostCode from 'Customer Postcode'
               CustomerName from 'Customer Organisation'
+              CustomerURN from 'Customer URN'
             }
           }
         FDL
@@ -86,6 +87,17 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class).to have_field('Customer Organisation')
               .validated_by(:presence)
               .not_validated_by(:ingested_numericality)
+          end
+        end
+
+        describe 'CustomerURN - a known field with a custom validator' do
+          it 'knows where it’s coming from/going to in the data warehouse' do
+            expect(invoice_class.export_mappings['CustomerURN']).to eq('Customer URN')
+          end
+
+          it 'is assumed to be present and a valid URN' do
+            expect(invoice_class).to have_field('Customer URN')
+              .validated_by(:presence, :urn)
           end
         end
       end

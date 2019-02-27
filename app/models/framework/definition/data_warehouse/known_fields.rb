@@ -5,7 +5,8 @@ class Framework
         ALL = {
           'TotalValue' => :decimal,
           'CustomerPostCode' => :string,
-          'CustomerName' => :string
+          'CustomerName' => :string,
+          'CustomerURN' => :urn
         }.freeze
 
         def self.[](value)
