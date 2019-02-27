@@ -12,6 +12,8 @@ RSpec.describe Framework::Definition::Parser do
         InvoiceFields {
           TotalValue from 'Total Spend'
           CustomerPostCode from 'Customer Postcode'
+
+          String Additional1 from 'Manufacturers Product Code'
         }
       }
     FDL
@@ -51,8 +53,8 @@ RSpec.describe Framework::Definition::Parser do
     end
   end
 
-  describe '#field_def' do
-    subject { parser.field_def }
+  describe '#known_field' do
+    subject { parser.known_field }
 
     it {
       is_expected.to parse("TotalValue from 'Total Spend'").as(
@@ -61,25 +63,36 @@ RSpec.describe Framework::Definition::Parser do
     }
   end
 
+  describe '#additional_field' do
+    subject { parser.additional_field }
+
+    it {
+      is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
+        type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+      )
+    }
+  end
+
   describe '#invoice_fields' do
-    subject { parser.invoice_fields }
+    subject(:rule) { parser.invoice_fields }
 
     let(:fields) do
       <<~FDL.strip
         InvoiceFields {
           TotalValue from 'Total Spend'
+
+          String Additional1 from 'Manufacturers Product Code'
         }
       FDL
     end
 
-    context 'there is one known field' do
-      it {
-        is_expected.to parse(fields).as(
-          invoice_fields: [
-            { field: 'TotalValue', from: { string: 'Total Spend' } }
-          ]
-        )
-      }
+    it 'has one known field and one Additional field' do
+      expect(rule).to parse(fields).as(
+        invoice_fields: [
+          { field: 'TotalValue', from: { string: 'Total Spend' } },
+          { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } }
+        ]
+      )
     end
   end
 end

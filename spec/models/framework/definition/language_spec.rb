@@ -23,6 +23,9 @@ RSpec.describe Framework::Definition::Language do
               ProductSubClass from 'Product Classification'
               ProductDescription from 'Item Name or WAPP'
               ProductCode from 'Item Code'
+
+              String Additional1 from 'Manufacturers Product Code'
+              String Additional2 from 'Unit Quantity'
             }
           }
         FDL
@@ -116,6 +119,12 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class).to have_field('Customer Invoice Date')
               .validated_by(:presence, :ingested_date)
           end
+        end
+
+        describe 'Additional String field' do
+          it {
+            is_expected.to have_field('Manufacturers Product Code')
+          }
         end
       end
     end

@@ -9,6 +9,7 @@ class Framework
       end
 
       rule(:pascal_case_identifier) { (match(/[A-Z]/) >> match(/[a-z0-9]/).repeat).repeat(1) }
+      rule(:additional_field_identifier) { str('Additional') >> match('[0-9]').repeat(1) }
 
       rule(:framework_identifier) { match(%r{[A-Z0-9/]}).repeat(1).as(:string) }
       rule(:framework_block)      { braced(spaced(metadata) >> spaced(invoice_fields)) }
@@ -18,9 +19,12 @@ class Framework
       rule(:fields_block)         { braced(spaced(field_defs)) }
 
       rule(:field_defs)           { field_def.repeat(1) }
-      rule(:field_def)            { pascal_case_identifier.as(:field) >> spaced(str('from')) >> string.as(:from) }
+      rule(:field_def)            { known_field | additional_field }
+      rule(:known_field)          { pascal_case_identifier.as(:field) >> from_specifier }
+      rule(:additional_field)     { str('String').as(:type) >> space >> additional_field_identifier.as(:field) >> from_specifier }
 
       rule(:percentage)           { decimal.as(:flat_rate) >> str('%') >> space? }
+      rule(:from_specifier)       { spaced(str('from')) >> string.as(:from) }
 
       rule(:metadata)             { framework_name >> management_charge }
 

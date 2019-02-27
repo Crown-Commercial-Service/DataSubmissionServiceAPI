@@ -31,9 +31,11 @@ class Framework
           ast[:invoice_fields].each do |field_def|
             _options = { presence: true }.tap do |options|
               options[:exports_to] = field_def[:field]
-              options[:ingested_numericality] = true if DataWarehouse::KnownFields[field_def[:field]] == :decimal
-              options[:urn] = true if DataWarehouse::KnownFields[field_def[:field]] == :urn
-              options[:ingested_date] = true if DataWarehouse::KnownFields[field_def[:field]] == :date
+              if field_def[:type].nil? # an additional field has a type
+                options[:ingested_numericality] = true if DataWarehouse::KnownFields[field_def[:field]] == :decimal
+                options[:urn] = true if DataWarehouse::KnownFields[field_def[:field]] == :urn
+                options[:ingested_date] = true if DataWarehouse::KnownFields[field_def[:field]] == :date
+              end
             end.compact
 
             field field_def[:from], :string, _options
