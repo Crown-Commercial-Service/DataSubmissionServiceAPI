@@ -31,6 +31,8 @@ RSpec.describe Framework::Definition::Language do
               UnitType from 'Unit of Purchase'
 
               VATIncluded from 'Vat Included'
+              UnitQuantity from 'Quantity'
+              InvoiceValue from 'Total Spend'
             }
           }
         FDL

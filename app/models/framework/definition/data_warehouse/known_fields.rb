@@ -15,7 +15,9 @@ class Framework
           'ProductCode' => :string,
           'UnitPrice' => :decimal,
           'UnitType' => :string,
-          'VATIncluded' => :yesno
+          'VATIncluded' => :yesno,
+          'UnitQuantity' => :decimal,
+          'InvoiceValue' => :decimal
         }.freeze
 
         def self.[](value)
