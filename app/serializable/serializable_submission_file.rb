@@ -3,4 +3,5 @@ class SerializableSubmissionFile < JSONAPI::Serializable::Resource
 
   attribute :submission_id
   attribute :rows
+  attribute :filename
 end

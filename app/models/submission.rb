@@ -64,4 +64,8 @@ class Submission < ApplicationRecord
   def total_spend
     entries.invoices.sum(:total_value)
   end
+
+  def order_total_value
+    entries.orders.sum(:total_value)
+  end
 end
