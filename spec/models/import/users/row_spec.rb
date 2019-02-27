@@ -54,5 +54,14 @@ RSpec.describe Import::Users::Row do
         expect(auth0_create_call).not_to have_been_requested
       end
     end
+
+    context 'with a pre-existing user that has different case in their email' do
+      let!(:existing_user) { FactoryBot.create(:user, email: email.upcase) }
+
+      it 'associates the user without error' do
+        expect(result).to eq existing_user
+        expect(existing_user.suppliers).to contain_exactly(matching_supplier)
+      end
+    end
   end
 end
