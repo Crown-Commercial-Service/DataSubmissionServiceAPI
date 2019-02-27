@@ -4,7 +4,8 @@ class Framework
       class KnownFields
         ALL = {
           'TotalValue' => :decimal,
-          'CustomerPostCode' => :string
+          'CustomerPostCode' => :string,
+          'CustomerName' => :string
         }.freeze
 
         def self.[](value)

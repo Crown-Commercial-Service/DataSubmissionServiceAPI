@@ -15,6 +15,7 @@ RSpec.describe Framework::Definition::Language do
             InvoiceFields {
               TotalValue from 'Total Spend'
               CustomerPostCode from 'Customer Postcode'
+              CustomerName from 'Customer Organisation'
             }
           }
         FDL
@@ -71,6 +72,18 @@ RSpec.describe Framework::Definition::Language do
 
           it 'is assumed present but not numeric' do
             expect(invoice_class).to have_field('Customer Postcode')
+              .validated_by(:presence)
+              .not_validated_by(:ingested_numericality)
+          end
+        end
+
+        describe 'Customer Name - a known string field' do
+          it 'knows where it’s coming from/going to in the data warehouse' do
+            expect(invoice_class.export_mappings['CustomerName']).to eq('Customer Organisation')
+          end
+
+          it 'is assumed present but not numeric' do
+            expect(invoice_class).to have_field('Customer Organisation')
               .validated_by(:presence)
               .not_validated_by(:ingested_numericality)
           end
