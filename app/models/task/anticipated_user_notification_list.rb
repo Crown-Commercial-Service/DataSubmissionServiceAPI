@@ -55,7 +55,7 @@ class Task
     end
 
     def suppliers
-      Supplier.all
+      Supplier.joins(:agreements).merge(Agreement.active)
     end
   end
 end

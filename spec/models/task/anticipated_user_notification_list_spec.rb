@@ -17,14 +17,17 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       before do
         supplier_a = FactoryBot.create(:supplier, name: 'Supplier A')
         supplier_b = FactoryBot.create(:supplier, name: 'Supplier B')
+        supplier_c = FactoryBot.create(:supplier, name: 'Inactive Supplier')
 
         FactoryBot.create(:membership, user: alice, supplier: supplier_a)
         FactoryBot.create(:membership, user: bob, supplier: supplier_b)
+        FactoryBot.create(:membership, user: alice, supplier: supplier_c)
 
         framework1 = FactoryBot.create(:framework, short_name: 'RM0001')
 
         supplier_a.agreements.create!(framework: framework1)
         supplier_b.agreements.create!(framework: framework1)
+        supplier_c.agreements.create!(framework: framework1, active: false)
 
         list.generate
       end
@@ -38,6 +41,10 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       it 'has a line for each user' do
         expect(lines).to include('alice@example.com,DUE_DATE?,Alice Example,Supplier A,January 2019')
         expect(lines).to include('bob@example.com,DUE_DATE?,Bob Example,Supplier B,January 2019')
+      end
+
+      it 'ignores inactive agreements' do
+        expect(lines).not_to include('alice@example.com,DUE_DATE?,Alice Example,Inactive Supplier,January 2019')
       end
     end
   end
