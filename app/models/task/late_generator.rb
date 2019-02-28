@@ -23,6 +23,25 @@ class Task
 
     delegate :info, :warn, to: :logger
 
+    def generate
+      logger.info "Generating late contacts for #{year}, #{month}"
+
+      output.puts(CSV.generate_line(HEADER))
+      user_framework_lates.find_each do |user_framework|
+        output.puts(
+          CSV.generate_line(
+            [
+              user_framework.user_name,
+              user_framework.user_email,
+              user_framework.framework_short_name
+            ]
+          )
+        )
+      end
+    end
+
+    private
+
     ##
     # NB should become its own class if this becomes an
     # admin front end confection. This class should be concerned
@@ -41,23 +60,6 @@ class Task
           :framework,
           supplier: { memberships: :user }
         )
-    end
-
-    def generate
-      logger.info "Generating late contacts for #{year}, #{month}"
-
-      output.puts(CSV.generate_line(HEADER))
-      user_framework_lates.find_each do |user_framework|
-        output.puts(
-          CSV.generate_line(
-            [
-              user_framework.user_name,
-              user_framework.user_email,
-              user_framework.framework_short_name
-            ]
-          )
-        )
-      end
     end
   end
 end
