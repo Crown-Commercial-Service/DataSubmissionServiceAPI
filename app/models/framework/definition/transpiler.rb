@@ -26,6 +26,10 @@ class Framework
         transpiler = self
 
         Class.new(Framework::EntryData) do
+          define_singleton_method :model_name do
+            ActiveModel::Name.new(self, nil, 'Invoice')
+          end
+
           _total_value_def = ast[:invoice_fields].find { |f| f[:field] == 'TotalValue' }
           total_value_field _total_value_def[:from]
 

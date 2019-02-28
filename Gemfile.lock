@@ -426,6 +426,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   haml-rails
+  hashdiff
   http
   jbuilder (~> 2.5)
   jsonapi-rails

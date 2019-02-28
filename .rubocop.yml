@@ -17,6 +17,7 @@ Bundler/OrderedGems:
 Rails/Output:
     Exclude:
         - 'db/data_migrate/**/*'
+        - 'lib/fdl/validations/**/*'
 
 Style/AndOr:
     Enabled: false
