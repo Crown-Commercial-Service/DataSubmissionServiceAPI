@@ -105,23 +105,21 @@ RSpec.describe '/v1' do
     end
   end
 
-  describe 'GET /tasks?filter[supplier_id]=' do
-    it 'returns a filtered list of tasks for a supplier' do
-      current_supplier = FactoryBot.create(:supplier)
-      another_supplier = FactoryBot.create(:supplier)
+  describe 'GET /tasks with a sparse fieldset specified' do
+    it 'returns a list of tasks with only the attributes specified' do
+      task = FactoryBot.create(:task, supplier: supplier, period_year: 1984)
+      FactoryBot.create(:completed_submission, task: task, purchase_order_number: 'PO123')
 
-      user.memberships.create(supplier: current_supplier)
-      user.memberships.create(supplier: another_supplier)
-
-      FactoryBot.create(:task, supplier: current_supplier, description: 'hello')
-      FactoryBot.create(:task, supplier: another_supplier)
-
-      get "/v1/tasks?filter[supplier_id]=#{current_supplier.id}", headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks?include=latest_submission&fields[submissions]=status,invoice_count',
+          headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
       expect(json['data'].size).to eql 1
-      expect(json['data'][0]).to have_attribute(:description).with_value('hello')
+      expect(json['data'][0]).to have_attribute(:period_year).with_value(1984)
+      expect(json['included'][0]).to have_attribute(:status).with_value('completed')
+      expect(json['included'][0]).to have_attribute(:invoice_count).with_value(2)
+      expect(json['included'][0]).not_to have_attribute(:purchase_order_number)
     end
   end
 

@@ -13,6 +13,14 @@ RSpec.describe SerializableSubmission do
       expect(serialized_submission.as_jsonapi[:attributes][:order_count]).to eq(3)
     end
 
+    it 'exposes the total value of invoice entries' do
+      expect(serialized_submission.as_jsonapi[:attributes][:invoice_total_value]).to eq(0.0)
+    end
+
+    it 'exposes the total value of order entries' do
+      expect(serialized_submission.as_jsonapi[:attributes][:order_total_value]).to eq(0.0)
+    end
+
     it 'exposes a report_no_business? boolean' do
       expect(serialized_submission.as_jsonapi[:attributes][:report_no_business?]).to eq(true)
     end

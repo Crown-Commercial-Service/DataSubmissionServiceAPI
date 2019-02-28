@@ -22,6 +22,12 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
     submission.entries.orders.count
   end
 
+  attribute :invoice_total_value do
+    submission.total_spend
+  end
+
+  attribute :order_total_value
+
   attribute :sheet_errors do
     Hash[submission.sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
   end
