@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-50] - 2019-02-28
+
+- Onboarding of RM6060
+- Updated API endpoint for tasks to expose extra data on the latest submission
+- Re-instating January tasks for CM/OSG/05/3565
+- Performance improvements to tasks#index (reduced n+1 queries)
+
 ## [release-49] - 2019-02-26
 
 - Admin user can deactivate and activate suppliers on frameworks
@@ -325,6 +332,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-50]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-49...release-50
 [release-49]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-48...release-49
 [release-48]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-47...release-48
 [release-47]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-46...release-47
