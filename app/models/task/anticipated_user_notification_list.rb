@@ -25,26 +25,28 @@ class Task
     def generate
       logger.info "Generating late contacts for #{year}, #{month}"
 
-      output.puts(CSV.generate_line(HEADER))
+      output.puts(CSV.generate_line(header))
 
       suppliers.find_each do |supplier|
+        next if supplier.active_frameworks.empty?
+
         supplier.users.each do |user|
-          output.puts(
-            CSV.generate_line(
-              [
-                user.email,
-                due_date,
-                user.name,
-                supplier.name,
-                reporting_month
-              ]
-            )
-          )
+          output.puts csv_line_for(user, supplier)
         end
       end
     end
 
+    def csv_line_for(user, supplier)
+      CSV.generate_line(
+        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_participation(supplier)
+      )
+    end
+
     private
+
+    def header
+      HEADER + frameworks_header
+    end
 
     def reporting_month
       [Date::MONTHNAMES[month], year].join(' ')
@@ -54,8 +56,20 @@ class Task
       ReportingPeriod.new(year, month).due_date.to_s(:day_month_year)
     end
 
+    def frameworks
+      @frameworks ||= Framework.order(:short_name)
+    end
+
+    def frameworks_header
+      frameworks.map(&:short_name)
+    end
+
+    def framework_participation(supplier)
+      frameworks.map { |framework| supplier.active_frameworks.include?(framework) ? 'yes' : 'no' }
+    end
+
     def suppliers
-      Supplier.joins(:agreements).merge(Agreement.active)
+      Supplier.includes(:users, :active_frameworks)
     end
   end
 end

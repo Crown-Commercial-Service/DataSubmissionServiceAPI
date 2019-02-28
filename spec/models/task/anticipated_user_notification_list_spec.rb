@@ -26,9 +26,11 @@ RSpec.describe Task::AnticipatedUserNotificationList do
         FactoryBot.create(:membership, user: alice, supplier: supplier_c)
 
         framework1 = FactoryBot.create(:framework, short_name: 'RM0001')
+        framework2 = FactoryBot.create(:framework, short_name: 'RM0002')
 
         supplier_a.agreements.create!(framework: framework1)
         supplier_b.agreements.create!(framework: framework1)
+        supplier_b.agreements.create!(framework: framework2, active: false)
         supplier_c.agreements.create!(framework: framework1, active: false)
 
         list.generate
@@ -36,13 +38,13 @@ RSpec.describe Task::AnticipatedUserNotificationList do
 
       subject(:lines) { output.string.split("\n") }
 
-      it 'has a header row' do
-        expect(lines.first).to eql('email address,due_date,person_name,supplier_name,reporting_month')
+      it 'has a header row that lists all the frameworks' do
+        expect(lines.first).to eql('email address,due_date,person_name,supplier_name,reporting_month,RM0001,RM0002')
       end
 
-      it 'has a line for each user' do
-        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019')
-        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019')
+      it 'has a line for each user including the frameworks their supplier is active on' do
+        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,yes,no')
+        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,yes,no')
       end
 
       it 'ignores inactive agreements' do

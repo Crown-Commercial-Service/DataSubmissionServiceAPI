@@ -1,6 +1,8 @@
 class Supplier < ApplicationRecord
   has_many :agreements, dependent: :destroy
   has_many :frameworks, through: :agreements
+  has_many :active_frameworks, -> { merge(Agreement.active) }, through: :agreements, class_name: 'Framework',
+           source: :framework
   has_many :submissions, dependent: :nullify
   has_many :tasks, inverse_of: :supplier, dependent: :destroy
   has_many :memberships, dependent: :destroy
