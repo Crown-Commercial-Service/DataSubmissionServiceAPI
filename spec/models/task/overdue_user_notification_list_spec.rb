@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'stringio'
 
-RSpec.describe Task::LateGenerator do
-  subject(:generator) { Task::LateGenerator.new(year: year, month: month, output: output) }
+RSpec.describe Task::OverdueUserNotificationList do
+  subject(:generator) { Task::OverdueUserNotificationList.new(year: year, month: month, output: output) }
 
   describe '#generate' do
     let(:output) { StringIO.new }

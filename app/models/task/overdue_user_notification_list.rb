@@ -5,7 +5,7 @@ class Task
   # of suppliers with incomplete submissions in the
   # given year/month period. Outputs via +puts+ objects
   # that respond_to? it (+STDOUT+ or +File+ being usual)
-  class LateGenerator
+  class OverdueUserNotificationList
     HEADER = [
       'User Name',
       'Email Address',
