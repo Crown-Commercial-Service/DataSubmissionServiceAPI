@@ -1,5 +1,3 @@
-require 'bank_holidays'
-
 class Task
   # Used to generate the monthly tasks for suppliers and the frameworks they
   # have an agreement in place for.
@@ -46,19 +44,7 @@ class Task
     end
 
     def due_date
-      submission_window.last + offset_for_bank_holidays
-    end
-
-    def submission_window
-      Range.new(first_of_month, (first_of_month + 6.days))
-    end
-
-    def first_of_month
-      Date.new(year, month).end_of_month.next_day
-    end
-
-    def offset_for_bank_holidays
-      (submission_window.to_a & BankHolidays.all).size
+      Task::ReportingPeriod.new(year, month).due_date
     end
   end
 end
