@@ -22,7 +22,7 @@ RSpec.describe Framework::Definition::Language do
               ProductClass from 'Product Group'
               ProductSubClass from 'Product Classification'
               ProductDescription from 'Item Name or WAPP'
-              ProductCode from 'Item Code'
+              optional ProductCode from 'Item Code'
 
               String Additional1 from 'Manufacturers Product Code'
               String Additional2 from 'Unit Quantity'
@@ -106,6 +106,13 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class).to have_field('Customer Organisation')
               .validated_by(:presence)
               .not_validated_by(:ingested_numericality)
+          end
+        end
+
+        describe 'Item Code - an optional known string field' do
+          it 'is optional' do
+            expect(invoice_class).to have_field('Item Code')
+              .not_validated_by(:presence)
           end
         end
 
