@@ -34,8 +34,8 @@ RSpec.describe Framework::Definition::Language do
               UnitQuantity from 'Quantity'
               InvoiceValue from 'Total Spend'
 
-              String from 'Cost Centre'
-              String from 'Contract Number'
+              optional String from 'Cost Centre'
+              optional String from 'Contract Number'
             }
           }
         FDL
@@ -148,9 +148,9 @@ RSpec.describe Framework::Definition::Language do
           end
         end
 
-        describe 'Unknown fields - fields which may be validated but do not go to the data warehouse' do
-          it { is_expected.to have_field('Cost Centre').validated_by(:presence) }
-          it { is_expected.to have_field('Contract Number').validated_by(:presence) }
+        describe 'Unknown fields - fields which are not validated and do not go to the data warehouse' do
+          it { is_expected.to have_field('Cost Centre').not_validated_by(:presence) }
+          it { is_expected.to have_field('Contract Number').not_validated_by(:presence) }
         end
       end
     end

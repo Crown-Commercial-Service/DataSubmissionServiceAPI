@@ -22,10 +22,11 @@ class Framework
       rule(:field_def)            { unknown_field | known_field | additional_field }
       rule(:known_field)          { pascal_case_identifier.as(:field) >> from_specifier }
       rule(:additional_field)     { str('String').as(:type) >> space >> additional_field_identifier.as(:field) >> from_specifier }
-      rule(:unknown_field)        { str('String').as(:type) >> space >> from_specifier }
+      rule(:unknown_field)        { optional >> str('String').as(:type) >> space >> from_specifier }
 
       rule(:percentage)           { (decimal | integer).as(:flat_rate) >> str('%') >> space? }
       rule(:from_specifier)       { spaced(str('from')) >> string.as(:from) }
+      rule(:optional)             { spaced(str('optional').as(:optional).maybe) }
 
       rule(:metadata)             { framework_name >> management_charge }
 
