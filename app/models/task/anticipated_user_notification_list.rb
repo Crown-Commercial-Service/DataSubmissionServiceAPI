@@ -49,11 +49,11 @@ class Task
     end
 
     def reporting_month
-      [Date::MONTHNAMES[month], year].join(' ')
+      @reporting_month ||= [Date::MONTHNAMES[month], year].join(' ')
     end
 
     def due_date
-      ReportingPeriod.new(year, month).due_date.to_s(:day_month_year)
+      @due_date ||= ReportingPeriod.new(year, month).due_date.to_s(:day_month_year)
     end
 
     def frameworks
