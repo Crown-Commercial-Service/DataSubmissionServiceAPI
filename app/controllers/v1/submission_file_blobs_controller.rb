@@ -7,7 +7,9 @@ class V1::SubmissionFileBlobsController < APIController
     submission_file = SubmissionFile.find(params[:file_id])
     submission_file.file_blob = ActiveStorage::Blob.new(file_blob_params)
 
-    render jsonapi: submission_file, status: :created
+    render jsonapi: submission_file,
+           status: :created,
+           fields: { submission_files: %i[submission_id rows filename] }
   end
 
   private

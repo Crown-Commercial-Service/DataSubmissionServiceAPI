@@ -7,4 +7,8 @@ class SubmissionFile < ApplicationRecord
   def filename
     file.attachment.filename.to_s if file.attached?
   end
+
+  def temporary_download_url
+    file.attachment.service_url if file.attached?
+  end
 end
