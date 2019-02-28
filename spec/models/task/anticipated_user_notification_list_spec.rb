@@ -7,6 +7,8 @@ RSpec.describe Task::AnticipatedUserNotificationList do
   describe '#generate' do
     let(:output) { StringIO.new }
 
+    before { stub_govuk_bank_holidays_request }
+
     context 'there are suppliers with users and framework agreements' do
       let(:year)  { 2019 }
       let(:month) { 1 }
@@ -39,12 +41,12 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       end
 
       it 'has a line for each user' do
-        expect(lines).to include('alice@example.com,DUE_DATE?,Alice Example,Supplier A,January 2019')
-        expect(lines).to include('bob@example.com,DUE_DATE?,Bob Example,Supplier B,January 2019')
+        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019')
+        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019')
       end
 
       it 'ignores inactive agreements' do
-        expect(lines).not_to include('alice@example.com,DUE_DATE?,Alice Example,Inactive Supplier,January 2019')
+        expect(lines).not_to include('alice@example.com,7 February 2019,Alice Example,Inactive Supplier,January 2019')
       end
     end
   end

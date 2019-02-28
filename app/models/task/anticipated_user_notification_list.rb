@@ -51,7 +51,7 @@ class Task
     end
 
     def due_date
-      'DUE_DATE?'
+      ReportingPeriod.new(year, month).due_date.to_s(:day_month_year)
     end
 
     def suppliers
