@@ -30,7 +30,7 @@ class Task
       suppliers.find_each do |supplier|
         next if supplier.active_frameworks.empty?
 
-        supplier.users.each do |user|
+        supplier.active_users.each do |user|
           output.puts csv_line_for(user, supplier)
         end
       end
@@ -69,7 +69,7 @@ class Task
     end
 
     def suppliers
-      Supplier.includes(:users, :active_frameworks)
+      Supplier.includes(:active_users, :active_frameworks)
     end
   end
 end

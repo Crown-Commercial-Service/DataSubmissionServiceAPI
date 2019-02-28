@@ -13,8 +13,9 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       let(:year)  { 2019 }
       let(:month) { 1 }
 
-      let(:alice)      { FactoryBot.create(:user, name: 'Alice Example', email: 'alice@example.com') }
-      let(:bob)        { FactoryBot.create(:user, name: 'Bob Example', email: 'bob@example.com') }
+      let(:alice) { FactoryBot.create(:user, name: 'Alice Example', email: 'alice@example.com') }
+      let(:bob) { FactoryBot.create(:user, name: 'Bob Example', email: 'bob@example.com') }
+      let(:frank) { FactoryBot.create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
         supplier_a = FactoryBot.create(:supplier, name: 'Supplier A')
@@ -23,6 +24,7 @@ RSpec.describe Task::AnticipatedUserNotificationList do
 
         FactoryBot.create(:membership, user: alice, supplier: supplier_a)
         FactoryBot.create(:membership, user: bob, supplier: supplier_b)
+        FactoryBot.create(:membership, user: frank, supplier: supplier_a)
         FactoryBot.create(:membership, user: alice, supplier: supplier_c)
 
         framework1 = FactoryBot.create(:framework, short_name: 'RM0001')
@@ -48,7 +50,11 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       end
 
       it 'ignores inactive agreements' do
-        expect(lines).not_to include('alice@example.com,7 February 2019,Alice Example,Inactive Supplier,January 2019')
+        expect(output.string).not_to include('Inactive Supplier')
+      end
+
+      it 'ignores inactive users' do
+        expect(output.string).not_to include('Frank Inactive')
       end
     end
   end
