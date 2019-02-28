@@ -60,6 +60,7 @@ RSpec.describe Submission do
         submission.entries << FactoryBot.build(:invoice_entry, :valid, total_value: 100.00, management_charge: 1)
         submission.entries << FactoryBot.build(:invoice_entry, :valid, total_value: 460.00, management_charge: 4.6)
         submission.entries << FactoryBot.build(:order_entry, :valid, total_value: 99.00)
+        submission.entries << FactoryBot.build(:order_entry, :valid, total_value: 3.40)
       end
     end
 
@@ -72,6 +73,12 @@ RSpec.describe Submission do
     describe '#total_spend' do
       it 'returns the sum of all the total_values for the entries of type "invoice"' do
         expect(submission.total_spend).to eq BigDecimal('560')
+      end
+    end
+
+    describe '#order_total_value' do
+      it 'returns the sum of all the total_values for the entries of type "order"' do
+        expect(submission.order_total_value).to eq BigDecimal('102.4')
       end
     end
   end
