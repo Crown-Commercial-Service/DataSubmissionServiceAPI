@@ -18,7 +18,7 @@ module Import
       private
 
       def existing_user
-        @existing_user ||= User.find_by(email: email)
+        @existing_user ||= User.find_by('lower(email) = ?', email.downcase)
       end
 
       def create_user!
