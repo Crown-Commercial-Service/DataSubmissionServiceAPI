@@ -6,4 +6,12 @@ namespace :generate do
 
     Task::OverdueUserNotificationList.new(year: year, month: period_month).generate
   end
+
+  desc 'Generates CSV of users and their anticipated tasks for a given window. Defaults to the next window'
+  task anticipated_user_tasks: [:environment] do |_task, args|
+    year         = args[:year]&.to_i         || Time.zone.today.year
+    period_month = args[:period_month]&.to_i || Time.zone.today.month
+
+    Task::AnticipatedUserNotificationList.new(year: year, month: period_month).generate
+  end
 end
