@@ -33,10 +33,10 @@ RSpec.describe Task::LateGenerator do
         create :membership, user: alice, supplier: supplier_a
         create :membership, user: bob, supplier: supplier_b
 
-        create :task, supplier: supplier_a, framework: framework1
-        create :task, supplier: supplier_a, framework: framework2
-        create :task, supplier: supplier_b, framework: framework1
-        create :task, supplier: supplier_b, framework: framework2
+        create :task, supplier: supplier_a, framework: framework1, period_month: 1
+        create :task, supplier: supplier_a, framework: framework2, period_month: 1
+        create :task, supplier: supplier_b, framework: framework1, period_month: 1
+        create :task, supplier: supplier_b, framework: framework2, period_month: 1
 
         create :task, :completed, supplier: supplier_a, framework: framework3
 
