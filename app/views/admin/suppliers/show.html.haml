@@ -35,6 +35,7 @@
           %tr.govuk-table__row
             %th.govuk-table__header Name
             %th.govuk-table__header Email
+            %th.govuk-table__header Active?
         %tbody.govuk-table__body
           - @supplier.users.each do |user|
             %tr.govuk-table__row
@@ -42,6 +43,8 @@
                 = link_to user.name, admin_user_path(user)
               %td.govuk-table__cell
                 = user.email
+              %td.govuk-table__cell
+                = user.active? ? 'Active' : 'Inactive'
     -else
       %p
         No users linked to

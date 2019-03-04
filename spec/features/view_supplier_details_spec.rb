@@ -32,4 +32,11 @@ RSpec.feature 'Viewing a supplier' do
     expect(page).to have_content 'Pending'
     expect(page).to have_link 'Download submission file', href: download_url
   end
+
+  scenario 'lists the users linked to the supplier' do
+    FactoryBot.create(:user, suppliers: [supplier])
+
+    visit admin_supplier_path(supplier)
+    expect(page).to have_content 'Active?'
+  end
 end

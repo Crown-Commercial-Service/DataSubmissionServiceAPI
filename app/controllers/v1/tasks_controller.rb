@@ -29,12 +29,12 @@ class V1::TasksController < APIController
   def no_business
     task = current_user.tasks.find(params[:id])
 
-    if task.completed? && !replacement_return?
+    if task.completed? && !correcting_submission?
       render jsonapi: task.submissions.first
       return
     end
 
-    if task.completed? && replacement_return?
+    if task.completed? && correcting_submission?
       task.latest_submission.replace_with_no_business!
       task.reload
     end
@@ -68,8 +68,8 @@ class V1::TasksController < APIController
     Hash[fields_param.map { |k, v| [k.to_sym, v.split(',').map!(&:to_sym)] }]
   end
 
-  def replacement_return?
-    params.dig('_jsonapi', 'replacement').to_s.downcase == 'true'
+  def correcting_submission?
+    params.dig('_jsonapi', 'correction').to_s.downcase == 'true'
   end
 
   def requested_associations

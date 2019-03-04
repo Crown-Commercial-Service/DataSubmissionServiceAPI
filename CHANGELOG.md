@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-51] - 2019-03-04
+
+- Data migration: update Customer (URN) list
+- Generate CSV for monthly task notification emails
+- Supplier can replace submission for no business
+
 ## [release-50] - 2019-02-28
 
 - Onboarding of RM6060
@@ -332,6 +338,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-51]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-50...release-51
 [release-50]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-49...release-50
 [release-49]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-48...release-49
 [release-48]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-47...release-48

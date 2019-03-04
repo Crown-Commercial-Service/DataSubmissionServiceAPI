@@ -240,9 +240,9 @@ RSpec.describe '/v1' do
       end
     end
 
-    context 'if replacing existing completed submission' do
+    context 'if correcting an existing completed submission' do
       let!(:submission) { FactoryBot.create(:completed_submission, task: task) }
-      let(:body) { { replacement: true }.to_json }
+      let(:body) { { correction: true }.to_json }
 
       before do
         task.update(status: 'completed')
