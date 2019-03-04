@@ -30,7 +30,7 @@ class V1::TasksController < APIController
     task = current_user.tasks.find(params[:id])
 
     if task.completed? && !correcting_submission?
-      render jsonapi: task.submissions.first
+      render jsonapi: task.latest_submission
       return
     end
 
