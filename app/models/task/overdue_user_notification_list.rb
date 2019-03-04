@@ -58,7 +58,7 @@ class Task
         ')
         .joins(
           :framework,
-          supplier: { memberships: :user }
+          supplier: :active_users
         )
     end
   end

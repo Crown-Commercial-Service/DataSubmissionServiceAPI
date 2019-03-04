@@ -13,6 +13,7 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       let(:alice)      { create :user, name: 'Alice Example', email: 'alice@example.com' }
       let(:bob)        { create :user, name: 'Bob Example', email: 'bob@example.com' }
+      let(:frank)      { create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
         # Warning! Data creation yak ahead. In short:
@@ -32,6 +33,7 @@ RSpec.describe Task::OverdueUserNotificationList do
 
         create :membership, user: alice, supplier: supplier_a
         create :membership, user: bob, supplier: supplier_b
+        create :membership, user: frank, supplier: supplier_b
 
         create :task, supplier: supplier_a, framework: framework1, period_month: 1
         create :task, supplier: supplier_a, framework: framework2, period_month: 1
@@ -58,6 +60,10 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       it 'does not include completed tasks' do
         expect(lines).not_to include('Alice Example,alice@example.com,COMPLETE0001')
+      end
+
+      it 'does not include inactive users' do
+        expect(output.string).not_to include('Frank Inactive')
       end
     end
   end
