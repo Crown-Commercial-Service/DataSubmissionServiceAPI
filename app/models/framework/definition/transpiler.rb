@@ -1,3 +1,5 @@
+require 'framework/definition/ast/field_presenter'
+
 class Framework
   module Definition
     class Transpiler
@@ -30,13 +32,13 @@ class Framework
             ActiveModel::Name.new(self, nil, 'Invoice')
           end
 
-          _total_value_field = Framework::Definition::AST::FieldPresenter.by_name(
+          _total_value_field = AST::FieldPresenter.by_name(
             ast[:invoice_fields], 'TotalValue'
           )
           total_value_field _total_value_field.sheet_name
 
           ast[:invoice_fields].each do |field_def|
-            field = Framework::Definition::AST::FieldPresenter.new(field_def)
+            field = AST::FieldPresenter.new(field_def)
             _options = transpiler.send(:options_for_field, field)
 
             field field.sheet_name, field.activemodel_type, _options

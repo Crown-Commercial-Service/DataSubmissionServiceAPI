@@ -91,6 +91,7 @@ RSpec.describe Framework::Definition::Language do
 
           it 'is assumed to be present and a valid URN' do
             expect(invoice_class).to have_field('Customer URN')
+              .with_activemodel_type(:integer)
               .validated_by(:presence, :urn)
           end
         end

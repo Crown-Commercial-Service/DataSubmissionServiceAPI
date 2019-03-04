@@ -35,22 +35,21 @@ class Framework
         ##
         # 'Our' type; things like :string, :yesno, :decimal
         def type
-          field_def[:type].downcase.to_sym
+          if known?
+            DataWarehouse::KnownFields[warehouse_name]
+          else
+            field_def[:type].downcase.to_sym
+          end
         end
 
         ##
         # The implementation type. Usually :string
         def activemodel_type
-          :string
+          type == :urn ? :integer : :string
         end
 
         def validators?
-          field_type = if known?
-                         DataWarehouse::KnownFields[warehouse_name]
-                       else
-                         type
-                       end
-          Transpiler::TYPE_VALIDATIONS.fetch(field_type).any?
+          Transpiler::TYPE_VALIDATIONS.fetch(type).any?
         end
 
         def self.by_name(field_defs, name)
