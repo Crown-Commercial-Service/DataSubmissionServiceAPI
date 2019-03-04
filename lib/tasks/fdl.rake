@@ -8,7 +8,9 @@ namespace :fdl do
       framework_short_name = args[:framework_short_name] or raise ArgumentError 'framework_short_name required'
       sample_row_count = args[:sample_row_count] || 5000
 
-      FDL::Validations::Test.new(framework_short_name, sample_row_count).run
+      test = FDL::Validations::Test.new(framework_short_name, sample_row_count)
+      test.run
+      puts test.formatted_report
     end
   end
 end

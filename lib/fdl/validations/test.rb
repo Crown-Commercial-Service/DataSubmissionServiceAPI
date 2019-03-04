@@ -1,4 +1,6 @@
 require 'hashdiff'
+require 'progress_bar'
+require 'stringio'
 
 module FDL
   module Validations
@@ -62,23 +64,46 @@ module FDL
       end
 
       def sample_rows
-        SubmissionEntry
-          .joins(submission: :framework)
-          .where('frameworks.short_name = ?', [framework_short_name])
-          .order(created_at: :desc)
-          .limit(sample_row_count)
+        @sample_rows ||= SubmissionEntry
+                         .joins(submission: :framework)
+                         .where('frameworks.short_name = ?', [framework_short_name])
+                         .order(created_at: :desc)
+                         .limit(sample_row_count)
+      end
+
+      def discrepancies
+        @discrepancies ||= Hash.new { |h, k| h[k] = [] }
       end
 
       def run
-        diff_count = 0
+        bar = ProgressBar.new(sample_rows.count)
+
         sample_rows.each do |entry|
           compare = Compare.new(entry, framework_short_name)
-          if compare.diff.any?
-            puts compare.diff_s
-            diff_count += 1
+          diff = compare.diff
+          bar.increment!
+          next if diff.empty?
+
+          discrepancies[diff] << {
+            submission_id: entry.submission.id,
+            created_at: entry.submission.created_at,
+            entry_id: entry.id
+          }
+        end
+      end
+
+      def formatted_report
+        output = StringIO.new
+
+        discrepancies.each_pair do |diff, entries|
+          output.puts "#{diff} affects #{entries.count} entries"
+          entries_by_submission = entries.group_by { |entry| "#{entry[:submission_id]}: #{entry[:created_at]}" }
+          entries_by_submission.each_pair do |submission_header, entry_hashes|
+            output.puts "\t#{submission_header} has #{entry_hashes.count} entries"
           end
         end
-        puts diff_count
+
+        output.string
       end
     end
   end
