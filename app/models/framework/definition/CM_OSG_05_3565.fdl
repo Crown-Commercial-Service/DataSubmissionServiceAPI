@@ -4,23 +4,23 @@ Framework CM/OSG/05/3565 {
 
   InvoiceFields {
     TotalValue from 'Total Spend'
-    CustomerPostCode from 'Customer Postcode'
+    optional CustomerPostCode from 'Customer Postcode'
     CustomerName from 'Customer Organisation'
     CustomerURN from 'Customer URN'
     InvoiceDate from 'Customer Invoice Date'
-    ProductGroup from 'Service Type'
-    ProductClass from 'Product Group'
+    optional ProductGroup from 'Service Type'
+    optional ProductClass from 'Product Group'
     optional ProductSubClass from 'Product Classification'
     optional ProductDescription from 'Item Name or WAPP'
     optional ProductCode from 'Item Code'
 
-    String Additional1 from 'Manufacturers Product Code'
+    optional String Additional1 from 'Manufacturers Product Code'
     String Additional2 from 'Unit Quantity'
 
     UnitPrice from 'Price per Item'
     UnitType from 'Unit of Purchase'
 
-    VATIncluded from 'Vat Included'
+    optional VATIncluded from 'Vat Included'
     UnitQuantity from 'Quantity'
     InvoiceValue from 'Total Spend'
 

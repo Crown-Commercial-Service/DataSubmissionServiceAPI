@@ -10,7 +10,12 @@ class Framework
 
         # match known fields only
         rule(optional: simple(:optional), field: simple(:field), from: simple(:from)) do
-          { optional: !!optional, field: field.to_s, from: from.to_s }
+          { optional: true, field: field.to_s, from: from.to_s }
+        end
+
+        # optional Additional field rule
+        rule(optional: simple(:optional), type: simple(:type), field: simple(:field), from: subtree(:from)) do
+          { optional: true, type: type.to_s, field: field.to_s, from: from }
         end
 
         # Additional field rule
@@ -20,7 +25,7 @@ class Framework
 
         # Unknown fields rule
         rule(optional: simple(:optional), type: simple(:type), from: simple(:from)) do
-          { optional: !!optional, type: type.to_s, from: from }
+          { optional: true, type: type.to_s, from: from }
         end
       end
     end

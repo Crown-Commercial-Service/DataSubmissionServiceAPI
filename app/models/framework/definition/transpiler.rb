@@ -51,6 +51,15 @@ class Framework
         yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
       }.freeze
 
+      def field_has_validators?(field_def)
+        field_type = if field_def[:type].nil? # an additional field has a type
+                       DataWarehouse::KnownFields[field_def[:field]]
+                     else
+                       field_def[:type].downcase.to_sym
+                     end
+        TYPE_VALIDATIONS.fetch(field_type).any?
+      end
+
       def options_for_field(field_def)
         { presence: true }.tap do |options|
           options[:exports_to] = field_def[:field]
@@ -58,7 +67,10 @@ class Framework
             field_type = DataWarehouse::KnownFields[field_def[:field]]
             options.merge!(TYPE_VALIDATIONS.fetch(field_type))
           end
-          options.delete(:presence) if field_def[:optional]
+          if field_def[:optional]
+            options.delete(:presence)
+            options[:allow_nil] = true if field_has_validators?(field_def)
+          end
         end.compact
       end
     end

@@ -63,21 +63,61 @@ RSpec.describe Framework::Definition::Parser do
   describe '#known_field' do
     subject { parser.known_field }
 
-    it {
-      is_expected.to parse("TotalValue from 'Total Spend'").as(
-        field: 'TotalValue', from: { string: 'Total Spend' }
-      )
-    }
+    context 'mandatory field' do
+      it {
+        is_expected.to parse("TotalValue from 'Total Spend'").as(
+          field: 'TotalValue', from: { string: 'Total Spend' }
+        )
+      }
+    end
+
+    context 'optional field' do
+      it {
+        is_expected.to parse("optional ProductGroup from 'Service Type'").as(
+          optional: 'optional', field: 'ProductGroup', from: { string: 'Service Type' }
+        )
+      }
+    end
   end
 
   describe '#additional_field' do
     subject { parser.additional_field }
 
-    it {
-      is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
-        type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
-      )
-    }
+    context 'mandatory field' do
+      it {
+        is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
+          type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+        )
+      }
+    end
+
+    context 'optional field' do
+      it {
+        is_expected.to parse("optional String Additional1 from 'Manufacturers Product Code'").as(
+          optional: 'optional', type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+        )
+      }
+    end
+  end
+
+  describe '#unknown_field' do
+    subject { parser.unknown_field }
+
+    context 'mandatory field' do
+      it {
+        is_expected.to parse("String from 'Cost Centre'").as(
+          type: 'String', from: { string: 'Cost Centre' }
+        )
+      }
+    end
+
+    context 'optional field' do
+      it {
+        is_expected.to parse("optional String from 'Cost Centre'").as(
+          optional: 'optional', type: 'String', from: { string: 'Cost Centre' }
+        )
+      }
+    end
   end
 
   describe '#invoice_fields' do
@@ -86,23 +126,15 @@ RSpec.describe Framework::Definition::Parser do
     let(:fields) do
       <<~FDL.strip
         InvoiceFields {
-          TotalValue from 'Total Spend'
-          optional ProductCode from 'Item Code'
-
           String Additional1 from 'Manufacturers Product Code'
-
-          optional String from 'Cost Centre'
         }
       FDL
     end
 
-    it 'has one known field, one optional known field, one Additional field and one optional unknown field' do
+    it 'has whatever fields are in the block' do
       expect(rule).to parse(fields).as(
         invoice_fields: [
-          { field: 'TotalValue', from: { string: 'Total Spend' } },
-          { optional: 'optional', field: 'ProductCode', from: { string: 'Item Code' } },
           { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
-          { optional: 'optional', type: 'String', from: { string: 'Cost Centre' } }
         ]
       )
     end

@@ -7,38 +7,7 @@ RSpec.describe Framework::Definition::Language do
 
     context 'we have some valid FDL' do
       let(:source) do
-        <<~FDL.strip
-          Framework CM/05/3769 {
-            Name 'Laundry Services - Wave 2'
-            ManagementCharge 0.0%
-
-            InvoiceFields {
-              TotalValue from 'Total Spend'
-              CustomerPostCode from 'Customer Postcode'
-              CustomerName from 'Customer Organisation'
-              CustomerURN from 'Customer URN'
-              InvoiceDate from 'Customer Invoice Date'
-              ProductGroup from 'Service Type'
-              ProductClass from 'Product Group'
-              ProductSubClass from 'Product Classification'
-              ProductDescription from 'Item Name or WAPP'
-              optional ProductCode from 'Item Code'
-
-              String Additional1 from 'Manufacturers Product Code'
-              String Additional2 from 'Unit Quantity'
-
-              UnitPrice from 'Price per Item'
-              UnitType from 'Unit of Purchase'
-
-              VATIncluded from 'Vat Included'
-              UnitQuantity from 'Quantity'
-              InvoiceValue from 'Total Spend'
-
-              optional String from 'Cost Centre'
-              optional String from 'Contract Number'
-            }
-          }
-        FDL
+        File.read('app/models/framework/definition/CM_OSG_05_3565.fdl')
       end
 
       it 'is a Framework::Definition::Base' do
@@ -46,7 +15,7 @@ RSpec.describe Framework::Definition::Language do
       end
 
       it 'has the expected framework_short_name' do
-        expect(definition.framework_short_name).to eq('CM/05/3769')
+        expect(definition.framework_short_name).to eq('CM/OSG/05/3565')
       end
 
       it 'has the expected framework name' do
@@ -90,10 +59,9 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['CustomerPostCode']).to eq('Customer Postcode')
           end
 
-          it 'is assumed present but not numeric' do
+          it 'is optional' do
             expect(invoice_class).to have_field('Customer Postcode')
-              .validated_by(:presence)
-              .not_validated_by(:ingested_numericality)
+              .not_validated_by(:presence)
           end
         end
 
@@ -149,9 +117,9 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['VATIncluded']).to eq('Vat Included')
           end
 
-          it 'is assumed to be present and implemented as a yesno field' do
+          it 'is optional and implemented as a yesno field' do
             expect(invoice_class).to have_field('Vat Included')
-              .validated_by(:presence, case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" })
+              .validated_by(case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'", allow_nil: true })
           end
         end
 

@@ -19,9 +19,9 @@ class Framework
       rule(:fields_block)         { braced(spaced(field_defs)) }
 
       rule(:field_defs)           { field_def.repeat(1) }
-      rule(:field_def)            { unknown_field | known_field | additional_field }
+      rule(:field_def)            { (unknown_field | known_field | additional_field) }
       rule(:known_field)          { optional >> pascal_case_identifier.as(:field) >> from_specifier }
-      rule(:additional_field)     { str('String').as(:type) >> space >> additional_field_identifier.as(:field) >> from_specifier }
+      rule(:additional_field)     { optional >> str('String').as(:type) >> space >> additional_field_identifier.as(:field) >> from_specifier }
       rule(:unknown_field)        { optional >> str('String').as(:type) >> space >> from_specifier }
 
       rule(:percentage)           { (decimal | integer).as(:flat_rate) >> str('%') >> space? }
