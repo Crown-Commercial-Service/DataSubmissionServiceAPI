@@ -29,12 +29,6 @@ RSpec.describe Task::Generator do
         expect(supplier_2_task.due_on).to eq Date.new(2018, 9, 7)
       end
 
-      it 'adjusts the due date when there are bank holidays so there are always at least 5 working days' do
-        Task::Generator.new(month: 12, year: 2018).generate!
-        task = supplier_1.tasks.order(:created_at).last
-        expect(task.due_on).to eq Date.new(2019, 1, 8)
-      end
-
       context 'given a task already exists for the agreement and period' do
         let!(:existing_task) do
           FactoryBot.create(
