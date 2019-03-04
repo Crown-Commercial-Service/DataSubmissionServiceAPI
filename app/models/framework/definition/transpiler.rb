@@ -30,13 +30,16 @@ class Framework
             ActiveModel::Name.new(self, nil, 'Invoice')
           end
 
-          _total_value_def = ast[:invoice_fields].find { |f| f[:field] == 'TotalValue' }
-          total_value_field _total_value_def[:from]
+          _total_value_field = Framework::Definition::AST::FieldPresenter.by_name(
+            ast[:invoice_fields], 'TotalValue'
+          )
+          total_value_field _total_value_field.sheet_name
 
           ast[:invoice_fields].each do |field_def|
-            _options = transpiler.send(:options_for_field, field_def)
+            field = Framework::Definition::AST::FieldPresenter.new(field_def)
+            _options = transpiler.send(:options_for_field, field)
 
-            field field_def[:from], :string, _options
+            field field.sheet_name, field.activemodel_type, _options
           end
         end
       end
@@ -51,25 +54,16 @@ class Framework
         yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
       }.freeze
 
-      def field_has_validators?(field_def)
-        field_type = if field_def[:type].nil? # an additional field has a type
-                       DataWarehouse::KnownFields[field_def[:field]]
-                     else
-                       field_def[:type].downcase.to_sym
-                     end
-        TYPE_VALIDATIONS.fetch(field_type).any?
-      end
-
-      def options_for_field(field_def)
+      def options_for_field(field)
         { presence: true }.tap do |options|
-          options[:exports_to] = field_def[:field]
-          if field_def[:type].nil? # an additional field has a type
-            field_type = DataWarehouse::KnownFields[field_def[:field]]
+          options[:exports_to] = field.warehouse_name
+          if field.known? # an additional field has a type
+            field_type = DataWarehouse::KnownFields[field.warehouse_name]
             options.merge!(TYPE_VALIDATIONS.fetch(field_type))
           end
-          if field_def[:optional]
+          if field.optional?
             options.delete(:presence)
-            options[:allow_nil] = true if field_has_validators?(field_def)
+            options[:allow_nil] = true if field.validators?
           end
         end.compact
       end
