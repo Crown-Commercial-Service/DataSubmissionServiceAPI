@@ -229,12 +229,11 @@ RSpec.describe '/v1' do
     end
 
     context 'if task already completed' do
-      it 'should do nothing and return succesfully' do
-        task.file_no_business!(user)
+      it 'should do nothing and return the latest submission' do
+        FactoryBot.create(:submission, task: task)
+        submission = task.file_no_business!(user)
 
         post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
-
-        submission = task.submissions.last
 
         expect(json['data']).to have_id submission.id
       end
