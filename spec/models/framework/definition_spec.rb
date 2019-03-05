@@ -44,10 +44,23 @@ RSpec.describe Framework::Definition do
     end
   end
 
+  describe 'Base.management_charge' do
+    let(:definition_class) do
+      Class.new(Framework::Definition::Base) do
+        management_charge Framework::ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('5'))
+      end
+    end
+
+    it 'acts as setter and getter for the calculator' do
+      expect(definition_class.management_charge).to be_a(Framework::ManagementChargeCalculator::FlatRate)
+      expect(definition_class.management_charge.percentage).to eq(BigDecimal('5'))
+    end
+  end
+
   describe 'Base.calculate_management_charge' do
     let(:definition_class) do
       Class.new(Framework::Definition::Base) do
-        management_charge_rate BigDecimal('1.5')
+        management_charge Framework::ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1.5'))
       end
     end
 

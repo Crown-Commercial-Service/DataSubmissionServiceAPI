@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM6060'
       framework_name       'Vehicle Purchase'
 
-      management_charge_rate BigDecimal('0.5')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('0.5'))
 
       LOT_1_SEGMENTS = [
         '4x4/SUV',
