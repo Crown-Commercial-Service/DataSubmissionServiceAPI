@@ -1,5 +1,3 @@
-require 'framework/definition/ast/field_presenter'
-
 class Framework
   module Definition
     class Transpiler

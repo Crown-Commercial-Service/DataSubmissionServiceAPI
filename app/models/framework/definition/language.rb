@@ -1,5 +1,3 @@
-require 'framework/definition/AST/creator'
-
 class Framework
   module Definition
     class Language
