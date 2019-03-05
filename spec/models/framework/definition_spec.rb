@@ -45,12 +45,16 @@ RSpec.describe Framework::Definition do
   end
 
   describe 'Base.calculate_management_charge' do
-    it 'returns the management charge based on the framework’s management charge rate, rounded to 4 decimal places' do
+    let(:definition_class) do
+      Class.new(Framework::Definition::Base) do
+        management_charge_rate BigDecimal('1.5')
+      end
+    end
+
+    it 'returns the management charge calculation, rounded to 4 decimal places' do
       entry = double('entry', total_value: BigDecimal('102123.23'))
 
-      expect(Framework::Definition::RM3756.calculate_management_charge(entry)).to eq BigDecimal('1531.8484')
-      expect(Framework::Definition::RM1070.calculate_management_charge(entry)).to eq BigDecimal('510.6161')
-      expect(Framework::Definition::CM_OSG_05_3565.calculate_management_charge(entry)).to eq BigDecimal('0')
+      expect(definition_class.calculate_management_charge(entry)).to eq BigDecimal('1531.8484')
     end
   end
 
