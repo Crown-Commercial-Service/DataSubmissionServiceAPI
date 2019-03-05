@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-52] - 2019-03-05
+
+- Expose temporary_download_url on submission files
+
 ## [release-51] - 2019-03-04
 
 - Data migration: update Customer (URN) list
@@ -338,6 +342,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-52]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-51...release-52
 [release-51]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-50...release-51
 [release-50]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-49...release-50
 [release-49]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-48...release-49
