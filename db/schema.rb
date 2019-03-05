@@ -67,6 +67,12 @@ ActiveRecord::Schema.define(version: 2019_03_12_173622) do
     t.index ["urn"], name: "index_customers_on_urn", unique: true
   end
 
+  create_table "data_warehouse_exports", force: :cascade do |t|
+    t.datetime "range_from", null: false
+    t.datetime "range_to", null: false
+    t.index ["range_to"], name: "index_data_warehouse_exports_on_range_to"
+  end
+
   create_table "event_store_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "event_type", null: false
     t.text "metadata"
