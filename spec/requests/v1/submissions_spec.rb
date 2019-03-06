@@ -72,30 +72,67 @@ RSpec.describe '/v1' do
       }
     end
 
-    it 'creates a new submission and returns its id' do
-      post "/v1/submissions?task_id=#{task.id}",
-           params: params.to_json,
-           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+    context 'with no previous completed submission against the task' do
+      it 'creates a new submission and returns its id' do
+        post "/v1/submissions?task_id=#{task.id}",
+             params: params.to_json,
+             headers: json_headers.merge('X-Auth-Id' => user.auth_id)
 
-      expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:created)
 
-      submission = Submission.first
+        submission = Submission.first
 
-      expect(json['data']).to have_id(submission.id)
-      expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
-      expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
-      expect(json['data']).to have_attribute(:task_id).with_value(task.id)
-      expect(json['data']).to have_attribute(:purchase_order_number).with_value('INV-123')
+        expect(json['data']).to have_id(submission.id)
+        expect(json['data']).to have_attribute(:framework_id).with_value(framework.id)
+        expect(json['data']).to have_attribute(:supplier_id).with_value(supplier.id)
+        expect(json['data']).to have_attribute(:task_id).with_value(task.id)
+        expect(json['data']).to have_attribute(:purchase_order_number).with_value('INV-123')
+      end
+
+      it 'records the user who created the submission' do
+        post "/v1/submissions?task_id=#{task.id}",
+             params: params.to_json,
+             headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+
+        submission = Submission.first
+
+        expect(submission.created_by).to eq(user)
+      end
     end
 
-    it 'records the user who created the submission' do
-      post "/v1/submissions?task_id=#{task.id}",
-           params: params.to_json,
-           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+    context 'when there is a completed submission against the task' do
+      let!(:old_submission) { FactoryBot.create(:submission, task: task, aasm_state: 'completed') }
 
-      submission = Submission.first
+      context 'and it is not a correction' do
+        it 'does not create a new submission' do
+          expect do
+            post "/v1/submissions?task_id=#{task.id}",
+               params: params.to_json,
+               headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          end.to_not change { task.submissions.count }
+        end
 
-      expect(submission.created_by).to eq(user)
+        it 'returns the latest submission' do
+          post "/v1/submissions?task_id=#{task.id}",
+             params: params.to_json,
+             headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          expect(json['data']).to have_id(old_submission.id)
+        end
+      end
+
+      context 'and it is a correction' do
+        before do
+          params[:data][:attributes][:correction] = 'true'
+        end
+
+        it 'creates a new submission and returns its id' do
+          expect do
+            post "/v1/submissions?task_id=#{task.id}",
+               params: params.to_json,
+               headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          end.to change { task.submissions.count }.by(1)
+        end
+      end
     end
   end
 
