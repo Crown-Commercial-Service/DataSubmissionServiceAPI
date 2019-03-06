@@ -107,15 +107,15 @@ RSpec.describe '/v1' do
         it 'does not create a new submission' do
           expect do
             post "/v1/submissions?task_id=#{task.id}",
-               params: params.to_json,
-               headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+                 params: params.to_json,
+                 headers: json_headers.merge('X-Auth-Id' => user.auth_id)
           end.to_not change { task.submissions.count }
         end
 
         it 'returns the latest submission' do
           post "/v1/submissions?task_id=#{task.id}",
-             params: params.to_json,
-             headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+               params: params.to_json,
+               headers: json_headers.merge('X-Auth-Id' => user.auth_id)
           expect(json['data']).to have_id(old_submission.id)
         end
       end
@@ -128,8 +128,8 @@ RSpec.describe '/v1' do
         it 'creates a new submission and returns its id' do
           expect do
             post "/v1/submissions?task_id=#{task.id}",
-               params: params.to_json,
-               headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+                 params: params.to_json,
+                 headers: json_headers.merge('X-Auth-Id' => user.auth_id)
           end.to change { task.submissions.count }.by(1)
         end
       end
@@ -147,34 +147,59 @@ RSpec.describe '/v1' do
         )
       end
 
-      it 'marks the submission as complete' do
-        post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+      context 'with no previous completed submission against the task' do
+        it 'marks the submission as complete' do
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
 
-        expect(response).to be_successful
+          expect(response).to be_successful
 
-        submission.reload
+          submission.reload
 
-        expect(submission).to be_completed
-        expect(submission.task).to be_completed
-      end
+          expect(submission).to be_completed
+          expect(submission.task).to be_completed
+        end
 
-      it 'records the user who completed the submission' do
-        post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
-
-        submission.reload
-
-        expect(submission.submitted_by).to eq(user)
-      end
-
-      it 'records the submission completion time' do
-        submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
-
-        travel_to(submission_time) do
+        it 'records the user who completed the submission' do
           post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
 
           submission.reload
 
-          expect(submission.submitted_at).to eq(submission_time)
+          expect(submission.submitted_by).to eq(user)
+        end
+
+        it 'records the submission completion time' do
+          submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+
+          travel_to(submission_time) do
+            post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+
+            submission.reload
+
+            expect(submission.submitted_at).to eq(submission_time)
+          end
+        end
+      end
+
+      context 'when there is a completed submission against the task' do
+        let(:task) { FactoryBot.create(:task, status: :completed) }
+        let!(:old_submission) do
+          FactoryBot.create(
+            :submission_with_validated_entries,
+            aasm_state: 'completed',
+            task: task
+          )
+        end
+
+        it 'marks the submission as completed AND the old submission is replaced' do
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+
+          expect(response).to be_successful
+
+          old_submission.reload
+          expect(old_submission).to be_replaced
+
+          submission.reload
+          expect(submission).to be_completed
         end
       end
     end

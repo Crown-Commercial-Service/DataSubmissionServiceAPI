@@ -35,6 +35,10 @@ class Submission < ApplicationRecord
     event :replace_with_no_business do
       transitions from: :completed, to: :replaced, guard: :replaceable?
     end
+
+    event :mark_as_replaced do
+      transitions from: :completed, to: :replaced
+    end
   end
 
   def all_entries_valid?

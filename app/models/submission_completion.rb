@@ -7,11 +7,15 @@ class SubmissionCompletion
   end
 
   def perform!
-    submission.reviewed_and_accepted! do
-      submission.submitted_by = user
-      submission.submitted_at = Time.zone.now
-      submission.save
-      submission.task.completed!
+    ActiveRecord::Base.transaction do
+      mark_completed_submission_as_replaced!
+
+      submission.reviewed_and_accepted! do
+        submission.submitted_by = user
+        submission.submitted_at = Time.zone.now
+        submission.save
+        submission.task.completed!
+      end
     end
 
     SubmissionInvoiceCreationJob.perform_later(submission) if create_invoice_for?(submission)
@@ -23,5 +27,9 @@ class SubmissionCompletion
 
   def create_invoice_for?(submission)
     !submission.report_no_business? && submission.total_spend != 0 && ENV['SUBMIT_INVOICES']
+  end
+
+  def mark_completed_submission_as_replaced!
+    submission.task.submissions.find_by(aasm_state: 'completed')&.mark_as_replaced!
   end
 end
