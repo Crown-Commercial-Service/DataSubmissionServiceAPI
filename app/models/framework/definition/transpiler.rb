@@ -61,6 +61,7 @@ class Framework
             field_type = DataWarehouse::KnownFields[field.warehouse_name]
             options.merge!(TYPE_VALIDATIONS.fetch(field_type))
           end
+          options.delete(:presence) if field.type == :urn # The URN validator covers this
           if field.optional?
             options.delete(:presence)
             options[:allow_nil] = true if field.validators?
