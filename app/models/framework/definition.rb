@@ -36,20 +36,12 @@ class Framework
           @framework_short_name ||= framework_short_name
         end
 
-        ##
-        # E.g. BigDecimal.new('1.5')
-        def management_charge_rate(calculator = nil)
-          @management_charge_rate ||= begin
-                                        if calculator.is_a?(BigDecimal)
-                                          ManagementChargeCalculator::FlatRate.new(percentage: calculator)
-                                        else
-                                          calculator
-                                        end
-                                      end
+        def management_charge(calculator = nil)
+          @management_charge ||= calculator
         end
 
         def calculate_management_charge(entry)
-          management_charge_rate.calculate_for(entry)
+          management_charge.calculate_for(entry)
         end
 
         def for_entry_type(entry_type)

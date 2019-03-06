@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3767'
       framework_name       'Supply and Fit of Tyres (RM3767)'
 
-      management_charge_rate BigDecimal('1')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1'))
 
       PRODUCT_TYPES = [
         'Tyre - Supply ONLY',

@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3797'
       framework_name       'Journal Subscriptions'
 
-      management_charge_rate BigDecimal('1')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1'))
 
       PRODUCT_GROUPS = [
         'Print Journal',

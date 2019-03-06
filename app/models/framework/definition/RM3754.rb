@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3754'
       framework_name       'Vehicle Telematics'
 
-      management_charge_rate BigDecimal('0.5')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('0.5'))
 
       PAYMENT_PROFILES = [
         'Monthly',
