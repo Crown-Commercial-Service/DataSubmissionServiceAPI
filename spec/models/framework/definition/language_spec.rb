@@ -5,7 +5,7 @@ RSpec.describe Framework::Definition::Language do
     let(:logger)         { spy('Logger') }
     subject(:definition) { Framework::Definition::Language.generate_framework_definition(source, logger) }
 
-    context 'we have some valid FDL' do
+    context 'Laundry framework language features (CM_OSG_05_3565)' do
       let(:source) do
         File.read('app/models/framework/definition/CM_OSG_05_3565.fdl')
       end
@@ -128,6 +128,22 @@ RSpec.describe Framework::Definition::Language do
           it { is_expected.to have_field('Cost Centre').not_validated_by(:presence) }
           it { is_expected.to have_field('Contract Number').not_validated_by(:presence) }
         end
+      end
+    end
+
+    context 'Vehicle Telematics framework features' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM3754.fdl')
+      end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+
+        it {
+          is_expected.to have_field('UNSPSC')
+            .with_activemodel_type(:integer)
+            .validated_by(ingested_numericality: { only_integer: true })
+        }
       end
     end
 

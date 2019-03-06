@@ -49,6 +49,7 @@ class Framework
       TYPE_VALIDATIONS = {
         string:  {},
         decimal: { ingested_numericality: true },
+        integer: { ingested_numericality: { only_integer: true } },
         urn:     { urn: true },
         date:    { ingested_date: true },
         yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
