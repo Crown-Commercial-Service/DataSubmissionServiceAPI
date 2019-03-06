@@ -27,6 +27,11 @@ class Framework
         rule(optional: simple(:optional), type: simple(:type), from: simple(:from)) do
           { optional: true, type: type.to_s, from: from }
         end
+
+        # Lookups
+        rule(lookup_name: simple(:lookup_name), list: sequence(:values)) do
+          { lookup_name.to_s => values }
+        end
       end
     end
   end

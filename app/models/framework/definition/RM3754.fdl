@@ -21,4 +21,13 @@ Framework RM3754 {
     optional String from 'Cost Centre'
     optional String from 'Contract Number'
   }
+
+  Lookups {
+    PaymentProfile [
+      'Monthly'
+      'Quarterly'
+      'Annual'
+      'One-off'
+    ]
+  }
 }

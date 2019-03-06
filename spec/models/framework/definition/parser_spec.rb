@@ -138,4 +138,45 @@ RSpec.describe Framework::Definition::Parser do
       )
     end
   end
+
+  describe '#lookups_block' do
+    subject(:rule) { parser.lookups_block }
+
+    let(:source) do
+      <<~FDL.strip
+        Lookups {
+          PaymentProfile [
+            'Monthly'
+            'Quarterly'
+          ]
+
+          ServiceType [
+            'Type1'
+            'Type2'
+          ]
+        }
+      FDL
+    end
+
+    it 'parses the lookup fields' do
+      expect(rule).to parse(source).as(
+        [
+          {
+            lookup_name: "PaymentProfile",
+            list: [
+              { string: "Monthly" },
+              { string: "Quarterly" }
+            ]
+          },
+          {
+            lookup_name: "ServiceType",
+            list: [
+              { string: "Type1" },
+              { string: "Type2" }
+            ]
+          }
+        ]
+      )
+    end
+  end
 end

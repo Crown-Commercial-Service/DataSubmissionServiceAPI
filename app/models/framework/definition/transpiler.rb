@@ -35,6 +35,8 @@ class Framework
           )
           total_value_field _total_value_field.sheet_name
 
+          lookups ast[:lookups]
+
           ast[:invoice_fields].each do |field_def|
             field = AST::FieldPresenter.new(field_def)
             _options = transpiler.send(:options_for_field, field)

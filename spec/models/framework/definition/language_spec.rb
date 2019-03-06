@@ -144,6 +144,16 @@ RSpec.describe Framework::Definition::Language do
             .with_activemodel_type(:integer)
             .validated_by(ingested_numericality: { only_integer: true })
         }
+
+        describe '.lookups' do
+          subject { invoice_class.lookups }
+
+          it {
+            is_expected.to eq(
+              ['PaymentProfile' => %w[Monthly Quarterly Annual One-off]]
+            )
+          }
+        end
       end
     end
 
