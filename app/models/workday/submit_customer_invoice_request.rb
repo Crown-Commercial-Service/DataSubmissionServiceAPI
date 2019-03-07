@@ -37,8 +37,8 @@ module Workday
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|
             invoice_line.Line_Item_Description      line_item_description
-            invoice_line.Extended_Amount            management_charge
-            invoice_line.Analytical_Amount          total_spend
+            invoice_line.Extended_Amount            formatted_management_charge
+            invoice_line.Analytical_Amount          formatted_total_spend
             invoice_line.Worktags_Reference.ID      framework.short_name, 'ns0:type': 'Custom_Organization_Reference_ID'
             invoice_line.Tax_Code_Reference.ID      tax_code_id, 'ns0:type': 'Tax_Code_ID'
             invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'Revenue_Category_ID'
@@ -73,15 +73,23 @@ module Workday
     end
 
     def line_item_description
-      "Management charge for #{task_period_in_words} based on £#{total_spend} spend"
+      "Management charge for #{task_period_in_words} based on £#{formatted_total_spend} spend"
     end
 
     def management_charge
-      format '%.2f', submission.management_charge.truncate(2)
+      submission.management_charge
+    end
+
+    def formatted_management_charge
+      format '%.2f', management_charge.truncate(2)
     end
 
     def total_spend
-      format '%.2f', submission.total_spend.truncate(2)
+      submission.total_spend
+    end
+
+    def formatted_total_spend
+      format '%.2f', total_spend.truncate(2)
     end
 
     def supplier_salesforce_id
