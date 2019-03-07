@@ -3,7 +3,7 @@ class Framework
     module DataWarehouse
       class KnownFields
         ALL = {
-          'TotalValue' => :decimal,
+          'InvoiceValue' => :decimal,
           'CustomerPostCode' => :string,
           'CustomerName' => :string,
           'CustomerURN' => :urn,
@@ -16,8 +16,7 @@ class Framework
           'UnitPrice' => :decimal,
           'UnitType' => :string,
           'VATIncluded' => :yesno,
-          'UnitQuantity' => :decimal,
-          'InvoiceValue' => :decimal
+          'UnitQuantity' => :decimal
         }.freeze
 
         def self.[](value)

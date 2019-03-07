@@ -3,7 +3,6 @@ Framework CM/OSG/05/3565 {
   ManagementCharge 0.0%
 
   InvoiceFields {
-    TotalValue from 'Total Spend'
     optional CustomerPostCode from 'Customer Postcode'
     CustomerName from 'Customer Organisation'
     CustomerURN from 'Customer URN'

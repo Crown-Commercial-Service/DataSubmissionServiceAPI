@@ -31,7 +31,7 @@ class Framework
           end
 
           _total_value_field = AST::FieldPresenter.by_name(
-            ast[:invoice_fields], 'TotalValue'
+            ast[:invoice_fields], 'InvoiceValue'
           )
           total_value_field _total_value_field.sheet_name
 

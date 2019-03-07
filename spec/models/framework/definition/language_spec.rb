@@ -33,13 +33,13 @@ RSpec.describe Framework::Definition::Language do
           expect(invoice_class).to be < Framework::EntryData
         end
 
-        describe 'Total Value – a known numeric field' do
+        describe 'Invoice Value – a known numeric field' do
           it 'tells the class where the total_value_field is' do
             expect(invoice_class.total_value_field).to eql('Total Spend')
           end
 
           it 'knows where the data is coming from in the spreadsheet' do
-            expect(invoice_class.export_mappings['TotalValue']).to eq('Total Spend')
+            expect(invoice_class.export_mappings['InvoiceValue']).to eq('Total Spend')
           end
 
           it 'validates numericality and presence' do

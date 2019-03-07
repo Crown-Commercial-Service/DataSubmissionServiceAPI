@@ -10,7 +10,6 @@ RSpec.describe Framework::Definition::Parser do
         ManagementCharge 0%
 
         InvoiceFields {
-          TotalValue from 'Total Spend'
           CustomerPostCode from 'Customer Postcode'
 
           String Additional1 from 'Manufacturers Product Code'
@@ -65,8 +64,8 @@ RSpec.describe Framework::Definition::Parser do
 
     context 'mandatory field' do
       it {
-        is_expected.to parse("TotalValue from 'Total Spend'").as(
-          field: 'TotalValue', from: { string: 'Total Spend' }
+        is_expected.to parse("InvoiceValue from 'Total Spend'").as(
+          field: 'InvoiceValue', from: { string: 'Total Spend' }
         )
       }
     end
