@@ -27,4 +27,54 @@ RSpec.describe DataWarehouseExport do
       end
     end
   end
+
+  describe '#run' do
+    let(:framework) { create(:framework, short_name: 'RM3786') }
+    let!(:submission) { create(:completed_submission, framework: framework) }
+    let!(:task) { submission.task }
+    let(:export) { DataWarehouseExport.create! }
+
+    before do
+      FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
+      export.run
+    end
+
+    around do |example|
+      travel_to Date.new(2018, 1, 1) do
+        example.run
+      end
+    end
+
+    it 'generates the tasks export' do
+      export_lines = File.readlines('/tmp/tasks_2018-01-01.csv')
+
+      expect(export_lines.size).to eq 2
+      expect(export_lines[0]).to match Export::Tasks::HEADER.join(',')
+      expect(export_lines[1]).to match task.id
+    end
+
+    it 'generates the submissions export' do
+      export_lines = File.readlines('/tmp/submissions_2018-01-01.csv')
+
+      expect(export_lines.size).to eq 2
+      expect(export_lines[0]).to match Export::Submissions::HEADER.join(',')
+      expect(export_lines[1]).to match submission.id
+    end
+
+    it 'generates the invoices export' do
+      export_lines = File.readlines('/tmp/invoices_2018-01-01.csv')
+
+      expect(export_lines.size).to eq 3
+      expect(export_lines[0]).to match Export::Invoices::HEADER.join(',')
+      expect(export_lines[1..3]).to all(match submission.id)
+    end
+
+    it 'generates the contracts export' do
+      export_lines = File.readlines('/tmp/contracts_2018-01-01.csv')
+
+      expect(export_lines.size).to eq 2
+      expect(export_lines[0]).to match Export::Contracts::HEADER.join(',')
+      expect(export_lines[1..2]).to all(match submission.id)
+    end
+  end
 end
