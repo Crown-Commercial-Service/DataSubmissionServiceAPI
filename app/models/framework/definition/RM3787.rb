@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3787'
       framework_name       'Finance & Complex Legal Services'
 
-      management_charge_rate BigDecimal('1.5')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1.5'))
 
       SERVICE_TYPE_VALUES = [
         'Core',

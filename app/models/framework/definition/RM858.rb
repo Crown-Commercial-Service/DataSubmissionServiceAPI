@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM858'
       framework_name       'Pan Govt Vehicle Leasing & Fleet Outsource Solutio'
 
-      management_charge_rate ManagementChargeCalculator::ColumnBased.new(
+      management_charge ManagementChargeCalculator::ColumnBased.new(
         column: 'Spend Code',
         value_to_percentage: {
           'Lease Rental': BigDecimal('0.5'),

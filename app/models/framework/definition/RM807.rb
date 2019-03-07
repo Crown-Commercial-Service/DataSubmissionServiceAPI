@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM807'
       framework_name       'Vehicle Hire (RM807)'
 
-      management_charge_rate BigDecimal('0.5')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('0.5'))
 
       class Invoice < EntryData
         total_value_field 'Total Charges (ex VAT)'

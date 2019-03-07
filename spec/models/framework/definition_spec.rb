@@ -10,20 +10,12 @@ RSpec.describe Framework::Definition do
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
         end
-
-        it 'reports the management charge' do
-          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1.5'))
-        end
       end
 
       context 'and it has slashes in it' do
         let(:framework_short_name) { 'CM/OSG/05/3565' }
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
-        end
-
-        it 'reports the management charge' do
-          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('0'))
         end
       end
 
@@ -32,10 +24,6 @@ RSpec.describe Framework::Definition do
 
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
-        end
-
-        it 'reports the management charge' do
-          expect(definition.management_charge_rate.percentage).to eq(BigDecimal('1'))
         end
       end
     end
@@ -56,13 +44,30 @@ RSpec.describe Framework::Definition do
     end
   end
 
+  describe 'Base.management_charge' do
+    let(:definition_class) do
+      Class.new(Framework::Definition::Base) do
+        management_charge Framework::ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('5'))
+      end
+    end
+
+    it 'acts as setter and getter for the calculator' do
+      expect(definition_class.management_charge).to be_a(Framework::ManagementChargeCalculator::FlatRate)
+      expect(definition_class.management_charge.percentage).to eq(BigDecimal('5'))
+    end
+  end
+
   describe 'Base.calculate_management_charge' do
-    it 'returns the management charge based on the framework’s management charge rate, rounded to 4 decimal places' do
+    let(:definition_class) do
+      Class.new(Framework::Definition::Base) do
+        management_charge Framework::ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1.5'))
+      end
+    end
+
+    it 'returns the management charge calculation, rounded to 4 decimal places' do
       entry = double('entry', total_value: BigDecimal('102123.23'))
 
-      expect(Framework::Definition::RM3756.calculate_management_charge(entry)).to eq BigDecimal('1531.8484')
-      expect(Framework::Definition::RM1070.calculate_management_charge(entry)).to eq BigDecimal('510.6161')
-      expect(Framework::Definition::CM_OSG_05_3565.calculate_management_charge(entry)).to eq BigDecimal('0')
+      expect(definition_class.calculate_management_charge(entry)).to eq BigDecimal('1531.8484')
     end
   end
 

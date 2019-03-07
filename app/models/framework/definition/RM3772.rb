@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3772'
       framework_name       'Specialist Laundry Services (for Surgical Gowns, D'
 
-      management_charge_rate BigDecimal('0.5')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('0.5'))
 
       class Invoice < EntryData
         total_value_field 'Total Charge (Ex VAT)'

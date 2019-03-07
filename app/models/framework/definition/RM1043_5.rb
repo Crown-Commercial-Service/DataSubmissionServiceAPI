@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM1043.5'
       framework_name 'Digital Outcomes and Specialists 3'
 
-      management_charge_rate BigDecimal('1')
+      management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1'))
 
       UNIT_OF_MEASURE_VALUES = [
         'Day',

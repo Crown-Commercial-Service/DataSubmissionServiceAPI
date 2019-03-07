@@ -4,7 +4,7 @@ class Framework
       framework_short_name 'RM3710'
       framework_name       'Vehicle Lease and Fleet Management'
 
-      management_charge_rate ManagementChargeCalculator::ColumnBased.new(
+      management_charge ManagementChargeCalculator::ColumnBased.new(
         column: 'Spend Code',
         value_to_percentage: {
           'Lease Rental': BigDecimal('0.5'),
