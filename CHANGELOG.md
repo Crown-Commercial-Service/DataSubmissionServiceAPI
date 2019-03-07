@@ -4,6 +4,8 @@
 
 - Update overdue user notification CSV generation to match new GOV.UK Notify
   templates
+- Added first version of Framework Definition Language (FDL) for defining
+  frameworks, with CM/OSG/05/3565 fully defined
 
 ## [release-53] - 2019-03-07
 
