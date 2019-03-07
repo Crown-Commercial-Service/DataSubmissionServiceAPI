@@ -40,4 +40,9 @@ class Task < ApplicationRecord
   def period_date
     Date.new(period_year, period_month)
   end
+
+  # Returns true when the task is yet to be completed by the Supplier
+  def incomplete?
+    !completed?
+  end
 end

@@ -76,4 +76,19 @@ RSpec.describe Task do
       expect(task.period_date).to eq Date.new(2020, 5, 1)
     end
   end
+
+  describe '#incomplete?' do
+    let(:known_incomplete_states) { %i[unstarted in_progress] }
+    let(:all_states) { Task.aasm.states.map(&:name) }
+
+    it 'returns true for the known "incomplete" states' do
+      all_states.each do |state|
+        if known_incomplete_states.include?(state)
+          expect(Task.new(status: state)).to be_incomplete
+        else
+          expect(Task.new(status: state)).not_to be_incomplete
+        end
+      end
+    end
+  end
 end
