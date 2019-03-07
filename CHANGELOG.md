@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-53] - 2019-03-07
+
+- Update Google Oauth2 to new recommended endpoints (not Google+!)
+
 ## [release-52] - 2019-03-05
 
 - Expose temporary_download_url on submission files
@@ -342,6 +346,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-53]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-52...release-53
 [release-52]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-51...release-52
 [release-51]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-50...release-51
 [release-50]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-49...release-50
