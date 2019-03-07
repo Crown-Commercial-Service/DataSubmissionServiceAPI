@@ -46,11 +46,10 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class).to have_field('Total Spend').validated_by(:presence, :ingested_numericality)
           end
 
-          it 'is a string at present but should be a decimal when' \
-             'IngestedNumericalityValidator is removed' do
-            expect(invoice_class.attribute_types['Total Spend']).to be_kind_of(
-              ActiveModel::Type::String
-            )
+          it 'is a string validate as a number' do
+            expect(invoice_class).to have_field('Total Spend')
+              .with_activemodel_type(:string)
+              .validated_by(:ingested_numericality)
           end
         end
 
@@ -89,7 +88,7 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['CustomerURN']).to eq('Customer URN')
           end
 
-          it 'is assumed to be present and a valid URN' do
+          it 'is a valid URN' do
             expect(invoice_class).to have_field('Customer URN')
               .with_activemodel_type(:integer)
               .validated_by(:urn)
