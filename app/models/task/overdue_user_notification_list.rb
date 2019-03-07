@@ -6,11 +6,7 @@ class Task
   # given year/month period. Outputs via +puts+ objects
   # that respond_to? it (+STDOUT+ or +File+ being usual)
   class OverdueUserNotificationList
-    HEADER = [
-      'User Name',
-      'Email Address',
-      'Framework Number'
-    ].freeze
+    HEADER = ['email address', 'due_date', 'person_name', 'supplier_name', 'reporting_month'].freeze
 
     attr_reader :logger, :output, :month, :year
 
@@ -26,40 +22,55 @@ class Task
     def generate
       logger.info "Generating late contacts for #{year}, #{month}"
 
-      output.puts(CSV.generate_line(HEADER))
-      user_framework_lates.find_each do |user_framework|
-        output.puts(
-          CSV.generate_line(
-            [
-              user_framework.user_name,
-              user_framework.user_email,
-              user_framework.framework_short_name
-            ]
-          )
-        )
+      output.puts(CSV.generate_line(header))
+
+      suppliers.each do |supplier|
+        supplier.active_users.each do |user|
+          output.puts csv_line_for(user, supplier)
+        end
       end
     end
 
     private
 
-    ##
-    # NB should become its own class if this becomes an
-    # admin front end confection. This class should be concerned
-    # with generating CSV, not getting the records
-    def user_framework_lates
-      Task
-        .incomplete
-        .where(period_month: month, period_year: year)
-        .select('
-          tasks.id,
-          frameworks.short_name AS framework_short_name,
-          users.name AS user_name,
-          users.email AS user_email
-        ')
-        .joins(
-          :framework,
-          supplier: :active_users
-        )
+    def csv_line_for(user, supplier)
+      CSV.generate_line(
+        [user.email, due_date, user.name, supplier.name, reporting_month] + late_task_framework_presence(supplier)
+      )
+    end
+
+    def header
+      HEADER + frameworks_header
+    end
+
+    def reporting_month
+      @reporting_month ||= [Date::MONTHNAMES[month], year].join(' ')
+    end
+
+    def due_date
+      @due_date ||= ReportingPeriod.new(year, month).due_date.to_s(:day_month_year)
+    end
+
+    def frameworks
+      @frameworks ||= Framework.order(:short_name)
+    end
+
+    def frameworks_header
+      frameworks.map(&:short_name)
+    end
+
+    def late_task_framework_presence(supplier)
+      frameworks.map do |framework|
+        supplier.tasks.any? { |task| task.incomplete? && task.framework_id == framework.id } ? 'yes' : 'no'
+      end
+    end
+
+    def suppliers
+      Supplier.includes(:active_users, :tasks).joins(:tasks).merge(incomplete_tasks_relation).distinct
+    end
+
+    def incomplete_tasks_relation
+      @incomplete_tasks_relation ||= Task.where(period_month: month, period_year: year).incomplete
     end
   end
 end
