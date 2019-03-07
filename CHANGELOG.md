@@ -2,6 +2,8 @@
 
 ## [release-53] - 2019-03-07
 
+- Updated management charge calculations for RM6060 (calculated against a
+  column other than the total value)
 - Update Google Oauth2 to new recommended endpoints (not Google+!)
 
 ## [release-52] - 2019-03-05
