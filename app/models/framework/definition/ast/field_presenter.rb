@@ -36,7 +36,7 @@ class Framework
         # 'Our' type; things like :string, :yesno, :decimal
         def type
           if known?
-            DataWarehouse::KnownFields[warehouse_name]
+            DataWarehouse::KnownFields.type_for(warehouse_name)
           else
             field_def[:type].downcase.to_sym
           end

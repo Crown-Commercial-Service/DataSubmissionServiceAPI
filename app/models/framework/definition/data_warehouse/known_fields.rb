@@ -19,7 +19,7 @@ class Framework
           'UnitQuantity' => :decimal
         }.freeze
 
-        def self.[](value)
+        def self.type_for(value)
           ALL.fetch(value)
         end
       end

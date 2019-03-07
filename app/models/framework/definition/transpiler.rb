@@ -58,7 +58,7 @@ class Framework
         { presence: true }.tap do |options|
           options[:exports_to] = field.warehouse_name
           if field.known? # an additional field has a type
-            field_type = DataWarehouse::KnownFields[field.warehouse_name]
+            field_type = DataWarehouse::KnownFields.type_for(field.warehouse_name)
             options.merge!(TYPE_VALIDATIONS.fetch(field_type))
           end
           options.delete(:presence) if field.type == :urn # The URN validator covers this
