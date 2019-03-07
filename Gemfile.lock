@@ -236,6 +236,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
+    parslet (1.8.2)
     pg (1.0.0)
     powerpack (0.1.2)
     progress_bar (1.2.0)
@@ -425,6 +426,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   haml-rails
+  hashdiff
   http
   jbuilder (~> 2.5)
   jsonapi-rails
@@ -434,6 +436,7 @@ DEPENDENCIES
   lograge
   lolsoap
   omniauth-google-oauth2
+  parslet
   pg (>= 0.18, < 2.0)
   progress_bar
   pry-rails
