@@ -1,7 +1,14 @@
 # Change Log
 
+## [release-54] - 2019-03-07
+
+- Update overdue user notification CSV generation to match new GOV.UK Notify
+  templates
+
 ## [release-53] - 2019-03-07
 
+- Updated management charge calculations for RM6060 (calculated against a
+  column other than the total value)
 - Update Google Oauth2 to new recommended endpoints (not Google+!)
 
 ## [release-52] - 2019-03-05
@@ -346,6 +353,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-54]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-53...release-54
 [release-53]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-52...release-53
 [release-52]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-51...release-52
 [release-51]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-50...release-51

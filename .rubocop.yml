@@ -17,6 +17,7 @@ Bundler/OrderedGems:
 Rails/Output:
     Exclude:
         - 'db/data_migrate/**/*'
+        - 'lib/fdl/validations/**/*'
 
 Style/AndOr:
     Enabled: false
@@ -96,3 +97,15 @@ Lint/AmbiguousBlockAssociation:
 
 Performance/Casecmp:
     Enabled: false
+
+Style/MultilineBlockChain:
+    Exclude:
+        - 'app/models/framework/definition/transpiler.rb'
+
+Naming/MemoizedInstanceVariableName:
+    Exclude:
+        - 'app/models/framework/definition/transpiler.rb'
+
+Lint/UnderscorePrefixedVariableName:
+    Exclude:
+        - 'app/models/framework/definition/transpiler.rb'
