@@ -36,7 +36,7 @@ class Framework
         ).repeat.as(:string) >> str("'") >> space?
       end
       rule(:integer) { match(/[0-9]/).repeat >> space? }
-      rule(:decimal) { (integer >> (str('.') >> match('[0-9]').repeat(1))).as(:decimal) >> space? }
+      rule(:decimal) { (integer >> (str('.') >> integer >> space?)).as(:decimal) >> space? }
 
       rule(:space)   { match(/\s/).repeat(1) }
       rule(:space?)  { space.maybe }
