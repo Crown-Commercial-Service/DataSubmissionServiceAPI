@@ -4,9 +4,18 @@ class Framework
   module Definition
     module AST
       ##
-      # Take a field_def from the AST and put some helper methods
-      # on it to make the +Transpiler+ readable
-      class FieldPresenter
+      # Take a field_def (which is a small hash) from the AST and put
+      # some helper methods# on it to make the +Transpiler+ readable
+      class Field
+        TYPE_VALIDATIONS = {
+          string:  {},
+          decimal: { ingested_numericality: true },
+          integer: { ingested_numericality: { only_integer: true } },
+          urn:     { urn: true },
+          date:    { ingested_date: true },
+          yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
+        }.freeze
+
         extend Forwardable
 
         def_delegators :field_def, :[]
@@ -42,6 +51,10 @@ class Framework
           end
         end
 
+        def lookup_name
+          field_def[:type] unless field_def[:type] == 'String'
+        end
+
         ##
         # The implementation type. Usually :string
         def activemodel_type
@@ -49,11 +62,15 @@ class Framework
         end
 
         def validators?
-          Transpiler::TYPE_VALIDATIONS.fetch(type).any?
+          TYPE_VALIDATIONS.fetch(type).any?
+        end
+
+        def options(lookup_values)
+          Field::Options.new(self).build(lookup_values)
         end
 
         def self.by_name(field_defs, name)
-          FieldPresenter.new(field_defs.find { |f| f[:field] == name })
+          Field.new(field_defs.find { |f| f[:field] == name })
         end
       end
     end

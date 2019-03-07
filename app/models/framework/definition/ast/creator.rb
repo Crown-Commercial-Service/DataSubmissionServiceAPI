@@ -29,8 +29,25 @@ class Framework
         end
 
         # Lookups
+        # {
+        #   lookup_name: 'UnitType',
+        #   list: [{ :string => 'Day' }, { :string => 'Each' }]
+        # } =>
+        #   { 'UnitType' => ['Day', 'Each'] }
         rule(lookup_name: simple(:lookup_name), list: sequence(:values)) do
           { lookup_name.to_s => values }
+        end
+
+        #
+        # Take a list of lookups like
+        # { lookups: [{ 'UnitType' => ['Day', 'Each'] }, { 'Other' => ['Value 1', 'Value2'] }] }
+        # and produce a simplified tree like
+        # { 'UnitType' => ['Day', 'Each'], 'Other' => ['Value 1', 'Value 2'] }
+        rule(lookups: subtree(:lookups)) do
+          lookups.each_with_object({}) do |single_key_value, result|
+            lookup_name, value_list = *single_key_value.first
+            result[lookup_name] = value_list
+          end
         end
       end
     end

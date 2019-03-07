@@ -138,6 +138,9 @@ RSpec.describe Framework::Definition::Language do
 
       describe 'the Invoice fields class' do
         subject(:invoice_class) { definition::Invoice }
+        let(:expected_lookups) do
+          { 'PaymentProfile' => %w[Monthly Quarterly Annual One-off] }
+        end
 
         it {
           is_expected.to have_field('UNSPSC')
@@ -147,13 +150,14 @@ RSpec.describe Framework::Definition::Language do
 
         describe '.lookups' do
           subject { invoice_class.lookups }
-
-          it {
-            is_expected.to eq(
-              ['PaymentProfile' => %w[Monthly Quarterly Annual One-off]]
-            )
-          }
+          it { is_expected.to eq(expected_lookups) }
         end
+
+        it {
+          is_expected.to have_field('Payment Profile')
+            .with_activemodel_type(:string)
+            .validated_by(case_insensitive_inclusion: { in: expected_lookups['PaymentProfile'] })
+        }
       end
     end
 

@@ -12,7 +12,7 @@ class Framework
       rule(:additional_field_identifier) { str('Additional') >> match('[0-9]').repeat(1) }
 
       rule(:framework_identifier) { match(%r{[A-Z0-9/]}).repeat(1).as(:string) }
-      rule(:framework_block)      { braced(spaced(metadata) >> spaced(invoice_fields) >> spaced(lookups_block).maybe) }
+      rule(:framework_block)      { braced(spaced(metadata) >> spaced(invoice_fields) >> spaced(lookups_block.as(:lookups)).maybe) }
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
       rule(:management_charge)    { str('ManagementCharge') >> spaced(percentage).as(:management_charge) }
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }

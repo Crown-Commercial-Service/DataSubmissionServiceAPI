@@ -23,14 +23,13 @@ class Framework
 
       def invoice_fields_class
         ast = @ast
-        transpiler = self
 
         Class.new(Framework::EntryData) do
           define_singleton_method :model_name do
             ActiveModel::Name.new(self, nil, 'Invoice')
           end
 
-          _total_value_field = AST::FieldPresenter.by_name(
+          _total_value_field = AST::Field.by_name(
             ast[:invoice_fields], 'InvoiceValue'
           )
           total_value_field _total_value_field.sheet_name
@@ -38,38 +37,13 @@ class Framework
           lookups ast[:lookups]
 
           ast[:invoice_fields].each do |field_def|
-            field = AST::FieldPresenter.new(field_def)
-            _options = transpiler.send(:options_for_field, field)
-
-            field field.sheet_name, field.activemodel_type, _options
+            field = AST::Field.new(field_def)
+            # Always use a case_insensitive_inclusion validator if
+            # there's a lookup with the same name as the field
+            lookup_values = ast.dig(:lookups, field.lookup_name)
+            field field.sheet_name, field.activemodel_type, field.options(lookup_values)
           end
         end
-      end
-
-      private
-
-      TYPE_VALIDATIONS = {
-        string:  {},
-        decimal: { ingested_numericality: true },
-        integer: { ingested_numericality: { only_integer: true } },
-        urn:     { urn: true },
-        date:    { ingested_date: true },
-        yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
-      }.freeze
-
-      def options_for_field(field)
-        { presence: true }.tap do |options|
-          options[:exports_to] = field.warehouse_name
-          if field.known? # an additional field has a type
-            field_type = DataWarehouse::KnownFields.type_for(field.warehouse_name)
-            options.merge!(TYPE_VALIDATIONS.fetch(field_type))
-          end
-          options.delete(:presence) if field.type == :urn # The URN validator covers this
-          if field.optional?
-            options.delete(:presence)
-            options[:allow_nil] = true if field.validators?
-          end
-        end.compact
       end
     end
   end
