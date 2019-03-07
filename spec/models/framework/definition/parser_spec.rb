@@ -160,19 +160,19 @@ RSpec.describe Framework::Definition::Parser do
 
     it 'parses the lookup fields' do
       expect(rule).to parse(source).as(
-        [
+        lookups: [
           {
-            lookup_name: "PaymentProfile",
+            lookup_name: 'PaymentProfile',
             list: [
-              { string: "Monthly" },
-              { string: "Quarterly" }
+              { string: 'Monthly' },
+              { string: 'Quarterly' }
             ]
           },
           {
-            lookup_name: "ServiceType",
+            lookup_name: 'ServiceType',
             list: [
-              { string: "Type1" },
-              { string: "Type2" }
+              { string: 'Type1' },
+              { string: 'Type2' }
             ]
           }
         ]
