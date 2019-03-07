@@ -1,63 +1,20 @@
-require 'hashdiff'
 require 'progress_bar'
 require 'stringio'
+require 'fdl/validations/test/compare'
 
 module FDL
   module Validations
+    ##
+    # Given a +framework_short_name+ and a +sample_row_count+, build a summary
+    # of discrepancies when the test is +run+
+    #
+    # Example usage:
+    #   test = FDL::Validations::Test.new('RM1234',10)
+    #   test.run
+    #   puts test.formatted_report
     class Test
-      class Compare
-        attr_reader :entry, :framework_short_name
-        def initialize(entry, framework_short_name)
-          @entry                = entry
-          @framework_short_name = framework_short_name
-        end
-
-        def original_errors
-          invoice = original_invoice_class.new(entry)
-          invoice.validate
-          invoice.errors.to_h
-        end
-
-        def fdl_errors
-          invoice = fdl_invoice_class.new(entry)
-          invoice.validate
-          invoice.errors.to_h
-        end
-
-        def diff_s
-          return nil if original_errors == fdl_errors
-
-          "#{entry.id} on #{entry.created_at}:\n"\
-          "\t#{entry.data.to_h}\n"\
-          "\t#{original_errors}\n"\
-          "\t#{fdl_errors}\n"\
-          "\t#{diff}\n"\
-        end
-
-        def diff
-          HashDiff.diff(original_errors, fdl_errors)
-        end
-
-        private
-
-        def fdl_invoice_class
-          @fdl_invoice_class ||= fdl_definition::Invoice
-        end
-
-        def fdl_definition
-          Framework::Definition::Language[framework_short_name]
-        end
-
-        def original_invoice_class
-          @original_invoice_class ||= original_definition::Invoice
-        end
-
-        def original_definition
-          @original_definition ||= Framework::Definition[@framework_short_name]
-        end
-      end
-
       attr_reader :framework_short_name, :sample_row_count
+
       def initialize(framework_short_name, sample_row_count)
         @framework_short_name = framework_short_name
         @sample_row_count     = sample_row_count
