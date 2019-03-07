@@ -16,29 +16,21 @@ RSpec.describe Task::OverdueUserNotificationList do
       let(:frank)      { create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
-        # Warning! Data creation yak ahead. In short:
-        # Create two frameworks and two suppliers. Each supplier
-        # has two incomplete tasks, and one of them has a completed
-        # task. Each of the users with a membership in a supplier
-        # needs to be told about the fact that something is wrong
-        # with their submission for that framework
-        # (the period is implied)
         framework1 = create :framework, short_name: 'RM0001'
         framework2 = create :framework, short_name: 'RM0002'
-
         framework3 = create :framework, short_name: 'COMPLETE0001'
 
-        supplier_a = create :supplier
-        supplier_b = create :supplier
+        supplier_a = create(:supplier, name: 'Supplier A')
+        supplier_b = create(:supplier, name: 'Supplier B')
 
         create :membership, user: alice, supplier: supplier_a
+        create :membership, user: alice, supplier: supplier_b
         create :membership, user: bob, supplier: supplier_b
         create :membership, user: frank, supplier: supplier_b
 
         create :task, supplier: supplier_a, framework: framework1, period_month: 1
         create :task, supplier: supplier_a, framework: framework2, period_month: 1
         create :task, supplier: supplier_b, framework: framework1, period_month: 1
-        create :task, supplier: supplier_b, framework: framework2, period_month: 1
 
         create :task, :completed, supplier: supplier_a, framework: framework3
 
@@ -47,19 +39,17 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       subject(:lines) { output.string.split("\n") }
 
-      it 'has a header' do
-        expect(lines.first).to eql('User Name,Email Address,Framework Number')
+      it 'has a header row that lists all the frameworks' do
+        expect(lines.first).to eql(
+          'email address,due_date,person_name,supplier_name,reporting_month,COMPLETE0001,RM0001,RM0002'
+        )
       end
 
-      it 'has a line for each user in that supplier for each framework' do
-        expect(lines).to include('Alice Example,alice@example.com,RM0001')
-        expect(lines).to include('Alice Example,alice@example.com,RM0002')
-        expect(lines).to include('Bob Example,bob@example.com,RM0001')
-        expect(lines).to include('Bob Example,bob@example.com,RM0002')
-      end
-
-      it 'does not include completed tasks' do
-        expect(lines).not_to include('Alice Example,alice@example.com,COMPLETE0001')
+      it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
+        expect(lines.size).to eq 4
+        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,no,yes,yes')
+        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,no,yes,no')
+        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,no,yes,no')
       end
 
       it 'does not include inactive users' do
