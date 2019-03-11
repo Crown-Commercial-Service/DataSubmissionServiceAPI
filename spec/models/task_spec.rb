@@ -12,17 +12,37 @@ RSpec.describe Task do
     expect(Task.new.status).to eq 'unstarted'
   end
 
-  describe '#latest_submission' do
+  describe '#active_submission' do
     let(:task) { FactoryBot.create(:task) }
+    let(:task2) { FactoryBot.create(:task) }
+    let!(:unrelated_submission) { FactoryBot.create(:submission, task: task2, aasm_state: 'completed') }
 
-    it 'returns the most recent submission' do
-      _old_submission = FactoryBot.create(:submission, task: task)
+    context 'there is no completed submission' do
+      let!(:old_submission) { FactoryBot.create(:submission, task: task, created_at: 2.days.ago) }
+      let!(:new_submission) { FactoryBot.create(:submission, task: task, created_at: 1.day.ago) }
 
-      travel 1.day do
-        latest_submission = FactoryBot.create(:submission, task: task)
-
-        expect(task.latest_submission).to eq latest_submission
+      it 'returns the most recent submission' do
+        expect(task.active_submission).to eq(new_submission)
       end
+    end
+
+    context 'there is a completed submission that is not the most recent' do
+      let!(:old_submission) { FactoryBot.create(:submission, task: task, created_at: 3.days.ago) }
+      let!(:completed_submission) do
+        FactoryBot.create(:submission, task: task, created_at: 2.days.ago, aasm_state: 'completed')
+      end
+      let!(:new_submission) { FactoryBot.create(:submission, task: task, created_at: 1.day.ago) }
+
+      it 'returns the completed submission' do
+        expect(task.active_submission).to eq(completed_submission)
+      end
+    end
+  end
+
+  describe '#latest_submission' do
+    it 'is aliased to #active_submission' do
+      task = Task.new
+      task.method(:latest_submission) == task.method(:active_submission)
     end
   end
 
