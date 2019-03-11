@@ -39,11 +39,13 @@ RSpec.describe '/v1' do
 
       expect(response).to be_successful
 
-      expect(json['data'][0]).to have_id(task3.id)
-      expect(json['data'][0]).to have_attribute(:status).with_value('in_progress')
+      expect(json['data'].map { |data| data['id'] }).to contain_exactly(task2.id, task3.id)
 
-      expect(json['data'][1]).to have_id(task2.id)
-      expect(json['data'][1]).to have_attribute(:status).with_value('unstarted')
+      json_task2 = json['data'].find { |data| data['id'] == task2.id }
+      expect(json_task2).to have_attribute(:status).with_value('unstarted')
+
+      json_task3 = json['data'].find { |data| data['id'] == task3.id }
+      expect(json_task3).to have_attribute(:status).with_value('in_progress')
     end
 
     it 'does not include tasks that do not belong to the current user' do
