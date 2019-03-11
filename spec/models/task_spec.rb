@@ -43,13 +43,6 @@ RSpec.describe Task do
     end
   end
 
-  describe '#latest_submission' do
-    it 'is aliased to #active_submission' do
-      task = Task.new
-      task.method(:latest_submission) == task.method(:active_submission)
-    end
-  end
-
   describe '#file_no_business!' do
     let(:task) { FactoryBot.create(:task) }
     let(:user) { FactoryBot.create(:user) }
@@ -57,7 +50,7 @@ RSpec.describe Task do
     it 'creates an empty completed submission' do
       expect { task.file_no_business!(user) }.to change { task.submissions.count }.by 1
 
-      submission = task.latest_submission
+      submission = task.active_submission
 
       expect(submission).to be_completed
       expect(submission.entries).to be_empty
@@ -70,14 +63,14 @@ RSpec.describe Task do
 
     it 'records the user who created the submission' do
       task.file_no_business!(user)
-      submission = task.latest_submission
+      submission = task.active_submission
 
       expect(submission.created_by).to eq(user)
     end
 
     it 'records the user who completed the submission' do
       task.file_no_business!(user)
-      submission = task.latest_submission
+      submission = task.active_submission
 
       expect(submission.submitted_by).to eq(user)
     end
@@ -87,7 +80,7 @@ RSpec.describe Task do
 
       travel_to(submission_time) do
         task.file_no_business!(user)
-        submission = task.latest_submission
+        submission = task.active_submission
 
         expect(submission.submitted_at).to eq(submission_time)
       end

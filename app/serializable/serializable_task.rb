@@ -1,7 +1,6 @@
 class SerializableTask < JSONAPI::Serializable::Resource
   type 'tasks'
 
-  has_one :latest_submission
   has_one :active_submission
   has_many :submissions
   belongs_to :framework
