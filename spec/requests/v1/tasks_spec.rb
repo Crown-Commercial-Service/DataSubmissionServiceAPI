@@ -75,16 +75,16 @@ RSpec.describe '/v1' do
         .to have_attribute(:status).with_value('pending')
     end
 
-    it 'can optionally include the latest_submission' do
+    it 'can optionally include the active_submission' do
       task = FactoryBot.create(:task, supplier: supplier)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
-      get '/v1/tasks?include=latest_submission', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks?include=active_submission', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(task.id)
       expect(json['data'][0])
-        .to have_relationship(:latest_submission)
+        .to have_relationship(:active_submission)
         .with_data('id' => submission.id, 'type' => 'submissions')
 
       expect(json['included'][0])
@@ -112,7 +112,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task, supplier: supplier, period_year: 1984)
       FactoryBot.create(:completed_submission, task: task, purchase_order_number: 'PO123')
 
-      get '/v1/tasks?include=latest_submission&fields[submissions]=status,invoice_count',
+      get '/v1/tasks?include=active_submission&fields[submissions]=status,invoice_count',
           headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
@@ -261,14 +261,14 @@ RSpec.describe '/v1' do
                headers: json_headers.merge('X-Auth-Id' => user.auth_id),
                params: body
         end.to change { task.submissions.count }.by(1)
-        expect(task.latest_submission.report_no_business?).to be true
+        expect(task.active_submission.report_no_business?).to be true
       end
 
       it 'returns the completed submission' do
         post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
 
         task.reload
-        new_submission = task.latest_submission
+        new_submission = task.active_submission
 
         expect(response).to have_http_status(:created)
         expect(json['data']).to have_id new_submission.id

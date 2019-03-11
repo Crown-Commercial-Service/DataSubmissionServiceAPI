@@ -30,17 +30,17 @@ class V1::TasksController < APIController
     task = current_user.tasks.find(params[:id])
 
     if task.completed? && !correcting_submission?
-      render jsonapi: task.latest_submission
+      render jsonapi: task.active_submission
       return
     end
 
     if task.completed? && correcting_submission?
-      task.latest_submission.replace_with_no_business!
+      task.active_submission.replace_with_no_business!
       task.reload
     end
 
     task.file_no_business!(current_user)
-    submission = task.latest_submission
+    submission = task.active_submission
 
     render jsonapi: submission, status: :created
   end

@@ -9,7 +9,7 @@ namespace :report do
     puts "\nStats for #{reporting_period_date.strftime('%B %Y')} tasks"
     puts "Unstarted:\t#{task_period_scope.unstarted.count}"
     puts "Completed:\t#{task_period_scope.completed.count} (#{business_no_business_state(task_period_scope)})"
-    puts "In Progress:\t#{task_period_scope.in_progress.count} (#{latest_submission_state(task_period_scope)})"
+    puts "In Progress:\t#{task_period_scope.in_progress.count} (#{active_submission_state(task_period_scope)})"
   end
 
   desc 'Report spend and management charge. Defaults to the current month’s tasks. Override with [MM,YYYY]'
@@ -24,15 +24,15 @@ namespace :report do
 
   private
 
-  def latest_submission_state(task_scope)
-    submission_states = task_scope.in_progress.includes(:latest_submission).map { |t| t.latest_submission.aasm_state }
+  def active_submission_state(task_scope)
+    submission_states = task_scope.in_progress.includes(:active_submission).map { |t| t.active_submission.aasm_state }
     stats = submission_states.each_with_object(Hash.new(0)) { |state, counts| counts[state] += 1 }
 
     stats.map { |state, count| "#{state} #{count}" }.join(' / ')
   end
 
   def business_no_business_state(task_scope)
-    file_counts = task_scope.completed.includes(:latest_submission).map { |task| task.latest_submission.files.count }
+    file_counts = task_scope.completed.includes(:active_submission).map { |task| task.active_submission.files.count }
     no_business_count = file_counts.count(0)
     business_count = file_counts.count(&:positive?)
 
