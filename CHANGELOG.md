@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-55] - 2019-03-11
+
+- Ensure completed submissions are always the active one.
+
 ## [release-54] - 2019-03-07
 
 - Update overdue user notification CSV generation to match new GOV.UK Notify
@@ -355,6 +359,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-55]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-54...release-55
 [release-54]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-53...release-54
 [release-53]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-52...release-53
 [release-52]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-51...release-52
