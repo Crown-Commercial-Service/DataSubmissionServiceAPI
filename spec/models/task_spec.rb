@@ -37,6 +37,10 @@ RSpec.describe Task do
         expect(task.active_submission).to eq(completed_submission)
       end
     end
+
+    it 'can be preloaded as part of another association query' do
+      expect(Task.where(id: task.id, period_year: task.period_year).includes(:active_submission)).to eq [task]
+    end
   end
 
   describe '#latest_submission' do
