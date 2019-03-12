@@ -19,10 +19,19 @@ class Admin::NotifyDownloadsController < AdminController
   end
 
   def task_notification_list(file)
-    Task::OverdueUserNotificationList.new(month: latest_period.month, year: latest_period.year, output: file)
+    case params[:id]
+    when 'late', 'overdue'
+      Task::OverdueUserNotificationList.new(month: latest_period.month, year: latest_period.year, output: file)
+    when 'due'
+      Task::AnticipatedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
+    end
   end
 
   def latest_period
-    Time.zone.today.beginning_of_month - 1.month
+    current_date.beginning_of_month - 1.month
+  end
+
+  def current_date
+    Time.zone.today
   end
 end

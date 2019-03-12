@@ -72,4 +72,35 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       end
     end
   end
+
+  describe '#show for :due tasks' do
+    let(:current_date) { Date.new(2018, 2, 27) }
+    let(:next_period) { Date.new(2018, 3, 1) }
+
+    around do |example|
+      travel_to current_date do
+        example.run
+      end
+    end
+
+    before do
+      user = FactoryBot.create(:user, name: 'User A')
+      supplier = FactoryBot.create(:supplier, name: 'Supplier A')
+      framework = FactoryBot.create(:framework, short_name: 'RX123')
+      FactoryBot.create :membership, user: user, supplier: supplier
+      supplier.agreements.create!(framework: framework)
+    end
+
+    it 'returns the "due" notifications CSV file, with today’s date in the filename' do
+      get admin_notify_download_path(:due)
+
+      expect(response).to be_successful
+      expect(response.header['Content-Type']).to include 'text/csv'
+      expect(response.header['Content-Disposition']).to eq 'attachment; filename="due_notifications-2018-02-27.csv"'
+      expect(response.body).to include 'email address,due_date,person_name'
+      expect(response.body).to include 'User A'
+      expect(response.body).to include ',February 2018,'
+      expect(response.body).to include ',7 March 2018,'
+    end
+  end
 end
