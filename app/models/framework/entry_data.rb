@@ -32,6 +32,10 @@ class Framework
         @total_value_field ||= value
       end
 
+      def lookups(value = nil)
+        @lookups ||= value
+      end
+
       ##
       # Define a field using an ActiveModel-compatible syntax.
       # This is intended to pass through to ActiveModel::Attributes.attribute,

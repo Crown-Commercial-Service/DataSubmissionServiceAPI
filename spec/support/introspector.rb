@@ -43,6 +43,18 @@ module ActiveModel
       end
     end
 
+    def validator_summary(field)
+      validators_found = klass.validators_on(field).map do |validator|
+        validator_name = validator.class.to_s.underscore
+                                  .sub('active_model/validations/', '')
+                                  .sub('_validator', '')
+
+        "\t#{validator_name}: #{validator.options.any? ? validator.options : true}"
+      end.join("\n")
+
+      "Validators found:\n#{validators_found}"
+    end
+
     ##
     # An ActiveModel symbol type, e.g. +:string+
     def type_of(field)

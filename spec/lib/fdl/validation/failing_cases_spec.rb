@@ -5,8 +5,9 @@ require 'fdl/validations/test'
 # Temporary spec to deal with classes of error found in output
 # of fdl:validation:test
 RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
-  let(:compare)  { FDL::Validations::Test::Compare.new(entry, short_name) }
-  let(:entry)    { build(:submission_entry, data: data) }
+  let(:compare)        { FDL::Validations::Test::Compare.new(entry, short_name, fdl_definition) }
+  let(:entry)          { build(:submission_entry, data: data) }
+  let(:fdl_definition) { Framework::Definition::Language[short_name] }
 
   subject(:diff) { compare.diff }
 
@@ -32,6 +33,15 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
 
     # Fixed by: making three fields in the FDL optional
     # and adding support for those optional fields
+    it { is_expected.to be_empty }
+  end
+
+  context 'Framework RM3754' do
+    let(:short_name) { 'RM3754' }
+    let(:data)       { { 'Total Charge (ex VAT)' => 13835 } }
+
+    # Fixed by: annotating field kinds properly
+    # so we can treat all lookups as if they have type :string
     it { is_expected.to be_empty }
   end
 end

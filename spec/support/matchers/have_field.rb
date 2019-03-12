@@ -25,6 +25,22 @@ RSpec::Matchers.define :have_field do |field_name|
     field_exists && mandatory_validators_present && unwanted_validators_absent && activemodel_type_valid
   end
 
+  failure_message do |actual_class|
+    introspector = ActiveModel::Introspector.new(actual_class)
+
+    return "Expected '#{field_name}' to exist" unless introspector.field_exists?(field_name)
+
+    actual_type = introspector.type_of(field_name)
+    type_message = if actual_type == @expected_activemodel_type
+                     nil
+                   else
+                     "Type: expected field to be of type #{@expected_activemodel_type}, got #{actual_type}\n"
+                   end
+
+    actual_validators = introspector.validator_summary(field_name)
+    "#{super()}\n#{type_message}#{actual_validators}"
+  end
+
   chain :validated_by do |*validator_args|
     @validator_args = validator_args
   end
