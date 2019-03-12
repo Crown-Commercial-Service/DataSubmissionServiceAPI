@@ -35,10 +35,18 @@ class Submission < ApplicationRecord
 
     event :replace_with_no_business do
       transitions from: :completed, to: :replaced, guard: :replaceable?
+
+      after do
+        enqueue_reversal_invoice_creation_job if create_reversal_invoice?
+      end
     end
 
     event :mark_as_replaced do
       transitions from: :completed, to: :replaced
+
+      after do
+        enqueue_reversal_invoice_creation_job if create_reversal_invoice?
+      end
     end
   end
 
@@ -72,5 +80,15 @@ class Submission < ApplicationRecord
 
   def order_total_value
     entries.orders.sum(:total_value)
+  end
+
+  private
+
+  def enqueue_reversal_invoice_creation_job
+    SubmissionReversalInvoiceCreationJob.perform_later(self)
+  end
+
+  def create_reversal_invoice?
+    invoice.present? && ENV['SUBMIT_INVOICES']
   end
 end

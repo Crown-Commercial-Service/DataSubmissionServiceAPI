@@ -27,11 +27,110 @@ RSpec.describe Submission do
   end
 
   describe '#replace_with_no_business state machine event' do
+    let(:submission) { FactoryBot.create(:completed_submission) }
+
     it 'transitions from completed to replaced' do
-      submission = FactoryBot.create(:completed_submission)
       submission.replace_with_no_business
 
       expect(submission).to be_replaced
+    end
+
+    context 'when SUBMIT_INVOICES env flag is set' do
+      around do |example|
+        ClimateControl.modify SUBMIT_INVOICES: 'true' do
+          example.run
+        end
+      end
+
+      context 'when there is an invoice for the submission' do
+        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+        it 'enqueues the creation of a reversal invoice' do
+          submission.replace_with_no_business
+
+          expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
+        end
+      end
+
+      context 'when there is no invoice for the submission' do
+        it 'does not enqueue the creation of a reversal invoice' do
+          submission.replace_with_no_business
+
+          expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
+        end
+      end
+    end
+
+    context 'when SUBMIT_INVOICES env flag is not set' do
+      around do |example|
+        ClimateControl.modify SUBMIT_INVOICES: nil do
+          example.run
+        end
+      end
+
+      context 'when there is an invoice for the submission' do
+        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+        it 'does not enqueue the creation of a reversal invoice' do
+          submission.replace_with_no_business
+
+          expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
+        end
+      end
+    end
+  end
+
+  describe '#mark_as_replaced state machine event' do
+    let(:submission) { FactoryBot.create(:completed_submission) }
+
+    it 'transitions from completed to replaced' do
+      submission.mark_as_replaced
+
+      expect(submission).to be_replaced
+    end
+
+    context 'when SUBMIT_INVOICES env flag is set' do
+      around do |example|
+        ClimateControl.modify SUBMIT_INVOICES: 'true' do
+          example.run
+        end
+      end
+
+      context 'when there is an invoice for the submission' do
+        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+        it 'enqueues the creation of a reversal invoice' do
+          submission.mark_as_replaced
+
+          expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
+        end
+      end
+
+      context 'when there is no invoice for the submission' do
+        it 'does not enqueue the creation of a reversal invoice' do
+          submission.mark_as_replaced
+
+          expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
+        end
+      end
+    end
+
+    context 'when SUBMIT_INVOICES env flag is not set' do
+      around do |example|
+        ClimateControl.modify SUBMIT_INVOICES: nil do
+          example.run
+        end
+      end
+
+      context 'when there is an invoice for the submission' do
+        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+        it 'does not enqueue the creation of a reversal invoice' do
+          submission.mark_as_replaced
+
+          expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
+        end
+      end
     end
   end
 
