@@ -34,4 +34,13 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
     # and adding support for those optional fields
     it { is_expected.to be_empty }
   end
+
+  context 'Framework RM3754' do
+    let(:short_name) { 'RM3754' }
+    let(:data)       { { 'Total Charge (ex VAT)' => 13835 } }
+
+    # Fixed by: annotating field kinds properly
+    # so we can treat all lookups as if they have type :string
+    it { is_expected.to be_empty }
+  end
 end

@@ -13,7 +13,7 @@ class Framework
             options[:exports_to] = field.warehouse_name
 
             add_known_type_validations! if field.known?
-            options.delete(:presence) if field.type == :urn # The URN validator covers this
+            options.delete(:presence) if field.primitive_type == :urn # The URN validator covers this
             set_optional_modifiers! if field.optional?
 
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
@@ -29,7 +29,7 @@ class Framework
 
           def add_known_type_validations!
             field_type = DataWarehouse::KnownFields.type_for(field.warehouse_name)
-            options.merge!(TYPE_VALIDATIONS.fetch(field_type))
+            options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field_type))
           end
         end
       end

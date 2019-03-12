@@ -7,7 +7,7 @@ class Framework
       # Take a field_def (which is a small hash) from the AST and put
       # some helper methods# on it to make the +Transpiler+ readable
       class Field
-        TYPE_VALIDATIONS = {
+        PRIMITIVE_TYPE_VALIDATIONS = {
           string:  {},
           decimal: { ingested_numericality: true },
           integer: { ingested_numericality: { only_integer: true } },
@@ -33,8 +33,20 @@ class Framework
           field_def[:field]
         end
 
+        def kind
+          field_def[:kind]
+        end
+
         def known?
-          field_def[:type].nil?
+          kind == :known
+        end
+
+        def additional?
+          kind == :additional
+        end
+
+        def unknown?
+          kind == :unknown
         end
 
         def optional?
@@ -43,11 +55,14 @@ class Framework
 
         ##
         # 'Our' type; things like :string, :yesno, :decimal
-        def type
-          if known?
+        def primitive_type
+          case kind
+          when :known
             DataWarehouse::KnownFields.type_for(warehouse_name)
+          when :additional
+            :string # Everything's a string right now
           else
-            field_def[:type].downcase.to_sym
+            field_def[:type].underscore.to_sym
           end
         end
 
@@ -58,11 +73,11 @@ class Framework
         ##
         # The implementation type. Usually :string
         def activemodel_type
-          %i[integer urn].include?(type) ? :integer : :string
+          %i[integer urn].include?(primitive_type) ? :integer : :string
         end
 
         def validators?
-          TYPE_VALIDATIONS.fetch(type).any?
+          PRIMITIVE_TYPE_VALIDATIONS.fetch(primitive_type).any?
         end
 
         def options(lookup_values)
