@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-56] - 2019-03-12
+
+- Supplier can correct a submission by uploading an MI return
+- Configure `null_store` for caching in the test environment
+- Use `active_submission` everywhere
+- Update Task request spec to prevent intermittent failures
+- Simplify Task#completed_or_latest_scope
+
 ## [release-55] - 2019-03-11
 
 - Ensure completed submissions are always the active one.
@@ -359,6 +367,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-56]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-55...release-56
 [release-55]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-54...release-55
 [release-54]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-53...release-54
 [release-53]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-52...release-53
