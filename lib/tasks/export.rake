@@ -3,6 +3,15 @@ namespace :export do
   desc 'Export everything to CSV'
   task all: %i[environment tasks submissions invoices contracts]
 
+  namespace :all do
+    desc 'Export everything that has updated since the last export to CSV'
+    task incremental: :environment do
+      export = DataWarehouseExport.new
+      puts "Generating incremental export for #{export.date_range}"
+      export.run
+    end
+  end
+
   desc 'Export task entities to CSV'
   task :tasks, [:output] => [:environment] do |_task, args|
     Export::Anything.new(Export::Tasks::Extract.all_relevant, args[:output]).run
