@@ -1,13 +1,19 @@
 class DataWarehouseExport < ApplicationRecord
   EARLIEST_RANGE_FROM = Time.new(2000, 1, 1).utc.freeze
 
-  before_create :set_date_range
+  after_initialize :set_date_range
 
-  def run
-    Export::Anything.new(Export::Tasks::Extract.all_relevant(date_range)).run
-    Export::Anything.new(Export::Submissions::Extract.all_relevant(date_range)).run
-    Export::Anything.new(Export::Invoices::Extract.all_relevant(date_range)).run
-    Export::Anything.new(Export::Contracts::Extract.all_relevant(date_range)).run
+  def self.generate!
+    new.tap do |export|
+      ActiveRecord::Base.transaction(isolation: :repeatable_read) do
+        Export::Anything.new(Export::Tasks::Extract.all_relevant(export.date_range)).run
+        Export::Anything.new(Export::Submissions::Extract.all_relevant(export.date_range)).run
+        Export::Anything.new(Export::Invoices::Extract.all_relevant(export.date_range)).run
+        Export::Anything.new(Export::Contracts::Extract.all_relevant(export.date_range)).run
+
+        export.save!
+      end
+    end
   end
 
   def date_range

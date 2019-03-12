@@ -4,7 +4,7 @@ RSpec.describe DataWarehouseExport do
   describe 'on creation' do
     context 'with no previous exports' do
       it "sets the new export's range_from to a date before the project started" do
-        first_export = DataWarehouseExport.create!
+        first_export = DataWarehouseExport.new
 
         expect(first_export.range_from).to eql DataWarehouseExport::EARLIEST_RANGE_FROM
       end
@@ -14,7 +14,7 @@ RSpec.describe DataWarehouseExport do
       let!(:previous_export) { DataWarehouseExport.create!(range_to: '2018-12-25 12:34:56') }
 
       it "sets the new export's range_from to the range_to of the most recent export" do
-        new_export = DataWarehouseExport.create!
+        new_export = DataWarehouseExport.new
 
         expect(new_export.range_from).to eql previous_export.range_to
       end
@@ -22,21 +22,19 @@ RSpec.describe DataWarehouseExport do
 
     it "sets the new export's range_to to the current time" do
       freeze_time do
-        new_export = DataWarehouseExport.create!
+        new_export = DataWarehouseExport.new
         expect(new_export.range_to).to eql Time.zone.now
       end
     end
   end
 
-  describe '#run' do
+  describe 'DataWarehouseExport.generate!', truncation: true do
     let(:framework) { create(:framework, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
-    let(:export) { DataWarehouseExport.create! }
 
     before do
       FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
-      export.run
     end
 
     around do |example|
@@ -45,7 +43,15 @@ RSpec.describe DataWarehouseExport do
       end
     end
 
+    it 'returns a persisted DataWarehouseExport instance with the expected range' do
+      export = DataWarehouseExport.generate!
+      expect(export).to be_persisted
+      expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
+      expect(export.range_to).to eq Date.new(2018, 1, 1)
+    end
+
     it 'generates the tasks export' do
+      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/tasks_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
@@ -54,6 +60,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the submissions export' do
+      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/submissions_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
@@ -62,6 +69,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the invoices export' do
+      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/invoices_2018-01-01.csv')
 
       expect(export_lines.size).to eq 3
@@ -70,6 +78,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the contracts export' do
+      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/contracts_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
