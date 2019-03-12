@@ -15,6 +15,8 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
 
       expect(response).to be_successful
       expect(response.body).to include('Notify downloads')
+      expect(response.body).to include('Management information is overdue')
+      expect(response.body).to include(admin_notify_download_path(:overdue))
       expect(response.body).to include('Management information is late')
       expect(response.body).to include(admin_notify_download_path(:late))
     end
@@ -45,14 +47,29 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       )
     end
 
-    it 'returns a "late" notifications CSV file, with today’s date in the filename' do
-      get admin_notify_download_path(:late)
+    context 'when requesting the "overdue" notifications' do
+      it 'returns a "overdue" notifications CSV file, with today’s date in the filename' do
+        get admin_notify_download_path(:overdue)
 
-      expect(response).to be_successful
-      expect(response.header['Content-Type']).to include 'text/csv'
-      expect(response.header['Content-Disposition']).to eq 'attachment; filename="late_notifications-2019-03-09.csv"'
-      expect(response.body).to include 'email address,due_date,person_name'
-      expect(response.body).to include 'User A'
+        expect(response).to be_successful
+        expect(response.header['Content-Type']).to include 'text/csv'
+        expect(response.header['Content-Disposition'])
+          .to eq 'attachment; filename="overdue_notifications-2019-03-09.csv"'
+        expect(response.body).to include 'email address,due_date,person_name'
+        expect(response.body).to include 'User A'
+      end
+    end
+
+    context 'when requesting the "late" notifications' do
+      it 'returns a "late" notifications CSV file, with today’s date in the filename' do
+        get admin_notify_download_path(:late)
+
+        expect(response).to be_successful
+        expect(response.header['Content-Type']).to include 'text/csv'
+        expect(response.header['Content-Disposition']).to eq 'attachment; filename="late_notifications-2019-03-09.csv"'
+        expect(response.body).to include 'email address,due_date,person_name'
+        expect(response.body).to include 'User A'
+      end
     end
   end
 end

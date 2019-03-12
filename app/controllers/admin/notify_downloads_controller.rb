@@ -15,7 +15,7 @@ class Admin::NotifyDownloadsController < AdminController
   end
 
   def csv_filename
-    "late_notifications-#{Time.zone.today}.csv"
+    "#{params[:id]}_notifications-#{Time.zone.today}.csv"
   end
 
   def task_notification_list(file)
