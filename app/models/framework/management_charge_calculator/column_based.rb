@@ -1,20 +1,20 @@
 class Framework
   module ManagementChargeCalculator
     class ColumnBased
-      attr_reader :column, :value_to_percentage
+      attr_reader :varies_by, :value_to_percentage
 
-      def initialize(column:, value_to_percentage:)
-        @column = column
+      def initialize(varies_by:, value_to_percentage:)
+        @varies_by = varies_by
         @value_to_percentage = prepare_hash(value_to_percentage)
       end
 
       def calculate_for(entry)
-        column_value_for_entry = entry.data.dig(column).to_s
-        percentage = value_to_percentage[column_value_for_entry.downcase]
+        column_name_for_entry = entry.data.dig(varies_by).to_s
+        percentage = value_to_percentage[column_name_for_entry.downcase]
 
         if percentage.nil?
           Rollbar.error(
-            "Got value '#{column_value_for_entry}' for '#{column}' on #{entry.framework.short_name}"\
+            "Got value '#{column_name_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
             "from entry #{entry.id}. Missing validation?"
           )
 

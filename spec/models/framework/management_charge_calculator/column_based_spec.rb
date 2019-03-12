@@ -5,7 +5,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     entry = FactoryBot.create(:submission_entry, total_value: 123.45, data: { test_value: 'test' })
 
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
-      column: 'test_value',
+      varies_by: 'test_value',
       value_to_percentage: {
         'other': 0,
         'test': BigDecimal('10')
@@ -19,7 +19,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     entry = FactoryBot.create(:submission_entry, total_value: 123.45, data: { test_value: 'TeST' })
 
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
-      column: 'test_value',
+      varies_by: 'test_value',
       value_to_percentage: {
         'Test': BigDecimal('5')
       }
@@ -32,7 +32,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     entry = FactoryBot.create(:submission_entry, total_value: 42.424242, data: { test_value: 'test' })
 
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
-      column: 'test_value',
+      varies_by: 'test_value',
       value_to_percentage: {
         'test': BigDecimal('0.5')
       }
@@ -45,7 +45,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     entry = FactoryBot.create(:submission_entry, total_value: 42.424242, data: { test_value: 'invalid' })
 
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
-      column: 'test_value',
+      varies_by: 'test_value',
       value_to_percentage: {
         'test': BigDecimal('0.5')
       }
