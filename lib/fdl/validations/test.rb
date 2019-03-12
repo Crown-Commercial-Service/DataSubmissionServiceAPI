@@ -36,7 +36,7 @@ module FDL
         bar = ProgressBar.new(sample_rows.count)
 
         sample_rows.each do |entry|
-          compare = Compare.new(entry, framework_short_name)
+          compare = Compare.new(entry, framework_short_name, fdl_definition)
           diff = compare.diff
           bar.increment!
           next if diff.empty?
@@ -47,6 +47,10 @@ module FDL
             entry_id: entry.id
           }
         end
+      end
+
+      def fdl_definition
+        @fdl_definition ||= Framework::Definition::Language[framework_short_name]
       end
 
       def formatted_report

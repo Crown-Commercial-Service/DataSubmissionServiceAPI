@@ -5,8 +5,9 @@ require 'fdl/validations/test'
 # Temporary spec to deal with classes of error found in output
 # of fdl:validation:test
 RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
-  let(:compare)  { FDL::Validations::Test::Compare.new(entry, short_name) }
-  let(:entry)    { build(:submission_entry, data: data) }
+  let(:compare)        { FDL::Validations::Test::Compare.new(entry, short_name, fdl_definition) }
+  let(:entry)          { build(:submission_entry, data: data) }
+  let(:fdl_definition) { Framework::Definition::Language[short_name] }
 
   subject(:diff) { compare.diff }
 
