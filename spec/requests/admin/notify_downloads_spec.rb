@@ -103,4 +103,11 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       expect(response.body).to include ',7 March 2018,'
     end
   end
+
+  describe '#show for a non-existent download' do
+    it 'returns a 404' do
+      get admin_notify_download_path(:random)
+      expect(response).to be_not_found
+    end
+  end
 end

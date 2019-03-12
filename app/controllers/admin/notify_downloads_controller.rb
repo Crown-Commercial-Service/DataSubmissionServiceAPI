@@ -1,4 +1,6 @@
 class Admin::NotifyDownloadsController < AdminController
+  before_action :catch_unrecognised_download, only: :show
+
   def index; end
 
   def show
@@ -33,5 +35,9 @@ class Admin::NotifyDownloadsController < AdminController
 
   def current_date
     Time.zone.today
+  end
+
+  def catch_unrecognised_download
+    head(:not_found) unless %w[due late overdue].include?(params[:id])
   end
 end
