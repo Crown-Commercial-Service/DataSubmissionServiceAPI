@@ -23,22 +23,9 @@ class Task < ApplicationRecord
   delegate :name, to: :supplier, prefix: true
 
   completed_or_latest_scope = lambda do
-    where("
-        CASE WHEN
-          EXISTS(
-            SELECT 1
-              FROM submissions
-              WHERE aasm_state = 'completed' AND task_id = $1
-          )
-        THEN
-          aasm_state = 'completed'
-        ELSE
-          1=1
-        END
-    ").order(created_at: :desc)
+    order(Arel.sql("CASE aasm_state WHEN 'completed' THEN 1 ELSE 2 END"), created_at: :desc)
   end
   has_one :active_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task
-  has_one :latest_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task
 
   def file_no_business!(user)
     transaction do

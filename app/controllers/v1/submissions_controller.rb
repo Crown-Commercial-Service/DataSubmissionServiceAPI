@@ -12,6 +12,11 @@ class V1::SubmissionsController < APIController
   def create
     task = Task.find(params.dig(:submission, :task_id))
 
+    if !correcting_submission? && task.active_submission&.completed?
+      render jsonapi: task.active_submission, status: :ok
+      return
+    end
+
     submission = task.submissions.new(
       framework: task.framework,
       supplier: task.supplier,
@@ -48,5 +53,9 @@ class V1::SubmissionsController < APIController
 
   def complete_submission!(submission)
     SubmissionCompletion.new(submission, current_user).perform!
+  end
+
+  def correcting_submission?
+    params.dig(:submission, :correction).to_s.downcase == 'true'
   end
 end

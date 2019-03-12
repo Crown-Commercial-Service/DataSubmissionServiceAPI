@@ -37,9 +37,9 @@ class TotalsReporter
   def completed_submission_ids
     # NB: 'uniq' added to prevent miscalulation when a task has more than one completed submission
     @completed_submission_ids ||= tasks_scope
-                                  .joins(:latest_submission)
+                                  .joins(:active_submission)
                                   .merge(Submission.completed)
-                                  .map { |t| t.latest_submission.id }
+                                  .map { |t| t.active_submission.id }
                                   .uniq
   end
 end

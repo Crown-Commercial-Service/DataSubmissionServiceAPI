@@ -7,6 +7,8 @@ RSpec.describe Task::OverdueUserNotificationList do
   describe '#generate' do
     let(:output) { StringIO.new }
 
+    before { stub_govuk_bank_holidays_request }
+
     context 'there are incomplete submissions for the month in question' do
       let(:year)  { 2019 }
       let(:month) { 1 }
