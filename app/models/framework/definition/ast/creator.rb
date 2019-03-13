@@ -8,6 +8,9 @@ class Framework
         rule(decimal: simple(:d)) { BigDecimal(d) }
         rule(integer: simple(:i)) { Integer(i) }
 
+        rule(primitive: simple(:primitive)) { primitive }
+        rule(lookup: simple(:lookup))       { lookup }
+
         # match known fields only
         rule(field: simple(:field), from: simple(:from)) { { kind: :known, field: field.to_s, from: from.to_s } }
         rule(optional: simple(:optional), field: simple(:field), from: simple(:from)) do

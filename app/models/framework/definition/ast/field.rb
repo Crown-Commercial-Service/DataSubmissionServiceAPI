@@ -16,6 +16,14 @@ class Framework
           yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
         }.freeze
 
+        PRIMITIVE_TYPES = {
+          'Integer' => :integer,
+          'String' => :string,
+          'Decimal' => :decimal,
+          'Date' => :date,
+          'YesNo' => :yesno
+        }.freeze
+
         extend Forwardable
 
         def_delegators :field_def, :[]
@@ -59,15 +67,17 @@ class Framework
           case kind
           when :known
             DataWarehouse::KnownFields.type_for(warehouse_name)
-          when :additional
-            :string # Everything's a string right now
           else
-            field_def[:type].underscore.to_sym
+            PRIMITIVE_TYPES[field_def[:type]] || :string
           end
         end
 
+        def lookup?
+          field_def[:type] && PRIMITIVE_TYPES[field_def[:type]].nil?
+        end
+
         def lookup_name
-          field_def[:type] unless field_def[:type] == 'String'
+          field_def[:type] if lookup?
         end
 
         ##

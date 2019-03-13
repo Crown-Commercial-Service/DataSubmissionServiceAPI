@@ -184,6 +184,16 @@ RSpec.describe Framework::Definition::Language do
           )
         }
       end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Lease Start Date')
+            .with_activemodel_type(:string)
+            .validated_by(:ingested_date)
+        }
+      end
     end
 
     context 'our FDL isn\'t valid' do

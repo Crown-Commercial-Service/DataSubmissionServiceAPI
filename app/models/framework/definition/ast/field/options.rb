@@ -12,7 +12,8 @@ class Framework
           def build(lookup_values)
             options[:exports_to] = field.warehouse_name
 
-            add_known_type_validations! if field.known?
+            options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field.primitive_type))
+
             options.delete(:presence) if field.primitive_type == :urn # The URN validator covers this
             set_optional_modifiers! if field.optional?
 
@@ -25,11 +26,6 @@ class Framework
           def set_optional_modifiers!
             options.delete(:presence)
             options[:allow_nil] = true if field.validators?
-          end
-
-          def add_known_type_validations!
-            field_type = DataWarehouse::KnownFields.type_for(field.warehouse_name)
-            options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field_type))
           end
         end
       end

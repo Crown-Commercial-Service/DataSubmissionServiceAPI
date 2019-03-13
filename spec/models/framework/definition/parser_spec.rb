@@ -82,6 +82,28 @@ RSpec.describe Framework::Definition::Parser do
     end
   end
 
+  describe '#type' do
+    subject { parser.type }
+
+    context 'a lookup type' do
+      ##
+      # Anything that isn't a primitive type is considered a lookup type
+      it {
+        is_expected.to parse('PromotionCode').as(
+          type: { lookup: 'PromotionCode' }
+        )
+      }
+    end
+
+    context 'a date type' do
+      it {
+        is_expected.to parse('Date').as(
+          type: { primitive: 'Date' }
+        )
+      }
+    end
+  end
+
   describe '#known_field' do
     subject { parser.known_field }
 
@@ -108,7 +130,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'mandatory field' do
       it {
         is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
-          type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+          type: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' }
         )
       }
     end
@@ -116,7 +138,10 @@ RSpec.describe Framework::Definition::Parser do
     context 'optional field' do
       it {
         is_expected.to parse("optional String Additional1 from 'Manufacturers Product Code'").as(
-          optional: 'optional', type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+          optional: 'optional',
+          type: { primitive: 'String' },
+          field: 'Additional1',
+          from: { string: 'Manufacturers Product Code' }
         )
       }
     end
@@ -128,7 +153,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'mandatory field' do
       it {
         is_expected.to parse("String from 'Cost Centre'").as(
-          type: 'String', from: { string: 'Cost Centre' }
+          type: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
     end
@@ -136,7 +161,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'optional field' do
       it {
         is_expected.to parse("optional String from 'Cost Centre'").as(
-          optional: 'optional', type: 'String', from: { string: 'Cost Centre' }
+          optional: 'optional', type: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
     end
@@ -156,7 +181,7 @@ RSpec.describe Framework::Definition::Parser do
     it 'has whatever fields are in the block' do
       expect(rule).to parse(fields).as(
         invoice_fields: [
-          { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
+          { type: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
         ]
       )
     end

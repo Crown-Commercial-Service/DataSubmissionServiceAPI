@@ -24,9 +24,9 @@ class Framework
       rule(:field_def)            { unknown_field | known_field | additional_field }
       rule(:known_field)          { optional >> additional_field_identifier.absent? >> pascal_case_identifier.as(:field) >> from_specifier }
       rule(:additional_field)     { optional >> type >> space >> additional_field_identifier.as(:field) >> from_specifier }
-      rule(:unknown_field)        { optional >> primitive_type >> space >> from_specifier }
-      rule(:type)                 { pascal_case_identifier.as(:type) }
-      rule(:primitive_type)       { str('String').as(:type) }
+      rule(:unknown_field)        { optional >> primitive_type.as(:type) >> space >> from_specifier }
+      rule(:type)                 { (primitive_type | pascal_case_identifier.as(:lookup)).as(:type) }
+      rule(:primitive_type)       { (str('String') | str('Date') | str('Integer') | str('Decimal') | str('YesNo')).as(:primitive) }
       rule(:from_specifier)       { spaced(str('from')) >> string.as(:from) }
       rule(:optional)             { spaced(str('optional').as(:optional).maybe) }
 
