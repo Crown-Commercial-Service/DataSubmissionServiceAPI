@@ -51,9 +51,32 @@ RSpec.describe Framework::Definition::Parser do
     subject { parser.management_charge }
 
     context 'flat rate' do
+      it { is_expected.to parse('ManagementCharge 0.0%').as(management_charge: { flat_rate: { decimal: '0.0' } }) }
+    end
+
+    context 'column based' do
+      let(:source) do
+        <<~FDL.strip
+          ManagementCharge varies_by 'Spend Code' {
+            'Lease Rental' -> 0.5%
+            'Damage'       -> 0%
+           }
+        FDL
+      end
+
       it {
-        is_expected.to parse('ManagementCharge 0.0%').as(
-          management_charge: { flat_rate: { decimal: '0.0' } }
+        is_expected.to parse(source).as(
+          management_charge: {
+            column_based: {
+              column_name: { string: 'Spend Code' },
+              value_to_percentage: {
+                dictionary: [
+                  { key: { string: 'Lease Rental' }, value: { decimal: '0.5' } },
+                  { key: { string: 'Damage' }, value: { integer: '0' } }
+                ]
+              }
+            }
+          }
         )
       }
     end

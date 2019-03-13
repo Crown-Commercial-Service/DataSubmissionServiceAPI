@@ -8,14 +8,17 @@ class Framework
       end
 
       def transpile
-        ast = @ast # method-local binding required for Class.new blocks
+        # method-local bindings required for Class.new blocks
+        ast = @ast
+        transpiler = self
 
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
           framework_short_name ast[:framework_short_name]
-          management_charge    ManagementChargeCalculator::FlatRate.new(
-            percentage: ast.dig(:management_charge, :flat_rate)
-          )
+
+          calculator = transpiler.choose_management_charge_calculator(ast[:management_charge])
+
+          management_charge calculator
         end.tap do |klass|
           klass.const_set('Invoice', invoice_fields_class)
         end
@@ -43,6 +46,17 @@ class Framework
             lookup_values = ast.dig(:lookups, field.lookup_name)
             field field.sheet_name, field.activemodel_type, field.options(lookup_values)
           end
+        end
+      end
+
+      def choose_management_charge_calculator(info)
+        if info[:column_based]
+          ManagementChargeCalculator::ColumnBased.new(
+            varies_by: info.dig(:column_based, :column_name),
+            value_to_percentage: info.dig(:column_based, :value_to_percentage)
+          )
+        elsif info[:flat_rate]
+          ManagementChargeCalculator::FlatRate.new(percentage: info[:flat_rate])
         end
       end
     end

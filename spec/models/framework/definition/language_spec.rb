@@ -161,6 +161,31 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Vehicle Leasing framework features' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM858.fdl')
+      end
+
+      describe 'the Management Charge' do
+        subject(:management_charge) { definition.management_charge }
+
+        it {
+          is_expected.to match(
+            an_object_having_attributes(
+              varies_by: 'Spend Code',
+              value_to_percentage: {
+                # ManagementChargeCalculator::ColumnBased downcases its keys
+                'lease rental' => BigDecimal('0.5'),
+                'fleet management fee' => BigDecimal('0.5'),
+                'damage' => 0,
+                'other re-charges' => 0
+              }
+            )
+          )
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 

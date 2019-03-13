@@ -14,7 +14,9 @@ class Framework
       rule(:framework_identifier) { match(%r{[A-Z0-9/]}).repeat(1).as(:string) }
       rule(:framework_block)      { braced(spaced(metadata) >> spaced(invoice_fields) >> spaced(lookups_block.as(:lookups)).maybe) }
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
-      rule(:management_charge)    { str('ManagementCharge') >> spaced(percentage).as(:management_charge) }
+      rule(:management_charge)    { str('ManagementCharge') >> (column_based.as(:column_based) | flat_rate.as(:flat_rate)).as(:management_charge) }
+      rule(:flat_rate)            { spaced(percentage) }
+      rule(:column_based)         { spaced(str('varies_by')) >> spaced(string).as(:column_name) >> spaced(dictionary).as(:value_to_percentage) }
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }
       rule(:fields_block)         { braced(spaced(field_defs)) }
 
@@ -34,15 +36,18 @@ class Framework
 
       rule(:metadata)             { framework_name >> management_charge }
 
+      rule(:map)                  { string.as(:key) >> spaced(str('->')) >> percentage.as(:value) >> space? }
+      rule(:dictionary)           { braced(map.repeat(1).as(:dictionary)) }
+
       rule(:string) do
         str("'") >> (
           str("'").absent? >> any
         ).repeat.as(:string) >> str("'") >> space?
       end
 
-      rule(:integer)    { match(/[0-9]/).repeat >> space? }
-      rule(:decimal)    { (integer >> (str('.') >> integer >> space?)).as(:decimal) >> space? }
-      rule(:percentage) { (decimal | integer).as(:flat_rate) >> str('%') >> space? }
+      rule(:integer)    { match(/[0-9]/).repeat.as(:integer) >> space? }
+      rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) >> space? }
+      rule(:percentage) { (decimal | integer) >> str('%') }
 
       rule(:space)   { match(/\s/).repeat(1) }
       rule(:space?)  { space.maybe }
