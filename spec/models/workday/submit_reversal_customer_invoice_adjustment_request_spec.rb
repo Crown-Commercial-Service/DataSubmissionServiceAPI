@@ -55,7 +55,7 @@ RSpec.describe Workday::SubmitReversalCustomerInvoiceAdjustmentRequest do
       expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
     end
 
-    it 'sets the invoice as submitted' do
+    it 'sets the invoice adjustment as submitted' do
       expect(text_at_xpath('//ns0:Business_Process_Parameters/ns0:Auto_Complete')).to eq 'true'
       expect(text_at_xpath('//ns0:Submit')).to eq 'true'
     end
