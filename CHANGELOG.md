@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-57] - 2019-03-13
+
+- Refactored column-based management charge calculator
+- Added Lookup (product-tables) support to FDL
+- Added NULL constraint to protect against submissions without associated tasks
+- Admin user can download CSV files for sending notifications via GOV.UK Notify
+
 ## [release-56] - 2019-03-12
 
 - Supplier can correct a submission by uploading an MI return
@@ -367,6 +374,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-57]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-56...release-57
 [release-56]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-55...release-56
 [release-55]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-54...release-55
 [release-54]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-53...release-54
