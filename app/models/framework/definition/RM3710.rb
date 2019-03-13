@@ -5,7 +5,7 @@ class Framework
       framework_name       'Vehicle Lease and Fleet Management'
 
       management_charge ManagementChargeCalculator::ColumnBased.new(
-        column: 'Spend Code',
+        varies_by: 'Spend Code',
         value_to_percentage: {
           'Lease Rental': BigDecimal('0.5'),
           'Fleet Management Fee': BigDecimal('0.5'),

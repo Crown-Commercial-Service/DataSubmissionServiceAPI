@@ -23,7 +23,7 @@ class Task < ApplicationRecord
   delegate :name, to: :supplier, prefix: true
 
   completed_or_latest_scope = lambda do
-    order(Arel.sql("CASE aasm_state WHEN 'completed' THEN 1 ELSE 2 END"), created_at: :desc)
+    order(Arel.sql("CASE submissions.aasm_state WHEN 'completed' THEN 1 ELSE 2 END"), created_at: :desc)
   end
   has_one :active_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task
 

@@ -7,20 +7,28 @@ module FDL
       # Given a +entry+ and a +framework+, allow us to compute the +diff+ of
       # validation errors, if any exist.
       class Compare
-        attr_reader :entry, :framework_short_name
-        def initialize(entry, framework_short_name)
+        attr_reader :entry, :framework_short_name, :fdl_definition
+        def initialize(entry, framework_short_name, fdl_definition)
           @entry                = entry
           @framework_short_name = framework_short_name
+          @fdl_definition       = fdl_definition
+        end
+
+        def original_invoice
+          @original_invoice ||= original_invoice_class.new(entry)
         end
 
         def original_errors
-          invoice = original_invoice_class.new(entry)
-          invoice.validate
-          invoice.errors.to_h
+          original_invoice.validate
+          original_invoice.errors.to_h
+        end
+
+        def fdl_invoice
+          @fdl_invoice ||= fdl_invoice_class.new(entry)
         end
 
         def fdl_errors
-          invoice = fdl_invoice_class.new(entry)
+          invoice = fdl_invoice
           invoice.validate
           invoice.errors.to_h
         end
@@ -43,10 +51,6 @@ module FDL
 
         def fdl_invoice_class
           @fdl_invoice_class ||= fdl_definition::Invoice
-        end
-
-        def fdl_definition
-          Framework::Definition::Language[framework_short_name]
         end
 
         def original_invoice_class

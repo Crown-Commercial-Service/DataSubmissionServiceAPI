@@ -79,6 +79,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :notify_downloads, only: %i[index show]
+
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
   end
