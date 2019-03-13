@@ -76,8 +76,9 @@ module Workday
       "Management charge for #{task_period_in_words} based on £#{formatted_total_spend} spend"
     end
 
+    # "Extended_Amount", which is the management_charge, must always be expressed as a positive number
     def management_charge
-      submission.management_charge
+      submission.management_charge.abs
     end
 
     def formatted_management_charge

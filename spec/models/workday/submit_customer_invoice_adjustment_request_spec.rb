@@ -70,7 +70,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceAdjustmentRequest do
         expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Analytical_Amount')).to eq '-20.00'
       end
 
-      it 'sets Extended_Amount as the management charge for the submission' do
+      it 'sets Extended_Amount as the absolute value of the management charge for the submission' do
         expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Extended_Amount')).to eq '0.20'
       end
 
