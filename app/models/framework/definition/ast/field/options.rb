@@ -14,7 +14,7 @@ class Framework
 
             options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field.primitive_type))
 
-            options.delete(:presence) if field.primitive_type == :urn # The URN validator covers this
+            options.delete(:presence) if no_presence_required? # The URN validator covers this
             set_optional_modifiers! if field.optional?
 
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
@@ -22,6 +22,10 @@ class Framework
           end
 
           private
+
+          def no_presence_required?
+            field.primitive_type == :urn || field.lookup?
+          end
 
           def set_optional_modifiers!
             options.delete(:presence)

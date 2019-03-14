@@ -47,8 +47,6 @@ module FDL
           HashDiff.diff(original_errors, fdl_errors)
         end
 
-        private
-
         def fdl_invoice_class
           @fdl_invoice_class ||= fdl_definition::Invoice
         end
