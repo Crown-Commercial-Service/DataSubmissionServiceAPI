@@ -50,7 +50,6 @@ RSpec.describe Workday::SubmitReversalInvoice do
       expect(text_at_xpath('//ns0:Memo')).to eq "Submission ID: #{submission.id}"
     end
 
-    # Question: the original submitter, or the user submitting the correction that triggers this reversal?
     it 'sets Note_Data with the name of the user who submitted the Submission' do
       expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
     end
