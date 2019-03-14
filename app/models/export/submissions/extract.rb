@@ -3,7 +3,10 @@ module Export
     module Extract
       RELEVANT_STATUSES = %w[completed validation_failed].freeze
 
-      def self.all_relevant
+      def self.all_relevant(date_range = nil)
+        filters = { aasm_state: RELEVANT_STATUSES }
+        filters = filters.merge(updated_at: date_range) if date_range.present?
+
         Submission.select(
           <<~POSTGRESQL
             submissions.*,
@@ -39,7 +42,7 @@ module Export
             LEFT JOIN active_storage_blobs blobs ON blobs.id = att.blob_id
         POSTGRESQL
         ).where(
-          aasm_state: RELEVANT_STATUSES
+          filters
         ).group(
           'submissions.id, frameworks.short_name, orders.total_value, invoices.total_value,'\
           'invoices.total_management_charge, orders.entry_count, invoices.entry_count'

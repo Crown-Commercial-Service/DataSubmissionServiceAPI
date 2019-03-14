@@ -9,7 +9,16 @@ class Submission < ApplicationRecord
 
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
   has_many :entries, dependent: :nullify, class_name: 'SubmissionEntry'
-  has_one :invoice, dependent: :nullify, class_name: 'SubmissionInvoice'
+  has_one :invoice,
+          -> { where(reversal: false) },
+          dependent: :nullify,
+          class_name: 'SubmissionInvoice',
+          inverse_of: :submission
+  has_one :reversal_invoice,
+          -> { where(reversal: true) },
+          dependent: :nullify,
+          class_name: 'SubmissionInvoice',
+          inverse_of: :submission
 
   aasm do
     state :pending, initial: true
@@ -34,10 +43,18 @@ class Submission < ApplicationRecord
 
     event :replace_with_no_business do
       transitions from: :completed, to: :replaced, guard: :replaceable?
+
+      after do
+        enqueue_reversal_invoice_creation_job if create_reversal_invoice?
+      end
     end
 
     event :mark_as_replaced do
       transitions from: :completed, to: :replaced
+
+      after do
+        enqueue_reversal_invoice_creation_job if create_reversal_invoice?
+      end
     end
   end
 
@@ -71,5 +88,15 @@ class Submission < ApplicationRecord
 
   def order_total_value
     entries.orders.sum(:total_value)
+  end
+
+  private
+
+  def enqueue_reversal_invoice_creation_job
+    SubmissionReversalInvoiceCreationJob.perform_later(self)
+  end
+
+  def create_reversal_invoice?
+    invoice.present? && ENV['SUBMIT_INVOICES']
   end
 end
