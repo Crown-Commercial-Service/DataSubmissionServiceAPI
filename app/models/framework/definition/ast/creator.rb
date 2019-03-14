@@ -18,17 +18,17 @@ class Framework
         end
 
         # optional Additional field rule
-        rule(optional: simple(:optional), type: simple(:type), field: simple(:field), from: subtree(:from)) do
+        rule(optional: simple(:optional), type_def: simple(:type), field: simple(:field), from: subtree(:from)) do
           { kind: :additional, optional: true, type: type.to_s, field: field.to_s, from: from }
         end
 
         # Additional field rule
-        rule(type: simple(:type), field: simple(:field), from: subtree(:from)) do
+        rule(type_def: simple(:type), field: simple(:field), from: subtree(:from)) do
           { kind: :additional, type: type.to_s, field: field.to_s, from: from }
         end
 
         # Unknown fields rule
-        rule(optional: simple(:optional), type: simple(:type), from: simple(:from)) do
+        rule(optional: simple(:optional), type_def: simple(:type), from: simple(:from)) do
           { kind: :unknown, optional: true, type: type.to_s, from: from }
         end
 
