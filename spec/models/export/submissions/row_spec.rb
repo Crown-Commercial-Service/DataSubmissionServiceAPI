@@ -18,6 +18,11 @@ RSpec.describe Export::Submissions::Row do
       it { is_expected.to eql('validation_failed') }
     end
 
+    context 'the submission state is replaced' do
+      let(:submission) { double 'Submission', aasm_state: 'replaced' }
+      it { is_expected.to eql('replaced') }
+    end
+
     context 'the submission state is not one that should be in the output at all' do
       let(:submission) { double 'Submission', aasm_state: 'in_review' }
       it 'blows up and stops the whole export (there is no error handling)' do

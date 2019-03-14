@@ -28,6 +28,7 @@ module Export
       def status
         {
           'completed'         => 'supplier_accepted',
+          'replaced'          => 'replaced',
           'validation_failed' => 'validation_failed'
         }.fetch(submission.aasm_state)
       end

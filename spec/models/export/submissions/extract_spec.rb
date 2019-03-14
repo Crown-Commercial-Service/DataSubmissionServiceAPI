@@ -7,10 +7,11 @@ RSpec.describe Export::Submissions::Extract do
     context 'there are some relevant and some non-relevant submissions' do
       let!(:relevant_submission1)  { create :no_business_submission } # Complete by definition
       let!(:relevant_submission2)  { create :submission, aasm_state: 'validation_failed' }
+      let!(:relevant_submission3)  { create :submission, aasm_state: 'replaced' }
       let!(:irrelevant_submission) { create :submission, aasm_state: 'pending' }
 
       it 'returns the relevant submissions only' do
-        expect(all_relevant).to match_array([relevant_submission1, relevant_submission2])
+        expect(all_relevant).to match_array([relevant_submission1, relevant_submission2, relevant_submission3])
       end
     end
 
