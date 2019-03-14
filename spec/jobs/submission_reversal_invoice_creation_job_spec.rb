@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe SubmissionReversalInvoiceCreationJob do
   describe '#perform' do
     context 'given a submission that has a positive management_charge' do
-      let(:submission) { FactoryBot.create(:submission_with_positive_management_charge) }
+      let!(:submission) { FactoryBot.create(:submission_with_positive_management_charge) }
+      let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
       let(:submit_reversal_invoice_adjustment_double) { double(perform: 'INVOICE_ID') }
       before do
         allow(Workday::SubmitReversalInvoiceAdjustment).to receive(:new)
@@ -21,6 +22,11 @@ RSpec.describe SubmissionReversalInvoiceCreationJob do
           SubmissionReversalInvoiceCreationJob.perform_now(submission)
         end.to change { SubmissionInvoice.count }.by(1)
         expect(submission.reversal_invoice.workday_reference).to eq('INVOICE_ID')
+      end
+
+      it 'does not overwrite the existing invoice' do
+        SubmissionReversalInvoiceCreationJob.perform_now(submission)
+        expect(submission.invoice).to eq(submission_invoice)
       end
 
       it 'raise if a reversal invoice already exists' do
