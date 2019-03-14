@@ -56,7 +56,10 @@ class Framework
             value_to_percentage: info.dig(:column_based, :value_to_percentage)
           )
         elsif info[:flat_rate]
-          ManagementChargeCalculator::FlatRate.new(percentage: info[:flat_rate])
+          ManagementChargeCalculator::FlatRate.new(
+            percentage: info[:flat_rate],
+            column: info[:column]
+          )
         end
       end
     end

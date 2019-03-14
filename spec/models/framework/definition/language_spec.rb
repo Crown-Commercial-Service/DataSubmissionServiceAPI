@@ -196,6 +196,34 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'an RM6060-like framework (so we can vary a flat-rate management charge by column)' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5% of 'Supplier Price'
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      describe '#management_charge' do
+        subject(:management_charge) { definition.management_charge }
+
+        it {
+          is_expected.to match(
+            an_object_having_attributes(
+              column: 'Supplier Price',
+              percentage: BigDecimal('0.5')
+            )
+          )
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
