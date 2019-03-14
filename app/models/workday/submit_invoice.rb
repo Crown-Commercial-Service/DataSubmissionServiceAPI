@@ -1,8 +1,8 @@
 module Workday
-  class SubmitCustomerInvoiceAdjustmentRequest < Base
+  class SubmitInvoice < Base
     def initialize(submission)
       @submission = submission
-      @request = Workday.client.request('Submit_Customer_Invoice_Adjustment')
+      @request = Workday.client.request('Submit_Customer_Invoice')
 
       prepare_request_body
       set_wsse_header
@@ -15,7 +15,7 @@ module Workday
       response = Workday.client.response(@request, raw_response)
       raise Fault, response.fault.reason if response.fault
 
-      response.body_hash.fetch('Customer_Invoice_Adjustment_Reference').fetch('ID').first
+      response.body_hash.fetch('Customer_Invoice_Reference').fetch('ID').first
     end
 
     private
@@ -26,7 +26,7 @@ module Workday
     def prepare_request_body
       @request.body do |body|
         body.Business_Process_Parameters.Auto_Complete true
-        body.Customer_Invoice_Adjustment_Data do |invoice|
+        body.Customer_Invoice_Data do |invoice|
           invoice.Company_Reference.ID    CCS_COMPANY_REFERENCE, 'ns0:type': 'Company_Reference_ID'
           invoice.Customer_Reference.ID   supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
           invoice.From_Date               task.period_date.to_s
@@ -34,10 +34,6 @@ module Workday
           invoice.Memo                    invoice_memo
           invoice.Submit                  true
           invoice.Note_Data.Note_Content  submitted_by_note_content
-          invoice.Increase_Amount_Due     false
-          invoice.Adjustment_Reason_Reference 'ns0:Descriptor': 'Incorrect MI Return' do |reason|
-            reason.ID 'Incorrect MI Return', 'ns0:type': 'Adjustment_Reason_ID'
-          end
 
           invoice.Customer_Invoice_Line_Replacement_Data do |invoice_line|
             invoice_line.Line_Item_Description      line_item_description

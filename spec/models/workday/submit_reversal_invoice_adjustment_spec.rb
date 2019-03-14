@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Workday::SubmitCustomerInvoiceRequest do
+RSpec.describe Workday::SubmitReversalInvoiceAdjustment do
   let(:user) { FactoryBot.create(:user, name: 'Forename Surname') }
   let(:submission) do
     FactoryBot.create(:submission_with_validated_entries,
@@ -11,7 +11,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
-  let(:request) { Workday::SubmitCustomerInvoiceRequest.new(submission) }
+  let(:request) { Workday::SubmitReversalInvoiceAdjustment.new(submission) }
 
   before do
     commercial_agreements = double(
@@ -50,11 +50,12 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       expect(text_at_xpath('//ns0:Memo')).to eq "Submission ID: #{submission.id}"
     end
 
+    # Question: the original submitter, or the user submitting the correction that triggers this reversal?
     it 'sets Note_Data with the name of the user who submitted the Submission' do
       expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
     end
 
-    it 'sets the invoice as submitted' do
+    it 'sets the invoice adjustment as submitted' do
       expect(text_at_xpath('//ns0:Business_Process_Parameters/ns0:Auto_Complete')).to eq 'true'
       expect(text_at_xpath('//ns0:Submit')).to eq 'true'
     end
@@ -63,11 +64,11 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
           text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Line_Item_Description')
-        ).to eq 'Management charge for December 2018 based on £20.00 spend'
+        ).to eq 'Reversal of invoice for December 2018 management charge'
       end
 
-      it 'sets Analytical_Amount as the total spend for the submission' do
-        expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Analytical_Amount')).to eq '20.00'
+      it 'sets Analytical_Amount as the negative value of the total spend for the submission' do
+        expect(text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Analytical_Amount')).to eq '-20.00'
       end
 
       it 'sets Extended_Amount as the absolute value of the management charge for the submission' do
@@ -106,7 +107,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
     end
 
     describe 'when successful' do
-      let(:response) { 'created_invoice_response.xml' }
+      let(:response) { 'created_invoice_adjustment_response.xml' }
 
       it 'makes the POST request to the Workday SOAP endpoint' do
         request.perform
@@ -114,7 +115,7 @@ RSpec.describe Workday::SubmitCustomerInvoiceRequest do
       end
 
       it 'it returns the ID for the invoice' do
-        expect(request.perform).to eq('25354762f7398134ecf5593c822aa50c')
+        expect(request.perform).to eq('2a743abbf5e3819a6451179ed62d1c06')
       end
     end
 

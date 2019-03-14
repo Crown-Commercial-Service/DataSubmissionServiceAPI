@@ -1,7 +1,7 @@
 module Workday
   # Used to generate an invoice that is a reversal of an original invoice adjustment
   # Reversal `total_spend` value is always the negated value of the original `total_spend`
-  class SubmitReversalCustomerInvoiceRequest < SubmitCustomerInvoiceRequest
+  class SubmitReversalInvoice < SubmitInvoice
     private
 
     def line_item_description

@@ -10,9 +10,9 @@ class SubmissionReversalInvoiceCreationJob < ApplicationJob
     raise "Submission #{submission.id} already has a reversal invoice." if submission.reversal_invoice.present?
 
     workday_reference = if submission.management_charge.negative?
-                          Workday::SubmitReversalCustomerInvoiceRequest.new(submission).perform
+                          Workday::SubmitReversalInvoice.new(submission).perform
                         else
-                          Workday::SubmitReversalCustomerInvoiceAdjustmentRequest.new(submission).perform
+                          Workday::SubmitReversalInvoiceAdjustment.new(submission).perform
                         end
     submission.create_reversal_invoice!(workday_reference: workday_reference)
   end
