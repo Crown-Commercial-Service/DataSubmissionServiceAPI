@@ -20,7 +20,7 @@ class Framework
           'InvoiceNumber' => :string,
           'UNSPSC' => :integer,
           'VATCharged' => :decimal,
-          'LotNumber' => :string,
+          'LotNumber' => :lot_number,
           'PromotionCode' => :string
         }.freeze
 

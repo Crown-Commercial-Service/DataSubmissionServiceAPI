@@ -8,12 +8,13 @@ class Framework
       # some helper methods# on it to make the +Transpiler+ readable
       class Field
         PRIMITIVE_TYPE_VALIDATIONS = {
-          string:  {},
-          decimal: { ingested_numericality: true },
-          integer: { ingested_numericality: { only_integer: true } },
-          urn:     { urn: true },
-          date:    { ingested_date: true },
-          yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
+          string:     {},
+          decimal:    { ingested_numericality: true },
+          integer:    { ingested_numericality: { only_integer: true } },
+          urn:        { urn: true },
+          lot_number: { lot_in_agreement: true },
+          date:       { ingested_date: true },
+          yesno:      { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
         }.freeze
 
         PRIMITIVE_TYPES = {

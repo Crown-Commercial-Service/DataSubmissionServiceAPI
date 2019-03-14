@@ -44,4 +44,78 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
     # so we can treat all lookups as if they have type :string
     it { is_expected.to be_empty }
   end
+
+  context 'Framework RM858' do
+    let(:short_name) { 'RM858' }
+    let(:supplier)   { create :supplier }
+    let(:entry)      { build(:submission_entry, submission: submission, data: data) }
+    let!(:agreement) { create :agreement, supplier: supplier, framework: framework }
+    let(:submission) { create :submission, supplier: supplier, framework: framework }
+    let(:framework)  { create :framework, short_name: short_name }
+    let!(:lot)       { create :framework_lot, framework: framework }
+
+    let(:data) do
+      {
+        'UNSPSC' => nil,
+        'CAP Code' => 'PEXXXXXXXXXXXX',
+        'Fuel Type' => 'Diesel',
+        'Lot Number' => 1,
+        'Spend Code' => 'Lease Rental',
+        'Cost Centre' => 'HEAD OFFICE',
+        'Customer URN' => 10004186,
+        'Lease Period' => 70,
+        'Product Code' => nil,
+        'Vehicle Make' => 'Peugeot',
+        'Vehicle Type' => nil,
+        'Vehicle Model' => 508,
+        'Lease End Date' => '3/26/17',
+        'Residual Value' => 6200,
+        'VAT Applicable' => 'Y',
+        'Contract Number' => 314021,
+        'Payment Profile' => 'Annual in advance',
+        'Lease Start Date' => '3/27/13',
+        'Unit of Purchase' => 'per vehicle',
+        'Customer PostCode' => 'BS32 4UD',
+        'VAT Amount Charged' => 68.51,
+        'Vehicle Derivative' => '508 SW Diesel Estate 2.0 HDi 163 Allure 5Dr',
+        'CO2 Emission Levels' => 130,
+        'Annual Lease Mileage' => 15000,
+        'Vehicle Registration' => 'XXXXXXX',
+        'Customer Invoice Date' => '12/31/18',
+        'Customer Organisation' => 'Agent’s Agency',
+        'Invoice Line Quantity' => 1,
+        'Price per Unit ex VAT' => 342.56,
+        'Supplier Order Number' => nil,
+        'Expenses/Disbursements' => nil,
+        'Product Classification' => 'Lower Medium',
+        'Vehicle Purchase Terms' => 'RM858',
+        'Customer Invoice Number' => 199999,
+        'Vehicle Conversion Type' => nil,
+        'Vehicle Convertors Name' => nil,
+        'Base Vehicle Price ex VAT' => 14687.52,
+        'Lease Finance Charge ex VAT' => 267.67,
+        'Lease Finance Margin ex VAT' => 4.5,
+        'Customer Invoice Line Number' => 1,
+        'Enhanced Vehicle Discount (%)' => 0,
+        'Standard Vehicle Discount (%)' => 29.75,
+        'Invoice Line Total Value ex VAT' => 342.56,
+        'Customer Order Number / Reference' => nil,
+        'Invoice Line Product / Service Grouping' => 'MadeUp Capital',
+        'Annual Breakdown & Recovery Costs ex VAT' => 0,
+        'Invoice Line Product / Service Description' => 'Car - Lease sourcing',
+        'Annual Service Maintenance & Repair Costs ex VAT' => 74.89,
+        'Lease Cost excluding Optional Extras and Conversion ex VAT' => 340.29
+      }
+    end
+
+    ##
+    # Error was:
+    #   [["-", "Lot Number", "is not included in the supplier framework agreement"]]
+    #
+    # Fixed by: changing the KnownFields type of LotNumber from :string to :lot_number
+    # and adding the LotInAgreementValidator when necessary.
+    it { is_expected.to be_empty }
+  end
+
+
 end
