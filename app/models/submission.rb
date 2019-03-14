@@ -9,8 +9,16 @@ class Submission < ApplicationRecord
 
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
   has_many :entries, dependent: :nullify, class_name: 'SubmissionEntry'
-  has_one :invoice, dependent: :nullify, class_name: 'SubmissionInvoice'
-  has_one :reversal_invoice, dependent: :nullify, class_name: 'SubmissionInvoice'
+  has_one :invoice,
+          -> { where(reversal: false) },
+          dependent: :nullify,
+          class_name: 'SubmissionInvoice',
+          inverse_of: :submission
+  has_one :reversal_invoice,
+          -> { where(reversal: true) },
+          dependent: :nullify,
+          class_name: 'SubmissionInvoice',
+          inverse_of: :submission
 
   aasm do
     state :pending, initial: true
