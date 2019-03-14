@@ -1,4 +1,6 @@
 module Workday
+  # This is called for a submission that has a positive management_charge
+  # (which is sent as Extended_Amount to Workday)
   class SubmitInvoice < Base
     def initialize(submission)
       @submission = submission

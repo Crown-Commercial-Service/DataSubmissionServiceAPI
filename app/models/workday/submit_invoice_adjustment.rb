@@ -1,4 +1,8 @@
 module Workday
+  # This is called for a submission that has a negative management_charge
+  # (which is sent as Extended_Amount to Workday)
+  # Increase_Amount_Due is set to false, which means the Extended_Amount is credit,
+  # meaning that negative management_charge needs to be made positive
   class SubmitInvoiceAdjustment < Base
     def initialize(submission)
       @submission = submission
