@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-58] - 2019-03-14
+
+- Bump rails from 5.2.1.1 to 5.2.2.1
+- Reversal Invoice is submitted to Workday on a submission replaced by a correction
+- Generate data warehouse exports incrementally
+
 ## [release-57] - 2019-03-13
 
 - Refactored column-based management charge calculator
@@ -374,6 +380,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-58]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-57...release-58
 [release-57]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-56...release-57
 [release-56]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-55...release-56
 [release-55]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-54...release-55
