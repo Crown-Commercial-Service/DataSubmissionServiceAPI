@@ -84,5 +84,22 @@ RSpec.describe Export::Submissions::Extract do
         end
       end
     end
+
+    context 'with a date range provided' do
+      let!(:submission) { create(:completed_submission, updated_at: 1.week.ago) }
+      let(:date_range) { 4.days.ago..1.minute.from_now }
+
+      it 'only includes submissions that were updated during the range' do
+        all_relevant = Export::Submissions::Extract.all_relevant(date_range)
+        expect(all_relevant).not_to match_array submission
+
+        # rubocop:disable Rails/SkipsModelValidations
+        submission.touch
+        # rubocop:enable Rails/SkipsModelValidations
+
+        all_relevant = Export::Submissions::Extract.all_relevant(date_range)
+        expect(all_relevant).to match_array submission
+      end
+    end
   end
 end
