@@ -1,6 +1,10 @@
 require 'rails_helper'
 require 'framework/definition/parser'
 
+##
+# These specs are for Parslet atoms and therefore will be matching the CST,
+# not the AST (which is the result of passing the CST through AST::Creator)
+
 RSpec.describe Framework::Definition::Parser do
   subject(:parser) { Framework::Definition::Parser.new }
   let(:framework_definition) do
