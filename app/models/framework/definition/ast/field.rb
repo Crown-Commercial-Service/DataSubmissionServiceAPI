@@ -29,9 +29,10 @@ class Framework
 
         def_delegators :field_def, :[]
 
-        attr_reader :field_def
-        def initialize(field_def)
+        attr_reader :field_def, :lookups
+        def initialize(field_def, lookups = {})
           @field_def = field_def
+          @lookups = lookups
         end
 
         def sheet_name
@@ -74,11 +75,17 @@ class Framework
         end
 
         def lookup?
-          field_def[:type] && PRIMITIVE_TYPES[field_def[:type]].nil?
+          if known?
+            lookups.key?(warehouse_name)
+          else
+            field_def[:type] && PRIMITIVE_TYPES[field_def[:type]].nil?
+          end
         end
 
         def lookup_name
-          field_def[:type] if lookup?
+          return nil unless lookup?
+
+          known? ? warehouse_name : field_def[:type]
         end
 
         ##

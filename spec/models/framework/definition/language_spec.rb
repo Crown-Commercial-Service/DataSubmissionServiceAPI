@@ -193,6 +193,21 @@ RSpec.describe Framework::Definition::Language do
             .with_activemodel_type(:string)
             .validated_by(:ingested_date)
         }
+
+        let(:expected_promotion_code_values) do
+          [
+            'Lease Rental',
+            'Fleet Management Fee',
+            'Damage',
+            'Other Re-charges'
+          ]
+        end
+
+        it {
+          is_expected.to have_field('Spend Code')
+            .with_activemodel_type(:string)
+            .validated_by(case_insensitive_inclusion: { in: expected_promotion_code_values })
+        }
       end
     end
 

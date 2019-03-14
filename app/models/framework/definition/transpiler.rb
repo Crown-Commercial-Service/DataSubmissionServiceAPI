@@ -40,7 +40,7 @@ class Framework
           lookups ast[:lookups]
 
           ast[:invoice_fields].each do |field_def|
-            field = AST::Field.new(field_def)
+            field = AST::Field.new(field_def, ast.fetch(:lookups, {}))
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
             lookup_values = ast.dig(:lookups, field.lookup_name)
