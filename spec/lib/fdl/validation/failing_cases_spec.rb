@@ -176,5 +176,11 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
         # https://trello.com/c/CsjBwtkd/929-case-sensitive-vs-case-insensitive-inclusion-validators-what-should-we-do
       end
     end
+
+    context 'All the problems' do
+      let(:data) { { 'Contract Number' => 'N/A' } }
+
+      it { is_expected.to eql([['-', 'Spend Code', 'is not included in the list']]) }
+    end
   end
 end

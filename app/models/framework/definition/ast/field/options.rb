@@ -14,7 +14,7 @@ class Framework
 
             options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field.primitive_type))
 
-            options.delete(:presence) if no_presence_required? # The URN validator covers this
+            options.delete(:presence) if no_presence_required?
             set_optional_modifiers! if field.optional?
 
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
@@ -24,7 +24,9 @@ class Framework
           private
 
           def no_presence_required?
-            field.primitive_type == :urn || field.lookup?
+            # Validators like UrnValidator and the case_insensitive_inclusion used for
+            # YesNo fields don't require an accompanying +presence: true+
+            %i[urn yesno].include?(field.primitive_type) || field.lookup?
           end
 
           def set_optional_modifiers!

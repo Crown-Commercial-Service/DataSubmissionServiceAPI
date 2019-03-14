@@ -13,7 +13,7 @@ Framework RM858 {
     optional CustomerPostCode from 'Customer PostCode'
     CustomerName from 'Customer Organisation'
     CustomerURN from 'Customer URN'
-    optional InvoiceDate from 'Customer Invoice Date'
+    InvoiceDate from 'Customer Invoice Date'
     InvoiceNumber from 'Customer Invoice Number'
     optional String from 'Customer Invoice Line Number'
     optional ProductDescription from 'Invoice Line Product / Service Description'
