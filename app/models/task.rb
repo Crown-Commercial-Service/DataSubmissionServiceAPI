@@ -27,6 +27,7 @@ class Task < ApplicationRecord
     order(Arel.sql("CASE submissions.aasm_state WHEN 'completed' THEN 1 ELSE 2 END"), created_at: :desc)
   end
   has_one :active_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task
+  has_one :latest_submission, -> { order(created_at: :desc) }, class_name: 'Submission', inverse_of: :task
 
   def file_no_business!(user)
     transaction do
