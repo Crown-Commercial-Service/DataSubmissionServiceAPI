@@ -13,7 +13,7 @@ class V1::SubmissionsController < APIController
     task = Task.find(params.dig(:submission, :task_id))
 
     if !correcting_submission? && task.active_submission&.completed?
-      render jsonapi: task.active_submission, status: :ok
+      render jsonapi_errors: [{ title: 'Task already has completed submission.' }], status: :conflict
       return
     end
 

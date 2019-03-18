@@ -112,11 +112,12 @@ RSpec.describe '/v1' do
           end.to_not change { task.submissions.count }
         end
 
-        it 'returns the latest submission' do
+        it 'responds with an error status' do
           post "/v1/submissions?task_id=#{task.id}",
                params: params.to_json,
                headers: json_headers.merge('X-Auth-Id' => user.auth_id)
-          expect(json['data']).to have_id(old_submission.id)
+
+          expect(response).to_not be_successful
         end
       end
 
