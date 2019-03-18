@@ -5,9 +5,10 @@ class Task < ApplicationRecord
     state :unstarted, initial: true
     state :in_progress
     state :completed
+    state :correcting
 
     event :completed do
-      transitions from: %i[unstarted in_progress completed], to: :completed
+      transitions from: %i[unstarted in_progress correcting completed], to: :completed
     end
   end
 
