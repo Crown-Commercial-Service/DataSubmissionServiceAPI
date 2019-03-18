@@ -8,21 +8,31 @@ class Framework
       # some helper methods# on it to make the +Transpiler+ readable
       class Field
         PRIMITIVE_TYPE_VALIDATIONS = {
-          string:  {},
-          decimal: { ingested_numericality: true },
-          integer: { ingested_numericality: { only_integer: true } },
-          urn:     { urn: true },
-          date:    { ingested_date: true },
-          yesno:   { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
+          string:     {},
+          decimal:    { ingested_numericality: true },
+          integer:    { ingested_numericality: { only_integer: true } },
+          urn:        { urn: true },
+          lot_number: { lot_in_agreement: true },
+          date:       { ingested_date: true },
+          yesno:      { case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" } }
+        }.freeze
+
+        PRIMITIVE_TYPES = {
+          'Integer' => :integer,
+          'String' => :string,
+          'Decimal' => :decimal,
+          'Date' => :date,
+          'YesNo' => :yesno
         }.freeze
 
         extend Forwardable
 
         def_delegators :field_def, :[]
 
-        attr_reader :field_def
-        def initialize(field_def)
+        attr_reader :field_def, :lookups
+        def initialize(field_def, lookups = {})
           @field_def = field_def
+          @lookups = lookups
         end
 
         def sheet_name
@@ -59,15 +69,23 @@ class Framework
           case kind
           when :known
             DataWarehouse::KnownFields.type_for(warehouse_name)
-          when :additional
-            :string # Everything's a string right now
           else
-            field_def[:type].underscore.to_sym
+            PRIMITIVE_TYPES[field_def[:type]] || :string
+          end
+        end
+
+        def lookup?
+          if known?
+            lookups.key?(warehouse_name)
+          else
+            field_def[:type] && PRIMITIVE_TYPES[field_def[:type]].nil?
           end
         end
 
         def lookup_name
-          field_def[:type] unless field_def[:type] == 'String'
+          return nil unless lookup?
+
+          known? ? warehouse_name : field_def[:type]
         end
 
         ##

@@ -12,8 +12,9 @@ class Framework
           def build(lookup_values)
             options[:exports_to] = field.warehouse_name
 
-            add_known_type_validations! if field.known?
-            options.delete(:presence) if field.primitive_type == :urn # The URN validator covers this
+            options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field.primitive_type))
+
+            options.delete(:presence) if no_presence_required?
             set_optional_modifiers! if field.optional?
 
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
@@ -22,14 +23,15 @@ class Framework
 
           private
 
+          def no_presence_required?
+            # Validators like UrnValidator and the case_insensitive_inclusion used for
+            # YesNo fields don't require an accompanying +presence: true+
+            %i[urn yesno].include?(field.primitive_type) || field.lookup?
+          end
+
           def set_optional_modifiers!
             options.delete(:presence)
             options[:allow_nil] = true if field.validators?
-          end
-
-          def add_known_type_validations!
-            field_type = DataWarehouse::KnownFields.type_for(field.warehouse_name)
-            options.merge!(PRIMITIVE_TYPE_VALIDATIONS.fetch(field_type))
           end
         end
       end

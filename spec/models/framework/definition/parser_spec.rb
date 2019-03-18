@@ -1,6 +1,10 @@
 require 'rails_helper'
 require 'framework/definition/parser'
 
+##
+# These specs are for Parslet atoms and therefore will be matching the CST,
+# not the AST (which is the result of passing the CST through AST::Creator)
+
 RSpec.describe Framework::Definition::Parser do
   subject(:parser) { Framework::Definition::Parser.new }
   let(:framework_definition) do
@@ -50,10 +54,72 @@ RSpec.describe Framework::Definition::Parser do
   describe '#management_charge' do
     subject { parser.management_charge }
 
-    context 'flat rate' do
+    context 'simple flat rate' do
       it {
         is_expected.to parse('ManagementCharge 0.0%').as(
-          management_charge: { flat_rate: { decimal: '0.0' } }
+          management_charge: { flat_rate: { value: { decimal: '0.0' } } }
+        )
+      }
+    end
+
+    context 'flat rate from a named column' do
+      it {
+        is_expected.to parse("ManagementCharge 0.0% of 'Supplier Price'").as(
+          management_charge: {
+            flat_rate: {
+              value: { decimal: '0.0' },
+              column: { string: 'Supplier Price' }
+            }
+          }
+        )
+      }
+    end
+
+    context 'column based' do
+      let(:source) do
+        <<~FDL.strip
+          ManagementCharge varies_by 'Spend Code' {
+            'Lease Rental' -> 0.5%
+            'Damage'       -> 0%
+           }
+        FDL
+      end
+
+      it {
+        is_expected.to parse(source).as(
+          management_charge: {
+            column_based: {
+              column_name: { string: 'Spend Code' },
+              value_to_percentage: {
+                dictionary: [
+                  { key: { string: 'Lease Rental' }, value: { decimal: '0.5' } },
+                  { key: { string: 'Damage' }, value: { integer: '0' } }
+                ]
+              }
+            }
+          }
+        )
+      }
+    end
+  end
+
+  describe '#type_def' do
+    subject { parser.type_def }
+
+    context 'a lookup type_def' do
+      ##
+      # Anything that isn't a primitive type_def is considered a lookup type_def
+      it {
+        is_expected.to parse('PromotionCode').as(
+          type_def: { lookup: 'PromotionCode' }
+        )
+      }
+    end
+
+    context 'a date type_def' do
+      it {
+        is_expected.to parse('Date').as(
+          type_def: { primitive: 'Date' }
         )
       }
     end
@@ -85,7 +151,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'mandatory field' do
       it {
         is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
-          type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+          type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' }
         )
       }
     end
@@ -93,7 +159,10 @@ RSpec.describe Framework::Definition::Parser do
     context 'optional field' do
       it {
         is_expected.to parse("optional String Additional1 from 'Manufacturers Product Code'").as(
-          optional: 'optional', type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+          optional: 'optional',
+          type_def: { primitive: 'String' },
+          field: 'Additional1',
+          from: { string: 'Manufacturers Product Code' }
         )
       }
     end
@@ -105,7 +174,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'mandatory field' do
       it {
         is_expected.to parse("String from 'Cost Centre'").as(
-          type: 'String', from: { string: 'Cost Centre' }
+          type_def: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
     end
@@ -113,7 +182,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'optional field' do
       it {
         is_expected.to parse("optional String from 'Cost Centre'").as(
-          optional: 'optional', type: 'String', from: { string: 'Cost Centre' }
+          optional: 'optional', type_def: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
     end
@@ -133,7 +202,7 @@ RSpec.describe Framework::Definition::Parser do
     it 'has whatever fields are in the block' do
       expect(rule).to parse(fields).as(
         invoice_fields: [
-          { type: 'String', field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
+          { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' } },
         ]
       )
     end

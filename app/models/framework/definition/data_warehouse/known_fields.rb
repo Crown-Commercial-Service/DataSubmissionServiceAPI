@@ -19,7 +19,9 @@ class Framework
           'UnitQuantity' => :decimal,
           'InvoiceNumber' => :string,
           'UNSPSC' => :integer,
-          'VATCharged' => :decimal
+          'VATCharged' => :decimal,
+          'LotNumber' => :lot_number,
+          'PromotionCode' => :string
         }.freeze
 
         def self.type_for(value)

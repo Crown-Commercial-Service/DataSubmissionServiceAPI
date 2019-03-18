@@ -161,6 +161,84 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Vehicle Leasing framework features' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM858.fdl')
+      end
+
+      describe 'the Management Charge' do
+        subject(:management_charge) { definition.management_charge }
+
+        it {
+          is_expected.to match(
+            an_object_having_attributes(
+              varies_by: 'Spend Code',
+              value_to_percentage: {
+                # ManagementChargeCalculator::ColumnBased downcases its keys
+                'lease rental' => BigDecimal('0.5'),
+                'fleet management fee' => BigDecimal('0.5'),
+                'damage' => 0,
+                'other re-charges' => 0
+              }
+            )
+          )
+        }
+      end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Lease Start Date')
+            .with_activemodel_type(:string)
+            .validated_by(:ingested_date)
+        }
+
+        let(:expected_promotion_code_values) do
+          [
+            'Lease Rental',
+            'Fleet Management Fee',
+            'Damage',
+            'Other Re-charges'
+          ]
+        end
+
+        it {
+          is_expected.to have_field('Spend Code')
+            .with_activemodel_type(:string)
+            .validated_by(case_insensitive_inclusion: { in: expected_promotion_code_values })
+        }
+      end
+    end
+
+    context 'an RM6060-like framework (so we can vary a flat-rate management charge by column)' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5% of 'Supplier Price'
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      describe '#management_charge' do
+        subject(:management_charge) { definition.management_charge }
+
+        it {
+          is_expected.to match(
+            an_object_having_attributes(
+              column: 'Supplier Price',
+              percentage: BigDecimal('0.5')
+            )
+          )
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
