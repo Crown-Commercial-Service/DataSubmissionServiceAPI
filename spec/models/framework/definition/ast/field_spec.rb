@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe Framework::Definition::AST::Field do
   let(:lookups)   { {} }
   subject(:field) { Framework::Definition::AST::Field.new(field_def, lookups) }
+  let(:parser)    { Framework::Definition::Parser.new }
+  let(:cst)       { parser.field_def.parse(source) }
+  let(:field_def) { Framework::Definition::AST::Creator.new.apply(cst) }
 
   describe 'known fields' do
     context 'of a primitive type' do
-      let(:field_def) do
-        { kind: :known, field: 'CustomerURN', from: 'Customer URN' }
-      end
+      let(:source) { "CustomerURN from 'Customer URN'" }
 
       it      { is_expected.not_to be_lookup }
       example { expect(field.primitive_type).to eql(:urn) }
@@ -22,9 +23,7 @@ RSpec.describe Framework::Definition::AST::Field do
           ]
         }
       end
-      let(:field_def) do
-        { kind: :known, field: 'PromotionCode', from: 'Spend Code' }
-      end
+      let(:source) { "PromotionCode from 'Spend Code'" }
 
       it { is_expected.to be_lookup }
 
@@ -36,15 +35,7 @@ RSpec.describe Framework::Definition::AST::Field do
 
   context 'an additional field' do
     context 'with a primitive type of String' do
-      let(:field_def) do
-        {
-          kind: :additional,
-          optional: true,
-          type:  'String',
-          field: 'Additional3',
-          from:  'Subcontractor Supplier Name'
-        }
-      end
+      let(:source) { "optional String Additional3 from 'Subcontractor Supplier Name'" }
 
       it      { is_expected.not_to be_lookup }
       example { expect(field.primitive_type).to eql(:string) }
@@ -52,15 +43,7 @@ RSpec.describe Framework::Definition::AST::Field do
     end
 
     context 'with a primitive type of Date' do
-      let(:field_def) do
-        {
-          kind: :additional,
-          optional: true,
-          type:  'Date',
-          field: 'Additional10',
-          from:  'Lease Start Date'
-        }
-      end
+      let(:source) { "optional Date Additional10 from 'Lease Start Date'" }
 
       it      { is_expected.not_to be_lookup }
       example { expect(field.primitive_type).to eql(:date) }
@@ -68,15 +51,7 @@ RSpec.describe Framework::Definition::AST::Field do
 
     context 'with a lookup (non-primitive) type' do
       context 'on an Additional field' do
-        let(:field_def) do
-          {
-            kind: :additional,
-            optional: true,
-            type:  'PaymentProfile',
-            field: 'Additional2',
-            from:  'Payment Profile'
-          }
-        end
+        let(:source) { "optional PaymentProfile Additional2 from 'Payment Profile'" }
 
         it { is_expected.to be_lookup }
         it 'has a lookup_name' do
@@ -90,9 +65,7 @@ RSpec.describe Framework::Definition::AST::Field do
   end
 
   context 'an unknown field' do
-    let(:field_def) do
-      { kind: :unknown, optional: true, type: 'String', from: 'Cost Centre' }
-    end
+    let(:source) { "optional String from 'Cost Centre'" }
 
     it      { is_expected.not_to be_lookup }
     example { expect(field.primitive_type).to eql(:string) }
