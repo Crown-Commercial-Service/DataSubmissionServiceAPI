@@ -55,15 +55,21 @@ RSpec.describe Framework::Definition::Parser do
     subject { parser.management_charge }
 
     context 'simple flat rate' do
-      it { is_expected.to parse('ManagementCharge 0.0%').as(management_charge: { flat_rate: { decimal: '0.0' } }) }
+      it {
+        is_expected.to parse('ManagementCharge 0.0%').as(
+          management_charge: { flat_rate: { value: { decimal: '0.0' } } }
+        )
+      }
     end
 
     context 'flat rate from a named column' do
       it {
         is_expected.to parse("ManagementCharge 0.0% of 'Supplier Price'").as(
           management_charge: {
-            flat_rate: { decimal: '0.0' },
-            column: { string: 'Supplier Price' }
+            flat_rate: {
+              value: { decimal: '0.0' },
+              column: { string: 'Supplier Price' }
+            }
           }
         )
       }

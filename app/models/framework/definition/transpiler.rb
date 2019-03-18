@@ -57,8 +57,8 @@ class Framework
           )
         elsif info[:flat_rate]
           ManagementChargeCalculator::FlatRate.new(
-            percentage: info[:flat_rate],
-            column: info[:column]
+            percentage: info.dig(:flat_rate, :value),
+            column: info.dig(:flat_rate, :column)
           )
         end
       end

@@ -14,10 +14,10 @@ class Framework
       rule(:framework_identifier) { match(%r{[A-Z0-9/]}).repeat(1).as(:string) }
       rule(:framework_block)      { braced(spaced(metadata) >> spaced(invoice_fields) >> spaced(lookups_block.as(:lookups)).maybe) }
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
-      rule(:management_charge)    { str('ManagementCharge') >> (column_based.as(:column_based) | flat_rate).as(:management_charge) }
-      rule(:flat_rate)            { spaced(percentage).as(:flat_rate) >> flat_rate_column.maybe }
+      rule(:management_charge)    { str('ManagementCharge') >> (column_based | flat_rate).as(:management_charge) }
+      rule(:flat_rate)            { (spaced(percentage).as(:value) >> flat_rate_column.maybe).as(:flat_rate) }
       rule(:flat_rate_column)     { spaced(str('of')) >> string.as(:column) }
-      rule(:column_based)         { spaced(str('varies_by')) >> spaced(string).as(:column_name) >> spaced(dictionary).as(:value_to_percentage) }
+      rule(:column_based)         { spaced(str('varies_by')) >> (spaced(string).as(:column_name) >> spaced(dictionary).as(:value_to_percentage)).as(:column_based) }
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }
       rule(:fields_block)         { braced(spaced(field_defs)) }
 
