@@ -10,6 +10,13 @@ class Task < ApplicationRecord
     event :completed do
       transitions from: %i[unstarted in_progress correcting completed], to: :completed
     end
+
+    event :cancel_correction do
+      before do
+        destroy_incomplete_correction_submissions if correcting?
+      end
+      transitions from: :correcting, to: :completed
+    end
   end
 
   scope :incomplete, -> { where.not(status: 'completed') }
@@ -49,6 +56,16 @@ class Task < ApplicationRecord
 
   # Returns true when the task is yet to be completed by the Supplier
   def incomplete?
-    !completed?
+    !completed? && !correcting?
+  end
+
+  def destroy_incomplete_correction_submissions
+    transaction do
+      submissions.where('created_at > ?', active_submission.created_at).find_each do |submission|
+        submission.entries.destroy_all
+        submission.files.destroy_all
+        submission.destroy
+      end
+    end
   end
 end
