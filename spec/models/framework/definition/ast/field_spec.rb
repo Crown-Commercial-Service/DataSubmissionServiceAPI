@@ -4,13 +4,34 @@ RSpec.describe Framework::Definition::AST::Field do
   let(:lookups)   { {} }
   subject(:field) { Framework::Definition::AST::Field.new(field_def, lookups) }
 
-  context 'a known field' do
-    let(:field_def) do
-      { kind: :known, field: 'CustomerURN', from: 'Customer URN' }
+  describe 'known fields' do
+    context 'of a primitive type' do
+      let(:field_def) do
+        { kind: :known, field: 'CustomerURN', from: 'Customer URN' }
+      end
+
+      it      { is_expected.not_to be_lookup }
+      example { expect(field.primitive_type).to eql(:urn) }
     end
 
-    it      { is_expected.not_to be_lookup }
-    example { expect(field.primitive_type).to eql(:urn) }
+    context 'the known field name matches a lookup name' do
+      let(:lookups) do
+        {
+          'PromotionCode' => [
+            'Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'
+          ]
+        }
+      end
+      let(:field_def) do
+        { kind: :known, field: 'PromotionCode', from: 'Spend Code' }
+      end
+
+      it { is_expected.to be_lookup }
+
+      it 'has a lookup name the same as its warehouse name' do
+        expect(field.lookup_name).to eql('PromotionCode')
+      end
+    end
   end
 
   context 'an additional field' do
@@ -63,24 +84,6 @@ RSpec.describe Framework::Definition::AST::Field do
         end
         it 'always treats lookups types as :string' do
           expect(field.primitive_type).to eql(:string)
-        end
-      end
-
-      context 'A known field' do
-        let(:lookups) do
-          {
-            'PromotionCode' => [
-              'Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'
-            ]
-          }
-        end
-        let(:field_def) do
-          { kind: :known, field: 'PromotionCode', from: 'Spend Code' }
-        end
-
-        it { is_expected.to be_lookup }
-        it 'has a lookup name the same as its warehouse name' do
-          expect(field.lookup_name).to eql('PromotionCode')
         end
       end
     end
