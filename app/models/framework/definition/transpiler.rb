@@ -36,7 +36,7 @@ class Framework
 
           field_defs = ast.field_defs(entry_type)
 
-          _total_value_field = AST::Field.by_name(field_defs, "#{entry_type_capitalized}Value")
+          _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
           total_value_field _total_value_field.sheet_name
 
           lookups ast[:lookups]

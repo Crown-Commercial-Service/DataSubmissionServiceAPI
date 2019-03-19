@@ -101,10 +101,6 @@ class Framework
         def options(lookup_values)
           Field::Options.new(self).build(lookup_values)
         end
-
-        def self.by_name(field_defs, name)
-          Field.new(field_defs.find { |f| f[:field] == name })
-        end
       end
     end
   end

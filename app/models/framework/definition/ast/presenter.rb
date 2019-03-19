@@ -25,6 +25,11 @@ class Framework
         def lookups
           ast.fetch(:lookups, {})
         end
+
+        def field_by_name(entry_type, name)
+          field_def = field_defs(entry_type).find { |f| f[:field] == name }
+          Field.new(field_def, lookups)
+        end
       end
     end
   end
