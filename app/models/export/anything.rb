@@ -1,12 +1,15 @@
 module Export
   class Anything
-    def initialize(relation)
+    attr_reader :logger
+
+    def initialize(relation, logger = Rails.logger)
       @relation = relation
+      @logger = logger
     end
 
     def run
       if @relation.empty?
-        STDERR.puts "No #{model_plural} to export"
+        log "No #{model_plural} to export"
         return
       end
 
@@ -38,7 +41,7 @@ module Export
     end
 
     def output_io
-      STDERR.puts("Exporting #{model_plural} to #{filename}")
+      log "Exporting #{model_plural} to #{filename}"
       File.open(filename, 'w+') do |file|
         yield file
       end
@@ -46,6 +49,10 @@ module Export
 
     def filename
       "/tmp/#{model_plural}_#{Time.zone.today}.csv"
+    end
+
+    def log(message)
+      logger.info message
     end
   end
 end

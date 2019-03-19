@@ -4,12 +4,12 @@ RSpec.describe Export::Anything do
   let!(:thing_to_export)  { create(:task) }
   let(:relation)          { Task.all }
   let(:expected_filename) { '/tmp/tasks_2018-12-25.csv' }
+  let(:logger) { Logger.new(log_output) }
+  let(:log_output) { StringIO.new }
 
-  subject(:exporter) { Export::Anything.new(relation) }
+  subject(:exporter) { Export::Anything.new(relation, logger) }
 
   before do
-    allow(STDERR).to receive(:puts)
-
     exporter.run
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Export::Anything do
   after { File.delete(expected_filename) if expected_filename }
 
   it 'tells us that it’s outputing tasks CSV to /tmp' do
-    expect(STDERR).to have_received(:puts).with("Exporting tasks to #{expected_filename}")
+    expect(log_output.string).to include("Exporting tasks to #{expected_filename}")
   end
 
   context 'we are exporting contracts' do
@@ -41,7 +41,7 @@ RSpec.describe Export::Anything do
     let(:expected_filename) { '/tmp/contracts_2018-12-25.csv' }
 
     it 'tells us that it’s streaming contracts to /tmp' do
-      expect(STDERR).to have_received(:puts).with("Exporting contracts to #{expected_filename}")
+      expect(log_output.string).to include("Exporting contracts to #{expected_filename}")
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Export::Anything do
     let(:expected_filename) { nil }
 
     it 'tells us' do
-      expect(STDERR).to have_received(:puts).with('No submissions to export')
+      expect(log_output.string).to include('No submissions to export')
     end
   end
 end
