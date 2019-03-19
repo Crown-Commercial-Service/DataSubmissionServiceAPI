@@ -2,6 +2,8 @@ class Framework
   module Definition
     module DataWarehouse
       class KnownFields
+        class NotFoundError < KeyError; end
+
         ALL = {
           'InvoiceValue' => :decimal,
           'CustomerPostCode' => :string,
@@ -26,6 +28,8 @@ class Framework
 
         def self.type_for(value)
           ALL.fetch(value)
+        rescue KeyError => e
+          raise NotFoundError, "known field with key not found: '#{e.key}'"
         end
       end
     end
