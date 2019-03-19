@@ -120,5 +120,19 @@ RSpec.describe DataWarehouseExport do
       expect(generated_files).to all(be_a File)
       expect(generated_files.map(&:path)).to match_array(expected_file_paths)
     end
+
+    context 'when only a subset of models have actually changed' do
+      let!(:submission) { create(:no_business_submission, framework: framework) }
+
+      it 'only returns file handles for the exports that have been generated' do
+        expected_file_paths = [
+          '/tmp/tasks_2018-01-01.csv',
+          '/tmp/submissions_2018-01-01.csv'
+        ]
+
+        expect(generated_files).to all(be_a File)
+        expect(generated_files.map(&:path)).to match_array(expected_file_paths)
+      end
+    end
   end
 end

@@ -18,7 +18,7 @@ class DataWarehouseExport < ApplicationRecord
       Export::Relation.new(Export::Submissions::Extract.all_relevant(date_range)).run,
       Export::Relation.new(Export::Invoices::Extract.all_relevant(date_range)).run,
       Export::Relation.new(Export::Contracts::Extract.all_relevant(date_range)).run
-    ]
+    ].compact
   end
 
   def date_range
