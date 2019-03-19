@@ -52,13 +52,18 @@ class Framework
       def choose_management_charge_calculator(info)
         if info[:column_based]
           ManagementChargeCalculator::ColumnBased.new(
-            varies_by: info.dig(:column_based, :column_name),
+            varies_by:           info.dig(:column_based, :column_name),
             value_to_percentage: info.dig(:column_based, :value_to_percentage)
+          )
+        elsif info[:sector_based]
+          ManagementChargeCalculator::SectorBased.new(
+            central_government:  info.dig(:sector_based, :central_government),
+            wider_public_sector: info.dig(:sector_based, :wider_public_sector)
           )
         elsif info[:flat_rate]
           ManagementChargeCalculator::FlatRate.new(
             percentage: info.dig(:flat_rate, :value),
-            column: info.dig(:flat_rate, :column)
+            column:     info.dig(:flat_rate, :column)
           )
         end
       end
