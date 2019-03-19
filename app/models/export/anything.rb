@@ -1,10 +1,7 @@
 module Export
   class Anything
-    attr_reader :output_name
-
-    def initialize(relation, output_name = :tmp)
+    def initialize(relation)
       @relation = relation
-      @output_name = (output_name || :tmp).to_sym
     end
 
     def run
@@ -16,9 +13,6 @@ module Export
       output_io do |output|
         export_class.new(@relation, output).run
       end
-    rescue Errno::EPIPE
-      # allow piping to, for example ` | head -n1` without an unexpected stack trace
-      true
     end
 
     private
@@ -44,25 +38,14 @@ module Export
     end
 
     def output_io
-      case output_name
-      when :tmp
-        STDERR.puts("Exporting #{model_plural} to #{filename}")
-        File.open(filename, 'w+') do |file|
-          yield file
-        end
-      when :stdout
-        yield STDOUT
-      else
-        STDERR.puts usage
+      STDERR.puts("Exporting #{model_plural} to #{filename}")
+      File.open(filename, 'w+') do |file|
+        yield file
       end
     end
 
     def filename
       "/tmp/#{model_plural}_#{Time.zone.today}.csv"
-    end
-
-    def usage
-      "'#{output_name}' output type not understood. I can output to tmp, stdout"
     end
   end
 end
