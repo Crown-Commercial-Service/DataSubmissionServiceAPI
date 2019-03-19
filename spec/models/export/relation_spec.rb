@@ -9,15 +9,18 @@ RSpec.describe Export::Relation do
 
   subject(:exporter) { Export::Relation.new(relation, logger) }
 
-  before do
-    exporter.run
-  end
+  let!(:result) { exporter.run }
 
   around(:example) do |example|
     travel_to(Date.new(2018, 12, 25)) { example.run }
   end
 
   after { File.delete(expected_filename) if expected_filename }
+
+  it 'returns a handle to the export file' do
+    expect(result).to be_a(File)
+    expect(result.path).to eq(expected_filename)
+  end
 
   it 'tells us that it’s outputing tasks CSV to /tmp' do
     expect(log_output.string).to include("Exporting tasks to #{expected_filename}")

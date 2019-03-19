@@ -13,8 +13,10 @@ module Export
         return
       end
 
-      output_io do |output|
-        export_class.new(@relation, output).run
+      log "Exporting #{model_plural} to #{filename}"
+      File.new(filename, 'w+').tap do |file|
+        export_class.new(@relation, file).run
+        file.close
       end
     end
 
@@ -38,13 +40,6 @@ module Export
 
     def model_plural
       model_classname.to_s.downcase.pluralize
-    end
-
-    def output_io
-      log "Exporting #{model_plural} to #{filename}"
-      File.open(filename, 'w+') do |file|
-        yield file
-      end
     end
 
     def filename
