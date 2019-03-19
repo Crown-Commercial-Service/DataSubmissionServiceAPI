@@ -50,16 +50,14 @@ RSpec.describe Framework::Definition::AST::Field do
     end
 
     context 'with a lookup (non-primitive) type' do
-      context 'on an Additional field' do
-        let(:source) { "optional PaymentProfile Additional2 from 'Payment Profile'" }
+      let(:source) { "optional PaymentProfile Additional2 from 'Payment Profile'" }
 
-        it { is_expected.to be_lookup }
-        it 'has a lookup_name' do
-          expect(field.lookup_name).to eql('PaymentProfile')
-        end
-        it 'always treats lookups types as :string' do
-          expect(field.primitive_type).to eql(:string)
-        end
+      it { is_expected.to be_lookup }
+      it 'has a lookup_name' do
+        expect(field.lookup_name).to eql('PaymentProfile')
+      end
+      it 'always treats lookups types as :string' do
+        expect(field.primitive_type).to eql(:string)
       end
     end
   end
