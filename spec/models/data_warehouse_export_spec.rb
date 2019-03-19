@@ -33,7 +33,7 @@ RSpec.describe DataWarehouseExport do
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
 
-    before do
+    after do
       FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
     end
 
