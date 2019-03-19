@@ -101,6 +101,30 @@ RSpec.describe Framework::Definition::Parser do
         )
       }
     end
+
+    context 'sector_based' do
+      let(:source) do
+        <<~FDL.strip
+          ManagementCharge sector_based  {
+            CentralGovernment -> 0.5%
+            WiderPublicSector -> 0.6%
+           }
+        FDL
+      end
+
+      it {
+        is_expected.to parse(source).as(
+          management_charge: {
+            sector_based: {
+              dictionary: [
+                { key: 'CentralGovernment', value: { decimal: '0.5' } },
+                { key: 'WiderPublicSector', value: { decimal: '0.6' } }
+              ]
+            }
+          }
+        )
+      }
+    end
   end
 
   describe '#type_def' do

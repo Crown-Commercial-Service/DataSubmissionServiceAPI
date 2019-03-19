@@ -64,6 +64,12 @@ class Framework
             result[kv.keys.first] = kv.values.first
           end
         end
+
+        # Sector-based management charges need
+        # keys like CentralGovernment transformed to :central_government
+        rule(sector_based: subtree(:sector_kv)) do
+          { sector_based: sector_kv.transform_keys { |key| key.to_s.underscore.to_sym } }
+        end
       end
     end
   end
