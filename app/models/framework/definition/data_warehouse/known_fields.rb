@@ -6,6 +6,7 @@ class Framework
 
         ALL = {
           'InvoiceValue' => :decimal,
+          'ContractValue' => :decimal,
           'CustomerPostCode' => :string,
           'CustomerName' => :string,
           'CustomerURN' => :urn,
@@ -15,6 +16,7 @@ class Framework
           'ProductSubClass' => :string,
           'ProductDescription' => :string,
           'ProductCode' => :string,
+          'UnitCost' => :decimal,
           'UnitPrice' => :decimal,
           'UnitType' => :string,
           'VATIncluded' => :yesno,
