@@ -1,5 +1,5 @@
 module Export
-  class Anything
+  class Relation
     attr_reader :logger
 
     def initialize(relation, logger = Rails.logger)

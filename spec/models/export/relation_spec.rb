@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe Export::Anything do
+RSpec.describe Export::Relation do
   let!(:thing_to_export)  { create(:task) }
   let(:relation)          { Task.all }
   let(:expected_filename) { '/tmp/tasks_2018-12-25.csv' }
   let(:logger) { Logger.new(log_output) }
   let(:log_output) { StringIO.new }
 
-  subject(:exporter) { Export::Anything.new(relation, logger) }
+  subject(:exporter) { Export::Relation.new(relation, logger) }
 
   before do
     exporter.run
