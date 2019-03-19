@@ -6,14 +6,19 @@ class DataWarehouseExport < ApplicationRecord
   def self.generate!
     new.tap do |export|
       ActiveRecord::Base.transaction(isolation: :repeatable_read) do
-        Export::Relation.new(Export::Tasks::Extract.all_relevant(export.date_range)).run
-        Export::Relation.new(Export::Submissions::Extract.all_relevant(export.date_range)).run
-        Export::Relation.new(Export::Invoices::Extract.all_relevant(export.date_range)).run
-        Export::Relation.new(Export::Contracts::Extract.all_relevant(export.date_range)).run
-
+        export.generate_files
         export.save!
       end
     end
+  end
+
+  def generate_files
+    [
+      Export::Relation.new(Export::Tasks::Extract.all_relevant(date_range)).run,
+      Export::Relation.new(Export::Submissions::Extract.all_relevant(date_range)).run,
+      Export::Relation.new(Export::Invoices::Extract.all_relevant(date_range)).run,
+      Export::Relation.new(Export::Contracts::Extract.all_relevant(date_range)).run
+    ]
   end
 
   def date_range

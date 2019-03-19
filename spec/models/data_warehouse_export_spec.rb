@@ -43,15 +43,41 @@ RSpec.describe DataWarehouseExport do
       end
     end
 
+    it 'generates the export files' do
+      DataWarehouseExport.generate!
+      expect(File.exist?('/tmp/tasks_2018-01-01.csv')).to be true
+      expect(File.exist?('/tmp/submissions_2018-01-01.csv')).to be true
+      expect(File.exist?('/tmp/invoices_2018-01-01.csv')).to be true
+      expect(File.exist?('/tmp/contracts_2018-01-01.csv')).to be true
+    end
+
     it 'returns a persisted DataWarehouseExport instance with the expected range' do
       export = DataWarehouseExport.generate!
       expect(export).to be_persisted
       expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
       expect(export.range_to).to eq Date.new(2018, 1, 1)
     end
+  end
+
+  describe '#generate_files', truncation: true do
+    let(:framework) { create(:framework, short_name: 'RM3786') }
+    let!(:submission) { create(:completed_submission, framework: framework) }
+    let!(:task) { submission.task }
+    let(:export) { DataWarehouseExport.create }
+
+    subject!(:generated_files) { export.generate_files }
+
+    around do |example|
+      travel_to Date.new(2018, 1, 1) do
+        example.run
+      end
+    end
+
+    after do
+      FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
+    end
 
     it 'generates the tasks export' do
-      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/tasks_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
@@ -60,7 +86,6 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the submissions export' do
-      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/submissions_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
@@ -69,7 +94,6 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the invoices export' do
-      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/invoices_2018-01-01.csv')
 
       expect(export_lines.size).to eq 3
@@ -78,12 +102,23 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the contracts export' do
-      DataWarehouseExport.generate!
       export_lines = File.readlines('/tmp/contracts_2018-01-01.csv')
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Contracts::HEADER.join(',')
       expect(export_lines[1..2]).to all(match submission.id)
+    end
+
+    it 'returns handles to the generated files' do
+      expected_file_paths = [
+        '/tmp/tasks_2018-01-01.csv',
+        '/tmp/submissions_2018-01-01.csv',
+        '/tmp/invoices_2018-01-01.csv',
+        '/tmp/contracts_2018-01-01.csv'
+      ]
+
+      expect(generated_files).to all(be_a File)
+      expect(generated_files.map(&:path)).to match_array(expected_file_paths)
     end
   end
 end
