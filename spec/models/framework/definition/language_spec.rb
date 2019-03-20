@@ -265,6 +265,28 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'RM3772 – first ContractFields-using framework' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM3772.fdl')
+      end
+
+      describe 'the invoice fields' do
+        subject { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Customer Organisation').validated_by(:presence)
+        }
+      end
+
+      describe 'the contract fields' do
+        subject { definition::Order }
+
+        it {
+          is_expected.to have_field('Customer PostCode').not_validated_by(:presence)
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 

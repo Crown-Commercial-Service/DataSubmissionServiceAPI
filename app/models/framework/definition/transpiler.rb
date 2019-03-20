@@ -4,7 +4,7 @@ class Framework
       attr_reader :ast
 
       def initialize(ast)
-        @ast = ast
+        @ast = AST::Presenter.new(ast)
       end
 
       def transpile
@@ -20,27 +20,29 @@ class Framework
 
           management_charge calculator
         end.tap do |klass|
-          klass.const_set('Invoice', invoice_fields_class)
+          klass.const_set('Invoice', entry_data_class(:invoice)) if ast.field_defs(:invoice)
+          klass.const_set('Order', entry_data_class(:contract))  if ast.field_defs(:contract)
         end
       end
 
-      def invoice_fields_class
+      def entry_data_class(entry_type)
         ast = @ast
 
         Class.new(Framework::EntryData) do
+          entry_type_capitalized = entry_type.to_s.capitalize
           define_singleton_method :model_name do
-            ActiveModel::Name.new(self, nil, 'Invoice')
+            ActiveModel::Name.new(self, nil, entry_type_capitalized)
           end
 
-          _total_value_field = AST::Field.by_name(
-            ast[:invoice_fields], 'InvoiceValue'
-          )
+          field_defs = ast.field_defs(entry_type)
+
+          _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
           total_value_field _total_value_field.sheet_name
 
           lookups ast[:lookups]
 
-          ast[:invoice_fields].each do |field_def|
-            field = AST::Field.new(field_def, ast.fetch(:lookups, {}))
+          field_defs.each do |field_def|
+            field = AST::Field.new(field_def, ast.lookups)
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
             lookup_values = ast.dig(:lookups, field.lookup_name)
