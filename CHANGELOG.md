@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-59] - 2019-03-20
+
+- Rename two suppliers on RM1070 and RM1043.5
+- FDL Management Charge support
+- Customer sector-based management charge support
+- 5c Data Warehouse is updated about replacement submissions
+
 ## [release-58] - 2019-03-14
 
 - Bump rails from 5.2.1.1 to 5.2.2.1
@@ -380,6 +387,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-58]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-58...release-59
 [release-58]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-57...release-58
 [release-57]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-56...release-57
 [release-56]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-55...release-56
