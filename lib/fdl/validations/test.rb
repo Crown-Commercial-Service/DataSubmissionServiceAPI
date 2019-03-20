@@ -13,19 +13,20 @@ module FDL
     #   test.run
     #   puts test.formatted_report
     class Test
-      attr_reader :framework_short_name, :sample_row_count
+      attr_reader :framework_short_name, :sample_row_count, :submission_ids
 
-      def initialize(framework_short_name, sample_row_count)
+      def initialize(framework_short_name, options = { sample_row_count: 5000 })
         @framework_short_name = framework_short_name
-        @sample_row_count     = sample_row_count
+        @sample_row_count     = options[:sample_row_count]
+        @submission_ids       = options[:submission_ids]
       end
 
       def sample_rows
-        @sample_rows ||= SubmissionEntry
-                         .joins(submission: :framework)
-                         .where('frameworks.short_name = ?', [framework_short_name])
-                         .order(created_at: :desc)
-                         .limit(sample_row_count)
+        @sample_rows ||= if submission_ids&.any?
+                           by_submission_ids(submission_ids)
+                         else
+                           limited_by_number
+                         end
       end
 
       def discrepancies
@@ -65,6 +66,23 @@ module FDL
         end
 
         output.string
+      end
+
+      private
+
+      def framework_submissions
+        SubmissionEntry
+          .joins(submission: :framework)
+          .where('frameworks.short_name = ?', [framework_short_name])
+          .order(created_at: :desc)
+      end
+
+      def by_submission_ids(submission_ids)
+        framework_submissions.where('submissions.id IN (?)', submission_ids)
+      end
+
+      def limited_by_number
+        framework_submissions.limit(sample_row_count)
       end
     end
   end

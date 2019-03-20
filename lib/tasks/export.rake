@@ -6,9 +6,9 @@ namespace :export do
   namespace :all do
     desc 'Export everything that has updated since the last export to CSV'
     task incremental: :environment do
-      export = DataWarehouseExport.new
-      puts "Generating incremental export for #{export.date_range}"
-      export.run
+      puts 'Generating incremental export...'
+      export = DataWarehouseExport.generate!
+      puts "Generated incremental export for #{export.date_range}"
     end
   end
 

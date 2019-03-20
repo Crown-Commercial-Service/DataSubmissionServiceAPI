@@ -7,7 +7,7 @@ class Framework
     # calculated against another column, that can be specified with the `column`
     # attribute.
     class FlatRate
-      attr_reader :percentage
+      attr_reader :percentage, :column
 
       def initialize(percentage:, column: nil)
         @percentage = BigDecimal(percentage)

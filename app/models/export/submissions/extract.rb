@@ -1,7 +1,7 @@
 module Export
   class Submissions
     module Extract
-      RELEVANT_STATUSES = %w[completed validation_failed].freeze
+      RELEVANT_STATUSES = %w[completed validation_failed replaced].freeze
 
       def self.all_relevant(date_range = nil)
         filters = { aasm_state: RELEVANT_STATUSES }
