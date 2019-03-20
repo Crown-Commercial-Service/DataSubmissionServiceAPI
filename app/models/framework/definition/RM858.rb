@@ -31,7 +31,7 @@ class Framework
         field 'Invoice Line Total Value ex VAT', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', case_insensitive_inclusion: { in: %w[Y N], message: "must be 'Y' or 'N'" }
         field 'VAT Amount Charged', :string, exports_to: 'VATCharged', ingested_numericality: true, allow_nil: true
-        field 'Spend Code', :string, exports_to: 'PromotionCode', inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
+        field 'Spend Code', :string, exports_to: 'PromotionCode', case_insensitive_inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
         field 'Invoice Line Product / Service Grouping', :string, exports_to: 'ProductGroup', presence: true
         field 'CAP Code', :string, exports_to: 'ProductCode'
         field 'Vehicle Make', :string, exports_to: 'ProductClass'
