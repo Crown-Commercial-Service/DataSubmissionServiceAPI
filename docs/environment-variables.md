@@ -10,6 +10,9 @@ prevent the development database from being clobbered during local development
 - AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY/AWS_S3_REGION/AWS_S3_BUCKET – The
 AWS credentials for accessing various AWS services, including S3, CloudWatch
 and Lambda
+- AWS_S3_EXPORT_BUCKET – The AWS S3 bucket where the data warehouse exports
+should be uploaded to. See DataWarehouseExport and Export::S3Upload for more
+details.
 - GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET – Google credentials used for
 authenticating Admin users. Not required in local development as a separate
 auth strategy is used if these variables are not set.

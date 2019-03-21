@@ -32,6 +32,7 @@ RSpec.describe DataWarehouseExport do
     let(:framework) { create(:framework, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
+    let(:s3_export_upload) { spy('s3_upload') }
 
     after do
       FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
@@ -39,7 +40,9 @@ RSpec.describe DataWarehouseExport do
 
     around do |example|
       travel_to Date.new(2018, 1, 1) do
-        example.run
+        ClimateControl.modify AWS_S3_EXPORT_BUCKET: 'test-bucket' do
+          example.run
+        end
       end
     end
 
@@ -49,6 +52,21 @@ RSpec.describe DataWarehouseExport do
       expect(File.exist?('/tmp/submissions_2018-01-01.csv')).to be true
       expect(File.exist?('/tmp/invoices_2018-01-01.csv')).to be true
       expect(File.exist?('/tmp/contracts_2018-01-01.csv')).to be true
+    end
+
+    it 'uploads the generated files to S3' do
+      allow(Export::S3Upload).to receive(:new).and_return(s3_export_upload)
+      expected_file_paths = [
+        '/tmp/tasks_2018-01-01.csv',
+        '/tmp/submissions_2018-01-01.csv',
+        '/tmp/invoices_2018-01-01.csv',
+        '/tmp/contracts_2018-01-01.csv'
+      ]
+
+      DataWarehouseExport.generate!
+
+      expect(Export::S3Upload).to have_received(:new).with files_matching_paths(expected_file_paths)
+      expect(s3_export_upload).to have_received(:perform)
     end
 
     it 'returns a persisted DataWarehouseExport instance with the expected range' do
@@ -118,7 +136,7 @@ RSpec.describe DataWarehouseExport do
       ]
 
       expect(generated_files).to all(be_a File)
-      expect(generated_files.map(&:path)).to match_array(expected_file_paths)
+      expect(generated_files).to be_files_matching_paths(expected_file_paths)
     end
 
     context 'when only a subset of models have actually changed' do
@@ -131,7 +149,7 @@ RSpec.describe DataWarehouseExport do
         ]
 
         expect(generated_files).to all(be_a File)
-        expect(generated_files.map(&:path)).to match_array(expected_file_paths)
+        expect(generated_files).to be_files_matching_paths(expected_file_paths)
       end
     end
   end

@@ -6,7 +6,8 @@ class DataWarehouseExport < ApplicationRecord
   def self.generate!
     new.tap do |export|
       ActiveRecord::Base.transaction(isolation: :repeatable_read) do
-        export.generate_files
+        files = export.generate_files
+        Export::S3Upload.new(files).perform
         export.save!
       end
     end
