@@ -101,6 +101,20 @@ class Framework
         def options(lookup_values)
           Field::Options.new(self).build(lookup_values)
         end
+
+        def dependent_field_inclusion?
+          field_def[:depends_on].present?
+        end
+
+        def dependent_field
+          field_def[:depends_on][:dependent_field]
+        end
+
+        def dependent_field_inclusion_values
+          field_def[:depends_on][:values].transform_values do |lookup_name|
+            lookups[lookup_name]
+          end
+        end
       end
     end
   end

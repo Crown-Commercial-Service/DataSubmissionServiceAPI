@@ -31,6 +31,32 @@ RSpec.describe Framework::Definition::AST::Field do
         expect(field.lookup_name).to eql('PromotionCode')
       end
     end
+
+    context 'the known field validates dependent on another field' do
+      let(:lookups) do
+        {
+          'Lot2Segment' => ['Car Derived Van', 'LCV', 'MPV', 'Pickup'],
+          'Lot3Segment' => ['HGV'],
+        }
+      end
+      let(:source) do
+        <<~FDL
+          ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
+            '2' -> Lot2Segment
+            '3' -> Lot3Segment
+          }
+        FDL
+      end
+
+      it { is_expected.to be_dependent_field_inclusion }
+
+      it 'expands the Lot Segments out to their literal values' do
+        expect(field.dependent_field_inclusion_values).to eq(
+          '2' => ['Car Derived Van', 'LCV', 'MPV', 'Pickup'],
+          '3' => ['HGV'],
+        )
+      end
+    end
   end
 
   context 'an additional field' do

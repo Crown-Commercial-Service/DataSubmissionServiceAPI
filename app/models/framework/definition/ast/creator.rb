@@ -16,6 +16,9 @@ class Framework
         rule(optional: simple(:optional), field: simple(:field), from: simple(:from)) do
           { kind: :known, optional: true, field: field.to_s, from: from.to_s }
         end
+        rule(field: simple(:field), from: simple(:from), depends_on: subtree(:depends_on)) do
+          { kind: :known, field: field.to_s, from: from.to_s, depends_on: depends_on }
+        end
 
         # optional Additional field rule
         rule(optional: simple(:optional), type_def: simple(:type), field: simple(:field), from: subtree(:from)) do

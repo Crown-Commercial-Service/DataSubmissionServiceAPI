@@ -167,6 +167,32 @@ RSpec.describe Framework::Definition::Parser do
         )
       }
     end
+
+    context 'with dependencies' do
+      let(:source) do
+        <<~FDL
+          ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
+              '1' -> Lot1Segment
+              '2' -> Lot2Segment
+            }
+        FDL
+      end
+      it {
+        is_expected.to parse(source).as(
+          field: 'ProductGroup',
+          from: { string: 'Vehicle Segment' },
+          depends_on: {
+            dependent_field: { string: 'Lot Number' },
+            values: {
+              dictionary: [
+                { key: { string: '1' }, value: { string: 'Lot1Segment' } },
+                { key: { string: '2' }, value: { string: 'Lot2Segment' } }
+              ]
+            }
+          }
+        )
+      }
+    end
   end
 
   describe '#additional_field' do
