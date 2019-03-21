@@ -1,0 +1,24 @@
+%h4.govuk-heading-s
+  = sheet_name
+
+%table.govuk-table
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__cell
+        Row
+      %th.govuk-table__cell
+        Column
+      %th.govuk-table__cell
+        Help
+  %tbody.govuk-table__body
+    - errors.each do |error|
+      %tr.govuk-table__row
+        %td.govuk-table__cell
+          %p
+            = error['location']['row']
+        %td.govuk-table__cell
+          %p
+            = error['location']['column']
+        %td.govuk-table__cell
+          %p
+            = error['message']
