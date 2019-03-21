@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       member do
         post :complete
         post :no_business
+        patch :cancel_correction
       end
     end
 

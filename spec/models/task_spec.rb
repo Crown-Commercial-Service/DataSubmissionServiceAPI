@@ -108,4 +108,73 @@ RSpec.describe Task do
       end
     end
   end
+
+  describe '#cancel_correction!' do
+    context 'For a task that is `correcting`' do
+      let(:task) { FactoryBot.create(:task, status: :correcting) }
+      it 'calls destroy_incomplete_correction_submissions and updates status to completed' do
+        expect(task).to receive(:destroy_incomplete_correction_submissions)
+        task.cancel_correction!
+        expect(task.status).to eq('completed')
+      end
+    end
+    context 'For a task that is `completed`' do
+      let(:task) { FactoryBot.create(:task, status: :completed) }
+      it 'raises error, does not call destroy_incomplete_correction_submissions and retains status' do
+        expect(task).to_not receive(:destroy_incomplete_correction_submissions)
+        expect { task.cancel_correction! }.to raise_error(AASM::InvalidTransition)
+        expect(task.status).to eq('completed')
+      end
+    end
+  end
+
+  describe '#destroy_incomplete_correction_submissions' do
+    let(:task) { FactoryBot.create(:task, status: :correcting) }
+    let!(:oldest_submission_invalid) do
+      FactoryBot.create(:submission,
+                        task: task,
+                        created_at: 6.days.ago,
+                        aasm_state: 'validation_failed')
+    end
+    let!(:oldest_submission_completed) do
+      FactoryBot.create(:submission,
+                        task: task,
+                        created_at: 5.days.ago,
+                        aasm_state: 'replaced')
+    end
+    let!(:old_submission_invalid) do
+      FactoryBot.create(:submission,
+                        task: task,
+                        created_at: 4.days.ago,
+                        aasm_state: 'validation_failed')
+    end
+    let!(:old_submission_completed) do
+      FactoryBot.create(:completed_submission,
+                        task: task,
+                        created_at: 3.days.ago,
+                        aasm_state: 'completed')
+    end
+    let!(:correction_submission_invalid) do
+      FactoryBot.create(:submission_with_invalid_entries,
+                        task: task,
+                        created_at: 2.days.ago)
+    end
+    let!(:correction_submission_in_review) do
+      FactoryBot.create(:submission_with_validated_entries,
+                        task: task,
+                        created_at: 1.day.ago,
+                        aasm_state: 'in_review')
+    end
+
+    it 'destroys all submissions created after the active submission' do
+      task.destroy_incomplete_correction_submissions
+      task.reload
+      expect(Submission.exists?(oldest_submission_invalid.id)).to be true
+      expect(Submission.exists?(oldest_submission_completed.id)).to be true
+      expect(Submission.exists?(old_submission_invalid.id)).to be true
+      expect(Submission.exists?(old_submission_completed.id)).to be true
+      expect(Submission.exists?(correction_submission_invalid.id)).to be false
+      expect(Submission.exists?(correction_submission_in_review.id)).to be false
+    end
+  end
 end
