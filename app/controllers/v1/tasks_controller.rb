@@ -35,7 +35,7 @@ class V1::TasksController < APIController
     end
 
     if task.completed? && correcting_submission?
-      task.active_submission.replace_with_no_business!
+      task.active_submission.replace_with_no_business!(current_user)
       task.reload
     end
 

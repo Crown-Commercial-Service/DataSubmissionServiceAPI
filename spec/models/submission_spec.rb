@@ -28,9 +28,10 @@ RSpec.describe Submission do
 
   describe '#replace_with_no_business state machine event' do
     let(:submission) { FactoryBot.create(:completed_submission) }
+    let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do
-      submission.replace_with_no_business
+      submission.replace_with_no_business(correcting_user)
 
       expect(submission).to be_replaced
     end
@@ -46,7 +47,7 @@ RSpec.describe Submission do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
         it 'enqueues the creation of a reversal invoice' do
-          submission.replace_with_no_business
+          submission.replace_with_no_business(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
         end
@@ -54,7 +55,7 @@ RSpec.describe Submission do
 
       context 'when there is no invoice for the submission' do
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.replace_with_no_business
+          submission.replace_with_no_business(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
@@ -72,7 +73,7 @@ RSpec.describe Submission do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.replace_with_no_business
+          submission.replace_with_no_business(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
@@ -82,9 +83,10 @@ RSpec.describe Submission do
 
   describe '#mark_as_replaced state machine event' do
     let(:submission) { FactoryBot.create(:completed_submission) }
+    let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do
-      submission.mark_as_replaced
+      submission.mark_as_replaced(correcting_user)
 
       expect(submission).to be_replaced
     end
@@ -100,7 +102,7 @@ RSpec.describe Submission do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
         it 'enqueues the creation of a reversal invoice' do
-          submission.mark_as_replaced
+          submission.mark_as_replaced(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
         end
@@ -108,7 +110,7 @@ RSpec.describe Submission do
 
       context 'when there is no invoice for the submission' do
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.mark_as_replaced
+          submission.mark_as_replaced(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
@@ -126,7 +128,7 @@ RSpec.describe Submission do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.mark_as_replaced
+          submission.mark_as_replaced(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
