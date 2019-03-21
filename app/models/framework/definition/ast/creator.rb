@@ -4,9 +4,10 @@ class Framework
       # This transform exists for the express purpose of creating an AST for generating
       # an ActiveModel class with validations for a Framework
       class Creator < Parslet::Transform
-        rule(string: simple(:s))  { String(s) }
-        rule(decimal: simple(:d)) { BigDecimal(d) }
-        rule(integer: simple(:i)) { Integer(i) }
+        rule(string: simple(:s))           { String(s) }
+        rule(lookup_reference: simple(:r)) { String(r) }
+        rule(decimal: simple(:d))          { BigDecimal(d) }
+        rule(integer: simple(:i))          { Integer(i) }
 
         rule(primitive: simple(:primitive)) { primitive }
         rule(lookup: simple(:lookup))       { lookup }
@@ -64,8 +65,7 @@ class Framework
         # real hash                      { key1 => value1, key2 => value2 }
         rule(dictionary: subtree(:dictionary)) do
           dictionary.each_with_object({}) do |kv, result|
-            value = kv.values.first.is_a?(Parslet::Slice) ? kv.values.first.to_s : kv.values.first
-            result[kv.keys.first] = value
+            result[kv.keys.first] = kv.values.first
           end
         end
 
