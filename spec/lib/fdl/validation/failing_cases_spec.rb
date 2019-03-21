@@ -168,11 +168,9 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
         }
       end
 
-      it 'behaves slightly differently to the Ruby' do
-        # The Ruby has an +InclusionValidator+ which behaves slightly
-        # differently to the +CaseInsensitiveInclusionValidator+ we use. This is the diff:
-        expect(diff).to eql([['-', 'Spend Code', 'is not included in the list']])
-        # ... and this is the question it raised:
+      it 'no longer behaves slightly differently to the Ruby now we use case-insensitive inclusion' do
+        expect(diff).to be_empty
+        # ... this is the question it raised:
         # https://trello.com/c/CsjBwtkd/929-case-sensitive-vs-case-insensitive-inclusion-validators-what-should-we-do
       end
     end
@@ -180,7 +178,7 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
     context 'All the problems' do
       let(:data) { { 'Contract Number' => 'N/A' } }
 
-      it { is_expected.to eql([['-', 'Spend Code', 'is not included in the list']]) }
+      it { is_expected.to be_empty }
     end
   end
 end

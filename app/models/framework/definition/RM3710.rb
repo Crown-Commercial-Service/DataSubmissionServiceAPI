@@ -54,7 +54,7 @@ class Framework
         field 'Total Manufacturer Discount (%)', :string, exports_to: 'Additional17', ingested_numericality: true, allow_nil: true
         field 'Cost Centre', :string
         field 'Contract Number', :string
-        field 'Spend Code', :string, exports_to: 'PromotionCode', inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
+        field 'Spend Code', :string, exports_to: 'PromotionCode', case_insensitive_inclusion: { in: ['Lease Rental', 'Fleet Management Fee', 'Damage', 'Other Re-charges'] }
       end
     end
   end
