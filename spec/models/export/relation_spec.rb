@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Export::Relation do
   let!(:thing_to_export)  { create(:task) }
   let(:relation)          { Task.all }
-  let(:expected_filename) { '/tmp/tasks_2018-12-25.csv' }
+  let(:expected_filename) { '/tmp/tasks_20181225_153012.csv' }
   let(:logger) { Logger.new(log_output) }
   let(:log_output) { StringIO.new }
 
@@ -12,7 +12,7 @@ RSpec.describe Export::Relation do
   let!(:result) { exporter.run }
 
   around(:example) do |example|
-    travel_to(Date.new(2018, 12, 25)) { example.run }
+    travel_to(Time.zone.local(2018, 12, 25, 15, 30, 12)) { example.run }
   end
 
   after { File.delete(expected_filename) if expected_filename }
@@ -41,7 +41,7 @@ RSpec.describe Export::Relation do
       Export::Contracts::Extract.all_relevant
     end
 
-    let(:expected_filename) { '/tmp/contracts_2018-12-25.csv' }
+    let(:expected_filename) { '/tmp/contracts_20181225_153012.csv' }
 
     it 'tells us that it’s streaming contracts to /tmp' do
       expect(log_output.string).to include("Exporting contracts to #{expected_filename}")

@@ -43,7 +43,11 @@ module Export
     end
 
     def filename
-      "/tmp/#{model_plural}_#{Time.zone.today}.csv"
+      "/tmp/#{model_plural}_#{timestamp}.csv"
+    end
+
+    def timestamp
+      Time.zone.now.strftime('%Y%m%d_%H%M%S')
     end
 
     def log(message)

@@ -34,7 +34,7 @@ RSpec.describe 'rake export:submissions', type: :task do
 
     let(:extracted_submissions) { Export::Submissions::Extract.all_relevant }
 
-    let(:output_filename) { '/tmp/submissions_2018-12-25.csv' }
+    let(:output_filename) { '/tmp/submissions_20181225_000000.csv' }
     let(:output_lines)    { File.read(output_filename).split("\n") }
 
     around(:example) do |example|

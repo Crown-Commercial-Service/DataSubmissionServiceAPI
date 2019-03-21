@@ -9,7 +9,7 @@ RSpec.describe 'rake export:tasks', type: :task do
     let!(:first_task)  { create(:task, status: :unstarted, period_year: 2018, period_month: 8) }
     let!(:second_task) { create(:task) }
 
-    let(:output_filename) { '/tmp/tasks_2018-12-25.csv' }
+    let(:output_filename) { '/tmp/tasks_20181225_000000.csv' }
     let(:args)            { {} }
     let(:output_lines)    { File.read(output_filename).split("\n") }
 

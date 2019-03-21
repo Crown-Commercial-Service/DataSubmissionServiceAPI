@@ -23,7 +23,7 @@ RSpec.describe 'rake export:invoices', type: :task do
   let(:extracted_invoices) { Export::Invoices::Extract.all_relevant }
 
   context 'no args are given' do
-    let(:output_filename) { '/tmp/invoices_2018-12-25.csv' }
+    let(:output_filename) { '/tmp/invoices_20181225_000000.csv' }
     let(:args)            { {} }
     let(:output_lines)    { File.read(output_filename).split("\n") }
 

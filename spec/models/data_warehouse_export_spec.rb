@@ -35,7 +35,7 @@ RSpec.describe DataWarehouseExport do
     let(:s3_export_upload) { spy('s3_upload') }
 
     after do
-      FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
+      FileUtils.rm Dir.glob('/tmp/*20180101_000000.csv')
     end
 
     around do |example|
@@ -48,19 +48,19 @@ RSpec.describe DataWarehouseExport do
 
     it 'generates the export files' do
       DataWarehouseExport.generate!
-      expect(File.exist?('/tmp/tasks_2018-01-01.csv')).to be true
-      expect(File.exist?('/tmp/submissions_2018-01-01.csv')).to be true
-      expect(File.exist?('/tmp/invoices_2018-01-01.csv')).to be true
-      expect(File.exist?('/tmp/contracts_2018-01-01.csv')).to be true
+      expect(File).to exist('/tmp/tasks_20180101_000000.csv')
+      expect(File).to exist('/tmp/submissions_20180101_000000.csv')
+      expect(File).to exist('/tmp/invoices_20180101_000000.csv')
+      expect(File).to exist('/tmp/contracts_20180101_000000.csv')
     end
 
     it 'uploads the generated files to S3' do
       allow(Export::S3Upload).to receive(:new).and_return(s3_export_upload)
       expected_file_paths = [
-        '/tmp/tasks_2018-01-01.csv',
-        '/tmp/submissions_2018-01-01.csv',
-        '/tmp/invoices_2018-01-01.csv',
-        '/tmp/contracts_2018-01-01.csv'
+        '/tmp/tasks_20180101_000000.csv',
+        '/tmp/submissions_20180101_000000.csv',
+        '/tmp/invoices_20180101_000000.csv',
+        '/tmp/contracts_20180101_000000.csv'
       ]
 
       DataWarehouseExport.generate!
@@ -92,11 +92,11 @@ RSpec.describe DataWarehouseExport do
     end
 
     after do
-      FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
+      FileUtils.rm Dir.glob('/tmp/*20180101_000000.csv')
     end
 
     it 'generates the tasks export' do
-      export_lines = File.readlines('/tmp/tasks_2018-01-01.csv')
+      export_lines = File.readlines('/tmp/tasks_20180101_000000.csv')
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Tasks::HEADER.join(',')
@@ -104,7 +104,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the submissions export' do
-      export_lines = File.readlines('/tmp/submissions_2018-01-01.csv')
+      export_lines = File.readlines('/tmp/submissions_20180101_000000.csv')
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Submissions::HEADER.join(',')
@@ -112,7 +112,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the invoices export' do
-      export_lines = File.readlines('/tmp/invoices_2018-01-01.csv')
+      export_lines = File.readlines('/tmp/invoices_20180101_000000.csv')
 
       expect(export_lines.size).to eq 3
       expect(export_lines[0]).to match Export::Invoices::HEADER.join(',')
@@ -120,7 +120,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the contracts export' do
-      export_lines = File.readlines('/tmp/contracts_2018-01-01.csv')
+      export_lines = File.readlines('/tmp/contracts_20180101_000000.csv')
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Contracts::HEADER.join(',')
@@ -129,10 +129,10 @@ RSpec.describe DataWarehouseExport do
 
     it 'returns handles to the generated files' do
       expected_file_paths = [
-        '/tmp/tasks_2018-01-01.csv',
-        '/tmp/submissions_2018-01-01.csv',
-        '/tmp/invoices_2018-01-01.csv',
-        '/tmp/contracts_2018-01-01.csv'
+        '/tmp/tasks_20180101_000000.csv',
+        '/tmp/submissions_20180101_000000.csv',
+        '/tmp/invoices_20180101_000000.csv',
+        '/tmp/contracts_20180101_000000.csv'
       ]
 
       expect(generated_files).to all(be_a File)
@@ -144,8 +144,8 @@ RSpec.describe DataWarehouseExport do
 
       it 'only returns file handles for the exports that have been generated' do
         expected_file_paths = [
-          '/tmp/tasks_2018-01-01.csv',
-          '/tmp/submissions_2018-01-01.csv'
+          '/tmp/tasks_20180101_000000.csv',
+          '/tmp/submissions_20180101_000000.csv'
         ]
 
         expect(generated_files).to all(be_a File)
