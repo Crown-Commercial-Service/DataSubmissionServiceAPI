@@ -64,7 +64,8 @@ class Framework
         # real hash                      { key1 => value1, key2 => value2 }
         rule(dictionary: subtree(:dictionary)) do
           dictionary.each_with_object({}) do |kv, result|
-            result[kv.keys.first] = kv.values.first
+            value = kv.values.first.is_a?(Parslet::Slice) ? kv.values.first.to_s : kv.values.first
+            result[kv.keys.first] = value
           end
         end
 

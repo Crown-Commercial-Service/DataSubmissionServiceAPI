@@ -50,7 +50,7 @@ class Framework
 
       rule(:map)                  { allowable_key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space? }
       rule(:allowable_key)        { string | pascal_case_identifier }
-      rule(:allowable_value)      { percentage | pascal_case_identifier.as(:string) }
+      rule(:allowable_value)      { percentage | pascal_case_identifier }
       rule(:dictionary)           { braced(map.repeat(1).as(:dictionary)) }
 
       rule(:string) do

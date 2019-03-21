@@ -185,8 +185,8 @@ RSpec.describe Framework::Definition::Parser do
             dependent_field: { string: 'Lot Number' },
             values: {
               dictionary: [
-                { key: { string: '1' }, value: { string: 'Lot1Segment' } },
-                { key: { string: '2' }, value: { string: 'Lot2Segment' } }
+                { key: { string: '1' }, value: 'Lot1Segment' },
+                { key: { string: '2' }, value: 'Lot2Segment' }
               ]
             }
           }
