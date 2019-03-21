@@ -296,13 +296,16 @@ RSpec.describe Framework::Definition::Language do
         subject(:invoice_class) { definition::Invoice }
         let(:mappings) do
           {
-            '1' => invoice_class.lookups['Lot1Segment'],
-            '2' => invoice_class.lookups['Lot2Segment'],
-            '3' => invoice_class.lookups['Lot3Segment'],
-            '4' => invoice_class.lookups['Lot4Segment'],
-            '5' => invoice_class.lookups['Lot5Segment'],
-            '6' => invoice_class.lookups['Lot6Segment'],
-            '7' => invoice_class.lookups['Lot7Segment']
+            'Lot Number' =>
+             {
+               '1' => invoice_class.lookups['Lot1Segment'],
+               '2' => invoice_class.lookups['Lot2Segment'],
+               '3' => invoice_class.lookups['Lot3Segment'],
+               '4' => invoice_class.lookups['Lot4Segment'],
+               '5' => invoice_class.lookups['Lot5Segment'],
+               '6' => invoice_class.lookups['Lot6Segment'],
+               '7' => invoice_class.lookups['Lot7Segment']
+             }
           }
         end
 

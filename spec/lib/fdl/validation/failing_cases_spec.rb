@@ -181,4 +181,44 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
       it { is_expected.to be_empty }
     end
   end
+
+  context 'Framework RM6060' do
+    let(:short_name) { 'RM6060' }
+    let(:supplier)   { create :supplier }
+    let(:entry)      { build(:submission_entry, submission: submission, data: data) }
+    let!(:agreement) { create :agreement, supplier: supplier, framework: framework }
+    let(:submission) { create :submission, supplier: supplier, framework: framework }
+    let(:framework)  { create :framework, short_name: short_name }
+    let!(:lot)       { create :framework_lot, number: 1, framework: framework }
+    let(:data) do
+      {
+        'Fuel Type' => 'Petrol',
+        'Lot Number' => 1,
+        'Parts Cost' => 0,
+        'Vehicle Make' => 'CAPTUR',
+        'CO2 Emissions' => 122,
+        'Vehicle Model' => 'Renault',
+        'Supplier Price' => 10026,
+        'Conversion Cost' => 0,
+        'Leasing Company' => 'Arnold Clark Vehicle Management',
+        'Vehicle Segment' => '4x4/SUV',
+        'Vehicle CAP Code' => 'N/A',
+        'Total Vehicle Cost' => 13925,
+        'MRP Excluding Options' => 13383.33,
+        'Customer Support Terms' => 28,
+        'Vehicle Trim/Derivative' => '3ICN T90',
+        'Additional Support Terms' => 0,
+        'eAuction Contract Number' => 'N/A',
+        'Customer Organisation Name' => 'London North West Healthcare NHS Trust',
+        'Vehicle Registration Number' => 'AX68XEF',
+        'Customer Invoice/Credit Note Date' => '1/22/19',
+        'Customer Invoice/Credit Note Number' => 'N/A',
+        'Customer Unique Reference Number (URN)' => 10042256
+      }
+    end
+
+    it do
+      is_expected.to be_empty
+    end
+  end
 end
