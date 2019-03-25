@@ -3,15 +3,13 @@ require 'rails_helper'
 RSpec.describe Export::Relation do
   let(:logger)       { Logger.new(log_output) }
   let(:log_output)   { StringIO.new }
-  let(:output_lines) { File.read(expected_filename).split("\n") }
+  let(:output_lines) { result.read.split("\n") }
 
   subject(:exporter) { Export::Relation.new(relation, logger) }
 
   around(:example) do |example|
     travel_to(Time.zone.local(2018, 12, 25, 15, 30, 12)) { example.run }
   end
-
-  after { File.delete(expected_filename) if File.exist?(expected_filename) }
 
   context 'there is nothing to export' do
     let(:relation) { Submission.all }
@@ -27,17 +25,15 @@ RSpec.describe Export::Relation do
     let!(:first_task)       { create(:task, status: :unstarted, period_year: 2018, period_month: 8) }
     let!(:second_task)      { create(:task) }
     let(:relation)          { Export::Tasks::Extract.all_relevant }
-    let(:expected_filename) { '/tmp/tasks_20181225_153012.csv' }
 
     let!(:result) { exporter.run }
 
-    it 'returns a handle to the export file' do
-      expect(result).to be_a(File)
-      expect(result.path).to eq(expected_filename)
+    it 'returns a Tempfile' do
+      expect(result).to be_a(Tempfile)
     end
 
-    it 'tells us that it’s outputing tasks CSV' do
-      expect(log_output.string).to include("Exporting tasks to #{expected_filename}")
+    it 'tells us that it’s outputing tasks' do
+      expect(log_output.string).to include('Exporting tasks')
     end
 
     it 'writes a header for the tasks export' do
@@ -83,17 +79,15 @@ RSpec.describe Export::Relation do
       )
     end
     let(:relation) { Export::Submissions::Extract.all_relevant }
-    let(:expected_filename) { '/tmp/submissions_20181225_153012.csv' }
 
     let!(:result) { exporter.run }
 
-    it 'returns a handle to the export file' do
-      expect(result).to be_a(File)
-      expect(result.path).to eq(expected_filename)
+    it 'returns a Tempfile' do
+      expect(result).to be_a(Tempfile)
     end
 
-    it 'tells us that it’s outputing tasks CSV' do
-      expect(log_output.string).to include("Exporting submissions to #{expected_filename}")
+    it 'tells us that it’s outputing tasks' do
+      expect(log_output.string).to include('Exporting submissions')
     end
 
     it 'writes a header for the submissions export' do
@@ -121,7 +115,6 @@ RSpec.describe Export::Relation do
 
   context 'given the Export::Invoices::Extract.all_relevant Relation' do
     let(:relation) { Export::Invoices::Extract.all_relevant }
-    let(:expected_filename) { '/tmp/invoices_20181225_153012.csv' }
 
     let!(:complete_submission) do
       create :submission,
@@ -149,13 +142,12 @@ RSpec.describe Export::Relation do
                                     'precondition: these specs depend on created_at order'
     end
 
-    it 'returns a handle to the export file' do
-      expect(result).to be_a(File)
-      expect(result.path).to eq(expected_filename)
+    it 'returns a Tempfile' do
+      expect(result).to be_a(Tempfile)
     end
 
-    it 'tells us that it’s outputing invoices CSV' do
-      expect(log_output.string).to include("Exporting invoices to #{expected_filename}")
+    it 'tells us that it’s outputing invoices' do
+      expect(log_output.string).to include('Exporting invoices')
     end
 
     it 'writes a header for the invoices export' do
@@ -196,7 +188,6 @@ RSpec.describe Export::Relation do
 
   context 'given the Export::Contracts::Extract.all_relevant Relation' do
     let(:relation) { Export::Contracts::Extract.all_relevant }
-    let(:expected_filename) { '/tmp/contracts_20181225_153012.csv' }
 
     let!(:complete_submission) do
       create :submission,
@@ -223,13 +214,12 @@ RSpec.describe Export::Relation do
                                      'precondition: these specs depend on created_at order'
     end
 
-    it 'returns a handle to the export file' do
-      expect(result).to be_a(File)
-      expect(result.path).to eq(expected_filename)
+    it 'returns a Tempfile' do
+      expect(result).to be_a(Tempfile)
     end
 
     it 'tells us that it’s outputing contracts CSV' do
-      expect(log_output.string).to include("Exporting contracts to #{expected_filename}")
+      expect(log_output.string).to include('Exporting contracts')
     end
 
     it 'writes a header for the contracts export' do

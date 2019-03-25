@@ -13,10 +13,10 @@ module Export
         return
       end
 
-      log "Exporting #{model_plural} to #{filename}"
-      File.new(filename, 'w+').tap do |file|
+      log "Exporting #{model_plural}"
+      Tempfile.new([model_plural, '.csv']).tap do |file|
         export_class.new(@relation, file).run
-        file.close
+        file.rewind
       end
     end
 
@@ -40,14 +40,6 @@ module Export
 
     def model_plural
       model_classname.to_s.downcase.pluralize
-    end
-
-    def filename
-      "/tmp/#{model_plural}_#{timestamp}.csv"
-    end
-
-    def timestamp
-      Time.zone.now.strftime('%Y%m%d_%H%M%S')
     end
 
     def log(message)

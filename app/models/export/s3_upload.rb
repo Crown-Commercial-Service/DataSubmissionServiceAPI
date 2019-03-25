@@ -5,15 +5,15 @@ module Export
     # This should be set to true in TEST mode to enable AWS SDK response stubbing
     cattr_accessor :test_mode
 
-    attr_reader :files, :logger
+    attr_reader :file_map, :logger
 
-    def initialize(files, logger = Rails.logger)
-      @files = Array(files)
+    def initialize(file_map, logger = Rails.logger)
+      @file_map = file_map
       @logger = logger
     end
 
     def perform
-      files.each { |file| upload(file) }
+      file_map.each_pair { |filename, file| upload(filename, file) }
     end
 
     def client
@@ -22,8 +22,7 @@ module Export
 
     private
 
-    def upload(file)
-      filename = File.basename(file.path)
+    def upload(filename, file)
       logger.info "Uploading #{filename} to #{bucket_name} on S3"
       client.put_object(body: file, key: filename, bucket: bucket_name)
     end

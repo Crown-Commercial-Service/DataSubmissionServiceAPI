@@ -14,12 +14,12 @@ class DataWarehouseExport < ApplicationRecord
   end
 
   def generate_files
-    [
-      Export::Relation.new(Export::Tasks::Extract.all_relevant(date_range)).run,
-      Export::Relation.new(Export::Submissions::Extract.all_relevant(date_range)).run,
-      Export::Relation.new(Export::Invoices::Extract.all_relevant(date_range)).run,
-      Export::Relation.new(Export::Contracts::Extract.all_relevant(date_range)).run
-    ].compact
+    {
+      "tasks_#{timestamp}.csv" => tasks_export_file,
+      "submissions_#{timestamp}.csv" => submissions_export_file,
+      "invoices_#{timestamp}.csv" => invoices_export_file,
+      "contracts_#{timestamp}.csv" => contracts_export_file
+    }.compact
   end
 
   def date_range
@@ -28,9 +28,29 @@ class DataWarehouseExport < ApplicationRecord
 
   private
 
+  def tasks_export_file
+    Export::Relation.new(Export::Tasks::Extract.all_relevant(date_range)).run
+  end
+
+  def submissions_export_file
+    Export::Relation.new(Export::Submissions::Extract.all_relevant(date_range)).run
+  end
+
+  def invoices_export_file
+    Export::Relation.new(Export::Invoices::Extract.all_relevant(date_range)).run
+  end
+
+  def contracts_export_file
+    Export::Relation.new(Export::Contracts::Extract.all_relevant(date_range)).run
+  end
+
   def set_date_range
     self.range_from ||= last_export_date || EARLIEST_RANGE_FROM
     self.range_to   ||= Time.zone.now
+  end
+
+  def timestamp
+    range_to.strftime('%Y%m%d_%H%M%S')
   end
 
   def last_export_date
