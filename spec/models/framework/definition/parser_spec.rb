@@ -51,6 +51,15 @@ RSpec.describe Framework::Definition::Parser do
     it { is_expected.to parse('0.0%') }
   end
 
+  describe '#range' do
+    subject { parser.range }
+
+    it { is_expected.to parse('5').as(range: { integer: '5' }) }
+    it { is_expected.to parse('1..5').as(range: { min: { integer: '1' }, max: { integer: '5' } }) }
+    it { is_expected.to parse('..5').as(range: { min: { integer: [] }, max: { integer: '5' } }) }
+    it { is_expected.to parse('1..').as(range: { min: { integer: '1' }, max: { integer: [] } }) }
+  end
+
   describe '#management_charge' do
     subject { parser.management_charge }
 

@@ -62,6 +62,8 @@ class Framework
       rule(:integer)    { match(/[0-9]/).repeat.as(:integer) >> space? }
       rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) >> space? }
       rule(:percentage) { (decimal | integer) >> str('%') }
+      rule(:range)      { (range_exp | integer).as(:range) }
+      rule(:range_exp)  { integer.as(:min).maybe >> str('..') >> integer.as(:max).maybe }
 
       rule(:space)   { match(/\s/).repeat(1) }
       rule(:space?)  { space.maybe }
