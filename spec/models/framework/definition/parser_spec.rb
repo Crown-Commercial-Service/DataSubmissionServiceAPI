@@ -54,7 +54,7 @@ RSpec.describe Framework::Definition::Parser do
   describe '#range' do
     subject { parser.range }
 
-    it { is_expected.to parse('5').as(range: { integer: '5' }) }
+    it { is_expected.to parse('5').as(range: { is: { integer: '5' } }) }
     it { is_expected.to parse('1..5').as(range: { min: { integer: '1' }, max: { integer: '5' } }) }
     it { is_expected.to parse('..5').as(range: { min: { integer: [] }, max: { integer: '5' } }) }
     it { is_expected.to parse('1..').as(range: { min: { integer: '1' }, max: { integer: [] } }) }
@@ -263,7 +263,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'field with String length' do
       it {
         is_expected.to parse("String(5) from 'Somewhere'", trace: true).as(
-          type_def: { primitive: 'String', range: { integer: '5' } }, from: { string: 'Somewhere' }
+          type_def: { primitive: 'String', range: { is: { integer: '5' } } }, from: { string: 'Somewhere' }
         )
       }
 

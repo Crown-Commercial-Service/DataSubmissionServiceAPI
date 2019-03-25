@@ -18,6 +18,8 @@ class Framework
             set_optional_modifiers! if field.optional?
 
             add_inclusion_validators(lookup_values)
+            set_length_options!
+
             options
           end
 
@@ -26,6 +28,10 @@ class Framework
           def add_inclusion_validators(lookup_values)
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
             options[:dependent_field_inclusion] =  { parent: field.dependent_field, in: { field.dependent_field => field.dependent_field_inclusion_values } } if field.dependent_field_inclusion?
+          end
+
+          def set_length_options!
+            options[:length] = field.length_options if field.length_options.any?
           end
 
           def no_presence_required?
