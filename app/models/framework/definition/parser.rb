@@ -36,7 +36,8 @@ class Framework
       rule(:additional_field)     { optional >> type_def >> space >> additional_field_identifier.as(:field) >> from_specifier }
       rule(:unknown_field)        { optional >> primitive_type_def.as(:type_def) >> space >> from_specifier }
       rule(:type_def)             { (primitive_type_def | pascal_case_identifier.as(:lookup)).as(:type_def) }
-      rule(:primitive_type_def)   { (str('String') | str('Date') | str('Integer') | str('Decimal') | str('YesNo')).as(:primitive) }
+      rule(:primitive_type_def)   { string_def | (str('Date') | str('Integer') | str('Decimal') | str('YesNo')).as(:primitive) }
+      rule(:string_def)           { str('String').as(:primitive) >> parenthesised(range).maybe }
       rule(:from_specifier)       { spaced(str('from')) >> string.as(:from) }
       rule(:optional)             { spaced(str('optional').as(:optional).maybe) }
 
@@ -59,8 +60,8 @@ class Framework
         ).repeat.as(:string) >> str("'") >> space?
       end
 
-      rule(:integer)    { match(/[0-9]/).repeat.as(:integer) >> space? }
-      rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) >> space? }
+      rule(:integer)    { match(/[0-9]/).repeat.as(:integer) }
+      rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) }
       rule(:percentage) { (decimal | integer) >> str('%') }
       rule(:range)      { (range_exp | integer).as(:range) }
       rule(:range_exp)  { integer.as(:min).maybe >> str('..') >> integer.as(:max).maybe }
@@ -70,6 +71,8 @@ class Framework
 
       rule(:lbrace)  { str('{') >> space? }
       rule(:rbrace)  { str('}') >> space? }
+      rule(:lparen)  { str('(') }
+      rule(:rparen)  { str(')') }
       rule(:lsquare) { str('[') >> space? }
       rule(:rsquare) { str(']') >> space? }
 
@@ -92,6 +95,13 @@ class Framework
       # lsquare >> atom 1 >> atom2 >> rsquare in most situations.
       def square_bracketed(atom)
         lsquare >> atom >> rsquare
+      end
+
+      ##
+      # parenthesised(atom1 >> atom 2) reads better than
+      # lparen >> atom 1 >> atom2 >> rparen in most situations.
+      def parenthesised(atom)
+        lparen >> atom >> rparen
       end
     end
   end

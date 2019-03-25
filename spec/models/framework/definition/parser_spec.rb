@@ -156,6 +156,20 @@ RSpec.describe Framework::Definition::Parser do
         )
       }
     end
+
+    context 'a String type_def' do
+      context 'simple' do
+        it { is_expected.to parse('String').as(type_def: { primitive: 'String' }) }
+      end
+
+      context 'with a range' do
+        it {
+          is_expected.to parse('String(1..5)').as(
+            type_def: { primitive: 'String', range: { min: { integer: '1' }, max: { integer: '5' } } }
+          )
+        }
+      end
+    end
   end
 
   describe '#known_field' do
@@ -244,6 +258,16 @@ RSpec.describe Framework::Definition::Parser do
           optional: 'optional', type_def: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
+    end
+
+    context 'field with String length' do
+      it {
+        is_expected.to parse("String(5) from 'Somewhere'", trace: true).as(
+          type_def: { primitive: 'String', range: { integer: '5' } }, from: { string: 'Somewhere' }
+        )
+      }
+
+      example { expect(parser.range).not_to parse('1..10   ') }
     end
   end
 
