@@ -1,0 +1,11 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Errors to correct
+
+    - @submission.sheet_errors.each_pair do |sheet_name, errors|
+      = render('errors_table', errors: errors, sheet_name: sheet_name) if errors.any?
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    = link_to 'Back', admin_supplier_path(@submission.supplier), { class: 'govuk-back-link', title: 'Back to supplier' }

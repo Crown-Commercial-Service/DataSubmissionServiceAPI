@@ -56,6 +56,13 @@ class V1::TasksController < APIController
     end
   end
 
+  def cancel_correction
+    task = current_user.tasks.find(params[:id])
+    task.cancel_correction!
+
+    render jsonapi: task
+  end
+
   private
 
   def task_params

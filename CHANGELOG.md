@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-60] - 2019-03-25
+
+- FDL: Add ContractFields class for RM3772
+- Incomplete correction submission available to FE
+- Incomplete correction can be cancelled
+- FDL: Validators favour case-insensitive inclusion
+- Admins can view submission errors
+
 ## [release-59] - 2019-03-20
 
 - Rename two suppliers on RM1070 and RM1043.5
@@ -387,6 +395,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-60]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-59...release-60
 [release-59]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-58...release-59
 [release-58]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-57...release-58
 [release-57]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-56...release-57

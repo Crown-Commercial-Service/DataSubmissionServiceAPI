@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       member do
         post :complete
         post :no_business
+        patch :cancel_correction
       end
     end
 
@@ -77,6 +78,7 @@ Rails.application.routes.draw do
         put :activate
         put :deactivate
       end
+      resources :submissions, only: %i[show]
     end
 
     resources :notify_downloads, only: %i[index show]

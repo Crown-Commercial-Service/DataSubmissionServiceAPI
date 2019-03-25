@@ -232,6 +232,26 @@ RSpec.describe Framework::Definition::Parser do
     end
   end
 
+  describe '#contract_fields' do
+    subject(:rule) { parser.contract_fields }
+
+    let(:fields) do
+      <<~FDL.strip
+        ContractFields {
+          String Additional1 from 'Somewhere'
+        }
+      FDL
+    end
+
+    it 'has whatever fields are in the block' do
+      expect(rule).to parse(fields).as(
+        contract_fields: [
+          { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Somewhere' } },
+        ]
+      )
+    end
+  end
+
   describe '#lookups_block' do
     subject(:rule) { parser.lookups_block }
 

@@ -102,6 +102,9 @@ RSpec.describe '/v1' do
 
     context 'when there is a completed submission against the task' do
       let!(:old_submission) { FactoryBot.create(:submission, task: task, aasm_state: 'completed') }
+      before do
+        task.completed!
+      end
 
       context 'and it is not a correction' do
         it 'does not create a new submission' do

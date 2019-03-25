@@ -7,4 +7,18 @@ RSpec.describe Export::Tasks::Row do
       expect(row.year_and_month).to eql('2018-08')
     end
   end
+
+  describe '#status' do
+    it 'reports "correcting" as "completed"' do
+      row = Export::Tasks::Row.new(FactoryBot.build(:task, status: 'correcting'))
+      expect(row.status).to eql('completed')
+    end
+
+    (Task.aasm.states.map(&:name) - [:correcting]).each do |state|
+      it "reports \"#{state}\" as \"#{state}\"" do
+        row = Export::Tasks::Row.new(FactoryBot.build(:task, status: state))
+        expect(row.status).to eql(state.to_s)
+      end
+    end
+  end
 end

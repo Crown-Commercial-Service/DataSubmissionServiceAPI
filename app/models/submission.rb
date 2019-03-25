@@ -1,4 +1,6 @@
 class Submission < ApplicationRecord
+  ERRORED_ROW_LIMIT = 10
+
   include AASM
 
   belongs_to :framework
@@ -90,6 +92,10 @@ class Submission < ApplicationRecord
     entries.orders.sum(:total_value)
   end
 
+  def sheet_errors
+    Hash[sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
+  end
+
   private
 
   def enqueue_reversal_invoice_creation_job
@@ -98,5 +104,15 @@ class Submission < ApplicationRecord
 
   def create_reversal_invoice?
     invoice.present? && ENV['SUBMIT_INVOICES']
+  end
+
+  def errors_for(sheet_name)
+    entries
+      .sheet(sheet_name)
+      .errored
+      .ordered_by_row
+      .limit(ERRORED_ROW_LIMIT)
+      .pluck(:validation_errors)
+      .flatten
   end
 end

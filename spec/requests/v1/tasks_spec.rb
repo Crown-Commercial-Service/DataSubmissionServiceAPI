@@ -327,4 +327,37 @@ RSpec.describe '/v1' do
       expect(task).to be_in_progress
     end
   end
+
+  describe 'PATCH /v1/tasks/:task_id/cancel_correction' do
+    it 'deletes incomplete correction submissions and updates the task status' do
+      task = FactoryBot.create(:task, supplier: supplier, status: 'correcting')
+      old_submission_completed = FactoryBot.create(:completed_submission,
+                                                   task: task,
+                                                   created_at: 3.days.ago,
+                                                   aasm_state: 'completed')
+      FactoryBot.create(:submission_with_invalid_entries,
+                        task: task,
+                        created_at: 2.days.ago)
+      FactoryBot.create(:submission_with_validated_entries,
+                        task: task,
+                        created_at: 1.day.ago,
+                        aasm_state: 'in_review')
+
+      patch "/v1/tasks/#{task.id}/cancel_correction", headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+
+      expect(response).to be_successful
+
+      task.reload
+
+      expect(task).to be_completed
+      expect(task.submissions).to eq([old_submission_completed])
+    end
+
+    it 'returns an error if attempting to do this on a non correcting task' do
+      task = FactoryBot.create(:task, supplier: supplier, status: 'completed')
+      expect do
+        patch "/v1/tasks/#{task.id}/cancel_correction", headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+      end.to raise_error(AASM::InvalidTransition)
+    end
+  end
 end
