@@ -31,7 +31,7 @@ class Framework
           def no_presence_required?
             # Validators like UrnValidator and the case_insensitive_inclusion used for
             # YesNo fields don't require an accompanying +presence: true+
-            %i[urn yesno].include?(field.primitive_type) || field.lookup? || field.dependent_field_inclusion?
+            %i[urn yesno].include?(field.primitive_type)
           end
 
           def set_optional_modifiers!
