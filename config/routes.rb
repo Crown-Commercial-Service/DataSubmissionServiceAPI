@@ -78,6 +78,7 @@ Rails.application.routes.draw do
         put :activate
         put :deactivate
       end
+      resources :submissions, only: %i[show]
     end
 
     resources :notify_downloads, only: %i[index show]

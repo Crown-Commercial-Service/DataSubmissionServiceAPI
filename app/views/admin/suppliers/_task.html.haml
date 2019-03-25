@@ -11,8 +11,11 @@
     %td.govuk-table__cell
       - if task.active_submission.files.any? && task.active_submission.files.first.file.attached?
         = link_to 'Download submission file', rails_blob_url(task.active_submission.files.first.file)
+    %td.govuk-table__cell
+      = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
   - else
     %td.govuk-table__cell
     %td.govuk-table__cell
       = task.status.titlecase
+    %td.govuk-table__cell
     %td.govuk-table__cell
