@@ -12,7 +12,7 @@ RSpec.feature 'Admin users can' do
     sign_in_as_admin
   end
 
-  scenario 'view a paged list of suppliers' do
+  scenario 'view the submission errors for a supplier`s task' do
     visit admin_suppliers_path
     click_link 'First Supplier'
     click_link 'View'
