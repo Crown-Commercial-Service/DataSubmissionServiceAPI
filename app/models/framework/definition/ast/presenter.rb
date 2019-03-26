@@ -28,6 +28,8 @@ class Framework
 
         def field_by_name(entry_type, name)
           field_def = field_defs(entry_type).find { |f| f[:field] == name }
+          raise ArgumentError, "No #{entry_type} field '#{name}' found" unless field_def
+
           Field.new(field_def, lookups)
         end
       end

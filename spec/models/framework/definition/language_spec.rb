@@ -265,6 +265,49 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'an RM6060-like framework (so we can test min/max field lengths)' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5%
+             InvoiceFields {
+              InvoiceValue from 'Somewhere'
+              String(..6) from 'Up to 6 chars'
+              String(3..) from 'Over 3 chars'
+              String(5) from 'Exactly 5 chars'
+              String(4..8) from 'Between 4 and 8 chars'
+            }
+          }
+        FDL
+      end
+
+      describe 'the invoice fields' do
+        subject { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Over 3 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { minimum: 3 })
+        }
+        it {
+          is_expected.to have_field('Up to 6 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { maximum: 6 })
+        }
+        it {
+          is_expected.to have_field('Exactly 5 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { is: 5 })
+        }
+        it {
+          is_expected.to have_field('Between 4 and 8 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { minimum: 4, maximum: 8 })
+        }
+      end
+    end
+
     context 'RM3772 – first ContractFields-using framework' do
       let(:source) do
         File.read('app/models/framework/definition/RM3772.fdl')

@@ -112,3 +112,11 @@ Naming/MemoizedInstanceVariableName:
 Lint/UnderscorePrefixedVariableName:
     Exclude:
         - 'app/models/framework/definition/transpiler.rb'
+
+Metrics/CyclomaticComplexity:
+    Exclude:
+        - 'app/models/framework/definition/ast/field.rb'
+
+Metrics/PerceivedComplexity:
+    Exclude:
+        - 'app/models/framework/definition/ast/field.rb'

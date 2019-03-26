@@ -72,6 +72,7 @@ RSpec.describe Framework::Definition::AST::Field do
       let(:source) { "optional Date Additional10 from 'Lease Start Date'" }
 
       it      { is_expected.not_to be_lookup }
+      example { expect(field.source_type).to eql('Date') }
       example { expect(field.primitive_type).to eql(:date) }
     end
 
@@ -83,7 +84,33 @@ RSpec.describe Framework::Definition::AST::Field do
         expect(field.lookup_name).to eql('PaymentProfile')
       end
       it 'always treats lookups types as :string' do
+        expect(field.source_type).to eql('PaymentProfile')
         expect(field.primitive_type).to eql(:string)
+      end
+    end
+
+    describe '#length_options' do
+      subject { field.length_options }
+
+      context 'minimum length' do
+        let(:source) { "String(3..) Additional2 from 'Payment Profile'" }
+        it { is_expected.to eq(minimum: 3) }
+        example { expect(field.source_type).to eql('String') }
+      end
+
+      context 'maximum length' do
+        let(:source) { "String(..8) Additional2 from 'Payment Profile'" }
+        it { is_expected.to eq(maximum: 8) }
+      end
+
+      context 'exact length' do
+        let(:source) { "String(5) Additional2 from 'Payment Profile'" }
+        it { is_expected.to eq(is: 5) }
+      end
+
+      context 'with a min and a max' do
+        let(:source) { "String(5..10) Additional2 from 'Payment Profile'" }
+        it { is_expected.to eq(in: 5..10) }
       end
     end
   end
@@ -92,6 +119,7 @@ RSpec.describe Framework::Definition::AST::Field do
     let(:source) { "optional String from 'Cost Centre'" }
 
     it      { is_expected.not_to be_lookup }
+    example { expect(field.source_type).to eql('String') }
     example { expect(field.primitive_type).to eql(:string) }
   end
 end
