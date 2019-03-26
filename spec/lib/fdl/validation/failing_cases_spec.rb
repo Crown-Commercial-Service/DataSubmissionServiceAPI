@@ -220,7 +220,7 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
 
     context 'various optional fields' do
       let(:data) { { 'Lot Number' => 6, 'Parts Cost' => 442301 } }
-      
+
       it do
         is_expected.to be_empty
       end

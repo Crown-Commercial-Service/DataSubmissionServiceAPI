@@ -14,7 +14,7 @@ Framework CM/OSG/05/3565 {
     optional ProductCode from 'Item Code'
 
     optional String Additional1 from 'Manufacturers Product Code'
-    String Additional2 from 'Unit Quantity'
+    optional String Additional2 from 'Unit Quantity'
 
     UnitPrice from 'Price per Item'
     UnitType from 'Unit of Purchase'
