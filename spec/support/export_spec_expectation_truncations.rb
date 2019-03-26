@@ -1,4 +1,4 @@
-# Export spec failures truncate their buffer to 14.
+# Export spec and FDL validations failures truncate their buffer to 14.
 # This isn't good on long CSV lines.
 # Make it bigger for our export specs.
 
@@ -18,7 +18,7 @@ module ExporterExampleGroup
 end
 
 RSpec.configure do |config|
-  config.define_derived_metadata(file_path: %r{/spec/lib/tasks/export}) do |metadata|
+  config.define_derived_metadata(file_path: %r{/spec/lib/(tasks/export|fdl/validation)}) do |metadata|
     metadata[:exporter_spec] = true
   end
 

@@ -4,9 +4,10 @@ class Framework
       # This transform exists for the express purpose of creating an AST for generating
       # an ActiveModel class with validations for a Framework
       class Creator < Parslet::Transform
-        rule(string: simple(:s))  { String(s) }
-        rule(decimal: simple(:d)) { BigDecimal(d) }
-        rule(integer: simple(:i)) { Integer(i) }
+        rule(string: simple(:s))           { String(s) }
+        rule(lookup_reference: simple(:r)) { String(r) }
+        rule(decimal: simple(:d))          { BigDecimal(d) }
+        rule(integer: simple(:i))          { Integer(i) }
 
         rule(primitive: simple(:primitive)) { primitive }
         rule(lookup: simple(:lookup))       { lookup }
@@ -15,6 +16,9 @@ class Framework
         rule(field: simple(:field), from: simple(:from)) { { kind: :known, field: field.to_s, from: from.to_s } }
         rule(optional: simple(:optional), field: simple(:field), from: simple(:from)) do
           { kind: :known, optional: true, field: field.to_s, from: from.to_s }
+        end
+        rule(field: simple(:field), from: simple(:from), depends_on: subtree(:depends_on)) do
+          { kind: :known, field: field.to_s, from: from.to_s, depends_on: depends_on }
         end
 
         # optional Additional field rule

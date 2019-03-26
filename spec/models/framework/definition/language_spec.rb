@@ -287,6 +287,35 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'RM6060 - Vehicle Purchase' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM6060.fdl')
+      end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+        let(:mappings) do
+          {
+            'Lot Number' =>
+             {
+               '1' => invoice_class.lookups['Lot1Segment'],
+               '2' => invoice_class.lookups['Lot2Segment'],
+               '3' => invoice_class.lookups['Lot3Segment'],
+               '4' => invoice_class.lookups['Lot4Segment'],
+               '5' => invoice_class.lookups['Lot5Segment'],
+               '6' => invoice_class.lookups['Lot6Segment'],
+               '7' => invoice_class.lookups['Lot7Segment']
+             }
+          }
+        end
+
+        it {
+          is_expected.to have_field('Vehicle Segment')
+            .validated_by(dependent_field_inclusion: { parent: 'Lot Number', in: mappings })
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
