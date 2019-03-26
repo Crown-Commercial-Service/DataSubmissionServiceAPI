@@ -31,7 +31,9 @@ class Framework
           def no_presence_required?
             # Validators like UrnValidator and the case_insensitive_inclusion used for
             # YesNo fields don't require an accompanying +presence: true+
-            %i[urn yesno].include?(field.primitive_type)
+            # IngestedNumericality validator treats nil as an error so should
+            # have +allow_nil: true+ for optional fields, not +presence: true+ for mandatory fields
+            %i[urn yesno decimal integer date].include?(field.primitive_type) || field.lookup? || field.dependent_field_inclusion?
           end
 
           def set_optional_modifiers!

@@ -43,4 +43,11 @@ RSpec.describe IngestedNumericalityValidator do
     expect(instance).not_to be_valid
     expect(instance.errors['test'].first).to eq 'is not a number'
   end
+
+  it 'does not validate values that are nil' do
+    instance = entry_data_class.new(SubmissionEntry.new(data: { 'test' => nil }))
+
+    expect(instance).not_to be_valid
+    expect(instance.errors['test'].first).to eq 'is not a number'
+  end
 end
