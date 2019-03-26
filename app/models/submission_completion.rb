@@ -8,7 +8,7 @@ class SubmissionCompletion
 
   def perform!
     ActiveRecord::Base.transaction do
-      mark_completed_submission_as_replaced!
+      mark_completed_submission_as_replaced!(user)
 
       submission.reviewed_and_accepted! do
         submission.submitted_by = user
@@ -29,7 +29,7 @@ class SubmissionCompletion
     !submission.report_no_business? && submission.total_spend != 0 && ENV['SUBMIT_INVOICES']
   end
 
-  def mark_completed_submission_as_replaced!
-    submission.task.submissions.find_by(aasm_state: 'completed')&.mark_as_replaced!
+  def mark_completed_submission_as_replaced!(user)
+    submission.task.submissions.find_by(aasm_state: 'completed')&.mark_as_replaced!(user)
   end
 end
