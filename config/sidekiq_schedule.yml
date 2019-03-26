@@ -6,3 +6,7 @@ monthly_tasks_generation:
   cron: '0 2 1 * *'
   class: 'MonthlyTasksGenerationJob'
   queue: default
+daily_data_warehouse_export:
+  cron: '0 23 0 0 0'
+  class: DataWarehouseExportJob
+  queue: default

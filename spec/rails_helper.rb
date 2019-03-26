@@ -27,6 +27,9 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+# Run Export::S3Upload in test mode so responses can be stubbed
+Export::S3Upload.test_mode = true
+
 RSpec.configure do |config|
   config.include Auth0Helpers
   config.include BankHolidaysHelpers

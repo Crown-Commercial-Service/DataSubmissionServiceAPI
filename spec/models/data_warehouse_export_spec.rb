@@ -32,15 +32,29 @@ RSpec.describe DataWarehouseExport do
     let(:framework) { create(:framework, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
-
-    before do
-      FileUtils.rm Dir.glob('/tmp/*2018-01-01.csv')
-    end
+    let(:s3_export_upload) { spy('s3_upload') }
 
     around do |example|
       travel_to Date.new(2018, 1, 1) do
-        example.run
+        ClimateControl.modify AWS_S3_EXPORT_BUCKET: 'test-bucket' do
+          example.run
+        end
       end
+    end
+
+    it 'uploads the generated files to S3' do
+      allow(Export::S3Upload).to receive(:new).and_return(s3_export_upload)
+      expected_file_map = {
+        'tasks_20180101_000000.csv' => a_kind_of(Tempfile),
+        'submissions_20180101_000000.csv' => a_kind_of(Tempfile),
+        'invoices_20180101_000000.csv' => a_kind_of(Tempfile),
+        'contracts_20180101_000000.csv' => a_kind_of(Tempfile)
+      }
+
+      DataWarehouseExport.generate!
+
+      expect(Export::S3Upload).to have_received(:new).with expected_file_map
+      expect(s3_export_upload).to have_received(:perform)
     end
 
     it 'returns a persisted DataWarehouseExport instance with the expected range' do
@@ -49,10 +63,36 @@ RSpec.describe DataWarehouseExport do
       expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
       expect(export.range_to).to eq Date.new(2018, 1, 1)
     end
+  end
+
+  describe '#generate_files', truncation: true do
+    let(:framework) { create(:framework, short_name: 'RM3786') }
+    let!(:submission) { create(:completed_submission, framework: framework) }
+    let!(:task) { submission.task }
+    let(:export) { DataWarehouseExport.create }
+
+    subject!(:generated_files) { export.generate_files }
+
+    around do |example|
+      travel_to Date.new(2018, 1, 1) do
+        example.run
+      end
+    end
+
+    it 'returns a hash the generated exports, with the expected export filename as the keys' do
+      expected_filenames = [
+        'tasks_20180101_000000.csv',
+        'submissions_20180101_000000.csv',
+        'invoices_20180101_000000.csv',
+        'contracts_20180101_000000.csv'
+      ]
+
+      expect(generated_files.values).to all(be_a Tempfile)
+      expect(generated_files.keys).to match_array(expected_filenames)
+    end
 
     it 'generates the tasks export' do
-      DataWarehouseExport.generate!
-      export_lines = File.readlines('/tmp/tasks_2018-01-01.csv')
+      export_lines = generated_files.fetch('tasks_20180101_000000.csv').read.split("\n")
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Tasks::HEADER.join(',')
@@ -60,8 +100,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the submissions export' do
-      DataWarehouseExport.generate!
-      export_lines = File.readlines('/tmp/submissions_2018-01-01.csv')
+      export_lines = generated_files.fetch('submissions_20180101_000000.csv').read.split("\n")
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Submissions::HEADER.join(',')
@@ -69,8 +108,7 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the invoices export' do
-      DataWarehouseExport.generate!
-      export_lines = File.readlines('/tmp/invoices_2018-01-01.csv')
+      export_lines = generated_files.fetch('invoices_20180101_000000.csv').read.split("\n")
 
       expect(export_lines.size).to eq 3
       expect(export_lines[0]).to match Export::Invoices::HEADER.join(',')
@@ -78,12 +116,23 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'generates the contracts export' do
-      DataWarehouseExport.generate!
-      export_lines = File.readlines('/tmp/contracts_2018-01-01.csv')
+      export_lines = generated_files.fetch('contracts_20180101_000000.csv').read.split("\n")
 
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Contracts::HEADER.join(',')
       expect(export_lines[1..2]).to all(match submission.id)
+    end
+
+    context 'when only a subset of models have actually changed' do
+      let!(:submission) { create(:no_business_submission, framework: framework) }
+
+      it 'only returns file handles for the exports that have been generated' do
+        expected_filenames = ['tasks_20180101_000000.csv', 'submissions_20180101_000000.csv']
+
+        expect(generated_files.keys).to match_array(expected_filenames)
+        expect(generated_files.values).to all(be_a Tempfile)
+        expect(generated_files.keys).to match_array(expected_filenames)
+      end
     end
   end
 end

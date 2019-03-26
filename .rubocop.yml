@@ -52,6 +52,9 @@ Style/WordArray:
 Style/ClassAndModuleChildren:
     Enabled: false
 
+Style/ClassCheck:
+    Enabled: false
+
 Layout/AlignHash:
     Enabled: false
 
