@@ -34,7 +34,7 @@ RSpec.describe Framework::Definition::RM1070 do
         'VAT amount charged' => 0.2,
         'Invoice Line Number' => 1,
         'eAuction Contract No' => 'N/A',
-        'Customer Invoice Date' => '9/11/18',
+        'Customer Invoice Date' => '09/11/2018',
         'Customer Organisation' => 'Avon & Somerset [Police]',
         'Customer Support Terms' => 40,
         'Vehicle Trim/Derivative' => 'Astra 5 Dr Sports Tourer Police 1.6Cdti (136Ps) S/S 6 Speed',
@@ -78,11 +78,11 @@ RSpec.describe Framework::Definition::RM1070 do
 
     describe '"Customer Invoice Date" field' do
       it 'validates as an ingested date field' do
-        ['9/14/18', '9/10/17', '12/10/2018', '30/10/2019'].each do |valid_date_string|
+        ['12/8/2018', '3/10/2019', '20/10/2019'].each do |valid_date_string|
           expect(invoice_from_params('Customer Invoice Date' => valid_date_string)).to be_valid
         end
 
-        ['13/10/18', '12/20/2018', 'Bob'].each do |bad_date_string|
+        ['9/14/18', '13/10/18', '12/20/2018', 'Bob'].each do |bad_date_string|
           invoice = invoice_from_params('Customer Invoice Date' => bad_date_string)
           expect(invoice).not_to be_valid
           expect(invoice.errors['Customer Invoice Date'].first)

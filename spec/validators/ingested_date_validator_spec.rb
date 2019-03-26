@@ -21,10 +21,10 @@ RSpec.describe IngestedDateValidator do
       end
     end
 
-    it 'validates MM/DD/YY date strings' do
+    it 'does not validate MM/DD/YY date strings' do
       ['9/10/18', '8/1/18', '2/28/17', '3/28/19'].each do |valid_date_string|
         instance = entry_data_class.new(SubmissionEntry.new(data: { 'An Ingested Date' => valid_date_string }))
-        expect(instance).to be_valid
+        expect(instance).not_to be_valid
       end
     end
 

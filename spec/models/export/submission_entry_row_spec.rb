@@ -52,7 +52,7 @@ RSpec.describe Export::SubmissionEntryRow do
     end
   end
 
-  describe '#format_date returning dates as ISO8601' do
+  describe '#formatted_date returning dates as ISO8601' do
     let(:row) { Export::SubmissionEntryRow.new(entry) }
     let(:entry) { double 'SubmissionEntry' }
 
