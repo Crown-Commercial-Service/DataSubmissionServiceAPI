@@ -109,7 +109,7 @@ class Framework
 
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
-        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true, presence: true
+        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Vehicle Registration Number', :string, exports_to: 'Additional1', presence: true, length: { maximum: 8 }
@@ -118,7 +118,7 @@ class Framework
         field 'Vehicle Model', :string, exports_to: 'Additional4', presence: true
         field 'Vehicle Trim/Derivative', :string, exports_to: 'Additional5', presence: true
         field 'Vehicle Segment', :string, exports_to: 'ProductGroup', dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Fuel Type', :string, exports_to: 'Additional6', presence: true, case_insensitive_inclusion: { in: FUEL_TYPES }
+        field 'Fuel Type', :string, exports_to: 'Additional6', case_insensitive_inclusion: { in: FUEL_TYPES }
         field 'CO2 Emissions', :string, exports_to: 'Additional7', ingested_numericality: true, allow_nil: true
         field 'MRP Excluding Options', :string, exports_to: 'Additional8', ingested_numericality: true
         field 'Customer Support Terms', :string, exports_to: 'Additional9', ingested_numericality: true
@@ -127,7 +127,7 @@ class Framework
         field 'Conversion Cost', :string, exports_to: 'Additional12', ingested_numericality: true
         field 'Parts Cost', :string, exports_to: 'Additional13', ingested_numericality: true
         field 'Total Vehicle Cost', :string, exports_to: 'InvoiceValue', ingested_numericality: true
-        field 'Leasing Company', :string, exports_to: 'Additional14', presence: true, case_insensitive_inclusion: { in: LEASING_COMPANIES }
+        field 'Leasing Company', :string, exports_to: 'Additional14', case_insensitive_inclusion: { in: LEASING_COMPANIES }
         field 'eAuction Contract Number', :string, exports_to: 'Additional15', presence: true, length: { maximum: 6 }
       end
     end

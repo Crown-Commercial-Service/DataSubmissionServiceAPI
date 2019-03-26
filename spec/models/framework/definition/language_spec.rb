@@ -42,8 +42,8 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['InvoiceValue']).to eq('Total Spend')
           end
 
-          it 'validates numericality and presence' do
-            expect(invoice_class).to have_field('Total Spend').validated_by(:presence, :ingested_numericality)
+          it 'validates numericality' do
+            expect(invoice_class).to have_field('Total Spend').validated_by(:ingested_numericality)
           end
 
           it 'is a string validate as a number' do
@@ -101,9 +101,9 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['InvoiceDate']).to eq('Customer Invoice Date')
           end
 
-          it 'is assumed to be present and a valid date' do
+          it 'is assumed to be a valid date' do
             expect(invoice_class).to have_field('Customer Invoice Date')
-              .validated_by(:presence, :ingested_date)
+              .validated_by(:ingested_date)
           end
         end
 
@@ -312,6 +312,11 @@ RSpec.describe Framework::Definition::Language do
         it {
           is_expected.to have_field('Vehicle Segment')
             .validated_by(dependent_field_inclusion: { parent: 'Lot Number', in: mappings })
+        }
+
+        it {
+          is_expected.to have_field('Additional Support Terms')
+            .validated_by(:ingested_numericality)
         }
       end
     end

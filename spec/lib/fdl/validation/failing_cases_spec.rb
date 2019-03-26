@@ -221,11 +221,8 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
     context 'various optional fields' do
       let(:data) { { 'Lot Number' => 6, 'Parts Cost' => 442301 } }
 
-      it 'has some outstanding errors that we know about, but these need to go away' do
-        # https://trello.com/c/mXblTePD/967-bug-fdl-original-rb-framework-comparisons-invalid
-        is_expected.to eql(
-          [['~', 'Customer Invoice/Credit Note Date', "can't be blank", 'must be in the format dd/mm/yyyy']]
-        )
+      it do
+        is_expected.to be_empty
       end
     end
   end
