@@ -29,7 +29,7 @@ RSpec.feature 'Adding a user' do
     fill_in 'Name', with: 'New User'
     fill_in 'Email address', with: 'new@example.com'
     click_button 'Add new user'
-    expect(page).to have_content('Email has already been taken')
+    expect(page).to have_content('Email address has already been taken')
   end
 
   scenario 'with Auth0 error' do
