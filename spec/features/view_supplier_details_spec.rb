@@ -22,7 +22,9 @@ RSpec.feature 'Viewing a supplier' do
   end
 
   scenario 'includes the details of a task’s submissions' do
-    task = FactoryBot.create(:task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework)
+    task = FactoryBot.create(
+      :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :in_progress
+    )
     submission = FactoryBot.create(
       :submission_with_validated_entries, supplier: supplier, framework: framework, task: task
     )
