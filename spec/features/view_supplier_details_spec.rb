@@ -29,7 +29,7 @@ RSpec.feature 'Viewing a supplier' do
     download_url = rails_blob_url(submission.files.first.file)
 
     visit admin_supplier_path(supplier)
-    expect(page).to have_content 'Pending'
+    expect(page).to have_content 'In Review'
     expect(page).to have_link 'Download submission file', href: download_url
   end
 
