@@ -1,5 +1,16 @@
 # Change Log
 
+## [release-61] - 2019-03-27
+
+- April onboarding part 1: add framework definitions to API
+- Daily generation and upload of data warehouse export to S3
+- FDL supports dependent field lookups
+- Correct sidekiq_schedule.yml
+- Add lots to new seeded frameworks
+- Fixed bug: FDL <-> Original RB framework comparisons invalid
+- FDL supports various field length validations
+- Record correction submitter in Workday reversal invoice and reversal invoice adjustment
+
 ## [release-60] - 2019-03-25
 
 - FDL: Add ContractFields class for RM3772
@@ -395,6 +406,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-61]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-60...release-61
 [release-60]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-59...release-60
 [release-59]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-58...release-59
 [release-58]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-57...release-58
