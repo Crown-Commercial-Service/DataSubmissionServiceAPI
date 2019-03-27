@@ -51,6 +51,15 @@ RSpec.describe Framework::Definition::Parser do
     it { is_expected.to parse('0.0%') }
   end
 
+  describe '#range' do
+    subject { parser.range }
+
+    it { is_expected.to parse('5').as(range: { is: { integer: '5' } }) }
+    it { is_expected.to parse('1..5').as(range: { min: { integer: '1' }, max: { integer: '5' } }) }
+    it { is_expected.to parse('..5').as(range: { min: { integer: [] }, max: { integer: '5' } }) }
+    it { is_expected.to parse('1..').as(range: { min: { integer: '1' }, max: { integer: [] } }) }
+  end
+
   describe '#management_charge' do
     subject { parser.management_charge }
 
@@ -147,6 +156,20 @@ RSpec.describe Framework::Definition::Parser do
         )
       }
     end
+
+    context 'a String type_def' do
+      context 'simple' do
+        it { is_expected.to parse('String').as(type_def: { primitive: 'String' }) }
+      end
+
+      context 'with a range' do
+        it {
+          is_expected.to parse('String(1..5)').as(
+            type_def: { primitive: 'String', range: { min: { integer: '1' }, max: { integer: '5' } } }
+          )
+        }
+      end
+    end
   end
 
   describe '#known_field' do
@@ -164,6 +187,32 @@ RSpec.describe Framework::Definition::Parser do
       it {
         is_expected.to parse("optional ProductGroup from 'Service Type'").as(
           optional: 'optional', field: 'ProductGroup', from: { string: 'Service Type' }
+        )
+      }
+    end
+
+    context 'with dependencies' do
+      let(:source) do
+        <<~FDL
+          ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
+              '1' -> Lot1Segment
+              '2' -> Lot2Segment
+            }
+        FDL
+      end
+      it {
+        is_expected.to parse(source).as(
+          field: 'ProductGroup',
+          from: { string: 'Vehicle Segment' },
+          depends_on: {
+            dependent_field: { string: 'Lot Number' },
+            values: {
+              dictionary: [
+                { key: { string: '1' }, value: { lookup_reference: 'Lot1Segment' } },
+                { key: { string: '2' }, value: { lookup_reference: 'Lot2Segment' } }
+              ]
+            }
+          }
         )
       }
     end
@@ -209,6 +258,16 @@ RSpec.describe Framework::Definition::Parser do
           optional: 'optional', type_def: { primitive: 'String' }, from: { string: 'Cost Centre' }
         )
       }
+    end
+
+    context 'field with String length' do
+      it {
+        is_expected.to parse("String(5) from 'Somewhere'", trace: true).as(
+          type_def: { primitive: 'String', range: { is: { integer: '5' } } }, from: { string: 'Somewhere' }
+        )
+      }
+
+      example { expect(parser.range).not_to parse('1..10   ') }
     end
   end
 

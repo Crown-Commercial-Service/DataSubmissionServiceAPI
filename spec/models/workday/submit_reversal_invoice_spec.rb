@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Workday::SubmitReversalInvoice do
   let(:user) { FactoryBot.create(:user, name: 'Forename Surname') }
+  let(:correcting_user) { FactoryBot.create(:user, name: 'ForenameR SurnameR') }
   let(:submission) do
     FactoryBot.create(:submission_with_negative_management_charge,
                       purchase_order_number: '123',
@@ -11,7 +12,7 @@ RSpec.describe Workday::SubmitReversalInvoice do
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
-  let(:request) { Workday::SubmitReversalInvoice.new(submission) }
+  let(:request) { Workday::SubmitReversalInvoice.new(submission, correcting_user) }
 
   before do
     commercial_agreements = double(
@@ -50,8 +51,8 @@ RSpec.describe Workday::SubmitReversalInvoice do
       expect(text_at_xpath('//ns0:Memo')).to eq "Submission ID: #{submission.id}"
     end
 
-    it 'sets Note_Data with the name of the user who submitted the Submission' do
-      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
+    it 'sets Note_Data with the name of the user who submitted the correction submission' do
+      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'ForenameR SurnameR'
     end
 
     it 'sets the invoice as submitted' do

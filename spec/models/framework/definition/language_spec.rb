@@ -42,8 +42,8 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['InvoiceValue']).to eq('Total Spend')
           end
 
-          it 'validates numericality and presence' do
-            expect(invoice_class).to have_field('Total Spend').validated_by(:presence, :ingested_numericality)
+          it 'validates numericality' do
+            expect(invoice_class).to have_field('Total Spend').validated_by(:ingested_numericality)
           end
 
           it 'is a string validate as a number' do
@@ -101,9 +101,9 @@ RSpec.describe Framework::Definition::Language do
             expect(invoice_class.export_mappings['InvoiceDate']).to eq('Customer Invoice Date')
           end
 
-          it 'is assumed to be present and a valid date' do
+          it 'is assumed to be a valid date' do
             expect(invoice_class).to have_field('Customer Invoice Date')
-              .validated_by(:presence, :ingested_date)
+              .validated_by(:ingested_date)
           end
         end
 
@@ -265,6 +265,49 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'an RM6060-like framework (so we can test min/max field lengths)' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5%
+             InvoiceFields {
+              InvoiceValue from 'Somewhere'
+              String(..6) from 'Up to 6 chars'
+              String(3..) from 'Over 3 chars'
+              String(5) from 'Exactly 5 chars'
+              String(4..8) from 'Between 4 and 8 chars'
+            }
+          }
+        FDL
+      end
+
+      describe 'the invoice fields' do
+        subject { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Over 3 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { minimum: 3 })
+        }
+        it {
+          is_expected.to have_field('Up to 6 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { maximum: 6 })
+        }
+        it {
+          is_expected.to have_field('Exactly 5 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { is: 5 })
+        }
+        it {
+          is_expected.to have_field('Between 4 and 8 chars')
+            .with_activemodel_type(:string)
+            .validated_by(length: { minimum: 4, maximum: 8 })
+        }
+      end
+    end
+
     context 'RM3772 – first ContractFields-using framework' do
       let(:source) do
         File.read('app/models/framework/definition/RM3772.fdl')
@@ -283,6 +326,40 @@ RSpec.describe Framework::Definition::Language do
 
         it {
           is_expected.to have_field('Customer PostCode').not_validated_by(:presence)
+        }
+      end
+    end
+
+    context 'RM6060 - Vehicle Purchase' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM6060.fdl')
+      end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+        let(:mappings) do
+          {
+            'Lot Number' =>
+             {
+               '1' => invoice_class.lookups['Lot1Segment'],
+               '2' => invoice_class.lookups['Lot2Segment'],
+               '3' => invoice_class.lookups['Lot3Segment'],
+               '4' => invoice_class.lookups['Lot4Segment'],
+               '5' => invoice_class.lookups['Lot5Segment'],
+               '6' => invoice_class.lookups['Lot6Segment'],
+               '7' => invoice_class.lookups['Lot7Segment']
+             }
+          }
+        end
+
+        it {
+          is_expected.to have_field('Vehicle Segment')
+            .validated_by(dependent_field_inclusion: { parent: 'Lot Number', in: mappings })
+        }
+
+        it {
+          is_expected.to have_field('Additional Support Terms')
+            .validated_by(:ingested_numericality)
         }
       end
     end

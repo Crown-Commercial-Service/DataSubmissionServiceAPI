@@ -12,26 +12,6 @@ namespace :export do
     end
   end
 
-  desc 'Export task entities to CSV'
-  task :tasks, [:output] => [:environment] do |_task, args|
-    Export::Anything.new(Export::Tasks::Extract.all_relevant, args[:output]).run
-  end
-
-  desc 'Export submission entities to CSV'
-  task :submissions, [:output] => [:environment] do |_task, args|
-    Export::Anything.new(Export::Submissions::Extract.all_relevant, args[:output]).run
-  end
-
-  desc 'Export invoice entities to CSV'
-  task :invoices, [:output] => [:environment] do |_task, args|
-    Export::Anything.new(Export::Invoices::Extract.all_relevant, args[:output]).run
-  end
-
-  desc 'Export contract entities to CSV'
-  task :contracts, [:output] => [:environment] do |_task, args|
-    Export::Anything.new(Export::Contracts::Extract.all_relevant, args[:output]).run
-  end
-
   desc 'Export coda finance report to CSV'
   task coda_finance_report: :environment do
     export_path = "/tmp/coda_finance_report_#{Time.zone.today}.csv"

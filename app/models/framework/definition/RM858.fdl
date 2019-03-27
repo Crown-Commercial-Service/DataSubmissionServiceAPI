@@ -23,7 +23,7 @@ Framework RM858 {
     InvoiceValue from 'Invoice Line Total Value ex VAT'
     VATIncluded from 'VAT Applicable'
     optional VATCharged from 'VAT Amount Charged'
-    PromotionCode from 'Spend Code'
+    optional PromotionCode from 'Spend Code'
     ProductGroup from 'Invoice Line Product / Service Grouping'
     optional ProductCode from 'CAP Code'
     optional ProductClass from 'Vehicle Make'

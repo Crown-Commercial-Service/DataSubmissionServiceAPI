@@ -25,7 +25,8 @@ class Framework
           'UNSPSC' => :integer,
           'VATCharged' => :decimal,
           'LotNumber' => :lot_number,
-          'PromotionCode' => :string
+          'PromotionCode' => :string,
+          'CustomerInvoiceDate' => :date
         }.freeze
 
         def self.type_for(value)

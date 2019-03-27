@@ -167,18 +167,63 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
           'Contract Number' => '99999'
         }
       end
-
-      it 'no longer behaves slightly differently to the Ruby now we use case-insensitive inclusion' do
-        expect(diff).to be_empty
-        # ... this is the question it raised:
-        # https://trello.com/c/CsjBwtkd/929-case-sensitive-vs-case-insensitive-inclusion-validators-what-should-we-do
-      end
     end
 
     context 'All the problems' do
       let(:data) { { 'Contract Number' => 'N/A' } }
 
       it { is_expected.to be_empty }
+    end
+  end
+
+  context 'Framework RM6060' do
+    let(:short_name) { 'RM6060' }
+    let(:supplier)   { create :supplier }
+    let(:entry)      { build(:submission_entry, submission: submission, data: data) }
+    let!(:agreement) { create :agreement, supplier: supplier, framework: framework }
+    let(:submission) { create :submission, supplier: supplier, framework: framework }
+    let(:framework)  { create :framework, short_name: short_name }
+    let!(:lot)       { create :framework_lot, number: 1, framework: framework }
+
+    context 'dependent field inclusion not working' do
+      let(:data) do
+        {
+          'Fuel Type' => 'Petrol',
+          'Lot Number' => 1,
+          'Parts Cost' => 0,
+          'Vehicle Make' => 'CAPTUR',
+          'CO2 Emissions' => 122,
+          'Vehicle Model' => 'Renault',
+          'Supplier Price' => 10026,
+          'Conversion Cost' => 0,
+          'Leasing Company' => 'Arnold Clark Vehicle Management',
+          'Vehicle Segment' => '4x4/SUV',
+          'Vehicle CAP Code' => 'N/A',
+          'Total Vehicle Cost' => 13925,
+          'MRP Excluding Options' => 13383.33,
+          'Customer Support Terms' => 28,
+          'Vehicle Trim/Derivative' => '3ICN T90',
+          'Additional Support Terms' => 0,
+          'eAuction Contract Number' => 'N/A',
+          'Customer Organisation Name' => 'London North West Healthcare NHS Trust',
+          'Vehicle Registration Number' => 'AX68XEF',
+          'Customer Invoice/Credit Note Date' => '1/22/19',
+          'Customer Invoice/Credit Note Number' => 'N/A',
+          'Customer Unique Reference Number (URN)' => 10042256
+        }
+      end
+
+      it do
+        is_expected.to be_empty
+      end
+    end
+
+    context 'various optional fields' do
+      let(:data) { { 'Lot Number' => 6, 'Parts Cost' => 442301 } }
+
+      it do
+        is_expected.to be_empty
+      end
     end
   end
 end

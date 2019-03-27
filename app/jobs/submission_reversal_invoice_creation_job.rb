@@ -6,13 +6,13 @@ class SubmissionReversalInvoiceCreationJob < ApplicationJob
   ## If the original management charge was positive,
   # the original request was an invoice,
   # and it needs to be cancelled out by an invoice adjustment
-  def perform(submission)
+  def perform(submission, user)
     raise "Submission #{submission.id} already has a reversal invoice." if submission.reversal_invoice.present?
 
     workday_reference = if submission.management_charge.negative?
-                          Workday::SubmitReversalInvoice.new(submission).perform
+                          Workday::SubmitReversalInvoice.new(submission, user).perform
                         else
-                          Workday::SubmitReversalInvoiceAdjustment.new(submission).perform
+                          Workday::SubmitReversalInvoiceAdjustment.new(submission, user).perform
                         end
     submission.create_reversal_invoice!(workday_reference: workday_reference)
   end

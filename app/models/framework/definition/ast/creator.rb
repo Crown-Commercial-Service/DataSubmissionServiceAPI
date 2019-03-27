@@ -4,32 +4,48 @@ class Framework
       # This transform exists for the express purpose of creating an AST for generating
       # an ActiveModel class with validations for a Framework
       class Creator < Parslet::Transform
-        rule(string: simple(:s))  { String(s) }
-        rule(decimal: simple(:d)) { BigDecimal(d) }
-        rule(integer: simple(:i)) { Integer(i) }
+        # Primitive type casts
+        rule(string: simple(:s))      { String(s) }
+        rule(decimal: simple(:d))     { BigDecimal(d) }
+        rule(integer: simple(:i))     { Integer(i) }
 
-        rule(primitive: simple(:primitive)) { primitive }
-        rule(lookup: simple(:lookup))       { lookup }
+        # Range simplifier
+        rule(integer: sequence(:nil)) { nil } # .maybe produces { integer: [] } for empty
+
+        # Lookup simplifier
+        rule(lookup_reference: simple(:r))                { String(r) }
+
+        # Just stripping Parslet::Slice
+        rule(primitive: 'String', range: subtree(:range)) { { primitive: 'String', range: range } }
+        rule(primitive: simple(:primitive))               { { primitive: String(primitive) } }
+        rule(lookup: simple(:lookup))                     { { lookup: String(lookup) } }
 
         # match known fields only
         rule(field: simple(:field), from: simple(:from)) { { kind: :known, field: field.to_s, from: from.to_s } }
         rule(optional: simple(:optional), field: simple(:field), from: simple(:from)) do
           { kind: :known, optional: true, field: field.to_s, from: from.to_s }
         end
+        rule(field: simple(:field), from: simple(:from), depends_on: subtree(:depends_on)) do
+          { kind: :known, field: field.to_s, from: from.to_s, depends_on: depends_on }
+        end
 
         # optional Additional field rule
-        rule(optional: simple(:optional), type_def: simple(:type), field: simple(:field), from: subtree(:from)) do
-          { kind: :additional, optional: true, type: type.to_s, field: field.to_s, from: from }
+        rule(optional: simple(:optional), type_def: subtree(:type), field: simple(:field), from: subtree(:from)) do
+          { kind: :additional, optional: true, type: type, field: field.to_s, from: from }
         end
 
         # Additional field rule
-        rule(type_def: simple(:type), field: simple(:field), from: subtree(:from)) do
-          { kind: :additional, type: type.to_s, field: field.to_s, from: from }
+        rule(type_def: subtree(:type), field: simple(:field), from: subtree(:from)) do
+          { kind: :additional, type: type, field: field.to_s, from: from }
         end
 
-        # Unknown fields rule
-        rule(optional: simple(:optional), type_def: simple(:type), from: simple(:from)) do
-          { kind: :unknown, optional: true, type: type.to_s, from: from }
+        # Unknown fields rules
+        rule(type_def: subtree(:type), from: simple(:from)) do
+          { kind: :unknown, type: type, from: from }
+        end
+
+        rule(optional: simple(:optional), type_def: subtree(:type), from: simple(:from)) do
+          { kind: :unknown, optional: true, type: type, from: from }
         end
 
         # Lookups

@@ -20,7 +20,7 @@ module FDL
 
         def original_errors
           original_invoice.validate
-          original_invoice.errors.to_h
+          original_invoice.errors.to_hash.transform_values(&:sort)
         end
 
         def fdl_invoice
@@ -30,7 +30,7 @@ module FDL
         def fdl_errors
           invoice = fdl_invoice
           invoice.validate
-          invoice.errors.to_h
+          invoice.errors.to_hash.transform_values(&:sort)
         end
 
         def diff_s

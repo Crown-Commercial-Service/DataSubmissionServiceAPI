@@ -31,7 +31,7 @@ RSpec::Matchers.define :have_field do |field_name|
     return "Expected '#{field_name}' to exist" unless introspector.field_exists?(field_name)
 
     actual_type = introspector.type_of(field_name)
-    type_message = if actual_type == @expected_activemodel_type
+    type_message = if @expected_activemodel_type.nil? || (actual_type == @expected_activemodel_type)
                      nil
                    else
                      "Type: expected field to be of type #{@expected_activemodel_type}, got #{actual_type}\n"

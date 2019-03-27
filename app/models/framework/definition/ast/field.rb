@@ -64,13 +64,20 @@ class Framework
         end
 
         ##
+        # The source type; the literal string of the type. e.g.
+        # String, Date, SomeLookupName
+        def source_type
+          field_def.dig(:type, :primitive) || field_def.dig(:type, :lookup)
+        end
+
+        ##
         # 'Our' type; things like :string, :yesno, :decimal
         def primitive_type
           case kind
           when :known
             DataWarehouse::KnownFields.type_for(warehouse_name)
           else
-            PRIMITIVE_TYPES[field_def[:type]] || :string
+            PRIMITIVE_TYPES[source_type] || :string
           end
         end
 
@@ -78,14 +85,14 @@ class Framework
           if known?
             lookups.key?(warehouse_name)
           else
-            field_def[:type] && PRIMITIVE_TYPES[field_def[:type]].nil?
+            source_type && PRIMITIVE_TYPES[source_type].nil?
           end
         end
 
         def lookup_name
           return nil unless lookup?
 
-          known? ? warehouse_name : field_def[:type]
+          known? ? warehouse_name : source_type
         end
 
         ##
@@ -100,6 +107,36 @@ class Framework
 
         def options(lookup_values)
           Field::Options.new(self).build(lookup_values)
+        end
+
+        def dependent_field_inclusion?
+          field_def[:depends_on].present?
+        end
+
+        def dependent_field
+          field_def[:depends_on][:dependent_field]
+        end
+
+        def dependent_field_inclusion_values
+          field_def[:depends_on][:values].transform_values do |lookup_name|
+            lookups[lookup_name]
+          end
+        end
+
+        def length_options
+          range = field_def.dig(:type, :range)
+
+          return {} if range.nil?
+
+          if range[:min] && range[:max]
+            { in: range[:min]..range[:max] }
+          elsif range[:min]
+            { minimum: range[:min] }
+          elsif range[:max]
+            { maximum: range[:max] }
+          elsif range[:is]
+            { is: range[:is] }
+          end
         end
       end
     end

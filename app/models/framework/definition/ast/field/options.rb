@@ -17,16 +17,29 @@ class Framework
             options.delete(:presence) if no_presence_required?
             set_optional_modifiers! if field.optional?
 
-            options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
+            add_inclusion_validators(lookup_values)
+            set_length_options!
+
             options
           end
 
           private
 
+          def add_inclusion_validators(lookup_values)
+            options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
+            options[:dependent_field_inclusion] =  { parent: field.dependent_field, in: { field.dependent_field => field.dependent_field_inclusion_values } } if field.dependent_field_inclusion?
+          end
+
+          def set_length_options!
+            options[:length] = field.length_options if field.length_options.any?
+          end
+
           def no_presence_required?
             # Validators like UrnValidator and the case_insensitive_inclusion used for
             # YesNo fields don't require an accompanying +presence: true+
-            %i[urn yesno].include?(field.primitive_type) || field.lookup?
+            # IngestedNumericality validator treats nil as an error so should
+            # have +allow_nil: true+ for optional fields, not +presence: true+ for mandatory fields
+            %i[urn yesno decimal integer date].include?(field.primitive_type) || field.lookup? || field.dependent_field_inclusion?
           end
 
           def set_optional_modifiers!

@@ -1,0 +1,124 @@
+Framework RM6060 {
+   Name 'Vehicle Purchase'
+
+   ManagementCharge 0.5% of 'Supplier Price'
+
+   InvoiceFields {
+    CustomerName from 'Customer Organisation Name'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    CustomerInvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceNumber from 'Customer Invoice/Credit Note Number'
+    LotNumber from 'Lot Number'
+    String(..8) Additional1 from 'Vehicle Registration Number'
+    String(..20) Additional2 from 'Vehicle CAP Code'
+    String Additional3 from 'Vehicle Make'
+    String Additional4 from 'Vehicle Model'
+    String Additional5 from 'Vehicle Trim/Derivative'
+    ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
+      '1' -> Lot1Segment
+      '2' -> Lot2Segment
+      '3' -> Lot3Segment
+      '4' -> Lot4Segment
+      '5' -> Lot5Segment
+      '6' -> Lot6Segment
+      '7' -> Lot7Segment
+    }
+    FuelType Additional6 from 'Fuel Type'
+    optional Decimal Additional7 from 'CO2 Emissions'
+    Decimal Additional8 from 'MRP Excluding Options'
+    Decimal Additional9 from 'Customer Support Terms'
+    Decimal Additional10 from 'Additional Support Terms'
+    Decimal Additional11 from 'Supplier Price'
+    Decimal Additional12 from 'Conversion Cost'
+    Decimal Additional13 from 'Parts Cost'
+    InvoiceValue from 'Total Vehicle Cost'
+    LeasingCompany Additional14 from 'Leasing Company'
+    String(..6) Additional15 from 'eAuction Contract Number'
+  }
+
+  Lookups {
+    Lot1Segment [
+      '4x4/SUV'
+      'Executive'
+      'Lower Medium'
+      'Mini'
+      'MPV'
+      'Pickup'
+      'Specialist Sports'
+      'Supermini'
+      'Upper Medium'
+    ]
+
+    Lot2Segment [
+      'Car Derived Van'
+      'LCV'
+      'MPV'
+      'Pickup'
+    ]
+
+    Lot3Segment [
+      'HGV'
+    ]
+
+    Lot4Segment [
+      'Motorcycle'
+    ]
+
+    Lot5Segment [
+      'Bus'
+      'Coach'
+    ]
+
+    Lot6Segment [
+      '4x4/SUV/All Terrain vehicle'
+      'Executive'
+      'Lower Medium'
+      'Mini'
+      'MPV'
+      'Pickup'
+      'Specialist Sports'
+      'Supermini'
+      'Upper Medium'
+      'Motorcycle'
+    ]
+
+    Lot7Segment [
+      'Car Derived Van'
+      'Car Derived Van 4X4 variant'
+      'Minibus'
+      'LCV'
+      'Pickup'
+    ]
+
+    FuelType [
+      'Diesel'
+      'Electric'
+      'Petrol'
+      'Petrol Hybrid'
+      'Diesel Hybrid'
+    ]
+
+    LeasingCompany [
+      'ALD Automotive Ltd'
+      'Alphabet (GB) Ltd'
+      'Arnold Clark Vehicle Management'
+      'Arval UK Ltd'
+      'BT Fleet'
+      'Dawsonrentals Truck and Trailer Ltd'
+      'Fleetcare (PSCSM) Ltd'
+      'Fraikin Ltd'
+      'GMP Drivercare ltd'
+      'Hitachi Capital Vehicle Solutions'
+      'Inchcape Fleet Solutions'
+      'Knowles Associates Total Fleet Management Ltd'
+      'LeasePlan UK Ltd'
+      'Lex Autolease'
+      'Lookers Leasing'
+      'Mercedes-Benz Financial Services UK Ltd (Daimler Fleet Management)'
+      'Ryder Ltd'
+      'Volkswagen Financial Services'
+      'Zenith'
+      'N/A'
+    ]
+  }
+}
