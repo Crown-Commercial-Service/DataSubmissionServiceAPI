@@ -351,4 +351,27 @@ RSpec.describe Framework::Definition::Parser do
       )
     end
   end
+
+  describe '#lots_block' do
+    subject(:rule) { parser.lots_block }
+    let(:source) do
+      <<~FDL
+        Lots {
+          '1' -> 'Lot 1'
+          '2a' -> 'Lot the second'
+        }
+      FDL
+    end
+
+    it {
+      is_expected.to parse(source, trace: true).as(
+        lots: {
+          dictionary: [
+            { key: { string: '1' }, value: { string: 'Lot 1' } },
+            { key: { string: '2a' }, value: { string: 'Lot the second' } }
+          ]
+        }
+      )
+    }
+  end
 end

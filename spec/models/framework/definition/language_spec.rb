@@ -364,6 +364,24 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'RM3767 - Supply and Fit of Tyres' do
+      let(:source) do
+        File.read('app/models/framework/definition/RM3767.fdl')
+      end
+
+      describe '.lots' do
+        subject { definition.lots }
+
+        it {
+          is_expected.to eq(
+            '1' => 'The supply and fit of tyres and associated services to the Police and emergency services',
+            '2' => 'The supply and fit of tyres and associated services to central Government and '\
+                   'the wider public sector'
+          )
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
