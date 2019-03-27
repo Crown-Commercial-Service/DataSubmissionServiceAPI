@@ -36,7 +36,7 @@ module FDL
       def run
         bar = ProgressBar.new(sample_rows.count)
 
-        sample_rows.each do |entry|
+        sample_rows.find_each do |entry|
           compare = Compare.new(entry, framework_short_name, fdl_definition)
           diff = compare.diff
           bar.increment!

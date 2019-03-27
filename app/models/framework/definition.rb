@@ -40,6 +40,10 @@ class Framework
           @management_charge ||= calculator
         end
 
+        def lots(lots = nil)
+          @lots ||= lots
+        end
+
         def calculate_management_charge(entry)
           management_charge.calculate_for(entry)
         end
