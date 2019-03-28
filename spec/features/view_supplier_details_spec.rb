@@ -22,14 +22,16 @@ RSpec.feature 'Viewing a supplier' do
   end
 
   scenario 'includes the details of a task’s submissions' do
-    task = FactoryBot.create(:task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework)
+    task = FactoryBot.create(
+      :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :in_progress
+    )
     submission = FactoryBot.create(
       :submission_with_validated_entries, supplier: supplier, framework: framework, task: task
     )
     download_url = rails_blob_url(submission.files.first.file)
 
     visit admin_supplier_path(supplier)
-    expect(page).to have_content 'Pending'
+    expect(page).to have_content 'In Review'
     expect(page).to have_link 'Download submission file', href: download_url
   end
 

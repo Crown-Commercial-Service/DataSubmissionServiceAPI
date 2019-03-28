@@ -4,6 +4,8 @@ class AdminController < ActionController::Base
 
   helper_method :current_user
 
+  add_flash_types :success, :failure, :notice, :warning
+
   private
 
   def current_user

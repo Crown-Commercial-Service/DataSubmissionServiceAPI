@@ -1,0 +1,13 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = simple_form_for [:admin, @supplier] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h1.govuk-fieldset__heading
+            Edit supplier
+        = render partial: 'shared/error_summary', locals: { entity: @supplier } if @supplier.errors.present?
+
+        = form.input :name
+        = form.input :salesforce_id
+        = form.input :coda_reference
+        = form.button :submit, value: 'Update supplier'

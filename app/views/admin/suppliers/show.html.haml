@@ -1,6 +1,13 @@
 .govuk-grid-row
-  .govuk-grid-column-full
+  .govuk-grid-column-three-quarters
     %h1.govuk-heading-xl= @supplier.name
+
+  .govuk-grid-column-one-quarter
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Edit supplier', edit_admin_supplier_path(@supplier)
 
 .govuk-grid-row
   .govuk-grid-column-full

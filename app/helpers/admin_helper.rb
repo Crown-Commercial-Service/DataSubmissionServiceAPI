@@ -9,4 +9,14 @@ module AdminHelper
     end
     to_sentence(supplier_links)
   end
+
+  def flash_types_css_class(type)
+    {
+      success: 'ccs-in-service-alert--success',
+      failure: 'ccs-in-service-alert--failure',
+      notice: 'ccs-in-service-alert--notice',
+      warning: 'ccs-in-service-alert--warning',
+      alert: 'ccs-in-service-alert--failure'
+    }[type.to_sym]
+  end
 end

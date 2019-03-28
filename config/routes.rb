@@ -71,7 +71,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :suppliers, only: %i[index show] do
+    resources :suppliers, only: %i[index show edit update] do
       resources :agreements, only: [] do
         get :confirm_activation
         get :confirm_deactivation

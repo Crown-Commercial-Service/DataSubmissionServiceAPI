@@ -367,6 +367,9 @@ GEM
     sidekiq-cron (1.0.4)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
+    simple_form (4.1.0)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     skylight (4.0.0.alpha)
       skylight-core (= 4.0.0.alpha)
     skylight-core (4.0.0.alpha)
@@ -452,6 +455,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-cron
+  simple_form
   skylight (= 4.0.0.alpha)
   spring
   spring-watcher-listen (~> 2.0.0)
