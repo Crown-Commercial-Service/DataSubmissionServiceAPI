@@ -9,7 +9,6 @@ module StringUtils
   def parse_date_string(value)
     case value
     when UK_DATE_FORMAT then Date.strptime(value, '%d/%m/%Y')
-    when US_DATE_FORMAT then Date.strptime(value, '%m/%d/%y')
     end
   rescue ArgumentError
     nil
