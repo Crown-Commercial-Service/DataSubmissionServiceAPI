@@ -12,8 +12,7 @@ class Framework
         # Range simplifier
         rule(integer: sequence(:nil)) { nil } # .maybe produces { integer: [] } for empty
 
-        # Lookup simplifier
-        rule(lookup_reference: simple(:r))                { String(r) }
+        rule(lookup_reference: simple(:r))                { LookupReference.new(r) }
 
         # Just stripping Parslet::Slice
         rule(primitive: 'String', range: subtree(:range)) { { primitive: 'String', range: range } }
@@ -65,7 +64,7 @@ class Framework
         # { 'UnitType' => ['Day', 'Each'], 'Other' => ['Value 1', 'Value 2'] }
         rule(lookups: subtree(:lookups)) do
           lookups.each_with_object({}) do |single_key_value, result|
-            lookup_name, value_list = *single_key_value.first
+            lookup_name, value_list = single_key_value.first
             result[lookup_name] = value_list
           end
         end

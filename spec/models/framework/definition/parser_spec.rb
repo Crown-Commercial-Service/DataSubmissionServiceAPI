@@ -326,12 +326,18 @@ RSpec.describe Framework::Definition::Parser do
             'Type1'
             'Type2'
           ]
+
+          SomeRandomComposition [
+            PaymentProfile
+            ServiceType
+            'Foo'
+          ]
         }
       FDL
     end
 
     it 'parses the lookup fields' do
-      expect(rule).to parse(source).as(
+      expect(rule).to parse(source, trace: true).as(
         lookups: [
           {
             lookup_name: 'PaymentProfile',
@@ -345,6 +351,14 @@ RSpec.describe Framework::Definition::Parser do
             list: [
               { string: 'Type1' },
               { string: 'Type2' }
+            ]
+          },
+          {
+            lookup_name: 'SomeRandomComposition',
+            list: [
+              { lookup_reference: 'PaymentProfile' },
+              { lookup_reference: 'ServiceType' },
+              { string: 'Foo' },
             ]
           }
         ]

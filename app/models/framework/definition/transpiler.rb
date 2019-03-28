@@ -26,6 +26,7 @@ class Framework
         end
       end
 
+      # rubocop:disable Metrics/AbcSize - we need this to resemble a class
       def entry_data_class(entry_type)
         ast = @ast
 
@@ -40,17 +41,18 @@ class Framework
           _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
           total_value_field _total_value_field.sheet_name
 
-          lookups ast[:lookups]
+          lookups ast.lookups
 
           field_defs.each do |field_def|
             field = AST::Field.new(field_def, ast.lookups)
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
-            lookup_values = ast.dig(:lookups, field.lookup_name)
+            lookup_values = ast.lookups[field.lookup_name]
             field field.sheet_name, field.activemodel_type, field.options(lookup_values)
           end
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def choose_management_charge_calculator(info)
         if info[:column_based]

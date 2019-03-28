@@ -382,6 +382,54 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Composing lookups from other lookups - RM3787' do
+      let(:source) do
+        <<~FDL
+          Framework 3787 {
+            Name 'Fake framework'
+            ManagementCharge 1%
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+
+            Lookups {
+              CoreSpecialisms [
+                'One'
+                'Two'
+              ]
+
+              NonCoreSpecialisms [
+                'Three'
+                'Four'
+              ]
+
+              PrimarySpecialism [
+                CoreSpecialisms
+                NonCoreSpecialisms
+                'Five'
+              ]
+            }
+          }
+        FDL
+      end
+
+      describe 'the Invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+
+        describe '.lookups' do
+          subject { invoice_class.lookups }
+          it {
+            is_expected.to eql(
+              'CoreSpecialisms'    => %w[One Two],
+              'NonCoreSpecialisms' => %w[Three Four],
+              'PrimarySpecialism'  => %w[One Two Three Four Five]
+            )
+          }
+        end
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
