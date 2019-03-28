@@ -16,7 +16,8 @@ class Framework
         braced(
           spaced(metadata) >>
           spaced(fields_blocks) >>
-          spaced(lookups_block.as(:lookups)).maybe
+          spaced(lookups_block.as(:lookups)).maybe >>
+          spaced(lots_block).maybe
         )
       end
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
@@ -45,13 +46,15 @@ class Framework
       rule(:lookup_key_values)    { pascal_case_identifier.as(:lookup_name) >> space >> string_array }
       rule(:string_array)         { square_bracketed(string.repeat(1).as(:list)) }
 
+      rule(:lots_block)           { str('Lots') >> space >> dictionary.as(:lots) }
+
       rule(:depends_on)           { (spaced(str('depends_on')) >> spaced(string).as(:dependent_field) >> dictionary.as(:values)).as(:depends_on) }
 
       rule(:metadata)             { framework_name >> management_charge }
 
       rule(:map)                  { allowable_key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space? }
       rule(:allowable_key)        { string | pascal_case_identifier }
-      rule(:allowable_value)      { percentage | pascal_case_identifier.as(:lookup_reference) }
+      rule(:allowable_value)      { percentage | pascal_case_identifier.as(:lookup_reference) | string }
       rule(:dictionary)           { braced(map.repeat(1).as(:dictionary)) }
 
       rule(:string) do

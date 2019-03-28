@@ -10,7 +10,13 @@ class Framework
                              .select { |c| c.ancestors.include?(Framework::Definition::Base) }
       end
 
+      def rm6060
+        @rm6060 ||= Framework::Definition::Language['RM6060']
+      end
+
       def [](framework_short_name)
+        return rm6060 if framework_short_name == 'RM6060'
+
         sanitized_framework_short_name = framework_short_name.tr('/.', '_')
         "Framework::Definition::#{sanitized_framework_short_name}".constantize
       rescue NameError
@@ -38,6 +44,10 @@ class Framework
 
         def management_charge(calculator = nil)
           @management_charge ||= calculator
+        end
+
+        def lots(lots = nil)
+          @lots ||= lots
         end
 
         def calculate_management_charge(entry)

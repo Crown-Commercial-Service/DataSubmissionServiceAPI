@@ -15,6 +15,7 @@ class Framework
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
           framework_short_name ast[:framework_short_name]
+          lots                 ast[:lots]
 
           calculator = transpiler.choose_management_charge_calculator(ast[:management_charge])
 

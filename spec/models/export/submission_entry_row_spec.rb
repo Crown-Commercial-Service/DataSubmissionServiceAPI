@@ -52,7 +52,7 @@ RSpec.describe Export::SubmissionEntryRow do
     end
   end
 
-  describe '#format_date returning dates as ISO8601' do
+  describe '#formatted_date returning dates as ISO8601' do
     let(:row) { Export::SubmissionEntryRow.new(entry) }
     let(:entry) { double 'SubmissionEntry' }
 
@@ -60,13 +60,6 @@ RSpec.describe Export::SubmissionEntryRow do
       expect(row.formatted_date('12/10/2018')).to eq '2018-10-12'
       expect(row.formatted_date('1/1/2018')).to eq '2018-01-01'
       expect(row.formatted_date('21/9/2017')).to eq '2017-09-21'
-    end
-
-    it 'handles US-formatted MM/DD/YY date strings' do
-      expect(row.formatted_date('9/10/18')).to eq '2018-09-10'
-      expect(row.formatted_date('8/1/18')).to eq '2018-08-01'
-      expect(row.formatted_date('2/28/17')).to eq '2017-02-28'
-      expect(row.formatted_date('3/28/19')).to eq '2019-03-28'
     end
 
     it 'returns the input value for non-matching dates' do
