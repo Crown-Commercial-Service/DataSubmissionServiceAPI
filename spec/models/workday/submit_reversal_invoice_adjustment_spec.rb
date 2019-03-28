@@ -10,7 +10,7 @@ RSpec.describe Workday::SubmitReversalInvoiceAdjustment do
                       task: task)
   end
   let(:framework) { submission.framework }
-  let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
+  let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018, status: :in_progress) }
   let(:supplier) { submission.supplier }
   let(:request) { Workday::SubmitReversalInvoiceAdjustment.new(submission, correcting_user) }
 
