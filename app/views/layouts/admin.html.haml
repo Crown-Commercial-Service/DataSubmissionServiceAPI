@@ -36,7 +36,8 @@
 
       %main{ role: 'main', id: 'main-content', class: 'govuk-main-wrapper'}
 
-        = render 'shared/alert' if flash[:alert]
+        - flash.each do |key, value|
+          = render partial: 'shared/alert', locals: { type:key, message: value }
 
         = yield
 
