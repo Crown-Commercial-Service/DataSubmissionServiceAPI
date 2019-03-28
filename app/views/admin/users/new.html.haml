@@ -5,14 +5,9 @@
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
           %h1.govuk-fieldset__heading
             Add a new user
-        - if @user.errors.present?
-          .govuk-error-summary
-            %h2#error-summary-title.govuk-error-summary__title
-              There is a problem
-            .govuk-error-summary__body
-              %ul.govuk-list.govuk-error-summary__list
-                - @user.errors.full_messages.each do |message|
-                  %li= message
+
+        = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
+
         = form.input :name
         = form.input :email
         = form.button :submit, value: 'Add new user'
