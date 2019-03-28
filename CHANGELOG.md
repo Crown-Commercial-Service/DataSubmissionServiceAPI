@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-63] - 2019-03-28
+
+- Admin user can edit supplier details
+- Fix a bug in 'Correct US date formats in submission entries'
+
 ## [release-62] - 2019-03-28
 
 - Add data migration for importing March 2019 customers
@@ -415,6 +420,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-63]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-62...release-63
 [release-62]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-61...release-62
 [release-61]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-60...release-61
 [release-60]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-59...release-60
