@@ -4,6 +4,21 @@ RSpec.describe Framework::Definition do
   describe '.[]' do
     subject(:definition) { Framework::Definition[framework_short_name] }
 
+    context 'the framework is RM6060, because we are trialling FDL with this framework' do
+      let(:framework_short_name) { 'RM6060' }
+      it 'is a functioning framework' do
+        expect(definition.framework_short_name).to eql(framework_short_name)
+      end
+
+      it 'is an anonymous class' do
+        expect(definition.to_s).to match(/Class:/)
+      end
+
+      it 'is cached so that we aren\'t repeatedly recompiling' do
+        expect(definition).to eq(Framework::Definition[framework_short_name])
+      end
+    end
+
     context 'the framework exists' do
       context 'and it is fairly normal' do
         let(:framework_short_name) { 'RM3787' }
