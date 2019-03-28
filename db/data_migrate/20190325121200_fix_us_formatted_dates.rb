@@ -50,22 +50,20 @@ affected_submission_ids.each do |submission_id|
 
   # Update data hash
   SubmissionEntry.transaction do
-    ActiveRecord::Base.logger.silence do
-      submission_entries.find_each do |entry|
-        target_fields.each do |field|
-          next if entry.data[field].nil?
-          next if entry.data[field].to_s.size == 10
+    submission_entries.find_each do |entry|
+      target_fields.each do |field|
+        next if entry.data[field].nil?
+        next if entry.data[field].to_s.size == 10
 
-          entry.data[field] = Date.strptime(entry.data[field].to_s, input_format).strftime('%d/%m/%Y')
-        rescue ArgumentError
-          Rails.logger.warn "Unexpected date format found in entry ##{entry.id}. Rolling back ##{submission_id}"
-          raise ActiveRecord::Rollback
-        end
-
-        # rubocop:disable Rails/SkipsModelValidations
-        entry.update_column(:data, entry.data)
-        # rubocop:enable Rails/SkipsModelValidations
+        entry.data[field] = Date.strptime(entry.data[field].to_s, input_format).strftime('%d/%m/%Y')
+      rescue ArgumentError
+        Rails.logger.warn "Unexpected date format found in entry ##{entry.id}. Rolling back ##{submission_id}"
+        raise ActiveRecord::Rollback
       end
+
+      # rubocop:disable Rails/SkipsModelValidations
+      entry.update_column(:data, entry.data)
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 
