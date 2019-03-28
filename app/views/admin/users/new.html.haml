@@ -1,23 +1,13 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    = form_for [:admin, @user] do |form|
+    = simple_form_for [:admin, @user] do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
           %h1.govuk-fieldset__heading
             Add a new user
-        - if @user.errors.present?
-          .govuk-error-summary
-            %h2#error-summary-title.govuk-error-summary__title
-              There is a problem
-            .govuk-error-summary__body
-              %ul.govuk-list.govuk-error-summary__list
-                - @user.errors.full_messages.each do |message|
-                  %li= message
-        .govuk-form-group
-          = form.label :name, class: 'govuk-label'
-          = form.text_field :name, class: 'govuk-input'
-        .govuk-form-group
-          = form.label :email, 'Email address', class: 'govuk-label'
-          = form.text_field :email, class: 'govuk-input'
-        .govuk-form-group
-          = form.submit 'Add new user', 'aria-label': 'Add new user', class: 'govuk-button'
+
+        = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
+
+        = form.input :name
+        = form.input :email
+        = form.button :submit, value: 'Add new user'

@@ -1,7 +1,25 @@
 ---
 en:
+  activerecord:
+    attributes:
+      user:
+        email: 'Email address'
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'Enter an email address'
+              invalid: 'Enter an email address in the correct format, like name@example.com'
+        supplier:
+          attributes:
+            name:
+              blank: 'Enter a supplier name'
   errors:
+    format: "%{message}"
     messages:
+      blank: 'Enter your %{attribute}'
+      taken: '%{attribute} has already been taken.'
       invalid_urn: 'is not a recognised URN'
       invalid_ingested_date: 'must be in the format dd/mm/yyyy'
       invalid_optional_ingested_date: 'must be in the format dd/mm/yyyy or left blank'

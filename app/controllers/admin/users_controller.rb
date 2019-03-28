@@ -14,10 +14,10 @@ class Admin::UsersController < AdminController
 
   def create
     @user = User.new(user_params)
-    create_user
-
-    return redirect_to admin_user_path(@user) if @user.persisted?
-
+    if @user.valid?
+      create_user
+      return redirect_to admin_user_path(@user) if @user.persisted?
+    end
     render action: :new
   end
 
