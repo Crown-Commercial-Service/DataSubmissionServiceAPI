@@ -11,6 +11,10 @@ en:
             email:
               blank: 'Enter an email address'
               invalid: 'Enter an email address in the correct format, like name@example.com'
+        supplier:
+          attributes:
+            name:
+              blank: 'Enter a supplier name'
   errors:
     format: "%{message}"
     messages:
