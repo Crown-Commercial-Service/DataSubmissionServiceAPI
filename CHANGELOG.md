@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-62] - 2019-03-28
+
+- Add data migration for importing March 2019 customers
+- FDL: Support for Lot Number definitions
+- Correct US date formats in submission entries
+- Loosen Coda reference validation
+- April Supplier onboarding
+- Use FDL definition for RM6060
+
 ## [release-61] - 2019-03-27
 
 - April onboarding part 1: add framework definitions to API
@@ -406,6 +415,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-62]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-61...release-62
 [release-61]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-60...release-61
 [release-60]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-59...release-60
 [release-59]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-58...release-59
