@@ -1,0 +1,4 @@
+framework_short_name,lot_number,supplier_name,salesforce_id,coda_reference
+RM123,1,Big Dog Limited,SF123,C012345
+RM123,2,Big Dog Limited,SF123,C012345
+RM123,1,Bad Cat Limited,SF456,C012345
