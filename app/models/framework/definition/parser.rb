@@ -43,8 +43,10 @@ class Framework
       rule(:optional)             { spaced(str('optional').as(:optional).maybe) }
 
       rule(:lookups_block)        { str('Lookups') >> space >> braced(lookup_key_values.repeat(1)).as(:lookups) }
-      rule(:lookup_key_values)    { pascal_case_identifier.as(:lookup_name) >> space >> string_array }
-      rule(:string_array)         { square_bracketed(string.repeat(1).as(:list)) }
+      rule(:lookup_key_values)    { pascal_case_identifier.as(:lookup_name) >> space >> lookup_item_array }
+      rule(:lookup_item_array)    { square_bracketed(lookup_item.repeat(1).as(:list)) }
+      rule(:lookup_item)          { (string | lookup_reference) >> space? }
+      rule(:lookup_reference)     { pascal_case_identifier.as(:lookup_reference) }
 
       rule(:lots_block)           { str('Lots') >> space >> dictionary.as(:lots) }
 
@@ -54,7 +56,7 @@ class Framework
 
       rule(:map)                  { allowable_key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space? }
       rule(:allowable_key)        { string | pascal_case_identifier }
-      rule(:allowable_value)      { percentage | pascal_case_identifier.as(:lookup_reference) | string }
+      rule(:allowable_value)      { percentage | lookup_reference | string }
       rule(:dictionary)           { braced(map.repeat(1).as(:dictionary)) }
 
       rule(:string) do

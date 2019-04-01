@@ -23,7 +23,18 @@ class Framework
         end
 
         def lookups
-          ast.fetch(:lookups, {})
+          @lookups ||= ast.fetch(:lookups, {}).tap do |lookups|
+            lookups.transform_values! do |list|
+              expanded_values = list.map do |item|
+                if item.is_a?(LookupReference)
+                  ast[:lookups][item]
+                else
+                  item
+                end
+              end
+              expanded_values.flatten
+            end
+          end
         end
 
         def field_by_name(entry_type, name)

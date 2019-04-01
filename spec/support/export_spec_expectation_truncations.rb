@@ -21,7 +21,8 @@ RSpec.configure do |config|
   [
     %r{/spec/lib/tasks/export},
     %r{/spec/lib/fdl/validation},
-    %r{/spec/models/export}
+    %r{/spec/models/export},
+    %r{/spec/models/framework/definition}
   ].each do |file_path|
     config.define_derived_metadata(file_path: file_path) do |metadata|
       metadata[:exporter_spec] = true
