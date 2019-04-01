@@ -10,7 +10,7 @@ class Supplier < ApplicationRecord
   has_many :active_users, -> { active }, through: :memberships, class_name: 'User', source: :user
 
   validates :name, presence: true
-  validates :coda_reference, allow_nil: true, format: {
+  validates :coda_reference, allow_blank: true, format: {
     with: /\AC0\d{4,5}\z/,
     message: 'must start with “C0” and have 4-5 additional numbers, for example: “C012345”'
   }
