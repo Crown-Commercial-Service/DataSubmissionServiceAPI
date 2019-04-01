@@ -98,7 +98,7 @@ class Framework
         ##
         # The implementation type. Usually :string
         def activemodel_type
-          %i[integer urn].include?(primitive_type) ? :integer : :string
+          %i[urn].include?(primitive_type) ? :integer : :string
         end
 
         def validators?
