@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-64] - 2019-04-01
+
+- Submission factories more accurately reflect reality
+- Admin can edit supplier with blank CODA reference
+- FDL: Support combining lookups
+- Fix framework definitions to match Excel templates
+
 ## [release-63] - 2019-03-28
 
 - Admin user can edit supplier details
@@ -420,6 +427,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-64]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-63...release-64
 [release-63]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-62...release-63
 [release-62]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-61...release-62
 [release-61]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-60...release-61

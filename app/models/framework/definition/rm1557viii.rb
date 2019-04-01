@@ -56,7 +56,7 @@ class Framework
       }.freeze
 
       class Invoice < EntryData
-        total_value_field 'Total Charge (ex VAT)'
+        total_value_field 'Total Charge (Ex VAT)'
 
         field 'Buyer Cost Centre', :string
         field 'Call Off Contract Reference', :string, exports_to: 'SupplierReferenceNumber', presence: true
@@ -74,7 +74,7 @@ class Framework
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Total Charge (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
+        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
         field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, presence: true
         field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true, presence: true
       end

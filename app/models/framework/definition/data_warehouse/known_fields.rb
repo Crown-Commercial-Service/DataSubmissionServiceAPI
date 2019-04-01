@@ -8,6 +8,7 @@ class Framework
           'InvoiceValue' => :decimal,
           'ContractValue' => :decimal,
           'CustomerPostCode' => :string,
+          'CustomerPostcode' => :string,
           'CustomerName' => :string,
           'CustomerURN' => :urn,
           'InvoiceDate' => :date,
@@ -26,7 +27,12 @@ class Framework
           'VATCharged' => :decimal,
           'LotNumber' => :lot_number,
           'PromotionCode' => :string,
-          'CustomerInvoiceDate' => :date
+          'CustomerInvoiceDate' => :date,
+          'SupplierReferenceNumber' => :integer,
+          'CustomerReferenceNumber' => :string,
+          'ContractStartDate' => :date,
+          'ContractEndDate' => :date,
+          'ContractAwardChannel' => :string
         }.freeze
 
         def self.type_for(value)
