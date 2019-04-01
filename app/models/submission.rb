@@ -46,7 +46,7 @@ class Submission < ApplicationRecord
     event :replace_with_no_business do
       transitions from: :completed, to: :replaced, guard: :replaceable?
 
-      after do |*user|
+      after do |user|
         enqueue_reversal_invoice_creation_job(user) if create_reversal_invoice?
       end
     end
@@ -54,7 +54,7 @@ class Submission < ApplicationRecord
     event :mark_as_replaced do
       transitions from: :completed, to: :replaced
 
-      after do |*user|
+      after do |user|
         enqueue_reversal_invoice_creation_job(user) if create_reversal_invoice?
       end
     end
