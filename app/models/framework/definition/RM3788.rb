@@ -7,10 +7,10 @@ class Framework
       management_charge ManagementChargeCalculator::FlatRate.new(percentage: BigDecimal('1.5'))
 
       LOT_1_SERVICES = [
-        'Social Housing ',
-        'Child Law ',
-        'Court of Protection ',
-        'Education ',
+        'Social Housing',
+        'Child Law',
+        'Court of Protection',
+        'Education',
         'Planning and Environment',
         'Licensing',
         'Pensions Law',
@@ -19,7 +19,7 @@ class Framework
         'Employment Law',
         'Healthcare',
         'Primary Care',
-        'Debt Recovery ',
+        'Debt Recovery',
       ].freeze
 
       LOT_2_SERVICES = [
