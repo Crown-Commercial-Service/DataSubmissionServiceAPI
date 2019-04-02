@@ -74,14 +74,14 @@ class Framework
         field 'Customer Invoice Line Number', :string
         field 'Product / Service Group Level 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
-        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
         field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true
         field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, presence: true
-        field 'Actual Delivery Date', :string, ingested_date: true
+        field 'Actual Delivery Date', :string, ingested_date: true, allow_nil: true
         field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true, presence: true
         field 'Buyer Cost Centre', :string
         field 'Contract Number', :string
@@ -104,7 +104,7 @@ class Framework
         field 'Customer Order Date', :string, exports_to: 'CustomerOrderDate', ingested_date: true, presence: true
         field 'Product / Service Group 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
-        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
         field 'Quantity', :string, exports_to: 'Quantity', ingested_numericality: true, presence: true
       end
