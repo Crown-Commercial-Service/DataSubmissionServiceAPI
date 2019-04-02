@@ -15,7 +15,7 @@ namespace :fdl do
       framework_short_name = args[:framework_short_name] or raise ArgumentError 'framework_short_name required'
 
       options = if STDIN.tty?
-                  { sample_row_count: args[:sample_row_count].to_i || 5000 }
+                  { sample_row_count: args[:sample_row_count]&.to_i || 5000 }
                 else
                   { submission_ids: STDIN.read.split("\n") }
                 end
