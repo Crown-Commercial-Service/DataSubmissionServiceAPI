@@ -1,0 +1,19 @@
+Framework <%= sanitised_framework_short_name %> {
+  Name '<%= framework_name %>'
+
+  <%= management_charge %>
+
+  InvoiceFields {
+    <%- invoice_fields.each do |field| -%>
+    <%= field.to_fdl %>
+    <%- end -%>
+  }
+  <%- if contract_fields.any? -%>
+
+  ContractFields {
+    <%- contract_fields.each do |field| -%>
+    <%= field.to_fdl %>
+    <%- end -%>
+  }
+  <%- end -%>
+}
