@@ -95,4 +95,12 @@ RSpec.describe Framework::FdlGenerator, type: :generator do
       expect(definition).not_to match('Lookups {')
     end
   end
+  context 'RM1043iv' do
+    let(:generator_arguments)      { %w[RM1043iv] }
+    let(:expected_definition_file) { 'RM1043iv.fdl' }
+
+    it 'defines a framework' do
+      expect(definition).to match 'Framework RM1043iv {'
+    end
+  end
 end

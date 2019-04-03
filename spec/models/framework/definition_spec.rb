@@ -46,7 +46,7 @@ RSpec.describe Framework::Definition do
     context 'the framework does not exist' do
       it 'raises a Framework::Definition::MissingError' do
         expect { Framework::Definition['RM1234'] }.to raise_error(
-          Framework::Definition::MissingError, 'Please run rails g framework:definition "RM1234"'
+          Framework::Definition::MissingError, 'There is no framework definition for "RM1234"'
         )
       end
     end

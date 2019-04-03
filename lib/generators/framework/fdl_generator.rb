@@ -20,7 +20,7 @@ class Framework
     private
 
     def sanitised_framework_short_name
-      name.upcase.tr('/.', '_')
+      name.tr('/.', '_')
     end
 
     def framework_short_name
