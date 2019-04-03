@@ -103,4 +103,16 @@ RSpec.describe Framework::FdlGenerator, type: :generator do
       expect(definition).to match 'Framework RM1043iv {'
     end
   end
+  context 'RM858' do
+    let(:generator_arguments)      { %w[RM858] }
+    let(:expected_definition_file) { 'RM858.fdl' }
+
+    it 'defines a framework' do
+      expect(definition).to match 'Framework RM858 {'
+    end
+    it 'defines a management charge' do
+      expect(definition).to match(/ManagementCharge varies_by 'Spend Code' {$/)
+      expect(definition).to match(/'lease rental'.*->.*0\.5%$/)
+    end
+  end
 end

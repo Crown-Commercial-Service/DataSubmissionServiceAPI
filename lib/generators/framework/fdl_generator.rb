@@ -1,7 +1,6 @@
 require 'framework' # failure to require this here will result in autoload problems
 require 'active_model/introspector'
 require 'active_model/introspector/lookups'
-require 'active_model/introspector/management_charge'
 
 class Framework
   ##
@@ -32,7 +31,7 @@ class Framework
     end
 
     def management_charge
-      ActiveModel::Introspector::ManagementCharge.new(ruby_definition.management_charge).to_fdl
+      ruby_definition.management_charge
     end
 
     def framework_name

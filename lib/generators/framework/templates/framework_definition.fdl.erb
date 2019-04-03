@@ -1,7 +1,15 @@
 Framework <%= sanitised_framework_short_name %> {
   Name '<%= framework_name %>'
 
-  <%= management_charge %>
+  <%- if management_charge.is_a?(Framework::ManagementChargeCalculator::FlatRate) -%>
+  ManagementCharge <%= management_charge.percentage %>%
+  <%- elsif management_charge.is_a?(Framework::ManagementChargeCalculator::ColumnBased) -%>
+  ManagementCharge varies_by '<%= management_charge.varies_by %>' {
+    <%- management_charge.value_to_percentage.each_pair do |value, percentage| -%>
+    <%= "%-30s -> %s%%" % ["'#{value}'", percentage] %>
+    <%- end -%>
+  }
+  <%- end -%>
 
   InvoiceFields {
     <%- invoice_fields.each do |field| -%>
