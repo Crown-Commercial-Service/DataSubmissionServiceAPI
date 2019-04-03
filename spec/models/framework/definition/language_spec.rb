@@ -429,6 +429,24 @@ RSpec.describe Framework::Definition::Language do
         end
       end
     end
+    context 'Roman numerals in the short_name' do
+      let(:source) do
+        <<~FDL
+          Framework RM1043iii {
+            Name 'DOS-like'
+            ManagementCharge 1%
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it "doesn't grumble" do
+        expect(definition.framework_short_name).to eql('RM1043iii')
+      end
+    end
 
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
