@@ -11,7 +11,8 @@ Framework RM807 {
     optional CustomerReferenceNumber from 'Customer Agreement Number/Reference'
     InvoiceDate from 'Customer Invoice Date'
     InvoiceNumber from 'Customer Invoice Number'
-    optional ProductDescription from 'Customer Invoice Line Number'
+    optional String from 'Customer Invoice Line Number'
+    optional ProductDescription from 'Invoice Line Product/Service Description'
     optional ProductGroup from 'Invoice Line Product/Service Grouping'
     UNSPSC from 'UNSPSC'
     UnitType from 'Unit of Purchase'
@@ -32,7 +33,7 @@ Framework RM807 {
     optional Decimal Additional7 from 'Refuelling Charges inc fuel ex VAT'
     optional String Additional8 from 'Rental Company'
     optional String from 'Booking Method'
-    optional String from 'On line booking discount'
+    optional Decimal from 'On line booking discount'
     optional String from 'Cost Centre'
     optional String from 'Contract Number'
   }

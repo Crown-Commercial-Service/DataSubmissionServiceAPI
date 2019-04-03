@@ -47,11 +47,11 @@ class Framework
     end
 
     def invoice_fields
-      invoice_introspector.fields
+      ruby_definition.const_defined?(:Invoice) ? invoice_introspector.fields : []
     end
 
     def contract_fields
-      contract_introspector.fields
+      ruby_definition.const_defined?(:Order) ? contract_introspector.fields : []
     end
   end
 end

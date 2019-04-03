@@ -10,8 +10,8 @@ module ActiveModel
       def validator_hash
         @validator_hash ||= @klass.validators_on(attr.name).each_with_object({}) do |validator, as_hash|
           validator_name = validator.class.to_s.underscore
-                             .sub('active_model/validations/', '')
-                             .sub('_validator', '').to_sym
+                                    .sub('active_model/validations/', '')
+                                    .sub('_validator', '').to_sym
           as_hash[validator_name] = validator.options.any? ? validator.options : true
         end
       end
@@ -37,16 +37,27 @@ module ActiveModel
           validator_hash[:dependent_field_inclusion]
       end
 
+      def single_validator_allows_nil?
+        validator_hash.length == 1 &&
+          validator_hash.values.last.respond_to?(:[]) &&
+          validator_hash.values.last[:allow_nil]
+      end
+
       def optional?
-        validator_hash[:allow_nil] || (!strict_validators? && !validator_hash[:presence])
+        validator_hash[:allow_nil] ||
+          (!strict_validators? && !validator_hash[:presence]) ||
+          single_validator_allows_nil?
       end
 
       def inclusion_list_with_lookup_values?(value)
-        value.is_a?(Array) && value.length > 0 && value != %w(Y N)
+        value.is_a?(Array) && value.any? && value != %w[Y N]
       end
 
+      # rubocop:disable Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/CyclomaticComplexity
       def type
-        if validator_hash[:ingested_numericality] == true
+        if validator_hash[:ingested_numericality] == true ||
+           validator_hash[:ingested_numericality] == { allow_nil: true }
           'Decimal'
         elsif validator_hash.dig(:ingested_numericality, :only_integer)
           'Integer'
@@ -60,6 +71,8 @@ module ActiveModel
           'String'
         end
       end
+      # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       def lhs
         if known?

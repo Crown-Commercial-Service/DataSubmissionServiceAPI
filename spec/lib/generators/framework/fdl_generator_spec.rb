@@ -62,4 +62,24 @@ RSpec.describe Framework::FdlGenerator, type: :generator do
       end
     end
   end
+  context 'RM807' do
+    let(:generator_arguments)      { %w[RM807] }
+    let(:expected_definition_file) { 'RM807.fdl' }
+
+    it 'defines a framework' do
+      expect(definition).to match 'Framework RM807 {'
+    end
+    it 'defines a management charge' do
+      expect(definition).to match('ManagementCharge 0.5%')
+    end
+
+    describe 'InvoiceFields' do
+      it 'defines some invoice fields' do
+        expect(definition).to match 'InvoiceFields {'
+      end
+      it 'defines optional additional fields' do
+        expect(definition).to match "optional Decimal Additional6 from 'Miles Travelled'"
+      end
+    end
+  end
 end
