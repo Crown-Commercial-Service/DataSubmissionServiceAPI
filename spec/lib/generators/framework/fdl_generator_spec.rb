@@ -61,6 +61,15 @@ RSpec.describe Framework::FdlGenerator, type: :generator do
         expect(definition).to match "YesNo Additional4 from 'Pro-bono work included?"
       end
     end
+
+    describe 'The lookups' do
+      it 'defines some' do
+        expect(definition).to match('Lookups {')
+      end
+      it 'defines SERVICE_TYPE_VALUES as a singular list of strings called ServiceType' do
+        expect(definition).to match(/^.*ServiceType \[$\n\s*'Core'\n\s*'Non-core'\n\s*'Mixture'/)
+      end
+    end
   end
   context 'RM807' do
     let(:generator_arguments)      { %w[RM807] }
@@ -80,6 +89,10 @@ RSpec.describe Framework::FdlGenerator, type: :generator do
       it 'defines optional additional fields' do
         expect(definition).to match "optional Decimal Additional6 from 'Miles Travelled'"
       end
+    end
+
+    it 'defines no lookups' do
+      expect(definition).not_to match('Lookups {')
     end
   end
 end

@@ -1,5 +1,6 @@
 require 'framework' # failure to require this here will result in autoload problems
 require 'active_model/introspector'
+require 'active_model/introspector/lookups'
 require 'active_model/introspector/management_charge'
 
 class Framework
@@ -52,6 +53,10 @@ class Framework
 
     def contract_fields
       ruby_definition.const_defined?(:Order) ? contract_introspector.fields : []
+    end
+
+    def lookups
+      ActiveModel::Introspector::Lookups.new(ruby_definition)
     end
   end
 end

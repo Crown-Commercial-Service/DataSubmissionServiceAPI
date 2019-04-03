@@ -16,4 +16,17 @@ Framework <%= sanitised_framework_short_name %> {
     <%- end -%>
   }
   <%- end -%>
+  <%- if lookups.any? -%>
+
+  Lookups {
+    <%- lookups.each do |lookup| -%>
+    <%= lookup.fdl_name -%> [
+      <%- lookup.values.each do |value| -%>
+      '<%= value -%>'
+      <%- end -%>
+    ]
+
+    <%- end -%>
+  }
+  <%- end -%>
 }
