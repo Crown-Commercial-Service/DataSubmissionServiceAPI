@@ -1,0 +1,43 @@
+Framework RM3797 {
+  Name 'Journal Subscriptions'
+
+  ManagementCharge 1.0%
+
+  InvoiceFields {
+    CustomerURN from 'Customer URN'
+    CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    InvoiceDate from 'Customer Invoice Date'
+    optional InvoiceNumber from 'Customer Invoice Number'
+    ProductGroup from 'Product Group'
+    optional ProductClass from 'Publisher Name'
+    optional ProductDescription from 'Product Description'
+    optional ProductCode from 'Crown Commercial Service Unique Product Codes'
+    UNSPSC from 'UNSPSC'
+    UnitType from 'Unit of Measure'
+    optional UnitPrice from 'Price per Unit'
+    optional UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Charge (Ex VAT)'
+    VATCharged from 'VAT amount charged'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+    optional Decimal Additional2 from 'Publisher List Price'
+  }
+
+  Lookups {
+    UnitOfMeasure [
+      'Each'
+    ]
+
+    ProductGroup [
+      'Print Journal'
+      'Electronic Journal'
+      'Print and Electronic Journal'
+    ]
+
+    UnspscCode [
+      '86141704'
+    ]
+
+  }
+}
