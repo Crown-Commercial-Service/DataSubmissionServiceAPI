@@ -158,6 +158,21 @@ RSpec.describe '/v1' do
         expect(submission.entries.count).to eq 2
       end
     end
+
+    describe 'POST two duplicate entries in the same bulk request' do
+      it 'creates one entry, ignoring the duplicate' do
+        duplicate_bulk_params = valid_bulk_params
+        duplicate_bulk_params[:data][0][:attributes][:source][:row] = 99
+        duplicate_bulk_params[:data][1][:attributes][:source][:row] = 99
+
+        post "/v1/submissions/#{submission.id}/entries/bulk",
+             params: duplicate_bulk_params.to_json,
+             headers: json_headers
+
+        expect(response).to have_http_status(:created)
+        expect(submission.entries.where("CAST(source->>'row' AS INTEGER) = 99").count).to eq 1
+      end
+    end
   end
 
   context 'scoped to a submission file' do
