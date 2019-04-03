@@ -144,7 +144,7 @@ RSpec.describe Framework::Definition::Language do
 
         it {
           is_expected.to have_field('UNSPSC')
-            .with_activemodel_type(:integer)
+            .with_activemodel_type(:string)
             .validated_by(ingested_numericality: { only_integer: true })
         }
 

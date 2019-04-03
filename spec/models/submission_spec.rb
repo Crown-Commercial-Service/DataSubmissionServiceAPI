@@ -46,10 +46,13 @@ RSpec.describe Submission do
       context 'when there is an invoice for the submission' do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
-        it 'enqueues the creation of a reversal invoice' do
+        it 'enqueues the creation of a reversal invoice with the correct arguments' do
+          allow(SubmissionReversalInvoiceCreationJob).to receive(:perform_later)
+
           submission.replace_with_no_business(correcting_user)
 
-          expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
+          expect(SubmissionReversalInvoiceCreationJob).to have_received(:perform_later)
+            .with(submission, correcting_user)
         end
       end
 
@@ -101,10 +104,13 @@ RSpec.describe Submission do
       context 'when there is an invoice for the submission' do
         let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
-        it 'enqueues the creation of a reversal invoice' do
+        it 'enqueues the creation of a reversal invoice with the correct arguments' do
+          allow(SubmissionReversalInvoiceCreationJob).to receive(:perform_later)
+
           submission.mark_as_replaced(correcting_user)
 
-          expect(SubmissionReversalInvoiceCreationJob).to have_been_enqueued
+          expect(SubmissionReversalInvoiceCreationJob).to have_received(:perform_later)
+            .with(submission, correcting_user)
         end
       end
 
