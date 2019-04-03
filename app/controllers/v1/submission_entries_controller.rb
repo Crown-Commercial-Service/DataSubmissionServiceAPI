@@ -34,7 +34,8 @@ class V1::SubmissionEntriesController < APIController
       entries << entry unless SubmissionEntry.exists?(submission_id: entry.submission_id, source: entry.source)
     end
 
-    SubmissionEntry.import(entries)
+    deduped_entries = entries.uniq { |entry| [entry.submission_id, entry.source] }
+    SubmissionEntry.import(deduped_entries)
 
     render plain: 'success', status: :created
   end
