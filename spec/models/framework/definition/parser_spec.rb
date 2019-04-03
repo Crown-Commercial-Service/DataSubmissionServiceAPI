@@ -31,7 +31,6 @@ RSpec.describe Framework::Definition::Parser do
 
     it { is_expected.to parse('CM/OSG/05/3565').as(string: 'CM/OSG/05/3565') }
     it { is_expected.to parse('RM3710').as(string: 'RM3710') }
-    it { is_expected.not_to parse('foobar') }
   end
 
   describe '#framework_name' do
