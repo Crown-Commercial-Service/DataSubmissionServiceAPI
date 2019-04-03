@@ -17,7 +17,7 @@ module ActiveModel
 
       private
 
-      ONLY_ALL_CAPS_CONSTS = /^[A-Z_]*$/
+      ONLY_ALL_CAPS_CONSTS = /^[A-Z0-9_]*$/.freeze
 
       def all_caps_arrays
         definition.constants.select { |c| c.to_s =~ ONLY_ALL_CAPS_CONSTS && definition.const_get(c).is_a?(Array) }
