@@ -12,8 +12,8 @@ RSpec.describe DependentFieldInclusionValidator do
       mapping = {
         'Service Type' => {
           'core'     => ['Corporate Finance'],
-          'non-core' => ['Equity Capital Markets'],
-          'mixture'  => ['Asset Finance']
+          'Non-core' => ['Equity Capital Markets'],
+          'MIXTURE'  => ['Asset Finance']
         }
       }
 
