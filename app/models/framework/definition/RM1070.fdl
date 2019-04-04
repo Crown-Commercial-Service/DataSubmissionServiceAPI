@@ -1,0 +1,40 @@
+Framework RM1070 {
+  Name 'Vehicle Purchase (RM1070)'
+
+  ManagementCharge 0.5%
+
+  InvoiceFields {
+    LotNumber from 'Lot Number'
+    optional CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    CustomerURN from 'Customer URN'
+    InvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Invoice Number'
+    optional String from 'Invoice Line Number'
+    ProductSubClass from 'Vehicle Model'
+    ProductClass from 'Vehicle Make'
+    ProductGroup from 'Vehicle Segment'
+    UNSPSC from 'UNSPSC'
+    String Additional1 from 'Vehicle Registration Number'
+    optional UnitType from 'Unit of Purchase'
+    UnitPrice from 'Invoice Price Per Vehicle'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
+    Expenses from 'Additional Expenditure to provide goods'
+    optional Decimal Additional2 from 'All Conversion and third party conversion costs excluding factory fit options'
+    VATIncluded from 'VAT Applicable?'
+    VATCharged from 'VAT amount charged'
+    optional ProductCode from 'Vehicle CAP Code'
+    ProductDescription from 'Vehicle Trim/Derivative'
+    optional Decimal Additional3 from 'CO2 Emissions'
+    String Additional4 from 'Fuel Type'
+    optional String Additional5 from 'Customer Support Terms'
+    optional String Additional6 from 'Leasing Company'
+    optional String Additional7 from 'Additional support terms given to Lease companies'
+    Decimal Additional8 from 'Invoice Price Excluding Options'
+    Decimal from 'List Price Excluding Options'
+    optional String from 'eAuction Contract No'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+  }
+}

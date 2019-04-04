@@ -32,7 +32,8 @@ class Framework
           'CustomerReferenceNumber' => :string,
           'ContractStartDate' => :date,
           'ContractEndDate' => :date,
-          'ContractAwardChannel' => :string
+          'ContractAwardChannel' => :string,
+          'Expenses' => :decimal
         }.freeze
 
         def self.type_for(value)

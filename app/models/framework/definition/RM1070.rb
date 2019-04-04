@@ -23,7 +23,7 @@ class Framework
         field 'Vehicle Registration Number', :string, exports_to: 'Additional1', presence: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType'
         field 'Invoice Price Per Vehicle', :string, exports_to: 'UnitPrice', ingested_numericality: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: { only_integer: true }
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
         field 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'Additional Expenditure to provide goods', :string, exports_to: 'Expenses', ingested_numericality: true
         field 'All Conversion and third party conversion costs excluding factory fit options', :string, exports_to: 'Additional2', ingested_numericality: true, allow_nil: true
