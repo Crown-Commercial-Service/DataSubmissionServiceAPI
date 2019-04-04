@@ -28,7 +28,7 @@ class Framework
           'LotNumber' => :lot_number,
           'PromotionCode' => :string,
           'CustomerInvoiceDate' => :date,
-          'SupplierReferenceNumber' => :integer,
+          'SupplierReferenceNumber' => :string,
           'CustomerReferenceNumber' => :string,
           'ContractStartDate' => :date,
           'ContractEndDate' => :date,

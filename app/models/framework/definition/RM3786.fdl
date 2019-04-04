@@ -1,0 +1,148 @@
+Framework RM3786 {
+  Name 'General Legal Advice Services'
+
+  ManagementCharge 1.5%
+
+  InvoiceFields {
+    LotNumber from 'Tier Number'
+    optional SupplierReferenceNumber from 'Supplier Reference Number'
+    CustomerURN from 'Customer URN'
+    CustomerName from 'Customer Organisation Name'
+    optional CustomerPostCode from 'Customer Post Code'
+    InvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Customer Invoice Number'
+    ProductGroup from 'Service Type'
+    ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
+      'Core'     -> CoreSpecialisms
+      'Non-core' -> NonCoreSpecialisms
+      'Mixture'  -> PrimarySpecialism
+    }
+    ProductSubClass from 'Practitioner Grade'
+    UNSPSC from 'UNSPSC'
+    UnitType from 'Unit of Purchase'
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Cost (ex VAT)'
+    VATCharged from 'VAT Amount Charged'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+    CustomerReferenceNumber from 'Matter Name'
+    PricingMechanism Additional5 from 'Pricing Mechanism'
+    Decimal Additional1 from 'Pro-Bono Price per Unit'
+    Decimal Additional2 from 'Pro-Bono Quantity'
+    Decimal Additional3 from 'Pro-Bono Total Value'
+    String Additional4 from 'Sub-Contractor Name (If Applicable)'
+  }
+
+  ContractFields {
+    optional ContractStartDate from 'Contract Start Date'
+    optional ContractEndDate from 'Contract End Date'
+    optional ContractAwardChannel from 'Award Procedure'
+    optional ContractValue from 'Expected Total Order Value'
+    optional String Additional1 from 'Sub-Contractor Name'
+    optional String Additional7 from 'Lead Counsel / Matter Owner'
+    optional CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
+    optional YesNo Additional4 from 'Pro-bono work included? (Y/N)'
+    LotNumber from 'Tier Number'
+    optional SupplierReferenceNumber from 'Supplier Reference Number'
+    CustomerURN from 'Customer URN'
+    CustomerName from 'Customer Organisation Name'
+    optional CustomerPostCode from 'Customer Post Code'
+    CustomerReferenceNumber from 'Matter Name'
+    optional ProductDescription from 'Matter Description'
+    optional String Additional5 from 'Expected Pro-Bono value'
+    optional String Additional2 from 'Expression Of Interest Used (Y/N)'
+    optional String Additional6 from 'Customer Response Time'
+  }
+
+  Lookups {
+    ContractAwardChannel [
+      'Further Competition'
+      'Direct Award'
+    ]
+
+    ProductGroup [
+      'Core'
+      'Non-core'
+      'Mixture'
+    ]
+
+    CoreSpecialisms [
+      'Public Law'
+      'Contracts'
+      'Competition Law'
+      'Construction Law'
+      'Corporate Law'
+      'Dispute Resolution'
+      'Employment Law'
+      'EU Law'
+      'Information Law including Data Protection Law'
+      'Information Technology Law'
+      'Intellectual Property Law'
+      'Litigation'
+      'Non-complex Finance'
+      'Outsourcing'
+      'Partnerwhip Law'
+      'Partnership Law'
+      'Pensions Law'
+      'Planning Law'
+      'Projects/PFI/PPP'
+      'Public Procurement Law'
+      'Real Estate and Real Estate Finance'
+      'Restructuring/Insolvency'
+      'Tax Law'
+      'Environmental Law'
+    ]
+
+    NonCoreSpecialisms [
+      'Education Law'
+      'Child Law'
+      'Energy and Natural Resources'
+      'Food, Rural and Environmental Affairs'
+      'Franchise Law'
+      'Health and Healthcare'
+      'Health and Safety'
+      'Life Sciences'
+      'Public Inquiries and Inquests'
+      'Telecommunications'
+      'Law of International Trade, Investment and Regulation'
+      'Public International Law'
+    ]
+
+    PrimarySpecialism [
+      CoreSpecialisms
+      NonCoreSpecialisms
+    ]
+
+    ProductSubClass [
+      'Partner'
+      'Legal Director/Senior Solicitor'
+      'Senior Associate'
+      'Junior Solicitor'
+      'Trainee / Paralegal'
+      'Other Grade / Mix'
+    ]
+
+    PricingMechanism [
+      'Time and Material'
+      'Fixed'
+      'Risk-Reward'
+      'Gain-Share'
+      'Pro-Bono'
+    ]
+
+    UnitType [
+      'Hourly'
+      'Daily'
+      'Monthly'
+      'Fixed Price'
+    ]
+
+    CallOffManagingEntity [
+      'CCS'
+      'Central Government Department'
+      '3rd Party Contracting Partner'
+    ]
+
+  }
+}
