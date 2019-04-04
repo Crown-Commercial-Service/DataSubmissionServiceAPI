@@ -163,7 +163,7 @@ class Framework
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
         field 'Specialism', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Pricing Mechanism', :string, exports_to: 'ProductClass', presence: true, case_insensitive_inclusion: { in: PRICING_MECHANISM_VALUES }
-        field 'Fee Earner', :string, exports_to: 'ProductSubClas', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: GRADE_MAPPING }
+        field 'Fee Earner', :string, exports_to: 'ProductSubClass', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: GRADE_MAPPING }
         field 'Unit of Measure', :string, exports_to: 'UnitType', presence: true, dependent_field_inclusion: { parent: 'Pricing Mechanism', in: PRICING_MAPPING }
         field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
@@ -171,7 +171,7 @@ class Framework
         field 'Expenses / Disbursements', :string, exports_to: 'Expenses', ingested_numericality: true
         field 'Pro-Bono Quantity', :string, exports_to: 'Additional2', ingested_numericality: true
         field 'Pro-Bono Price per Unit', :string, exports_to: 'Additional1', ingested_numericality: true
-        field 'Pro-Bono Total Value', :string, exports_to: 'Additional3', ingested_numericality: true
+        field 'Pro-Bono Total Cost (ex VAT)', :string, exports_to: 'Additional3', ingested_numericality: true
       end
 
       class Order < EntryData
@@ -179,7 +179,7 @@ class Framework
 
         field 'Supplier Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer Unique Refrence Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
+        field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
         field 'Matter Description', :string, exports_to: 'ProductDescription', presence: true

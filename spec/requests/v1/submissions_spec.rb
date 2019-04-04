@@ -207,28 +207,6 @@ RSpec.describe '/v1' do
         end
       end
     end
-
-    context 'given an invalid submission' do
-      it 'returns an error' do
-        task = FactoryBot.create(:task, status: :in_progress)
-
-        submission = FactoryBot.create(
-          :submission_with_invalid_entries,
-          aasm_state: :in_review,
-          task: task
-        )
-
-        post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
-
-        expect(response).to have_http_status(:bad_request)
-        expect(json['errors'][0]['title']).to eql 'Invalid aasm_state'
-
-        submission.reload
-
-        expect(submission).to be_in_review
-        expect(task).to be_in_progress
-      end
-    end
   end
 
   describe 'POST /submissions/:submission_id/validate' do

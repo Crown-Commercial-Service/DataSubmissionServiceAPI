@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-66] - 2019-04-04
+
+- Fix snags in RM3788 framework definition
+- DependentFieldInclusionValidation is case insensitive
+- Parse FDL framework short names with roman numerals
+- Fix typo in RM1557vii / G Gloud 7
+- Remove redundant guard on event
+
 ## [release-65] - 2019-04-03
 
 - Prevent duplicate submission entries being saved in bulk request
@@ -435,6 +443,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-66]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-65...release-66
 [release-65]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-64...release-65
 [release-64]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-63...release-64
 [release-63]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-62...release-63
