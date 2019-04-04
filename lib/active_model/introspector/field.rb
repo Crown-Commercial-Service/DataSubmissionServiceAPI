@@ -32,9 +32,7 @@ module ActiveModel
         validator_hash[:urn] ||
           validator_hash[:lot_in_agreement] ||
           validator_hash[:ingested_numericality] ||
-          validator_hash[:ingested_date] ||
-          validator_hash[:case_insensitive_inclusion] ||
-          validator_hash[:dependent_field_inclusion]
+          validator_hash[:ingested_date]
       end
 
       def single_validator_allows_nil?

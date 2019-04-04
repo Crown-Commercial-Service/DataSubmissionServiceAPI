@@ -14,7 +14,7 @@ Framework RM807 {
     optional String from 'Customer Invoice Line Number'
     optional ProductDescription from 'Invoice Line Product/Service Description'
     optional ProductGroup from 'Invoice Line Product/Service Grouping'
-    UNSPSC from 'UNSPSC'
+    optional UNSPSC from 'UNSPSC'
     UnitType from 'Unit of Purchase'
     UnitPrice from 'Price per Unit'
     UnitQuantity from 'Invoice Line Quantity'

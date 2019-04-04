@@ -22,7 +22,7 @@ Framework RM1070 {
     InvoiceValue from 'Total Supplier price including standard factory fit options but excluding conversion costs and work ex VAT'
     Expenses from 'Additional Expenditure to provide goods'
     optional Decimal Additional2 from 'All Conversion and third party conversion costs excluding factory fit options'
-    VATIncluded from 'VAT Applicable?'
+    optional VATIncluded from 'VAT Applicable?'
     VATCharged from 'VAT amount charged'
     optional ProductCode from 'Vehicle CAP Code'
     ProductDescription from 'Vehicle Trim/Derivative'

@@ -19,7 +19,7 @@ Framework RM3710 {
     UnitPrice from 'Price per Unit (Ex VAT)'
     UnitQuantity from 'Quantity'
     InvoiceValue from 'Total Charge (Ex VAT)'
-    VATIncluded from 'VAT Applicable'
+    optional VATIncluded from 'VAT Applicable'
     VATCharged from 'VAT amount charged'
     String Additional2 from 'Subcontractor Supplier Name'
     optional ProductCode from 'CAP Code'
