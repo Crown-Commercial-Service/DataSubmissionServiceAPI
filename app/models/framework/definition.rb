@@ -1,3 +1,5 @@
+require 'framework'
+
 class Framework
   module Definition
     class MissingError < StandardError; end
