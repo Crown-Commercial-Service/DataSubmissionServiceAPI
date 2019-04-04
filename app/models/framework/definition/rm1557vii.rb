@@ -102,7 +102,7 @@ class Framework
         field 'Customer Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, presence: true
         field 'Completion Date/Delivery Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
         field 'Customer Order Date', :string, exports_to: 'CustomerOrderDate', ingested_date: true, presence: true
-        field 'Product / Service Group 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
+        field 'Product / Service Group Level 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
