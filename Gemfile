@@ -68,6 +68,10 @@ gem 'http'
 # Used for FDL testing (see FDL::Validations::Test)
 gem 'hashdiff', require: false
 
+# Excel parsing
+gem 'roo', '~> 2.8.0', require: false
+gem 'roo-xls', require: false
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

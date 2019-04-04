@@ -309,6 +309,13 @@ GEM
       netrc (~> 0.8)
     rollbar (2.16.4)
       multi_json
+    roo (2.8.2)
+      nokogiri (~> 1)
+      rubyzip (>= 1.2.1, < 2.0.0)
+    roo-xls (1.2.0)
+      nokogiri
+      roo (>= 2.0.0, < 3)
+      spreadsheet (> 0.9.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -339,12 +346,14 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
+    ruby-ole (1.2.12.2)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     ruby_event_store (0.30.0)
       concurrent-ruby (~> 1.0)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
+    rubyzip (1.2.2)
     safe_yaml (1.0.4)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
@@ -374,6 +383,8 @@ GEM
       skylight-core (= 4.0.0.alpha)
     skylight-core (4.0.0.alpha)
       activesupport (>= 4.2.0)
+    spreadsheet (1.2.3)
+      ruby-ole (>= 1.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -448,6 +459,8 @@ DEPENDENCIES
   rails_event_store
   rails_event_store-rspec
   rollbar
+  roo (~> 2.8.0)
+  roo-xls
   rspec-json_expectations
   rspec-rails
   rubocop
