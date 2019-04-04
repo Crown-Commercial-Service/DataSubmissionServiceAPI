@@ -32,7 +32,7 @@ submission_ids.each do |submission_id|
   invoices_sheet = spreadsheet.sheet('InvoicesRaised')
   dmsid_column = invoices_sheet.row(1).index('Digital Marketplace Service ID')
 
-  invoices_sheet.each_with_index do |row, idx|
+  invoices_sheet.reject{ |row| row.compact.empty? }.each_with_index do |row, idx|
     next if idx.zero? # Skip header row - ruby iterator zero-indexed
 
     invoice_entry = invoice_entries.find_by("CAST(source->>'row' AS INTEGER) = ?", idx + 1) # Excel rows are 1-indexed
@@ -52,7 +52,7 @@ submission_ids.each do |submission_id|
                  end
   dmsid_column = orders_sheet.row(1).index('Digital Marketplace Service ID')
 
-  orders_sheet.each_with_index do |row, idx|
+  orders_sheet.reject{ |row| row.compact.empty? }.each_with_index do |row, idx|
     next if idx.zero? # Skip header row - ruby iterator zero-indexed
 
     order_entry = order_entries.find_by("CAST(source->>'row' AS INTEGER) = ?", idx + 1) # Excel rows are 1-indexed
