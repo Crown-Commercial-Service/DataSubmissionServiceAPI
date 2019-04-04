@@ -69,7 +69,7 @@ class Framework
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Product / Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, presence: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
@@ -92,7 +92,7 @@ class Framework
         field 'Call Off End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Product / Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
         field 'Call Off Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
       end
     end
