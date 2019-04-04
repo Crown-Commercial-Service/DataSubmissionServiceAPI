@@ -11,7 +11,7 @@ class Framework
       rule(:pascal_case_identifier) { (match(/[A-Z]/) >> match(/[a-z0-9]/).repeat).repeat(1) }
       rule(:additional_field_identifier) { str('Additional') >> match('[0-9]').repeat(1) }
 
-      rule(:framework_identifier) { match(%r{[A-Za-z0-9/]}).repeat(1).as(:string) }
+      rule(:framework_identifier) { match(%r{[A-Za-z0-9/.]}).repeat(1).as(:string) }
       rule(:framework_block) do
         braced(
           spaced(metadata) >>
