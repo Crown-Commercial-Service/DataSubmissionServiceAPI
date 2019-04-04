@@ -36,11 +36,7 @@ class Submission < ApplicationRecord
     end
 
     event :reviewed_and_accepted do
-      transitions from: :in_review, to: :completed, guard: :all_entries_valid?
-
-      error do |e|
-        errors.add(:aasm_state, message: e.message)
-      end
+      transitions from: :in_review, to: :completed
     end
 
     event :replace_with_no_business do

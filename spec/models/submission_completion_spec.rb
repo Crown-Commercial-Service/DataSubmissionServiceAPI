@@ -84,34 +84,6 @@ RSpec.describe SubmissionCompletion do
           end
         end
       end
-
-      context 'with some invalid entries' do
-        let(:submission) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
-
-        it 'leaves the submission in the "in_review" state' do
-          expect { complete_submission.perform! }.not_to change { submission.aasm_state }
-        end
-
-        it 'does not record the user who tried to complete the submission' do
-          expect { complete_submission.perform! }.not_to change { submission.submitted_by }
-        end
-
-        it 'does not record the attempted submission time' do
-          expect { complete_submission.perform! }.not_to change { submission.submitted_at }
-        end
-
-        it 'leaves the task in the "in_progress" state' do
-          expect { complete_submission.perform! }.not_to change { task.status }
-        end
-      end
-    end
-
-    context 'given a "processing" submission' do
-      let(:submission) { FactoryBot.create(:submission_with_unprocessed_entries, aasm_state: :processing, task: task) }
-
-      it 'leaves the submission in its current state' do
-        expect { complete_submission.perform! }.not_to change { submission.aasm_state }
-      end
     end
   end
 end

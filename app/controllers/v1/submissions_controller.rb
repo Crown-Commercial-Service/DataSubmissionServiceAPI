@@ -35,11 +35,7 @@ class V1::SubmissionsController < APIController
     submission = Submission.find(params[:id])
     complete_submission!(submission)
 
-    if submission.errors.empty?
-      head :no_content
-    else
-      render jsonapi_errors: submission.errors, status: :bad_request
-    end
+    head :no_content
   end
 
   def validate
