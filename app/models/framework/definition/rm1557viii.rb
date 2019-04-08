@@ -65,18 +65,18 @@ class Framework
         field 'Buyer Contact Name', :string
         field 'Buyer Contact Number', :string
         field 'Buyer Email Address', :string
-        field 'Invoice Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true, presence: true
+        field 'Invoice Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Product / Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
-        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', presence: true
+        field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
-        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
-        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, presence: true
-        field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true, presence: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
+        field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true
       end
 
       class Order < EntryData
@@ -88,12 +88,12 @@ class Framework
         field 'Buyer Contact Name', :string
         field 'Buyer Contact Number', :string
         field 'Buyer Email Address', :string
-        field 'Buyer Call Off Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, presence: true
-        field 'Call Off End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
+        field 'Buyer Call Off Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
+        field 'Call Off End Date', :string, exports_to: 'ContractEndDate', ingested_date: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Product / Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
-        field 'Call Off Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', presence: true
+        field 'Call Off Value', :string, exports_to: 'ContractValue', ingested_numericality: true
       end
     end
   end
