@@ -6,11 +6,11 @@ require 'fdl/validations/test'
 # of fdl:validation:test
 RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
   let(:compare)        { FDL::Validations::Test::Compare.new(entry, short_name, fdl_definition) }
-  let(:entry)          { build(:submission_entry, data: data) }
   let(:fdl_definition) { Framework::Definition::Language[short_name] }
 
   let(:supplier)       { double(:supplier) }
-  let(:entry)          { double(:submission_entry, submission: submission, data: data) }
+  let(:entry_type)     { 'invoice' }
+  let(:entry)          { double(:submission_entry, submission: submission, data: data, entry_type: entry_type) }
   let!(:agreement)     { double(:agreement, supplier: supplier, framework: framework, lot_numbers: [1, 2, 3, 4, 5, 6]) }
   let(:submission)     { double(:submission, supplier: supplier, framework: framework, agreement: agreement) }
   let(:framework)      { double(:framework, short_name: short_name) }
@@ -268,7 +268,18 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
         let(:short_name) { fdl_short_name }
         let(:data)       { {} }
 
-        it { is_expected.to be_empty }
+        context 'invoices' do
+          let(:entry_type) { 'invoice' }
+          it { is_expected.to be_empty }
+        end
+
+        require 'framework/definition' # Kernel.const_defined? won't work with autoload
+        if Kernel.const_defined?("Framework::Definition::#{fdl_short_name}::Order")
+          context 'orders' do
+            let(:entry_type) { 'order' }
+            it { is_expected.to be_empty }
+          end
+        end
       end
     end
   end

@@ -14,23 +14,23 @@ module FDL
           @fdl_definition       = fdl_definition
         end
 
-        def original_invoice
-          @original_invoice ||= original_invoice_class.new(entry)
+        def original_entry
+          @original_entry ||= original_entry_class.new(entry)
         end
 
         def original_errors
-          original_invoice.validate
-          original_invoice.errors.to_hash.transform_values(&:sort)
+          original_entry.validate
+          original_entry.errors.to_hash.transform_values(&:sort)
         end
 
-        def fdl_invoice
-          @fdl_invoice ||= fdl_invoice_class.new(entry)
+        def fdl_entry
+          @fdl_entry ||= fdl_entry_class.new(entry)
         end
 
         def fdl_errors
-          invoice = fdl_invoice
-          invoice.validate
-          invoice.errors.to_hash.transform_values(&:sort)
+          entry = fdl_entry
+          entry.validate
+          entry.errors.to_hash.transform_values(&:sort)
         end
 
         def diff_s
@@ -47,16 +47,27 @@ module FDL
           HashDiff.diff(original_errors, fdl_errors)
         end
 
-        def fdl_invoice_class
-          @fdl_invoice_class ||= fdl_definition::Invoice
+        def fdl_entry_class
+          @fdl_entry_class ||= entry_class(fdl_definition)
         end
 
-        def original_invoice_class
-          @original_invoice_class ||= original_definition::Invoice
+        def original_entry_class
+          @original_entry_class ||= entry_class(original_definition)
         end
 
         def original_definition
           @original_definition ||= Framework::Definition[@framework_short_name]
+        end
+
+        private
+
+        def entry_class(definition)
+          case entry.entry_type
+          when 'invoice' then definition::Invoice
+          when 'order'   then definition::Order
+          else
+            raise 'entry.entry_type neither invoice nor order'
+          end
         end
       end
     end
