@@ -65,29 +65,29 @@ class Framework
       class Invoice < EntryData
         total_value_field 'Total Cost (ex VAT)'
 
-        field 'Opportunity ID', :string, exports_to: 'SupplierReferenceNumber', presence: true, length: { minimum: 4 }, ingested_numericality: { only_integer: true }
+        field 'Opportunity ID', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
-        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'InvoiceDate', ingested_date: true, presence: true
+        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Unit of Measure', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
-        field 'Total Cost (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Total Cost (ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
       end
 
       class Order < EntryData
         total_value_field 'Total Contract Value'
 
-        field 'Opportunity ID', :string, exports_to: 'SupplierReferenceNumber', presence: true, length: { minimum: 4 }, ingested_numericality: { only_integer: true }
+        field 'Opportunity ID', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
-        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, presence: true
-        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
-        field 'Total Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
+        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
+        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true
+        field 'Total Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true
       end
     end
   end
