@@ -43,7 +43,7 @@ Framework RM3787 {
     String Additional1 from 'Sub-Contractor Name'
     String Additional2 from 'Expression Of Interest Used (Y/N)'
     String Additional6 from 'Customer Response Time'
-    CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
+    optional CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
     ContractAwardChannel from 'Award Procedure'
     String Additional4 from 'Pro-bono work included? (Y/N)'
     String Additional5 from 'Expected Pro-Bono value'
