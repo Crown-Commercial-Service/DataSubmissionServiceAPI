@@ -36,7 +36,7 @@ Framework RM3787 {
     CustomerName from 'Customer Organisation Name'
     CustomerPostcode from 'Customer Post Code'
     CustomerReferenceNumber from 'Matter Name'
-    ProductDescription from 'Matter Description'
+    String Additional7 from 'Matter Description'
     ContractStartDate from 'Contract Start Date'
     ContractEndDate from 'Contract End Date'
     ContractValue from 'Expected Total Order Value'
@@ -92,7 +92,7 @@ Framework RM3787 {
       NonCoreSpecialisms
     ]
 
-    PractitionerGrade [
+    ProductDescription [
       'Partner'
       'Legal Director/Senior Solicitor'
       'Senior Associate'
@@ -101,7 +101,7 @@ Framework RM3787 {
       'Other Grade / Mix'
     ]
 
-    UnitOfPurchase [
+    UnitType [
       'Hourly'
       'Daily'
       'Monthly'
