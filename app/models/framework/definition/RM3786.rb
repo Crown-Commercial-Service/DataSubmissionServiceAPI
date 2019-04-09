@@ -27,7 +27,6 @@ class Framework
         'Litigation',
         'Non-complex Finance',
         'Outsourcing',
-        'Partnerwhip Law',
         'Partnership Law',
         'Pensions Law',
         'Planning Law',
