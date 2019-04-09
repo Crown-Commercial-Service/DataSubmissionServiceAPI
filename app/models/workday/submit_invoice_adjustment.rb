@@ -29,7 +29,7 @@ module Workday
     # rubocop:disable Metrics/AbcSize
     def prepare_request_body
       @request.body do |body|
-        body.Business_Process_Parameters.Auto_Complete true
+        body.Business_Process_Parameters.Auto_Complete submit?
         body.Customer_Invoice_Adjustment_Data do |invoice|
           invoice.Company_Reference.ID    CCS_COMPANY_REFERENCE, 'ns0:type': 'Company_Reference_ID'
           invoice.Customer_Reference.ID   supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
@@ -111,6 +111,10 @@ module Workday
 
     def task_period_in_words
       task.period_date.strftime('%B %Y')
+    end
+
+    def submit?
+      management_charge < 5000
     end
   end
 end
