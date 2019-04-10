@@ -35,7 +35,11 @@ module Export
       if test_mode
         { stub_responses: true }
       else
-        { region: ENV['AWS_S3_REGION'] }
+        {
+          region: ENV['AWS_S3_EXPORT_REGION'] || ENV['AWS_S3_REGION'],
+          access_key_id: ENV['AWS_EXPORT_ACCESS_KEY_ID'] || ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_EXPORT_SECRET_ACCESS_KEY'] || ENV['AWS_SECRET_ACCESS_KEY']
+        }
       end
     end
   end
