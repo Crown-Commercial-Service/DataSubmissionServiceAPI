@@ -6,8 +6,15 @@ require 'fdl/validations/test'
 # of fdl:validation:test
 RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
   let(:compare)        { FDL::Validations::Test::Compare.new(entry, short_name, fdl_definition) }
-  let(:entry)          { build(:submission_entry, data: data) }
   let(:fdl_definition) { Framework::Definition::Language[short_name] }
+
+  let(:supplier)       { double(:supplier) }
+  let(:entry_type)     { 'invoice' }
+  let(:entry)          { double(:submission_entry, submission: submission, data: data, entry_type: entry_type) }
+  let!(:agreement)     { double(:agreement, supplier: supplier, framework: framework, lot_numbers: [1, 2, 3, 4, 5, 6]) }
+  let(:submission)     { double(:submission, supplier: supplier, framework: framework, agreement: agreement) }
+  let(:framework)      { double(:framework, short_name: short_name) }
+  let!(:lot)           { double(:framework_lot, number: 1, framework: framework) }
 
   subject(:diff) { compare.diff }
 
@@ -47,12 +54,6 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
 
   context 'Framework RM858' do
     let(:short_name) { 'RM858' }
-    let(:supplier)   { create :supplier }
-    let(:entry)      { build(:submission_entry, submission: submission, data: data) }
-    let!(:agreement) { create :agreement, supplier: supplier, framework: framework }
-    let(:submission) { create :submission, supplier: supplier, framework: framework }
-    let(:framework)  { create :framework, short_name: short_name }
-    let!(:lot)       { create :framework_lot, framework: framework }
 
     context 'Lot number problem' do
       let(:data) do
@@ -178,12 +179,6 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
 
   context 'Framework RM6060' do
     let(:short_name) { 'RM6060' }
-    let(:supplier)   { create :supplier }
-    let(:entry)      { build(:submission_entry, submission: submission, data: data) }
-    let!(:agreement) { create :agreement, supplier: supplier, framework: framework }
-    let(:submission) { create :submission, supplier: supplier, framework: framework }
-    let(:framework)  { create :framework, short_name: short_name }
-    let!(:lot)       { create :framework_lot, number: 1, framework: framework }
 
     context 'dependent field inclusion not working' do
       let(:data) do
@@ -223,6 +218,68 @@ RSpec.describe 'Failing cases we found via rake fdl:validation:test' do
 
       it do
         is_expected.to be_empty
+      end
+    end
+  end
+
+  context 'Framework RM3786' do
+    let(:short_name) { 'RM3786' }
+
+    context 'Primary Specialism' do
+      let(:data) do
+        {
+          'UNSPSC' => '80120000',
+          'Quantity' => '17.6',
+          'Matter Name' => 'General Commercial Advice - November 2017- November 2018',
+          'Tier Number' => '1',
+          'Customer URN' => '10562005',
+          'Service Type' => 'Core',
+          'Price per Unit' => '182.84',
+          'Unit of Purchase' => 'Hourly',
+          'Pricing Mechanism' => 'Time and Material',
+          'Pro-Bono Quantity' => '0.00',
+          'Customer Post Code' => 'SW1H 0ET',
+          'Practitioner Grade' => 'Legal Director/Senior Solicitor',
+          'Primary Specialism' => 'Contracts',
+          'VAT Amount Charged' => '643.60',
+          'Total Cost (ex VAT)' => '3217.98',
+          'Pro-Bono Total Value' => '0.00',
+          'Customer Invoice Date' => '7/5/18',
+          'Customer Invoice Number' => '3314793',
+          'Pro-Bono Price per Unit' => '0.00',
+          'Supplier Reference Number' => '459029.00001',
+          'Customer Organisation Name' => 'South Tees Site Company',
+          'Sub-Contractor Name (If Applicable)' => 'N/A'
+        }
+      end
+
+      it do
+        is_expected.to be_empty
+      end
+    end
+  end
+
+  describe 'what happens to all the frameworks with empty data' do
+    @all_framework_short_names =
+      Dir[Rails.root.join('app/models/framework/definition/*.fdl')].map { |filename| File.basename(filename, '.fdl') }
+
+    @all_framework_short_names.each do |fdl_short_name|
+      context "nils for #{fdl_short_name}" do
+        let(:short_name) { fdl_short_name }
+        let(:data)       { {} }
+
+        context 'invoices' do
+          let(:entry_type) { 'invoice' }
+          it { is_expected.to be_empty }
+        end
+
+        require 'framework/definition' # Kernel.const_defined? won't work with autoload
+        if Kernel.const_defined?("Framework::Definition::#{fdl_short_name}::Order")
+          context 'orders' do
+            let(:entry_type) { 'order' }
+            it { is_expected.to be_empty }
+          end
+        end
       end
     end
   end

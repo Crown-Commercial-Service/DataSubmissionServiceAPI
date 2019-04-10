@@ -69,20 +69,20 @@ class Framework
         field 'Customer Contact Name', :string
         field 'Customer Contact Number', :string
         field 'Customer Email Address', :string
-        field 'Customer Invoice Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true, presence: true
+        field 'Customer Invoice Date', :string, exports_to: 'CustomerInvoiceDate', ingested_date: true
         field 'Customer Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Customer Invoice Line Number', :string
         field 'Product / Service Group Level 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
         field 'Unit of Purchase', :string, exports_to: 'UnitType', presence: true
-        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
         field 'VAT Applicable', :string, exports_to: 'VATIncluded', presence: true
-        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, presence: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
         field 'Actual Delivery Date', :string, ingested_date: true, allow_nil: true
-        field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true, presence: true
+        field 'Expenses', :string, exports_to: 'Expenses', ingested_numericality: true
         field 'Buyer Cost Centre', :string
         field 'Contract Number', :string
       end
@@ -99,14 +99,14 @@ class Framework
         field 'Customer Contact Number', :string
         field 'Customer Email Address', :string
         field 'Customer Order Number', :string, exports_to: 'CustomerReferenceNumber'
-        field 'Customer Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, presence: true
-        field 'Completion Date/Delivery Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
-        field 'Customer Order Date', :string, exports_to: 'CustomerOrderDate', ingested_date: true, presence: true
+        field 'Customer Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
+        field 'Completion Date/Delivery Date', :string, exports_to: 'ContractEndDate', ingested_date: true
+        field 'Customer Order Date', :string, exports_to: 'CustomerOrderDate', ingested_date: true
         field 'Product / Service Group Level 1', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, allow_nil: true
-        field 'Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
-        field 'Quantity', :string, exports_to: 'Quantity', ingested_numericality: true, presence: true
+        field 'Value', :string, exports_to: 'ContractValue', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'Quantity', ingested_numericality: true
       end
     end
   end

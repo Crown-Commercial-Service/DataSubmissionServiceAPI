@@ -19,6 +19,9 @@ Rails/Output:
         - 'db/data_migrate/**/*'
         - 'lib/fdl/validations/**/*'
 
+Rails/FilePath:
+    Enabled: false
+
 Style/AndOr:
     Enabled: false
 

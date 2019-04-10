@@ -1,3 +1,4 @@
+require 'active_model/introspector'
 ##
 # Matcher to allow the following forms:
 #

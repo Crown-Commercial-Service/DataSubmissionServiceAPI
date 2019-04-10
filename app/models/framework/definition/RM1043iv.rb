@@ -72,7 +72,7 @@ class Framework
         field 'Buyer Contact Name', :string
         field 'Buyer Contact Number', :string
         field 'Buyer Email Address', :string
-        field 'Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true, presence: true
+        field 'Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Project Phase', :string, exports_to: 'Additional1', presence: true
@@ -81,10 +81,10 @@ class Framework
         field 'Location', :string, exports_to: 'Additional3', presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }
         field 'Unit of Purchase', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
-        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true, presence: true
-        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true, presence: true
+        field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Total Charge (Ex VAT)', :string, exports_to: 'InvoiceValue', ingested_numericality: true
+        field 'VAT amount charged', :string, exports_to: 'VATCharged', ingested_numericality: true
         field 'Actual Delivery Date SoW complete', :string
       end
 
@@ -92,23 +92,23 @@ class Framework
         total_value_field 'Total Value'
 
         field 'SoW / Order Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
-        field 'SoW / Order Date', :string, exports_to: 'CustOrderDate', ingested_date: true, presence: true
+        field 'SoW / Order Date', :string, exports_to: 'CustOrderDate', ingested_date: true
         field 'Contract Reference', :string, exports_to: 'CustomerReferenceNumber'
         field 'Buyer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Buyer Organisation', :string, exports_to: 'CustomerName', presence: true
         field 'Buyer Contact Name', :string
         field 'Buyer Contact Number', :string
         field 'Buyer Email Address', :string
-        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, presence: true
-        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
+        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
+        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Project Name', :string, exports_to: 'Additional5', presence: true
         field 'Project Phase', :string, exports_to: 'Additional4', presence: true
         field 'Service provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
         field 'Location', :string, exports_to: 'Additional6', presence: true
-        field 'Day Rate', :string, exports_to: 'Additional7', ingested_numericality: true, presence: true
-        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true, presence: true
-        field 'Total Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
+        field 'Day Rate', :string, exports_to: 'Additional7', ingested_numericality: true
+        field 'Quantity', :string, exports_to: 'UnitQuantity', ingested_numericality: true
+        field 'Total Value', :string, exports_to: 'ContractValue', ingested_numericality: true
       end
     end
   end

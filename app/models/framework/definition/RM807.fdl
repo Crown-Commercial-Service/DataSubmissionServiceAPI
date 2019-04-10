@@ -1,0 +1,40 @@
+Framework RM807 {
+  Name 'Vehicle Hire (RM807)'
+
+  ManagementCharge 0.5%
+
+  InvoiceFields {
+    LotNumber from 'Lot Number'
+    optional CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    CustomerURN from 'Customer URN'
+    optional CustomerReferenceNumber from 'Customer Agreement Number/Reference'
+    InvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Customer Invoice Number'
+    optional String from 'Customer Invoice Line Number'
+    optional ProductDescription from 'Invoice Line Product/Service Description'
+    optional ProductGroup from 'Invoice Line Product/Service Grouping'
+    optional UNSPSC from 'UNSPSC'
+    UnitType from 'Unit of Purchase'
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Invoice Line Quantity'
+    InvoiceValue from 'Total Charges (ex VAT)'
+    VATIncluded from 'VAT Applicable'
+    VATCharged from 'VAT amount charged'
+    optional PromotionCode from 'Promotion Code'
+    optional String Additional1 from 'Rental Period'
+    optional String Additional2 from 'Vehicle Group Booked'
+    optional String Additional3 from 'Vehicle Group Supplied'
+    ProductClass from 'Vehicle Make'
+    ProductSubClass from 'Vehicle Derivative'
+    String Additional4 from 'Fuel Type'
+    optional String Additional5 from 'CO2 Emission Level'
+    optional Decimal Additional6 from 'Miles Travelled'
+    optional Decimal Additional7 from 'Refuelling Charges inc fuel ex VAT'
+    optional String Additional8 from 'Rental Company'
+    optional String from 'Booking Method'
+    optional Decimal from 'On line booking discount'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+  }
+}

@@ -27,7 +27,6 @@ class Framework
         'Litigation',
         'Non-complex Finance',
         'Outsourcing',
-        'Partnerwhip Law',
         'Partnership Law',
         'Pensions Law',
         'Planning Law',
@@ -129,8 +128,8 @@ class Framework
       class Order < EntryData
         total_value_field 'Expected Total Order Value'
 
-        field 'Contract Start Date', :string, exports_to: 'ContractStartDate'
-        field 'Contract End Date', :string, exports_to: 'ContractEndDate'
+        field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true, allow_nil: true
+        field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, allow_nil: true
         field 'Award Procedure', :string, exports_to: 'ContractAwardChannel', case_insensitive_inclusion: { in: ['Further Competition', 'Direct Award'] }
         field 'Expected Total Order Value', :string, exports_to: 'ContractValue'
         field 'Sub-Contractor Name', :string, exports_to: 'Additional1'

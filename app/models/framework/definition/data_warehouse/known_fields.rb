@@ -28,11 +28,13 @@ class Framework
           'LotNumber' => :lot_number,
           'PromotionCode' => :string,
           'CustomerInvoiceDate' => :date,
-          'SupplierReferenceNumber' => :integer,
+          'CustOrderDate' => :date,
+          'SupplierReferenceNumber' => :string,
           'CustomerReferenceNumber' => :string,
           'ContractStartDate' => :date,
           'ContractEndDate' => :date,
-          'ContractAwardChannel' => :string
+          'ContractAwardChannel' => :string,
+          'Expenses' => :decimal
         }.freeze
 
         def self.type_for(value)

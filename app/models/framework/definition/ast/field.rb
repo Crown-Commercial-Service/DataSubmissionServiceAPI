@@ -118,8 +118,8 @@ class Framework
         end
 
         def dependent_field_inclusion_values
-          field_def[:depends_on][:values].transform_values do |lookup_name|
-            lookups[lookup_name]
+          field_def[:depends_on][:values].each_with_object({}) do |(field_value, lookup_name), result|
+            result[field_value.downcase] = lookups[lookup_name]
           end
         end
 

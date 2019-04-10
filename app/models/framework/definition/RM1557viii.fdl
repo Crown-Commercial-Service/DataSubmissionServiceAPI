@@ -1,0 +1,95 @@
+Framework RM1557viii {
+  Name 'G-Cloud 8'
+
+  ManagementCharge 0.5%
+
+  InvoiceFields {
+    optional String from 'Buyer Cost Centre'
+    SupplierReferenceNumber from 'Call Off Contract Reference'
+    CustomerURN from 'Buyer URN'
+    CustomerName from 'Buyer Organisation'
+    optional String from 'Buyer Contact Name'
+    optional String from 'Buyer Contact Number'
+    optional String from 'Buyer Email Address'
+    CustomerInvoiceDate from 'Invoice Date'
+    InvoiceNumber from 'Invoice Number'
+    LotNumber from 'Lot Number'
+    ProductGroup from 'Product / Service Group' depends_on 'Lot Number' {
+      '1' -> Lot1Service
+      '2' -> Lot2Service
+      '3' -> Lot3Service
+      '4' -> Lot4Service
+    }
+    ProductCode from 'Digital Marketplace Service ID'
+    UNSPSC from 'UNSPSC'
+    UnitType from 'Unit of Purchase'
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Charge (Ex VAT)'
+    VATCharged from 'VAT amount charged'
+    Expenses from 'Expenses'
+  }
+
+  ContractFields {
+    SupplierReferenceNumber from 'Call Off Contract Reference'
+    CustomerURN from 'Buyer URN'
+    CustomerName from 'Buyer Organisation'
+    optional String from 'Buyer Contact Name'
+    optional String from 'Buyer Contact Number'
+    optional String from 'Buyer Email Address'
+    ContractStartDate from 'Buyer Call Off Start Date'
+    ContractEndDate from 'Call Off End Date'
+    LotNumber from 'Lot Number'
+    ProductGroup from 'Product / Service Group' depends_on 'Lot Number' {
+      '1' -> Lot1Service
+      '2' -> Lot2Service
+      '3' -> Lot3Service
+      '4' -> Lot4Service
+    }
+    ProductCode from 'Digital Marketplace Service ID'
+    ContractValue from 'Call Off Value'
+  }
+
+  Lookups {
+    Lot1Service [
+      'CDN'
+      'Compute'
+      'Storage'
+    ]
+
+    Lot2Service [
+      'Application Deployment Platform'
+    ]
+
+    Lot3Service [
+      'Backup and Recovery'
+      'Content Management'
+      'CRM'
+      'Dataset Visualisation'
+      'Document / records'
+      'Email'
+      'ERP'
+      'Forms'
+      'Geographic Search'
+      'Office Productivity'
+      'Polls/Surveys'
+      'Search'
+      'Service Monitoring'
+    ]
+
+    Lot4Service [
+      'Business Analysis'
+      'Deployment'
+      'Design and Development'
+      'Design Authority'
+      'Project / Programme Management'
+      'Project Specification and Selection'
+      'Service Integration'
+      'Service Management'
+      'Strategy and Implementation Services'
+      'Transition Management'
+      'User Management'
+    ]
+
+  }
+}

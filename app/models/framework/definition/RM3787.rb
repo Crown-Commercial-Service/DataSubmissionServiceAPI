@@ -112,7 +112,7 @@ class Framework
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Post Code', :string, exports_to: 'CustomerPostcode', presence: true
         field 'Matter Name', :string, exports_to: 'CustomerReferenceNumber', presence: true
-        field 'Matter Description', :string, exports_to: 'ProductDescription', presence: true
+        field 'Matter Description', :string, exports_to: 'Additional7', presence: true
         field 'Contract Start Date', :string, exports_to: 'ContractStartDate', ingested_date: true
         field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true
         field 'Expected Total Order Value', :string, exports_to: 'ContractValue', ingested_numericality: true
