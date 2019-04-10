@@ -14,9 +14,14 @@ module AdminHelper
     {
       success: 'ccs-in-service-alert--success',
       failure: 'ccs-in-service-alert--failure',
+      fdl_failure: 'ccs-in-service-alert--fdl-failure',
       notice: 'ccs-in-service-alert--notice',
       warning: 'ccs-in-service-alert--warning',
       alert: 'ccs-in-service-alert--failure'
     }[type.to_sym]
+  end
+
+  def flash_header_for(key)
+    'Definition error' if key.to_s == 'fdl_failure'
   end
 end

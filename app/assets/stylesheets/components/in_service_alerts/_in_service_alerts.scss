@@ -19,6 +19,14 @@
   @include bgalert-color-borderleft-color(govuk-colour("failure"), 55%);
 }
 
+.ccs-in-service-alert--fdl-failure {
+  @extend .ccs-in-service-alert--failure;
+  .govuk-heading-s {
+    white-space: pre-wrap;
+    font-weight: normal;
+  }
+}
+
 .ccs-in-service-alert--success {
   @include bgalert-color-borderleft-color(govuk-colour("success"), 55%);
 }

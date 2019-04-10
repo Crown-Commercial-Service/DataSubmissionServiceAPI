@@ -17,7 +17,7 @@ class Admin::FrameworksController < AdminController
     framework_def = begin
                       Framework::Definition::Language.generate_framework_definition(definition_source, logger)
                     rescue Parslet::ParseFailed => e
-                      flash[:error] = e.parse_failure_cause.ascii_tree
+                      flash[:fdl_failure] = e.parse_failure_cause.ascii_tree
                       @framework = Framework.new(definition_source: definition_source)
                       render action: :new
                       return

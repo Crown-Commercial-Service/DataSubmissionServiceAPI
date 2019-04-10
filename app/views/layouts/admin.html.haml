@@ -37,7 +37,7 @@
       %main{ role: 'main', id: 'main-content', class: 'govuk-main-wrapper'}
 
         - flash.each do |key, value|
-          = render partial: 'shared/alert', locals: { type:key, message: value }
+          = render partial: 'shared/alert', locals: { type:key, message: value, header: flash_header_for(key) }
 
         = yield
 

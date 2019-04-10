@@ -1,5 +1,6 @@
 .grid-row
   .column-full
     .ccs-in-service-alert{:role => "alert", :tabindex =>"-1", :class => flash_types_css_class(type) }
-      %h2.govuk-heading-s
-        = message
+      - if header.present?
+        %h1.govuk-heading-m= header
+      %h2.govuk-heading-s= message
