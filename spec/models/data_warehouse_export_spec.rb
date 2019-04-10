@@ -20,6 +20,16 @@ RSpec.describe DataWarehouseExport do
       end
     end
 
+    context 'with previous exports but range_from is manually set' do
+      let!(:previous_export) { DataWarehouseExport.create!(range_to: '2018-12-25 12:34:56') }
+
+      it "sets the new export's range_from to the range_to of the most recent export" do
+        new_export = DataWarehouseExport.new(range_from: DataWarehouseExport::EARLIEST_RANGE_FROM)
+
+        expect(new_export.range_from).to eql DataWarehouseExport::EARLIEST_RANGE_FROM
+      end
+    end
+
     it "sets the new export's range_to to the current time" do
       freeze_time do
         new_export = DataWarehouseExport.new
@@ -57,11 +67,32 @@ RSpec.describe DataWarehouseExport do
       expect(s3_export_upload).to have_received(:perform)
     end
 
-    it 'returns a persisted DataWarehouseExport instance with the expected range' do
-      export = DataWarehouseExport.generate!
-      expect(export).to be_persisted
-      expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
-      expect(export.range_to).to eq Date.new(2018, 1, 1)
+    context 'with no previous exports' do
+      it 'returns a persisted DataWarehouseExport instance with the expected range' do
+        export = DataWarehouseExport.generate!
+        expect(export).to be_persisted
+        expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
+        expect(export.range_to).to eq Date.new(2018, 1, 1)
+      end
+    end
+
+    context 'with previous export' do
+      let!(:previous_export) { DataWarehouseExport.create!(range_to: '2018-12-25 12:34:56') }
+      it 'returns a persisted DataWarehouseExport instance with the expected range' do
+        export = DataWarehouseExport.generate!
+        expect(export).to be_persisted
+        expect(export.range_from).to eq previous_export.range_to
+        expect(export.range_to).to eq Date.new(2018, 1, 1)
+      end
+
+      context 'but reexport is set to true' do
+        it 'returns a persisted DataWarehouseExport instance with the expected range' do
+          export = DataWarehouseExport.generate!(reexport: true)
+          expect(export).to be_persisted
+          expect(export.range_from).to eq DataWarehouseExport::EARLIEST_RANGE_FROM
+          expect(export.range_to).to eq Date.new(2018, 1, 1)
+        end
+      end
     end
   end
 
