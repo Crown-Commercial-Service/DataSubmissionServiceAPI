@@ -3,8 +3,8 @@ class DataWarehouseExport < ApplicationRecord
 
   after_initialize :set_date_range
 
-  def self.generate!
-    new.tap do |export|
+  def self.generate!(reexport: false)
+    new(range_from: (EARLIEST_RANGE_FROM if reexport)).tap do |export|
       ActiveRecord::Base.transaction(isolation: :repeatable_read) do
         files = export.generate_files
         Export::S3Upload.new(files).perform

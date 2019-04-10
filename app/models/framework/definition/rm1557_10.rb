@@ -79,11 +79,11 @@ class Framework
         field 'Order Reference Number', :string, exports_to: 'SupplierReferenceNumber', presence: true
         field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
-        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'Invoice Date', ingested_date: true, presence: true
+        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'InvoiceDate', ingested_date: true, presence: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
         field 'UNSPSC', :string, exports_to: 'UNSPSC', ingested_numericality: { only_integer: true }, presence: true
         field 'Unit of Measure', :string, exports_to: 'UnitType', case_insensitive_inclusion: { in: UNIT_OF_MEASURE_VALUES }
         field 'Price per Unit', :string, exports_to: 'UnitPrice', ingested_numericality: true, presence: true
@@ -103,7 +103,7 @@ class Framework
         field 'Contract End Date', :string, exports_to: 'ContractEndDate', ingested_date: true, presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Service Group', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }
-        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductGroup', ingested_numericality: { only_integer: true }, presence: true
+        field 'Digital Marketplace Service ID', :string, exports_to: 'ProductCode', ingested_numericality: { only_integer: true }, presence: true
         field 'Total Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true, presence: true
       end
     end

@@ -68,7 +68,7 @@ class Framework
         field 'Opportunity ID', :string, exports_to: 'SupplierReferenceNumber', presence: true, length: { minimum: 4 }, ingested_numericality: { only_integer: true }
         field 'Customer Organisation Name', :string, exports_to: 'CustomerName', presence: true
         field 'Customer Unique Reference Number (URN)', :integer, exports_to: 'CustomerURN', urn: true
-        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'Invoice Date', ingested_date: true, presence: true
+        field 'Customer Invoice/Credit Note Date', :string, exports_to: 'InvoiceDate', ingested_date: true, presence: true
         field 'Customer Invoice/Credit Note Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Service Provided', :string, exports_to: 'ProductGroup', presence: true, dependent_field_inclusion: { parent: 'Lot Number', in: MAPPING }

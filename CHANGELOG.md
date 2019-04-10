@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-67] - 2019-04-10
+
+- Data migration to correct truncated Digital Marketplace Service IDs
+- 'Digital Marketplace Service ID' should be exported to ProductCode
+- Remove space in RM1043.5 `Invoice Date` export
+- Fix exports_to: "Invoice Date"
+- Configure Service Connection Environment variables for GPAAS
+- Data migration to convert incorrect date formats to dd/mm/yyyy
+- Rake task to allow us to re-export everything
+
 ## [release-66] - 2019-04-04
 
 - Fix snags in RM3788 framework definition
@@ -443,6 +453,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-67]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-66...release-67
 [release-66]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-65...release-66
 [release-65]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-64...release-65
 [release-64]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-63...release-64

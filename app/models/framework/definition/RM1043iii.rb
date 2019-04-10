@@ -69,7 +69,7 @@ class Framework
         field 'Buyer Contact Name', :string
         field 'Buyer Contact Number', :string
         field 'Buyer Email Address', :string
-        field 'Invoice Date', :string, exports_to: 'Invoice Date', ingested_date: true, presence: true
+        field 'Invoice Date', :string, exports_to: 'InvoiceDate', ingested_date: true, presence: true
         field 'Invoice Number', :string, exports_to: 'InvoiceNumber', presence: true
         field 'Lot Number', :string, exports_to: 'LotNumber', presence: true, lot_in_agreement: true
         field 'Project Phase', :string, exports_to: 'Additional1', presence: true
