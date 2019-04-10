@@ -81,6 +81,8 @@ Rails.application.routes.draw do
       resources :submissions, only: %i[show]
     end
 
+    resources :frameworks, only: %i[index]
+
     resources :notify_downloads, only: %i[index show]
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
