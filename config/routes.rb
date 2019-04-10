@@ -81,7 +81,7 @@ Rails.application.routes.draw do
       resources :submissions, only: %i[show]
     end
 
-    resources :frameworks, only: %i[index]
+    resources :frameworks, only: %i[index new create show]
 
     resources :notify_downloads, only: %i[index show]
 

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin can list frameworks' do
-
   before do
     # Given that I am logged in as an admin
     sign_in_as_admin
@@ -23,4 +22,3 @@ RSpec.feature 'Admin can list frameworks' do
     expect(page).to have_text('Published', count: 2)
   end
 end
-

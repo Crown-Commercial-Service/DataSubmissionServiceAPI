@@ -1,0 +1,15 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl= "#{@framework.short_name} #{@framework.name}"
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = simple_form_for [:admin, @framework] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h1.govuk-fieldset__heading
+            Definition
+
+        = render partial: 'shared/error_summary', locals: { entity: @framework } if @framework.errors.present?
+
+        = form.input :definition_source, input_html: { class: 'govuk-textarea', rows: '5' }
