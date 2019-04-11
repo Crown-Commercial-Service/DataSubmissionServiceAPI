@@ -5,13 +5,6 @@ class Framework
     class MissingError < StandardError; end
 
     class << self
-      def all
-        Framework::Definition.constants
-                             .reject { |c| c == :Base }
-                             .map    { |c| Framework::Definition.const_get(c) }
-                             .select { |c| c.ancestors.include?(Framework::Definition::Base) }
-      end
-
       def cache
         @cache ||=
           Hash.new do |hash, framework_short_name|
