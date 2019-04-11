@@ -448,6 +448,50 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Dependent field validation' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+             InvoiceFields {
+              ProductGroup from 'Service Type'
+              ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
+                'Core'     -> CoreSpecialisms
+                'Non-core' -> NonCoreSpecialisms
+                'Mixture'  -> PrimarySpecialism
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+             Lookups {
+              ProductGroup [
+                'Core'
+                'Non-core'
+                'Mixture'
+              ]
+            }
+          }
+        FDL
+      end
+
+      describe 'the invoice fields class' do
+        subject(:invoice_class) { definition::Invoice }
+
+        it {
+          is_expected.to have_field('Primary Specialism').validated_by(
+            dependent_field_inclusion: {
+              parent: 'Service Type',
+              in: {
+                'Service Type' => {
+                  'core' => nil, 'non-core' => nil, 'mixture' => nil
+                }
+              }
+            }
+          )
+        }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 

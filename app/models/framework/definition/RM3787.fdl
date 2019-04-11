@@ -36,14 +36,14 @@ Framework RM3787 {
     CustomerName from 'Customer Organisation Name'
     CustomerPostcode from 'Customer Post Code'
     CustomerReferenceNumber from 'Matter Name'
-    ProductDescription from 'Matter Description'
+    String Additional7 from 'Matter Description'
     ContractStartDate from 'Contract Start Date'
     ContractEndDate from 'Contract End Date'
     ContractValue from 'Expected Total Order Value'
     String Additional1 from 'Sub-Contractor Name'
     String Additional2 from 'Expression Of Interest Used (Y/N)'
     String Additional6 from 'Customer Response Time'
-    CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
+    optional CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
     ContractAwardChannel from 'Award Procedure'
     String Additional4 from 'Pro-bono work included? (Y/N)'
     String Additional5 from 'Expected Pro-Bono value'
@@ -92,7 +92,7 @@ Framework RM3787 {
       NonCoreSpecialisms
     ]
 
-    PractitionerGrade [
+    ProductDescription [
       'Partner'
       'Legal Director/Senior Solicitor'
       'Senior Associate'
@@ -101,7 +101,7 @@ Framework RM3787 {
       'Other Grade / Mix'
     ]
 
-    UnitOfPurchase [
+    UnitType [
       'Hourly'
       'Daily'
       'Monthly'

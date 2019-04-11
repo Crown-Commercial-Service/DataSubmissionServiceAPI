@@ -38,7 +38,7 @@ class Framework
         field 'Customer URN', :integer, exports_to: 'CustomerURN', urn: true
         field 'Project Name', :string, exports_to: 'ProductDescription'
         field 'Number of items', :string
-        field 'Customer Order/Contract Value', :string, exports_to: 'ContractValue'
+        field 'Customer Order/Contract Value', :string, exports_to: 'ContractValue', ingested_numericality: true
       end
     end
   end

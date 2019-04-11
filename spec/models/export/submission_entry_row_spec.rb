@@ -17,7 +17,7 @@ RSpec.describe Export::SubmissionEntryRow do
           row.value_for('some_field')
         end.to raise_error(
           Framework::Definition::MissingError,
-          /Please run rails g framework:definition "RM12345"/
+          /There is no framework definition for "RM12345"/
         )
       end
     end

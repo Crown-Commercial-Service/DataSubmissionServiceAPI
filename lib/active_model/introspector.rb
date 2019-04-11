@@ -1,3 +1,5 @@
+require 'active_model/introspector/field'
+
 module ActiveModel
   ##
   # Helps to introspect an ActiveModel class with attributes and validators.
@@ -14,10 +16,15 @@ module ActiveModel
       @attributes ||= instance.instance_variable_get(:@attributes)
     end
 
+    def fields
+      attributes.keys.map { |k| Field.new(attributes[k], klass) }
+    end
+
     def field_exists?(field)
       instance.attributes.key?(field)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def validator_exists?(field, validator_arg)
       also_match_opts = {}
 
@@ -42,6 +49,7 @@ module ActiveModel
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def validator_summary(field)
       validators_found = klass.validators_on(field).map do |validator|

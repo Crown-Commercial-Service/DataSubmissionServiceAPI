@@ -21,7 +21,7 @@ Framework RM858 {
     optional UnitPrice from 'Price per Unit ex VAT'
     optional UnitQuantity from 'Invoice Line Quantity'
     InvoiceValue from 'Invoice Line Total Value ex VAT'
-    VATIncluded from 'VAT Applicable'
+    optional VATIncluded from 'VAT Applicable'
     optional VATCharged from 'VAT Amount Charged'
     optional PromotionCode from 'Spend Code'
     ProductGroup from 'Invoice Line Product / Service Grouping'

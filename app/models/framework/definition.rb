@@ -1,3 +1,5 @@
+require 'framework'
+
 class Framework
   module Definition
     class MissingError < StandardError; end
@@ -20,7 +22,7 @@ class Framework
         sanitized_framework_short_name = framework_short_name.tr('/.', '_')
         "Framework::Definition::#{sanitized_framework_short_name}".constantize
       rescue NameError
-        raise Framework::Definition::MissingError, %(Please run rails g framework:definition "#{framework_short_name}")
+        raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
       end
     end
 

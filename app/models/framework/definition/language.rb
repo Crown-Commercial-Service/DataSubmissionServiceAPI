@@ -17,7 +17,7 @@ class Framework
         end
 
         def [](framework_short_name)
-          sanitized_short_name = framework_short_name.tr('/', '_')
+          sanitized_short_name = framework_short_name.tr('/.', '_')
 
           fdl_filename = Rails.root.join("app/models/framework/definition/#{sanitized_short_name}.fdl")
 

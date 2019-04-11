@@ -1,8 +1,14 @@
 Description:
-    Generates framework definitions from MISO CSV
+    Generates framework definitions from MISO CSV or existing .rb
 
 Example:
     bin/rails g framework:definition "CM/OSG/05/3565"
 
     This will create:
         app/models/framework/definition/CM_OSG_05_3565.rb
+
+Example
+    bin/rails g framework:fdl "CM/OSG/05/3565"
+
+    This will create:
+        app/models/framework/definition/CM_OSG_05_3565.fdl
