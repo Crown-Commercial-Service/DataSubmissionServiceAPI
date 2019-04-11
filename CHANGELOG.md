@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-68] - 2019-04-11
+
+- translate all existing frameworks to fdl
+- GPAAS support for s3 buckets
+
 ## [release-67] - 2019-04-10
 
 - Data migration to correct truncated Digital Marketplace Service IDs
@@ -453,6 +458,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-68]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-67...release-68
 [release-67]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-66...release-67
 [release-66]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-65...release-66
 [release-65]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-64...release-65
