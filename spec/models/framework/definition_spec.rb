@@ -93,11 +93,11 @@ RSpec.describe Framework::Definition do
 
   describe 'Base.for_entry_type' do
     it 'returns the framework’s Invoice definition for an ‘invoice’ entry_type' do
-      expect(Framework::Definition::RM3756.for_entry_type('invoice')).to eq Framework::Definition::RM3756::Invoice
+      expect(Framework::Definition['RM3756'].for_entry_type('invoice').model_name.name).to eq 'Invoice'
     end
 
-    it 'returns the framework’s Order definition for an ‘order’ entry_type' do
-      expect(Framework::Definition::RM3756.for_entry_type('order')).to eq Framework::Definition::RM3756::Order
+    it 'returns the framework’s Contract definition for an ‘order’ entry_type' do
+      expect(Framework::Definition['RM3756'].for_entry_type('order').model_name.name).to eq 'Contract'
     end
   end
 end
