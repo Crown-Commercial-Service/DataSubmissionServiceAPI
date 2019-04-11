@@ -27,7 +27,7 @@ class Framework
     end
 
     def ruby_definition
-      @ruby_definition ||= Framework::Definition[sanitised_framework_short_name]
+      @ruby_definition ||= Framework::Definition.from_ruby(sanitised_framework_short_name)
     end
 
     def management_charge
