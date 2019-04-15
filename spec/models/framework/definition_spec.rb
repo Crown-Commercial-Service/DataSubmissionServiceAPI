@@ -19,6 +19,18 @@ RSpec.describe Framework::Definition do
       end
     end
 
+    context 'the framework is RM1070' do
+      let(:framework_short_name) { 'RM1070' }
+
+      it 'is an anonymous class' do
+        expect(definition.to_s).to match(/Class:/)
+      end
+
+      it 'is cached so that we aren\'t repeatedly recompiling' do
+        expect(definition).to eq(Framework::Definition[framework_short_name])
+      end
+    end
+
     context 'the framework exists' do
       context 'and it is fairly normal' do
         let(:framework_short_name) { 'RM3787' }

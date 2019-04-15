@@ -12,13 +12,22 @@ class Framework
                              .select { |c| c.ancestors.include?(Framework::Definition::Base) }
       end
 
-      def rm6060
-        @rm6060 ||= Framework::Definition::Language['RM6060']
+      def cache
+        @cache ||=
+          Hash.new do |hash, framework_short_name|
+            hash[framework_short_name] = Framework::Definition::Language[framework_short_name]
+          rescue ArgumentError
+            raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
+          end
       end
 
       def [](framework_short_name)
-        return rm6060 if framework_short_name == 'RM6060'
+        sanitized_framework_short_name = framework_short_name.tr('/.', '_')
+        cache[sanitized_framework_short_name]
+      end
 
+      # remove when the fdl_generator is removed
+      def from_ruby(framework_short_name)
         sanitized_framework_short_name = framework_short_name.tr('/.', '_')
         "Framework::Definition::#{sanitized_framework_short_name}".constantize
       rescue NameError
