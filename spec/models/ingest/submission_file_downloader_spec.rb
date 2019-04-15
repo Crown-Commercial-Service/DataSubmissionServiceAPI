@@ -13,7 +13,7 @@ RSpec.describe Ingest::SubmissionFileDownloader do
     it "is true when the submission's file was successfully downloaded" do
       allow(thread_value).to receive(:success?).and_return(true)
       allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, nil, nil, thread)
+      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
       allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(true)
 
       downloader.perform
@@ -24,7 +24,7 @@ RSpec.describe Ingest::SubmissionFileDownloader do
     it "is false if the submission's file was not downloaded" do
       allow(thread_value).to receive(:success?).and_return(true)
       allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, nil, nil, thread)
+      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
       allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(false)
 
       downloader.perform
@@ -35,7 +35,7 @@ RSpec.describe Ingest::SubmissionFileDownloader do
     it 'is false if a non-zero exit code was received' do
       allow(thread_value).to receive(:success?).and_return(false)
       allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, nil, nil, thread)
+      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
       allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(false)
 
       downloader.perform
