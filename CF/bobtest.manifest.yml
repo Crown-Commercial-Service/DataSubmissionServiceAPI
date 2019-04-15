@@ -1,0 +1,17 @@
+---
+applications:
+  - name: ccs-rmi-api-bobtest
+    routes:
+      - route: ccs-rmi-api-bobtest.apps.internal
+    services:
+      - ccs-rmi-api-bobtest
+      - AUTH0
+      - ccs-rmi-redis-bobtest
+      - SKYLIGHT
+      - ROLLBAR
+      - APP_SECRETBASE
+      - ingest-bucket-bobtest
+      - GOOGLE_CLIENT
+      - WORKDAY_API
+      - SIDEKIQ
+
