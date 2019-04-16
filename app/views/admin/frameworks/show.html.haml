@@ -2,6 +2,13 @@
   .govuk-grid-column-two-thirds
     %h1.govuk-heading-xl= "#{@framework.short_name} #{@framework.name}"
 
+  .govuk-grid-column-one-third
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
+
 .govuk-grid-row
   .govuk-grid-column-two-thirds
     = simple_form_for [:admin, @framework] do |form|
@@ -12,4 +19,4 @@
 
         = render partial: 'shared/error_summary', locals: { entity: @framework } if @framework.errors.present?
 
-        = form.input :definition_source, input_html: { class: 'govuk-textarea', rows: '5' }
+        = form.input :definition_source, input_html: { class: 'govuk-textarea', rows: '5' }, disabled: true

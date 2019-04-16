@@ -38,6 +38,35 @@ class Admin::FrameworksController < AdminController
     end
   end
 
+  def edit
+    @framework = Framework.find(params[:id])
+  end
+
+  def update
+    @framework = Framework.find(params[:id])
+
+    definition_source = framework_params[:definition_source]
+
+    framework_def = begin
+      Framework::Definition::Language.generate_framework_definition(@framework.definition_source, logger)
+    rescue Parslet::ParseFailed => e
+      flash[:fdl_failure] = e.parse_failure_cause.ascii_tree
+      render action: :edit
+      return
+    end
+
+    if @framework.update(
+      name:              framework_def.name,
+      short_name:        framework_def.framework_short_name,
+      definition_source: definition_source
+    )
+      flash[:success] = 'Framework saved successfully.'
+      redirect_to admin_framework_path(@framework)
+    else
+      render action: :edit
+    end
+  end
+
   private
 
   def framework_params
