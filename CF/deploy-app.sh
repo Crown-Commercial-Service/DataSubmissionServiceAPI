@@ -79,3 +79,9 @@ if cf app ccs-rmi-api-admin-"$CF_SPACE" > /dev/null; then
 else
   cf push -f cf/"$CF_SPACE".admin.manifest.yml
 fi
+
+# bind API admin to route
+cf bind-route-service london.cloudapps.digital ccs-rmi-api-admin-route-"$CF_SPACE" --hostname ccs-rmi-api-admin-"$CF_SPACE"
+
+# allow APP to access API
+cf add-network-policy ccs-rmi-app-"$CF_SPACE" --destination-app ccs-rmi-api-"$CF_SPACE" --protocol tcp --port 8080
