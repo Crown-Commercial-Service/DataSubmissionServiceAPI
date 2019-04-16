@@ -21,6 +21,22 @@ then
  usage
 fi
 
+MEMORY_LIMIT="512M"
+INSTANCE_COUNT="1"
+
+if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
+  echo " *********************************************"
+  echo "    The '$CF_SPACE' space will be selected"
+  echo "     This deploys the apps as HA with"
+  echo "      production like resource sizes"
+  echo " For feature testing, choose a space with a"
+  echo "      name other than staging / prod"
+  echo " *********************************************"
+
+  MEMORY_LIMIT="512M"
+  INSTANCE_COUNT="3"
+fi
+
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 CF_API_ENDPOINT="https://api.london.cloud.service.gov.uk"
@@ -62,8 +78,8 @@ cf login -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -a "$CF_API_ENDPOINT" -s "$CF_
 cf target -o "$CF_ORG" -s "$CF_SPACE"
 
 # generate manifest
-sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml > "$CF_SPACE.manifest.yml"
-sed "s/CF_SPACE/$CF_SPACE/g" admin-manifest-template.yml > "$CF_SPACE.admin.manifest.yml"
+sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.manifest.yml"
+sed "s/CF_SPACE/$CF_SPACE/g" admin-manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.admin.manifest.yml"
 
 # push API
 cd .. || exit

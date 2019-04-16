@@ -1,6 +1,8 @@
 ---
 applications:
   - name: ccs-rmi-api-admin-CF_SPACE
+    memory: MEMORY_LIMIT
+    instance: INSTANCE_COUNT
     services:
       - ccs-rmi-api-CF_SPACE
       - ccs-rmi-redis-CF_SPACE
