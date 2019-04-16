@@ -72,4 +72,50 @@ RSpec.describe Framework do
       end
     end
   end
+
+  describe '#update_from_fdl' do
+    let!(:existing_framework) { create :framework, short_name: 'RM999', name: 'To be updated' }
+
+    subject! { existing_framework.update_from_fdl(definition_source) }
+
+    context 'with some valid FDL' do
+      let(:definition_source) do
+        <<~FDL
+          Framework RM999 {
+            Name 'Changed successfully'
+            ManagementCharge 0.5% of 'Supplier Price'
+             InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it { is_expected.to be true }
+
+      it 'has updated its name' do
+        expect(existing_framework.reload.name).to eql('Changed successfully')
+      end
+    end
+
+    context 'with some invalid FDL' do
+      let(:definition_source) do
+        <<~FDL
+          Framework RM999 {
+            xName 'Parsed incorrectly'
+            ManagementCharge 0.5% of 'Supplier Price'
+             InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it { is_expected.to be false }
+
+      it 'has the error' do
+        expect(existing_framework.errors[:definition_source].first).to match('Failed to match sequence')
+      end
+    end
+  end
 end

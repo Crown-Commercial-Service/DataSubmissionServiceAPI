@@ -29,4 +29,18 @@ class Framework < ApplicationRecord
       )
     end
   end
+
+  def update_from_fdl(definition_source)
+    definition = begin
+                   Framework::Definition::Language.generate_framework_definition(definition_source, logger)
+                 rescue Parslet::ParseFailed
+                   return update(definition_source: definition_source)
+                 end
+
+    update(
+      definition_source: definition_source,
+      name: definition.framework_name,
+      short_name: definition.framework_short_name
+    )
+  end
 end
