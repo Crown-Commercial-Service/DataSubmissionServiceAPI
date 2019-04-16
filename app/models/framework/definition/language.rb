@@ -27,8 +27,6 @@ class Framework
           generate_framework_definition(File.read(fdl_filename))
         end
 
-        private
-
         def parse(source, logger)
           Framework::Definition::Parser.new.parse(source, reporter: Parslet::ErrorReporter::Deepest.new)
         rescue Parslet::ParseFailed => e

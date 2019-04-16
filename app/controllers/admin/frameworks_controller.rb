@@ -12,22 +12,13 @@ class Admin::FrameworksController < AdminController
   end
 
   def create
-    definition_source = framework_params[:definition_source]
+    @framework = Framework.new_from_fdl(framework_params[:definition_source])
 
-    framework_def = begin
-                      Framework::Definition::Language.generate_framework_definition(definition_source, logger)
-                    rescue Parslet::ParseFailed => e
-                      flash[:fdl_failure] = e.parse_failure_cause.ascii_tree
-                      @framework = Framework.new(definition_source: definition_source)
-                      render action: :new
-                      return
-                    end
-
-    @framework = Framework.new(
-      name:              framework_def.name,
-      short_name:        framework_def.framework_short_name,
-      definition_source: definition_source
-    )
+    if @framework.errors[:definition_source].any?
+      flash[:fdl_failure] = @framework.errors[:definition_source].first
+      render action: :new
+      return
+    end
 
     if @framework.save
       flash[:success] = 'Definition saved successfully'
