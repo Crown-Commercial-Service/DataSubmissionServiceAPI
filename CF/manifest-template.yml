@@ -1,0 +1,16 @@
+---
+applications:
+  - name: ccs-rmi-api-CF_SPACE
+    routes:
+      - route: ccs-rmi-api-CF_SPACE.apps.internal
+    services:
+      - ccs-rmi-api-CF_SPACE
+      - ccs-rmi-redis-CF_SPACE
+      - ingest-bucket-CF_SPACE
+      - API_SECRETBASE
+      - AUTH0
+      - GOOGLE_CLIENT
+      - ROLLBAR
+      - SIDEKIQ
+      - SKYLIGHT
+      - WORKDAY_API
