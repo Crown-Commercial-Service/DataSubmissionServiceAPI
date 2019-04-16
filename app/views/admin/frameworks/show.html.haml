@@ -10,7 +10,7 @@
           = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
 
 .govuk-grid-row
-  .govuk-grid-column-two-thirds
+  .govuk-grid-column-full
     = simple_form_for [:admin, @framework] do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
@@ -19,4 +19,4 @@
 
         = render partial: 'shared/error_summary', locals: { entity: @framework } if @framework.errors.present?
 
-        = form.input :definition_source, input_html: { class: 'govuk-textarea', rows: '5' }, disabled: true
+        = form.input :definition_source, input_html: { class: 'govuk-textarea govuk-textarea--fdl-source', rows: '5' }, disabled: true
