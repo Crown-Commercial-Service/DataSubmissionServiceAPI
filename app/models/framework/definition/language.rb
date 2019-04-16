@@ -13,7 +13,7 @@ class Framework
           cst = parse(source, logger)
           ast = Framework::Definition::AST::Creator.new.apply(cst)
 
-          Transpiler.new(ast).transpile
+          Framework::Definition::Transpiler.new(ast).transpile
         end
 
         def [](framework_short_name)
