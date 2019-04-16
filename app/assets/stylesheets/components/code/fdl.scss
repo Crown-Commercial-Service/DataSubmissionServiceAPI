@@ -1,3 +1,11 @@
+.simple_form.new_framework .govuk-error-summary, .simple_form.edit_framework .govuk-error-summary {
+  display: none;
+}
+
+.framework_definition_source .govuk-error-message {
+  display: none;
+}
+
 textarea.govuk-textarea--fdl-source {
   min-height: 30em;
   min-width: 100%;
