@@ -42,7 +42,7 @@ RSpec.feature 'Admin can edit a framework' do
         # When I click on the existing framework
         click_link('Framework to be changed')
         # Then I should see the framework
-        expect(find_field('Definition source', disabled: true).value).to include('Framework RM999 {')
+        expect(page).to have_content('Framework RM999 {')
         # When I click on Edit definition
         click_link('Edit definition')
         # Then I should see an edit page for the framework definition

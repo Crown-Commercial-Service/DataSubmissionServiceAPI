@@ -7,10 +7,10 @@
     = simple_form_for [:admin, @framework] do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
-          %h1.govuk-fieldset__heading
+          %h2.govuk-fieldset__heading
             Edit framework definition
 
         = render partial: 'shared/error_summary', locals: { entity: @framework } if @framework.errors.present?
 
-        = form.input :definition_source, input_html: { class: 'govuk-textarea govuk-textarea--fdl-source', rows: '5' }
+        = form.input :definition_source, input_html: { class: 'govuk-textarea govuk-textarea--fdl-source language-ruby', rows: '5' }
         = form.button :submit, value: 'Save definition'

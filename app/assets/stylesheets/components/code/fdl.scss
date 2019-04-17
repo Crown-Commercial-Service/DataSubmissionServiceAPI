@@ -1,3 +1,5 @@
+@import 'prism';
+
 .simple_form.new_framework .govuk-error-summary, .simple_form.edit_framework .govuk-error-summary {
   display: none;
 }
@@ -6,8 +8,7 @@
   display: none;
 }
 
-textarea.govuk-textarea--fdl-source {
-  min-height: 30em;
+.govuk-textarea--fdl-source {
+  min-height: 40em;
   min-width: 100%;
-  font-family: "Fira Code", "Menlo", "Consolas", monospace;
 }
