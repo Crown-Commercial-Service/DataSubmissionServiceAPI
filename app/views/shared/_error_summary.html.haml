@@ -5,5 +5,4 @@
     %ul.govuk-list.govuk-error-summary__list
       - entity.errors.each do |attribute, error|
         %li
-          %a{href: "##{entity.model_name.element}_#{attribute}"}
-            = error
+          %a{href: "##{entity.model_name.element}_#{attribute}"}= error

@@ -15,7 +15,6 @@ class Admin::FrameworksController < AdminController
     @framework = Framework.new_from_fdl(framework_params[:definition_source])
 
     if @framework.errors[:definition_source].any?
-      flash[:fdl_failure] = @framework.errors[:definition_source].first
       render action: :new
       return
     end
@@ -40,7 +39,6 @@ class Admin::FrameworksController < AdminController
       flash[:success] = 'Framework saved successfully.'
       redirect_to admin_framework_path(@framework)
     else
-      flash[:fdl_failure] = @framework.errors[:definition_source].first
       render action: :edit
     end
   end

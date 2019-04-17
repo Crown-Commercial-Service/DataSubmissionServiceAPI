@@ -1,7 +1,11 @@
 @import 'prism';
 
-.simple_form.new_framework .govuk-error-summary, .simple_form.edit_framework .govuk-error-summary {
-  display: none;
+.simple_form.new_framework, .simple_form.edit_framework {
+  .govuk-error-summary__list a[href='#framework_definition_source'] {
+    white-space: pre-wrap;
+    text-decoration: none;
+    font-weight: normal;
+  }
 }
 
 .framework_definition_source .govuk-error-message {

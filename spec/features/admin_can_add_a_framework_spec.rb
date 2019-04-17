@@ -61,7 +61,7 @@ RSpec.feature 'Admin can add a framework' do
         # Then I should see that the framework already exists"
         expect(page).to have_text('Short name has already been taken')
         # And I should see my FDL
-        expect(page).to have_content('Framework RM6060 {')
+        expect(find_field('Definition source').value).to include('Framework RM6060 {')
       end
     end
   end
@@ -86,7 +86,7 @@ RSpec.feature 'Admin can add a framework' do
       expect(page).to have_text('Failed to match sequence')
 
       # And I should see my FDL
-      expect(page).to have_content('Frameworxk RM6060 {')
+      expect(find_field('Definition source').value).to include('Frameworxk RM6060 {')
     end
   end
 end
