@@ -85,4 +85,18 @@ RSpec.describe Ingest::Converter do
       expect(converter.rows).to eql 3
     end
   end
+
+  describe '.sheets' do
+    it 'returns the names of all sheets' do
+      expect(converter.sheets).to include('Contracts', 'InvoicesRaised', 'Service Table', 'Lookups')
+    end
+
+    context 'with an XLS file from LibreOffice' do
+      let(:download) { fake_download('rm1557-10-linux.xls') }
+
+      it 'returns the names of all sheets' do
+        expect(converter.sheets).to include('Contracts', 'InvoicesRaised', 'Service Table', 'Lookups')
+      end
+    end
+  end
 end

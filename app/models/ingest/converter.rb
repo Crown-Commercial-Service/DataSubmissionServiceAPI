@@ -29,14 +29,14 @@ module Ingest
       @orders ||= fetch_sheet('order')
     end
 
-    private
-
     def sheets
       @sheets ||= begin
                     response = Ingest::CommandRunner.new("in2csv --names #{download.temp_file}").run!
                     response.stdout if response.successful?
                   end
     end
+
+    private
 
     def fetch_sheet(type)
       sheet_temp_file = download.temp_file + '_' + type + '.csv'
