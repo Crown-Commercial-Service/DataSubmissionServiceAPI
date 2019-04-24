@@ -1,5 +1,16 @@
 # Change Log
 
+## [release-69] - 2019-04-24
+
+- Upgrade to ruby 2.5.5
+- Switch RMI to using FDL definitions instead of Ruby framework definitions
+- Load ENV variables from VCAP services (GPAAS)
+- Update bundler to 2.0.1
+- Run brakeman in a separate process
+- [Security] Bump nokogiri from 1.10.1 to 1.10.3
+- Adding and editing FDL
+- Delete Ruby versions of Framework Definitions
+
 ## [release-68] - 2019-04-11
 
 - translate all existing frameworks to fdl
@@ -458,6 +469,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-69]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-68...release-69
 [release-68]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-67...release-68
 [release-67]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-66...release-67
 [release-66]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-65...release-66
