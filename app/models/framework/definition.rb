@@ -1,28 +1,22 @@
-require 'framework'
+require_dependency 'framework'
 
 class Framework
   module Definition
     class MissingError < StandardError; end
 
     class << self
-      def all
-        Framework::Definition.constants
-                             .reject { |c| c == :Base }
-                             .map    { |c| Framework::Definition.const_get(c) }
-                             .select { |c| c.ancestors.include?(Framework::Definition::Base) }
-      end
-
-      def rm6060
-        @rm6060 ||= Framework::Definition::Language['RM6060']
+      def cache
+        @cache ||=
+          Hash.new do |hash, framework_short_name|
+            hash[framework_short_name] = Framework::Definition::Language[framework_short_name]
+          rescue ArgumentError
+            raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
+          end
       end
 
       def [](framework_short_name)
-        return rm6060 if framework_short_name == 'RM6060'
-
         sanitized_framework_short_name = framework_short_name.tr('/.', '_')
-        "Framework::Definition::#{sanitized_framework_short_name}".constantize
-      rescue NameError
-        raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
+        cache[sanitized_framework_short_name]
       end
     end
 

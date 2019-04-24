@@ -19,6 +19,18 @@ RSpec.describe Framework::Definition do
       end
     end
 
+    context 'the framework is RM1070' do
+      let(:framework_short_name) { 'RM1070' }
+
+      it 'is an anonymous class' do
+        expect(definition.to_s).to match(/Class:/)
+      end
+
+      it 'is cached so that we aren\'t repeatedly recompiling' do
+        expect(definition).to eq(Framework::Definition[framework_short_name])
+      end
+    end
+
     context 'the framework exists' do
       context 'and it is fairly normal' do
         let(:framework_short_name) { 'RM3787' }
@@ -52,13 +64,6 @@ RSpec.describe Framework::Definition do
     end
   end
 
-  describe '.all' do
-    it 'gets everything that is descended from Framework::Definition::Base and nothing else' do
-      expect(Framework::Definition.all.length).to be > 0
-      expect(Framework::Definition.all).to all(satisfy { |c| c.ancestors.include?(Framework::Definition::Base) })
-    end
-  end
-
   describe 'Base.management_charge' do
     let(:definition_class) do
       Class.new(Framework::Definition::Base) do
@@ -88,11 +93,11 @@ RSpec.describe Framework::Definition do
 
   describe 'Base.for_entry_type' do
     it 'returns the framework’s Invoice definition for an ‘invoice’ entry_type' do
-      expect(Framework::Definition::RM3756.for_entry_type('invoice')).to eq Framework::Definition::RM3756::Invoice
+      expect(Framework::Definition['RM3756'].for_entry_type('invoice').model_name.name).to eq 'Invoice'
     end
 
-    it 'returns the framework’s Order definition for an ‘order’ entry_type' do
-      expect(Framework::Definition::RM3756.for_entry_type('order')).to eq Framework::Definition::RM3756::Order
+    it 'returns the framework’s Contract definition for an ‘order’ entry_type' do
+      expect(Framework::Definition['RM3756'].for_entry_type('order').model_name.name).to eq 'Contract'
     end
   end
 end

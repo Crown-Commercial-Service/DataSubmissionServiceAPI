@@ -1,0 +1,30 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl
+      Frameworks
+
+  .govuk-grid-column-one-third
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'New Framework', new_admin_framework_path
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @frameworks.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Name
+            %th.govuk-table__header Status
+        %tbody.govuk-table__body
+          - @frameworks.each do |framework|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= link_to framework.name, admin_framework_path(framework.id)
+              %td.govuk-table__cell= published_status(framework)
+
+    - else
+      %p
+        No frameworks.
+

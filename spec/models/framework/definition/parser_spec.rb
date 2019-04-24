@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'framework/definition/parser'
 
 ##
 # These specs are for Parslet atoms and therefore will be matching the CST,

@@ -56,6 +56,24 @@ RSpec.describe VcapParser do
       end
     end
 
+    it 'loads redis URL to the ENV' do
+      vcap_json = '
+        {
+          "redis": [
+           {
+              "credentials": {
+                "uri": "rediss://x:REDACTED@HOST:6379"
+              }
+            }
+          ]
+        }
+      '
+      ClimateControl.modify VCAP_SERVICES: vcap_json do
+        VcapParser.load_service_environment_variables!
+        expect(ENV['REDIS_URL']).to eq('rediss://x:REDACTED@HOST:6379')
+      end
+    end
+
     it 'does not error if VCAP_SERVICES is not set' do
       ClimateControl.modify VCAP_SERVICES: nil do
         expect { VcapParser.load_service_environment_variables! }.to_not raise_error

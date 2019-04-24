@@ -1,0 +1,18 @@
+@import 'prism';
+
+.simple_form.new_framework, .simple_form.edit_framework {
+  .govuk-error-summary__list a[href='#framework_definition_source'] {
+    white-space: pre-wrap;
+    text-decoration: none;
+    font-weight: normal;
+  }
+}
+
+.framework_definition_source .govuk-error-message {
+  display: none;
+}
+
+.govuk-textarea--fdl-source {
+  min-height: 40em;
+  min-width: 100%;
+}
