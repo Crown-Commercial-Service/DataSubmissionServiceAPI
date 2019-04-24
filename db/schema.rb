@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_103248) do
     t.string "short_name", null: false
     t.integer "coda_reference"
     t.text "definition_source"
+    t.boolean "published", default: false
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
   end
 
