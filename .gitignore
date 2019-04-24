@@ -43,3 +43,6 @@ spec/examples.txt
 *.tfstate
 *.tfstate.*
 *.tfvars
+
+# CF
+CF/*.manifest.yml
