@@ -1,4 +1,4 @@
-require 'framework'
+require_dependency 'framework'
 
 class Framework
   module Definition
