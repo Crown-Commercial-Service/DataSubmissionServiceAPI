@@ -93,4 +93,5 @@ group :test do
   gem 'capybara'
   gem 'climate_control'
   gem 'webmock'
+  gem 'launchy'
 end

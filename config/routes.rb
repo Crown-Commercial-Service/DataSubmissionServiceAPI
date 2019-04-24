@@ -53,6 +53,8 @@ Rails.application.routes.draw do
       resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
+    resources :frameworks, only: :index
+
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
@@ -80,6 +82,8 @@ Rails.application.routes.draw do
       end
       resources :submissions, only: %i[show]
     end
+
+    resources :frameworks, only: %i[index new create show edit update]
 
     resources :notify_downloads, only: %i[index show]
 
