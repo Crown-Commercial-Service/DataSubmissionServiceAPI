@@ -13,6 +13,8 @@ class Framework < ApplicationRecord
 
   validates :definition_source, fdl: true, allow_nil: true
 
+  scope :published, -> { where(published: true) }
+
   def definition
     @definition ||= Definition[short_name]
   end

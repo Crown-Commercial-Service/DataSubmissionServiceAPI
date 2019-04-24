@@ -22,7 +22,7 @@
           - @frameworks.each do |framework|
             %tr.govuk-table__row
               %td.govuk-table__cell= link_to framework.name, admin_framework_path(framework.id)
-              %td.govuk-table__cell Published
+              %td.govuk-table__cell= published_status(framework)
 
     - else
       %p

@@ -3,6 +3,8 @@ FactoryBot.define do
     sequence(:short_name) { |n| "FM#{n + 1000}" }
     sequence(:name) { |n| "G Cloud #{n}" }
 
+    published true
+
     transient do
       lot_count 0
     end
