@@ -5,13 +5,6 @@ class Framework
     class MissingError < StandardError; end
 
     class << self
-      def all
-        Framework::Definition.constants
-                             .reject { |c| c == :Base }
-                             .map    { |c| Framework::Definition.const_get(c) }
-                             .select { |c| c.ancestors.include?(Framework::Definition::Base) }
-      end
-
       def cache
         @cache ||=
           Hash.new do |hash, framework_short_name|
@@ -24,14 +17,6 @@ class Framework
       def [](framework_short_name)
         sanitized_framework_short_name = framework_short_name.tr('/.', '_')
         cache[sanitized_framework_short_name]
-      end
-
-      # remove when the fdl_generator is removed
-      def from_ruby(framework_short_name)
-        sanitized_framework_short_name = framework_short_name.tr('/.', '_')
-        "Framework::Definition::#{sanitized_framework_short_name}".constantize
-      rescue NameError
-        raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
       end
     end
 
