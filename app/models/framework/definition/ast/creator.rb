@@ -9,8 +9,9 @@ class Framework
         rule(decimal: simple(:d))     { BigDecimal(d) }
         rule(integer: simple(:i))     { Integer(i) }
 
-        # Range simplifier
+        # Empty type simplifiers
         rule(integer: sequence(:nil)) { nil } # .maybe produces { integer: [] } for empty
+        rule(string: sequence(:nil))  { '' }  # Blank strings produce { string: [] }
 
         rule(lookup_reference: simple(:r))                { LookupReference.new(r) }
 

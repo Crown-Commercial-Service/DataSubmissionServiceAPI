@@ -5,6 +5,7 @@ class Framework < ApplicationRecord
   has_many :agreements, dependent: :destroy
   has_many :suppliers, through: :agreements
 
+  validates :name, presence: true
   validates :short_name, presence: true, uniqueness: true
   validates :coda_reference, allow_nil: true, format: {
     with: /\A40\d{4}\z/,

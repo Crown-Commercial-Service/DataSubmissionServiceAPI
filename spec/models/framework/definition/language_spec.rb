@@ -492,6 +492,26 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Blank strings' do
+      let(:source) do
+        <<~FDL
+          Framework RMTEST {
+            Name ''
+            ManagementCharge 0%
+             InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      describe 'the name' do
+        subject(:name) { definition.framework_name }
+
+        it { is_expected.to be_blank }
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
