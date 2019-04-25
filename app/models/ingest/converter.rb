@@ -42,7 +42,7 @@ module Ingest
       sheet_temp_file = download.temp_file + '_' + type + '.csv'
       sheet_name = type == 'invoice' ? invoice_sheet_name : order_sheet_name
 
-      command = "in2csv -l --sheet=#{sheet_name} --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
+      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
       command += " > #{sheet_temp_file}"
       Ingest::CommandRunner.new(command).run!
 

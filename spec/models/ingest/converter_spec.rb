@@ -99,4 +99,18 @@ RSpec.describe Ingest::Converter do
       end
     end
   end
+
+  context 'with a spreadsheet with sheets containing spaces' do
+    let(:download) { fake_download('sheet-name-with-spaces.xls') }
+
+    it 'converts the sheet correctly' do
+      orders = converter.orders
+
+      expect(orders.row_count).to eql 1
+      expect(orders.sheet_name).to eql 'New Call Off Contracts'
+      expect(orders.type).to eql 'order'
+
+      expect(orders.data.first['Call Off Contract Reference']).to eql 'a'
+    end
+  end
 end
