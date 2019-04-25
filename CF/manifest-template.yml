@@ -16,3 +16,4 @@ applications:
       - SIDEKIQ
       - SKYLIGHT
       - WORKDAY_API
+      - AZURE

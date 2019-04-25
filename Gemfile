@@ -41,6 +41,7 @@ gem 'simple_form'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
+gem 'azure-storage-blob', require: false
 
 # Exception tracking
 gem 'rollbar'
