@@ -17,7 +17,8 @@ RSpec.feature 'Admin can edit a framework' do
     # Given that I am logged in as an admin
     sign_in_as_admin
     # And there is an existing framework
-    create(:framework, short_name: 'RM999', name: 'Framework to be changed', definition_source: existing_source)
+    create(:framework, published: published, short_name: 'RM999',
+      name: 'Framework to be changed', definition_source: existing_source)
   end
 
   context 'we have valid framework source' do
@@ -33,7 +34,9 @@ RSpec.feature 'Admin can edit a framework' do
       FDL
     end
 
-    context 'there is an existing framework' do
+    context 'there is an existing unpublished framework' do
+      let(:published) { false }
+
       scenario 'everything is fine' do
         # When I visit the frameworks page
         visit admin_frameworks_path
@@ -57,6 +60,23 @@ RSpec.feature 'Admin can edit a framework' do
         expect(page).to have_content('Vehicle Leasing')
       end
     end
+
+    context 'there is an existing published framework' do
+      let(:published) { true }
+
+      scenario 'no link exists to edit' do
+        # When I visit the frameworks page
+        visit admin_frameworks_path
+        # Then I should see a list of frameworks
+        expect(page).to have_content('Framework to be changed')
+        # When I click on the existing framework
+        click_link('Framework to be changed')
+        # Then I should see the framework
+        expect(page).to have_content('Framework RM999 {')
+        # And I should not see 'Edit definition'
+        expect(page).not_to have_content('Edit definition')
+      end
+    end
   end
 
   context 'we have invalid framework source' do
@@ -72,7 +92,9 @@ RSpec.feature 'Admin can edit a framework' do
       FDL
     end
 
-    context 'there is an existing framework' do
+    context 'there is an existing unpublished framework' do
+      let(:published) { false }
+
       scenario 'the existing framework is not updated' do
         # When I visit the frameworks page
         visit admin_frameworks_path
