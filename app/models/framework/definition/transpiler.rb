@@ -1,6 +1,8 @@
 class Framework
   module Definition
     class Transpiler
+      class Error < StandardError; end
+
       attr_reader :ast
 
       def initialize(ast)
@@ -36,14 +38,18 @@ class Framework
             ActiveModel::Name.new(self, nil, entry_type_capitalized)
           end
 
-          field_defs = ast.field_defs(entry_type)
-
           _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
+          if _total_value_field.nil?
+            raise Transpiler::Error,
+                  "#{entry_type_capitalized}Fields is missing " \
+                  "an #{entry_type_capitalized}Value field"
+          end
+
           total_value_field _total_value_field.sheet_name
 
           lookups ast.lookups
 
-          field_defs.each do |field_def|
+          ast.field_defs(entry_type).each do |field_def|
             field = AST::Field.new(field_def, ast.lookups)
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
