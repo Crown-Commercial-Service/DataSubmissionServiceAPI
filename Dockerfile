@@ -15,7 +15,8 @@ RUN YARN_VERSION=1.9.4 \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz
 
-RUN apt-get install -qq -y python python-pip python-setuptools python-wheel --fix-missing --no-install-recommends && pip install --quiet csvkit
+COPY requirements.txt $INSTALL_PATH/requirements.txt
+RUN apt-get install -qq -y python python-pip python-setuptools python-wheel --fix-missing --no-install-recommends && pip install --quiet -r requirements.txt
 
 RUN ln -s /usr/bin/nodejs /usr/local/bin/node
 
