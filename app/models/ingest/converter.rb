@@ -49,7 +49,7 @@ module Ingest
       row_count = fetch_row_count(sheet_temp_file)
 
       Rows.new(
-        CSV.foreach(sheet_temp_file, headers: true),
+        CSV.foreach(sheet_temp_file, headers: true, header_converters: ->(h) { h.strip }),
         row_count,
         sheet_name,
         type

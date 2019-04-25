@@ -123,4 +123,15 @@ RSpec.describe Ingest::Converter do
       expect(invoices.row_count).to eql 6
     end
   end
+
+  context 'with a spreadsheet whose headers contain erroneous spaces' do
+    let(:download) { fake_download('headers-prefixed-with-space.xls') }
+
+    it 'strips those spaces so it is converted correctly' do
+      orders = converter.orders
+
+      # NB: header is " Call Off Value" in template
+      expect(orders.data.first.headers).to include('Call Off Value')
+    end
+  end
 end
