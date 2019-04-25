@@ -5,7 +5,7 @@ RSpec.describe FrameworkLot do
 
   describe 'validations' do
     subject do
-      framework = Framework.create!(short_name: 'cboard8')
+      framework = FactoryBot.create(:framework, short_name: 'cboard8')
       framework.lots.create!(number: '1a')
     end
 
