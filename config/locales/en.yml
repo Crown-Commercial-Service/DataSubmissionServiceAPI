@@ -1,5 +1,13 @@
 ---
 en:
+  admin:
+    frameworks:
+      cannot_change: &cannot_change 'This framework has been published and cannot be edited'
+      update:
+        cannot_change: *cannot_change
+      edit:
+        cannot_change: *cannot_change
+
   activerecord:
     attributes:
       user:

@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin can edit a framework' do
+  let(:framework) do
+    create(:framework, published: published, short_name: 'RM999',
+      name: 'Framework to be changed', definition_source: existing_source)
+  end
+
   let(:existing_source) do
     <<~FDL
       Framework RM999 {
@@ -17,8 +22,7 @@ RSpec.feature 'Admin can edit a framework' do
     # Given that I am logged in as an admin
     sign_in_as_admin
     # And there is an existing framework
-    create(:framework, published: published, short_name: 'RM999',
-      name: 'Framework to be changed', definition_source: existing_source)
+    framework
   end
 
   context 'we have valid framework source' do
@@ -75,6 +79,18 @@ RSpec.feature 'Admin can edit a framework' do
         expect(page).to have_content('Framework RM999 {')
         # And I should not see 'Edit definition'
         expect(page).not_to have_content('Edit definition')
+      end
+
+      scenario 'an admin attempts to /edit manually' do
+        # When I try to edit the framework
+        visit edit_admin_framework_path(framework)
+
+        # Then I should be redirected to the list of frameworks
+        expect(page).to have_content('Frameworks')
+        expect(page).to have_content('New Framework')
+
+        # And I should see that I cannot edit the framework
+        expect(page).to have_content('This framework has been published and cannot be edited')
       end
     end
   end
