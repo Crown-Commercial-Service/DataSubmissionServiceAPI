@@ -113,4 +113,14 @@ RSpec.describe Ingest::Converter do
       expect(orders.data.first['Call Off Contract Reference']).to eql 'a'
     end
   end
+
+  context 'with a spreadsheet that contains empty rows between data' do
+    let(:download) { fake_download('rm3787-with-empty-rows.xls') }
+
+    it 'ignores empty rows when calculating row_count' do
+      invoices = converter.invoices
+
+      expect(invoices.row_count).to eql 6
+    end
+  end
 end

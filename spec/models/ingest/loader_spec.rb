@@ -93,5 +93,37 @@ RSpec.describe Ingest::Loader do
       expect(file.entries.orders.first.total_value).to eql 22000
       expect(file.entries.orders.first.customer_urn).to eql 12345
     end
+
+    it 'ignores empty rows when loading data' do
+      invoice_rows = double(
+        'rows',
+        data: [
+          fake_invoice_row.merge('line_number' => '3'),
+          fake_invoice_row.merge('line_number' => '5'),
+          fake_invoice_row.merge('line_number' => '6'),
+        ],
+        row_count: 3,
+        sheet_name: 'Invoices',
+        type: 'invoice'
+      )
+
+      order_rows = double(
+        'rows',
+        data: [],
+        row_count: 0,
+        sheet_name: '',
+        type: 'order'
+      )
+
+      converter = double('converter', rows: 3, invoices: invoice_rows, orders: order_rows)
+
+      loader = Ingest::Loader.new(converter, file)
+      loader.perform
+
+      expect(file.entries.invoices.count).to eql 3
+
+      row_numbers = file.entries.invoices.pluck(:source).map { |source| source['row'] }
+      expect(row_numbers).to contain_exactly(4, 6, 7)
+    end
   end
 end

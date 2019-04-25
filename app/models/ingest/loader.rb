@@ -57,6 +57,8 @@ module Ingest
           data: process_csv_row.process(row)
         )
 
+        next if entry.data.blank? # Skip empty rows
+
         entry.customer_urn = entry.data.dig(sheet_definition.export_mappings['CustomerURN'])
         entry.customer_urn = nil unless @urns.key?(entry.customer_urn)
 

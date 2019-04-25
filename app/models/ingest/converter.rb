@@ -57,7 +57,9 @@ module Ingest
     end
 
     def fetch_row_count(file)
-      command = "wc -l < #{file} | xargs"
+      # Don't count empty rows
+      command = "csvcut -C 'line_number' -x #{file} | wc -l | xargs"
+
       row_count = Ingest::CommandRunner.new(command).run!.stdout.first.to_i
       row_count -= 1 unless row_count.zero? # Handle empty results
       row_count
