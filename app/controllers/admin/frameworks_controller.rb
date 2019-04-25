@@ -1,4 +1,6 @@
 class Admin::FrameworksController < AdminController
+  before_action :prevent_change_to_published, only: %i[edit update]
+
   def index
     @frameworks = Framework.all
   end
@@ -28,13 +30,9 @@ class Admin::FrameworksController < AdminController
     end
   end
 
-  def edit
-    @framework = Framework.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @framework = Framework.find(params[:id])
-
     if @framework.update_from_fdl(framework_params[:definition_source])
       flash[:success] = 'Framework saved successfully.'
       redirect_to admin_framework_path(@framework)
@@ -44,6 +42,12 @@ class Admin::FrameworksController < AdminController
   end
 
   private
+
+  def prevent_change_to_published
+    @framework = Framework.find(params[:id]).tap do |framework|
+      redirect_to admin_frameworks_path, alert: t('.cannot_change') if framework.published?
+    end
+  end
 
   def framework_params
     params.require(:framework).permit(:definition_source)

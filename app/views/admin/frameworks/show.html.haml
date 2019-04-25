@@ -3,11 +3,12 @@
     %h1.govuk-heading-xl= "#{@framework.short_name} #{@framework.name}"
 
   .govuk-grid-column-one-third
-    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
-      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
-      %ul.govuk-page-actions--actions
-        %li.govuk-page-actions--action
-          = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
+    - unless @framework.published
+      %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+        %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+        %ul.govuk-page-actions--actions
+          %li.govuk-page-actions--action
+            = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
 
 .govuk-grid-row
   .govuk-grid-column-full
