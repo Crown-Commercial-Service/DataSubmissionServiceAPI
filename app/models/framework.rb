@@ -22,7 +22,7 @@ class Framework < ApplicationRecord
 
   def self.new_from_fdl(definition_source)
     Framework.new(definition_source: definition_source).tap do |framework|
-      definition = Framework::Definition::Language.generate_framework_definition(definition_source, logger)
+      definition = Framework::Definition::Language.generate_framework_definition(definition_source, Rails.logger)
       framework.name       = definition.framework_name
       framework.short_name = definition.framework_short_name
     rescue Parslet::ParseFailed => e
@@ -35,7 +35,7 @@ class Framework < ApplicationRecord
 
   def update_from_fdl(definition_source)
     definition = begin
-                   Framework::Definition::Language.generate_framework_definition(definition_source, logger)
+                   Framework::Definition::Language.generate_framework_definition(definition_source, Rails.logger)
                  rescue Parslet::ParseFailed
                    return update(definition_source: definition_source)
                  end
