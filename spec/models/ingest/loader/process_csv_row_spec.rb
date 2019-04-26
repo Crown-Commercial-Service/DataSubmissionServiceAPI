@@ -62,6 +62,18 @@ RSpec.describe Ingest::Loader::ProcessCsvRow do
       end
     end
 
+    context 'with a string' do
+      it 'strips whitespace around values' do
+        data = {
+          'Customer Organisation' => '   Crown Commercial Service   '
+        }
+
+        result = process_csv_row.process(data)
+
+        expect(result['Customer Organisation']).to eql 'Crown Commercial Service'
+      end
+    end
+
     context 'with a Python boolean' do
       it 'converts True to Y' do
         data = { 'VAT Applicable' => 'True' }

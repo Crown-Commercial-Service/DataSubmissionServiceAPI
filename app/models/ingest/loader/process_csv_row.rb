@@ -19,6 +19,10 @@ module Ingest
       def process(row)
         row = row.to_h.slice(*fields).compact
 
+        row.each do |field, value|
+          row[field].strip! if value.is_a?(String)
+        end
+
         date_fields.each do |field|
           next if row[field].blank?
           next unless row[field].match?(/\d{4}-\d{2}-\d{2}/)
