@@ -18,11 +18,22 @@ module Ingest
 
       def process(row)
         row = row.to_h.slice(*fields).compact
+        row = strip_whitespace_from_strings(row)
+        row = convert_date_fields(row)
+        row = fix_booleans_in_numeric_fields(row)
+        row = fix_booleans_in_other_fields(row)
+        convert_numbers(row)
+      end
 
+      private
+
+      def strip_whitespace_from_strings(row)
         row.each do |field, value|
           row[field].strip! if value.is_a?(String)
         end
+      end
 
+      def convert_date_fields(row)
         date_fields.each do |field|
           next if row[field].blank?
 
@@ -30,34 +41,35 @@ module Ingest
           row[field] = (Date.new(1899, 12, 30) + row[field].to_i.days).strftime('%d/%m/%Y') if valid_float?(row[field])
         end
 
-        numeric_fields.each do |field|
-          next if row[field].nil?
+        row
+      end
 
-          row[field] = if valid_float?(row[field])
-                         convert_number(row[field])
-                       elsif row[field] == 'True'
-                         1
-                       elsif row[field] == 'False'
-                         0
-                       else
-                         row[field]
-                       end
+      def fix_booleans_in_numeric_fields(row)
+        numeric_fields.each do |field|
+          next unless row[field].is_a?(String)
+
+          row[field] = 1 if row[field] == 'True'
+          row[field] = 0 if row[field] == 'False'
         end
 
-        row.each do |field, value|
-          next if value.blank? || date_fields.include?(field) || numeric_fields.include?(field)
+        row
+      end
 
-          if valid_float?(value)
-            row[field] = convert_number(value)
-          elsif value == 'True'
-            row[field] = 'Y'
-          elsif value == 'False'
-            row[field] = 'N'
-          end
+      def fix_booleans_in_other_fields(row)
+        row.each do |field, value|
+          next if numeric_fields.include?(field)
+          next unless value.is_a?(String)
+
+          row[field] = 'Y' if value == 'True'
+          row[field] = 'N' if value == 'False'
         end
       end
 
-      private
+      def convert_numbers(row)
+        row.each do |field, value|
+          row[field] = convert_number(value) if valid_float?(value)
+        end
+      end
 
       def valid_float?(value)
         !!Float(value)
