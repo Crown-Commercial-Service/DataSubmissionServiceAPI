@@ -30,18 +30,30 @@ module Ingest
           row[field] = (Date.new(1899, 12, 30) + row[field].to_i.days).strftime('%d/%m/%Y') if valid_float?(row[field])
         end
 
-        row.each do |key, value|
-          converted_value = if valid_float?(value)
-                              convert_number(value)
-                            elsif value == 'True'
-                              'Y'
-                            elsif value == 'False'
-                              'N'
-                            else
-                              value
-                            end
+        numeric_fields.each do |field|
+          next if row[field].nil?
 
-          row[key] = converted_value
+          row[field] = if valid_float?(row[field])
+                         convert_number(row[field])
+                       elsif row[field] == 'True'
+                         1
+                       elsif row[field] == 'False'
+                         0
+                       else
+                         row[field]
+                       end
+        end
+
+        row.each do |field, value|
+          next if value.blank? || date_fields.include?(field) || numeric_fields.include?(field)
+
+          if valid_float?(value)
+            row[field] = convert_number(value)
+          elsif value == 'True'
+            row[field] = 'Y'
+          elsif value == 'False'
+            row[field] = 'N'
+          end
         end
       end
 
@@ -69,6 +81,13 @@ module Ingest
                          .validators
                          .select { |validator| validator.is_a?(IngestedDateValidator) }
                          .flat_map(&:attributes)
+      end
+
+      def numeric_fields
+        @numeric_fields ||= sheet_definition
+                            .validators
+                            .select { |validator| validator.is_a?(IngestedNumericalityValidator) }
+                            .flat_map(&:attributes)
       end
     end
   end

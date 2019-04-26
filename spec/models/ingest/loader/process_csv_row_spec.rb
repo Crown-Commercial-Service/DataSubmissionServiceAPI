@@ -85,20 +85,40 @@ RSpec.describe Ingest::Loader::ProcessCsvRow do
     end
 
     context 'with a Python boolean' do
-      it 'converts True to Y' do
-        data = { 'VAT Applicable' => 'True' }
+      context 'in a non-numeric field' do
+        it 'converts True to Y' do
+          data = { 'VAT Applicable' => 'True' }
 
-        result = process_csv_row.process(data)
+          result = process_csv_row.process(data)
 
-        expect(result['VAT Applicable']).to eql 'Y'
+          expect(result['VAT Applicable']).to eql 'Y'
+        end
+
+        it 'converts False to N' do
+          data = { 'VAT Applicable' => 'False' }
+
+          result = process_csv_row.process(data)
+
+          expect(result['VAT Applicable']).to eql 'N'
+        end
       end
 
-      it 'converts False to N' do
-        data = { 'VAT Applicable' => 'False' }
+      context 'in a numeric field' do
+        it 'converts True to 1' do
+          data = { 'Quantity' => 'True' }
 
-        result = process_csv_row.process(data)
+          result = process_csv_row.process(data)
 
-        expect(result['VAT Applicable']).to eql 'N'
+          expect(result['Quantity']).to eql 1
+        end
+
+        it 'converts False to 0' do
+          data = { 'Quantity' => 'False' }
+
+          result = process_csv_row.process(data)
+
+          expect(result['Quantity']).to eql 0
+        end
       end
     end
 
