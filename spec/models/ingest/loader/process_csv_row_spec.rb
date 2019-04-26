@@ -60,6 +60,16 @@ RSpec.describe Ingest::Loader::ProcessCsvRow do
 
         expect(result['Customer Invoice Date']).to eql 'N/A'
       end
+
+      it 'changes integer date fields into dd/mm/yyyy' do
+        data = {
+          'Customer Invoice Date' => '44190.0',
+        }
+
+        result = process_csv_row.process(data)
+
+        expect(result['Customer Invoice Date']).to eql '25/12/2020'
+      end
     end
 
     context 'with a string' do

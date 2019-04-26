@@ -25,9 +25,9 @@ module Ingest
 
         date_fields.each do |field|
           next if row[field].blank?
-          next unless row[field].match?(/\d{4}-\d{2}-\d{2}/)
 
-          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y')
+          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y') if row[field].match?(/\d{4}-\d{2}-\d{2}/)
+          row[field] = (Date.new(1899, 12, 30) + row[field].to_i.days).strftime('%d/%m/%Y') if valid_float?(row[field])
         end
 
         row.each do |key, value|
