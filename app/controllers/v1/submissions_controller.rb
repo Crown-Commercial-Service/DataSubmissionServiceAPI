@@ -39,6 +39,8 @@ class V1::SubmissionsController < APIController
   end
 
   def validate
+    return head :no_content if ENV['NEW_INGEST'] == 'true'
+
     submission = Submission.find(params[:id])
     SubmissionValidationJob.perform_later(submission)
 

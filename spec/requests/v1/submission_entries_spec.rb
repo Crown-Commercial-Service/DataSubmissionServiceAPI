@@ -210,4 +210,17 @@ RSpec.describe '/v1' do
       end
     end
   end
+
+  context 'with new ingest enabled' do
+    describe 'POST multiple entries' do
+      it 'ignores the entries, but responds positively' do
+        ClimateControl.modify NEW_INGEST: 'true' do
+          post "/v1/submissions/#{submission.id}/entries/bulk", params: valid_bulk_params.to_json, headers: json_headers
+
+          expect(response).to have_http_status(:created)
+          expect(submission.entries.count).to eq 0
+        end
+      end
+    end
+  end
 end
