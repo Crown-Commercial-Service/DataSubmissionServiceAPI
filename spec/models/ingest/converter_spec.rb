@@ -37,6 +37,22 @@ RSpec.describe Ingest::Converter do
         'Expenses / Disbursements' => '0.0'
       )
     end
+
+    context 'with a download that has no invoices sheet' do
+      let(:download) { fake_download('rm1557viii-with-no-invoices.xls') }
+
+      it 'returns an empty Rows object' do
+        allow(Ingest::CommandRunner).to receive(:new).with(/in2csv/).and_call_original
+
+        invoices = converter.invoices
+
+        expect(invoices.data).to be_empty
+        expect(invoices.row_count).to eql 0
+        expect(invoices.sheet_name).to be_nil
+        expect(invoices.type).to be_nil
+        expect(Ingest::CommandRunner).to_not have_received(:new).with(/in2csv.*sheet/)
+      end
+    end
   end
 
   describe '.orders' do
@@ -78,11 +94,35 @@ RSpec.describe Ingest::Converter do
         'Total Contract Value' => '420000.0'
       )
     end
+
+    context 'with a download that has no orders sheet' do
+      let(:download) { fake_download('rm3767-with-no-orders.xls') }
+
+      it 'returns an empty Rows object' do
+        allow(Ingest::CommandRunner).to receive(:new).with(/in2csv/).and_call_original
+
+        orders = converter.orders
+
+        expect(orders.data).to be_empty
+        expect(orders.row_count).to eql 0
+        expect(orders.sheet_name).to be_nil
+        expect(orders.type).to be_nil
+        expect(Ingest::CommandRunner).to_not have_received(:new).with(/in2csv.*sheet/)
+      end
+    end
   end
 
   describe '.rows' do
     it 'returns the total number of rows contained in the Excel file' do
       expect(converter.rows).to eql 3
+    end
+
+    context 'with a download that has only one sheet to convert' do
+      let(:download) { fake_download('rm3767-with-no-orders.xls') }
+
+      it 'returns the total number of rows contained in the Excel file' do
+        expect(converter.rows).to eql 1
+      end
     end
   end
 
