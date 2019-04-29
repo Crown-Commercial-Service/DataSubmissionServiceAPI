@@ -42,7 +42,11 @@ RSpec.describe DataWarehouseExport do
     let(:framework) { create(:framework, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
-    let(:s3_export_upload) { spy('s3_upload') }
+    let(:azure_export_upload) { spy('azure_upload') }
+
+    before do
+      allow(Export::AzureUpload).to receive(:new).and_return(azure_export_upload)
+    end
 
     around do |example|
       travel_to Date.new(2018, 1, 1) do
@@ -53,7 +57,6 @@ RSpec.describe DataWarehouseExport do
     end
 
     it 'uploads the generated files to S3' do
-      allow(Export::S3Upload).to receive(:new).and_return(s3_export_upload)
       expected_file_map = {
         'tasks_20180101_000000.csv' => a_kind_of(Tempfile),
         'submissions_20180101_000000.csv' => a_kind_of(Tempfile),
@@ -63,8 +66,8 @@ RSpec.describe DataWarehouseExport do
 
       DataWarehouseExport.generate!
 
-      expect(Export::S3Upload).to have_received(:new).with expected_file_map
-      expect(s3_export_upload).to have_received(:perform)
+      expect(Export::AzureUpload).to have_received(:new).with expected_file_map
+      expect(azure_export_upload).to have_received(:perform)
     end
 
     context 'with no previous exports' do
