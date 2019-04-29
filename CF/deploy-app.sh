@@ -24,18 +24,6 @@ fi
 MEMORY_LIMIT="512M"
 INSTANCE_COUNT="1"
 
-if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
-  echo " *********************************************"
-  echo "    The '$CF_SPACE' space will be selected"
-  echo "     This deploys the apps as HA with"
-  echo "      production like resource sizes"
-  echo " For feature testing, choose a space with a"
-  echo "      name other than staging / prod"
-  echo " *********************************************"
-
-  MEMORY_LIMIT="512M"
-  INSTANCE_COUNT="3"
-fi
 
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
@@ -69,6 +57,19 @@ done
 
 if [[ -z "$CF_USER" || -z "$CF_PASS" || -z "$CF_ORG" || -z "$CF_SPACE" ]]; then
   usage
+fi
+
+if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
+  echo " *********************************************"
+  echo "    The '$CF_SPACE' space will be selected"
+  echo "     This deploys the apps as HA with"
+  echo "      production like resource sizes"
+  echo " For feature testing, choose a space with a"
+  echo "      name other than staging / prod"
+  echo " *********************************************"
+
+  MEMORY_LIMIT="512M"
+  INSTANCE_COUNT="3"
 fi
 
 cd "$SCRIPT_PATH" || exit
