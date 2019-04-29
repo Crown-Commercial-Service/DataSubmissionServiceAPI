@@ -40,11 +40,31 @@ RSpec.describe FdlValidator do
   end
 
   context 'FDL is invalid' do
-    let(:source) { 'Fxramework RM1234 {}' }
+    context 'syntactically' do
+      let(:source) { 'Fxramework RM1234 {}' }
 
-    it { is_expected.not_to be_valid }
-    it 'has the ASCII tree of the failure' do
-      expect(instance.errors[:fdl].first).to match(/Failed to match sequence/)
+      it { is_expected.not_to be_valid }
+      it 'has the ASCII tree of the failure' do
+        expect(instance.errors[:fdl].first).to match(/Failed to match sequence/)
+      end
+    end
+    context 'semantically' do
+      let(:source) do
+        <<~FDL
+          Framework RMNOINVOICEVALUE {
+            Name 'x'
+            ManagementCharge 0%
+             InvoiceFields {
+              String from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it { is_expected.not_to be_valid }
+      it 'has the first semantic failure' do
+        expect(instance.errors[:fdl].first).to eql('InvoiceFields is missing an InvoiceValue field')
+      end
     end
   end
 end

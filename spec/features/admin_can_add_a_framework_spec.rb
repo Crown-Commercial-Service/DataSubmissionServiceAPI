@@ -66,6 +66,40 @@ RSpec.feature 'Admin can add a framework' do
     end
   end
 
+  context 'we have a syntactically valid framework source, but it is missing InvoiceValue' do
+    let(:invalid_source) do
+      <<~FDL
+        Framework RM6060 {
+          Name 'Fake framework'
+          ManagementCharge 0.5% of 'Supplier Price'
+           InvoiceFields {
+            String from 'Supplier Price'
+          }
+        }
+      FDL
+    end
+
+    scenario 'the framework source is rejected' do
+      # When I visit the frameworks page
+      visit admin_frameworks_path
+
+      # And I click 'new framework'
+      click_link 'New Framework'
+      # Then I should see a "new framework" page
+      expect(page).to have_text('New framework')
+
+      # When I paste an invalid framework
+      fill_in 'Definition', with: invalid_source
+      # And I click "Save definition"
+      click_button 'Save definition'
+      # Then I should see "InvoiceFields is missing an InvoiceValue field"
+      expect(page).to have_text('InvoiceFields is missing an InvoiceValue field')
+
+      # And I should see my FDL
+      expect(find_field('Definition source').value).to include('Framework RM6060 {')
+    end
+  end
+
   context 'we have an invalid framework source' do
     let(:invalid_source) { 'Frameworxk RM6060 {       }' }
 
@@ -78,7 +112,7 @@ RSpec.feature 'Admin can add a framework' do
       # Then I should see a "new framework" page
       expect(page).to have_text('New framework')
 
-      # When I paste an ivalid framework
+      # When I paste an invalid framework
       fill_in 'Definition', with: invalid_source
       # And I click "Save definition"
       click_button 'Save definition'

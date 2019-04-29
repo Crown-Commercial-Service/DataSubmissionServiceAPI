@@ -1,9 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Framework::Definition::Language do
+RSpec.describe Framework::Definition::Generator do
   describe '.generate_framework_definition' do
-    let(:logger)         { spy('Logger') }
-    subject(:definition) { Framework::Definition::Language.generate_framework_definition(source, logger) }
+    let(:logger)        { spy('Logger') }
+    subject(:generator) { Framework::Definition::Generator.new(source, logger) }
+
+    let!(:definition) { generator.definition }
 
     context 'Laundry framework language features (CM_OSG_05_3565)' do
       let(:source) do
@@ -492,12 +494,64 @@ RSpec.describe Framework::Definition::Language do
       end
     end
 
+    context 'Blank strings' do
+      let(:source) do
+        <<~FDL
+          Framework RMTEST {
+            Name ''
+            ManagementCharge 0%
+             InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      describe 'the name' do
+        subject(:name) { definition.framework_name }
+
+        it { is_expected.to be_blank }
+      end
+    end
+
+    context 'our FDL\'s meaning is invalid' do
+      context 'There is no InvoiceValue for InvoiceFields' do
+        let(:source) do
+          <<~FDL
+            Framework RM1234 {
+              Name 'x'
+              ManagementCharge 0%
+
+              InvoiceFields {
+                String from 'x'
+              }
+            }
+          FDL
+        end
+
+        example { expect(definition).to be_nil }
+        it      { is_expected.not_to be_success }
+        it      { is_expected.to be_error }
+
+        it 'has the error' do
+          expect(generator.error).to eql('InvoiceFields is missing an InvoiceValue field')
+        end
+      end
+    end
+
     context 'our FDL isn\'t valid' do
       let(:source) { 'any old rubbish' }
 
-      it 'logs the error and re-raises' do
-        expect { definition }.to raise_error(Parslet::ParseFailed)
+      example { expect(definition).to be_nil }
+      it { is_expected.to be_error }
+      it { is_expected.not_to be_success }
+
+      it 'logs the error' do
         expect(logger).to have_received(:error).with(/Expected "Framework"/)
+      end
+
+      it 'has the parse failure' do
+        expect(generator.error).to match(/Failed to match sequence/)
       end
     end
   end

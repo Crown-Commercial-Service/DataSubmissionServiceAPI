@@ -7,7 +7,7 @@ class DataWarehouseExport < ApplicationRecord
     new(range_from: (EARLIEST_RANGE_FROM if reexport)).tap do |export|
       ActiveRecord::Base.transaction(isolation: :repeatable_read) do
         files = export.generate_files
-        Export::S3Upload.new(files).perform
+        Export::AzureUpload.new(files).perform
         export.save!
       end
     end

@@ -1,5 +1,18 @@
 # Change Log
 
+## [release-70] - 2019-04-29
+
+- Allow FDL to validate blank Framework#name
+- Explicitly call Rails.logger on Framework#update/create_from_fdl
+- Prevent editing of published frameworks
+- Add travis
+- New Python + Ruby ingest implementation
+- FDL validates the lack of an invoicevalue or contractvalue
+- Replace Data Warehouse Export S3 upload with Azure
+- New ingest can be enabled with an environment variable
+- Send credit notes of greater than 5k as draft to workday
+- Update Workday to support sandbox and production tenants
+
 ## [release-69] - 2019-04-24
 
 - Upgrade to ruby 2.5.5
@@ -469,6 +482,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-70]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-69...release-70
 [release-69]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-68...release-69
 [release-68]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-67...release-68
 [release-67]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-66...release-67

@@ -19,7 +19,10 @@ class V1::SubmissionEntriesController < APIController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def bulk
+    return render plain: 'success', status: :created if ENV['NEW_INGEST'] == 'true'
+
     entries = []
 
     params[:_jsonapi][:data].each do |entry_params|
@@ -39,6 +42,7 @@ class V1::SubmissionEntriesController < APIController
 
     render plain: 'success', status: :created
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

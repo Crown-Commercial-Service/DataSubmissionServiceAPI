@@ -8,7 +8,7 @@ module Workday
   end
 
   def self.client
-    @client ||= LolSoap::Client.new(File.read('data/workday_revenue_management_v31.0.xml'))
+    @client ||= LolSoap::Client.new(File.read(wsdl_location))
   end
 
   def self.api_username=(username)
@@ -33,5 +33,13 @@ module Workday
 
   def self.tenant
     api_username.split('@').last if api_username.present?
+  end
+
+  def self.wsdl_location
+    if ENV['WORKDAY_TENANT'] == 'production'
+      'data/production_workday_revenue_management_v31.0.xml'
+    else
+      'data/sandbox_workday_revenue_management_v31.0.xml'
+    end
   end
 end

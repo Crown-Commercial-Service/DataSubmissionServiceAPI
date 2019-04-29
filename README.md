@@ -14,9 +14,9 @@ See [Running with Docker](docs/running-with-docker.md)
 
 ### Prerequisites
 
-Use Homebrew to install Postgres and Redis on MacOS:
+Use Homebrew to install Postgres, Redis, curl, Python and csvkit on MacOS:
 
-`$ brew install postgres redis`
+`$ brew install postgres redis curl csvkit`
 
 The application requires a user named `postgres` so create that user if it does not exist already:
 

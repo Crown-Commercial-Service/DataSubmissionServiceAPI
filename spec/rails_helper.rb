@@ -27,9 +27,6 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-# Run Export::S3Upload in test mode so responses can be stubbed
-Export::S3Upload.test_mode = true
-
 RSpec.configure do |config|
   config.include Auth0Helpers
   config.include BankHolidaysHelpers
@@ -38,6 +35,7 @@ RSpec.configure do |config|
   config.include StorageHelpers
   config.include RequestHelpers, type: :request
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include IngestHelpers, type: :model
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
