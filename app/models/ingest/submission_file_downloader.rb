@@ -24,7 +24,7 @@ module Ingest
       extension = @submission_file.file.filename.extension.downcase
       temp_file = "/tmp/#{@submission_file.id}.#{extension}"
 
-      command = "curl -L \"#{url}\" > \"#{temp_file}\""
+      command = "curl --fail -L \"#{url}\" > \"#{temp_file}\""
       runner = Ingest::CommandRunner.new(command).run!
 
       Download.new(temp_file, runner.successful?)
