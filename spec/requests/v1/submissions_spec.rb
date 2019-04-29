@@ -218,5 +218,16 @@ RSpec.describe '/v1' do
       expect(response).to have_http_status(:no_content)
       expect(SubmissionValidationJob).to have_been_enqueued.with(submission)
     end
+
+    it 'ignores the request, if new ingest is enabled' do
+      ClimateControl.modify NEW_INGEST: 'true' do
+        submission = FactoryBot.create(:submission_with_pending_entries)
+
+        post "/v1/submissions/#{submission.id}/validate", headers: { 'X-Auth-Id' => user.auth_id }
+
+        expect(response).to have_http_status(:no_content)
+        expect(SubmissionValidationJob).to_not have_been_enqueued
+      end
+    end
   end
 end

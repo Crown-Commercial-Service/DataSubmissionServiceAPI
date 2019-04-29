@@ -45,6 +45,22 @@ RSpec.describe '/v1' do
       expect(file_attachment.content_type).to eq('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       expect(file_attachment.byte_size).to eq(234936)
       expect(file_attachment.checksum).to eq('r1gZERPTNkeuHwKyI9qUPQ==')
+
+      expect(SubmissionIngestionJob).not_to have_been_enqueued
+    end
+
+    context 'with new ingest enabled' do
+      it 'enqueues an ingest background job' do
+        ClimateControl.modify NEW_INGEST: 'true' do
+          post(
+            v1_file_blobs_path(submission_file.id),
+            params: params.to_json,
+            headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          )
+
+          expect(SubmissionIngestionJob).to have_been_enqueued
+        end
+      end
     end
   end
 end

@@ -7,6 +7,8 @@ class V1::SubmissionFileBlobsController < APIController
     submission_file = SubmissionFile.find(params[:file_id])
     submission_file.file_blob = ActiveStorage::Blob.new(file_blob_params)
 
+    SubmissionIngestionJob.perform_later(submission_file) if ENV['NEW_INGEST'] == 'true'
+
     render jsonapi: submission_file,
            status: :created,
            fields: { submission_files: %i[submission_id rows filename] }
