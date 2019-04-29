@@ -1,7 +1,7 @@
 RSpec.shared_examples 'a workday request' do
   describe '#url' do
     it 'returns the URL for the Workday Revenue Management web service' do
-      expect(request.url).to eq 'https://wd3-impl-services1.workday.com/ccx/service/crowncommercialservice4/Revenue_Management/v31.0'
+      expect(request.url).to eq 'https://wd3-impl-services1.workday.com/ccx/service/crowncommercialservice/Revenue_Management/v31.0'
     end
   end
 end
