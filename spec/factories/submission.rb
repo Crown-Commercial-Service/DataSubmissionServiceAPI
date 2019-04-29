@@ -35,6 +35,17 @@ FactoryBot.define do
       end
     end
 
+    factory :submission_with_validated_entries_over_5k do
+      aasm_state :in_review
+      after(:create) do |submission, _evaluator|
+        create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 3000.00, management_charge: 300000)
+        create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)
+        if submission.files.empty?
+          create_list(:submission_file, 1, :with_attachment, submission: submission, rows: submission.entries.count)
+        end
+      end
+    end
+
     factory :completed_submission do
       aasm_state :completed
       association :task, status: 'completed'
@@ -81,6 +92,12 @@ FactoryBot.define do
     factory :submission_with_negative_management_charge do
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: -0.1, total_value: -10)
+      end
+    end
+
+    factory :submission_with_negative_management_charge_over_5k do
+      after(:create) do |submission, _evaluator|
+        create_list(:invoice_entry, 2, :valid, submission: submission, management_charge: -3000, total_value: -300000)
       end
     end
 

@@ -94,6 +94,18 @@ RSpec.describe Workday::SubmitReversalInvoiceAdjustment do
       end
     end
 
+    describe 'when the invoice total is over £5000' do
+      let(:submission) do
+        FactoryBot.create(:submission_with_validated_entries_over_5k,
+                          submitted_by: user,
+                          task: task)
+      end
+
+      it 'sets the invoice adjustment as draft' do
+        expect(text_at_xpath('//ns0:Business_Process_Parameters/ns0:Auto_Complete')).to eq 'false'
+      end
+    end
+
     def text_at_xpath(xpath)
       Nokogiri::XML(request.content).at_xpath(xpath).text
     end
