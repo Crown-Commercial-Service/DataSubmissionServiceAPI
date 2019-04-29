@@ -42,14 +42,14 @@ module Ingest
       sheet_temp_file = download.temp_file + '_' + type + '.csv'
       sheet_name = type == 'invoice' ? invoice_sheet_name : order_sheet_name
 
-      command = "in2csv -l --sheet=#{sheet_name} --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
+      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
       command += " > #{sheet_temp_file}"
       Ingest::CommandRunner.new(command).run!
 
       row_count = fetch_row_count(sheet_temp_file)
 
       Rows.new(
-        CSV.foreach(sheet_temp_file, headers: true),
+        CSV.foreach(sheet_temp_file, headers: true, header_converters: ->(h) { h.strip }),
         row_count,
         sheet_name,
         type
@@ -57,7 +57,9 @@ module Ingest
     end
 
     def fetch_row_count(file)
-      command = "wc -l < #{file} | xargs"
+      # Don't count empty rows
+      command = "csvcut -C 'line_number' -x #{file} | wc -l | xargs"
+
       row_count = Ingest::CommandRunner.new(command).run!.stdout.first.to_i
       row_count -= 1 unless row_count.zero? # Handle empty results
       row_count

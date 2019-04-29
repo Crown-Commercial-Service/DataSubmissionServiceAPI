@@ -99,4 +99,39 @@ RSpec.describe Ingest::Converter do
       end
     end
   end
+
+  context 'with a spreadsheet with sheets containing spaces' do
+    let(:download) { fake_download('sheet-name-with-spaces.xls') }
+
+    it 'converts the sheet correctly' do
+      orders = converter.orders
+
+      expect(orders.row_count).to eql 1
+      expect(orders.sheet_name).to eql 'New Call Off Contracts'
+      expect(orders.type).to eql 'order'
+
+      expect(orders.data.first['Call Off Contract Reference']).to eql 'a'
+    end
+  end
+
+  context 'with a spreadsheet that contains empty rows between data' do
+    let(:download) { fake_download('rm3787-with-empty-rows.xls') }
+
+    it 'ignores empty rows when calculating row_count' do
+      invoices = converter.invoices
+
+      expect(invoices.row_count).to eql 6
+    end
+  end
+
+  context 'with a spreadsheet whose headers contain erroneous spaces' do
+    let(:download) { fake_download('headers-prefixed-with-space.xls') }
+
+    it 'strips those spaces so it is converted correctly' do
+      orders = converter.orders
+
+      # NB: header is " Call Off Value" in template
+      expect(orders.data.first.headers).to include('Call Off Value')
+    end
+  end
 end

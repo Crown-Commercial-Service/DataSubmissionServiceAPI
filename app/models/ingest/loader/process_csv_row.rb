@@ -18,30 +18,58 @@ module Ingest
 
       def process(row)
         row = row.to_h.slice(*fields).compact
-
-        date_fields.each do |field|
-          next if row[field].blank?
-          next unless row[field].match?(/\d{4}-\d{2}-\d{2}/)
-
-          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y')
-        end
-
-        row.each do |key, value|
-          converted_value = if valid_float?(value)
-                              convert_number(value)
-                            elsif value == 'True'
-                              'Y'
-                            elsif value == 'False'
-                              'N'
-                            else
-                              value
-                            end
-
-          row[key] = converted_value
-        end
+        row = strip_whitespace_from_strings(row)
+        row = convert_date_fields(row)
+        row = fix_booleans_in_numeric_fields(row)
+        row = fix_booleans_in_other_fields(row)
+        convert_numbers(row)
       end
 
       private
+
+      def strip_whitespace_from_strings(row)
+        row.each do |field, value|
+          row[field].strip! if value.is_a?(String)
+        end
+      end
+
+      def convert_date_fields(row)
+        date_fields.each do |field|
+          next if row[field].blank?
+
+          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y') if row[field].match?(/\d{4}-\d{2}-\d{2}/)
+          row[field] = (Date.new(1899, 12, 30) + row[field].to_i.days).strftime('%d/%m/%Y') if valid_float?(row[field])
+        end
+
+        row
+      end
+
+      def fix_booleans_in_numeric_fields(row)
+        numeric_fields.each do |field|
+          next unless row[field].is_a?(String)
+
+          row[field] = 1 if row[field] == 'True'
+          row[field] = 0 if row[field] == 'False'
+        end
+
+        row
+      end
+
+      def fix_booleans_in_other_fields(row)
+        row.each do |field, value|
+          next if numeric_fields.include?(field)
+          next unless value.is_a?(String)
+
+          row[field] = 'Y' if value == 'True'
+          row[field] = 'N' if value == 'False'
+        end
+      end
+
+      def convert_numbers(row)
+        row.each do |field, value|
+          row[field] = convert_number(value) if valid_float?(value)
+        end
+      end
 
       def valid_float?(value)
         !!Float(value)
@@ -65,6 +93,13 @@ module Ingest
                          .validators
                          .select { |validator| validator.is_a?(IngestedDateValidator) }
                          .flat_map(&:attributes)
+      end
+
+      def numeric_fields
+        @numeric_fields ||= sheet_definition
+                            .validators
+                            .select { |validator| validator.is_a?(IngestedNumericalityValidator) }
+                            .flat_map(&:attributes)
       end
     end
   end

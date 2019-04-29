@@ -58,5 +58,13 @@ RSpec.describe Ingest::SubmissionFileDownloader do
         expect(downloader.perform.temp_file).to eql '/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xlsx'
       end
     end
+
+    context 'with a file whose extension is uppercase' do
+      let(:file) { create(:submission_file, :with_attachment, filename: 'uppercase.XLS', id: file_id) }
+
+      it 'returns downcases the extension of the temporary file' do
+        expect(downloader.perform.temp_file).to eql '/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls'
+      end
+    end
   end
 end
