@@ -7,6 +7,7 @@ applications:
       - ccs-rmi-api-CF_SPACE
       - ccs-rmi-redis-CF_SPACE
       - ingest-bucket-CF_SPACE
+      - ADMIN_EMAILS
       - API_SECRETBASE
       - AUTH0
       - GOOGLE_CLIENT
