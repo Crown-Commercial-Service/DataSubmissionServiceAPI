@@ -16,7 +16,7 @@ class Framework
           raise ArgumentError, "Cannot find source for #{framework_short_name} in filesystem or database" \
             if fdl_source.blank?
 
-          generator = Generator.new(fdl_source)
+          generator = ::Framework::Definition::Generator.new(fdl_source)
           generator.definition
         end
       end

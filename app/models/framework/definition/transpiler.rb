@@ -1,3 +1,5 @@
+require_dependency 'framework/definition'
+
 class Framework
   module Definition
     class Transpiler
