@@ -1,1 +1,1 @@
-concurrency: <%= ENV['DATABASE_POOL_SIZE'] %>
+concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || ENV['DATABASE_POOL_SIZE'] %>
