@@ -42,6 +42,8 @@ module Ingest
       sheet_temp_file = download.temp_file + '_' + type + '.csv'
       sheet_name = type == 'invoice' ? invoice_sheet_name : order_sheet_name
 
+      return empty_rows if sheet_name.blank?
+
       command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
       command += " > #{sheet_temp_file}"
       Ingest::CommandRunner.new(command).run!
@@ -54,6 +56,10 @@ module Ingest
         sheet_name,
         type
       )
+    end
+
+    def empty_rows
+      Rows.new([], 0, nil, nil)
     end
 
     def fetch_row_count(file)

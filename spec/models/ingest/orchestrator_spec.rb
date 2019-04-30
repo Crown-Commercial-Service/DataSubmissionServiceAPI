@@ -14,19 +14,33 @@ RSpec.describe Ingest::Orchestrator do
   let(:download) { fake_download('rm1557-10-test.xls') }
 
   describe '#perform' do
-    it 'runs the entire ingest and validation process' do
-      create(:customer, urn: 2526618)
+    context 'with a valid submission' do
+      it 'runs the entire ingest, validation and management charge calculation process' do
+        create(:customer, urn: 2526618)
 
-      framework.lots.each do |lot|
-        create(:agreement_framework_lot, agreement: agreement, framework_lot: lot)
+        framework.lots.each do |lot|
+          create(:agreement_framework_lot, agreement: agreement, framework_lot: lot)
+        end
+
+        expect_any_instance_of(Ingest::SubmissionFileDownloader).to receive(:perform).and_return(download)
+
+        orchestrator = Ingest::Orchestrator.new(file)
+        orchestrator.perform
+
+        expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission)
       end
+    end
 
-      expect_any_instance_of(Ingest::SubmissionFileDownloader).to receive(:perform).and_return(download)
+    context 'with an invalid submission' do
+      it 'runs the entire ingest and validation process, but skips management charge calculation' do
+        expect_any_instance_of(Ingest::SubmissionFileDownloader).to receive(:perform).and_return(download)
 
-      orchestrator = Ingest::Orchestrator.new(file)
-      orchestrator.perform
+        orchestrator = Ingest::Orchestrator.new(file)
+        orchestrator.perform
 
-      expect(submission).to be_in_review
+        expect(SubmissionManagementChargeCalculationJob).to_not have_been_enqueued
+        expect(submission).to be_validation_failed
+      end
     end
   end
 end

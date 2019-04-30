@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-71] - 2019-04-30
+
+- Prevent ingest from attempting to convert non-existent sheets
+- Change daily data warehouse export to run at 22:30 London time
+- Calculate management charge when all entries are valid
+- Allow Sidekiq (background jobs) concurrency to be controlled independently
+
 ## [release-70] - 2019-04-29
 
 - Allow FDL to validate blank Framework#name
@@ -482,6 +489,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-71]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-70...release-71
 [release-70]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-69...release-70
 [release-69]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-68...release-69
 [release-68]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-67...release-68

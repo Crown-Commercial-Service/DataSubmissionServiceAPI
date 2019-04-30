@@ -28,7 +28,7 @@ module Ingest
         loader = Ingest::Loader.new(converter, @submission_file)
         loader.perform
 
-        @submission.ready_for_review!
+        calculate_management_charge_if_valid
       end
     end
 
@@ -40,6 +40,16 @@ module Ingest
         @framework.short_name,
         'ingest'
       ]
+    end
+
+    def calculate_management_charge_if_valid
+      if @submission.entries.errored.none?
+        Rails.logger.info 'All rows valid, calculating management charge'
+        SubmissionManagementChargeCalculationJob.perform_later(@submission)
+      else
+        Rails.logger.info 'Some rows had validation errors'
+        @submission.ready_for_review!
+      end
     end
   end
 end
