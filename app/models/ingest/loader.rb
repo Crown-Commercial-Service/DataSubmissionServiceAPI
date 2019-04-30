@@ -29,12 +29,16 @@ module Ingest
     def load_invoices
       return if @converter.invoices.row_count.zero?
 
+      Rails.logger.info "Loading #{@converter.invoices.row_count} invoice rows"
+
       sheet_definition = @definition.for_entry_type('invoice')
       load_data_from(@converter.invoices, sheet_definition)
     end
 
     def load_orders
       return if @converter.orders.row_count.zero?
+
+      Rails.logger.info "Loading #{@converter.orders.row_count} order rows"
 
       sheet_definition = @definition.for_entry_type('order')
       load_data_from(@converter.orders, sheet_definition)
