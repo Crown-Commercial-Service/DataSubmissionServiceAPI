@@ -44,8 +44,10 @@ module Ingest
 
     def calculate_management_charge_if_valid
       if @submission.entries.errored.none?
+        Rails.logger.info 'All rows valid, calculating management charge'
         SubmissionManagementChargeCalculationJob.perform_later(@submission)
       else
+        Rails.logger.info 'Some rows had validation errors'
         @submission.ready_for_review!
       end
     end
