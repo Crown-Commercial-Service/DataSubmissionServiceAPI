@@ -25,6 +25,8 @@ section of the Auth0 dashboard. The application ID for local development is
 locally!
 - SIDEKIQ_USERNAME/SIDEKIQ_PASSWORD – Credentials to protect access to the
 Sidekiq administrative interface
+- SIDEKIQ_CONCURRENCY - Used to set the number of jobs that Sidekiq will attempt
+to work on at once. If not set, falls back to DATABASE_POOL_SIZE.
 - SUBMIT_INVOICES – Used as a feature-switch to enable/disable Workday
 integration, which will make API calls to generate invoices for completed
 submissions
