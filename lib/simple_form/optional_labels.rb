@@ -19,7 +19,7 @@ module SimpleForm
       protected
 
       def required_label_text #:nodoc:
-        return if required_field?
+        return if required_field? || options[:hide_optional]
 
         self.class.translate_optional_html.dup
       end
