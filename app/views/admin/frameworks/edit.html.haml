@@ -4,7 +4,7 @@
 
 .govuk-grid-row
   .govuk-grid-column-full
-    = simple_form_for [:admin, @framework] do |form|
+    = simple_form_for [:admin, @framework], url: update_fdl_admin_framework_path(@framework) do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
           %h2.govuk-fieldset__heading
