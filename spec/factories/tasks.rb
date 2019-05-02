@@ -14,7 +14,7 @@ FactoryBot.define do
     due_on       Date.strptime('2019-02-28').beginning_of_month + 7.days
 
     supplier
-    framework
+    association :framework, :with_attachment
 
     trait :current do
       period_month { Time.zone.today.last_month.month }

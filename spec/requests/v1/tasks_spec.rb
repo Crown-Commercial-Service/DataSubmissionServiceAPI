@@ -126,7 +126,7 @@ RSpec.describe '/v1' do
   end
 
   describe 'GET /v1/tasks/:task_id' do
-    it 'returns the details of a given task' do
+    it 'returns the details of a given task, without file_key' do
       task = FactoryBot.create(
         :task,
         due_on: '2019-01-07',
@@ -149,6 +149,29 @@ RSpec.describe '/v1' do
       expect(json['data'])
         .to have_attribute(:status)
         .with_value('in_progress')
+      expect(json['data'])
+        .to have_attribute(:file_key)
+        .with_value(nil)
+    end
+
+    describe 'GET /v1/tasks/:task_id?include_file=true' do
+      it 'returns the details of a given task, with file_key' do
+        task = FactoryBot.create(
+          :task,
+          due_on: '2019-01-07',
+          status: 'in_progress',
+          description: 'MI submission for December 2018 (cboard6)',
+          supplier: supplier
+        )
+
+        get "/v1/tasks/#{task.id}?include_file=true", headers: { 'X-Auth-Id' => user.auth_id }
+
+        expect(response).to be_successful
+
+        expect(json['data'])
+          .to have_attribute(:file_key)
+          .with_value(task.framework.file_key)
+      end
     end
 
     it 'can optionally return included models' do
