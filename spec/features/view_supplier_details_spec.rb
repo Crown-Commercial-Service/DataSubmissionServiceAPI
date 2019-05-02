@@ -25,14 +25,29 @@ RSpec.feature 'Viewing a supplier' do
     task = FactoryBot.create(
       :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :in_progress
     )
-    submission = FactoryBot.create(
+    FactoryBot.create(
       :submission_with_validated_entries, supplier: supplier, framework: framework, task: task
     )
-    download_url = rails_blob_url(submission.files.first.file)
 
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'In Review'
-    expect(page).to have_link 'Download submission file', href: download_url
+  end
+
+  scenario "allows a task's submission files to be downloaded" do
+    task = FactoryBot.create(
+      :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :completed
+    )
+
+    FactoryBot.create(:submission, supplier: supplier, framework: framework, task: task) do |submission|
+      FactoryBot.create(:submission_file, :with_attachment, submission: submission, filename: 'test.xlsx')
+    end
+
+    visit admin_supplier_path(supplier)
+    click_link 'Download submission file'
+
+    expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
+    expect(page.response_headers['Content-Disposition']).to match(/RM0000 Test Supplier Ltd %28December 2018%29\.xlsx/)
+    expect(page.body).to include File.open(Rails.root.join('spec', 'fixtures', 'test.xlsx'), 'r:ASCII-8BIT', &:read)
   end
 
   scenario 'lists the users linked to the supplier' do
