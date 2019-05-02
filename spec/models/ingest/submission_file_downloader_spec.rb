@@ -7,36 +7,14 @@ RSpec.describe Ingest::SubmissionFileDownloader do
   subject(:downloader) { Ingest::SubmissionFileDownloader.new(file) }
 
   describe '.downloaded?' do
-    let(:thread) { double('thread') }
-    let(:thread_value) { double('thread_value') }
-
     it "is true when the submission's file was successfully downloaded" do
-      allow(thread_value).to receive(:success?).and_return(true)
-      allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
-      allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(true)
-
       result = downloader.perform
 
       expect(result).to be_downloaded
     end
 
     it "is false if the submission's file was not downloaded" do
-      allow(thread_value).to receive(:success?).and_return(true)
-      allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
-      allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(false)
-
-      result = downloader.perform
-
-      expect(result).to_not be_downloaded
-    end
-
-    it 'is false if a non-zero exit code was received' do
-      allow(thread_value).to receive(:success?).and_return(false)
-      allow(thread).to receive(:value).and_return(thread_value)
-      allow(Open3).to receive(:popen3).with(/curl/).and_yield(nil, [], [], thread)
-      allow(File).to receive(:exist?).with('/tmp/ca52d38f-00b2-457a-888c-14a878f29897.xls').and_return(false)
+      allow(file.file.blob).to receive(:download).and_raise(Aws::S3::Errors::ServiceError)
 
       result = downloader.perform
 
