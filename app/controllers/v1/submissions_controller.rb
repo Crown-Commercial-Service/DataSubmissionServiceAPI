@@ -1,8 +1,6 @@
 class V1::SubmissionsController < APIController
   deserializable_resource :submission, only: %i[create update]
 
-  skip_before_action :reject_without_user!, only: %i[validate]
-
   def show
     submission = current_user.submissions.find(params[:id])
 
@@ -34,15 +32,6 @@ class V1::SubmissionsController < APIController
   def complete
     submission = Submission.find(params[:id])
     complete_submission!(submission)
-
-    head :no_content
-  end
-
-  def validate
-    return head :no_content if ENV['NEW_INGEST'] == 'true'
-
-    submission = Submission.find(params[:id])
-    SubmissionValidationJob.perform_later(submission)
 
     head :no_content
   end
