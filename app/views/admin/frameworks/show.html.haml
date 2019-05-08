@@ -43,3 +43,13 @@
           = form.input :template_file, label: 'Choose a file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
 
         = form.button :submit, value: 'Upload Template'
+
+- unless @framework.published
+  .govuk-grid-row
+    .govuk-grid-column-full
+      = simple_form_for [:admin, @framework], url: publish_admin_framework_path(@framework) do |form|
+        %fieldset.govuk-fieldset
+          %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+            %h2.govuk-fieldset__heading
+              Publish
+          = form.button :submit, value: 'Publish framework'

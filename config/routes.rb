@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :frameworks, only: %i[index new create show edit update] do
       member do
         patch :update_fdl
+        patch :publish
       end
     end
 

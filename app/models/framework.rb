@@ -57,6 +57,11 @@ class Framework < ApplicationRecord
     end
   end
 
+  def publish!
+    load_lots!
+    update(published: true)
+  end
+
   def load_lots!
     generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
     fdl_lots = generator.definition.lots || {}
