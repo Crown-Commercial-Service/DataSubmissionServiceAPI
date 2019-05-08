@@ -56,4 +56,19 @@ class Framework < ApplicationRecord
       update(definition_source: definition_source)
     end
   end
+
+  def load_lots!
+    generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
+    fdl_lots = generator.definition.lots || {}
+
+    transaction do
+      lots.reject { |lot| fdl_lots.key? lot.number }.each(&:destroy)
+
+      fdl_lots.each_pair do |number, description|
+        lot = lots.find_or_initialize_by(number: number)
+        lot.description = description
+        lot.save!
+      end
+    end
+  end
 end
