@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-72] - 2019-05-08
+
+- Make admin submission file downloads compatible with GPaaS
+- Ingest fetches files using ActiveStorage, for GPaaS compatibility
+- Use ROLLBAR_ENV instead of INFRASTRUCTURE_ENVIRONMENT
+- Admin can add/edit framework template file
+
 ## [release-71] - 2019-04-30
 
 - Prevent ingest from attempting to convert non-existent sheets
@@ -489,6 +496,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-72]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-71...release-72
 [release-71]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-70...release-71
 [release-70]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-69...release-70
 [release-69]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-68...release-69
