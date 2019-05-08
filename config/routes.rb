@@ -87,7 +87,11 @@ Rails.application.routes.draw do
       get 'active_submission/download'
     end
 
-    resources :frameworks, only: %i[index new create show edit update]
+    resources :frameworks, only: %i[index new create show edit update] do
+      member do
+        patch :update_fdl
+      end
+    end
 
     resources :notify_downloads, only: %i[index show]
 

@@ -12,7 +12,7 @@ class V1::TasksController < APIController
   def show
     task = current_user.tasks.find(params[:id])
 
-    render jsonapi: task, include: params.dig(:include)
+    render jsonapi: task, include: params.dig(:include), expose: { include_file: params[:include_file] }
   end
 
   def update

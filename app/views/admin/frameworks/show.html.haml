@@ -19,3 +19,27 @@
 
       %pre
         %code.language-ruby= @framework.definition_source
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    = simple_form_for [:admin, @framework] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h2.govuk-fieldset__heading
+            Template
+
+        - if @framework.template_file.attached?
+          %table.govuk-table
+            %thead.govuk-table__head
+              %tr.govuk-table__row
+                %th.govuk-table__header Name
+                %th.govuk-table__header Uploaded
+            %tbody.govuk-table__body
+              %td.govuk-table__cell= @framework.template_file.filename
+              %td.govuk-table__cell= @framework.template_file.attachment.created_at.to_s(:date_with_utc_time)
+
+          = form.input :template_file, label: 'Replace file', hide_optional: true
+        - else
+          = form.input :template_file, label: 'Choose a file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
+
+        = form.button :submit, value: 'Upload Template'

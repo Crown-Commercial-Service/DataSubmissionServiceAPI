@@ -7,5 +7,5 @@
   %fieldset.govuk-fieldset
     = render partial: 'shared/error_summary', locals: { entity: @framework } if @framework.errors.present?
 
-    = form.input :definition_source, input_html: { class: 'govuk-textarea--fdl-source language-ruby', rows: '5' }
+    = form.input :definition_source, hide_optional: true, input_html: { class: 'govuk-textarea--fdl-source language-ruby', rows: '5' }
     = form.button :submit, value: 'Save definition'
