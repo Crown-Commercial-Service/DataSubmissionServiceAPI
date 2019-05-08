@@ -83,7 +83,15 @@ Rails.application.routes.draw do
       resources :submissions, only: %i[show]
     end
 
-    resources :frameworks, only: %i[index new create show edit update]
+    resources :tasks, only: [] do
+      get 'active_submission/download'
+    end
+
+    resources :frameworks, only: %i[index new create show edit update] do
+      member do
+        patch :update_fdl
+      end
+    end
 
     resources :notify_downloads, only: %i[index show]
 

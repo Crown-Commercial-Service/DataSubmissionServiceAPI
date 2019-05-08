@@ -1,5 +1,4 @@
-require 'open3'
-require 'English'
+require 'aws-sdk-s3'
 
 module Ingest
   ##
@@ -9,6 +8,10 @@ module Ingest
   # downloaded attachment as +temp_file+ and a boolean +downloaded?+
   # which is true when the file downloaded completed successfully
   class SubmissionFileDownloader
+    include ActiveStorage::Downloading
+
+    attr_reader :blob
+
     Download = Struct.new(:temp_file, :successful?) do
       def downloaded?
         File.exist?(temp_file) && successful?
@@ -20,14 +23,26 @@ module Ingest
     end
 
     def perform
-      url = @submission_file.file.service_url
       extension = @submission_file.file.filename.extension.downcase
       temp_file = "/tmp/#{@submission_file.id}.#{extension}"
+      file = File.open(temp_file, 'w')
 
-      command = "curl --fail -L \"#{url}\" > \"#{temp_file}\""
-      runner = Ingest::CommandRunner.new(command).run!
+      begin
+        success = true
 
-      Download.new(temp_file, runner.successful?)
+        # download_blob_to requires @blob to be set in order to work
+        @blob = @submission_file.file.blob
+
+        # This method comes from ActiveStorage::Downloading
+        download_blob_to(file)
+      rescue Aws::S3::Errors::ServiceError, ArgumentError => e
+        Rollbar.error(e)
+        success = false
+      ensure
+        file.close
+      end
+
+      Download.new(temp_file, success)
     end
   end
 end

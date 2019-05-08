@@ -16,8 +16,14 @@ class Framework < ApplicationRecord
 
   scope :published, -> { where(published: true) }
 
+  has_one_attached :template_file
+
   def definition
     @definition ||= Definition[short_name]
+  end
+
+  def file_key
+    template_file&.attachment&.key
   end
 
   def self.new_from_fdl(definition_source)
