@@ -3,7 +3,7 @@ class Admin::FrameworksController < AdminController
   before_action :prevent_change_to_published, only: %i[edit update_fdl publish]
 
   def index
-    @frameworks = Framework.all
+    @frameworks = Framework.order(:short_name).all
   end
 
   def new
