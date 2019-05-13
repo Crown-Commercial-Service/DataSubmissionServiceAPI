@@ -24,6 +24,8 @@ fi
 MEMORY_LIMIT="512M"
 INSTANCE_COUNT="1"
 
+SIDEKIQ_MEMORY_LIMIT="512M"
+SIDEKIQ_INSTANCE_COUNT="1"
 
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
@@ -70,6 +72,8 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
 
   MEMORY_LIMIT="512M"
   INSTANCE_COUNT="3"
+  SIDEKIQ_MEMORY_LIMIT="2048M"
+  SIDEKIQ_INSTANCE_COUNT="3"
 fi
 
 cd "$SCRIPT_PATH" || exit
@@ -81,6 +85,7 @@ cf target -o "$CF_ORG" -s "$CF_SPACE"
 # generate manifest
 sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.manifest.yml"
 sed "s/CF_SPACE/$CF_SPACE/g" admin-manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.admin.manifest.yml"
+sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMORY_LIMIT/$SIDEKIQ_MEMORY_LIMIT/g" | sed "s/SIDEKIQ_INSTANCE_COUNT/$SIDEKIQ_INSTANCE_COUNT/g" > "$CF_SPACE.sidekiq.manifest.yml"
 
 # push API
 cd .. || exit
@@ -96,6 +101,10 @@ if cf app ccs-rmi-api-admin-"$CF_SPACE" > /dev/null; then
 else
   cf push -f cf/"$CF_SPACE".admin.manifest.yml
 fi
+
+# push API sidekiq
+# this is not a blue green deploy because that doesnt work with apps with not route
+cf push -f cf/"$CF_SPACE".sidekiq.manifest.yml
 
 # bind API admin to route
 cf bind-route-service london.cloudapps.digital ccs-rmi-api-admin-route-"$CF_SPACE" --hostname ccs-rmi-api-admin-"$CF_SPACE"
