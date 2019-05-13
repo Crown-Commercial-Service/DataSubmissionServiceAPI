@@ -15,3 +15,8 @@ applications:
       - SIDEKIQ
       - SKYLIGHT
       - WORKDAY_API
+    env:
+      RAILS_ENV: production
+      RAILS_MAX_THREADS: 30
+      SUBMIT_INVOICES: 'true'
+      NEW_INGEST: 'true'
