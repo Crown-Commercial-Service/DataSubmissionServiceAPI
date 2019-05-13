@@ -17,11 +17,23 @@ RSpec.feature 'Admin can list frameworks' do
     visit admin_root_path
     click_link 'Frameworks'
 
-    # Then I should see a list of frameworks
-    expect(page).to have_text('Laundry Framework 1')
-    expect(page).to have_text('Vehicle Purchase Framework 1')
-    # And the frameworks' statuses
-    expect(page).to have_selector('td', text: 'Published', count: 2)
-    expect(page).to have_selector('td', text: 'New', count: 1)
+    # Then I should see a list of frameworks with their statuses
+    within 'tbody > tr:nth-child(1)' do
+      expect(page).to have_text('RM1234')
+      expect(page).to have_text('Laundry Framework 1')
+      expect(page).to have_text('Published')
+    end
+
+    within 'tbody > tr:nth-child(2)' do
+      expect(page).to have_text('RM5678')
+      expect(page).to have_text('Vehicle Purchase Framework 1')
+      expect(page).to have_text('Published')
+    end
+
+    within 'tbody > tr:nth-child(3)' do
+      expect(page).to have_text('RM5679')
+      expect(page).to have_text('Vehicle Purchase Framework 2')
+      expect(page).to have_text('New')
+    end
   end
 end
