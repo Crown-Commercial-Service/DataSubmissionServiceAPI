@@ -17,8 +17,7 @@
         %h2.govuk-fieldset__heading
           Definition
 
-      %pre
-        %code.language-ruby= @framework.definition_source
+      %textarea#code-editor{ readonly: true }= @framework.definition_source
 
 .govuk-grid-row
   .govuk-grid-column-full
@@ -53,3 +52,14 @@
             %h2.govuk-fieldset__heading
               Publish
           = form.button :submit, value: 'Publish framework'
+
+:javascript
+  var myCodeMirror = CodeMirror.fromTextArea(
+    document.getElementById('code-editor'),
+    {
+      mode: 'ruby',
+      theme: 'twilight',
+      lineNumbers: true,
+      readOnly: 'nocursor'
+    }
+  );
