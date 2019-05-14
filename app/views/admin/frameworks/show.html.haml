@@ -13,7 +13,7 @@
 .govuk-grid-row
   .govuk-grid-column-full
     %fieldset.govuk-fieldset
-      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+      %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
         %h2.govuk-fieldset__heading
           Definition
 
@@ -23,7 +23,7 @@
   .govuk-grid-column-full
     = simple_form_for [:admin, @framework] do |form|
       %fieldset.govuk-fieldset
-        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
           %h2.govuk-fieldset__heading
             Template
 
@@ -48,7 +48,7 @@
     .govuk-grid-column-full
       = simple_form_for [:admin, @framework], url: publish_admin_framework_path(@framework) do |form|
         %fieldset.govuk-fieldset
-          %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
             %h2.govuk-fieldset__heading
               Publish
           = form.button :submit, value: 'Publish framework'
