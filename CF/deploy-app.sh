@@ -104,7 +104,7 @@ fi
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f cf/"$CF_SPACE".sidekiq.manifest.yml
+cf push -f cf/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
 
 # bind API admin to route
 cf bind-route-service london.cloudapps.digital ccs-rmi-api-admin-route-"$CF_SPACE" --hostname ccs-rmi-api-admin-"$CF_SPACE"
