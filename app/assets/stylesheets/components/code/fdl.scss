@@ -12,7 +12,12 @@
   display: none;
 }
 
-.govuk-textarea--fdl-source {
+.govuk-textarea--fdl-source, .CodeMirror {
   min-height: 40em;
   min-width: 100%;
 }
+
+.CodeMirror {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
