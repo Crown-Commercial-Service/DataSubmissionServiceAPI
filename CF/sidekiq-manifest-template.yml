@@ -1,12 +1,11 @@
 ---
 applications:
-  - name: ccs-rmi-api-CF_SPACE
-    memory: MEMORY_LIMIT
-    instances: INSTANCE_COUNT
-    routes:
-      - route: ccs-rmi-api-CF_SPACE.apps.internal
+  - name: ccs-rmi-api-sidekiq-CF_SPACE
+    memory: SIDEKIQ_MEMORY_LIMIT
+    instance: SIDEKIQ_INSTANCE_COUNT
     services:
       - ccs-rmi-api-CF_SPACE
+      - ccs-rmi-logging-CF_SPACE
       - ccs-rmi-redis-CF_SPACE
       - ingest-bucket-CF_SPACE
       - ADMIN_EMAILS
@@ -20,6 +19,9 @@ applications:
       - AZURE
     env:
       RAILS_ENV: production
-      RAILS_MAX_THREADS: 30
+      RAILS_MAX_THREADS: '30'
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'
+    command: bundle exec sidekiq
+    health-check-type: process
+    no-route: true

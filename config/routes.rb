@@ -26,15 +26,9 @@ Rails.application.routes.draw do
     resources :submissions, only: %i[show create update] do
       member do
         post 'complete', to: 'submissions#complete'
-        post :validate
       end
 
       resources :files, only: %i[create update show], controller: 'submission_files'
-      resources :entries, only: %i[create], controller: 'submission_entries' do
-        collection do
-          post :bulk
-        end
-      end
     end
     resources :tasks, only: %i[index show update] do
       member do
@@ -45,11 +39,6 @@ Rails.application.routes.draw do
     end
 
     resources :files, only: [] do
-      resources :entries, only: %i[create], controller: 'submission_entries' do
-        collection do
-          post :bulk
-        end
-      end
       resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
@@ -90,6 +79,7 @@ Rails.application.routes.draw do
     resources :frameworks, only: %i[index new create show edit update] do
       member do
         patch :update_fdl
+        patch :publish
       end
     end
 

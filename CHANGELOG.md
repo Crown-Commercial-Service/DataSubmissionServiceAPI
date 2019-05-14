@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-73] - 2019-05-14
+
+- Use new ingest by default
+- Allow admins to publish new frameworks
+- Remove unused QueueSizeMetricJob
+- Admin app shows and sorts frameworks by short_name
+
 ## [release-72] - 2019-05-08
 
 - Make admin submission file downloads compatible with GPaaS
@@ -496,6 +503,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-73]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-72...release-73
 [release-72]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-71...release-72
 [release-71]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-70...release-71
 [release-70]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-69...release-70

@@ -1,9 +1,9 @@
 class Admin::FrameworksController < AdminController
-  before_action :find_framework, only: %i[show edit update update_fdl]
-  before_action :prevent_change_to_published, only: %i[edit update_fdl]
+  before_action :find_framework, only: %i[show edit update update_fdl publish]
+  before_action :prevent_change_to_published, only: %i[edit update_fdl publish]
 
   def index
-    @frameworks = Framework.all
+    @frameworks = Framework.order(:short_name).all
   end
 
   def new
@@ -44,6 +44,12 @@ class Admin::FrameworksController < AdminController
     else
       render action: :edit
     end
+  end
+
+  def publish
+    @framework.publish!
+    flash[:success] = 'Framework published successfully.'
+    redirect_to admin_framework_path(@framework)
   end
 
   private
