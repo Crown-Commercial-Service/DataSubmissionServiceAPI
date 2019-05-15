@@ -87,6 +87,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :urn_lists, only: %i[index new create]
+
     resources :notify_downloads, only: %i[index show]
 
     get '/sign_in', to: 'sessions#new', as: :sign_in

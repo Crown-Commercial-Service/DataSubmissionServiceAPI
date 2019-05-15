@@ -1,0 +1,29 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl
+      URN Lists
+
+  .govuk-grid-column-one-third
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Add a new URN list', new_admin_urn_list_path
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @urn_lists.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Filename
+            %th.govuk-table__header Upload Date
+            %th.govuk-table__header Status
+        %tbody.govuk-table__body
+          - @urn_lists.each do |list|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= list.excel_file.filename
+              %td.govuk-table__cell= list.created_at
+              %td.govuk-table__cell= list.aasm_state
+
+
