@@ -10,7 +10,11 @@ class Admin::UrnListsController < AdminController
   def create
     @urn_list = UrnList.new(urn_list_params)
 
-    return redirect_to admin_urn_lists_path if @urn_list.save
+    if @urn_list.save
+      UrnListImporterJob.perform_later(@urn_list)
+
+      return redirect_to admin_urn_lists_path
+    end
 
     render action: :new
   end

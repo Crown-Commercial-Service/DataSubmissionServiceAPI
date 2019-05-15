@@ -16,5 +16,7 @@ RSpec.feature 'Admin can upload a URN list' do
 
     expect(page).to have_text 'customers.xlsx'
     expect(page).to have_text 'pending'
+
+    expect(UrnListImporterJob).to have_been_enqueued
   end
 end
