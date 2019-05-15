@@ -193,9 +193,9 @@ RSpec.describe Framework::Definition::Parser do
       let(:source) do
         <<~FDL
           ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
-              '1' -> Lot1Segment
-              '2' -> Lot2Segment
-            }
+            '1' -> Lot1Segment
+            '2' -> Lot2Segment
+          }
         FDL
       end
       it {
@@ -223,6 +223,34 @@ RSpec.describe Framework::Definition::Parser do
       it {
         is_expected.to parse("String Additional1 from 'Manufacturers Product Code'").as(
           type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' }
+        )
+      }
+    end
+
+    context 'with dependencies' do
+      let(:source) do
+        <<~FDL
+          String Additional1 from 'Somewhere' depends_on 'Something Else' {
+            '1' -> SomeValues1
+            '2' -> SomeValues2
+          }
+        FDL
+      end
+
+      it {
+        is_expected.to parse(source).as(
+          type_def: { primitive: 'String' },
+          field: 'Additional1',
+          from: { string: 'Somewhere' },
+          depends_on: {
+            dependent_field: { string: 'Something Else' },
+            values: {
+              dictionary: [
+                { key: { string: '1' }, value: { lookup_reference: 'SomeValues1' } },
+                { key: { string: '2' }, value: { lookup_reference: 'SomeValues2' } }
+              ]
+            }
+          }
         )
       }
     end
