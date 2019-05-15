@@ -10,7 +10,15 @@ class Admin::FrameworksController < AdminController
     @framework = Framework.new
   end
 
-  def show; end
+  def show
+    fdl_file = Rails.root.join('app', 'models', 'framework', 'definition', "#{@framework.short_name.tr('/.', '_')}.fdl")
+
+    @definition_source = if @framework.definition_source.present?
+                           @framework.definition_source
+                         elsif File.exist?(fdl_file)
+                           File.read(fdl_file)
+                         end
+  end
 
   def create
     @framework = Framework.new_from_fdl(framework_params[:definition_source])
