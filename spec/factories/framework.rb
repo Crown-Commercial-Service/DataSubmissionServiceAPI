@@ -7,6 +7,7 @@ FactoryBot.define do
 
     transient do
       lot_count 0
+      fdl_file { "#{short_name.downcase.tr('/.', '_')}.fdl" }
     end
 
     trait :with_attachment do
@@ -15,6 +16,14 @@ FactoryBot.define do
           io: File.open('spec/fixtures/template.xls'),
           filename: 'template.xls'
         )
+      end
+    end
+
+    trait :with_fdl do
+      after(:create) do |framework, evaluator|
+        definition_source = File.read(Rails.root.join('spec', 'fixtures', evaluator.fdl_file))
+
+        framework.update!(definition_source: definition_source)
       end
     end
 
