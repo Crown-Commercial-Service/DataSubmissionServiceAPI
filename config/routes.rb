@@ -44,6 +44,8 @@ Rails.application.routes.draw do
 
     resources :frameworks, only: :index
 
+    resources :urn_lists, only: :index
+
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
