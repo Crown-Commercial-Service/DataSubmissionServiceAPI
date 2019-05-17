@@ -43,7 +43,7 @@ RSpec.feature 'Viewing a supplier' do
     end
 
     visit admin_supplier_path(supplier)
-    click_link 'Download submission file'
+    click_link 'Download'
 
     expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
     expect(page.response_headers['Content-Disposition']).to match(/RM0000 Test Supplier Ltd %28December 2018%29\.xlsx/)
