@@ -10,7 +10,7 @@ class Admin::SupplierBulkImportsController < AdminController
     redirect_to new_admin_supplier_bulk_import_path, notice: 'Successfully imported suppliers'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_supplier_bulk_import_path, alert: 'Please choose a file to upload'
-  rescue ArgumentError => e
+  rescue ActiveRecord::RecordNotFound, ArgumentError => e
     redirect_to new_admin_supplier_bulk_import_path, alert: e.message
   end
 

@@ -52,6 +52,18 @@ RSpec.feature 'Admin can bulk import suppliers' do
     end
   end
 
+  context 'with a CSV which references an unpublished framework' do
+    before { fm1234.update(published: false) }
+
+    scenario 'displays an error' do
+      visit new_admin_supplier_bulk_import_path
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'Couldn\'t find Framework'
+    end
+  end
+
   context 'with a CSV with missing columns' do
     scenario 'displays an error, showing which columns are missing' do
       visit new_admin_supplier_bulk_import_path
