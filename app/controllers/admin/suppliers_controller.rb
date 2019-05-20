@@ -5,7 +5,7 @@ class Admin::SuppliersController < AdminController
 
   def show
     @supplier = Supplier.find(params[:id])
-    @tasks = @supplier.tasks.includes(:framework, :active_submission).order(due_on: :desc)
+    @tasks = @supplier.tasks.includes(:framework, active_submission: :files).order(due_on: :desc)
   end
 
   def edit
