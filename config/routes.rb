@@ -70,6 +70,10 @@ Rails.application.routes.draw do
         put :deactivate
       end
       resources :submissions, only: %i[show]
+
+      collection do
+        resource :bulk_import, only: %i[new create], controller: 'supplier_bulk_imports', as: :supplier_bulk_import
+      end
     end
 
     resources :tasks, only: [] do
