@@ -36,3 +36,11 @@ before_script:
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rake AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_S3_REGION=dummy AWS_S3_BUCKET=dummy SECRET_KEY_BASE=dummy DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile
 bundler_args: --without production
+before_deploy:
+  - echo "install cloudfoundry cli"
+  - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+  - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+  - sudo apt-get update -qq
+  - sudo apt-get install cf-cli
+  - cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
+  - cf install-plugin blue-green-deploy -f -r CF-Community
