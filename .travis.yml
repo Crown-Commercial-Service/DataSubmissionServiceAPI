@@ -44,3 +44,12 @@ before_deploy:
   - sudo apt-get install cf-cli
   - cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
   - cf install-plugin blue-green-deploy -f -r CF-Community
+deploy:
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s staging
+    on:
+      branch: develop
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s prod
+    on:
+      branch: master
