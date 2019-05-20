@@ -89,14 +89,14 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 # push API
 cd .. || exit
 if cf app ccs-rmi-api-"$CF_SPACE" > /dev/null; then
-  cf blue-green-deploy ccs-rmi-api-"$CF_SPACE" -f cf/"$CF_SPACE".manifest.yml
+  cf blue-green-deploy ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml
 else
-  cf push -f cf/"$CF_SPACE".manifest.yml
+  cf push -f CF/"$CF_SPACE".manifest.yml
 fi
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f cf/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
 
 # allow APP to access API
 cf add-network-policy ccs-rmi-app-"$CF_SPACE" --destination-app ccs-rmi-api-"$CF_SPACE" --protocol tcp --port 8080
