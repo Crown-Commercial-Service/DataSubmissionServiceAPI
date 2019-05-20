@@ -19,7 +19,12 @@ cache:
   - bundler
   - pip
 env:
-  - API_ROOT='https://ccs.api/' AWS_S3_REGION='eu-west-2'
+  matrix:
+    - API_ROOT='https://ccs.api/'
+  global:
+    - CF_USER=systems-gpass@dxw.com
+    - CF_ORG=ccs-report-management-info
+    - secure: "aYw/Bw+oshNQK8GbApITzHP8sijvCt6WlZit2ZKtGTslGXftfkHD8C6jAfF2mHdFzLcffo46PV3vQHAKxp8GFE3qptyoLyQYOuw9FPORpfpUGaCrTiBfI+qA+pqNBLttI4muZWe+doJDX6zNEXKjjhwdjN8y8ZULxZG+xcVuH7mVnqHEEl9mb3QAYwglN9DrEeqf00pcx5EP846NOd9s4MKVGe/V3zhHUF/S7+yMS+CKuHKAcrq3r7yvOeGoZPF9okb7Sy0e3xOhIN0V6Wq6IZPLk/d8WwV8w0Gtdzu3V58i8Fr5DWLj5ok49XUhyctBH5EehhN8JNtYPNJB01+lMd4FO0CQv6E+mDyspvPyHBemol8oPTwZmkNlO9nHMmoe3bW38PapktNzvFw5QkONIUuUzh7dY7++0jia9VfbyYjgTjMCXNzN9pMzH6T6hmAVSPsb3OZRn72WogBTUlna9tHU69ieiatLlEK7NV6QitF2Z8IRhF9iW+kKYjkKEJuUo6rHwTmXhbQkdyDMTFSKpmA5V2mypqkT5jUcMN9AY6A8k+AwjlP8GIOURxaEVOiqVYS5HkneZb9Df0Js7p35mG9UkvXNbOdCylWt2/PA9xKmzCy3QeZf51cMd1rrUTRsG6RfMsao+/SN/jxO3sI0lZOaftvBrUYcQj9g5cS+2dY="
 before_install:
   - gem update --system
   - gem install bundler
