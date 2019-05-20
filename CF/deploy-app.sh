@@ -12,6 +12,7 @@ usage() {
   echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
   echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
+  echo "  -f                    - Force a deploy of a non standard branch to staging or prod"
   exit 1
 }
 
@@ -48,6 +49,9 @@ while getopts "a:u:p:o:s:h" opt; do
     a)
       CF_API_ENDPOINT=$OPTARG
       ;;
+    f)
+      FORCE=yes
+      ;;
     h)
       usage
       exit;;
@@ -61,6 +65,30 @@ if [[ -z "$CF_USER" || -z "$CF_PASS" || -z "$CF_ORG" || -z "$CF_SPACE" ]]; then
   usage
 fi
 
+echo "INFO: deploying $BRANCH to $CF_SPACE"
+if [[ ! "$FORCE" == "yes" ]]
+then
+
+  if [[ "$CF_SPACE" == "staging" ]]
+  then
+    if [[ ! "$BRANCH" == "develop" ]]
+    then
+      echo "We only deploy the 'develop' branch to $CF_SPACE"
+      echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
+      exit 1
+    fi
+  fi
+  
+  if [[ "$CF_SPACE" == "prod" ]]
+  then
+    if [[ ! "$BRANCH" == "master" ]]
+    then
+      echo "We only deploy the 'master' branch to $CF_SPACE"
+      echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
+      exit 1
+    fi
+  fi
+fi
 if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
   echo " *********************************************"
   echo "    The '$CF_SPACE' space will be selected"
