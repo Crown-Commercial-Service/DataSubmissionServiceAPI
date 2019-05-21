@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-74] - 2019-05-21
+
+- Load frameworks from the database
+- Ensure deleted scheduled jobs are removed from Redis
+- FDL: Additional fields should allow 'depends_on' validation
+- FDL: Use code editor when editing framework definitions
+- Admin: Tasks show total and management charge
+- Admin: Bulk import suppliers
+- Admin: Update URN list
+
 ## [release-73] - 2019-05-14
 
 - Use new ingest by default
@@ -503,6 +513,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-74]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-73...release-74
 [release-73]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-72...release-73
 [release-72]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-71...release-72
 [release-71]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-70...release-71
