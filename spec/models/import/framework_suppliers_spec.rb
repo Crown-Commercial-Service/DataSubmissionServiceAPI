@@ -13,10 +13,11 @@ RSpec.describe Import::FrameworkSuppliers do
     let(:csv_path) { Rails.root.join('spec', 'fixtures', 'framework_suppliers.csv') }
     let(:importer) { Import::FrameworkSuppliers.new(csv_path, logger: Logger.new('/dev/null')) }
 
-    before do
-      framework = FactoryBot.create(:framework, short_name: 'RM123')
-      framework.lots.create!(number: '1')
-      framework.lots.create!(number: '2')
+    let!(:framework) do
+      FactoryBot.create(:framework, short_name: 'RM123') do |framework|
+        framework.lots.create!(number: '1')
+        framework.lots.create!(number: '2')
+      end
     end
 
     it 'imports the suppliers' do
@@ -30,6 +31,20 @@ RSpec.describe Import::FrameworkSuppliers do
         supplier_count_before = Supplier.count
 
         expect { importer.run }.to raise_error(ActiveRecord::RecordInvalid)
+
+        expect(Supplier.count).to eq supplier_count_before
+      end
+    end
+
+    context 'when the CSV references a framework that is not published' do
+      let(:csv_path) { Rails.root.join('spec', 'fixtures', 'framework_suppliers.csv') }
+
+      before { framework.update!(published: false) }
+
+      it 'rolls back any changes to the database' do
+        supplier_count_before = Supplier.count
+
+        expect { importer.run }.to raise_error(ActiveRecord::RecordNotFound)
 
         expect(Supplier.count).to eq supplier_count_before
       end

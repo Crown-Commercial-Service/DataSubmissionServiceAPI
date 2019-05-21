@@ -44,6 +44,8 @@ Rails.application.routes.draw do
 
     resources :frameworks, only: :index
 
+    resources :urn_lists, only: :index
+
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
@@ -70,6 +72,10 @@ Rails.application.routes.draw do
         put :deactivate
       end
       resources :submissions, only: %i[show]
+
+      collection do
+        resource :bulk_import, only: %i[new create], controller: 'supplier_bulk_imports', as: :supplier_bulk_import
+      end
     end
 
     resources :tasks, only: [] do
@@ -82,6 +88,8 @@ Rails.application.routes.draw do
         patch :publish
       end
     end
+
+    resources :urn_lists, only: %i[index new create]
 
     resources :notify_downloads, only: %i[index show]
 

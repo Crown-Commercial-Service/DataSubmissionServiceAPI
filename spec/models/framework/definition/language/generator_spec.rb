@@ -456,7 +456,8 @@ RSpec.describe Framework::Definition::Generator do
           Framework RM3786 {
             Name 'General Legal Advice Services'
             ManagementCharge 1.5%
-             InvoiceFields {
+
+            InvoiceFields {
               ProductGroup from 'Service Type'
               ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
                 'Core'     -> CoreSpecialisms
@@ -464,12 +465,30 @@ RSpec.describe Framework::Definition::Generator do
                 'Mixture'  -> PrimarySpecialism
               }
               InvoiceValue from 'Supplier Price'
+              ProductClass from 'Product Class'
+              String Additional1 from 'Going to Additional1' depends_on 'Product Class' {
+                '1' -> SomeLookup
+                '2' -> SomeOtherLookup
+              }
             }
-             Lookups {
+
+            Lookups {
               ProductGroup [
                 'Core'
                 'Non-core'
                 'Mixture'
+              ]
+
+              ProductClass [
+                '1'
+                '2'
+              ]
+
+              SomeLookup [
+                'Hi'
+              ]
+              SomeOtherLookup [
+                'There'
               ]
             }
           }
@@ -486,6 +505,19 @@ RSpec.describe Framework::Definition::Generator do
               in: {
                 'Service Type' => {
                   'core' => nil, 'non-core' => nil, 'mixture' => nil
+                }
+              }
+            }
+          )
+        }
+
+        it {
+          is_expected.to have_field('Going to Additional1').validated_by(
+            dependent_field_inclusion: {
+              parent: 'Product Class',
+              in: {
+                'Product Class' => {
+                  '1' => ['Hi'], '2' => ['There']
                 }
               }
             }

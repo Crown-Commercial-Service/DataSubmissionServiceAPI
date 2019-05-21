@@ -39,6 +39,18 @@ RSpec.describe Framework::Definition do
         end
       end
 
+      context 'and it is loaded from the database' do
+        let(:framework_short_name) { 'RM3821' }
+
+        it 'returns that framework' do
+          FactoryBot.create(:framework, :with_fdl, short_name: 'RM3821')
+
+          expect(definition.framework_short_name).to eql 'RM3821'
+          expect(definition.framework_name).to eql 'Data and Application Solutions'
+          expect(definition.lots.size).to eql 14
+        end
+      end
+
       context 'and it has slashes in it' do
         let(:framework_short_name) { 'CM/OSG/05/3565' }
         it 'returns that framework' do

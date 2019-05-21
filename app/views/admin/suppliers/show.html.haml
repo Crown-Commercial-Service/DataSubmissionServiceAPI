@@ -18,11 +18,11 @@
       %table.govuk-table
         %thead.govuk-table__head
           %tr.govuk-table__row
-            %th.govuk-table__header Framework
-            %th.govuk-table__header Month
+            %th.govuk-table__header Task
+            %th.govuk-table__header.govuk-table__header--numeric Management Charge
             %th.govuk-table__header Submitted
             %th.govuk-table__header Status
-            %th.govuk-table__header Submission file
+            %th.govuk-table__header Return
             %th.govuk-table__header Errors
         %tbody.govuk-table__body
           = render(collection: @tasks, partial: "task")

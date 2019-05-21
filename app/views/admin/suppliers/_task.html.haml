@@ -1,19 +1,29 @@
 %tr.govuk-table__row
   %td.govuk-table__cell
     = task.framework.short_name
-  %td.govuk-table__cell
-    = task.period_date.to_s(:month_year)
+    %br/
+    %small
+      = task.period_date.to_s(:month_year)
   - if task.active_submission
+    %td.govuk-table__cell.govuk-table__cell--numeric
+      - unless task.active_submission.total_spend.zero?
+        = number_to_currency(task.active_submission.management_charge, unit: '£')
+        %br/
+        %small
+          from
+          = number_to_currency(task.active_submission.total_spend, unit: '£')
+          spend
     %td.govuk-table__cell
       = task.active_submission.created_at.to_s(:date_with_utc_time)
     %td.govuk-table__cell
       = task.active_submission.aasm_state.titlecase
     %td.govuk-table__cell
       - if task.active_submission.files.any? && task.active_submission.files.first.file.attached?
-        = link_to 'Download submission file', admin_task_active_submission_download_path(task)
+        = link_to 'Download', admin_task_active_submission_download_path(task)
     %td.govuk-table__cell
       = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
   - else
+    %td.govuk-table__cell
     %td.govuk-table__cell
     %td.govuk-table__cell
       = task.status.titlecase

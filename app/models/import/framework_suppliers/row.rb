@@ -21,7 +21,7 @@ module Import
       private
 
       def framework
-        @framework ||= Framework.find_by!(short_name: framework_short_name)
+        @framework ||= Framework.published.find_by!(short_name: framework_short_name)
       end
 
       def framework_lot

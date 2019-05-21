@@ -87,5 +87,13 @@ RSpec.describe Import::FrameworkSuppliers::Row do
         end
       end
     end
+
+    context 'with a framework that is not published' do
+      before { framework.update(published: false) }
+
+      it 'raises an ActiveRecord::RecordNotFound exception' do
+        expect { row.import! }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end

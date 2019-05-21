@@ -34,7 +34,7 @@ class Framework
       rule(:field_defs)           { field_def.repeat(1) }
       rule(:field_def)            { unknown_field | known_field | additional_field }
       rule(:known_field)          { optional >> additional_field_identifier.absent? >> pascal_case_identifier.as(:field) >> from_specifier >> depends_on.maybe }
-      rule(:additional_field)     { optional >> type_def >> space >> additional_field_identifier.as(:field) >> from_specifier }
+      rule(:additional_field)     { optional >> type_def >> space >> additional_field_identifier.as(:field) >> from_specifier >> depends_on.maybe }
       rule(:unknown_field)        { optional >> primitive_type_def.as(:type_def) >> space >> from_specifier }
       rule(:type_def)             { (primitive_type_def | pascal_case_identifier.as(:lookup)).as(:type_def) }
       rule(:primitive_type_def)   { string_def | (str('Date') | str('Integer') | str('Decimal') | str('YesNo')).as(:primitive) }

@@ -1,0 +1,245 @@
+Framework RM3821 {
+  Name 'Data and Application Solutions'
+
+  ManagementCharge 1%
+
+  InvoiceFields {
+    SupplierReferenceNumber from 'Order Reference Number'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    CustomerName from 'Customer Organisation Name'
+    CustomerInvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceNumber from 'Customer Invoice/Credit Note Number'
+    LotNumber from 'Lot Number'
+    ProductGroup from 'Product/Service Group Level 1' depends_on 'Lot Number' {
+      '1a' -> Lot1aSegment
+      '1b' -> Lot1bSegment
+      '1c' -> Lot1cSegment
+      '1d' -> Lot1dSegment
+      '2a' -> Lot2aSegment
+      '2b' -> Lot2bSegment
+      '2c' -> Lot2cSegment
+      '3a' -> Lot3aSegment
+      '3b' -> Lot3bSegment
+      '3c' -> Lot3cSegment
+      '4a' -> Lot4aSegment
+      '4b' -> Lot4bSegment
+      '5a' -> Lot5aSegment
+      '5b' -> Lot5bSegment
+    }
+    UnitType from 'Unit of Measure' depends_on 'SFIA Level' {
+      'NA' -> NAUnit
+      '1' -> OtherUnit
+      '2' -> OtherUnit
+      '3' -> OtherUnit
+      '4' -> OtherUnit
+      '5' -> OtherUnit
+      '6' -> OtherUnit
+      '7' -> OtherUnit
+    }
+    ProductClass from 'SFIA Level'
+    ProductSubClass from 'SFIA Category' depends_on 'SFIA Level' {
+      'NA' -> NACategory
+      '1' -> SFIA1Category
+      '2' -> SFIA2Category
+      '3' -> SFIA34567Category
+      '4' -> SFIA34567Category
+      '5' -> SFIA34567Category
+      '6' -> SFIA34567Category
+      '7' -> SFIA34567Category
+    }
+    UnitQuantity from 'Quantity'
+    UnitPrice from 'Price per Unit'
+    InvoiceValue from 'Total Cost (ex VAT)'
+  }
+
+  ContractFields {
+    SupplierReferenceNumber from 'Order Reference Number'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    CustomerName from 'Customer Organisation Name'
+    LotNumber from 'Lot Number'
+    String Additional1 from 'Product/Service Description'
+    ContractStartDate from 'Contract Start Date'
+    ContractEndDate from 'Contract End Date'
+    ContractValue from 'Total Contract Value'
+    AwardType Additional2 from 'Award Type'
+  }
+
+  Lookups {
+    Lot1aSegment [
+      'ERP'
+      'Finance Solutions'
+      'HR/Payroll'
+    ]
+
+    Lot1bSegment [
+      'Case Management'
+      'CRM'
+      'Workflow'
+    ]
+
+    Lot1cSegment [
+      'Asset Tracking'
+      'Data Management and Reporting Systems'
+      'Data Warehouse'
+      'Database Management System'
+      'Databases'
+      'Enterprise Content Management'
+      'Enterprise Search'
+      'Inventory Management'
+    ]
+
+    Lot1dSegment [
+      'Big Data'
+      'Business Intelligence'
+      'Data Analytics'
+      'Internet of Things'
+      'Robotic Process Automation'
+    ]
+
+    Lot2aSegment [
+      'Civil Enforcement Solutions'
+      'EDRM'
+      'E-Marketplace'
+      'Payment Processing'
+      'Revenues and Benefits Solutions'
+    ]
+
+    Lot2bSegment [
+      'Building Control'
+      'Environmental Health'
+      'GIS Solutions'
+      'Licensing'
+      'Local Land Changes'
+      'Planning'
+      'Property/Housing Management'
+      'Property/Housing Repairs'
+      'Trading Standards'
+      'Waste Management Solutions'
+    ]
+
+    Lot2cSegment [
+      'Burials and Crematoria Solutions'
+      'Citizen Information System'
+      'Electoral Management Systems'
+      'Library Solutions Systems'
+      'Museum Systems'
+      'Registrar Systems'
+      'Sports and Recreation Systems'
+    ]
+
+    Lot3aSegment [
+      'Electronic Appraisal and Revalidation software/tools'
+      'Electronic Job Planning Software/tools'
+      'E-Rostering'
+      'Health ERP'
+      'HR and Payroll'
+      'Mobile Applications - Temporary Staff booking applications'
+    ]
+
+    Lot3bSegment [
+      'Informatics and Reporting'
+      'Clinical and Digital Information System'
+      'Document Management'
+      'Electronic Patient Records'
+    ]
+
+    Lot3cSegment [
+      'Business area: Social care case management'
+      'Business area: Social Care e-Marketplaces'
+      'Business area: Social Care Finance'
+      'Health and Social Care'
+      'Public Health'
+    ]
+
+    Lot4aSegment [
+      'Crime, Intelligence, Surveillance, Reconnaissance, Case and Custody Applications'
+      'Emergency Response and Crisis Management'
+      'Forensics'
+      'Investigation and Fraud Detection'
+    ]
+
+    Lot4bSegment [
+      'Digital Manager'
+      'Recording and Audio Visual'
+    ]
+
+    Lot5aSegment [
+      'Audio and Visual Media Software'
+      'Distance Learning'
+      'Virtual Learning'
+    ]
+
+    Lot5bSegment [
+      'Student Evaluation Systems'
+      'Admissions'
+      'Attendance Monitoring'
+      'Awarding and Certification'
+      'Course and Curriculum Management'
+      'Enrolment'
+      'Facilities/Premises Management'
+      'Management Information System'
+      'Student Records System'
+      'Student Scheduling'
+    ]
+
+    AwardType [
+      'Direct Award'
+      'Further Competition'
+    ]
+
+    NAUnit [
+      'Cost per License/Subscription (Software)'
+      'Cost per Unit (Hardware)'
+      'Fixed Cost'
+    ]
+
+    OtherUnit [
+      'Day Rate'
+    ]
+
+    NACategory [
+      'NA'
+    ]
+
+    SFIA1Category [
+      'Strategy and architecture'
+      'Development and implementation'
+      'Delivery and operation'
+      'Relationships and Engagement'
+    ]
+
+    SFIA2Category [
+      'Strategy and architecture'
+      'Change and Transformation'
+      'Development and implementation'
+      'Delivery and operation'
+      'Relationships and Engagement'
+    ]
+
+    SFIA34567Category [
+      'Strategy and architecture'
+      'Change and Transformation'
+      'Development and implementation'
+      'Delivery and Operation'
+      'Skills and Quality'
+      'Relationships and Engagement'
+    ]
+  }
+
+  Lots {
+    '1a' -> 'Resource Planning and Management Solutions including Financial and Commercial'
+    '1b' -> 'Workflow and Case Management Solutions'
+    '1c' -> 'Data Collection, Storage and Management'
+    '1d' -> 'Data Intelligence and Analytics'
+    '2a' -> 'Business Applications'
+    '2b' -> 'Environmental and Planning'
+    '2c' -> 'Citizen Services'
+    '3a' -> 'Enterprise Applications for Health'
+    '3b' -> 'Health Information Management'
+    '3c' -> 'Community Health and Social Care'
+    '4a' -> 'Bluelight Operations'
+    '4b' -> 'Bluelight Data and Information Management'
+    '5a' -> 'Learning Applications and Platforms'
+    '5b' -> 'Academic Scheduling and Management Solutions'
+  }
+}
