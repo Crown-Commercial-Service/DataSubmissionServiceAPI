@@ -120,11 +120,12 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 
 # push API
 cd .. || exit
-if cf app ccs-rmi-api-"$CF_SPACE" > /dev/null; then
-  cf blue-green-deploy ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml
-else
-  cf push -f CF/"$CF_SPACE".manifest.yml
-fi
+
+# create an app idempotently with the v3 cli
+cf v3-create-app ccs-rmi-app-"$CF_SPACE"
+cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
+# do a zero down time deployment with the v3 cli
+cf v3-zdt-push ccs-rmi-app-"$CF_SPACE"
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
