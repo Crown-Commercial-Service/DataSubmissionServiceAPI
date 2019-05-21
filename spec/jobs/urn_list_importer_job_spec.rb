@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe UrnListImporterJob do
+  around do |example|
+    ClimateControl.modify AWS_S3_BUCKET: 'fake', AWS_S3_REGION: 'zz-north-1' do
+      example.run
+    end
+  end
+
   describe '#perform' do
+    before { stub_s3_get_object('customers.xlsx') }
+
     let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
 
     context 'given a well-formed URN list in Excel format' do
@@ -29,6 +37,8 @@ RSpec.describe UrnListImporterJob do
     end
 
     context 'given a URN list which fails to download' do
+      before { stub_s3_get_object_with_exception(Timeout::Error) }
+
       let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
 
       it 'throws an error, and retries the job' do
@@ -45,6 +55,8 @@ RSpec.describe UrnListImporterJob do
     end
 
     context 'given a URN list without the required sheet present' do
+      before { stub_s3_get_object('customers_with_wrong_sheet_name.xlsx') }
+
       let(:urn_list) { create(:urn_list, filename: 'customers_with_wrong_sheet_name.xlsx') }
 
       it 'throws an error, and is not retried' do
@@ -57,6 +69,8 @@ RSpec.describe UrnListImporterJob do
     end
 
     context 'given a URN list without the required columns' do
+      before { stub_s3_get_object('customers_with_missing_columns.xlsx') }
+
       let(:urn_list) { create(:urn_list, filename: 'customers_with_missing_columns.xlsx') }
 
       it 'throws an error, and is not retried' do

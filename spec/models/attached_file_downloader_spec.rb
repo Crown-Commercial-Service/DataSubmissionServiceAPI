@@ -2,11 +2,18 @@ require 'rails_helper'
 require 'digest'
 
 RSpec.describe AttachedFileDownloader do
+  around do |example|
+    ClimateControl.modify AWS_S3_BUCKET: 'fake', AWS_S3_REGION: 'zz-north-1' do
+      example.run
+    end
+  end
+
   describe '#download!' do
-    let(:urn_list_id) { 'f27fa106-e4a8-445a-8082-ed512a945a92' }
-    let(:urn_list) { create(:urn_list, filename: 'customers.xlsx', id: urn_list_id) }
+    let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
 
     it 'downloads the file from S3' do
+      stub_s3_get_object('customers.xlsx')
+
       original_file_path = Rails.root.join('spec', 'fixtures', 'customers.xlsx')
 
       downloader = AttachedFileDownloader.new(urn_list.excel_file)
@@ -19,11 +26,22 @@ RSpec.describe AttachedFileDownloader do
 
       expect(File.exist?(path)).to be_truthy
       expect(Digest::MD5.file(path)).to eq Digest::MD5.file(original_file_path)
+    end
 
-      downloader.temp_file.close
-      downloader.temp_file.unlink
+    it 'throws an error when the file does not exist' do
+      stub_s3_get_object_with_exception('NotFound')
 
-      expect(File.exist?(path)).to be_falsy
+      downloader = AttachedFileDownloader.new(urn_list.excel_file)
+
+      expect { downloader.download! }.to raise_error(Aws::S3::Errors::NotFound)
+    end
+
+    it 'throws an error when AWS times out' do
+      stub_s3_get_object_with_exception(Timeout::Error)
+
+      downloader = AttachedFileDownloader.new(urn_list.excel_file)
+
+      expect { downloader.download! }.to raise_error(Timeout::Error)
     end
   end
 end
