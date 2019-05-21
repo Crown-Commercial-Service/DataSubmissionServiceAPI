@@ -9,9 +9,8 @@ RSpec.describe Ingest::Orchestrator do
   end
   let(:supplier) { create(:supplier) }
   let(:submission) { create(:submission, framework: framework, supplier: supplier) }
-  let(:file) { create(:submission_file, submission: submission) }
+  let(:file) { create(:submission_file, :with_attachment, submission: submission, filename: 'rm1557-10-test.xls') }
   let!(:agreement) { create(:agreement, framework: framework, supplier: supplier) }
-  let(:download) { fake_download('rm1557-10-test.xls') }
 
   describe '#perform' do
     context 'with a valid submission' do
@@ -22,8 +21,6 @@ RSpec.describe Ingest::Orchestrator do
           create(:agreement_framework_lot, agreement: agreement, framework_lot: lot)
         end
 
-        expect_any_instance_of(Ingest::SubmissionFileDownloader).to receive(:perform).and_return(download)
-
         orchestrator = Ingest::Orchestrator.new(file)
         orchestrator.perform
 
@@ -33,8 +30,6 @@ RSpec.describe Ingest::Orchestrator do
 
     context 'with an invalid submission' do
       it 'runs the entire ingest and validation process, but skips management charge calculation' do
-        expect_any_instance_of(Ingest::SubmissionFileDownloader).to receive(:perform).and_return(download)
-
         orchestrator = Ingest::Orchestrator.new(file)
         orchestrator.perform
 

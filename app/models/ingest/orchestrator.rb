@@ -19,10 +19,10 @@ module Ingest
       Rails.logger.tagged(logger_tags) do
         @submission.update!(aasm_state: :processing)
 
-        download = Ingest::SubmissionFileDownloader.new(@submission_file).perform
-        return unless download.downloaded?
+        downloader = AttachedFileDownloader.new(@submission_file.file)
+        downloader.download!
 
-        converter = Ingest::Converter.new(download)
+        converter = Ingest::Converter.new(downloader.temp_file.path)
         @submission_file.update!(rows: converter.rows)
 
         loader = Ingest::Loader.new(converter, @submission_file)

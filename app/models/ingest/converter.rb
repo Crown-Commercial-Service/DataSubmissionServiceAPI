@@ -2,19 +2,19 @@ require 'csv'
 
 module Ingest
   ##
-  # Takes a +Download+ from Ingest::SubmissionFileDownloader and returns
+  # Takes the +path+ to the download from AttachedFileDownloader and returns
   # a +Rows+ object for both invoices and orders, comprising the
   # row +data+ (as a CSV enumerable), +row_count+, +sheet_name+
   # and +type+ (invoice or order)
   #
   # +rows+ contains the combined row counts for both sheets
   class Converter
-    attr_reader :download
+    attr_reader :excel_temp_file
 
     Rows = Struct.new(:data, :row_count, :sheet_name, :type)
 
-    def initialize(download)
-      @download = download
+    def initialize(excel_temp_file)
+      @excel_temp_file = excel_temp_file
     end
 
     def rows
@@ -31,7 +31,7 @@ module Ingest
 
     def sheets
       @sheets ||= begin
-                    response = Ingest::CommandRunner.new("in2csv --names #{download.temp_file}").run!
+                    response = Ingest::CommandRunner.new("in2csv --names #{excel_temp_file}").run!
                     response.stdout if response.successful?
                   end
     end
@@ -39,12 +39,12 @@ module Ingest
     private
 
     def fetch_sheet(type)
-      sheet_temp_file = download.temp_file + '_' + type + '.csv'
+      sheet_temp_file = excel_temp_file + '_' + type + '.csv'
       sheet_name = type == 'invoice' ? invoice_sheet_name : order_sheet_name
 
       return empty_rows if sheet_name.blank?
 
-      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{download.temp_file}"
+      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{excel_temp_file}"
       command += " > #{sheet_temp_file}"
       Ingest::CommandRunner.new(command).run!
 

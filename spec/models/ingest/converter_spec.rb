@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ingest::Converter do
-  subject(:converter) { Ingest::Converter.new(download) }
+  subject(:converter) { Ingest::Converter.new(download.temp_file.path) }
 
   let(:download) { fake_download('rm1557-10-test.xls') }
 
