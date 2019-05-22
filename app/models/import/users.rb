@@ -25,6 +25,8 @@ require 'csv'
 # file into the container itself. Use the `docker cp` command to do this.
 module Import
   class Users
+    class InvalidSalesforceId < StandardError; end
+
     DEFAULT_WAIT = 0.2
     EXPECTED_HEADERS = %I[supplier_salesforce_id email name].freeze
 
@@ -38,6 +40,8 @@ module Import
     end
 
     def run
+      check_for_missing_salesforce_ids
+
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
           user = Row.new(row_data).import!
@@ -63,6 +67,17 @@ module Import
 
     def missing_headers
       EXPECTED_HEADERS - @csv.headers
+    end
+
+    def check_for_missing_salesforce_ids
+      supplier_salesforce_ids = Supplier.pluck(:salesforce_id, 1).to_h
+
+      @csv.each do |row_data|
+        salesforce_id = row_data[:supplier_salesforce_id]
+        next if supplier_salesforce_ids.key?(salesforce_id)
+
+        raise InvalidSalesforceId, "Could not find a supplier with salesforce_id '#{salesforce_id}'."
+      end
     end
   end
 end

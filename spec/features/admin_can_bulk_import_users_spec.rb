@@ -24,7 +24,8 @@ RSpec.feature 'Admin can bulk import users' do
       expect(page).to have_text 'Bulk import users'
 
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
-      click_button 'Upload'
+
+      expect { click_button 'Upload' }.to change { User.count }
 
       expect(page).to have_text 'Successfully imported users'
 
@@ -39,14 +40,16 @@ RSpec.feature 'Admin can bulk import users' do
   end
 
   context 'with a CSV which references a salesforce_id that does not exist' do
-    before { jamila_company.update(salesforce_id: nil) }
+    before { seema_company.update(salesforce_id: nil) }
 
     scenario 'displays an error' do
       visit new_admin_user_bulk_import_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
-      click_button 'Upload'
 
-      expect(page).to have_text 'Couldn\'t find Supplier'
+      expect { click_button 'Upload' }.to_not change { User.count }
+
+      expect(page).to have_text 'Could not find a supplier with salesforce_id'
+      expect(page).to have_text seema_company_salesforce_id
     end
   end
 

@@ -10,7 +10,7 @@ class Admin::UserBulkImportsController < AdminController
     redirect_to new_admin_user_bulk_import_path, notice: 'Successfully imported users'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
-  rescue ActiveRecord::RecordNotFound, ArgumentError => e
+  rescue ActiveRecord::RecordNotFound, ArgumentError, Import::Users::InvalidSalesforceId => e
     redirect_to new_admin_user_bulk_import_path, alert: e.message
   end
 
