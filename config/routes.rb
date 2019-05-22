@@ -62,6 +62,10 @@ Rails.application.routes.draw do
         get :confirm_delete
         get :confirm_reactivate
       end
+
+      collection do
+        resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
+      end
     end
 
     resources :suppliers, only: %i[index show edit update] do
