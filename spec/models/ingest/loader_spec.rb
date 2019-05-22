@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'csv'
 
 RSpec.describe Ingest::Loader do
   describe '#perform' do
@@ -16,9 +17,13 @@ RSpec.describe Ingest::Loader do
     let(:fake_invoice_row) do
       {
         'SoW / Order Number' => 'TEST0001',
+        'Buyer Cost Centre' => '1001',
         'Contract Reference' => 'REF123',
         'Buyer URN' => '12345',
         'Buyer Organisation' => 'Acme Incorporated',
+        'Buyer Contact Name' => 'Jo Soap',
+        'Buyer Contact Number' => '07234 567890',
+        'Buyer Email Address' => 'jo@acme.inc',
         'Invoice Date' => '23/04/2019',
         'Invoice Number' => 'INV1',
         'Lot Number' => '1',
@@ -27,10 +32,12 @@ RSpec.describe Ingest::Loader do
         'Service provided' => 'Security',
         'Location' => 'London',
         'UNSPSC' => '9999',
+        'Unit of Purchase' => 'Day',
         'Price per Unit' => '12.99',
         'Quantity' => '1',
         'Total Charge (Ex VAT)' => '12.99',
-        'VAT amount charged' => '2.598'
+        'VAT amount charged' => '2.598',
+        'Actual Delivery Date SoW complete' => ''
       }
     end
 
@@ -38,8 +45,12 @@ RSpec.describe Ingest::Loader do
       {
         'SoW / Order Number' => 'TEST0002',
         'SoW / Order Date' => '28/02/2018',
+        'Contract Reference' => '1234',
         'Buyer URN' => '12345',
         'Buyer Organisation' => 'Acme Inc',
+        'Buyer Contact Name' => '',
+        'Buyer Contact Number' => '',
+        'Buyer Email Address' => '',
         'Contract Start Date' => '01/01/2018',
         'Contract End Date' => '01/01/2022',
         'Lot Number' => '2',
@@ -55,6 +66,10 @@ RSpec.describe Ingest::Loader do
 
     let(:fake_invoice_row_empty) do
       fake_invoice_row.map { |k, _| [k, '   '] }.to_h
+    end
+
+    let(:fake_order_row_empty) do
+      fake_order_row.map { |k, _| [k, '   '] }.to_h
     end
 
     it 'loads data from the converter into the database' do
@@ -113,13 +128,15 @@ RSpec.describe Ingest::Loader do
 
       order_rows = double(
         'rows',
-        data: [],
-        row_count: 0,
+        data: [
+          fake_order_row.merge('line_number' => '1')
+        ],
+        row_count: 1,
         sheet_name: '',
         type: 'order'
       )
 
-      converter = double('converter', rows: 3, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows)
 
       loader = Ingest::Loader.new(converter, file)
       loader.perform
@@ -145,18 +162,76 @@ RSpec.describe Ingest::Loader do
 
       order_rows = double(
         'rows',
-        data: [],
-        row_count: 0,
+        data: [
+          fake_order_row.merge('line_number' => '1')
+        ],
+        row_count: 1,
         sheet_name: '',
         type: 'order'
       )
 
-      converter = double('converter', rows: 3, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows)
 
       loader = Ingest::Loader.new(converter, file)
       loader.perform
 
       expect(file.entries.invoices.count).to eql 2
+    end
+
+    it 'raises MissingInvoiceColumns if the converter does not contain all the framework’s invoice attributes' do
+      invoice_rows = double(
+        'rows',
+        data: [
+          fake_invoice_row.merge('line_number' => '1').except!('Contract Reference')
+        ],
+        row_count: 1,
+        sheet_name: '',
+        type: 'invoice'
+      )
+
+      order_rows = double(
+        'rows',
+        data: [
+          fake_order_row.merge('line_number' => '1')
+        ],
+        row_count: 1,
+        sheet_name: '',
+        type: 'order'
+      )
+
+      converter = double('converter', rows: 1, invoices: invoice_rows, orders: order_rows)
+
+      loader = Ingest::Loader.new(converter, file)
+
+      expect { loader.perform }.to raise_error(Ingest::Loader::MissingInvoiceColumns, /Contract Reference/)
+    end
+
+    it 'raises MissingOrderColumns if the converter does not contain all the framework’s order attributes' do
+      invoice_rows = double(
+        'rows',
+        data: [
+          fake_invoice_row.merge('line_number' => '1')
+        ],
+        row_count: 1,
+        sheet_name: '',
+        type: 'invoice'
+      )
+
+      order_rows = double(
+        'rows',
+        data: [
+          fake_order_row.merge('line_number' => '1').except!('Lot Number')
+        ],
+        row_count: 1,
+        sheet_name: '',
+        type: 'order'
+      )
+
+      converter = double('converter', rows: 1, invoices: invoice_rows, orders: order_rows)
+
+      loader = Ingest::Loader.new(converter, file)
+
+      expect { loader.perform }.to raise_error(Ingest::Loader::MissingOrderColumns, /Lot Number/)
     end
   end
 end
