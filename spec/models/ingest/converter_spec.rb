@@ -124,6 +124,14 @@ RSpec.describe Ingest::Converter do
         expect(converter.rows).to eql 1
       end
     end
+
+    context 'with a download that contains rows containing only whitespace' do
+      let(:download) { fake_download('rm3767-with-whitespace-rows.xls') }
+
+      it 'returns the total number of filled rows contained in the Excel file' do
+        expect(converter.rows).to eql 2
+      end
+    end
   end
 
   describe '.sheets' do
