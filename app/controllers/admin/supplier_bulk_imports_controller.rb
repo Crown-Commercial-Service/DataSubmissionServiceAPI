@@ -21,6 +21,7 @@ class Admin::SupplierBulkImportsController < AdminController
   end
 
   def csv?
-    uploaded_file.content_type == 'text/csv'
+    File.extname(uploaded_file.original_filename) == '.csv' &&
+      ['text/csv', 'application/vnd.ms-excel'].include?(uploaded_file.content_type)
   end
 end
