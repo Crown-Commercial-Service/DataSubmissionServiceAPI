@@ -69,6 +69,7 @@ if [ ! -z ${TRAVIS_BRANCH+x} ]
 then
  git checkout $TRAVIS_BRANCH
 fi
+BRANCH=$(git symbolic-ref --short HEAD)
 echo "INFO: deploying $BRANCH to $CF_SPACE"
 if [[ ! "$FORCE" == "yes" ]]
 then
