@@ -131,6 +131,3 @@ cf v3-zdt-push ccs-rmi-app-"$CF_SPACE"
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
 cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
-
-# allow APP to access API
-cf add-network-policy ccs-rmi-app-"$CF_SPACE" --destination-app ccs-rmi-api-"$CF_SPACE" --protocol tcp --port 8080
