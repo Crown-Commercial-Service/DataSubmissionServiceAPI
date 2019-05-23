@@ -7,6 +7,10 @@ class SubmissionIngestionJob < ApplicationJob
     handle_unretryable_job_failure(job, exception)
   end
 
+  discard_on(Ingest::Converter::UnreadableFile) do |job, exception|
+    handle_unretryable_job_failure(job, exception)
+  end
+
   def perform(submission_file)
     orchestrator = Ingest::Orchestrator.new(submission_file)
     orchestrator.perform

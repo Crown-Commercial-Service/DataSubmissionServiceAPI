@@ -146,6 +146,14 @@ RSpec.describe Ingest::Converter do
         expect(converter.sheets).to include('Contracts', 'InvoicesRaised', 'Service Table', 'Lookups')
       end
     end
+
+    context 'with a corrupted XLS file' do
+      let(:download) { fake_download('rm1557-10-corrupted.xls') }
+
+      it 'raises UnreadableFile' do
+        expect { converter.sheets }.to raise_error(Ingest::Converter::UnreadableFile)
+      end
+    end
   end
 
   context 'with a spreadsheet with sheets containing spaces' do

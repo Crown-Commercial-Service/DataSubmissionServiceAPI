@@ -9,6 +9,8 @@ module Ingest
   #
   # +rows+ contains the combined row counts for both sheets
   class Converter
+    class UnreadableFile < StandardError; end
+
     attr_reader :excel_temp_file
 
     Rows = Struct.new(:data, :row_count, :sheet_name, :type)
@@ -32,7 +34,10 @@ module Ingest
     def sheets
       @sheets ||= begin
                     response = Ingest::CommandRunner.new("in2csv --names #{excel_temp_file}").run!
-                    response.stdout if response.successful?
+
+                    return response.stdout if response.successful?
+
+                    raise UnreadableFile
                   end
     end
 
