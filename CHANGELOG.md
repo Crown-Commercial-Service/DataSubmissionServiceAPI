@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-75] - 2019-05-23
+
+- Bug: Bulk supplier import doesn't reject CSVs uploaded from Windows
+- Admin: Bulk import users
+
 ## [release-74] - 2019-05-21
 
 - Load frameworks from the database
@@ -513,6 +518,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-75]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-74...release-75
 [release-74]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-73...release-74
 [release-73]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-72...release-73
 [release-72]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-71...release-72
