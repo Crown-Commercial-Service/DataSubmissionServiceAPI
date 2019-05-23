@@ -44,4 +44,18 @@ RSpec.describe AttachedFileDownloader do
       expect { downloader.download! }.to raise_error(Timeout::Error)
     end
   end
+
+  describe '#cleanup!' do
+    let(:submission_file) { create(:submission_file, :with_attachment, filename: 'customers.xlsx') }
+
+    it 'deletes the temporary file' do
+      stub_s3_get_object('customers.xlsx')
+
+      downloader = AttachedFileDownloader.new(submission_file.file)
+      downloader.download!
+      temp_path = downloader.temp_file.path
+
+      expect { downloader.cleanup! }.to change { File.exist?(temp_path) }.from(true).to(false)
+    end
+  end
 end

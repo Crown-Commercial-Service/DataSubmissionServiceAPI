@@ -27,6 +27,11 @@ class AttachedFileDownloader
     true
   end
 
+  def cleanup!
+    @temp_file.close
+    @temp_file.unlink
+  end
+
   def s3_client
     @s3_client ||= Aws::S3::Client.new(region: ENV['AWS_S3_REGION'])
   end

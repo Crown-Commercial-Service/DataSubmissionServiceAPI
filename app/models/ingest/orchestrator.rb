@@ -12,12 +12,9 @@ module Ingest
     end
 
     def perform
-      # Remove after testing
-      SubmissionEntry.where(submission_file_id: @submission_file.id).delete_all if Rails.env.development?
-      # Remove after testing
-
       Rails.logger.tagged(logger_tags) do
         @submission.update!(aasm_state: :processing)
+        SubmissionEntry.where(submission_file_id: @submission_file.id).delete_all
 
         downloader = AttachedFileDownloader.new(@submission_file.file)
         downloader.download!
@@ -27,6 +24,8 @@ module Ingest
 
         loader = Ingest::Loader.new(converter, @submission_file)
         loader.perform
+
+        downloader.cleanup!
 
         calculate_management_charge_if_valid
       end
