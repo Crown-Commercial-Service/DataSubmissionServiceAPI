@@ -12,6 +12,7 @@ usage() {
   echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
   echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
+  echo "  -f                    - Force a deploy of a non standard branch to staging or prod"
   exit 1
 }
 
@@ -48,6 +49,9 @@ while getopts "a:u:p:o:s:h" opt; do
     a)
       CF_API_ENDPOINT=$OPTARG
       ;;
+    f)
+      FORCE=yes
+      ;;
     h)
       usage
       exit;;
@@ -61,6 +65,35 @@ if [[ -z "$CF_USER" || -z "$CF_PASS" || -z "$CF_ORG" || -z "$CF_SPACE" ]]; then
   usage
 fi
 
+if [ ! -z ${TRAVIS_BRANCH+x} ]
+then
+ git checkout $TRAVIS_BRANCH
+fi
+BRANCH=$(git symbolic-ref --short HEAD)
+echo "INFO: deploying $BRANCH to $CF_SPACE"
+if [[ ! "$FORCE" == "yes" ]]
+then
+
+  if [[ "$CF_SPACE" == "staging" ]]
+  then
+    if [[ ! "$BRANCH" == "develop" ]]
+    then
+      echo "We only deploy the 'develop' branch to $CF_SPACE"
+      echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
+      exit 1
+    fi
+  fi
+  
+  if [[ "$CF_SPACE" == "prod" ]]
+  then
+    if [[ ! "$BRANCH" == "master" ]]
+    then
+      echo "We only deploy the 'master' branch to $CF_SPACE"
+      echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
+      exit 1
+    fi
+  fi
+fi
 if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
   echo " *********************************************"
   echo "    The '$CF_SPACE' space will be selected"
@@ -88,15 +121,13 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 
 # push API
 cd .. || exit
-if cf app ccs-rmi-api-"$CF_SPACE" > /dev/null; then
-  cf blue-green-deploy ccs-rmi-api-"$CF_SPACE" -f cf/"$CF_SPACE".manifest.yml
-else
-  cf push -f cf/"$CF_SPACE".manifest.yml
-fi
+
+# create an app idempotently with the v3 cli
+cf v3-create-app ccs-rmi-app-"$CF_SPACE"
+cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
+# do a zero down time deployment with the v3 cli
+cf v3-zdt-push ccs-rmi-app-"$CF_SPACE"
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f cf/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
-
-# allow APP to access API
-cf add-network-policy ccs-rmi-app-"$CF_SPACE" --destination-app ccs-rmi-api-"$CF_SPACE" --protocol tcp --port 8080
+cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
