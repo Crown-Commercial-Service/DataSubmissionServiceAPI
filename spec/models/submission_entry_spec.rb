@@ -119,6 +119,28 @@ RSpec.describe SubmissionEntry do
       end
     end
 
+    context 'with a blank required string' do
+      let(:data_hash) { valid_data_hash.merge('Associated Service' => '') }
+
+      it 'transitions state to errored' do
+        expect(entry.reload).to be_errored
+      end
+
+      it 'sets the validation errors' do
+        expect(entry.validation_errors).to eq(
+          [
+            {
+              'message' => 'can\'t be blank',
+              'location' => {
+                'row' => entry.source['row'],
+                'column' => 'Associated Service',
+              },
+            }
+          ]
+        )
+      end
+    end
+
     context 'with a lot number the supplier does not have an agreement against' do
       let(:data_hash) { valid_data_hash.merge('Lot Number' => 'XXX') }
 
