@@ -22,6 +22,7 @@ RSpec.describe Task::OverdueUserNotificationList do
         framework1 = create :framework, short_name: 'RM0001'
         framework2 = create :framework, short_name: 'RM0002'
         framework3 = create :framework, short_name: 'COMPLETE0001'
+        create :framework, short_name: 'NOTPUBLISHED0001', published: false
 
         supplier_a = create(:supplier, name: 'Supplier A')
         supplier_b = create(:supplier, name: 'Supplier B')
@@ -49,6 +50,10 @@ RSpec.describe Task::OverdueUserNotificationList do
         expect(lines.first).to eql(
           'email address,due_date,person_name,supplier_name,reporting_month,COMPLETE0001,RM0001,RM0002'
         )
+      end
+
+      it 'does not include columns for unpublished frameworks' do
+        expect(lines.first).not_to include('NOTPUBLISHED0001')
       end
 
       it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
