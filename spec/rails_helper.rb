@@ -35,7 +35,7 @@ RSpec.configure do |config|
   config.include StorageHelpers
   config.include RequestHelpers, type: :request
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include IngestHelpers, type: :model
+  config.include IngestHelpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"

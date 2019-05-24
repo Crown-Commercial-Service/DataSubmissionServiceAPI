@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ingest::Converter do
-  subject(:converter) { Ingest::Converter.new(download) }
+  subject(:converter) { Ingest::Converter.new(download.temp_file.path) }
 
   let(:download) { fake_download('rm1557-10-test.xls') }
 
@@ -124,6 +124,14 @@ RSpec.describe Ingest::Converter do
         expect(converter.rows).to eql 1
       end
     end
+
+    context 'with a download that contains rows containing only whitespace' do
+      let(:download) { fake_download('rm3767-with-whitespace-rows.xls') }
+
+      it 'returns the total number of filled rows contained in the Excel file' do
+        expect(converter.rows).to eql 2
+      end
+    end
   end
 
   describe '.sheets' do
@@ -136,6 +144,14 @@ RSpec.describe Ingest::Converter do
 
       it 'returns the names of all sheets' do
         expect(converter.sheets).to include('Contracts', 'InvoicesRaised', 'Service Table', 'Lookups')
+      end
+    end
+
+    context 'with a corrupted XLS file' do
+      let(:download) { fake_download('rm1557-10-corrupted.xls') }
+
+      it 'raises UnreadableFile' do
+        expect { converter.sheets }.to raise_error(Ingest::Converter::UnreadableFile)
       end
     end
   end

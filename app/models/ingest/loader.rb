@@ -1,5 +1,8 @@
 module Ingest
   class Loader
+    class MissingInvoiceColumns < StandardError; end
+    class MissingOrderColumns < StandardError; end
+
     ##
     # Given a +converter+ (result of Ingest::Converter) and +submission_file+,
     # validate and load the rows for invoices and orders into the database
@@ -19,6 +22,8 @@ module Ingest
 
     def perform
       @submission_file.update!(rows: @converter.rows) if @persist
+
+      determine_correct_framework_used
 
       load_invoices
       load_orders
@@ -44,6 +49,14 @@ module Ingest
       load_data_from(@converter.orders, sheet_definition)
     end
 
+    def determine_correct_framework_used
+      invoice_diff = invoice_attributes.difference(invoice_headers)
+      order_diff   = order_attributes.difference(order_headers)
+
+      raise MissingInvoiceColumns, invoice_diff.to_a.to_sentence unless invoice_diff.empty? || invoice_headers.empty?
+      raise MissingOrderColumns, order_diff.to_a.to_sentence unless order_diff.empty? || order_headers.empty?
+    end
+
     # rubocop:disable Metrics/AbcSize
     def load_data_from(rows, sheet_definition)
       entries = []
@@ -61,7 +74,7 @@ module Ingest
           data: process_csv_row.process(row)
         )
 
-        next if entry.data.blank? # Skip empty rows
+        next if entry.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
 
         entry.customer_urn = entry.data.dig(sheet_definition.export_mappings['CustomerURN'])
         entry.customer_urn = nil unless @urns.key?(entry.customer_urn)
@@ -103,6 +116,22 @@ module Ingest
           }
         end
       end
+    end
+
+    def invoice_attributes
+      Set.new(@definition.attributes_for_entry_type('invoice'))
+    end
+
+    def order_attributes
+      Set.new(@definition.attributes_for_entry_type('order'))
+    end
+
+    def invoice_headers
+      Set.new(@converter.invoices.data.first.to_h.keys - ['line_number'])
+    end
+
+    def order_headers
+      Set.new(@converter.orders.data.first.to_h.keys - ['line_number'])
     end
   end
 end

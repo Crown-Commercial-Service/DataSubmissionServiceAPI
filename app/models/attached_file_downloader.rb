@@ -2,9 +2,7 @@ require 'aws-sdk-s3'
 require 'tempfile'
 
 class AttachedFileDownloader
-  include ActiveStorage::Downloading
-
-  attr_reader :blob, :temp_file
+  attr_reader :temp_file
 
   def initialize(object)
     @object = object
@@ -15,13 +13,10 @@ class AttachedFileDownloader
   def download!
     extension = @object.filename.extension.downcase
     @temp_file = Tempfile.new([@object.record.class.name, '.' + extension])
+    @temp_file.binmode
 
     begin
-      # download_blob_to requires @blob to be set in order to work
-      @blob = @object.blob
-
-      # This method comes from ActiveStorage::Downloading
-      download_blob_to(@temp_file)
+      s3_client.get_object({ bucket: bucket, key: key }, target: @temp_file)
     rescue Aws::S3::Errors, ArgumentError
       @temp_file.close
       @temp_file.unlink
@@ -30,5 +25,22 @@ class AttachedFileDownloader
     end
 
     true
+  end
+
+  def cleanup!
+    @temp_file.close
+    @temp_file.unlink
+  end
+
+  def s3_client
+    @s3_client ||= Aws::S3::Client.new(region: ENV['AWS_S3_REGION'])
+  end
+
+  def bucket
+    ENV.fetch('AWS_S3_BUCKET')
+  end
+
+  def key
+    @object.attachment.key
   end
 end
