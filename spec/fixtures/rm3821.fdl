@@ -3,6 +3,23 @@ Framework RM3821 {
 
   ManagementCharge 1%
 
+  Lots {
+    '1a' -> 'Resource Planning and Management Solutions including Financial and Commercial'
+    '1b' -> 'Workflow and Case Management Solutions'
+    '1c' -> 'Data Collection, Storage and Management'
+    '1d' -> 'Data Intelligence and Analytics'
+    '2a' -> 'Business Applications'
+    '2b' -> 'Environmental and Planning'
+    '2c' -> 'Citizen Services'
+    '3a' -> 'Enterprise Applications for Health'
+    '3b' -> 'Health Information Management'
+    '3c' -> 'Community Health and Social Care'
+    '4a' -> 'Bluelight Operations'
+    '4b' -> 'Bluelight Data and Information Management'
+    '5a' -> 'Learning Applications and Platforms'
+    '5b' -> 'Academic Scheduling and Management Solutions'
+  }
+
   InvoiceFields {
     SupplierReferenceNumber from 'Order Reference Number'
     CustomerURN from 'Customer Unique Reference Number (URN)'
@@ -224,22 +241,5 @@ Framework RM3821 {
       'Skills and Quality'
       'Relationships and Engagement'
     ]
-  }
-
-  Lots {
-    '1a' -> 'Resource Planning and Management Solutions including Financial and Commercial'
-    '1b' -> 'Workflow and Case Management Solutions'
-    '1c' -> 'Data Collection, Storage and Management'
-    '1d' -> 'Data Intelligence and Analytics'
-    '2a' -> 'Business Applications'
-    '2b' -> 'Environmental and Planning'
-    '2c' -> 'Citizen Services'
-    '3a' -> 'Enterprise Applications for Health'
-    '3b' -> 'Health Information Management'
-    '3c' -> 'Community Health and Social Care'
-    '4a' -> 'Bluelight Operations'
-    '4b' -> 'Bluelight Data and Information Management'
-    '5a' -> 'Learning Applications and Platforms'
-    '5b' -> 'Academic Scheduling and Management Solutions'
   }
 }

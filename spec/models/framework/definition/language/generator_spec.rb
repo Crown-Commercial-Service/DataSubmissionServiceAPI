@@ -222,6 +222,7 @@ RSpec.describe Framework::Definition::Generator do
             Framework RM6060 {
               Name 'Fake framework'
               ManagementCharge 0.5% of 'Supplier Price'
+              Lots { '99' -> 'Fake' }
 
               InvoiceFields {
                 InvoiceValue from 'Supplier Price'
@@ -248,6 +249,7 @@ RSpec.describe Framework::Definition::Generator do
                 CentralGovernment -> 0.5%
                 WiderPublicSector -> 1.2%
               }
+              Lots { '99' -> 'Fake' }
 
               InvoiceFields {
                 InvoiceValue from 'Supplier Price'
@@ -273,6 +275,8 @@ RSpec.describe Framework::Definition::Generator do
           Framework RM6060 {
             Name 'Fake framework'
             ManagementCharge 0.5%
+            Lots { '99' -> 'Fake' }
+
              InvoiceFields {
               InvoiceValue from 'Somewhere'
               String(..6) from 'Up to 6 chars'
@@ -391,6 +395,10 @@ RSpec.describe Framework::Definition::Generator do
             Name 'Fake framework'
             ManagementCharge 1%
 
+            Lots {
+              '99' -> 'Fake'
+            }
+
             InvoiceFields {
               InvoiceValue from 'Supplier Price'
             }
@@ -437,6 +445,7 @@ RSpec.describe Framework::Definition::Generator do
           Framework RM1043iii {
             Name 'DOS-like'
             ManagementCharge 1%
+            Lots { '99' -> 'Fake' }
 
             InvoiceFields {
               InvoiceValue from 'Supplier Price'
@@ -456,7 +465,7 @@ RSpec.describe Framework::Definition::Generator do
           Framework RM3786 {
             Name 'General Legal Advice Services'
             ManagementCharge 1.5%
-
+            Lots { '99' -> 'Fake' }
             InvoiceFields {
               ProductGroup from 'Service Type'
               ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
@@ -532,6 +541,7 @@ RSpec.describe Framework::Definition::Generator do
           Framework RMTEST {
             Name ''
             ManagementCharge 0%
+            Lots { '99' -> 'Fake' }
              InvoiceFields {
               InvoiceValue from 'Supplier Price'
             }
@@ -553,6 +563,7 @@ RSpec.describe Framework::Definition::Generator do
             Framework RM1234 {
               Name 'x'
               ManagementCharge 0%
+              Lots { '99' -> 'fake' }
 
               InvoiceFields {
                 String from 'x'
@@ -593,8 +604,9 @@ RSpec.describe Framework::Definition::Generator do
           <<~FDL
             Framework RM5678 {
               Name 'x'
-
               ManagementCharge 0.5% of 'optionalfield'
+
+              Lots { '99' -> 'Fake' }
 
               InvoiceFields {
                 optional String from 'optionalfield'
@@ -626,6 +638,8 @@ RSpec.describe Framework::Definition::Generator do
                 'Damage'                       -> 0%
                 'Other Re-charges'             -> 0%
               }
+
+              Lots { '99' -> 'Fake' }
 
               InvoiceFields {
                 optional PromotionCode from 'Spend Code'

@@ -29,6 +29,7 @@ RSpec.describe FdlValidator do
         Framework RM6060 {
           Name 'Fake framework'
           ManagementCharge 0.5% of 'Supplier Price'
+          Lots { '99' -> 'Fake' }
            InvoiceFields {
             InvoiceValue from 'Supplier Price'
           }
@@ -54,6 +55,7 @@ RSpec.describe FdlValidator do
           Framework RMNOINVOICEVALUE {
             Name 'x'
             ManagementCharge 0%
+            Lots { '99' -> 'Fake' }
              InvoiceFields {
               String from 'Supplier Price'
             }

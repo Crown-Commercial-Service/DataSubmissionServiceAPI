@@ -12,6 +12,10 @@ RSpec.describe Framework::Definition::Parser do
         Name 'Laundry Services - Wave 2'
         ManagementCharge 0%
 
+        Lots {
+          '1' -> 'Laundry Services'
+        }
+
         InvoiceFields {
           CustomerPostCode from 'Customer Postcode'
 
