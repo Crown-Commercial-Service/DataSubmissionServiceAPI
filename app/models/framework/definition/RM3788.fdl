@@ -3,6 +3,15 @@ Framework RM3788 {
 
   ManagementCharge 1.5%
 
+  Lots {
+    '1' -> 'Regional Legal Services'
+    '2a' -> 'Full Service Law Firms - England and Wales'
+    '2b' -> 'Full Service Law Firms - Scotland'
+    '2c' -> 'Full Service Law Firms - Northern Ireland'
+    '3' -> 'Property and Construction'
+    '4' -> 'Transport Rail'
+  }
+
   InvoiceFields {
     SupplierReferenceNumber from 'Supplier Reference Number'
     CustomerName from 'Customer Organisation Name'

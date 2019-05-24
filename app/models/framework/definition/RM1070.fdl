@@ -3,6 +3,18 @@ Framework RM1070 {
 
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Cars including 4x4 Variants'
+    '2' -> 'Light to Medium Commercial Vehicles up to but not including 7.5 tonnes (includin'
+    '3' -> 'Medium to Heavy Commercial Vehicles 7.5 tonnes and above'
+    '4' -> 'Motorcycles (including Quad Bikes and Scooters)'
+    '5' -> 'Buses and Coaches'
+    '6' -> 'Vehicles for Overseas'
+    '7' -> 'Blue Light Cars including 4x4 Variants'
+    '8' -> 'Blue Light, Light to Medium Commercial Vehicles'
+    '9' -> 'Blue Light Motorcycles (including Quad Bikes and Scooters)'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     optional CustomerPostCode from 'Customer PostCode'

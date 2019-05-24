@@ -3,6 +3,11 @@ Framework RM3786 {
 
   ManagementCharge 1.5%
 
+  Lots {
+    '1' -> 'General Legal Services Tier 1'
+    '2' -> 'General Legal Services Tier 2'
+  }
+
   InvoiceFields {
     LotNumber from 'Tier Number'
     optional SupplierReferenceNumber from 'Supplier Reference Number'
