@@ -34,8 +34,11 @@ class Task
     private
 
     def csv_line_for(user, supplier)
+      framework_presence = late_task_framework_presence(supplier)
+      return if framework_presence.all?('no')
+
       CSV.generate_line(
-        [user.email, due_date, user.name, supplier.name, reporting_month] + late_task_framework_presence(supplier)
+        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_presence
       )
     end
 
@@ -52,7 +55,7 @@ class Task
     end
 
     def frameworks
-      @frameworks ||= Framework.order(:short_name)
+      @frameworks ||= Framework.published.order(:short_name)
     end
 
     def frameworks_header
