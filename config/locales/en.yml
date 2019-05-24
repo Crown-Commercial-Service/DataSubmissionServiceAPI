@@ -26,7 +26,6 @@ en:
   errors:
     format: "%{message}"
     messages:
-      blank: 'Enter your %{attribute}'
       taken: '%{attribute} has already been taken.'
       invalid_urn: 'is not a recognised URN'
       invalid_ingested_date: 'must be in the format dd/mm/yyyy'
