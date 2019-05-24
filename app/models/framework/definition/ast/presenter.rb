@@ -42,6 +42,12 @@ class Framework
 
           Field.new(field_def, lookups)
         end
+
+        def field_by_sheet_name(entry_type, name)
+          field_def = field_defs(entry_type).find { |f| f[:from] == name } || return
+
+          Field.new(field_def, lookups)
+        end
       end
     end
   end

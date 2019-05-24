@@ -14,6 +14,8 @@ class Framework
         ast = @ast
         transpiler = self
 
+        check_management_charge_calculator_fields_are_not_optional(ast[:management_charge])
+
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
           framework_short_name ast[:framework_short_name]
@@ -78,6 +80,20 @@ class Framework
           )
         end
       end
+
+      # rubocop:disable Metrics/AbcSize
+      def check_management_charge_calculator_fields_are_not_optional(info)
+        if info[:column_based] && ast.field_by_sheet_name(:invoice, info[:column_based][:column_name]).field_def[:optional]
+          raise Transpiler::Error,
+                'Management charge references ' \
+                "'#{info[:column_based][:column_name]}' so it cannot be optional"
+        elsif info[:flat_rate] && info[:flat_rate][:column].present? && ast.field_by_sheet_name(:invoice, info[:flat_rate][:column]).field_def[:optional]
+          raise Transpiler::Error,
+                'Management charge references ' \
+                "'#{info[:flat_rate][:column]}' so it cannot be optional"
+        end
+      end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end
