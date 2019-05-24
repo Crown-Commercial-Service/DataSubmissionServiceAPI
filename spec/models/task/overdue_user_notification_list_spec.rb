@@ -15,6 +15,7 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       let(:alice)      { create :user, name: 'Alice Example', email: 'alice@example.com' }
       let(:bob)        { create :user, name: 'Bob Example', email: 'bob@example.com' }
+      let(:charley)    { create :user, name: 'Charley Goodsupplier', email: 'charley.goodsupplier@example.com' }
       let(:frank)      { create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
@@ -24,17 +25,20 @@ RSpec.describe Task::OverdueUserNotificationList do
 
         supplier_a = create(:supplier, name: 'Supplier A')
         supplier_b = create(:supplier, name: 'Supplier B')
+        supplier_c = create(:supplier, name: 'Supplier C')
 
         create :membership, user: alice, supplier: supplier_a
         create :membership, user: alice, supplier: supplier_b
         create :membership, user: bob, supplier: supplier_b
         create :membership, user: frank, supplier: supplier_b
+        create :membership, user: charley, supplier: supplier_c
 
         create :task, supplier: supplier_a, framework: framework1, period_month: 1
         create :task, supplier: supplier_a, framework: framework2, period_month: 1
         create :task, supplier: supplier_b, framework: framework1, period_month: 1
 
         create :task, :completed, supplier: supplier_a, framework: framework3
+        create :task, :completed, supplier: supplier_c, framework: framework1
 
         generator.generate
       end
@@ -56,6 +60,10 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       it 'does not include inactive users' do
         expect(output.string).not_to include('Frank Inactive')
+      end
+
+      it 'does not include suppliers with no incomplete submissions' do
+        expect(output.string).not_to include('Charley Goodsupplier')
       end
     end
   end
