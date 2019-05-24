@@ -38,6 +38,10 @@ RSpec.describe Framework do
           Framework RM999 {
             Name 'Parsed correctly'
             ManagementCharge 0.5% of 'Supplier Price'
+            Lots {
+              '1' -> 'Lot 1'
+              '2' -> 'Second Lot'
+            }
              InvoiceFields {
               InvoiceValue from 'Supplier Price'
             }
@@ -84,6 +88,7 @@ RSpec.describe Framework do
           Framework RM999 {
             Name 'Changed successfully'
             ManagementCharge 0.5% of 'Supplier Price'
+            Lots { '99' -> 'Fake' }
              InvoiceFields {
               InvoiceValue from 'Supplier Price'
             }
@@ -103,6 +108,7 @@ RSpec.describe Framework do
         <<~FDL
           Framework RM999 {
             xName 'Parsed incorrectly'
+            Lots { '99' -> 'Fake' }
             ManagementCharge 0.5% of 'Supplier Price'
              InvoiceFields {
               InvoiceValue from 'Supplier Price'
@@ -127,12 +133,12 @@ RSpec.describe Framework do
           Framework RM999 {
             Name 'Changed successfully'
             ManagementCharge 0.5% of 'Supplier Price'
-             InvoiceFields {
-              InvoiceValue from 'Supplier Price'
-            }
             Lots {
               '1' -> 'Lot 1'
               '2' -> 'Second Lot'
+            }
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
             }
           }
         FDL
@@ -160,43 +166,6 @@ RSpec.describe Framework do
           it 'deletes that lot from the database' do
             expect { subject.load_lots! }.to change { subject.lots.count }.by(1)
             expect(subject.lots.find_by(number: '1', description: 'Lot 1')).to be_a(FrameworkLot)
-            expect(subject.lots.find_by(number: '3')).to eq(nil)
-          end
-        end
-
-        context 'that has agreements against it' do
-          let!(:agreement_framework_lot) { create(:agreement_framework_lot, framework_lot: framework_lot) }
-
-          it 'raises an error' do
-            expect { subject.load_lots! }.to raise_error(ActiveRecord::InvalidForeignKey)
-          end
-        end
-      end
-    end
-
-    context 'with an FDL without lots' do
-      let(:definition_source) do
-        <<~FDL
-          Framework RM999 {
-            Name 'Changed successfully'
-            ManagementCharge 0.5% of 'Supplier Price'
-             InvoiceFields {
-              InvoiceValue from 'Supplier Price'
-            }
-          }
-        FDL
-      end
-
-      it 'does nothing' do
-        expect { subject.load_lots! }.to_not change { subject.lots.count }
-      end
-
-      context 'when framework already has a lot' do
-        let!(:framework_lot) { create(:framework_lot, framework: framework, number: '3') }
-
-        context 'that has no agreements against it' do
-          it 'deletes that lot from the database' do
-            expect { subject.load_lots! }.to change { subject.lots.count }.by(-1)
             expect(subject.lots.find_by(number: '3')).to eq(nil)
           end
         end

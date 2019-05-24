@@ -3,6 +3,13 @@ Framework RM849 {
 
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Wash and Return'
+    '2' -> 'Linen Hire'
+    '3' -> 'Re-useable Theatre Drapes and Gowns'
+    '4' -> 'Mop Hire'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     optional SupplierReferenceNumber from 'Supplier Order Number'

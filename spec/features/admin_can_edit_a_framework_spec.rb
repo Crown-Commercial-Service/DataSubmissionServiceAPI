@@ -11,6 +11,7 @@ RSpec.feature 'Admin can edit a framework' do
       Framework RM999 {
         Name 'Framework to be changed'
         ManagementCharge 0.5% of 'Supplier Price'
+        Lots { '99' -> 'Fake' }
          InvoiceFields {
           InvoiceValue from 'Supplier Price'
         }
@@ -31,6 +32,7 @@ RSpec.feature 'Admin can edit a framework' do
         Framework RM999 {
           Name 'Vehicle Leasing'
           ManagementCharge 0.5% of 'Supplier Price'
+          Lots { '99' -> 'Fake' }
            InvoiceFields {
             InvoiceValue from 'Supplier Price'
           }
@@ -100,6 +102,7 @@ RSpec.feature 'Admin can edit a framework' do
       <<~FDL
         Framewoxk RM999 {
           Name 'Vehicle Leasing'
+          Lots { '99' -> 'Fake' }
 
            InvoiceFields {
             InvoiceValue from 'Supplier Price'

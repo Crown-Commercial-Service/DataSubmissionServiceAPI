@@ -2,6 +2,10 @@ Framework RM3787 {
   Name 'Finance & Complex Legal Services'
   ManagementCharge 1.5%
 
+  Lots {
+    '1' -> 'Finance & Complex Legal Services'
+  }
+
   InvoiceFields {
     SupplierReferenceNumber from 'Supplier Reference Number'
     CustomerURN from 'Customer URN'

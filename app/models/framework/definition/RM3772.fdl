@@ -1,7 +1,11 @@
 Framework RM3772 {
   Name 'Specialist Laundry Services (for Surgical Gowns, D'
 
-  ManagementCharge 0.5% 
+  ManagementCharge 0.5%
+
+  Lots {
+    '1' -> 'Processing of linen items and linen hire items'
+  }
 
   InvoiceFields {
     CustomerName from 'Customer Organisation'
@@ -24,7 +28,7 @@ Framework RM3772 {
     optional String from 'Cost Centre'
     optional String from 'Contract Number'
   }
-  
+
   ContractFields {
     optional CustomerName from 'Customer Organisation'
     optional CustomerPostCode from 'Customer PostCode'

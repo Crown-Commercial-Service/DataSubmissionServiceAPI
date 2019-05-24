@@ -3,6 +3,10 @@ Framework RM3797 {
 
   ManagementCharge 1.0%
 
+  Lots {
+    '1' -> 'Journal Subscriptions (Print and Electronic)'
+  }
+
   InvoiceFields {
     CustomerURN from 'Customer URN'
     CustomerPostCode from 'Customer PostCode'
