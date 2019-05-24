@@ -46,7 +46,7 @@ Framework RM3710 {
     optional Decimal Additional17 from 'Total Manufacturer Discount (%)'
     optional String from 'Cost Centre'
     optional String from 'Contract Number'
-    optional PromotionCode from 'Spend Code'
+    PromotionCode from 'Spend Code'
   }
 
   Lookups {

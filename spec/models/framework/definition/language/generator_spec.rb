@@ -586,5 +586,64 @@ RSpec.describe Framework::Definition::Generator do
         expect(generator.error).to match(/Failed to match sequence/)
       end
     end
+
+    context 'management charge references an optional field' do
+      context 'with a flat-rate calculation' do
+        let(:source) do
+          <<~FDL
+            Framework RM5678 {
+              Name 'x'
+
+              ManagementCharge 0.5% of 'optionalfield'
+
+              InvoiceFields {
+                optional String from 'optionalfield'
+                InvoiceValue from 'Supplier Price'
+              }
+            }
+          FDL
+        end
+
+        example { expect(definition).to be_nil }
+        it { is_expected.to be_error }
+        it { is_expected.not_to be_success }
+
+        it 'has the parse failure' do
+          expect(generator.error)
+            .to match(/Management charge references 'optionalfield' so it cannot be optional/)
+        end
+      end
+
+      context 'with a column-based calculation' do
+        let(:source) do
+          <<~FDL
+            Framework RM5678 {
+              Name 'x'
+
+              ManagementCharge varies_by 'Spend Code' {
+                'Lease Rental'                 -> 0.5%
+                'Fleet Management Fee'         -> 0.5%
+                'Damage'                       -> 0%
+                'Other Re-charges'             -> 0%
+              }
+
+              InvoiceFields {
+                optional PromotionCode from 'Spend Code'
+                InvoiceValue from 'Supplier Price'
+              }
+            }
+          FDL
+        end
+
+        example { expect(definition).to be_nil }
+        it { is_expected.to be_error }
+        it { is_expected.not_to be_success }
+
+        it 'has the parse failure' do
+          expect(generator.error)
+            .to match(/Management charge references 'Spend Code' so it cannot be optional/)
+        end
+      end
+    end
   end
 end
