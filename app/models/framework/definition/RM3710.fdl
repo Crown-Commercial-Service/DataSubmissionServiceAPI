@@ -8,6 +8,12 @@ Framework RM3710 {
     'Other Re-charges'             -> 0%
   }
 
+  Lots {
+    '1' -> 'Lease of passenger motor vehicles and light commercial vehicles up to 3.5 tonnes'
+    '2' -> 'Lease of commercial vehicles 3.5 tonnes and above, including buses, coaches, tra'
+    '3' -> 'Provision of Fleet Management Services, including the management, sourcing and s'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     CustomerURN from 'Customer URN'
@@ -46,7 +52,7 @@ Framework RM3710 {
     optional Decimal Additional17 from 'Total Manufacturer Discount (%)'
     optional String from 'Cost Centre'
     optional String from 'Contract Number'
-    optional PromotionCode from 'Spend Code'
+    PromotionCode from 'Spend Code'
   }
 
   Lookups {

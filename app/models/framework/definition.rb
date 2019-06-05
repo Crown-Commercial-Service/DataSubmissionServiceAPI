@@ -53,6 +53,18 @@ class Framework
         def for_entry_type(entry_type)
           entry_type == 'invoice' ? self::Invoice : self::Order
         end
+
+        def attributes_for_entry_type(entry_type)
+          return [] unless constants.include?(entry_type.capitalize.to_sym)
+
+          for_entry_type(entry_type).new(FakeAttributes.new).attributes.keys
+        end
+
+        class FakeAttributes
+          def data
+            {}
+          end
+        end
       end
     end
 

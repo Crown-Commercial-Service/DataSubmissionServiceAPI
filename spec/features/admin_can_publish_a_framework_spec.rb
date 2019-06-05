@@ -10,12 +10,12 @@ RSpec.feature 'Admin can edit a framework' do
       Framework RM999 {
         Name 'Framework to be published'
         ManagementCharge 0.5% of 'Supplier Price'
-         InvoiceFields {
-          InvoiceValue from 'Supplier Price'
-        }
         Lots {
           '1' -> 'Lot 1'
           '2' -> 'Second Lot'
+        }
+         InvoiceFields {
+          InvoiceValue from 'Supplier Price'
         }
       }
     FDL

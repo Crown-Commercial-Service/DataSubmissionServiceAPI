@@ -3,6 +3,13 @@ Framework RM1043iv {
 
   ManagementCharge 1.0%
 
+  Lots {
+    '1' -> 'Outcomes'
+    '2' -> 'Specialists'
+    '3' -> 'User research studios'
+    '4' -> 'User research participants'
+  }
+
   InvoiceFields {
     SupplierReferenceNumber from 'SoW / Order Number'
     optional String from 'Buyer Cost Centre'

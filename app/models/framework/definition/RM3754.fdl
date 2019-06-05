@@ -2,6 +2,10 @@ Framework RM3754 {
   Name 'Vehicle Telematics'
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Vehicle Telematics'
+  }
+
   InvoiceFields {
     CustomerURN from 'Customer URN'
     optional CustomerPostCode from 'Customer PostCode'

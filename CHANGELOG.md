@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-76] - 2019-05-24
+
+- FDL: Make fields used by management charge calculation mandatory
+- Corrupted files halt ingest
+- Rows that contain only white-space are skipped
+- Submissions with missing columns halt ingest
+- Admin: Late notifications exclude suppliers with no late tasks
+- FDL: Make lots block mandatory, and move to above field defs
+- Revert validation error message for blank fields
+
 ## [release-75] - 2019-05-23
 
 - Bug: Bulk supplier import doesn't reject CSVs uploaded from Windows
@@ -518,6 +528,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-76]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-75...release-76
 [release-75]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-74...release-75
 [release-74]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-73...release-74
 [release-73]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-72...release-73

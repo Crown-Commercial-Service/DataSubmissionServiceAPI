@@ -3,6 +3,12 @@ Framework RM807 {
 
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Passenger and Light Commercial Vehicles up to 3.5 tonnes'
+    '2' -> 'Light Commercial Vehicles up to 3.5 tonnes & Heavy Commercial Vehicles up'
+    '3' -> 'Passenger Vehicles, Light Commercial Vehicles up to3.5 tonnes & Heavy Comme to'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     optional CustomerPostCode from 'Customer PostCode'

@@ -3,6 +3,10 @@ Framework RM1031 {
 
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Processing (collection, wash, finish and return) of linen items/linen hire items'
+  }
+
   InvoiceFields{
     CustomerName from 'Customer Organisation'
     optional CustomerPostCode from 'Customer PostCode'

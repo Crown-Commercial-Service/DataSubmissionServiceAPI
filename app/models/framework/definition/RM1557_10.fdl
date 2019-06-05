@@ -3,6 +3,12 @@ Framework RM1557.10 {
 
   ManagementCharge 0.75%
 
+  Lots {
+    '1' -> 'Cloud Hosting'
+    '2' -> 'Cloud Software'
+    '3' -> 'Cloud Support'
+  }
+
   InvoiceFields {
     SupplierReferenceNumber from 'Order Reference Number'
     CustomerURN from 'Customer Unique Reference Number (URN)'

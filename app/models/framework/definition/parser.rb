@@ -15,9 +15,9 @@ class Framework
       rule(:framework_block) do
         braced(
           spaced(metadata) >>
+          spaced(lots_block) >>
           spaced(fields_blocks) >>
-          spaced(lookups_block.as(:lookups)).maybe >>
-          spaced(lots_block).maybe
+          spaced(lookups_block.as(:lookups)).maybe
         )
       end
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }

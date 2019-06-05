@@ -26,6 +26,7 @@ class Submission < ApplicationRecord
     state :pending, initial: true
     state :processing
     state :validation_failed
+    state :ingest_failed
     state :in_review
     state :completed
     state :replaced

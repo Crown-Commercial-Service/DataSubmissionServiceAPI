@@ -3,6 +3,11 @@ Framework RM3767 {
 
   ManagementCharge 1%
 
+  Lots {
+    '1' -> 'The supply and fit of tyres and associated services to the Police and emergency services'
+    '2' -> 'The supply and fit of tyres and associated services to central Government and the wider public sector'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     CustomerURN from 'Customer URN'
@@ -50,10 +55,5 @@ Framework RM3767 {
       'Mid-Range'
       'Budget'
     ]
-  }
-
-  Lots {
-    '1' -> 'The supply and fit of tyres and associated services to the Police and emergency services'
-    '2' -> 'The supply and fit of tyres and associated services to central Government and the wider public sector'
   }
 }

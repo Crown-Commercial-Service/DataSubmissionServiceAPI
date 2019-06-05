@@ -112,4 +112,35 @@ RSpec.describe Framework::Definition do
       expect(Framework::Definition['RM3756'].for_entry_type('order').model_name.name).to eq 'Contract'
     end
   end
+
+  describe 'Base.attributes_for_entry_type' do
+    it 'returns the attributes for the framework’s Invoice definition' do
+      expected = [
+        'Contract Number', 'Cost Centre', 'Customer Invoice Date', 'Customer Invoice Number',\
+        'Customer Organisation Name', 'Customer Post Code', 'Customer URN', 'Matter Name', 'Practitioner Grade',\
+        'Price per Unit', 'Pricing Mechanism', 'Primary Specialism', 'Pro-Bono Price per Unit', 'Pro-Bono Quantity',\
+        'Pro-Bono Total Value', 'Quantity', 'Service Type', 'Sub-Contractor Name (If Applicable)',\
+        'Supplier Reference Number', 'Tier Number', 'Total Cost (ex VAT)', 'UNSPSC', 'Unit of Purchase',\
+        'VAT Amount Charged'
+      ]
+
+      expect(Framework::Definition['RM3756'].attributes_for_entry_type('invoice')).to match_array(expected)
+    end
+
+    it 'returns the attributes for the framework’s Contract definition' do
+      expected = [
+        'Award Procedure', 'Call Off Managing Entity', 'Contract End Date', 'Contract Start Date',\
+        'Customer Organisation Name', 'Customer Post Code', 'Customer Response Time', 'Customer URN',\
+        'Expected Pro-Bono value', 'Expected Total Order Value', 'Expression Of Interest Used (Y/N)',\
+        'Matter Description', 'Matter Name', 'Pro-bono work included? (Y/N)', 'Sub-Contractor Name',\
+        'Supplier Reference Number', 'Tier Number'
+      ]
+
+      expect(Framework::Definition['RM3756'].attributes_for_entry_type('order')).to match_array(expected)
+    end
+
+    it 'returns an empty array, if the framework does not have Contracts' do
+      expect(Framework::Definition['RM858'].attributes_for_entry_type('order')).to be_empty
+    end
+  end
 end

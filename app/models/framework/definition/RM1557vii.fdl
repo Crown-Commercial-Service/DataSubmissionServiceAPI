@@ -3,6 +3,13 @@ Framework RM1557vii {
 
   ManagementCharge 0.5%
 
+  Lots {
+    '1' -> 'Infrastructure as a Service (IaaS)'
+    '2' -> 'Platform as a Service (PaaS)'
+    '3' -> 'Software as a Service'
+    '4' -> 'Specialist Cloud Services'
+  }
+
   InvoiceFields {
     LotNumber from 'Lot Number'
     optional SupplierReferenceNumber from 'Supplier Order Number'
