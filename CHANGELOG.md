@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-77] - 2019-06-06
+
+- Fix discrepancies in optional fields between FDL and the templates
+
 ## [release-76] - 2019-05-24
 
 - FDL: Make fields used by management charge calculation mandatory
@@ -528,6 +532,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-77]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-76...release-77
 [release-76]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-75...release-76
 [release-75]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-74...release-75
 [release-74]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-73...release-74
