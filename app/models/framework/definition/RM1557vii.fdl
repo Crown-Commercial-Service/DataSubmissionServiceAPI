@@ -38,7 +38,7 @@ Framework RM1557vii {
     VATCharged from 'VAT amount charged'
     optional Date from 'Actual Delivery Date'
     Expenses from 'Expenses'
-    optional String from 'Buyer Cost Centre'
+    optional String from 'Cost Centre'
     optional String from 'Contract Number'
   }
 
