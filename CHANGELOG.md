@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-78] - 2019-06-10
+
+- Remove erroneous optional fields from RM3756's FDL
+
 ## [release-77] - 2019-06-06
 
 - Fix discrepancies in optional fields between FDL and the templates
@@ -532,6 +536,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-78]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-77...release-78
 [release-77]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-76...release-77
 [release-76]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-75...release-76
 [release-75]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-74...release-75
