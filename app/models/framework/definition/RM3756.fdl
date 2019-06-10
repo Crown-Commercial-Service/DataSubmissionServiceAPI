@@ -29,8 +29,6 @@ Framework RM3756 {
     UnitQuantity from 'Quantity'
     InvoiceValue from 'Total Cost (ex VAT)'
     VATCharged from 'VAT Amount Charged'
-    optional String from 'Cost Centre'
-    optional String from 'Contract Number'
     CustomerReferenceNumber from 'Matter Name'
     PricingMechanism Additional5 from 'Pricing Mechanism'
     Decimal Additional1 from 'Pro-Bono Price per Unit'
