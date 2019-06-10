@@ -116,7 +116,7 @@ RSpec.describe Framework::Definition do
   describe 'Base.attributes_for_entry_type' do
     it 'returns the attributes for the framework’s Invoice definition' do
       expected = [
-        'Contract Number', 'Cost Centre', 'Customer Invoice Date', 'Customer Invoice Number',\
+        'Customer Invoice Date', 'Customer Invoice Number',\
         'Customer Organisation Name', 'Customer Post Code', 'Customer URN', 'Matter Name', 'Practitioner Grade',\
         'Price per Unit', 'Pricing Mechanism', 'Primary Specialism', 'Pro-Bono Price per Unit', 'Pro-Bono Quantity',\
         'Pro-Bono Total Value', 'Quantity', 'Service Type', 'Sub-Contractor Name (If Applicable)',\
