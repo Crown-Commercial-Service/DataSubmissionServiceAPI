@@ -29,6 +29,8 @@ class Task < ApplicationRecord
   validates :framework_id, presence: true
   validates :due_on, presence: true
 
+  before_validation :set_due_on, on: :create
+
   belongs_to :framework
   belongs_to :supplier
 
@@ -73,5 +75,13 @@ class Task < ApplicationRecord
         submission.destroy
       end
     end
+  end
+
+  private
+
+  def set_due_on
+    return if period_year.blank? || period_month.blank?
+
+    self.due_on ||= Task::ReportingPeriod.new(period_year, period_month).due_date
   end
 end
