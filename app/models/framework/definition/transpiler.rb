@@ -53,6 +53,8 @@ class Framework
 
           ast.field_defs(entry_type).each do |field_def|
             field = AST::Field.new(field_def, ast.lookups)
+            raise Transpiler::Error, field.error if field.error
+
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
             lookup_values = ast.lookups[field.lookup_name]
