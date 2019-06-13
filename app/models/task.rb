@@ -22,8 +22,14 @@ class Task < ApplicationRecord
   scope :incomplete, -> { where.not(status: 'completed') }
 
   validates :status, presence: true
+  validates :period_year, presence: true
+  validates :period_month,
+            presence: true,
+            uniqueness: { scope: %i[supplier_id framework_id period_year], message: 'This task already exists' }
+  validates :framework_id, presence: true
+  validates :due_on, presence: true
 
-  belongs_to :framework, optional: true
+  belongs_to :framework
   belongs_to :supplier
 
   has_many :submissions, dependent: :nullify
