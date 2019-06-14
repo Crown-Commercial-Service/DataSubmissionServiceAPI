@@ -35,6 +35,10 @@ class Framework
           @lookups = lookups
         end
 
+        def error
+          "known field not found: '#{warehouse_name}'" if known? && DataWarehouse::KnownFields::ALL[warehouse_name].nil?
+        end
+
         def sheet_name
           field_def[:from]
         end
