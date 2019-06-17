@@ -23,6 +23,8 @@ to create/update users in Auth0. These can be found in the "Applications"
 section of the Auth0 dashboard. The application ID for local development is
 "Report MI Admin (Staging)"; do not use the production Auth0 credentials
 locally!
+- AUTH0_JWT_PUBLIC_KEY - used to validate the signed JWT token, to ensure it
+hasn't been tampered with.
 - SIDEKIQ_USERNAME/SIDEKIQ_PASSWORD – Credentials to protect access to the
 Sidekiq administrative interface
 - SIDEKIQ_CONCURRENCY - Used to set the number of jobs that Sidekiq will attempt
