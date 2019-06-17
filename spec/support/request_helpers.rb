@@ -6,4 +6,8 @@ module RequestHelpers
   def json_headers
     { 'Content-Type': 'application/vnd.api+json', 'Accept': 'application/vnd.api+json' }
   end
+
+  def auth_header(user)
+    { 'X-Auth-Id' => user.auth_id }
+  end
 end
