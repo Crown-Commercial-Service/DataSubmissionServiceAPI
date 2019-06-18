@@ -105,6 +105,11 @@ A [full list of the API endpoints](endpoints.md) is available in a separate docu
 See [this guide](docs/onboarding-suppliers.md) for details on onboarding suppliers
 and their users.
 
+## Running the sidekiq workers
+
+If you want to be able to locally ingest files, or run any other
+sidekiq jobs, then you need to run a sidekiq worker. You can do this by running `SIDEKIQ_CONCURRENCY=3 bundle exec sidekiq`.
+
 ## Scheduled jobs
 
 Job scheduling is handled using the sidekiq-cron gem, with the schedule
