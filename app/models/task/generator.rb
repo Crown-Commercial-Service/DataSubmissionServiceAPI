@@ -13,7 +13,7 @@ class Task
     delegate :info, :warn, to: :logger
 
     def generate!
-      info "Creating tasks for #{Date::MONTHNAMES[month]} #{year}, falling due on #{due_date}"
+      info "Creating tasks for #{Date::MONTHNAMES[month]} #{year}"
 
       agreements.find_each do |agreement|
         task_attributes = task_attributes_for_agreement(agreement)
@@ -38,13 +38,8 @@ class Task
         framework: agreement.framework,
         supplier: agreement.supplier,
         period_month: month,
-        period_year: year,
-        due_on: due_date
+        period_year: year
       }
-    end
-
-    def due_date
-      Task::ReportingPeriod.new(year, month).due_date
     end
   end
 end
