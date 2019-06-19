@@ -31,19 +31,29 @@ class Framework
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
 
-              raise_when_dependent_reference_invalid(field, entry_type)
+              if field.dependent_field_inclusion?
+                raise_when_dependent_reference_invalid(field, entry_type)
+                raise_when_lookup_reference_invalid(field)
+              end
             end
           end
         end
 
         def raise_when_dependent_reference_invalid(field, entry_type)
-          return unless field.dependent_field_inclusion?
-
           valid_reference = ast.field_defs(entry_type).find { |f| f[:from] == field.dependent_field }
           return if valid_reference
 
           raise Transpiler::Error,
                 "'#{field.sheet_name}' depends on '#{field.dependent_field}', which does not exist"
+        end
+
+        def raise_when_lookup_reference_invalid(field)
+          field.dependent_field_lookup_references.each do |lookup_reference|
+            valid_lookup_reference = ast.dig(:lookups, lookup_reference)
+            next if valid_lookup_reference
+
+            raise Transpiler::Error, "'#{lookup_reference}' is not a valid lookup reference"
+          end
         end
 
         def raise_when_management_field_invalid(info)

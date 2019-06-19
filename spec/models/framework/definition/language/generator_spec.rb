@@ -481,7 +481,7 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
-    context 'Dependent field validation' do
+    context 'Valid depends_on fields' do
       let(:source) do
         <<~FDL
           Framework RM3786 {
@@ -491,9 +491,9 @@ RSpec.describe Framework::Definition::Generator do
             InvoiceFields {
               ProductGroup from 'Service Type'
               ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
-                'Core'     -> CoreSpecialisms
-                'Non-core' -> NonCoreSpecialisms
-                'Mixture'  -> PrimarySpecialism
+                'Core'     -> SomeLookup
+                'Non-core' -> SomeOtherLookup
+                'Mixture'  -> SomeCombinationOfLookups
               }
               InvoiceValue from 'Supplier Price'
               ProductClass from 'Product Class'
@@ -521,6 +521,10 @@ RSpec.describe Framework::Definition::Generator do
               SomeOtherLookup [
                 'There'
               ]
+              SomeCombinationOfLookups [
+                SomeLookup
+                SomeOtherLookup
+              ]
             }
           }
         FDL
@@ -535,7 +539,7 @@ RSpec.describe Framework::Definition::Generator do
               parent: 'Service Type',
               in: {
                 'Service Type' => {
-                  'core' => nil, 'non-core' => nil, 'mixture' => nil
+                  'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
                 }
               }
             }
@@ -554,6 +558,29 @@ RSpec.describe Framework::Definition::Generator do
             }
           )
         }
+      end
+    end
+
+    context 'invalid depends_on fields' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductGroup from 'Service Type'
+              ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
+                'Oh no' -> ThisLookupDoesNotExist
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql("'ThisLookupDoesNotExist' is not a valid lookup reference")
       end
     end
 

@@ -125,6 +125,10 @@ class Framework
           field_def[:depends_on][:dependent_field]
         end
 
+        def dependent_field_lookup_references
+          field_def[:depends_on][:values].values
+        end
+
         def dependent_field_inclusion_values
           field_def[:depends_on][:values].each_with_object({}) do |(field_value, lookup_name), result|
             result[field_value.downcase] = lookups[lookup_name]
