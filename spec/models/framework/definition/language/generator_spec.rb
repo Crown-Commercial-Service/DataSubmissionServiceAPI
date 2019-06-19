@@ -622,6 +622,28 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'an unknown type is used on an additional field' do
+      let(:source) do
+        <<~FDL
+          Framework RM1234 {
+            Name 'x'
+            ManagementCharge 0%
+            Lots { '1' -> 'a' }
+
+            InvoiceFields {
+              InvoiceValue from 'x'
+              Dcemial Additional1 from 'somewhere'
+            }
+          }
+        FDL
+      end
+
+      it { is_expected.to be_error }
+      it 'tells us an unknown type has been used' do
+        expect(generator.error).to eql("unknown type 'Dcemial' (neither primitive nor lookup) for Additional1")
+      end
+    end
+
     context 'management charge references an optional field' do
       context 'with a flat-rate calculation' do
         let(:source) do
