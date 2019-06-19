@@ -638,70 +638,111 @@ RSpec.describe Framework::Definition::Generator do
         FDL
       end
 
-      it { is_expected.to be_error }
       it 'tells us an unknown type has been used' do
         expect(generator.error).to eql("unknown type 'Dcemial' (neither primitive nor lookup) for Additional1")
       end
     end
 
-    context 'management charge references an optional field' do
-      context 'with a flat-rate calculation' do
-        let(:source) do
-          <<~FDL
-            Framework RM5678 {
-              Name 'x'
-              ManagementCharge 0.5% of 'optionalfield'
+    context 'management charge reference is invalid' do
+      context 'it references a non-existent field' do
+        context 'with a flat-rate calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
+                ManagementCharge 0.5% of 'non-existent field'
 
-              Lots { '99' -> 'Fake' }
+                Lots { '99' -> 'Fake' }
 
-              InvoiceFields {
-                optional String from 'optionalfield'
-                InvoiceValue from 'Supplier Price'
+                InvoiceFields {
+                  InvoiceValue from 'Supplier Price'
+                }
               }
-            }
-          FDL
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'non-existent field' which does not exist/)
+          end
         end
 
-        example { expect(definition).to be_nil }
-        it { is_expected.to be_error }
-        it { is_expected.not_to be_success }
+        context 'with a column-based calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
 
-        it 'has the parse failure' do
-          expect(generator.error)
-            .to match(/Management charge references 'optionalfield' so it cannot be optional/)
+                ManagementCharge varies_by 'non-existent field' {
+                  'Lease Rental'     -> 0.5%
+                  'Other Re-charges' -> 0%
+                }
+
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  InvoiceValue from 'Supplier Price'
+                }
+              }
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'non-existent field' which does not exist/)
+          end
         end
       end
 
-      context 'with a column-based calculation' do
-        let(:source) do
-          <<~FDL
-            Framework RM5678 {
-              Name 'x'
+      context 'it references an optional field' do
+        context 'with a flat-rate calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
+                ManagementCharge 0.5% of 'optionalfield'
 
-              ManagementCharge varies_by 'Spend Code' {
-                'Lease Rental'                 -> 0.5%
-                'Fleet Management Fee'         -> 0.5%
-                'Damage'                       -> 0%
-                'Other Re-charges'             -> 0%
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  optional String from 'optionalfield'
+                  InvoiceValue from 'Supplier Price'
+                }
               }
+            FDL
+          end
 
-              Lots { '99' -> 'Fake' }
-
-              InvoiceFields {
-                optional PromotionCode from 'Spend Code'
-                InvoiceValue from 'Supplier Price'
-              }
-            }
-          FDL
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'optionalfield' so it cannot be optional/)
+          end
         end
 
-        example { expect(definition).to be_nil }
-        it { is_expected.to be_error }
-        it { is_expected.not_to be_success }
+        context 'with a column-based calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
 
-        it 'has the parse failure' do
-          expect(generator.error)
-            .to match(/Management charge references 'Spend Code' so it cannot be optional/)
+                ManagementCharge varies_by 'Spend Code' {
+                  'Lease Rental'                 -> 0.5%
+                  'Other Re-charges'             -> 0%
+                }
+
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  optional PromotionCode from 'Spend Code'
+                  InvoiceValue from 'Supplier Price'
+                }
+              }
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'Spend Code' so it cannot be optional/)
+          end
         end
       end
     end

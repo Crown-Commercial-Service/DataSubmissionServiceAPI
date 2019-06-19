@@ -14,7 +14,7 @@ class Framework
         ast = @ast
         transpiler = self
 
-        raise_when_management_field_optional(ast[:management_charge])
+        raise_when_management_field_invalid(ast[:management_charge])
 
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
@@ -83,12 +83,13 @@ class Framework
         end
       end
 
-      def raise_when_management_field_optional(info)
-        optional_found = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.find do |field_name|
-          ast.field_by_sheet_name(:invoice, field_name)&.optional?
-        end
+      def raise_when_management_field_invalid(info)
+        referenced_field_name = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.first(&:present?)
+        return if referenced_field_name.nil?
 
-        raise Transpiler::Error, "Management charge references '#{optional_found}' so it cannot be optional" if optional_found
+        field = ast.field_by_sheet_name(:invoice, referenced_field_name)
+        raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist" if field.nil?
+        raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
       end
     end
   end
