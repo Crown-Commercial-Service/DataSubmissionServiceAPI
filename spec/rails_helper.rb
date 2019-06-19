@@ -72,7 +72,9 @@ RSpec.configure do |config|
   end
 
   config.around(:each) do |example|
-    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com', AUTH0_DOMAIN: 'testdomain' do
+    pubkey = File.read(Rails.root.join('spec', 'fixtures', 'jwtRS256.key.pub'))
+
+    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com', AUTH0_DOMAIN: 'testdomain', AUTH0_JWT_PUBLIC_KEY: pubkey do
       example.run
     end
   end
