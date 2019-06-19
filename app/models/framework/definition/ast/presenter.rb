@@ -17,6 +17,10 @@ class Framework
           self.ast = ast
         end
 
+        def entry_types
+          %i[invoice contract].select { |fields_type| ast[:"#{fields_type}_fields"] }
+        end
+
         def field_defs(entry_type)
           fields_key = "#{entry_type}_fields".to_sym
           ast[fields_key]

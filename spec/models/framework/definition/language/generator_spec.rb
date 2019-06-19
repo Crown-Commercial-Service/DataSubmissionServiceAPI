@@ -459,6 +459,28 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'Dependent field validation on a non-existent field' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductDescription from 'Primary Specialism' depends_on 'Non-existent field' {
+                'Core' -> CoreSpecialisms
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql("'Primary Specialism' depends on 'Non-existent field', which does not exist")
+      end
+    end
+
     context 'Dependent field validation' do
       let(:source) do
         <<~FDL

@@ -14,7 +14,7 @@ class Framework
         ast = @ast
         transpiler = self
 
-        raise_when_management_field_invalid(ast[:management_charge])
+        AST::SemanticChecker.new(ast).run
 
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
@@ -53,7 +53,6 @@ class Framework
 
           ast.field_defs(entry_type).each do |field_def|
             field = AST::Field.new(field_def, ast.lookups)
-            raise Transpiler::Error, field.error if field.error
 
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
@@ -81,15 +80,6 @@ class Framework
             column:     info[:flat_rate][:column]
           )
         end
-      end
-
-      def raise_when_management_field_invalid(info)
-        referenced_field_name = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.first(&:present?)
-        return if referenced_field_name.nil?
-
-        field = ast.field_by_sheet_name(:invoice, referenced_field_name)
-        raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist" if field.nil?
-        raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
       end
     end
   end
