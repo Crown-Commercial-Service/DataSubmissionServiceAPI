@@ -177,4 +177,17 @@ RSpec.describe Task do
       expect(Submission.exists?(correction_submission_in_review.id)).to be false
     end
   end
+
+  describe '#set_due_on' do
+    it 'sets a default due on date from month and date if not set yet' do
+      stub_govuk_bank_holidays_request
+      task = FactoryBot.create(:task, due_on: nil, period_month: 1, period_year: 2019)
+      expect(task.due_on).to eq(Date.new(2019, 2, 7))
+    end
+
+    it "doesn't overwrite a set due_on" do
+      task = FactoryBot.create(:task, due_on: Date.new(2019, 3, 9), period_month: 1, period_year: 2019)
+      expect(task.due_on).to eq(Date.new(2019, 3, 9))
+    end
+  end
 end

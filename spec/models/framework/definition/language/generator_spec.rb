@@ -580,6 +580,30 @@ RSpec.describe Framework::Definition::Generator do
           expect(generator.error).to eql('InvoiceFields is missing an InvoiceValue field')
         end
       end
+      context 'There is a bad reference to a known field' do
+        let(:source) do
+          <<~FDL
+            Framework RM1234 {
+              Name 'x'
+              ManagementCharge 0%
+              Lots { '99' -> 'fake' }
+
+              InvoiceFields {
+                InvoiceValue from 'x'
+                MisspelledField from 'somwhere'
+              }
+            }
+          FDL
+        end
+
+        example { expect(definition).to be_nil }
+        it      { is_expected.not_to be_success }
+        it      { is_expected.to be_error }
+
+        it 'has the error' do
+          expect(generator.error).to eql("known field not found: 'MisspelledField'")
+        end
+      end
     end
 
     context 'our FDL isn\'t valid' do

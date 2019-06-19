@@ -28,9 +28,11 @@ gem 'rails_event_store'
 
 # Auth0
 gem 'auth0', require: false
+gem 'jwt'
 
 # Google Login
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 # Admin Frontend
 gem 'haml-rails'

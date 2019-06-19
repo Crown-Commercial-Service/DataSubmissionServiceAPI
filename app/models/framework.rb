@@ -18,6 +18,10 @@ class Framework < ApplicationRecord
 
   has_one_attached :template_file
 
+  def full_name
+    "#{short_name} #{name}"
+  end
+
   def definition
     @definition ||= Definition[short_name]
   end

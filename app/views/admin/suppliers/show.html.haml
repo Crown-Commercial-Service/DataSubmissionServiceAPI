@@ -32,6 +32,8 @@
         No tasks for
         = @supplier.name
 
+    = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
+
 .govuk-grid-row
   .govuk-grid-column-full
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
@@ -75,8 +77,7 @@
             - framework = agreement.framework
             %tr.govuk-table__row{:id => "framework-#{framework.id}" }
               %td.govuk-table__cell
-                = framework.short_name
-                = framework.name
+                = framework.full_name
               %td.govuk-table__cell
                 = agreement.active? ? 'Active' : 'Inactive'
               %td.govuk-table__cell
