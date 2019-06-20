@@ -36,7 +36,11 @@ class Framework
         end
 
         def error
-          "known field not found: '#{warehouse_name}'" if known? && DataWarehouse::KnownFields::ALL[warehouse_name].nil?
+          if known? && DataWarehouse::KnownFields::ALL[warehouse_name].nil?
+            "known field not found: '#{warehouse_name}'"
+          elsif additional? && lookups[lookup_name].nil? && PRIMITIVE_TYPES[source_type].nil?
+            "unknown type '#{lookup_name}' (neither primitive nor lookup) for #{warehouse_name}"
+          end
         end
 
         def sheet_name
@@ -119,6 +123,10 @@ class Framework
 
         def dependent_field
           field_def[:depends_on][:dependent_field]
+        end
+
+        def dependent_field_lookup_references
+          field_def[:depends_on][:values].values
         end
 
         def dependent_field_inclusion_values
