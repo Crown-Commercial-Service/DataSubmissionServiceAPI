@@ -28,7 +28,6 @@ gem 'rails_event_store'
 
 # Auth0
 gem 'auth0', require: false
-gem 'jwt'
 
 # Google Login
 gem 'omniauth-google-oauth2'
