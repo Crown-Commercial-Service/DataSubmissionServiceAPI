@@ -44,7 +44,7 @@ RSpec.describe '/v1' do
       submission = FactoryBot.create(:submission)
       file = FactoryBot.create(:submission_file, submission_id: submission.id, rows: 40)
 
-      get "/v1/submissions/#{submission.id}/files/#{file.id}", headers: auth_header(user)
+      get "/v1/submissions/#{submission.id}/files/#{file.id}", headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to have_http_status(:ok)
 
