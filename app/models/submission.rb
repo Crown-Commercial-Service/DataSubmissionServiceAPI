@@ -93,6 +93,14 @@ class Submission < ApplicationRecord
     Hash[sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
   end
 
+  def file_key
+    files.first&.file_key
+  end
+
+  def filename
+    files.first&.filename
+  end
+
   private
 
   def enqueue_reversal_invoice_creation_job(user)

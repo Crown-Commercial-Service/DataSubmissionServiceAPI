@@ -32,6 +32,8 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
 
   attribute :submitted_at
 
+  attributes :file_key, :filename
+
   private
 
   def submission

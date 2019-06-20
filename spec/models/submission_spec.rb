@@ -235,4 +235,36 @@ RSpec.describe Submission do
       )
     end
   end
+
+  describe '#file_key' do
+    context 'when file exists' do
+      it 'returns the file key' do
+        submission = FactoryBot.create(:completed_submission)
+        expect(submission.file_key).to eq(submission.files.first.file.attachment.key)
+      end
+    end
+
+    context 'when file does not exist' do
+      it 'returns nil' do
+        submission = FactoryBot.create(:no_business_submission)
+        expect(submission.file_key).to eq(nil)
+      end
+    end
+  end
+
+  describe '#filename' do
+    context 'when file exists' do
+      it 'returns the file name' do
+        submission = FactoryBot.create(:completed_submission)
+        expect(submission.filename).to eq(submission.files.first.file.attachment.filename.to_s)
+      end
+    end
+
+    context 'when file does not exist' do
+      it 'returns nil' do
+        submission = FactoryBot.create(:no_business_submission)
+        expect(submission.filename).to eq(nil)
+      end
+    end
+  end
 end
