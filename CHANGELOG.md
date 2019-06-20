@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-80] - 2019-06-20
+
+- Revert JWT for API authentication. Fixes infinite redirect.
+
 ## [release-79] - 2019-06-19
 
 - Fix/known field missing should be transpiler error
@@ -543,6 +547,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-80]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-79...release-80
 [release-79]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-78...release-79
 [release-78]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-77...release-78
 [release-77]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-76...release-77
