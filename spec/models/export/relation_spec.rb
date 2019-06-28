@@ -116,11 +116,12 @@ RSpec.describe Export::Relation do
   context 'given the Export::Invoices::Extract.all_relevant Relation' do
     let(:relation) { Export::Invoices::Extract.all_relevant }
 
-    let!(:complete_submission) do
-      create :submission,
-             aasm_state: 'completed',
-             framework: create(:framework, short_name: 'RM3786')
+    let(:framework) do
+      source = File.read(Rails.root.join('spec', 'fixtures', 'RM3786v1.fdl'))
+      create(:framework, short_name: 'RM3786v1', definition_source: source)
     end
+
+    let!(:complete_submission) { create :submission, aasm_state: 'completed', framework: framework }
 
     let!(:invoice) do
       # Explicit times are necessary because Export::Invoices::Extract.all_relevant
@@ -189,11 +190,12 @@ RSpec.describe Export::Relation do
   context 'given the Export::Contracts::Extract.all_relevant Relation' do
     let(:relation) { Export::Contracts::Extract.all_relevant }
 
-    let!(:complete_submission) do
-      create :submission,
-             aasm_state: 'completed',
-             framework: create(:framework, short_name: 'RM3786')
+    let(:framework) do
+      source = File.read(Rails.root.join('spec', 'fixtures', 'RM3786v1.fdl'))
+      create(:framework, short_name: 'RM3786v1', definition_source: source)
     end
+
+    let!(:complete_submission) { create :submission, aasm_state: 'completed', framework: framework }
 
     let!(:contract) do
       # Explicit times are necessary because Export::Contracts::Extract.all_relevant
