@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-81] - 2019-07-01
+
+- Use GPaaS-compatible method for user to download their submissions
+- FDL: Extra error reporting when creating new frameworks
+- Update RM3786 and RM6060 frameworks
+
 ## [release-80] - 2019-06-20
 
 - Revert JWT for API authentication. Fixes infinite redirect.
@@ -547,6 +553,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-81]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-80...release-81
 [release-80]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-79...release-80
 [release-79]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-78...release-79
 [release-78]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-77...release-78
