@@ -31,6 +31,7 @@ RSpec.describe User, type: :model do
 
   describe '#create_with_auth0' do
     let(:user) { FactoryBot.create(:user, :inactive) }
+    let!(:auth0_get_users_call) { stub_auth0_get_users_request(user.email) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
 
     before { stub_auth0_token_request }
@@ -38,8 +39,21 @@ RSpec.describe User, type: :model do
     it 'submits to Auth0 and updates auth_id' do
       user.create_with_auth0
 
+      expect(auth0_get_users_call).to have_been_requested
       expect(auth0_create_call).to have_been_requested
       expect(user.auth_id).to eq("auth0|#{user.email}")
+    end
+
+    context 'with a user whose email address already exists in Auth0' do
+      let!(:auth0_get_users_call) { stub_auth0_get_users_request(user.email, user_already_exists: true) }
+
+      it 'updates auth_id from the current Auth0 user' do
+        user.create_with_auth0
+
+        expect(auth0_get_users_call).to have_been_requested
+        expect(auth0_create_call).not_to have_been_requested
+        expect(user.auth_id).to eq("auth0|#{user.email}")
+      end
     end
   end
 

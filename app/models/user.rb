@@ -33,6 +33,7 @@ class User < ApplicationRecord
 
   def create_with_auth0
     return if active?
+    return if user_already_exists_in_auth0?
 
     auth0_response = auth0_client.create_user(
       name,
@@ -64,6 +65,16 @@ class User < ApplicationRecord
   end
 
   private
+
+  def user_already_exists_in_auth0?
+    auth0_response = auth0_client.get_users(q: "email:#{email}")
+    return false if auth0_response.empty?
+
+    user_id = auth0_response[0]['user_id']
+    update auth_id: user_id
+
+    true
+  end
 
   def auth0_client
     @auth0_client ||= Auth0Api.new.client
