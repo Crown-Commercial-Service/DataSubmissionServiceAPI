@@ -459,7 +459,29 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
-    context 'Dependent field validation' do
+    context 'Dependent field validation on a non-existent field' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductDescription from 'Primary Specialism' depends_on 'Non-existent field' {
+                'Core' -> CoreSpecialisms
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql("'Primary Specialism' depends on 'Non-existent field', which does not exist")
+      end
+    end
+
+    context 'Valid depends_on fields' do
       let(:source) do
         <<~FDL
           Framework RM3786 {
@@ -469,9 +491,9 @@ RSpec.describe Framework::Definition::Generator do
             InvoiceFields {
               ProductGroup from 'Service Type'
               ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
-                'Core'     -> CoreSpecialisms
-                'Non-core' -> NonCoreSpecialisms
-                'Mixture'  -> PrimarySpecialism
+                'Core'     -> SomeLookup
+                'Non-core' -> SomeOtherLookup
+                'Mixture'  -> SomeCombinationOfLookups
               }
               InvoiceValue from 'Supplier Price'
               ProductClass from 'Product Class'
@@ -499,6 +521,10 @@ RSpec.describe Framework::Definition::Generator do
               SomeOtherLookup [
                 'There'
               ]
+              SomeCombinationOfLookups [
+                SomeLookup
+                SomeOtherLookup
+              ]
             }
           }
         FDL
@@ -513,7 +539,7 @@ RSpec.describe Framework::Definition::Generator do
               parent: 'Service Type',
               in: {
                 'Service Type' => {
-                  'core' => nil, 'non-core' => nil, 'mixture' => nil
+                  'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
                 }
               }
             }
@@ -532,6 +558,29 @@ RSpec.describe Framework::Definition::Generator do
             }
           )
         }
+      end
+    end
+
+    context 'invalid depends_on fields' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductGroup from 'Service Type'
+              ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
+                'Oh no' -> ThisLookupDoesNotExist
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql("'ThisLookupDoesNotExist' is not a valid lookup reference")
       end
     end
 
@@ -622,64 +671,127 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
-    context 'management charge references an optional field' do
-      context 'with a flat-rate calculation' do
-        let(:source) do
-          <<~FDL
-            Framework RM5678 {
-              Name 'x'
-              ManagementCharge 0.5% of 'optionalfield'
+    context 'an unknown type is used on an additional field' do
+      let(:source) do
+        <<~FDL
+          Framework RM1234 {
+            Name 'x'
+            ManagementCharge 0%
+            Lots { '1' -> 'a' }
 
-              Lots { '99' -> 'Fake' }
-
-              InvoiceFields {
-                optional String from 'optionalfield'
-                InvoiceValue from 'Supplier Price'
-              }
+            InvoiceFields {
+              InvoiceValue from 'x'
+              Dcemial Additional1 from 'somewhere'
             }
-          FDL
+          }
+        FDL
+      end
+
+      it 'tells us an unknown type has been used' do
+        expect(generator.error).to eql("unknown type 'Dcemial' (neither primitive nor lookup) for Additional1")
+      end
+    end
+
+    context 'management charge reference is invalid' do
+      context 'it references a non-existent field' do
+        context 'with a flat-rate calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
+                ManagementCharge 0.5% of 'non-existent field'
+
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  InvoiceValue from 'Supplier Price'
+                }
+              }
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'non-existent field' which does not exist/)
+          end
         end
 
-        example { expect(definition).to be_nil }
-        it { is_expected.to be_error }
-        it { is_expected.not_to be_success }
+        context 'with a column-based calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
 
-        it 'has the parse failure' do
-          expect(generator.error)
-            .to match(/Management charge references 'optionalfield' so it cannot be optional/)
+                ManagementCharge varies_by 'non-existent field' {
+                  'Lease Rental'     -> 0.5%
+                  'Other Re-charges' -> 0%
+                }
+
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  InvoiceValue from 'Supplier Price'
+                }
+              }
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'non-existent field' which does not exist/)
+          end
         end
       end
 
-      context 'with a column-based calculation' do
-        let(:source) do
-          <<~FDL
-            Framework RM5678 {
-              Name 'x'
+      context 'it references an optional field' do
+        context 'with a flat-rate calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
+                ManagementCharge 0.5% of 'optionalfield'
 
-              ManagementCharge varies_by 'Spend Code' {
-                'Lease Rental'                 -> 0.5%
-                'Fleet Management Fee'         -> 0.5%
-                'Damage'                       -> 0%
-                'Other Re-charges'             -> 0%
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  optional String from 'optionalfield'
+                  InvoiceValue from 'Supplier Price'
+                }
               }
+            FDL
+          end
 
-              Lots { '99' -> 'Fake' }
-
-              InvoiceFields {
-                optional PromotionCode from 'Spend Code'
-                InvoiceValue from 'Supplier Price'
-              }
-            }
-          FDL
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'optionalfield' so it cannot be optional/)
+          end
         end
 
-        example { expect(definition).to be_nil }
-        it { is_expected.to be_error }
-        it { is_expected.not_to be_success }
+        context 'with a column-based calculation' do
+          let(:source) do
+            <<~FDL
+              Framework RM5678 {
+                Name 'x'
 
-        it 'has the parse failure' do
-          expect(generator.error)
-            .to match(/Management charge references 'Spend Code' so it cannot be optional/)
+                ManagementCharge varies_by 'Spend Code' {
+                  'Lease Rental'                 -> 0.5%
+                  'Other Re-charges'             -> 0%
+                }
+
+                Lots { '99' -> 'Fake' }
+
+                InvoiceFields {
+                  optional PromotionCode from 'Spend Code'
+                  InvoiceValue from 'Supplier Price'
+                }
+              }
+            FDL
+          end
+
+          it 'has the parse failure' do
+            expect(generator.error)
+              .to match(/Management charge references 'Spend Code' so it cannot be optional/)
+          end
         end
       end
     end

@@ -14,7 +14,7 @@ class Framework
         ast = @ast
         transpiler = self
 
-        raise_when_management_field_optional(ast[:management_charge])
+        AST::SemanticChecker.new(ast).run
 
         Class.new(Framework::Definition::Base) do
           framework_name       ast[:framework_name]
@@ -53,7 +53,6 @@ class Framework
 
           ast.field_defs(entry_type).each do |field_def|
             field = AST::Field.new(field_def, ast.lookups)
-            raise Transpiler::Error, field.error if field.error
 
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
@@ -81,14 +80,6 @@ class Framework
             column:     info[:flat_rate][:column]
           )
         end
-      end
-
-      def raise_when_management_field_optional(info)
-        optional_found = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.find do |field_name|
-          ast.field_by_sheet_name(:invoice, field_name)&.optional?
-        end
-
-        raise Transpiler::Error, "Management charge references '#{optional_found}' so it cannot be optional" if optional_found
       end
     end
   end

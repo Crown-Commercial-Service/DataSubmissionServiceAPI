@@ -1,7 +1,15 @@
 Framework RM3786 {
   Name 'General Legal Advice Services'
-
-  ManagementCharge 1.5%
+  ManagementCharge varies_by 'Pricing Mechanism' {
+    'Time and Material' -> 1.5%
+    'Alternative Fee Arrangement' -> 1.5%
+    'Capped Fee' -> 1.5%
+    'Fixed' -> 1.5%
+    'Initial Consultation' -> 1.5%
+    'Secondment' -> 1.5%
+    'Free Legal Advice' -> 0%
+    'Value Added Services' -> 0%
+    }
 
   Lots {
     '1' -> 'General Legal Services Tier 1'
@@ -9,74 +17,95 @@ Framework RM3786 {
   }
 
   InvoiceFields {
-    LotNumber from 'Tier Number'
-    optional SupplierReferenceNumber from 'Supplier Reference Number'
-    CustomerURN from 'Customer URN'
+    SupplierReferenceNumber from 'Supplier Reference Number'
     CustomerName from 'Customer Organisation Name'
-    optional CustomerPostCode from 'Customer Post Code'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    InvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceNumber from 'Customer Invoice/Credit Note Number'
+    LotNumber from 'Tier Number'
     CustomerReferenceNumber from 'Matter Name'
-    InvoiceDate from 'Customer Invoice Date'
-    InvoiceNumber from 'Customer Invoice Number'
     ProductGroup from 'Service Type'
-    ProductDescription from 'Primary Specialism' depends_on 'Service Type' {
-      'Core'     -> CoreSpecialisms
-      'Non-core' -> NonCoreSpecialisms
-      'Mixture'  -> PrimarySpecialism
+    ProductClass from 'Specialism' depends_on 'Service Type' {
+      'Mandatory' -> MandatorySpecialism
+      'Optional' -> OptionalSpecialism
+      'Value Added Service' -> ValueAddedService
     }
-    ProductSubClass from 'Practitioner Grade'
-    PricingMechanism Additional5 from 'Pricing Mechanism'
-    UNSPSC from 'UNSPSC'
-    UnitType from 'Unit of Purchase'
-    UnitPrice from 'Price per Unit'
+    PromotionCode from 'Pricing Mechanism'
+    ProductSubClass from 'Practitioner Grade' depends_on 'Pricing Mechanism' {
+    'Time and Material' -> Grade
+    'Alternative Fee Arrangement' -> AlternateGrade
+    'Capped Fee' -> Grade
+    'Fixed' -> FixedGrade
+    'Initial Consultation' -> InitialGrade
+    'Secondment' -> Grade
+    'Free Legal Advice' -> Grade
+    'Value Added Services' -> AlternateGrade
+    }
+    UnitType from 'Unit of Measure' depends_on 'Pricing Mechanism' {
+    'Time and Material' -> Unit
+    'Alternative Fee Arrangement' -> AlternateUnit
+    'Capped Fee' -> Unit
+    'Fixed' -> FixedUnit
+    'Initial Consultation' -> InitialUnit
+    'Secondment' -> Unit
+    'Free Legal Advice' -> Unit
+    'Value Added Services' -> AlternateUnit
+    }
     UnitQuantity from 'Quantity'
+    UnitPrice from 'Price per Unit'
     InvoiceValue from 'Total Cost (ex VAT)'
-    VATCharged from 'VAT Amount Charged'
-    Decimal Additional1 from 'Pro-Bono Price per Unit'
+    Expenses from 'Expenses / Disbursements'
     Decimal Additional2 from 'Pro-Bono Quantity'
+    Decimal Additional1 from 'Pro-Bono Price per Unit'
     Decimal Additional3 from 'Pro-Bono Total Value'
-    String Additional4 from 'Sub-Contractor Name (If Applicable)'
+    Consortia Additional5 from 'Consortium Member Name'
+    String(..255) Additional4 from 'Sub-Contractor Name'
+
   }
 
   ContractFields {
-    LotNumber from 'Tier Number'
     SupplierReferenceNumber from 'Supplier Reference Number'
-    CustomerURN from 'Customer URN'
     CustomerName from 'Customer Organisation Name'
-    optional CustomerPostCode from 'Customer Post Code'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    LotNumber from 'Tier Number'
     CustomerReferenceNumber from 'Matter Name'
     optional ProductDescription from 'Matter Description'
-    optional String Additional1 from 'Sub-Contractor Name'
-    optional ContractStartDate from 'Contract Start Date'
-    optional ContractEndDate from 'Contract End Date'
-    optional String Additional2 from 'Expression Of Interest Used (Y/N)'
-    optional String Additional6 from 'Customer Response Time'
-    optional CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
-    optional ContractAwardChannel from 'Award Procedure'
-    optional ContractValue from 'Expected Total Order Value'
-    optional YesNo Additional4 from 'Pro-bono work included? (Y/N)'
-    optional String Additional5 from 'Expected Pro-Bono value'
+    CallOffManagingEntity Additional3 from 'Call Off Managing Entity'
+    ContractAwardChannel from 'Award Procedure'
+    ContractStartDate from 'Contract Start Date'
+    ContractEndDate from 'Contract End Date'
+    ContractValue from 'Total Contract Value'
+    YesNo Additional2 from 'Expression Of Interest Used (Y/N)'
+    optional String(..15) Additional6 from 'Customer Response Time'
+
   }
 
   Lookups {
+    CallOffManagingEntity [
+      'CCS'
+      'Customer'
+      '3rd Party Contracting Partner'
+    ]
+
     ContractAwardChannel [
       'Further Competition'
       'Direct Award'
     ]
 
     ProductGroup [
-      'Core'
-      'Non-core'
-      'Mixture'
+      'Mandatory'
+      'Optional'
+      'Value Added Service'
     ]
 
-    CoreSpecialisms [
-      'Public Law'
-      'Contracts'
+    MandatorySpecialism [
       'Competition Law'
       'Construction Law'
+      'Contracts'
       'Corporate Law'
       'Dispute Resolution'
       'Employment Law'
+      'Environmental Law'
       'EU Law'
       'Information Law including Data Protection Law'
       'Information Technology Law'
@@ -88,61 +117,101 @@ Framework RM3786 {
       'Pensions Law'
       'Planning Law'
       'Projects/PFI/PPP'
+      'Public Law'
       'Public Procurement Law'
       'Real Estate and Real Estate Finance'
       'Restructuring/Insolvency'
       'Tax Law'
-      'Environmental Law'
     ]
 
-    NonCoreSpecialisms [
-      'Education Law'
+    OptionalSpecialism [
       'Child Law'
+      'Education Law'
       'Energy and Natural Resources'
       'Food, Rural and Environmental Affairs'
       'Franchise Law'
       'Health and Healthcare'
       'Health and Safety'
+      'Law of International Trade, Investment and Regulation'
       'Life Sciences'
       'Public Inquiries and Inquests'
-      'Telecommunications'
-      'Law of International Trade, Investment and Regulation'
       'Public International Law'
+      'Telecommunications'
     ]
 
-    PrimarySpecialism [
-      CoreSpecialisms
-      NonCoreSpecialisms
+    ValueAddedService [
+      'N/A'
     ]
 
-    ProductSubClass [
-      'Partner'
-      'Legal Director/Senior Solicitor'
-      'Senior Associate'
-      'Junior Solicitor'
-      'Trainee / Paralegal'
-      'Other Grade / Mix'
-    ]
-
-    PricingMechanism [
+    PromotionCode [
       'Time and Material'
+      'Alternative Fee Arrangement'
+      'Capped Fee'
       'Fixed'
-      'Risk-Reward'
-      'Gain-Share'
-      'Pro-Bono'
+      'Initial Consultation'
+      'Secondment'
+      'Free Legal Advice'
+      'Value Added Services'
     ]
 
-    UnitType [
+    Grade [
+      'Partner'
+      'Senior Solicitor'
+      'Solicitor'
+      'Junior Solicitor'
+      'Paralegal / Trainee Solicitor'
+      'Other Grade'
+    ]
+
+    AlternateGrade [
+      'Partner'
+      'Senior Solicitor'
+      'Solicitor'
+      'Junior Solicitor'
+      'Paralegal / Trainee Solicitor'
+      'Other Grade'
+      'N/A'
+    ]
+
+    InitialGrade [
+      'Partner'
+    ]
+
+    FixedGrade [
+      'N/A'
+    ]
+
+    Unit [
       'Hourly'
       'Daily'
       'Monthly'
       'Fixed Price'
     ]
 
-    CallOffManagingEntity [
-      'CCS'
-      'Central Government Department'
-      '3rd Party Contracting Partner'
+    AlternateUnit [
+      'Hourly'
+      'Daily'
+      'Monthly'
+      'Fixed Price'
+      'Percentage'
+    ]
+
+    InitialUnit [
+      'Hourly'
+    ]
+
+    FixedUnit [
+      'Fixed Price'
+    ]
+
+    Consortia [
+      'PricewaterhouseCoopers LLP'
+      'Sharpe Pritchard LLP'
+      'Howes Percival LLP'
+      'Holman Fenwick Willan LLP'
+      'Bevan Brittan LLP'
+      'Shoosmiths LLP'
+      'N/A'
     ]
 
   }
