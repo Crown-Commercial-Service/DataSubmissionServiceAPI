@@ -21,8 +21,6 @@ require 'csv'
 #
 #   Import::Users.new('/tmp/new_users.csv').run
 #
-# Note: when running this on a docker container you will need to copy the CSV
-# file into the container itself. Use the `docker cp` command to do this.
 module Import
   class Users
     class InvalidSalesforceId < StandardError; end
