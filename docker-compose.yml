@@ -23,6 +23,8 @@ services:
     container_name: "data-submission-service-api_web"
     networks:
       public:
+        aliases:
+          - api
       private:
   worker:
     build:
