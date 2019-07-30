@@ -21,6 +21,9 @@ services:
       - .:/srv/dss-api:cached
     command: bash -c "rm -f tmp/pids/server.pid && rails s"
     container_name: "data-submission-service-api_web"
+    networks:
+      public:
+      private:
   worker:
     build:
       context: .
@@ -41,16 +44,27 @@ services:
       - .:/srv/dss-api:cached
     command: bash -c "bundle exec sidekiq"
     container_name: "data-submission-service-api_worker"
+    networks:
+      private:
   db:
     image: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data/:cached
     restart: on-failure
     container_name: "data-submission-service-api_db"
+    networks:
+      private:
   redis:
     image: redis
     container_name: "data-submission-service-api_redis"
     expose:
       - 6379
+    networks:
+      private:
+
 volumes:
   pg_data: {}
+
+networks:
+  public:
+  private:
