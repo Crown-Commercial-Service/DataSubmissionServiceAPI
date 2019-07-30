@@ -1,3 +1,5 @@
+#!/bin/sh
+
 rake db:create
 
 if rake db:migrate:status &> /dev/null; then
