@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -qq -y build-essential libpq-dev nodejs lo
 RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
 ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
 
-RUN YARN_VERSION=1.9.4 \
+RUN YARN_VERSION=1.17.3 \
   set -ex \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
   && mkdir -p /opt/yarn \
