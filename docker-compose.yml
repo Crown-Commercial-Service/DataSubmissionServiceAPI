@@ -49,6 +49,7 @@ services:
     container_name: "data-submission-service-api_db"
   redis:
     image: redis
+    container_name: "data-submission-service-api_redis"
     expose:
       - 6379
 volumes:
