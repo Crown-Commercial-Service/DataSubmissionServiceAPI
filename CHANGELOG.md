@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-82] - 2019-07-31
+
+- Fix sanitisation of FDL that was causing `.` to be replaced with `_` in
+  framework names
+- Use `API_AUTH0` environment variable rather than `AUTH0`
+
 ## [release-81] - 2019-07-01
 
 - Use GPaaS-compatible method for user to download their submissions
@@ -553,6 +559,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-82]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-81...release-82
 [release-81]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-80...release-81
 [release-80]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-79...release-80
 [release-79]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-78...release-79
