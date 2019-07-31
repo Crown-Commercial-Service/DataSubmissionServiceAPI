@@ -1,0 +1,12 @@
+Framework RM999.5 {
+  Name 'Hi'
+  ManagementCharge 0.5%
+
+  Lots {
+    '1' -> 'Fake'
+  }
+
+  InvoiceFields {
+    InvoiceValue from 'Somewhere'
+  }
+}

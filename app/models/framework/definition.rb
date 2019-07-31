@@ -14,10 +14,7 @@ class Framework
           end
       end
 
-      def [](framework_short_name)
-        sanitized_framework_short_name = framework_short_name.tr('/.', '_')
-        cache[sanitized_framework_short_name]
-      end
+      delegate :[], to: :cache
     end
 
     ##

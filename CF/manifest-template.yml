@@ -12,7 +12,7 @@ applications:
       - ingest-bucket-CF_SPACE
       - ADMIN_EMAILS
       - API_SECRETBASE
-      - AUTH0
+      - API_AUTH0
       - GOOGLE_CLIENT
       - ROLLBAR
       - SIDEKIQ
