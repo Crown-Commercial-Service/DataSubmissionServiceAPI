@@ -35,6 +35,7 @@ class SyncUsersWithAuth0
         Rails.logger.info("Would have updated (#{user.email}) to (#{auth_id}).")
       else
         user.update(auth_id: auth_id)
+        Rails.logger.info("Updated (#{user.email}) to (#{auth_id}).")
       end
     end
   end

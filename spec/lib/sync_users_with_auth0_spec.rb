@@ -18,6 +18,9 @@ RSpec.describe SyncUsersWithAuth0 do
         user_already_exists: true
       )
 
+      expect(Rails.logger).to receive(:info)
+        .with("Updated (#{user.email}) to (auth0|the-new-value).")
+
       described_class.run!
 
       expect(user.reload.auth_id).to eq('auth0|the-new-value')
