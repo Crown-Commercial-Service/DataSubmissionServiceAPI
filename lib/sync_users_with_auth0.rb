@@ -7,7 +7,11 @@ class SyncUsersWithAuth0
         delay_request unless Rails.env.test?
 
         response = auth0_client.get_users(q: "email:#{user.email}")
-        return Rails.logger.info("Email: #{user.email} could not be found in Auth0") if response.empty?
+
+        if response.empty?
+          Rails.logger.info("Email: #{user.email} could not be found in Auth0")
+          next
+        end
 
         update_user(user: user, response: response, dry: dry)
       end

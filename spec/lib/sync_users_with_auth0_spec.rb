@@ -23,6 +23,29 @@ RSpec.describe SyncUsersWithAuth0 do
       expect(user.reload.auth_id).to eq('auth0|the-new-value')
     end
 
+    context 'when there is more than 1 active user' do
+      it 'continues if the first one is missing' do
+        missing_user = create(:user)
+        existing_user = create(:user)
+
+        stub_auth0_get_users_request(
+          email: missing_user.email,
+          auth_id: 'auth0|any-value',
+          user_already_exists: false
+        )
+
+        stub_auth0_get_users_request(
+          email: existing_user.email,
+          auth_id: 'auth0|a-new-value',
+          user_already_exists: true
+        )
+
+        described_class.run!
+
+        expect(existing_user.reload.auth_id).to eq('auth0|a-new-value')
+      end
+    end
+
     context 'when in production' do
       before(:each) do
         allow(Rails).to receive(:env)
