@@ -55,12 +55,28 @@ RSpec.describe SyncUsersWithAuth0 do
 
         described_class.run!
 
-        expect(user.changed?).to eq(false)
+        expect(user_that_only_exists_in_the_api.changed?).to eq(false)
       end
     end
 
     context 'when called with the dry-run true' do
       it 'does not perform the update, but logs that it would have tried' do
+        known_out_of_sync_user_email = 'email@example.com'
+        user = create(:user, email: known_out_of_sync_user_email, auth_id: 'auth0|an-old-value')
+
+        stub_auth0_get_users_request(
+          email: known_out_of_sync_user_email,
+          auth_id: 'auth0|the-new-value',
+          user_already_exists: true
+        )
+
+        expect(Rails.logger).to receive(:info)
+          .with("Would have updated (#{known_out_of_sync_user_email}) to (auth0|the-new-value).")
+
+        described_class.run!(dry: true)
+
+        expect(user.changed?).to eq(false)
+        expect(user.reload.auth_id).to eq('auth0|an-old-value')
       end
     end
   end
