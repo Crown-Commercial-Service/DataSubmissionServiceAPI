@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'sync_users_with_auth0'
+require 'auth0'
 
 RSpec.describe SyncUsersWithAuth0 do
   before(:each) do
@@ -20,6 +21,48 @@ RSpec.describe SyncUsersWithAuth0 do
       described_class.run!
 
       expect(user.reload.auth_id).to eq('auth0|the-new-value')
+    end
+
+    context 'when in production' do
+      before(:each) do
+        allow(Rails).to receive(:env)
+          .and_return(ActiveSupport::StringInquirer.new('production'))
+      end
+
+      it 'sleeps to prevent too much load on the auth0 API' do
+        user = create(:user)
+
+        stub_auth0_get_users_request(
+          email: user.email,
+          auth_id: 'auth0|any-value',
+          user_already_exists: true
+        )
+
+        expect(described_class).to receive(:delay_request)
+
+        described_class.run!
+      end
+    end
+
+    context 'when in test' do
+      before(:each) do
+        allow(Rails).to receive(:env)
+          .and_return(ActiveSupport::StringInquirer.new('test'))
+      end
+
+      it 'does not call sleep' do
+        user = create(:user)
+
+        stub_auth0_get_users_request(
+          email: user.email,
+          auth_id: 'auth0|any-value',
+          user_already_exists: true
+        )
+
+        expect(described_class).not_to receive(:delay_request)
+
+        described_class.run!
+      end
     end
 
     context 'when the auth_id matches' do

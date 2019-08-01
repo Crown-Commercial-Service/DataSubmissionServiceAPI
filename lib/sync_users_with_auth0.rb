@@ -1,7 +1,11 @@
+require 'auth0'
+
 class SyncUsersWithAuth0
   def self.run!(dry: false)
     client = Auth0Api.new.client
     User.active.each do |user|
+      delay_request unless Rails.env.test?
+
       response = client.get_users(q: "email:#{user.email}")
       return Rails.logger.info("Email: #{user.email} could not be found in Auth0") if response.empty?
 
@@ -15,5 +19,9 @@ class SyncUsersWithAuth0
         end
       end
     end
+  end
+
+  def self.delay_request
+    sleep 0.1
   end
 end
