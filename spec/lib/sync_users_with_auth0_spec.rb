@@ -40,8 +40,23 @@ RSpec.describe SyncUsersWithAuth0 do
       end
     end
 
-    context 'when the user email cannot be found' do
-      it 'logs a warning to the developer'
+    context 'when the user email cannot be found in auth0' do
+      it 'logs a warning to the developer' do
+        user_that_only_exists_in_the_api = create(:user)
+
+        stub_auth0_get_users_request(
+          email: user_that_only_exists_in_the_api.email,
+          auth_id: user_that_only_exists_in_the_api.auth_id,
+          user_already_exists: false
+        )
+
+        expect(Rails.logger).to receive(:info)
+          .with("Email: #{user_that_only_exists_in_the_api.email} could not be found in Auth0")
+
+        described_class.run!
+
+        expect(user.changed?).to eq(false)
+      end
     end
 
     context 'when called with the dry-run true' do
