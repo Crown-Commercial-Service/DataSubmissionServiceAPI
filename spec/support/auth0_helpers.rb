@@ -20,4 +20,16 @@ module Auth0Helpers
       .with(body: hash_including(email: email))
       .to_return(status: 500, body: '')
   end
+
+  def stub_auth0_get_users_request(email:, auth_id:, user_already_exists: false)
+    stubbed_response = if user_already_exists
+                         [{ email: email, user_id: auth_id }]
+                       else
+                         []
+                       end
+
+    stub_request(:get, 'https://testdomain/api/v2/users')
+      .with(query: hash_including(q: "email:#{email}"))
+      .to_return(status: 200, body: stubbed_response.to_json)
+  end
 end
