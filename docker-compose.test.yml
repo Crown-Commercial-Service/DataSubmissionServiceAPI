@@ -14,6 +14,7 @@ services:
       - docker-compose.env
     volumes:
       - .:/srv/dss-api:cached
+      - node_modules:/srv/dss-api/node_modules:cached
     depends_on:
       - db-test
     command: ["bundle", "exec", "./bin/dsetup && spring server"]
@@ -36,3 +37,4 @@ networks:
 
 volumes:
   pg_test_data: {}
+  node_modules:
