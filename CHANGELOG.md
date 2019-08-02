@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-83] - 2019-08-02
+
+- fix: A tool to allow us to resynchronise user details between the API's User table and the canonical source within Auth0, this will allow the recently onboarded users (added directly to auth0) to sign into the frontend and see their tasks
+- chore: Docker uses the latest version of Yarn and commits `codemirror` to the lock file
+- chore: when running as a container this application can be connected to by the frontend for data
+
 ## [release-82] - 2019-07-31
 
 - Fix sanitisation of FDL that was causing `.` to be replaced with `_` in
@@ -559,6 +565,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-83]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-82...release-83
 [release-82]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-81...release-82
 [release-81]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-80...release-81
 [release-80]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-79...release-80
