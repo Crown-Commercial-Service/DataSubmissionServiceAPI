@@ -25,11 +25,9 @@ class Admin::UsersController < AdminController
 
   def edit
     @user = User.find(params[:id])
-    @user.create_with_auth0
-  rescue Auth0::Exception => e
-    flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
-    Rails.logger.error("Error adding user #{@user.email} to Auth0 during User#edit, message: #{e.message}")
-  ensure
+    result = ReactivateUser.new(user: @user).call
+    flash[:alert] = I18n.t('error_adding_user_to_auth0') if result.failure?
+
     redirect_to admin_user_path(@user)
   end
 
