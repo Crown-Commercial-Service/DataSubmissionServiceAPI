@@ -7,6 +7,7 @@ RSpec.describe Import::Users::Row do
     let(:salesforce_id) { 'SALESFORCE123' }
 
     let!(:matching_supplier) { FactoryBot.create(:supplier, salesforce_id: salesforce_id) }
+    let!(:auth0_check_exists_call) { stub_auth0_get_users_request(email: email) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(email) }
 
     let(:row) { Import::Users::Row.new(email: email, name: name, supplier_salesforce_id: salesforce_id) }

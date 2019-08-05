@@ -22,7 +22,9 @@ RSpec.describe Import::Users do
     let(:importer) { Import::Users.new(csv_path, wait_time: 0, logger: Logger.new('/dev/null')) }
 
     before do
+      stub_auth0_get_users_request(email: jamila_email)
       stub_auth0_create_user_request(jamila_email)
+      stub_auth0_get_users_request(email: seema_email)
       stub_auth0_create_user_request(seema_email)
       stub_auth0_token_request
     end

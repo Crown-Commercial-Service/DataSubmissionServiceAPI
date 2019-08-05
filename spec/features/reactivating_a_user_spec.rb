@@ -6,6 +6,7 @@ RSpec.feature 'Reactivating a user' do
   before do
     allow(Rails.logger).to receive(:error)
     stub_auth0_token_request
+    stub_auth0_get_users_request(email: user.email)
     sign_in_as_admin
   end
 
