@@ -15,7 +15,9 @@ class Admin::UsersController < AdminController
   def create
     @user = User.new(user_params)
     if @user.valid?
-      create_user
+      result = CreateUser.new(user: @user).call
+      flash[:alert] = I18n.t('error_adding_user_to_auth0') if result.failure?
+
       return redirect_to admin_user_path(@user) if @user.persisted?
     end
     render action: :new
@@ -47,19 +49,6 @@ class Admin::UsersController < AdminController
   end
 
   private
-
-  def create_user
-    User.transaction do
-      @user.save
-      begin
-        @user.create_with_auth0
-      rescue Auth0::Exception => e
-        flash[:alert] = 'There was an error adding the user to Auth0. Please try again.'
-        Rails.logger.error("Error adding user #{@user.email} to Auth0 during User#create, message: #{e.message}")
-        raise ActiveRecord::Rollback
-      end
-    end
-  end
 
   def user_params
     params.require(:user).permit(:name, :email)
