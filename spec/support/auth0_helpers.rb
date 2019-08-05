@@ -21,7 +21,7 @@ module Auth0Helpers
       .to_return(status: 500, body: '')
   end
 
-  def stub_auth0_get_users_request(email:, auth_id:, user_already_exists: false)
+  def stub_auth0_get_users_request(email:, auth_id: 'auth|123', user_already_exists: false)
     stubbed_response = if user_already_exists
                          [{ email: email, user_id: auth_id }]
                        else
