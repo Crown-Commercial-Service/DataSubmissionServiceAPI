@@ -20,6 +20,7 @@ services:
     restart: on-failure
     volumes:
       - .:/srv/dss-api:cached
+      - node_modules:/srv/dss-api/node_modules:cached
     command: bash -c "rm -f tmp/pids/server.pid && rails s"
     container_name: "data-submission-service-api_web"
     networks:
@@ -68,6 +69,7 @@ services:
 
 volumes:
   pg_data: {}
+  node_modules:
 
 networks:
   public:
