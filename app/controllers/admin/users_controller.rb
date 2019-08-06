@@ -41,7 +41,7 @@ class Admin::UsersController < AdminController
 
   def destroy
     @user = User.find(params[:id])
-    @user.deactivate
+    DeactivateUser.new(user: @user).call
     flash[:alert] = 'User has been deactivated'
     redirect_to admin_users_path
   end

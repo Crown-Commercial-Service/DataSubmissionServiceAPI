@@ -9,6 +9,11 @@ module Auth0Helpers
       .to_return(status: 200, body: '')
   end
 
+  def stub_auth0_delete_user_request_failure(user)
+    stub_request(:delete, "https://testdomain/api/v2/users/#{user.auth_id}")
+      .to_return(status: 500, body: '')
+  end
+
   def stub_auth0_create_user_request(email)
     stub_request(:post, 'https://testdomain/api/v2/users')
       .with(body: hash_including(email: email))

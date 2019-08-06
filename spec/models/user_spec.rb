@@ -45,48 +45,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#delete_on_auth0' do
-    let(:user) { FactoryBot.create(:user) }
-    let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
-
-    before { stub_auth0_token_request }
-
-    it 'deletes user on Auth0 and nils auth_id' do
-      user.delete_on_auth0
-
-      expect(auth0_delete_call).to have_been_requested
-      expect(user.auth_id).to eq(nil)
-    end
-  end
-
-  describe '#deactivate' do
-    let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
-
-    before { stub_auth0_token_request }
-
-    context 'an active user' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'deletes user on Auth0 and nils auth_id' do
-        user.deactivate
-
-        expect(auth0_delete_call).to have_been_requested
-        expect(user.auth_id).to eq(nil)
-      end
-    end
-
-    context 'an inactive user' do
-      let(:user) { FactoryBot.create(:user, :inactive) }
-
-      it 'does not do anything' do
-        user.deactivate
-
-        expect(auth0_delete_call).not_to have_been_requested
-        expect(user.auth_id).to eq(nil)
-      end
-    end
-  end
-
   describe '.search' do
     let!(:bob) { FactoryBot.create(:user, name: 'Bob Booker', email: 'bob@sheffield.com') }
     let!(:bobby) { FactoryBot.create(:user, name: 'Bobby Brown', email: 'bobby_b_66@hotmail.com') }
