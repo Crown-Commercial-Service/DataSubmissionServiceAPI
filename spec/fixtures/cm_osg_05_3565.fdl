@@ -1,0 +1,33 @@
+Framework CM/OSG/05/3565 {
+  Name 'Laundry Services - Wave 2'
+  ManagementCharge 0.0%
+
+  Lots {
+    '1' -> 'Laundry Services - Wave 2'
+  }
+
+  InvoiceFields {
+    optional CustomerPostCode from 'Customer Postcode'
+    CustomerName from 'Customer Organisation'
+    CustomerURN from 'Customer URN'
+    InvoiceDate from 'Customer Invoice Date'
+    optional ProductGroup from 'Service Type'
+    optional ProductClass from 'Product Group'
+    optional ProductSubClass from 'Product Classification'
+    optional ProductDescription from 'Item Name or WAPP'
+    optional ProductCode from 'Item Code'
+
+    optional String Additional1 from 'Manufacturers Product Code'
+    optional String Additional2 from 'Unit Quantity'
+
+    UnitPrice from 'Price per Item'
+    UnitType from 'Unit of Purchase'
+
+    optional VATIncluded from 'Vat Included'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Spend'
+
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+  }
+}
