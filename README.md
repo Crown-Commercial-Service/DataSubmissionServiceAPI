@@ -1,5 +1,9 @@
 # Data Submission Service API
 
+An API layer that manages and exposes data on CCS frameworks. This service ingests submissions and create invoices for business done each month against each active framework.
+
+Admin users are able to use this tool to create new users and associate them with suppliers. These users will then be able to use [the frontend application](https://github.com/dxw/DataSubmissionServiceAPI) to submit their information.
+
 Various parts of the system are documented in `/docs` and also as part of the
 [Service Manual for the service](https://github.com/Crown-Commercial-Service/ReportMI-service-manual).
 
