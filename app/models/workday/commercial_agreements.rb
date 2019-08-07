@@ -1,4 +1,5 @@
 module Workday
+  class ConnectionError < StandardError; end
   class CommercialAgreements
     def revenue_category_ids
       result = {}
@@ -27,14 +28,24 @@ module Workday
     end
 
     def commercial_agreement_xml
-      @commercial_agreement_xml ||= HTTP.basic_auth(
-        user: Workday.username,
-        pass: Workday.api_password
-      ).get(
-        'https://wd3-impl-services1.workday.com/ccx/service/customreport2/' +
-        Workday.tenant +
-        '/INT003_ISU/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category'
-      ).to_s
+      @commercial_agreement_xml ||= commercial_agreement.to_s
+    end
+
+    def commercial_agreement
+      @commercial_agreement ||= begin
+        result = HTTP.basic_auth(
+          user: Workday.username,
+          pass: Workday.api_password
+        ).get(
+          'https://wd3-impl-services1.workday.com/ccx/service/customreport2/' +
+          Workday.tenant +
+          '/INT003_ISU/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category'
+        )
+
+        raise Workday::ConnectionError if result.status == 500
+
+        result
+      end
     end
   end
 end
