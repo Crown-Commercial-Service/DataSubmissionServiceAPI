@@ -29,11 +29,12 @@ Use conduit to make a dump of the production database
 
     cf conduit ccs-rmi-api-prod -- pg_dump -F tar --file production-backup-YYYYMMDD.tar
 
-The `db:restore` rake tasks expects the file to be compressed, so let's do that
+At the time of writing, this command takes about 15 minutes to run. For most of
+that time the `production-backup.tar` file will not grow, remaining at around 20
+MB in size -- if you notice that, it does not mean the command has got stuck.
+The final file size will be around 2 GB.
 
-    gzip production-backup-YYYYMMDD.tar
-
-Finally move the file into the `backups` directory ready to be restored
+Finally move the file into the `backups` directory ready to be restored.
 
 ## Restore the backup
 
