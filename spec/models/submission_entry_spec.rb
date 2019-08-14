@@ -52,7 +52,7 @@ RSpec.describe SubmissionEntry do
   describe 'validate_against_framework_definition!' do
     let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
     let(:supplier) { submission.supplier }
-    let(:framework) { FactoryBot.create(:framework, lot_count: 2, short_name: 'RM3767') }
+    let(:framework) { FactoryBot.create(:framework, :with_fdl, lot_count: 2, short_name: 'RM3767') }
     let(:submission) { FactoryBot.create(:submission, framework: framework) }
     let(:entry) { FactoryBot.create(:invoice_entry, submission: submission, data: data_hash) }
     let(:agreement) { FactoryBot.create(:agreement, framework: framework, supplier: supplier) }

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubmissionManagementChargeCalculationJob do
   describe '#perform' do
-    let(:framework) { FactoryBot.create(:framework, short_name: 'RM3787') }
+    let(:framework) { FactoryBot.create(:framework, :with_fdl, short_name: 'RM3787') }
     let(:submission) { FactoryBot.create(:submission, framework: framework) }
     let!(:invoice_entry_1) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 1235.99) }
     let!(:invoice_entry_2) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 123.45) }

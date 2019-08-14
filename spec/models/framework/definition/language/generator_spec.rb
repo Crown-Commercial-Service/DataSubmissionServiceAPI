@@ -9,7 +9,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'Laundry framework language features (CM_OSG_05_3565)' do
       let(:source) do
-        File.read('app/models/framework/definition/CM_OSG_05_3565.fdl')
+        File.read('spec/fixtures/cm_osg_05_3565.fdl')
       end
 
       it 'is a Framework::Definition::Base' do
@@ -135,7 +135,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'Vehicle Telematics framework features' do
       let(:source) do
-        File.read('app/models/framework/definition/RM3754.fdl')
+        File.read('spec/fixtures/rm3754.fdl')
       end
 
       describe 'the Invoice fields class' do
@@ -165,7 +165,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'Vehicle Leasing framework features' do
       let(:source) do
-        File.read('app/models/framework/definition/RM858.fdl')
+        File.read('spec/fixtures/rm858.fdl')
       end
 
       describe 'the Management Charge' do
@@ -316,7 +316,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'RM3772 – first ContractFields-using framework' do
       let(:source) do
-        File.read('app/models/framework/definition/RM3772.fdl')
+        File.read('spec/fixtures/rm3772.fdl')
       end
 
       describe 'the invoice fields' do
@@ -338,7 +338,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'RM6060 - Vehicle Purchase' do
       let(:source) do
-        File.read('app/models/framework/definition/RM6060.fdl')
+        File.read('spec/fixtures/rm6060.fdl')
       end
 
       describe 'the Invoice fields class' do
@@ -372,7 +372,7 @@ RSpec.describe Framework::Definition::Generator do
 
     context 'RM3767 - Supply and Fit of Tyres' do
       let(:source) do
-        File.read('app/models/framework/definition/RM3767.fdl')
+        File.read('spec/fixtures/rm3767.fdl')
       end
 
       describe '.lots' do

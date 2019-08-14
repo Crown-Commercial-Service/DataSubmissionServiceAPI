@@ -23,9 +23,11 @@ RSpec.describe Export::SubmissionEntryRow do
     end
 
     context 'An invoice entry for existing framework RM3786' do
+      let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
+
       let(:entry) do
         double 'SubmissionEntry',
-               _framework_short_name: 'RM3786', entry_type: 'invoice',
+               _framework_short_name: framework.short_name, entry_type: 'invoice',
                data: attributes_for(:submission_entry, :legal_framework_invoice_data).fetch(:data)
       end
 
