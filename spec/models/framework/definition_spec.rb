@@ -119,11 +119,11 @@ RSpec.describe Framework::Definition do
 
   describe 'Base.for_entry_type' do
     it 'returns the framework’s Invoice definition for an ‘invoice’ entry_type' do
-      expect(Framework::Definition['RM3756'].for_entry_type('invoice').model_name.name).to eq 'Invoice'
+      expect(FrameworkLoader['RM3756'].for_entry_type('invoice').model_name.name).to eq 'Invoice'
     end
 
     it 'returns the framework’s Contract definition for an ‘order’ entry_type' do
-      expect(Framework::Definition['RM3756'].for_entry_type('order').model_name.name).to eq 'Contract'
+      expect(FrameworkLoader['RM3756'].for_entry_type('order').model_name.name).to eq 'Contract'
     end
   end
 
@@ -138,7 +138,7 @@ RSpec.describe Framework::Definition do
         'VAT Amount Charged'
       ]
 
-      expect(Framework::Definition['RM3756'].attributes_for_entry_type('invoice')).to match_array(expected)
+      expect(FrameworkLoader['RM3756'].attributes_for_entry_type('invoice')).to match_array(expected)
     end
 
     it 'returns the attributes for the framework’s Contract definition' do
@@ -150,11 +150,11 @@ RSpec.describe Framework::Definition do
         'Supplier Reference Number', 'Tier Number'
       ]
 
-      expect(Framework::Definition['RM3756'].attributes_for_entry_type('order')).to match_array(expected)
+      expect(FrameworkLoader['RM3756'].attributes_for_entry_type('order')).to match_array(expected)
     end
 
     it 'returns an empty array, if the framework does not have Contracts' do
-      expect(Framework::Definition['RM858'].attributes_for_entry_type('order')).to be_empty
+      expect(FrameworkLoader['RM858'].attributes_for_entry_type('order')).to be_empty
     end
   end
 end
