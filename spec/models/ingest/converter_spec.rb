@@ -190,4 +190,24 @@ RSpec.describe Ingest::Converter do
       expect(orders.data.first.headers).to include('Call Off Value')
     end
   end
+
+  context 'with a spreadsheet with a column whose values could be mis-inferred as dates' do
+    let(:download) { fake_download('rm1059-with-date-like-value.xls') }
+
+    it 'preserves the string value' do
+      invoices = converter.invoices
+
+      expect(invoices.data.first['Product / Service Group Level 2']).to eql('1 Year')
+    end
+  end
+
+  context 'with a spreadsheet with a column whose values could be mis-inferred as booleans' do
+    let(:download) { fake_download('rm6096-with-boolean-like-value.xlsx') }
+
+    it 'preserves the numerical value' do
+      invoices = converter.invoices
+
+      expect(invoices.data.first['Lot Number']).to eql('1')
+    end
+  end
 end
