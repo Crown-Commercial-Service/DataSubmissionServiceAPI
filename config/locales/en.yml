@@ -23,6 +23,8 @@ en:
           attributes:
             name:
               blank: 'Enter a supplier name'
+            salesforce_id:
+              blank: 'Salesforce ID cannot be blank'
   errors:
     format: "%{message}"
     messages:

@@ -74,6 +74,16 @@ RSpec.feature 'Admin can bulk import suppliers' do
     end
   end
 
+  context 'with a CSV with missing salesforce_id' do
+    scenario 'displays an error, showing which columns are missing' do
+      visit new_admin_supplier_bulk_import_path
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers_with_blank_salesforce_id.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'Validation failed: Salesforce ID cannot be blank'
+    end
+  end
+
   context 'with a non-CSV file' do
     scenario 'displays an error' do
       visit new_admin_supplier_bulk_import_path
