@@ -4,26 +4,17 @@ RSpec.describe Framework::Definition do
   describe '.[]' do
     subject(:definition) { Framework::Definition[framework_short_name] }
 
-    context 'the framework is RM6060, because we are trialling FDL with this framework' do
-      let(:framework_short_name) { 'RM6060' }
-      it 'is a functioning framework' do
-        expect(definition.framework_short_name).to eql(framework_short_name)
+    context 'it is loaded from the database' do
+      let(:framework_short_name) { 'RM3821' }
+
+      before do
+        FactoryBot.create(:framework, :with_fdl, short_name: 'RM3821')
       end
 
-      it 'is an anonymous class' do
-        expect(definition.to_s).to match(/Class:/)
-      end
-
-      it 'is cached so that we aren\'t repeatedly recompiling' do
-        expect(definition).to eq(Framework::Definition[framework_short_name])
-      end
-    end
-
-    context 'the framework is RM1070' do
-      let(:framework_short_name) { 'RM1070' }
-
-      it 'is an anonymous class' do
-        expect(definition.to_s).to match(/Class:/)
+      it 'returns that framework' do
+        expect(definition.framework_short_name).to eql 'RM3821'
+        expect(definition.framework_name).to eql 'Data and Application Solutions'
+        expect(definition.lots.size).to eql 14
       end
 
       it 'is cached so that we aren\'t repeatedly recompiling' do
@@ -31,52 +22,18 @@ RSpec.describe Framework::Definition do
       end
     end
 
-    context 'the framework exists' do
-      context 'and it is fairly normal' do
-        let(:framework_short_name) { 'RM3787' }
+    context 'it has full-stops in it' do
+      let(:framework_short_name) { 'RM1043.5' }
+
+      context 'and the framework is in the database' do
+        let(:framework_short_name) { 'RM999.5' }
+
+        before do
+          create :framework, :with_fdl, short_name: 'RM999.5', fdl_file: 'RM999_5.fdl'
+        end
+
         it 'returns that framework' do
           expect(definition.framework_short_name).to eql(framework_short_name)
-        end
-      end
-
-      context 'and it is loaded from the database' do
-        let(:framework_short_name) { 'RM3821' }
-
-        it 'returns that framework' do
-          FactoryBot.create(:framework, :with_fdl, short_name: 'RM3821')
-
-          expect(definition.framework_short_name).to eql 'RM3821'
-          expect(definition.framework_name).to eql 'Data and Application Solutions'
-          expect(definition.lots.size).to eql 14
-        end
-      end
-
-      context 'and it has slashes in it' do
-        let(:framework_short_name) { 'CM/OSG/05/3565' }
-        it 'returns that framework' do
-          expect(definition.framework_short_name).to eql(framework_short_name)
-        end
-      end
-
-      context 'and it has full-stops in it' do
-        let(:framework_short_name) { 'RM1043.5' }
-
-        context 'and the framework is on the filesystem' do
-          it 'returns that framework' do
-            expect(definition.framework_short_name).to eql(framework_short_name)
-          end
-        end
-
-        context 'and the framework is in the database' do
-          let(:framework_short_name) { 'RM999.5' }
-
-          before do
-            create :framework, :with_fdl, short_name: 'RM999.5', fdl_file: 'RM999_5.fdl'
-          end
-
-          it 'returns that framework' do
-            expect(definition.framework_short_name).to eql(framework_short_name)
-          end
         end
       end
     end
