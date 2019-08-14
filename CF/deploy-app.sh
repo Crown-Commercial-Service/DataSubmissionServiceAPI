@@ -9,8 +9,8 @@ usage() {
   echo "  -h                    - help"
   echo "  -u <CF_USER>          - CloudFoundry user             (required)"
   echo "  -p <CF_PASS>          - CloudFoundry password         (required)"
-  echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
-  echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
+  echo "  -o <CF_ORG>           - CloudFoundry org              (required)"
+  echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)"
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
   echo "  -f                    - Force a deploy of a non standard branch to staging or prod"
   exit 1
@@ -83,7 +83,7 @@ then
       exit 1
     fi
   fi
-  
+
   if [[ "$CF_SPACE" == "prod" ]]
   then
     if [[ ! "$BRANCH" == "master" ]]
@@ -126,8 +126,8 @@ cd .. || exit
 cf v3-create-app ccs-rmi-api-"$CF_SPACE"
 cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
 # do a zero down time deployment with the v3 cli
-cf v3-zdt-push ccs-rmi-api-"$CF_SPACE"
+cf v3-zdt-push -k 1G ccs-rmi-api-"$CF_SPACE" --docker-image thedxw/ccs-rmi-api:latest
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -k 1G -f CF/"$CF_SPACE".sidekiq.manifest.yml --docker-image thedxw/ccs-rmi-api:latest
