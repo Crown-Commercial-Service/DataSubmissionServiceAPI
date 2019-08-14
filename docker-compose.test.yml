@@ -11,7 +11,7 @@ services:
       DATABASE_URL: "postgres://postgres@db-test:5432/DataSubmissionServiceApi_test?template=template0&pool=5&encoding=unicode"
       AWS_S3_REGION: 'eu-west-2'
     env_file:
-      - docker-compose.env
+      - docker-compose.env.sample
     volumes:
       - .:/srv/dss-api:cached
       - node_modules:/srv/dss-api/node_modules:cached
