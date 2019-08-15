@@ -56,4 +56,4 @@ RUN chmod +x /docker-entrypoint.sh
 EXPOSE 3000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["bash", "-c", "rm", "-f", "tmp/pids/server.pid", "rails s"]
+CMD ["rails", "server"]

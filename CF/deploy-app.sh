@@ -94,7 +94,7 @@ then
     fi
   fi
 fi
-if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
+if [[ "$CF_SPACE" == "sandbox" || "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
   echo " *********************************************"
   echo "    The '$CF_SPACE' space will be selected"
   echo "     This deploys the apps as HA with"
@@ -123,11 +123,13 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 cd .. || exit
 
 # create an app idempotently with the v3 cli
-cf v3-create-app ccs-rmi-api-"$CF_SPACE"
+cf v3-create-app ccs-rmi-api-"$CF_SPACE" --app-type docker
+# create the route manually, as the manifest fails to handle it with unexpected error
+cf create-route "$CF_SPACE" apps.internal --hostname ccs-rmi-api-"$CF_SPACE"
 cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
 # do a zero down time deployment with the v3 cli
-cf v3-zdt-push -k 1G ccs-rmi-api-"$CF_SPACE" --docker-image thedxw/ccs-rmi-api:latest
+cf v3-zdt-push ccs-rmi-api-"$CF_SPACE" --docker-image thedxw/ccs-rmi-api:latest
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -k 1G -f CF/"$CF_SPACE".sidekiq.manifest.yml --docker-image thedxw/ccs-rmi-api:latest
+cf push -k 2G -f CF/"$CF_SPACE".sidekiq.manifest.yml --docker-image thedxw/ccs-rmi-api:latest

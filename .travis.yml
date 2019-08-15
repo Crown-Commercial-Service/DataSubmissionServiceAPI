@@ -2,10 +2,8 @@ language: ruby
 rvm:
 - 2.5.5
 services:
-- postgresql
 - docker
-cache:
-- bundler
+cache: bundler
 env:
   matrix:
   - API_ROOT='https://ccs.api/'
@@ -15,19 +13,21 @@ env:
   - DOCKER_USERNAME=dxwempire
   - secure: BLQLTieSmtao6fVwqlxnFfLtWEyg9szTA7e43Ge4Je37q/4uEjYy4GiDbTBmfRSeGlL4IDZmKVNrxYlAkWcDBHaH0nyVXAocye41LVDLWP7aNdUCx7dfd7i5heV0wagQSKV6ctNUAkTSm//wJQpiMCTfKWABoDZ8Bg0Aozk6sx7JzOL00UrAYl0X/o6UE/hgYwOskmUYiKxAamKguH+WL4vCqvbxF3YWGWfHgUDNzqRpKqrZYm22I6BEGChFxCFY+xrS6cmBJY2db0RJ1IKQD+Is63KEv479QivoiXHFysNc0h3anLaq8fujzqcsHbbbp7b+Sh3QCMEP6KOljrptC5o/Bv5y2TFL6lPHSkimriXNNnMGh4+VF1DHVUXauwMQjkUYOPbJO4wp8gb7k+ck4CMryGzWSpd7pYDYVDk7p7++54F13eZ7N0NXkDv34tL/Fq23HvCf9T8C/W3kf/MP0IpaFTKy8rJnk8BdLRAoHUv9yW5RNdn9eb0/4ZDgZ5EdKz7Ya+qklg3v0CrJtFGPiMAaCcf3A2pW50zWLMN13b0Q4duhSYwh+JlcYy7CFXFFvhNm1QKmTqQ+GHB7HvvJnWX6Mg+LVKNF9KQ849HWzMUiZe/s0sZ6m4jM5TsHo4IPgAJbPslMfI6c+oRuxDI4jztouc1wuFRhpAXPhh074Mk=
   - secure: s/oCPL4YTjFgdmqrAmAYOt2gRKRuvkqkdG7my3X36HlRUWhj11bGs1raYy2dnid9fDUoP4igjg5jalAJDtKyCJh0kKW5N+jinAYGZ58lEJS91AcbiweoaxmFw8/Q8w74UAg2Vmo3xXtyY7+M+hdtNyCQuoahj9Mzxz5MFxTmAcK0wC4IWI0eRQjhKquAOATNadaamxnxPhIkxaVNEDSizuRMA8Na/SCOeZyztFytMMtk+cSNrKn5cK6HLZQGLRjH5ri5lE7EIqnfKP9B/RF9dIfUbAYhrChkaPI0HOPSlqwmnVRayIG90/PCvR3VQlqjUrmH6E0Ff776IoFKc1LHUY5y6BibQE+G9EKlcDSrO7q6nWm/k1kEshD5O6DxA849XhsBWV/F98r2WF6kXrIYzAQv9z87HwUnlFXLMoiRZGFyH48VExFn9D7GwVUU3Jvt5dotgNaHvc2NmsYB02Rw9f5aFEohK3QtXV0HotAB+FN8XsXLJRKxxd/i018A+uUIZ9/NHmNMbqeorqa+lrrt9hnGO2TgY+ZCbtFYtEA6dpheivyQc574u7AKroD+Mlo28i86L1sCr2LNWNfLxIe15/XtdnsotgGanHz5JZek0zQKA25d9P+4O0ddjKROg3722Lidqy66PoHT1a8TxrmvipDlLqg//5kMbjdaPsFZSBs=
-before_install:
-- sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > docker-compose
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
-- bin/dtest-server
-- docker ps -a
-# - docker-compose --file docker-compose.test.yml run --rm test rake db:setup
-# - docker ps -a
-- bin/dspec
-- docker tag datasubmissionserviceapi_test:latest thedxw/ccs-rmi-api:latest
-- docker images
-before_deploy:
+script:
+- echo Building a new Docker image from source…
+- docker build --build-arg RAILS_ENV=test -t ccs-rmi-api:test .
+- echo Testing the newly built Docker image…
+- docker run --name pg -d -p 5455:5432 postgres
+- docker run --name test -d -e RAILS_ENV=test --link pg:pg ccs-rmi-api:test /bin/bash -c "tail -f /dev/null"
+- docker exec test bundle install --with test --retry 3 --jobs 20
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:create db:schema:load"
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:migrate"
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake"
+- docker rm -f test pg
+- echo Tagging the successfully tested image as latest…
+- docker tag ccs-rmi-api:test thedxw/ccs-rmi-api:latest
+- docker tag ccs-rmi-api:test thedxw/ccs-rmi-api:$TRAVIS_COMMIT
+after_success:
 - echo "install cloudfoundry cli"
 - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key |
   sudo apt-key add -
@@ -36,7 +36,7 @@ before_deploy:
 - sudo apt-get install cf-cli
 deploy:
 - provider: script
-  script: bash CF/docker_push
+  script: bash CF/docker-push.sh
   on:
     branch: test-docker-deploys
 - provider: script
