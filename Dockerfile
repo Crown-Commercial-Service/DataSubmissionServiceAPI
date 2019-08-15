@@ -16,7 +16,18 @@ RUN YARN_VERSION=1.17.3 \
   && rm yarn-v$YARN_VERSION.tar.gz
 
 COPY requirements.txt $INSTALL_PATH/requirements.txt
-RUN apt-get install -qq -y python python-pip python-setuptools python-wheel --fix-missing --no-install-recommends && pip install --quiet -r requirements.txt
+# This should be kept in sync with the version specified in runtime.txt
+ENV PYTHON_VERSION 3.7.2
+RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
+    && tar -xf Python-${PYTHON_VERSION}.tgz \
+    && cd Python-${PYTHON_VERSION} \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm Python-${PYTHON_VERSION}.tgz \
+    && rm -r Python-${PYTHON_VERSION} \
+    && pip3 install --quiet -r $INSTALL_PATH/requirements.txt
 
 RUN ln -s /usr/bin/nodejs /usr/local/bin/node
 
