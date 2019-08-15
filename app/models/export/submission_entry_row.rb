@@ -40,8 +40,18 @@ module Export
 
     private
 
+    def framework_definition_for(framework_short_name)
+      cached = cache[framework_short_name]
+      return cached if cached
+
+      framework_definition = Framework::Definition[framework_short_name]
+      cache[framework_short_name] = framework_definition
+
+      framework_definition
+    end
+
     def source_field_for(destination_field)
-      framework_definition = Framework::Definition[model._framework_short_name]
+      framework_definition = framework_definition_for(model._framework_short_name)
       entry_data_definition = framework_definition.for_entry_type(model.entry_type)
       entry_data_definition.export_mappings[destination_field]
     end

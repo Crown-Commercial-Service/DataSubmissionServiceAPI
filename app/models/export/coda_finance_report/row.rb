@@ -5,8 +5,8 @@ module Export
 
       attr_reader :sector
 
-      def initialize(submission, sector)
-        super(submission)
+      def initialize(submission, sector, cache)
+        super(submission, cache)
         @sector = sector
       end
 

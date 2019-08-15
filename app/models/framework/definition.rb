@@ -5,16 +5,11 @@ class Framework
     class MissingError < StandardError; end
 
     class << self
-      def cache
-        @cache ||=
-          Hash.new do |hash, framework_short_name|
-            hash[framework_short_name] = Framework::Definition::Language[framework_short_name]
-          rescue ArgumentError
-            raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
-          end
+      def [](framework_short_name)
+        Framework::Definition::Language[framework_short_name]
+      rescue ArgumentError
+        raise Framework::Definition::MissingError, %(There is no framework definition for "#{framework_short_name}")
       end
-
-      delegate :[], to: :cache
     end
 
     ##

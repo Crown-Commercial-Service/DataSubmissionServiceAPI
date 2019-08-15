@@ -13,8 +13,16 @@ RSpec.describe Export::CodaFinanceReport::Row do
       purchase_order_number: 'PO999'
     )
   end
-  subject(:cg_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:central_government]) }
-  subject(:wps_report_row) { Export::CodaFinanceReport::Row.new(submission, Customer.sectors[:wider_public_sector]) }
+  subject(:cg_report_row) do
+    Export::CodaFinanceReport::Row.new(submission,
+                                       Customer.sectors[:central_government],
+                                       {})
+  end
+  subject(:wps_report_row) do
+    Export::CodaFinanceReport::Row.new(submission,
+                                       Customer.sectors[:wider_public_sector],
+                                       {})
+  end
 
   it 'reports the submission ID as ‘RunID’' do
     expect(cg_report_row.run_id).to eq submission.id
@@ -125,7 +133,7 @@ RSpec.describe Export::CodaFinanceReport::Row do
 
     it 'handles no business submissions, reporting them as zero sales and commission' do
       no_business_submission = FactoryBot.create(:no_business_submission, framework: framework)
-      row = Export::CodaFinanceReport::Row.new(no_business_submission, Customer.sectors[:central_government])
+      row = Export::CodaFinanceReport::Row.new(no_business_submission, Customer.sectors[:central_government], {})
 
       expect(row.inf_sales).to eq '0.00'
       expect(row.commission).to eq '0.00'
