@@ -345,16 +345,13 @@ RSpec.describe Framework::Definition::Generator do
         subject(:invoice_class) { definition::Invoice }
         let(:mappings) do
           {
-            'Lot Number' =>
-             {
-               '1' => invoice_class.lookups['Lot1Segment'],
-               '2' => invoice_class.lookups['Lot2Segment'],
-               '3' => invoice_class.lookups['Lot3Segment'],
-               '4' => invoice_class.lookups['Lot4Segment'],
-               '5' => invoice_class.lookups['Lot5Segment'],
-               '6' => invoice_class.lookups['Lot6Segment'],
-               '7' => invoice_class.lookups['Lot7Segment']
-             }
+            '1' => invoice_class.lookups['Lot1Segment'],
+            '2' => invoice_class.lookups['Lot2Segment'],
+            '3' => invoice_class.lookups['Lot3Segment'],
+            '4' => invoice_class.lookups['Lot4Segment'],
+            '5' => invoice_class.lookups['Lot5Segment'],
+            '6' => invoice_class.lookups['Lot6Segment'],
+            '7' => invoice_class.lookups['Lot7Segment']
           }
         end
 
@@ -538,9 +535,7 @@ RSpec.describe Framework::Definition::Generator do
             dependent_field_inclusion: {
               parent: 'Service Type',
               in: {
-                'Service Type' => {
-                  'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
-                }
+                'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
               }
             }
           )
@@ -550,11 +545,7 @@ RSpec.describe Framework::Definition::Generator do
           is_expected.to have_field('Going to Additional1').validated_by(
             dependent_field_inclusion: {
               parent: 'Product Class',
-              in: {
-                'Product Class' => {
-                  '1' => ['Hi'], '2' => ['There']
-                }
-              }
+              in: { '1' => ['Hi'], '2' => ['There'] }
             }
           )
         }
