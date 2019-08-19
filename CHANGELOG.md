@@ -1,5 +1,21 @@
 # Change Log
 
+## [release-84] - 2019-08-19
+
+- (fix) Disable in2csv's type inference, as it can mis-infer
+- (fix) Align development Python version with that of production
+- Validate presence of salesforce_id on suppliers
+- (chore) Amend the docs for getting production DB backups
+- (fix) Don't use gzip when importing database backups
+- (chore) Update the DB restoration docs to work on Docker
+- (fix) Make db:restore work under Docker
+- (chore) Update documentation for grabbing a database dump
+- (chore) Fresh docker builds will provision node_module dependencies
+- (chore) Only build the docker image for the codebase once
+- (fix) Docker setup script treated as a shell file
+- (chore) Add a pull request template for GitHub
+- (chore) Update the default ENV variables
+
 ## [release-83] - 2019-08-02
 
 - fix: A tool to allow us to resynchronise user details between the API's User table and the canonical source within Auth0, this will allow the recently onboarded users (added directly to auth0) to sign into the frontend and see their tasks
