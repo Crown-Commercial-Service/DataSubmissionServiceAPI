@@ -50,14 +50,22 @@ class Framework
 
       rule(:lots_block)           { str('Lots') >> space >> dictionary.as(:lots) }
 
-      rule(:depends_on)           { (spaced(str('depends_on')) >> spaced(string).as(:dependent_field) >> dictionary.as(:values)).as(:depends_on) }
+      rule(:depends_on)           { (spaced(str('depends_on')) >> dependent_fields.as(:dependent_fields) >> multi_key_dictionary.as(:values)).as(:depends_on) }
+      rule(:dependent_fields)     { dependent_field >> (spaced(str(',')) >> dependent_field).repeat }
+      rule(:dependent_field)      { spaced(string) }
 
       rule(:metadata)             { framework_name >> management_charge }
 
-      rule(:map)                  { allowable_key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space? }
       rule(:allowable_key)        { string | pascal_case_identifier }
       rule(:allowable_value)      { percentage | lookup_reference | string }
-      rule(:dictionary)           { braced(map.repeat(1).as(:dictionary)) }
+      rule(:dictionary)           { braced(map_with(allowable_key).repeat(1).as(:dictionary)) }
+
+      rule(:allowable_keys)       { allowable_key >> (spaced(str(',')) >> allowable_key).repeat }
+      rule(:multi_key_dictionary) { braced(map_with(allowable_keys).repeat(1).as(:dictionary)) }
+
+      def map_with(key)
+        key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space?
+      end
 
       rule(:string) do
         str("'") >> (

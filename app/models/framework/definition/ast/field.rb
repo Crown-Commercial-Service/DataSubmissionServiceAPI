@@ -121,8 +121,8 @@ class Framework
           field_def[:depends_on].present?
         end
 
-        def dependent_field
-          field_def[:depends_on][:dependent_field]
+        def dependent_fields
+          field_def[:depends_on][:dependent_fields]
         end
 
         def dependent_field_lookup_references
