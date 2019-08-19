@@ -32,7 +32,8 @@ RSpec.describe Ingest::Orchestrator do
         orchestrator = Ingest::Orchestrator.new(file)
         orchestrator.perform
 
-        expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission)
+        expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission,
+                                                                                    framework.definition_source)
       end
     end
 
