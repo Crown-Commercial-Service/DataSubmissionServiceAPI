@@ -345,19 +345,19 @@ RSpec.describe Framework::Definition::Generator do
         subject(:invoice_class) { definition::Invoice }
         let(:mappings) do
           {
-            '1' => invoice_class.lookups['Lot1Segment'],
-            '2' => invoice_class.lookups['Lot2Segment'],
-            '3' => invoice_class.lookups['Lot3Segment'],
-            '4' => invoice_class.lookups['Lot4Segment'],
-            '5' => invoice_class.lookups['Lot5Segment'],
-            '6' => invoice_class.lookups['Lot6Segment'],
-            '7' => invoice_class.lookups['Lot7Segment']
+            ['1'] => invoice_class.lookups['Lot1Segment'],
+            ['2'] => invoice_class.lookups['Lot2Segment'],
+            ['3'] => invoice_class.lookups['Lot3Segment'],
+            ['4'] => invoice_class.lookups['Lot4Segment'],
+            ['5'] => invoice_class.lookups['Lot5Segment'],
+            ['6'] => invoice_class.lookups['Lot6Segment'],
+            ['7'] => invoice_class.lookups['Lot7Segment']
           }
         end
 
         it {
           is_expected.to have_field('Vehicle Segment')
-            .validated_by(dependent_field_inclusion: { parent: 'Lot Number', in: mappings })
+            .validated_by(dependent_field_inclusion: { parents: ['Lot Number'], in: mappings })
         }
 
         it {
@@ -494,9 +494,9 @@ RSpec.describe Framework::Definition::Generator do
               }
               InvoiceValue from 'Supplier Price'
               ProductClass from 'Product Class'
-              String Additional1 from 'Going to Additional1' depends_on 'Product Class' {
-                '1' -> SomeLookup
-                '2' -> SomeOtherLookup
+              String Additional1 from 'Going to Additional1' depends_on 'Service Type', 'Product Class' {
+                'Core', '1' -> SomeLookup
+                'Mixture', '2' -> SomeOtherLookup
               }
             }
 
@@ -533,9 +533,9 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to have_field('Primary Specialism').validated_by(
             dependent_field_inclusion: {
-              parent: 'Service Type',
+              parents: ['Service Type'],
               in: {
-                'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
+                ['core'] => %w[Hi], ['non-core'] => %w[There], ['mixture'] => %w[Hi There]
               }
             }
           )
@@ -544,8 +544,8 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to have_field('Going to Additional1').validated_by(
             dependent_field_inclusion: {
-              parent: 'Product Class',
-              in: { '1' => ['Hi'], '2' => ['There'] }
+              parents: ['Service Type', 'Product Class'],
+              in: { ['core', '1'] => ['Hi'], ['mixture', '2'] => ['There'] }
             }
           )
         }

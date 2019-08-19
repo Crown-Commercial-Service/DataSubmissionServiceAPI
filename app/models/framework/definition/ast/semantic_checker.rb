@@ -40,11 +40,13 @@ class Framework
         end
 
         def raise_when_dependent_reference_invalid(field, entry_type)
-          valid_reference = ast.field_defs(entry_type).find { |f| f[:from] == field.dependent_fields }
-          return if valid_reference
+          field.dependent_fields.each do |dependent_field|
+            valid_reference = ast.field_defs(entry_type).find { |f| f[:from] == dependent_field }
+            next if valid_reference
 
-          raise Transpiler::Error,
-                "'#{field.sheet_name}' depends on '#{field.dependent_fields}', which does not exist"
+            raise Transpiler::Error,
+                  "'#{field.sheet_name}' depends on '#{dependent_field}', which does not exist"
+          end
         end
 
         def raise_when_lookup_reference_invalid(field)

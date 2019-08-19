@@ -70,14 +70,11 @@ class Framework
           end
         end
 
-        # dictionary key/value pairs
-        rule(key: simple(:key), value: simple(:value)) { { key => value } }
-
         # Transform a CST sequence like [{ key1 => value1}, { key2 => value2}] to a
         # real hash                      { key1 => value1, key2 => value2 }
         rule(dictionary: subtree(:dictionary)) do
           dictionary.each_with_object({}) do |kv, result|
-            result[kv.keys.first] = kv.values.first
+            result[kv[:key]] = kv[:value]
           end
         end
 
