@@ -1,5 +1,22 @@
 # Change Log
 
+## [release-84] - 2019-08-19
+
+- (chore) Copy filesystem FDL into the database
+- (fix) Disable in2csv's type inference, as it can mis-infer
+- (fix) Align development Python version with that of production
+- Validate presence of salesforce_id on suppliers
+- (chore) Amend the docs for getting production DB backups
+- (fix) Don't use gzip when importing database backups
+- (chore) Update the DB restoration docs to work on Docker
+- (fix) Make db:restore work under Docker
+- (chore) Update documentation for grabbing a database dump
+- (chore) Fresh docker builds will provision node_module dependencies
+- (chore) Only build the docker image for the codebase once
+- (fix) Docker setup script treated as a shell file
+- (chore) Add a pull request template for GitHub
+- (chore) Update the default ENV variables
+
 ## [release-83] - 2019-08-02
 
 - fix: A tool to allow us to resynchronise user details between the API's User table and the canonical source within Auth0, this will allow the recently onboarded users (added directly to auth0) to sign into the frontend and see their tasks
@@ -565,6 +582,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-84]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-83...release-84
 [release-83]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-82...release-83
 [release-82]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-81...release-82
 [release-81]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-80...release-81

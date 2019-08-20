@@ -49,8 +49,8 @@ module Ingest
 
       return empty_rows if sheet_name.blank?
 
-      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace #{excel_temp_file}"
-      command += " > #{sheet_temp_file}"
+      command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace --no-inference"\
+                " #{excel_temp_file} > #{sheet_temp_file}"
       Ingest::CommandRunner.new(command).run!
 
       row_count = fetch_row_count(sheet_temp_file)

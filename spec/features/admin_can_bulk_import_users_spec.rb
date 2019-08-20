@@ -40,7 +40,7 @@ RSpec.feature 'Admin can bulk import users' do
   end
 
   context 'with a CSV which references a salesforce_id that does not exist' do
-    before { seema_company.update(salesforce_id: nil) }
+    before { seema_company.update(salesforce_id: 'changed') }
 
     scenario 'displays an error' do
       visit new_admin_user_bulk_import_path
