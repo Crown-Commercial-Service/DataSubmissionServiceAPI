@@ -130,4 +130,4 @@ cf v3-zdt-push ccs-rmi-api-"$CF_SPACE"
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -k 2G -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
