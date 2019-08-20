@@ -33,6 +33,7 @@ class Framework
               next unless field.dependent_field_inclusion?
 
               raise_when_dependent_reference_invalid(field, entry_type)
+              raise_when_dependent_reference_has_mismatched_arity(field)
               raise_when_lookup_reference_invalid(field)
             end
           end
@@ -46,6 +47,23 @@ class Framework
             raise Transpiler::Error,
                   "'#{field.sheet_name}' depends on '#{dependent_field}', which does not exist"
           end
+        end
+
+        def raise_when_dependent_reference_has_mismatched_arity(field)
+          num_dependent_fields = field.dependent_fields.size
+
+          field.dependent_field_inclusion_values.each_key do |key|
+            next if key.size == num_dependent_fields
+
+            raise Transpiler::Error,
+                  "'#{field.sheet_name}' depends on #{num_dependent_fields} fields " \
+                  "#{format_string_list(field.dependent_fields)} but contains a match on " \
+                  "#{key.size} values #{format_string_list(key)}"
+          end
+        end
+
+        def format_string_list(array)
+          '(' + array.map { |value| "'#{value}'" }.join(', ') + ')'
         end
 
         def raise_when_lookup_reference_invalid(field)

@@ -552,6 +552,38 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'mismatched depends_on fields and values' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductClass from 'Product Class'
+              ProductDescription from 'Description'
+              ProductGroup from 'Product Group' depends_on 'Product Class', 'Description' {
+                'a', 'b', 'c' -> ProductGroup
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+            Lookups {
+              ProductGroup [
+                'Core'
+              ]
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql(
+          "'Product Group' depends on 2 fields ('Product Class', 'Description') " \
+          "but contains a match on 3 values ('a', 'b', 'c')"
+        )
+      end
+    end
+
     context 'invalid depends_on fields' do
       let(:source) do
         <<~FDL
