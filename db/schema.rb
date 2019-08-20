@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_160454) do
+ActiveRecord::Schema.define(version: 2019_08_20_105032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_160454) do
     t.string "name"
     t.string "short_name", null: false
     t.integer "coda_reference"
-    t.text "definition_source"
+    t.text "definition_source", null: false
     t.boolean "published", default: false
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
   end

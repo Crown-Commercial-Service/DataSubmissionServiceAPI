@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ingest::Loader::ProcessCsvRow do
-  let(:sheet_definition) { Framework::Definition['RM3710'].for_entry_type('invoice') }
+  let(:sheet_definition) { FrameworkLoader['RM3710'].for_entry_type('invoice') }
 
   subject(:process_csv_row) { Ingest::Loader::ProcessCsvRow.new(sheet_definition) }
 
