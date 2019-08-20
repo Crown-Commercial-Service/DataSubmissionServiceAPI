@@ -25,7 +25,6 @@ script:
 - docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake"
 - docker rm -f test pg
 - echo Tagging the successfully tested image as latest…
-- docker tag ccs-rmi-api:test thedxw/ccs-rmi-api:latest
 - docker tag ccs-rmi-api:test thedxw/ccs-rmi-api:$TRAVIS_COMMIT
 after_success:
 - echo "install cloudfoundry cli"
@@ -35,11 +34,17 @@ after_success:
 - sudo apt-get update -qq
 - sudo apt-get install cf-cli
 deploy:
-- provider: script
-  script: bash CF/docker-push.sh
-  on:
-    branch: test-docker-deploys
-- provider: script
-  script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s sandbox
-  on:
-    branch: test-docker-deploys
+  - provider: script
+    script: bash CF/docker-push.sh
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s sandbox
+    on:
+      branch: sandbox
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s staging
+    on:
+      branch: develop
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s prod
+    on:
+      branch: master

@@ -128,8 +128,8 @@ cf v3-create-app ccs-rmi-api-"$CF_SPACE" --app-type docker
 cf create-route "$CF_SPACE" apps.internal --hostname ccs-rmi-api-"$CF_SPACE"
 cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
 # do a zero down time deployment with the v3 cli
-cf v3-zdt-push ccs-rmi-api-"$CF_SPACE" --docker-image thedxw/ccs-rmi-api:latest
+cf v3-zdt-push ccs-rmi-api-"$CF_SPACE" --docker-image thedxw/ccs-rmi-api:$TRAVIS_COMMIT
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -k 2G -f CF/"$CF_SPACE".sidekiq.manifest.yml --docker-image thedxw/ccs-rmi-api:latest
+cf push -k 2G -f CF/"$CF_SPACE".sidekiq.manifest.yml --docker-image thedxw/ccs-rmi-api:$TRAVIS_COMMIT
