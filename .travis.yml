@@ -2,49 +2,46 @@ language: ruby
 rvm:
 - 2.5.5
 services:
-  - postgresql
-addons:
-  postgresql: "10"
-apt:
-  update: true
-  packages:
-  - postgresql-10
-  - postgresql-client-10
-  - python3
-  - python3-pip
-  - python3-setuptools
-  - python3-wheel
-dist: xenial
-cache:
-  - bundler
-  - pip
+- docker
+cache: bundler
 env:
   matrix:
-    - API_ROOT='https://ccs.api/'
+  - API_ROOT='https://ccs.api/'
   global:
-    - CF_USER=systems-gpass@dxw.com
-    - CF_ORG=ccs-report-management-info
-    - secure: "BLQLTieSmtao6fVwqlxnFfLtWEyg9szTA7e43Ge4Je37q/4uEjYy4GiDbTBmfRSeGlL4IDZmKVNrxYlAkWcDBHaH0nyVXAocye41LVDLWP7aNdUCx7dfd7i5heV0wagQSKV6ctNUAkTSm//wJQpiMCTfKWABoDZ8Bg0Aozk6sx7JzOL00UrAYl0X/o6UE/hgYwOskmUYiKxAamKguH+WL4vCqvbxF3YWGWfHgUDNzqRpKqrZYm22I6BEGChFxCFY+xrS6cmBJY2db0RJ1IKQD+Is63KEv479QivoiXHFysNc0h3anLaq8fujzqcsHbbbp7b+Sh3QCMEP6KOljrptC5o/Bv5y2TFL6lPHSkimriXNNnMGh4+VF1DHVUXauwMQjkUYOPbJO4wp8gb7k+ck4CMryGzWSpd7pYDYVDk7p7++54F13eZ7N0NXkDv34tL/Fq23HvCf9T8C/W3kf/MP0IpaFTKy8rJnk8BdLRAoHUv9yW5RNdn9eb0/4ZDgZ5EdKz7Ya+qklg3v0CrJtFGPiMAaCcf3A2pW50zWLMN13b0Q4duhSYwh+JlcYy7CFXFFvhNm1QKmTqQ+GHB7HvvJnWX6Mg+LVKNF9KQ849HWzMUiZe/s0sZ6m4jM5TsHo4IPgAJbPslMfI6c+oRuxDI4jztouc1wuFRhpAXPhh074Mk="
-before_install:
-  - gem update --system
-  - gem install bundler
-install:
-  - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
-  - pyenv global 3.7.1
-  - pip3 install --user --upgrade -r $PWD/requirements.txt
-before_script:
-  - bundle exec rails db:migrate RAILS_ENV=test
-  - bundle exec rake AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_S3_REGION=dummy AWS_S3_BUCKET=dummy SECRET_KEY_BASE=dummy DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile
-bundler_args: --without production
-before_deploy:
-  - echo "install cloudfoundry cli"
-  - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-  - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-  - sudo apt-get update -qq
-  - sudo apt-get install cf-cli
-  - cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
-  - cf install-plugin blue-green-deploy -f -r CF-Community
+  - CF_USER=systems-gpass@dxw.com
+  - CF_ORG=ccs-report-management-info
+  - DOCKER_USERNAME=dxwempire
+  - secure: BLQLTieSmtao6fVwqlxnFfLtWEyg9szTA7e43Ge4Je37q/4uEjYy4GiDbTBmfRSeGlL4IDZmKVNrxYlAkWcDBHaH0nyVXAocye41LVDLWP7aNdUCx7dfd7i5heV0wagQSKV6ctNUAkTSm//wJQpiMCTfKWABoDZ8Bg0Aozk6sx7JzOL00UrAYl0X/o6UE/hgYwOskmUYiKxAamKguH+WL4vCqvbxF3YWGWfHgUDNzqRpKqrZYm22I6BEGChFxCFY+xrS6cmBJY2db0RJ1IKQD+Is63KEv479QivoiXHFysNc0h3anLaq8fujzqcsHbbbp7b+Sh3QCMEP6KOljrptC5o/Bv5y2TFL6lPHSkimriXNNnMGh4+VF1DHVUXauwMQjkUYOPbJO4wp8gb7k+ck4CMryGzWSpd7pYDYVDk7p7++54F13eZ7N0NXkDv34tL/Fq23HvCf9T8C/W3kf/MP0IpaFTKy8rJnk8BdLRAoHUv9yW5RNdn9eb0/4ZDgZ5EdKz7Ya+qklg3v0CrJtFGPiMAaCcf3A2pW50zWLMN13b0Q4duhSYwh+JlcYy7CFXFFvhNm1QKmTqQ+GHB7HvvJnWX6Mg+LVKNF9KQ849HWzMUiZe/s0sZ6m4jM5TsHo4IPgAJbPslMfI6c+oRuxDI4jztouc1wuFRhpAXPhh074Mk=
+  - secure: s/oCPL4YTjFgdmqrAmAYOt2gRKRuvkqkdG7my3X36HlRUWhj11bGs1raYy2dnid9fDUoP4igjg5jalAJDtKyCJh0kKW5N+jinAYGZ58lEJS91AcbiweoaxmFw8/Q8w74UAg2Vmo3xXtyY7+M+hdtNyCQuoahj9Mzxz5MFxTmAcK0wC4IWI0eRQjhKquAOATNadaamxnxPhIkxaVNEDSizuRMA8Na/SCOeZyztFytMMtk+cSNrKn5cK6HLZQGLRjH5ri5lE7EIqnfKP9B/RF9dIfUbAYhrChkaPI0HOPSlqwmnVRayIG90/PCvR3VQlqjUrmH6E0Ff776IoFKc1LHUY5y6BibQE+G9EKlcDSrO7q6nWm/k1kEshD5O6DxA849XhsBWV/F98r2WF6kXrIYzAQv9z87HwUnlFXLMoiRZGFyH48VExFn9D7GwVUU3Jvt5dotgNaHvc2NmsYB02Rw9f5aFEohK3QtXV0HotAB+FN8XsXLJRKxxd/i018A+uUIZ9/NHmNMbqeorqa+lrrt9hnGO2TgY+ZCbtFYtEA6dpheivyQc574u7AKroD+Mlo28i86L1sCr2LNWNfLxIe15/XtdnsotgGanHz5JZek0zQKA25d9P+4O0ddjKROg3722Lidqy66PoHT1a8TxrmvipDlLqg//5kMbjdaPsFZSBs=
+script:
+- echo Building a new Docker image from source…
+- docker build --build-arg RAILS_ENV=test -t ccs-rmi-api:test .
+- echo Testing the newly built Docker image…
+- docker run --name pg -d -p 5455:5432 postgres
+- docker run --name test -d -e RAILS_ENV=test --link pg:pg ccs-rmi-api:test /bin/bash -c "tail -f /dev/null"
+- docker exec test bundle install --with test --retry 3 --jobs 20
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:create db:schema:load"
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake db:migrate"
+- docker exec test /bin/bash -c "export DATABASE_URL='postgres://postgres@pg:5432/test?template=template0&pool=5&encoding=unicode' && rake"
+- docker rm -f test pg
+- echo Tagging the successfully tested image as latest…
+- docker tag ccs-rmi-api:test thedxw/ccs-rmi-api:$TRAVIS_COMMIT
+after_success:
+- echo "install cloudfoundry cli"
+- wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key |
+  sudo apt-key add -
+- echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+- sudo apt-get update -qq
+- sudo apt-get install cf-cli
 deploy:
+  - provider: script
+    script: bash CF/docker-push.sh
+    on:
+      all_branches: true
+  - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s sandbox
+    on:
+      branch: sandbox
   - provider: script
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s staging
     on:
