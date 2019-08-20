@@ -30,11 +30,10 @@ class Framework
             fields = ast.field_defs(entry_type).map { |field_def| AST::Field.new(field_def, ast.lookups) }
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
+              next unless field.dependent_field_inclusion?
 
-              if field.dependent_field_inclusion?
-                raise_when_dependent_reference_invalid(field, entry_type)
-                raise_when_lookup_reference_invalid(field)
-              end
+              raise_when_dependent_reference_invalid(field, entry_type)
+              raise_when_lookup_reference_invalid(field)
             end
           end
         end
