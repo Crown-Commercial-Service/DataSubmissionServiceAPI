@@ -9,8 +9,8 @@ usage() {
   echo "  -h                    - help"
   echo "  -u <CF_USER>          - CloudFoundry user             (required)"
   echo "  -p <CF_PASS>          - CloudFoundry password         (required)"
-  echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
-  echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
+  echo "  -o <CF_ORG>           - CloudFoundry org              (required)"
+  echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)"
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
   echo "  -f                    - Force a deploy of a non standard branch to staging or prod"
   exit 1
@@ -83,7 +83,7 @@ then
       exit 1
     fi
   fi
-  
+
   if [[ "$CF_SPACE" == "prod" ]]
   then
     if [[ ! "$BRANCH" == "master" ]]
