@@ -25,3 +25,4 @@ applications:
       RAILS_MAX_THREADS: 30
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'
+      RAILS_SERVE_STATIC_FILES: enabled
