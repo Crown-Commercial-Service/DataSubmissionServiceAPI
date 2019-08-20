@@ -124,6 +124,8 @@ cd .. || exit
 
 # create an app idempotently with the v3 cli
 cf v3-create-app ccs-rmi-api-"$CF_SPACE"
+# create the route manually, as the manifest fails to handle it with unexpected error
+cf create-route "$CF_SPACE" apps.internal --hostname ccs-rmi-api-"$CF_SPACE"
 cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
 # do a zero down time deployment with the v3 cli
 cf v3-zdt-push ccs-rmi-api-"$CF_SPACE"
