@@ -497,6 +497,7 @@ RSpec.describe Framework::Definition::Generator do
               String Additional1 from 'Going to Additional1' depends_on 'Service Type', 'Product Class' {
                 'Core', '1' -> SomeLookup
                 'Mixture', '2' -> SomeOtherLookup
+                'Non-core', * -> SomeCombinationOfLookups
               }
             }
 
@@ -545,7 +546,11 @@ RSpec.describe Framework::Definition::Generator do
           is_expected.to have_field('Going to Additional1').validated_by(
             dependent_field_inclusion: {
               parents: ['Service Type', 'Product Class'],
-              in: { ['core', '1'] => ['Hi'], ['mixture', '2'] => ['There'] }
+              in: {
+                ['core', '1'] => ['Hi'],
+                ['mixture', '2'] => ['There'],
+                ['non-core', Framework::Definition::AST::Any] => ['Hi', 'There']
+              }
             }
           )
         }
@@ -563,7 +568,7 @@ RSpec.describe Framework::Definition::Generator do
               ProductClass from 'Product Class'
               ProductDescription from 'Description'
               ProductGroup from 'Product Group' depends_on 'Product Class', 'Description' {
-                'a', 'b', 'c' -> ProductGroup
+                'a', *, 'c' -> ProductGroup
               }
               InvoiceValue from 'Supplier Price'
             }
@@ -579,7 +584,7 @@ RSpec.describe Framework::Definition::Generator do
       it 'has the error' do
         expect(generator.error).to eql(
           "'Product Group' depends on 2 fields ('Product Class', 'Description') " \
-          "but contains a match on 3 values ('a', 'b', 'c')"
+          "but contains a match on 3 values ('a', *, 'c')"
         )
       end
     end

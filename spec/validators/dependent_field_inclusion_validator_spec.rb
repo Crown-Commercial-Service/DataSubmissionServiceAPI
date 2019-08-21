@@ -113,8 +113,7 @@ RSpec.describe DependentFieldInclusionValidator do
           parents: ['Service Type', 'Primary Specialism'],
           in: {
             ['core', 'corporate finance'] => ['one'],
-            ['Non-core', 'equity capital markets'] => ['two'],
-            ['MIXTURE', 'asset finance'] => ['three']
+            ['other', Framework::Definition::AST::Any] => ['two']
           }
         }
       end
@@ -188,6 +187,53 @@ RSpec.describe DependentFieldInclusionValidator do
       end
 
       it { is_expected.to_not be_valid }
+    end
+
+    context 'the dependent field corresponds to a wildcard match' do
+      let(:data) do
+        {
+          'Service Type' => 'Other',
+          'Primary Specialism' => 'Absolutely Anything',
+          'Quantity' => 'two'
+        }
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'the dependent field does not correspond to a wildcard match' do
+      let(:data) do
+        {
+          'Service Type' => 'Other',
+          'Primary Specialism' => 'Absolutely Anything',
+          'Quantity' => 'one'
+        }
+      end
+
+      it { is_expected.to_not be_valid }
+    end
+
+    context 'the wildcard field value is missing' do
+      let(:data) do
+        {
+          'Service Type' => 'Other',
+          'Primary Specialism' => nil,
+          'Quantity' => 'two'
+        }
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'the wildcard field is missing entirely' do
+      let(:data) do
+        {
+          'Service Type' => 'Other',
+          'Quantity' => 'two'
+        }
+      end
+
+      it { is_expected.to be_valid }
     end
   end
 end

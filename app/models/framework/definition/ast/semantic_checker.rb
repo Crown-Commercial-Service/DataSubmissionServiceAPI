@@ -57,13 +57,14 @@ class Framework
 
             raise Transpiler::Error,
                   "'#{field.sheet_name}' depends on #{num_dependent_fields} fields " \
-                  "#{format_string_list(field.dependent_fields)} but contains a match on " \
-                  "#{key.size} values #{format_string_list(key)}"
+                  "#{format_list(field.dependent_fields)} but contains a match on " \
+                  "#{key.size} values #{format_list(key)}"
           end
         end
 
-        def format_string_list(array)
-          '(' + array.map { |value| "'#{value}'" }.join(', ') + ')'
+        def format_list(array)
+          values = array.map { |value| value.is_a?(String) ? "'#{value}'" : value }
+          '(' + values.join(', ') + ')'
         end
 
         def raise_when_lookup_reference_invalid(field)

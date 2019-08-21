@@ -60,8 +60,10 @@ class Framework
       rule(:allowable_value)      { percentage | lookup_reference | string }
       rule(:dictionary)           { braced(map_with(allowable_key).repeat(1).as(:dictionary)) }
 
-      rule(:allowable_keys)       { allowable_key >> (spaced(str(',')) >> allowable_key).repeat }
-      rule(:multi_key_dictionary) { braced(map_with(allowable_keys).repeat(1).as(:dictionary)) }
+      rule(:allowable_multi_keys) { allowable_multi_key >> (spaced(str(',')) >> allowable_multi_key).repeat }
+      rule(:allowable_multi_key)  { allowable_key | any_operator }
+      rule(:any_operator)         { str('*').as(:any_operator) }
+      rule(:multi_key_dictionary) { braced(map_with(allowable_multi_keys).repeat(1).as(:dictionary)) }
 
       def map_with(key)
         key.as(:key) >> spaced(str('->')) >> allowable_value.as(:value) >> space?
