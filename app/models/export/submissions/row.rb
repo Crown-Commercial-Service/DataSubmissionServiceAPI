@@ -82,10 +82,6 @@ module Export
 
       private
 
-      def framework_definition
-        @framework_definition ||= Framework::Definition[submission._framework_short_name]
-      end
-
       def contract_entry_count
         submission._order_entry_count
       end

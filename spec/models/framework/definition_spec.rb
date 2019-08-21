@@ -17,8 +17,8 @@ RSpec.describe Framework::Definition do
         expect(definition.lots.size).to eql 14
       end
 
-      it 'is cached so that we aren\'t repeatedly recompiling' do
-        expect(definition).to eq(Framework::Definition[framework_short_name])
+      it 'is freshly compiled each time the method is called' do
+        expect(definition).not_to eq(Framework::Definition[framework_short_name])
       end
     end
 

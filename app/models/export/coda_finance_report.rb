@@ -21,9 +21,9 @@ module Export
       'M_Q'
     ].freeze
 
-    def output_row(submission)
-      output.puts(Row.new(submission, Customer.sectors[:central_government]).to_csv_line)
-      output.puts(Row.new(submission, Customer.sectors[:wider_public_sector]).to_csv_line)
+    def output_row(submission, cache)
+      output.puts(Row.new(submission, Customer.sectors[:central_government], cache).to_csv_line)
+      output.puts(Row.new(submission, Customer.sectors[:wider_public_sector], cache).to_csv_line)
     end
   end
 end

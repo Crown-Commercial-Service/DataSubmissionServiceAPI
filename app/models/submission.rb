@@ -27,6 +27,7 @@ class Submission < ApplicationRecord
     state :processing
     state :validation_failed
     state :ingest_failed
+    state :management_charge_calculation_failed
     state :in_review
     state :completed
     state :replaced

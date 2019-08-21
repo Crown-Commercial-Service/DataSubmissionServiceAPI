@@ -180,4 +180,16 @@ RSpec.describe Framework do
       end
     end
   end
+
+  describe '#definition' do
+    subject(:framework) { FactoryBot.create(:framework, :with_fdl, short_name: 'RM3821') }
+
+    it 'returns a class' do
+      expect(framework.definition).to be_a(Class)
+    end
+
+    it 'memoizes its result' do
+      expect(framework.definition).to eq(framework.definition)
+    end
+  end
 end

@@ -81,7 +81,7 @@ module Ingest
 
         entry.total_value = entry.data.dig(sheet_definition.total_value_field)
 
-        add_validation_errors!(entry, sheet_definition)
+        entry.validate_against!(sheet_definition)
 
         entries << entry
       end
@@ -97,26 +97,6 @@ module Ingest
       end
     end
     # rubocop:enable Metrics/AbcSize
-
-    def add_validation_errors!(entry, sheet_definition)
-      entry_data = sheet_definition.new(entry)
-
-      if entry_data.valid?
-        entry.aasm_state = :validated
-        entry.validation_errors = {}
-      else
-        entry.aasm_state = :errored
-        entry.validation_errors = entry_data.errors.to_hash.map do |field, messages|
-          {
-            message: messages.to_sentence,
-            location: {
-              column: field,
-              row: entry.source['row'],
-            },
-          }
-        end
-      end
-    end
 
     def invoice_attributes
       Set.new(@definition.attributes_for_entry_type('invoice'))
