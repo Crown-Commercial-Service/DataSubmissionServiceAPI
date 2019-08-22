@@ -14,13 +14,3 @@
 
         = form.input :definition_source, hide_optional: true, input_html: { id: 'code-editor', class: 'govuk-textarea govuk-textarea--fdl-source language-ruby', rows: '5' }
         = form.button :submit, value: 'Save definition'
-
-:javascript
-  var myCodeMirror = CodeMirror.fromTextArea(
-    document.getElementById('code-editor'),
-    {
-      mode: 'ruby',
-      theme: 'twilight',
-      lineNumbers: true
-    }
-  );
