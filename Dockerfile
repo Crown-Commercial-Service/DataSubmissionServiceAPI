@@ -47,7 +47,7 @@ COPY package.json yarn.lock $INSTALL_PATH/
 
 RUN yarn
 RUN gem update --system 3.0.0
-RUN gem install bundler
+RUN gem install bundler -v 2.0.1
 
 # bundle ruby gems based on the current environment, default to production
 RUN echo $RAILS_ENV
