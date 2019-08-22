@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-85] - 2019-08-22
+
+- Allow editing of definition for published frameworks
+- [Security] Bump nokogiri from 1.10.3 to 1.10.4
+- Remove support for loading framework definitions from filesystem. Validate the presence of a framework's definition source.
+
 ## [release-84] - 2019-08-19
 
 - (chore) Copy filesystem FDL into the database
@@ -582,6 +588,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-85]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-84...release-85
 [release-84]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-83...release-84
 [release-83]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-82...release-83
 [release-82]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-81...release-82
