@@ -1,8 +1,31 @@
-supplier = Supplier.find_or_create_by!(name: 'Bobs Cheese Shop')
+def short_name(number)
+  "cboard#{number}"
+end
+
+def definition_source(number)
+  <<~FDL
+    Framework #{short_name(number)} {
+      Name 'Cheese Board #{number}'
+      ManagementCharge 0.5% of 'Supplier Price'
+      Lots { '99' -> 'Fake' }
+      InvoiceFields {
+        InvoiceValue from 'Supplier Price'
+      }
+    }
+  FDL
+end
+
+def create_framework(number)
+  Framework.find_or_initialize_by(short_name: short_name(number)).tap do |framework|
+    source = definition_source(number)
+    framework.update_from_fdl(source) || raise("Failed to save #{framework}")
+  end
+end
+
+supplier = Supplier.find_or_create_by!(name: 'Bobs Cheese Shop', salesforce_id: 'CHEESE-1')
 due_date = Date.today.next_month.change(day: 7)
 
-
-framework_unstarted = Framework.find_or_create_by!(short_name: 'cboard8', name: 'Cheese Board 8')
+framework_unstarted = create_framework(8)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_unstarted)
 Task.find_or_create_by!(
   status: :unstarted,
@@ -15,7 +38,7 @@ Task.find_or_create_by!(
 )
 
 
-framework_pending = Framework.find_or_create_by!(short_name: 'cboard9', name: 'Cheese Board 9')
+framework_pending = create_framework(9)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_pending)
 in_progress_task = Task.find_or_create_by!(
   status: :in_progress,
@@ -29,7 +52,7 @@ in_progress_task = Task.find_or_create_by!(
 supplier.submissions.find_or_create_by!(framework: framework_pending, task: in_progress_task)
 
 
-framework_processing = Framework.find_or_create_by!(short_name: 'cboard10', name: 'Cheese Board 10')
+framework_processing = create_framework(10)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_processing)
 task_processing = Task.find_or_create_by!(
   status: :in_progress,
@@ -50,7 +73,7 @@ processing_submission.entries.find_or_create_by!(submission_file: submission_fil
 processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
 
 
-framework_valid = Framework.find_or_create_by!(short_name: 'cboard11', name: 'Cheese Board 11')
+framework_valid = create_framework(11)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_valid)
 task_in_review = Task.find_or_create_by!(
   status: :in_progress,
@@ -73,7 +96,7 @@ valid_submission.entries.find_or_create_by!(submission_file: submission_file, aa
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 2 })
 
 
-framework_invalid = Framework.find_or_create_by!(short_name: 'cboard12', name: 'Cheese Board 12')
+framework_invalid = create_framework(12)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_invalid)
 task_in_review_with_errors = Task.find_or_create_by!(
   status: :in_progress,
@@ -99,7 +122,7 @@ invalid_submission.entries.find_or_create_by!(
 ).update_attribute(:validation_errors, [{ "message": "Required value error", "location": { "row": 2, "column": 1 } }])
 
 # completed task
-framework_completed = Framework.find_or_create_by!(short_name: 'cboard13', name: 'Cheese Board 13')
+framework_completed = create_framework(13)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_completed)
 task_completed = Task.find_or_create_by!(
   status: :completed,
