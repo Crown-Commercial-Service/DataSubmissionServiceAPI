@@ -70,9 +70,6 @@ gem 'http'
 # Used for FDL testing (see FDL::Validations::Test)
 gem 'hashdiff', require: false
 
-# Force nokogiri to non-vulnerable version
-gem 'nokogiri', '>= 1.10.4'
-
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
