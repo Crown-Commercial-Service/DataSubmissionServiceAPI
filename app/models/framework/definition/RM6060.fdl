@@ -1,0 +1,156 @@
+Framework RM6060 {
+   Name 'Vehicle Purchase'
+
+   ManagementCharge 0.5% of 'Supplier Price'
+
+  Lots {
+    '1' -> 'Passenger Cars (including 4x4 variants)'
+    '2' -> 'Light to medium commercial vehicles (including car derived vans, 4x4 variants & minibuses) up to but not including 7.5 tonnes'
+    '3' -> 'Medium to heavy Commercial Vehicles 7.5 tonnes and above'
+    '4' -> 'Motorcycles (including scooters and quad bikes)'
+    '5' -> 'Buses and Coaches'
+    '6' -> 'Blue light vehicles (including passenger vehicles, 4x4 variants, all-terrain vehicles, motorcycles, scooters and quad bikes)'
+    '7' -> 'Blue light: light to medium commercial vehicles (including car derived vans, 4x4 variants & minibuses) up to but not including 7.5 tonnes'
+  }
+
+   InvoiceFields {
+    CustomerName from 'Customer Organisation Name'
+    CustomerURN from 'Customer Unique Reference Number (URN)'
+    CustomerInvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceNumber from 'Customer Invoice/Credit Note Number'
+    LotNumber from 'Lot Number'
+    String(..8) Additional1 from 'Vehicle Registration Number'
+    String(..20) Additional2 from 'Vehicle CAP Code'
+    String(..255) Additional3 from 'Vehicle Make'
+    String(..255) Additional4 from 'Vehicle Model'
+    String(..255) Additional5 from 'Vehicle Trim/Derivative'
+    ProductGroup from 'Vehicle Segment' depends_on 'Lot Number' {
+      '1' -> Lot1Segment
+      '2' -> Lot2Segment
+      '3' -> Lot3Segment
+      '4' -> Lot4Segment
+      '5' -> Lot5Segment
+      '6' -> Lot6Segment
+      '7' -> Lot7Segment
+    }
+    FuelType Additional6 from 'Fuel Type'
+    optional Decimal Additional7 from 'CO2 Emissions'
+    Decimal Additional8 from 'MRP Excluding Options'
+    Decimal Additional9 from 'Customer Support Terms'
+    Decimal Additional10 from 'Additional Support Terms'
+    Decimal Additional11 from 'Supplier Price'
+    Decimal Additional12 from 'Conversion Cost'
+    Decimal Additional13 from 'Parts Cost'
+    InvoiceValue from 'Total Vehicle Cost'
+    LeasingCompany Additional14 from 'Leasing Company'
+    String(..6) Additional15 from 'eAuction Contract Number'
+  }
+
+  Lookups {
+    Lot1Segment [
+      '4x4/SUV'
+      'Executive'
+      'Lower Medium'
+      'Mini'
+      'MPV'
+      'Pickup'
+      'Specialist Sports'
+      'Supermini'
+      'Upper Medium'
+    ]
+
+    Lot2Segment [
+      'Car Derived Van'
+      'LCV'
+      'MPV'
+      'Pickup'
+    ]
+
+    Lot3Segment [
+      'HGV'
+    ]
+
+    Lot4Segment [
+      'Motorcycle'
+    ]
+
+    Lot5Segment [
+      'Bus'
+      'Coach'
+    ]
+
+    Lot6Segment [
+      '4x4/SUV/All Terrain vehicle'
+      'Executive'
+      'Lower Medium'
+      'Mini'
+      'MPV'
+      'Pickup'
+      'Specialist Sports'
+      'Supermini'
+      'Upper Medium'
+      'Motorcycle'
+    ]
+
+    Lot7Segment [
+      'Car Derived Van'
+      'Car Derived Van 4X4 variant'
+      'Minibus'
+      'LCV'
+      'Pickup'
+    ]
+
+    FuelType [
+      'Diesel'
+      'Electric'
+      'Petrol'
+      'Petrol Hybrid'
+      'Diesel Hybrid'
+    ]
+
+    LeasingCompany [
+      'ALD Automotive Ltd'
+      'Alphabet (GB) Limited'
+      'ARI Fleet UK Ltd'
+      'Arnold Clark Vehicle Management'
+      'Arval UK Ltd'
+      'Babcock Critical Services Ltd'
+      'BT Fleet Solutions'
+      'CLM Fleet Management'
+      'Dawsongroup Truck and Trailer Ltd'
+      'Days Fleet'
+      'Days Rental'
+      'Enterprise Rent-A-Car UK Ltd'
+      'Fleetcare (PSCSM) Ltd'
+      'Fraikin Ltd'
+      'Gap Group Ltd'
+      'GMP Drivercare Ltd'
+      'Go Plant Fleet Services Limited'
+      'Hitachi Capital Vehicle Solutions'
+      'Inchcape Fleet Solutions'
+      'Knowles Associates Total Fleet Management Ltd'
+      'LeasePlan UK Ltd'
+      'Lex Autolease'
+      'Limesquare Vehicle Rental Ltd'
+      'Lookers Leasing Ltd'
+      'Marshall Leasing Ltd'
+      'Maxxia (UK) Limited'
+      'Mercedes-Benz Financial Services UK Ltd t/a Daimler Fleet Management'
+      'NHS Fleet Solutions c/o Northumbria Healthcare NHS Foundation Trust'
+      'NTW Solutions Ltd'
+      'Ryder Ltd'
+      'Scot Group Ltd t/a Thrifty Car & Van Rental'
+      'SG Fleet Solutions UK Limited'
+      'SHB Hire Ltd'
+      'Sinclair Finance & Leasing Co Ltd'
+      'Specialist Fleet Services Ltd'
+      'TC Harrison 1960 Limited t/a TCH Leasing'
+      'Venson Automotive Solutions Limited'
+      'Volkswagen Financial Services (UK) Ltd'
+      'Wessex Fleet'
+      'West Wallasey Car Hire Ltd'
+      'Zenith Vehicles Limited'
+      'N/A'
+    ]
+  }
+}

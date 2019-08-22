@@ -1,0 +1,116 @@
+Framework RM1043iv {
+  Name 'Digital Outcomes & Specialists 2'
+
+  ManagementCharge 1.0%
+
+  Lots {
+    '1' -> 'Outcomes'
+    '2' -> 'Specialists'
+    '3' -> 'User research studios'
+    '4' -> 'User research participants'
+  }
+
+  InvoiceFields {
+    SupplierReferenceNumber from 'SoW / Order Number'
+    optional String from 'Buyer Cost Centre'
+    String from 'Contract Reference'
+    CustomerURN from 'Buyer URN'
+    CustomerName from 'Buyer Organisation'
+    optional String from 'Buyer Contact Name'
+    optional String from 'Buyer Contact Number'
+    optional String from 'Buyer Email Address'
+    InvoiceDate from 'Invoice Date'
+    InvoiceNumber from 'Invoice Number'
+    LotNumber from 'Lot Number'
+    String Additional1 from 'Project Phase'
+    String Additional2 from 'Project Name'
+    ProductGroup from 'Service provided' depends_on 'Lot Number' {
+      '1' -> Lot1Services
+      '2' -> Lot2Services
+      '3' -> Lot3Services
+      '4' -> Lot4Services
+    }
+    String Additional3 from 'Location'
+    UNSPSC from 'UNSPSC'
+    optional UnitType from 'Unit of Purchase'
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Charge (Ex VAT)'
+    VATCharged from 'VAT amount charged'
+    optional String from 'Actual Delivery Date SoW complete'
+  }
+
+  ContractFields {
+    SupplierReferenceNumber from 'SoW / Order Number'
+    CustOrderDate from 'SoW / Order Date'
+    optional CustomerReferenceNumber from 'Contract Reference'
+    CustomerURN from 'Buyer URN'
+    CustomerName from 'Buyer Organisation'
+    optional String from 'Buyer Contact Name'
+    optional String from 'Buyer Contact Number'
+    optional String from 'Buyer Email Address'
+    ContractStartDate from 'Contract Start Date'
+    ContractEndDate from 'Contract End Date'
+    LotNumber from 'Lot Number'
+    String Additional5 from 'Project Name'
+    String Additional4 from 'Project Phase'
+    ProductGroup from 'Service provided' depends_on 'Lot Number' {
+      '1' -> Lot1Services
+      '2' -> Lot2Services
+      '3' -> Lot3Services
+      '4' -> Lot4Services
+    }
+    String Additional6 from 'Location'
+    Decimal Additional7 from 'Day Rate'
+    UnitQuantity from 'Quantity'
+    ContractValue from 'Total Value'
+  }
+
+  Lookups {
+    UnitType [
+      'Day'
+    ]
+
+    Lot1Services [
+      'User Experience and Design'
+      'Performance Analysis and Data'
+      'Security'
+      'Service Delivery'
+      'Software Development'
+      'Support and Operations'
+      'Testing and Auditing'
+      'User Research'
+    ]
+
+    Lot2Services [
+      'Agile Coach'
+      'Business Analyst'
+      'Communications Manager'
+      'Content Designer or Copywriter'
+      'Cyber Security Consultant'
+      'Data Architect'
+      'Data Engineer'
+      'Data Scientist'
+      'Delivery Manager or Project Manager'
+      'Designer'
+      'Developer'
+      'Performance Analyst'
+      'Portfolio Manager'
+      'Product Manager'
+      'Programme Delivery Manager'
+      'Quality Assurance Analyst'
+      'Service Manager'
+      'Technical Architect'
+      'User Researcher'
+      'Web Operations Engineer'
+    ]
+
+    Lot3Services [
+      'User research studios'
+    ]
+
+    Lot4Services [
+      'User research participants'
+    ]
+  }
+}
