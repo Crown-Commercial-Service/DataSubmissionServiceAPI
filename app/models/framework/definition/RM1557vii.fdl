@@ -1,0 +1,115 @@
+Framework RM1557vii {
+  Name 'G-Cloud 7'
+
+  ManagementCharge 0.5%
+
+  Lots {
+    '1' -> 'Infrastructure as a Service (IaaS)'
+    '2' -> 'Platform as a Service (PaaS)'
+    '3' -> 'Software as a Service'
+    '4' -> 'Specialist Cloud Services'
+  }
+
+  InvoiceFields {
+    LotNumber from 'Lot Number'
+    optional SupplierReferenceNumber from 'Supplier Order Number'
+    CustomerURN from 'Customer URN'
+    CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    optional String from 'Customer Contact Name'
+    optional String from 'Customer Contact Number'
+    optional String from 'Customer Email Address'
+    CustomerInvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Customer Invoice Number'
+    optional String from 'Customer Invoice Line Number'
+    ProductGroup from 'Product / Service Group Level 1' depends_on 'Lot Number' {
+      '1' -> Lot1Service
+      '2' -> Lot2Service
+      '3' -> Lot3Service
+      '4' -> Lot4Service
+    }
+    ProductCode from 'Digital Marketplace Service ID'
+    optional UNSPSC from 'UNSPSC'
+    UnitType from 'Unit of Purchase'
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Charge (Ex VAT)'
+    VATIncluded from 'VAT Applicable'
+    VATCharged from 'VAT amount charged'
+    optional Date from 'Actual Delivery Date'
+    Expenses from 'Expenses'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+  }
+
+  ContractFields {
+    LotNumber from 'Lot Number'
+    optional SupplierReferenceNumber from 'Supplier Order Number'
+    CustomerURN from 'Customer URN'
+    CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    optional String from 'Customer Contact Name'
+    optional String from 'Customer Contact Number'
+    optional String from 'Customer Email Address'
+    optional CustomerReferenceNumber from 'Customer Order Number'
+    ContractStartDate from 'Customer Contract Start Date'
+    ContractEndDate from 'Completion Date/Delivery Date'
+    CustOrderDate from 'Customer Order Date'
+    ProductGroup from 'Product / Service Group Level 1' depends_on 'Lot Number' {
+      '1' -> Lot1Service
+      '2' -> Lot2Service
+      '3' -> Lot3Service
+      '4' -> Lot4Service
+    }
+    ProductCode from 'Digital Marketplace Service ID'
+    optional UNSPSC from 'UNSPSC'
+    ContractValue from 'Value'
+    UnitQuantity from 'Quantity'
+  }
+
+  Lookups {
+    Lot1Service [
+      'CDN'
+      'Compute'
+      'Storage'
+    ]
+
+    Lot2Service [
+      'Application Deployment Platform'
+      'Managed Component'
+    ]
+
+    Lot3Service [
+      'Backup and Recovery'
+      'Content Management'
+      'CRM'
+      'Dataset Visualisation'
+      'Document / records'
+      'Email'
+      'ERP'
+      'Forms'
+      'Geographic Search'
+      'Office Productivity'
+      'Polls/Surveys'
+      'Search'
+      'Service Analytics'
+      'Service Monitoring'
+      'User Alerts'
+    ]
+
+    Lot4Service [
+      'Business Analysis'
+      'Deployment'
+      'Design and Development'
+      'Design Authority'
+      'Project / Programme Management'
+      'Project Specification and Selection'
+      'Service Integration'
+      'Service Management'
+      'Strategy and Implementation Services'
+      'Transition Management'
+      'User Management'
+    ]
+
+  }
+}
