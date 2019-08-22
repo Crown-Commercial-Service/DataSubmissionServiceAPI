@@ -114,6 +114,8 @@ Rails.application.configure do
     # Starting with a small max-age (as opposed to the 31536000 recommended
     # there) so we can test it and so that we can roll it back without
     # long-term consequences if it doesn't work
-    'Strict-Transport-Security' => 'max-age=10, includeSubDomains; preload;'
+    'Strict-Transport-Security' => 'max-age=10, includeSubDomains; preload;',
+
+    'Expect-CT' => 'enforce, max-age=10'
   )
 end
