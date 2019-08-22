@@ -13,6 +13,7 @@ class Framework
         rule(integer: sequence(:nil)) { nil } # .maybe produces { integer: [] } for empty
         rule(string: sequence(:nil))  { '' }  # Blank strings produce { string: [] }
 
+        rule(any_operator: simple(:a))                    { Any }
         rule(lookup_reference: simple(:r))                { LookupReference.new(r) }
 
         # Just stripping Parslet::Slice
@@ -70,14 +71,11 @@ class Framework
           end
         end
 
-        # dictionary key/value pairs
-        rule(key: simple(:key), value: simple(:value)) { { key => value } }
-
         # Transform a CST sequence like [{ key1 => value1}, { key2 => value2}] to a
         # real hash                      { key1 => value1, key2 => value2 }
         rule(dictionary: subtree(:dictionary)) do
           dictionary.each_with_object({}) do |kv, result|
-            result[kv.keys.first] = kv.values.first
+            result[kv[:key]] = kv[:value]
           end
         end
 

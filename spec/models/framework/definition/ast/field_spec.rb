@@ -52,8 +52,8 @@ RSpec.describe Framework::Definition::AST::Field do
 
       it 'expands the Lot Segments out to their literal values' do
         expect(field.dependent_field_inclusion_values).to eq(
-          '2' => ['Car Derived Van', 'LCV', 'MPV', 'Pickup'],
-          '3' => ['HGV'],
+          ['2'] => ['Car Derived Van', 'LCV', 'MPV', 'Pickup'],
+          ['3'] => ['HGV'],
         )
       end
     end

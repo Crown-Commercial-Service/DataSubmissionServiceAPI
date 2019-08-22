@@ -30,21 +30,41 @@ class Framework
             fields = ast.field_defs(entry_type).map { |field_def| AST::Field.new(field_def, ast.lookups) }
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
+              next unless field.dependent_field_inclusion?
 
-              if field.dependent_field_inclusion?
-                raise_when_dependent_reference_invalid(field, entry_type)
-                raise_when_lookup_reference_invalid(field)
-              end
+              raise_when_dependent_reference_invalid(field, entry_type)
+              raise_when_dependent_reference_has_mismatched_arity(field)
+              raise_when_lookup_reference_invalid(field)
             end
           end
         end
 
         def raise_when_dependent_reference_invalid(field, entry_type)
-          valid_reference = ast.field_defs(entry_type).find { |f| f[:from] == field.dependent_field }
-          return if valid_reference
+          field.dependent_fields.each do |dependent_field|
+            valid_reference = ast.field_defs(entry_type).find { |f| f[:from] == dependent_field }
+            next if valid_reference
 
-          raise Transpiler::Error,
-                "'#{field.sheet_name}' depends on '#{field.dependent_field}', which does not exist"
+            raise Transpiler::Error,
+                  "'#{field.sheet_name}' depends on '#{dependent_field}', which does not exist"
+          end
+        end
+
+        def raise_when_dependent_reference_has_mismatched_arity(field)
+          num_dependent_fields = field.dependent_fields.size
+
+          field.dependent_field_inclusion_values.each_key do |key|
+            next if key.size == num_dependent_fields
+
+            raise Transpiler::Error,
+                  "'#{field.sheet_name}' depends on #{num_dependent_fields} fields " \
+                  "#{format_list(field.dependent_fields)} but contains a match on " \
+                  "#{key.size} values #{format_list(key)}"
+          end
+        end
+
+        def format_list(array)
+          values = array.map { |value| value.is_a?(String) ? "'#{value}'" : value }
+          '(' + values.join(', ') + ')'
         end
 
         def raise_when_lookup_reference_invalid(field)
