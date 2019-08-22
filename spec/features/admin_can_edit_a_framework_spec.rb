@@ -40,9 +40,7 @@ RSpec.feature 'Admin can edit a framework' do
       FDL
     end
 
-    context 'there is an existing unpublished framework' do
-      let(:published) { false }
-
+    shared_examples 'successful edit' do
       scenario 'everything is fine' do
         # When I visit the frameworks page
         visit admin_frameworks_path
@@ -67,33 +65,16 @@ RSpec.feature 'Admin can edit a framework' do
       end
     end
 
+    context 'there is an existing unpublished framework' do
+      let(:published) { false }
+
+      include_examples 'successful edit'
+    end
+
     context 'there is an existing published framework' do
       let(:published) { true }
 
-      scenario 'no link exists to edit' do
-        # When I visit the frameworks page
-        visit admin_frameworks_path
-        # Then I should see a list of frameworks
-        expect(page).to have_content('Framework to be changed')
-        # When I click on the existing framework
-        click_link('Framework to be changed')
-        # Then I should see the framework
-        expect(page).to have_content('Framework RM999 {')
-        # And I should not see 'Edit definition'
-        expect(page).not_to have_content('Edit definition')
-      end
-
-      scenario 'an admin attempts to /edit manually' do
-        # When I try to edit the framework
-        visit edit_admin_framework_path(framework)
-
-        # Then I should be redirected to the list of frameworks
-        expect(page).to have_content('Frameworks')
-        expect(page).to have_content('New Framework')
-
-        # And I should see that I cannot edit the framework
-        expect(page).to have_content('This framework has been published and cannot be edited')
-      end
+      include_examples 'successful edit'
     end
   end
 

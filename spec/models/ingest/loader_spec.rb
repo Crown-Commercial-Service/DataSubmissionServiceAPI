@@ -4,7 +4,7 @@ require 'csv'
 RSpec.describe Ingest::Loader do
   describe '#perform' do
     let(:framework) do
-      create(:framework, short_name: 'RM1043iv') do |framework|
+      create(:framework, :with_fdl, short_name: 'RM1043iv') do |framework|
         framework.lots.create(number: '1')
         framework.lots.create(number: '2')
       end

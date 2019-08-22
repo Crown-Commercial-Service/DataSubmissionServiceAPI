@@ -108,7 +108,7 @@ RSpec.describe Export::Relation do
 
     it 'has as many headers as row values' do
       expect(Export::Submissions::HEADER.length).to eql(
-        Export::Submissions::Row.new(relation.first).row_values.length
+        Export::Submissions::Row.new(relation.first, {}).row_values.length
       )
     end
   end
@@ -182,7 +182,7 @@ RSpec.describe Export::Relation do
 
     it 'has as many headers as row values' do
       expect(Export::Invoices::HEADER.length).to eql(
-        Export::Invoices::Row.new(relation.first).row_values.length
+        Export::Invoices::Row.new(relation.first, {}).row_values.length
       )
     end
   end
@@ -256,7 +256,7 @@ RSpec.describe Export::Relation do
 
     it 'has as many headers as row values' do
       expect(Export::Contracts::HEADER.length).to eql(
-        Export::Contracts::Row.new(relation.first).row_values.length
+        Export::Contracts::Row.new(relation.first, {}).row_values.length
       )
     end
   end

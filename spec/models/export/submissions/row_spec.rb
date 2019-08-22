@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Export::Submissions::Row do
   let(:submission) { double('Submission') }
 
-  let(:row) { Export::Submissions::Row.new(submission) }
+  let(:row) { Export::Submissions::Row.new(submission, {}) }
 
   describe '#status' do
     subject(:status) { row.status }

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Export::SubmissionEntryRow do
   describe '#value_for' do
-    let(:row) { Export::SubmissionEntryRow.new(entry) }
+    let(:cache) { {} }
+    let(:row) { Export::SubmissionEntryRow.new(entry, cache) }
 
     subject(:value) { row.value_for(field) }
 
@@ -23,9 +24,11 @@ RSpec.describe Export::SubmissionEntryRow do
     end
 
     context 'An invoice entry for existing framework RM3786' do
+      let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
+
       let(:entry) do
         double 'SubmissionEntry',
-               _framework_short_name: 'RM3786', entry_type: 'invoice',
+               _framework_short_name: framework.short_name, entry_type: 'invoice',
                data: attributes_for(:submission_entry, :legal_framework_invoice_data).fetch(:data)
       end
 
@@ -49,11 +52,32 @@ RSpec.describe Export::SubmissionEntryRow do
           expect(value).to eql(entry.data['Tier Number'])
         end
       end
+
+      context 'the framework definition is already in the cache' do
+        let(:definition) { FrameworkLoader['RM3786'] }
+        let(:cache) { { 'RM3786' => definition } }
+        let(:field) { 'LotNumber' }
+
+        it 'uses the definition from the cache and does not create another' do
+          expect(definition).to receive(:for_entry_type).and_call_original
+          expect(Framework::Definition).not_to receive(:[])
+
+          value
+        end
+      end
+
+      context 'the framework definition is not already in the cache' do
+        let(:field) { 'LotNumber' }
+
+        it 'creates a definition and stores it in the cache' do
+          value
+        end
+      end
     end
   end
 
   describe '#formatted_date returning dates as ISO8601' do
-    let(:row) { Export::SubmissionEntryRow.new(entry) }
+    let(:row) { Export::SubmissionEntryRow.new(entry, {}) }
     let(:entry) { double 'SubmissionEntry' }
 
     it 'handles DD/MM/YYYY date strings' do
@@ -73,7 +97,7 @@ RSpec.describe Export::SubmissionEntryRow do
   end
 
   describe '#format_decimal strips non-numeric characters' do
-    let(:row) { Export::SubmissionEntryRow.new(entry) }
+    let(:row) { Export::SubmissionEntryRow.new(entry, {}) }
     let(:entry) { double 'SubmissionEntry' }
 
     it 'handles integers' do

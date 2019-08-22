@@ -1,8 +1,11 @@
+DEFAULT_FDL = Rails.root.join('spec', 'fixtures', 'rm1070.fdl')
+
 FactoryBot.define do
   factory :framework do
     sequence(:short_name) { |n| "FM#{n + 1000}" }
     sequence(:name) { |n| "G Cloud #{n}" }
 
+    definition_source DEFAULT_FDL.read
     published true
 
     transient do

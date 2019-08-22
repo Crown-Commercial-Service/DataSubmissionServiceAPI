@@ -8,7 +8,7 @@ RSpec.describe Ingest::Orchestrator do
   end
 
   let(:framework) do
-    create(:framework, short_name: 'RM1557.10') do |framework|
+    create(:framework, :with_fdl, short_name: 'RM1557.10') do |framework|
       framework.lots.create(number: 1)
       framework.lots.create(number: 2)
     end
@@ -32,7 +32,8 @@ RSpec.describe Ingest::Orchestrator do
         orchestrator = Ingest::Orchestrator.new(file)
         orchestrator.perform
 
-        expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission)
+        expect(SubmissionManagementChargeCalculationJob).to have_been_enqueued.with(submission,
+                                                                                    framework.definition_source)
       end
     end
 

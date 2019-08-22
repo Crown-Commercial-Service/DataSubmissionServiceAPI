@@ -49,10 +49,11 @@ RSpec.describe SubmissionEntry do
     expect(submission_entry.customer).to eq customer
   end
 
-  describe 'validate_against_framework_definition!' do
+  describe 'validate_against!' do
     let!(:customer) { FactoryBot.create(:customer, urn: 12345678) }
     let(:supplier) { submission.supplier }
-    let(:framework) { FactoryBot.create(:framework, lot_count: 2, short_name: 'RM3767') }
+    let(:framework) { FactoryBot.create(:framework, :with_fdl, lot_count: 2, short_name: 'RM3767') }
+    let(:sheet_definition) { framework.definition.for_entry_type(entry.entry_type) }
     let(:submission) { FactoryBot.create(:submission, framework: framework) }
     let(:entry) { FactoryBot.create(:invoice_entry, submission: submission, data: data_hash) }
     let(:agreement) { FactoryBot.create(:agreement, framework: framework, supplier: supplier) }
@@ -86,14 +87,14 @@ RSpec.describe SubmissionEntry do
       }
     end
 
-    before { entry.validate_against_framework_definition! }
+    before { entry.validate_against!(sheet_definition) }
 
     context 'with a valid data hash' do
       let(:data_hash) { valid_data_hash }
 
       it 'transitions state to validated' do
-        expect(entry.reload).to be_validated
-        expect(entry.validation_errors).to eq(nil)
+        expect(entry).to be_validated
+        expect(entry.validation_errors).to eq({})
       end
     end
 
@@ -101,7 +102,7 @@ RSpec.describe SubmissionEntry do
       let(:data_hash) { valid_data_hash.merge('UNSPSC' => nil) }
 
       it 'transitions state to errored' do
-        expect(entry.reload).to be_errored
+        expect(entry).to be_errored
       end
 
       it 'sets the validation errors' do
@@ -123,7 +124,7 @@ RSpec.describe SubmissionEntry do
       let(:data_hash) { valid_data_hash.merge('Associated Service' => '') }
 
       it 'transitions state to errored' do
-        expect(entry.reload).to be_errored
+        expect(entry).to be_errored
       end
 
       it 'sets the validation errors' do
@@ -145,7 +146,7 @@ RSpec.describe SubmissionEntry do
       let(:data_hash) { valid_data_hash.merge('Lot Number' => 'XXX') }
 
       it 'transitions state to errored' do
-        expect(entry.reload).to be_errored
+        expect(entry).to be_errored
       end
 
       it 'sets the validation errors' do

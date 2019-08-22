@@ -39,7 +39,7 @@ RSpec.describe DataWarehouseExport do
   end
 
   describe 'DataWarehouseExport.generate!', truncation: true do
-    let(:framework) { create(:framework, short_name: 'RM3786') }
+    let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
     let(:azure_export_upload) { spy('azure_upload') }
@@ -100,7 +100,7 @@ RSpec.describe DataWarehouseExport do
   end
 
   describe '#generate_files', truncation: true do
-    let(:framework) { create(:framework, short_name: 'RM3786') }
+    let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
     let!(:task) { submission.task }
     let(:export) { DataWarehouseExport.create }

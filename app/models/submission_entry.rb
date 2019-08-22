@@ -23,27 +23,19 @@ class SubmissionEntry < ApplicationRecord
     state :errored
   end
 
-  def validate_against_framework_definition!
-    entry_data = entry_type_framework_definition.new(self)
+  def validate_against!(sheet_definition)
+    entry_data = sheet_definition.new(self)
 
     if entry_data.valid?
       self.aasm_state = :validated
+      self.validation_errors = {}
     else
       self.aasm_state = :errored
       self.validation_errors = validation_errors_hash(entry_data.errors)
     end
-    save
   end
 
   private
-
-  def framework_definition
-    @framework_definition ||= submission.framework.definition
-  end
-
-  def entry_type_framework_definition
-    @entry_type_framework_definition ||= framework_definition.for_entry_type(entry_type)
-  end
 
   def validation_errors_hash(errors)
     errors.to_hash.map do |field, messages|

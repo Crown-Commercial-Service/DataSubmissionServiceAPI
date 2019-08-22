@@ -1,6 +1,6 @@
 class Admin::FrameworksController < AdminController
   before_action :find_framework, only: %i[show edit update update_fdl publish]
-  before_action :prevent_change_to_published, only: %i[edit update_fdl publish]
+  before_action :prevent_republish, only: :publish
 
   def index
     @frameworks = Framework.order(:short_name).all
@@ -66,7 +66,7 @@ class Admin::FrameworksController < AdminController
     @framework = Framework.find(params[:id])
   end
 
-  def prevent_change_to_published
+  def prevent_republish
     return unless @framework.published?
 
     redirect_to admin_frameworks_path, alert: t('.cannot_change')
