@@ -1,91 +1,96 @@
 # Data Submission Service API
 
-This project can be run locally in two ways - with Docker or without. For
-speed, we recommend running _without_ Docker.
+An API layer that manages and exposes data on CCS frameworks. This service ingests submissions and create invoices for business done each month against each active framework.
+
+Admin users are able to use this tool to create new users and associate them with suppliers. These users will then be able to use [the frontend application](https://github.com/dxw/DataSubmissionServiceAPI) to submit their information.
 
 Various parts of the system are documented in `/docs` and also as part of the
 [Service Manual for the service](https://github.com/Crown-Commercial-Service/ReportMI-service-manual).
 
-## Running with Docker
-
-See [Running with Docker](docs/running-with-docker.md)
-
-## Without Docker
+---
 
 ### Prerequisites
 
-Use Homebrew to install Postgres, Redis, curl, Python and csvkit on MacOS:
-
-`$ brew install postgres redis curl csvkit`
-
-The application requires a user named `postgres` so create that user if it does not exist already:
-
-`$ createuser postgres`
-
-#### Auth0 Account
-
-Liaise with the team members to get an account on Auth0. Once you have this, log into Auth0 and visit `Applications` to get the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` values for the `.env` files (see next section)
-
-#### Yarn
-
-Install Yarn on MacOS with Homebrew:
-
-`$ brew install yarn`
-
-#### Bundler
-
-Install Bundler:
-
-`$ gem install bundler`
+- [Docker](https://docs.docker.com/docker-for-mac) greater than or equal to `18.03.1-ce-mac64 (24245)`
+- Access to the dxw 1Password vault named `DSS` can be granted by anyone on the dxw technical operations team
 
 ### Setting up the project
 
-Copy `.env.development.example` to `.env.development`. This file contains some
-secrets which need to be set. Liaise with team members to get the required
-values. See [environment-variables.md](/docs/environment-variables.md) for a
-description of all these environment variables.
+Copy the example environment variable file used with Docker:
 
-Once this is done, use Bundler to set up the project:
+```bash
+$ cp docker-compose.env.sample docker-compose.env
+```
 
-`$ bundle install`
+From the 1Password vault, copy the contents of a file named `Docker Compose - API - docker-compose.env` into the new `docker-compose.env` file. This file should contain no further additions to get started.
 
-Create & set up the database:
+The most common command used to start all containers. It does database set up if required and leaves you on an interactive prompt within the rails server process where `pry` can be used for debugging:
 
-`$ bundle exec rake db:setup`
+```bash
+$ bin/dstart
+```
 
-Next, copy `.env.test.example` to `.env.test`. This file needs a `SECRET_KEY_BASE` parameter which you can generate with Rake:
+If you'd like to see all logs, like `Sidekiq` or `Redis` you can use the conventional docker-compose command - you will lose the ability to use `pry`:
 
-`$ rake secret`
+```bash
+$ docker-compose up
+```
 
-Install front-end dependencies:
+If you'd like to shut all containers down, and remove database information persisted in `docker volumes` you can run the following command which rebuilds everything from scratch:
 
-`$ yarn install`
+```bash
+$ bin/drebuild
+```
 
-### Seeding the database
-
-`db/seeds.rb` is out of date at the time of writing. Instead, ask the team for a dump of the live database.
-
-Once you have the database dump, you can import it into your local Postgres with:
-
-`$ pg_restore -h localhost -U postgres -d DataSubmissionServiceApi_development /path/to/database/dump.tar`
+---
 
 ## Running the tests
 
-To run the rspec tests:
+Because the setup and teardown introduces quite some latency, we use the spring service to
+start up all dependencies in a docker container. This makes the test run faster.
 
-`$ bundle exec rspec`
+Get the test server up and running behind the scenes:
 
-To run the full test suite - Rubocop, Brakeman and Rspec - before pushing to Github:
+```bash
+$ bin/dtest-server up
+```
 
-`$ bundle exec rake` (the default Rake task)
+Run all the RSpec tests:
 
-## Run the application
+```bash
+$ bin/dspec spec
+```
 
-`$ bundle exec rails s`
+When no arguments are specified, the default rake task is executed. This runs other tests such as `Rubocop` for linting and `brakeman` for static code analysis.
 
-The application will run on port 3000 by default.
+You can use pass arguments as you normally would to RSpec through this script, to run a single test for example you can use `bin/dspec spec/features/adding_a_user_spec.rb:1`
 
-### The admin interface
+To stop the test server from running in the background:
+
+```bash
+$ bin/dtest-server down
+```
+
+---
+
+## Managing gems
+
+When making changes to the Gemfile we should use Docker too in order to ensure we use a consistent version of Bundler:
+
+```bash
+$ docker-compose run --rm web bundle
+```
+
+The Bundler version in the Gemfile.lock should remain unchanged unless part of a deliberate update.
+
+```
+BUNDLED WITH
+  2.0.1
+```
+
+---
+
+## The admin interface
 
 The admin interface is available at `/admin`. In production its use requires
 OAuth authentication via a Google provider, but there is a `DeveloperAdmin` provider
@@ -93,7 +98,7 @@ which will let you log in locally to develop admin functions without credentials
 should not need to do anything to set this up; it will apply by default if either of
 `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` are missing from your development environment.
 
-It will use the email address from `.env.development / ADMIN_EMAILS` by default with a
+It will use the `ADMIN_EMAILS` variable from `docker-compose.env` by default with a
 default user full name, either of which can be changed at login if you wish.
 
 ## API Endpoints
@@ -104,11 +109,6 @@ A [full list of the API endpoints](endpoints.md) is available in a separate docu
 
 See [this guide](docs/onboarding-suppliers.md) for details on onboarding suppliers
 and their users.
-
-## Running the sidekiq workers
-
-If you want to be able to locally ingest files, or run any other
-sidekiq jobs, then you need to run a sidekiq worker. You can do this by running `SIDEKIQ_CONCURRENCY=3 bundle exec sidekiq`.
 
 ## Scheduled jobs
 
@@ -126,10 +126,10 @@ There are Rake tasks to report the status of monthly tasks:
 
 ```
   # Reports monthly task statistics. Defaults to the current month’s tasks.
-  $ bundle exec rake report:submission_stats
+  $ bin/drake report:submission_stats
 
   # Report spend and management charge. Defaults to the current month’s tasks.
-  $ bundle exec rake report:spend_and_management_charge
+  $ bin/drake report:spend_and_management_charge
 ```
 
 ## Console helpers

@@ -1,0 +1,77 @@
+Framework RM858 {
+  Name 'Pan Govt Vehicle Leasing & Fleet Outsource Solutio'
+
+  ManagementCharge varies_by 'Spend Code' {
+    'Lease Rental'         -> 0.5%
+    'Fleet Management Fee' -> 0.5%
+    'Damage'               -> 0%
+    'Other Re-charges'     -> 0%
+  }
+
+  Lots {
+    '1' -> 'Vehicle Lease - contract hire of passenger vehicles(inc 4x4s & mini buses)'
+    '2' -> 'Vehicle Lease-(contract hire of pass vehicles(inc 4x4 & mini buses) Light c'
+    '3' -> 'Vehicle Lease-contract hire of commercial vehicles 7.5 tonnes & above inc t'
+    '4' -> 'Vehicle Lease-contract hire of commercial vehicles 7.5 tonnes & above for a'
+    '5' -> 'Vehicle Lease-contract hire of buses & coaches excluding mini buses'
+    '6' -> 'Vehicle Lease-contract hire of motorcycles with the option to supply quad b'
+    '7' -> 'Vehicle Lease-single source supply of leased passenger vehicles & comm vehi'
+    '8' -> 'Vehicle Lease - fleet outsource  solution for the total mngmt & sourcing of'
+  }
+
+  InvoiceFields {
+    LotNumber from 'Lot Number'
+    optional CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    CustomerURN from 'Customer URN'
+    InvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Customer Invoice Number'
+    optional String from 'Customer Invoice Line Number'
+    optional ProductDescription from 'Invoice Line Product / Service Description'
+    UnitType from 'Unit of Purchase'
+    optional UnitPrice from 'Price per Unit ex VAT'
+    optional UnitQuantity from 'Invoice Line Quantity'
+    InvoiceValue from 'Invoice Line Total Value ex VAT'
+    optional VATIncluded from 'VAT Applicable'
+    optional VATCharged from 'VAT Amount Charged'
+    PromotionCode from 'Spend Code'
+    ProductGroup from 'Invoice Line Product / Service Grouping'
+    optional ProductCode from 'CAP Code'
+    optional ProductClass from 'Vehicle Make'
+    optional ProductSubClass from 'Vehicle Model'
+    optional String Additional1 from 'Vehicle Derivative'
+    optional String Additional2 from 'Product Classification'
+    optional String Additional3 from 'Vehicle Registration'
+    optional String Additional4 from 'Vehicle Convertors Name'
+    optional String Additional5 from 'Vehicle Conversion Type'
+    optional String Additional6 from 'Vehicle Type'
+    optional String Additional7 from 'Fuel Type'
+    optional String Additional8 from 'CO2 Emission Levels'
+    optional String Additional9 from 'Lease Period'
+    Date Additional10 from 'Lease Start Date'
+    Date Additional11 from 'Lease End Date'
+    optional String Additional12 from 'Payment Profile'
+    optional Decimal Additional13 from 'Annual Lease Mileage'
+    optional Decimal Additional14 from 'Base Vehicle Price ex VAT'
+    optional Decimal Additional15 from 'Lease Cost excluding Optional Extras and Conversion ex VAT'
+    optional Decimal Additional16 from 'Lease Finance Charge ex VAT'
+    optional Decimal Additional17 from 'Lease Finance Margin ex VAT'
+    optional String Additional18 from 'Vehicle Purchase Terms'
+    optional Decimal Additional19 from 'Standard Vehicle Discount (%)'
+    optional Decimal Additional20 from 'Enhanced Vehicle Discount (%)'
+    optional Decimal Additional21 from 'Annual Service Maintenance & Repair Costs ex VAT'
+    optional Decimal Additional22 from 'Annual Breakdown & Recovery Costs ex VAT'
+    optional Decimal Additional23 from 'Residual Value'
+    optional String from 'Cost Centre'
+    optional String from 'Contract Number'
+  }
+
+  Lookups {
+    PromotionCode [
+      'Lease Rental'
+      'Fleet Management Fee'
+      'Damage'
+      'Other Re-charges'
+    ]
+  }
+}

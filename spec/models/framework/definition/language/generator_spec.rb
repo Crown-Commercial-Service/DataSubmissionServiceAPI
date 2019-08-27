@@ -345,22 +345,19 @@ RSpec.describe Framework::Definition::Generator do
         subject(:invoice_class) { definition::Invoice }
         let(:mappings) do
           {
-            'Lot Number' =>
-             {
-               '1' => invoice_class.lookups['Lot1Segment'],
-               '2' => invoice_class.lookups['Lot2Segment'],
-               '3' => invoice_class.lookups['Lot3Segment'],
-               '4' => invoice_class.lookups['Lot4Segment'],
-               '5' => invoice_class.lookups['Lot5Segment'],
-               '6' => invoice_class.lookups['Lot6Segment'],
-               '7' => invoice_class.lookups['Lot7Segment']
-             }
+            ['1'] => invoice_class.lookups['Lot1Segment'],
+            ['2'] => invoice_class.lookups['Lot2Segment'],
+            ['3'] => invoice_class.lookups['Lot3Segment'],
+            ['4'] => invoice_class.lookups['Lot4Segment'],
+            ['5'] => invoice_class.lookups['Lot5Segment'],
+            ['6'] => invoice_class.lookups['Lot6Segment'],
+            ['7'] => invoice_class.lookups['Lot7Segment']
           }
         end
 
         it {
           is_expected.to have_field('Vehicle Segment')
-            .validated_by(dependent_field_inclusion: { parent: 'Lot Number', in: mappings })
+            .validated_by(dependent_field_inclusion: { parents: ['Lot Number'], in: mappings })
         }
 
         it {
@@ -497,9 +494,10 @@ RSpec.describe Framework::Definition::Generator do
               }
               InvoiceValue from 'Supplier Price'
               ProductClass from 'Product Class'
-              String Additional1 from 'Going to Additional1' depends_on 'Product Class' {
-                '1' -> SomeLookup
-                '2' -> SomeOtherLookup
+              String Additional1 from 'Going to Additional1' depends_on 'Service Type', 'Product Class' {
+                'Core', '1' -> SomeLookup
+                'Mixture', '2' -> SomeOtherLookup
+                'Non-core', * -> SomeCombinationOfLookups
               }
             }
 
@@ -536,11 +534,9 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to have_field('Primary Specialism').validated_by(
             dependent_field_inclusion: {
-              parent: 'Service Type',
+              parents: ['Service Type'],
               in: {
-                'Service Type' => {
-                  'core' => %w[Hi], 'non-core' => %w[There], 'mixture' => %w[Hi There]
-                }
+                ['core'] => %w[Hi], ['non-core'] => %w[There], ['mixture'] => %w[Hi There]
               }
             }
           )
@@ -549,15 +545,47 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to have_field('Going to Additional1').validated_by(
             dependent_field_inclusion: {
-              parent: 'Product Class',
+              parents: ['Service Type', 'Product Class'],
               in: {
-                'Product Class' => {
-                  '1' => ['Hi'], '2' => ['There']
-                }
+                ['core', '1'] => ['Hi'],
+                ['mixture', '2'] => ['There'],
+                ['non-core', Framework::Definition::AST::Any] => ['Hi', 'There']
               }
             }
           )
         }
+      end
+    end
+
+    context 'mismatched depends_on fields and values' do
+      let(:source) do
+        <<~FDL
+          Framework RM3786 {
+            Name 'General Legal Advice Services'
+            ManagementCharge 1.5%
+            Lots { '99' -> 'Fake' }
+            InvoiceFields {
+              ProductClass from 'Product Class'
+              ProductDescription from 'Description'
+              ProductGroup from 'Product Group' depends_on 'Product Class', 'Description' {
+                'a', *, 'c' -> ProductGroup
+              }
+              InvoiceValue from 'Supplier Price'
+            }
+            Lookups {
+              ProductGroup [
+                'Core'
+              ]
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql(
+          "'Product Group' depends on 2 fields ('Product Class', 'Description') " \
+          "but contains a match on 3 values ('a', *, 'c')"
+        )
       end
     end
 

@@ -121,8 +121,8 @@ class Framework
           field_def[:depends_on].present?
         end
 
-        def dependent_field
-          field_def[:depends_on][:dependent_field]
+        def dependent_fields
+          [*field_def[:depends_on][:dependent_fields]]
         end
 
         def dependent_field_lookup_references
@@ -131,7 +131,8 @@ class Framework
 
         def dependent_field_inclusion_values
           field_def[:depends_on][:values].each_with_object({}) do |(field_value, lookup_name), result|
-            result[field_value.downcase] = lookups[lookup_name]
+            field_values = [*field_value].map(&:downcase)
+            result[field_values] = lookups[lookup_name]
           end
         end
 

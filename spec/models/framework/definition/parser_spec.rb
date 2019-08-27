@@ -207,11 +207,46 @@ RSpec.describe Framework::Definition::Parser do
           field: 'ProductGroup',
           from: { string: 'Vehicle Segment' },
           depends_on: {
-            dependent_field: { string: 'Lot Number' },
+            dependent_fields: { string: 'Lot Number' },
             values: {
               dictionary: [
                 { key: { string: '1' }, value: { lookup_reference: 'Lot1Segment' } },
                 { key: { string: '2' }, value: { lookup_reference: 'Lot2Segment' } }
+              ]
+            }
+          }
+        )
+      }
+    end
+
+    context 'with multi-field dependencies' do
+      let(:source) do
+        <<~FDL
+          ProductGroup from 'Vehicle Segment' depends_on 'Lot Number', 'Category', 'Model' {
+            '1', 'Cars', 'Golf' -> Lot1Segment
+          }
+        FDL
+      end
+      it {
+        is_expected.to parse(source).as(
+          field: 'ProductGroup',
+          from: { string: 'Vehicle Segment' },
+          depends_on: {
+            dependent_fields: [
+              { string: 'Lot Number' },
+              { string: 'Category' },
+              { string: 'Model' },
+            ],
+            values: {
+              dictionary: [
+                {
+                  key: [
+                    { string: '1' },
+                    { string: 'Cars' },
+                    { string: 'Golf' },
+                  ],
+                  value: { lookup_reference: 'Lot1Segment' }
+                },
               ]
             }
           }
@@ -247,7 +282,7 @@ RSpec.describe Framework::Definition::Parser do
           field: 'Additional1',
           from: { string: 'Somewhere' },
           depends_on: {
-            dependent_field: { string: 'Something Else' },
+            dependent_fields: { string: 'Something Else' },
             values: {
               dictionary: [
                 { key: { string: '1' }, value: { lookup_reference: 'SomeValues1' } },
