@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-86] - 2019-08-27
+
+- Use Docker exclusively to manage the dev environment
+- Support multiple parent fields with `depends_on` in FDL
+- Import FDL from the filesystem into the database
+- Fix the database seed data to match current validation rules
+
 ## [release-85] - 2019-08-22
 
 - Allow editing of definition for published frameworks
@@ -588,6 +595,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-86]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-85...release-86
 [release-85]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-84...release-85
 [release-84]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-83...release-84
 [release-83]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-82...release-83
