@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'auth0'
 
 RSpec.describe CreateUserInAuth0 do
   describe '#call' do
@@ -11,7 +12,8 @@ RSpec.describe CreateUserInAuth0 do
     end
 
     it 'creates the user in Auth0 and updates the local user auth_id' do
-      stub_auth0_get_users_request(email: user.email)
+      allow(FindUserInAuth0).to receive_message_chain(:new, :call).and_return("auth0|#{user.email}")
+
       auth0_create_call = stub_auth0_create_user_request(user.email)
 
       subject
@@ -20,69 +22,53 @@ RSpec.describe CreateUserInAuth0 do
       expect(user.auth_id).to eq("auth0|#{user.email}")
     end
 
-    context 'when the user already has an auth_id' do
-      let(:user) { create(:user, auth_id: 'auth|old') }
+    context 'when an error is thrown' do
+      context 'due to that user already existing' do
+        let(:auth0_user_exists_error) do
+          params = JSON[{
+            'statusCode' => 409,
+            'error' => 'Conflict',
+            'message' => 'The user already exists.',
+            'errorCode' => 'auth0_idp_error'
+          }]
 
-      context 'when the ID is different from Auth0' do
-        it 'updates the user with the version found in auth0' do
-          stub_auth0_get_users_request(
-            email: user.email,
-            auth_id: 'auth|new',
-            user_already_exists: true
-          )
+          Auth0::Unsupported.new(params)
+        end
+
+        it 'fetches that user and updates the local record' do
+          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :create_user)
+            .and_raise(auth0_user_exists_error)
+
+          find_user_service_double = double(FindUserInAuth0)
+          allow(FindUserInAuth0).to receive(:new)
+            .with(user: user)
+            .and_return(find_user_service_double)
+          expect(find_user_service_double).to receive(:call).and_return('auth|new')
 
           subject
 
-          expect(user.auth_id).to eq('auth|new')
+          expect(user.auth_id).to eql('auth|new')
         end
       end
 
-      context 'when the auth_id is the same as Auth0 for that email' do
-        let(:user) { create(:user, auth_id: 'auth|old') }
+      context 'for an another unexpected reason' do
+        it 'raises the error as an unhandled exception' do
+          allow(FindUserInAuth0).to receive_message_chain(:new, :call).and_return('auth|new')
 
-        it 'does not perform an update' do
-          stub_auth0_get_users_request(
-            email: user.email,
-            auth_id: 'auth|old',
-            user_already_exists: true
-          )
+          params = JSON[{
+            'statusCode' => 500,
+            'error' => 'Foo',
+            'message' => 'Bar',
+            'errorCode' => 'x_error'
+          }]
 
-          subject
+          unexpected_error = Auth0::Unsupported.new(params)
 
-          expect(user.changed?).to eq(false)
-          expect(user.auth_id).to eq('auth|old')
+          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :create_user)
+            .and_raise(unexpected_error)
+
+          expect { subject }.to raise_error(unexpected_error)
         end
-
-        it 'does not send a create request to Auth0' do
-          stub_auth0_get_users_request(
-            email: user.email,
-            auth_id: 'auth|old',
-            user_already_exists: true
-          )
-
-          auth0_create_call = stub_auth0_create_user_request(user.email)
-
-          subject
-
-          expect(auth0_create_call).not_to have_been_requested
-        end
-      end
-    end
-
-    context 'with a user whose email address already exists in Auth0' do
-      it 'updates auth_id from the current Auth0 user' do
-        auth0_check_user_exists = stub_auth0_get_users_request(
-          email: user.email,
-          auth_id: 'auth0|456',
-          user_already_exists: true
-        )
-        auth0_create_call = stub_auth0_create_user_request(user.email)
-
-        subject
-
-        expect(auth0_check_user_exists).to have_been_requested
-        expect(auth0_create_call).not_to have_been_requested
-        expect(user.auth_id).to eq('auth0|456')
       end
     end
   end

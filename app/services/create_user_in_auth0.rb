@@ -8,8 +8,6 @@ class CreateUserInAuth0
   end
 
   def call
-    return if updated_existing_user!
-
     auth0_response = auth0_client.create_user(
       user.name,
       email: user.email,
@@ -18,6 +16,14 @@ class CreateUserInAuth0
       connection: 'Username-Password-Authentication',
     )
     user.update(auth_id: auth0_response.fetch('user_id'))
+  rescue Auth0::Unsupported => error
+    error_hash = JSON.parse(error.to_s)
+    if error_hash['statusCode'].eql?(409) &&
+       error_hash['message'].eql?('The user already exists.')
+      updated_existing_user!
+    else
+      raise error
+    end
   end
 
   def self.temporary_password
