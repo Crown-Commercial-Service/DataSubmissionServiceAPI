@@ -38,12 +38,6 @@ class CreateUserInAuth0
   end
 
   def existing_user_id
-    @existing_user_id ||= begin
-      auth0_response = auth0_client.get_users(q: "email:#{user.email}")
-      auth0_client.headers = auth0_client.headers.except(:params)
-      return nil if auth0_response.empty?
-
-      auth0_response[0].dig('user_id')
-    end
+    @existing_user_id ||= FindUserInAuth0.new(user: user).call
   end
 end
