@@ -43,6 +43,7 @@ RSpec.describe Import::Users::Row do
       end
 
       it 'doesn’t make any Auth0 calls' do
+        result
         expect(auth0_create_call).not_to have_been_requested
       end
     end
