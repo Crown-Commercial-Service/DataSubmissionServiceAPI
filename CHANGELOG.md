@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-87] - 2019-08-29
+
+- Add some security-related HTTP response headers
+- Creating users in Auth0 no longer fails if the local user is missing
+- Deactivated users are reactivated with through the bulk upload feature
+
 ## [release-86] - 2019-08-27
 
 - Use Docker exclusively to manage the dev environment
@@ -595,6 +601,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-87]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-86...release-87
 [release-86]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-85...release-86
 [release-85]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-84...release-85
 [release-84]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-83...release-84
