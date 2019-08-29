@@ -10,7 +10,15 @@ module Import
       end
 
       def import!
-        user = existing_user.presence || create_user!
+        user = if existing_user.presence && !existing_user.active?
+                 ReactivateUser.new(user: existing_user).call
+                 existing_user
+               elsif existing_user.presence
+                 existing_user
+               else
+                 create_user!
+               end
+
         user.suppliers << supplier unless user.suppliers.include?(supplier)
         user
       end

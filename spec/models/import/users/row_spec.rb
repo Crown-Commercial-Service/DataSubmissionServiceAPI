@@ -34,7 +34,7 @@ RSpec.describe Import::Users::Row do
       end
     end
 
-    context 'with a pre-existing user' do
+    context 'with a pre-existing active user' do
       let!(:existing_user) { FactoryBot.create(:user, email: email) }
 
       it 'associates the existing user with the supplier' do
@@ -45,6 +45,20 @@ RSpec.describe Import::Users::Row do
       it 'doesn’t make any Auth0 calls' do
         result
         expect(auth0_create_call).not_to have_been_requested
+      end
+    end
+
+    context 'with a pre-existing inactive user' do
+      let!(:existing_user) { FactoryBot.create(:user, :inactive, email: email) }
+
+      it 'associates the existing user with the supplier' do
+        expect(result).to eq existing_user.reload
+        expect(existing_user.suppliers).to contain_exactly(matching_supplier)
+      end
+
+      it 'creates that user in Auth0' do
+        result
+        expect(auth0_create_call).to have_been_requested
       end
     end
 
