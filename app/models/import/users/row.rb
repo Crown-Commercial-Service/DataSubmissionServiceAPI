@@ -22,11 +22,9 @@ module Import
       end
 
       def create_user!
-        User.transaction do
-          user = User.create!(email: email, name: name)
-          user.create_with_auth0
-          user
-        end
+        user = User.new(email: email, name: name)
+        CreateUser.new(user: user).call
+        user
       end
     end
   end

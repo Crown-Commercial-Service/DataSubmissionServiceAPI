@@ -31,41 +31,7 @@ class User < ApplicationRecord
     suppliers.count > 1
   end
 
-  def create_with_auth0
-    return if active?
-
-    auth0_response = auth0_client.create_user(
-      name,
-      email: email,
-      email_verified: true,
-      password: temporary_password,
-      connection: 'Username-Password-Authentication',
-    )
-    update auth_id: auth0_response.fetch('user_id')
-  end
-
-  def delete_on_auth0
-    auth0_client.delete_user(auth_id)
-    update auth_id: nil
-  end
-
   def active?
     !auth_id.nil?
-  end
-
-  def deactivate
-    return unless active?
-
-    delete_on_auth0
-  end
-
-  def temporary_password
-    "#{SecureRandom.urlsafe_base64}aA1!"
-  end
-
-  private
-
-  def auth0_client
-    @auth0_client ||= Auth0Api.new.client
   end
 end

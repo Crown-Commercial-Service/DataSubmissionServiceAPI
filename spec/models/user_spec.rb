@@ -29,31 +29,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#create_with_auth0' do
-    let(:user) { FactoryBot.create(:user, :inactive) }
-    let!(:auth0_create_call) { stub_auth0_create_user_request(user.email) }
-
-    before { stub_auth0_token_request }
-
-    it 'submits to Auth0 and updates auth_id' do
-      user.create_with_auth0
-
-      expect(auth0_create_call).to have_been_requested
-      expect(user.auth_id).to eq("auth0|#{user.email}")
-    end
-  end
-
-  describe '#temporary_password' do
-    it 'conforms to the Auth0 criteria' do
-      password = User.new.temporary_password
-
-      expect(password).to match(/[a-z]/)
-      expect(password).to match(/[A-Z]/)
-      expect(password).to match(/[0-9]/)
-      expect(password).to match(/[!@#$%^&*]/)
-    end
-  end
-
   describe '#active?' do
     subject { user.active? }
 
@@ -67,48 +42,6 @@ RSpec.describe User, type: :model do
       let(:user) { FactoryBot.create(:user, :inactive) }
 
       it { is_expected.to be_falsy }
-    end
-  end
-
-  describe '#delete_on_auth0' do
-    let(:user) { FactoryBot.create(:user) }
-    let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
-
-    before { stub_auth0_token_request }
-
-    it 'deletes user on Auth0 and nils auth_id' do
-      user.delete_on_auth0
-
-      expect(auth0_delete_call).to have_been_requested
-      expect(user.auth_id).to eq(nil)
-    end
-  end
-
-  describe '#deactivate' do
-    let!(:auth0_delete_call) { stub_auth0_delete_user_request(user) }
-
-    before { stub_auth0_token_request }
-
-    context 'an active user' do
-      let(:user) { FactoryBot.create(:user) }
-
-      it 'deletes user on Auth0 and nils auth_id' do
-        user.deactivate
-
-        expect(auth0_delete_call).to have_been_requested
-        expect(user.auth_id).to eq(nil)
-      end
-    end
-
-    context 'an inactive user' do
-      let(:user) { FactoryBot.create(:user, :inactive) }
-
-      it 'does not do anything' do
-        user.deactivate
-
-        expect(auth0_delete_call).not_to have_been_requested
-        expect(user.auth_id).to eq(nil)
-      end
     end
   end
 

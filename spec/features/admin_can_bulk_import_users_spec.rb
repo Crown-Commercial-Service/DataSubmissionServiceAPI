@@ -11,6 +11,9 @@ RSpec.feature 'Admin can bulk import users' do
 
   before do
     stub_auth0_token_request
+
+    stub_auth0_get_users_request(email: jamila_email)
+    stub_auth0_get_users_request(email: seema_email)
     stub_auth0_create_user_request(jamila_email)
     stub_auth0_create_user_request(seema_email)
 

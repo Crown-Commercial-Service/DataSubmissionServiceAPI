@@ -30,3 +30,4 @@ en:
       invalid_optional_ingested_date: 'must be in the format dd/mm/yyyy or left blank'
       invalid_lot_number: 'is not included in the supplier framework agreement'
       invalid_dependent_field: '"%{value}" is not a valid %{attr} for the given %{parent_field_name} of "%{parent_field_value}". Please refer to the lookups tab in the template.'
+      error_adding_user_to_auth0: 'There was an error adding the user to Auth0. Please try again.'
