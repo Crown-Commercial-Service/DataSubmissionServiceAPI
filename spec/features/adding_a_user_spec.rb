@@ -6,6 +6,8 @@ RSpec.feature 'Adding a user' do
   before do
     allow(Rails.logger).to receive(:error)
     stub_auth0_token_request
+
+    stub_auth0_get_users_request(email: email)
     stub_auth0_create_user_request(email)
 
     sign_in_as_admin
@@ -34,6 +36,7 @@ RSpec.feature 'Adding a user' do
 
   scenario 'with Auth0 error' do
     email = 'bla@example.com'
+    stub_auth0_get_users_request(email: email)
     stub_auth0_create_user_request_failure(email)
 
     click_on 'Users'
@@ -42,9 +45,9 @@ RSpec.feature 'Adding a user' do
     fill_in 'Email address', with: 'bla@example.com'
     click_button 'Add new user'
 
-    expect(page).to have_content('There was an error adding the user to Auth0.')
+    expect(page).to have_content(I18n.t('error_adding_user_to_auth0'))
     expect(User.find_by(email: email)).to be_nil
     expect(Rails.logger).to have_received(:error)
-      .with(/Error adding user bla@example.com to Auth0 during User#create/)
+      .with(/Error adding user bla@example.com to Auth0 during CreateUser/)
   end
 end

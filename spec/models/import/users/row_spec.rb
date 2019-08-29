@@ -7,6 +7,7 @@ RSpec.describe Import::Users::Row do
     let(:salesforce_id) { 'SALESFORCE123' }
 
     let!(:matching_supplier) { FactoryBot.create(:supplier, salesforce_id: salesforce_id) }
+    let!(:auth0_check_exists_call) { stub_auth0_get_users_request(email: email) }
     let!(:auth0_create_call) { stub_auth0_create_user_request(email) }
 
     let(:row) { Import::Users::Row.new(email: email, name: name, supplier_salesforce_id: salesforce_id) }
@@ -31,18 +32,9 @@ RSpec.describe Import::Users::Row do
       it 'associates the user with its supplier' do
         expect(result.suppliers).to contain_exactly(matching_supplier)
       end
-
-      context 'when Auth0 errors' do
-        let!(:auth0_create_call) { stub_auth0_create_user_request_failure(email) }
-
-        it 'does not save the user' do
-          expect { row.import! }.to raise_error(Auth0::ServerError)
-          expect(User.find_by(email: email)).to be_nil
-        end
-      end
     end
 
-    context 'with a pre-existing user' do
+    context 'with a pre-existing active user' do
       let!(:existing_user) { FactoryBot.create(:user, email: email) }
 
       it 'associates the existing user with the supplier' do
@@ -51,7 +43,22 @@ RSpec.describe Import::Users::Row do
       end
 
       it 'doesn’t make any Auth0 calls' do
+        result
         expect(auth0_create_call).not_to have_been_requested
+      end
+    end
+
+    context 'with a pre-existing inactive user' do
+      let!(:existing_user) { FactoryBot.create(:user, :inactive, email: email) }
+
+      it 'associates the existing user with the supplier' do
+        expect(result).to eq existing_user.reload
+        expect(existing_user.suppliers).to contain_exactly(matching_supplier)
+      end
+
+      it 'creates that user in Auth0' do
+        result
+        expect(auth0_create_call).to have_been_requested
       end
     end
 

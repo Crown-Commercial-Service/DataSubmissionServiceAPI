@@ -137,3 +137,8 @@ There are Rake tasks to report the status of monthly tasks:
 There are some handy methods available in the Rails console for debugging
 submissions and reporting on the state of the monthly tasks. See
 [lib/console_helpers.rb](lib/console_helpers.rb) for more details.
+
+
+## Deployments
+
+Documentation on how deployments are managed for the RMI service as a whole are documented within the [service manual](https://crown-commercial-service.github.io/ReportMI-service-manual/#/deployments).

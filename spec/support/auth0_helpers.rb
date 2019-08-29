@@ -9,6 +9,11 @@ module Auth0Helpers
       .to_return(status: 200, body: '')
   end
 
+  def stub_auth0_delete_user_request_failure(user)
+    stub_request(:delete, "https://testdomain/api/v2/users/#{user.auth_id}")
+      .to_return(status: 500, body: '')
+  end
+
   def stub_auth0_create_user_request(email)
     stub_request(:post, 'https://testdomain/api/v2/users')
       .with(body: hash_including(email: email))
@@ -21,7 +26,7 @@ module Auth0Helpers
       .to_return(status: 500, body: '')
   end
 
-  def stub_auth0_get_users_request(email:, auth_id:, user_already_exists: false)
+  def stub_auth0_get_users_request(email:, auth_id: 'auth|123', user_already_exists: false)
     stubbed_response = if user_already_exists
                          [{ email: email, user_id: auth_id }]
                        else
