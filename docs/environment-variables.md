@@ -25,8 +25,9 @@ section of the Auth0 dashboard. The application ID for local development is
 locally!
 - SIDEKIQ_USERNAME/SIDEKIQ_PASSWORD – Credentials to protect access to the
 Sidekiq administrative interface
+- RAILS_MAX_THREADS - Used to set the concurrency of concurrent Puma processes, sidekiq jobs and maximum database connection pool size. Using the same value here ensures that there will always be less or equal database connections available, which avoids database connection errors.
 - SIDEKIQ_CONCURRENCY - Used to set the number of jobs that Sidekiq will attempt
-to work on at once. If not set, falls back to DATABASE_POOL_SIZE.
+to work on at once. If not set, falls back to RAILS_MAX_THREADS.
 - SUBMIT_INVOICES – Used as a feature-switch to enable/disable Workday
 integration, which will make API calls to generate invoices for completed
 submissions
