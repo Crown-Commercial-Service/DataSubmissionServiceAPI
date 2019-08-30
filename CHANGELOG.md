@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-88] - 2019-08-30
+
+- Reduce Sidekiq concurrency from 30-5 to prevent concurrency errors during busy ingest periods
+- Align Puma, Sidekiq and Database concurrency to avoid database connection errors
+- Documentation for how user logins work
+
 ## [release-87] - 2019-08-29
 
 - Add some security-related HTTP response headers
@@ -601,6 +607,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-88]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-87...release-88
 [release-87]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-86...release-87
 [release-86]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-85...release-86
 [release-85]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-84...release-85
