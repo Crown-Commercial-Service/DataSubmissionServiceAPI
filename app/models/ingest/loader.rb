@@ -59,12 +59,15 @@ module Ingest
 
     # rubocop:disable Metrics/AbcSize
     def load_data_from(rows, sheet_definition)
-      entries = []
+      entry_rows = []
       process_csv_row = ProcessCsvRow.new(sheet_definition)
 
+      columns = SubmissionEntry.columns.map { |column| column.name }.tap do |columns|
+        columns.delete('id')
+      end
+
       rows.data.each do |row|
-        entry = SubmissionEntry.new(
-          submission_file: @submission_file,
+        entry = SubmissionEntry.new(submission_file: @submission_file,
           submission: @submission_file.submission,
           entry_type: rows.type,
           source: {
@@ -83,12 +86,13 @@ module Ingest
 
         entry.validate_against!(sheet_definition)
 
-        entries << entry
+        entry_row = entry.attributes.values_at(*columns)
+        entry_rows << entry_row
       end
 
       if @persist
         SubmissionEntry.transaction do
-          SubmissionEntry.import(entries, batch_size: 500, validate: false)
+          SubmissionEntry.import(columns, entry_rows, batch_size: 500, validate: false)
         end
       else
         File.open("/tmp/ingest_#{@submission_file.id}_#{rows.type}.yml", 'w') do |f|
