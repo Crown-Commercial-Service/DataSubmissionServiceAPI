@@ -190,7 +190,7 @@ submission.update!(aasm_state: :ingest_failed)
 
 ## What to do next
 
-- <del>Try [increasing the Sidekiq memory usage](#options-for-a-sticking-plaster-fix)</del> (__update__ (30 Aug 2019) memory has been bumped to 8GiB) and see if we can succesfully ingest the aforementioned [large file](#when-its-happened)
+- <del>Try [increasing the Sidekiq memory usage](#options-for-a-sticking-plaster-fix)</del> (<del>__update__ (30 Aug 2019) memory has been bumped to 8GiB</del> __update__ (9 Sep 2019) memory has been bumped to 16GiB) and see if we can succesfully ingest the aforementioned [large file](#when-its-happened)
 - Decrease Sidekiq concurrency from 30 (I think this comes from the `RAILS_MAX_THREADS` environment variable on prod) to its pre-(GOV.UK PaaS migration) value of 3 (mentioned by Leeky), by setting the [`SIDEKIQ_CONCURRENCY`](https://github.com/dxw/DataSubmissionServiceAPI/blob/36252c8598ec44865d4a5eefa18b077e88116c13/config/sidekiq.yml#L1) environment variable. If decreasing Sidekiq concurrency has an impact on performance on prod, we may wish to consider adding an extra Sidekiq worker instance.
 - Consider deploying the [small optimisation](#options-for-a-sticking-plaster-fix).
 - Set up an alert from Papertrail to Slack (either to `#ccs-data-submission` or `#ccs-noise`) to send a message when an out of memory error appears in the logs
