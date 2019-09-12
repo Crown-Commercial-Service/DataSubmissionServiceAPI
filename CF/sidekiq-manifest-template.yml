@@ -12,7 +12,7 @@ applications:
       - API_SECRETBASE
       - API_AUTH0
       - GOOGLE_CLIENT
-      - ROLLBAR
+      - API_ROLLBAR
       - SIDEKIQ
       - SKYLIGHT
       - WORKDAY_API
