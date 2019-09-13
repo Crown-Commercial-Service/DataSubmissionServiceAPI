@@ -37,7 +37,7 @@ SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 CF_API_ENDPOINT="https://api.london.cloud.service.gov.uk"
 
-while getopts "a:u:p:o:s:h" opt; do
+while getopts "a:u:p:o:s:h:f" opt; do
   case $opt in
     u)
       CF_USER=$OPTARG
