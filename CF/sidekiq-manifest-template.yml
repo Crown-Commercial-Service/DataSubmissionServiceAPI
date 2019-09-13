@@ -22,6 +22,7 @@ applications:
       RAILS_MAX_THREADS: SIDEKIQ_CONCURRENCY
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'
+      MALLOC_ARENA_MAX: 2
     command: bundle exec sidekiq -q SIDEKIQ_QUEUE_NAME
     health-check-type: process
     no-route: true
