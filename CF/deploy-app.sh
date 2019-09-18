@@ -25,14 +25,19 @@ fi
 MEMORY_LIMIT="512M"
 INSTANCE_COUNT="1"
 
-SIDEKIQ_MEMORY_LIMIT="512M"
-SIDEKIQ_INSTANCE_COUNT="1"
+SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
+SIDEKIQ_DEFAULT_CONCURRENCY="5"
+SIDEKIQ_DEFAULT_MEMORY_LIMIT="2048M"
+
+SIDEKIQ_INGEST_INSTANCE_COUNT="1"
+SIDEKIQ_INGEST_CONCURRENCY="2"
+SIDEKIQ_INGEST_MEMORY_LIMIT="8192M"
 
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 CF_API_ENDPOINT="https://api.london.cloud.service.gov.uk"
 
-while getopts "a:u:p:o:s:h" opt; do
+while getopts "a:u:p:o:s:h:f" opt; do
   case $opt in
     u)
       CF_USER=$OPTARG
@@ -105,8 +110,14 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
 
   MEMORY_LIMIT="512M"
   INSTANCE_COUNT="3"
-  SIDEKIQ_MEMORY_LIMIT="16384M"
-  SIDEKIQ_INSTANCE_COUNT="3"
+
+  SIDEKIQ_DEFAULT_MEMORY_LIMIT="2048M"
+  SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
+  SIDEKIQ_DEFAULT_CONCURRENCY="5"
+
+  SIDEKIQ_INGEST_MEMORY_LIMIT="16384M"
+  SIDEKIQ_INGEST_INSTANCE_COUNT="1"
+  SIDEKIQ_INGEST_CONCURRENCY="3"
 fi
 
 cd "$SCRIPT_PATH" || exit
@@ -117,7 +128,8 @@ cf target -o "$CF_ORG" -s "$CF_SPACE"
 
 # generate manifest
 sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.manifest.yml"
-sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMORY_LIMIT/$SIDEKIQ_MEMORY_LIMIT/g" | sed "s/SIDEKIQ_INSTANCE_COUNT/$SIDEKIQ_INSTANCE_COUNT/g" > "$CF_SPACE.sidekiq.manifest.yml"
+sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMORY_LIMIT/$SIDEKIQ_DEFAULT_MEMORY_LIMIT/g" | sed "s/SIDEKIQ_INSTANCE_COUNT/$SIDEKIQ_DEFAULT_INSTANCE_COUNT/g" | sed "s/SIDEKIQ_QUEUE_NAME/default/g" | sed "s/SIDEKIQ_CONCURRENCY/$SIDEKIQ_DEFAULT_CONCURRENCY/g" > "$CF_SPACE.sidekiq.default.manifest.yml"
+sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMORY_LIMIT/$SIDEKIQ_INGEST_MEMORY_LIMIT/g" | sed "s/SIDEKIQ_INSTANCE_COUNT/$SIDEKIQ_INGEST_INSTANCE_COUNT/g" | sed "s/SIDEKIQ_QUEUE_NAME/ingest/g" | sed "s/SIDEKIQ_CONCURRENCY/$SIDEKIQ_INGEST_CONCURRENCY/g" > "$CF_SPACE.sidekiq.ingest.manifest.yml"
 
 # push API
 cd .. || exit
@@ -130,4 +142,5 @@ cf v3-zdt-push ccs-rmi-api-"$CF_SPACE"
 
 # push API sidekiq
 # this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f CF/"$CF_SPACE".sidekiq.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b python_buildpack -b ruby_buildpack
