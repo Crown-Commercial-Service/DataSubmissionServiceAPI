@@ -1,8 +1,8 @@
 ---
 applications:
-  - name: ccs-rmi-api-sidekiq-CF_SPACE
+  - name: ccs-rmi-api-sidekiq-SIDEKIQ_QUEUE_NAME-CF_SPACE
     memory: SIDEKIQ_MEMORY_LIMIT
-    instance: SIDEKIQ_INSTANCE_COUNT
+    instances: SIDEKIQ_INSTANCE_COUNT
     services:
       - ccs-rmi-api-CF_SPACE
       - ccs-rmi-logging-CF_SPACE
@@ -12,16 +12,17 @@ applications:
       - API_SECRETBASE
       - API_AUTH0
       - GOOGLE_CLIENT
-      - ROLLBAR
+      - API_ROLLBAR
       - SIDEKIQ
       - SKYLIGHT
       - WORKDAY_API
       - AZURE
     env:
       RAILS_ENV: production
-      RAILS_MAX_THREADS: 5
+      RAILS_MAX_THREADS: SIDEKIQ_CONCURRENCY
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'
-    command: bundle exec sidekiq
+      MALLOC_ARENA_MAX: 2
+    command: bundle exec sidekiq -q SIDEKIQ_QUEUE_NAME
     health-check-type: process
     no-route: true
