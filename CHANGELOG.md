@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-89] - 2019-09-19
+
+- Allow -f command-line switch to work in CF/deploy-app.sh
+- Reduce Sidekiq's memory usage
+- Deploy two separate instances of Sidekiq, one for each queue
+- Move ingest jobs into a separate 'ingest' queue
+- Use the API_ROLLBAR user service for rollbar environment variables
+- Increase Sidekiq memory from 8192M to 16384M (already applied to prod)
+
 ## [release-88] - 2019-08-30
 
 - Reduce Sidekiq concurrency from 30-5 to prevent concurrency errors during busy ingest periods
@@ -607,6 +616,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-89]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-88...release-89
 [release-88]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-87...release-88
 [release-87]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-86...release-87
 [release-86]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-85...release-86
