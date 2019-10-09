@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_105032) do
+ActiveRecord::Schema.define(version: 2019_10_09_133133) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "citext"
+  nable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_105032) do
     t.uuid "created_by_id"
     t.uuid "submitted_by_id"
     t.datetime "submitted_at"
+    t.decimal "management_charge_total", precision: 18, scale: 4
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
     t.index ["created_by_id"], name: "index_submissions_on_created_by_id"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
