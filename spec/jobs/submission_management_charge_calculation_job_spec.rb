@@ -19,6 +19,11 @@ RSpec.describe SubmissionManagementChargeCalculationJob do
         expect(order_entry.reload.management_charge).to be_nil
       end
 
+      it 'updates the submission with the management charge total' do
+        total = invoice_entry_1.reload.management_charge + invoice_entry_2.reload.management_charge
+        expect(submission.management_charge_total).to eq(total)
+      end
+
       it 'marks the submission as ready for review' do
         expect(submission).to be_in_review
       end
