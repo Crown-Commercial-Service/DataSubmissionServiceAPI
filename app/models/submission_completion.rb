@@ -26,7 +26,7 @@ class SubmissionCompletion
   private
 
   def create_invoice_for?(submission)
-    !submission.report_no_business? && submission.total_spend != 0 && ENV['SUBMIT_INVOICES']
+    !submission.report_no_business? && submission.management_charge != 0 && ENV['SUBMIT_INVOICES']
   end
 
   def mark_completed_submission_as_replaced!(user)
