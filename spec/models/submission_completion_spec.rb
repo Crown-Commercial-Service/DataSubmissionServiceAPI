@@ -69,6 +69,17 @@ RSpec.describe SubmissionCompletion do
               expect(SubmissionInvoiceCreationJob).to_not have_been_enqueued
             end
           end
+
+          context 'when submission has 0 total_spend but non-zero management charge' do
+            before do
+              allow(submission).to receive(:total_spend).and_return(0)
+            end
+
+            it 'creates a SubmissionInvoiceSubmissionJob' do
+              complete_submission.perform!
+              expect(SubmissionInvoiceCreationJob).to have_been_enqueued
+            end
+          end
         end
 
         context 'when SUBMIT_INVOICES env flag is not set' do
