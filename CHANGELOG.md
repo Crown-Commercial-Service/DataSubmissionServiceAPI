@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-90] - 2019-10-14
+
+- Report MI accepts incorrect URNs
+- Can't view supplier's admin app page
+- Management  charge doesn't get calculated for returns where any line has an
+  InvoiceValue of zero but commission applies
+
 ## [release-89] - 2019-09-19
 
 - Allow -f command-line switch to work in CF/deploy-app.sh
@@ -616,6 +623,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-90]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-89...release-90
 [release-89]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-88...release-89
 [release-88]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-87...release-88
 [release-87]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-86...release-87
