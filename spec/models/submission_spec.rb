@@ -172,8 +172,20 @@ RSpec.describe Submission do
     end
 
     describe '#management_charge' do
-      it 'returns the sum of all the management charges for the entries of type "invoice"' do
-        expect(submission.management_charge).to eq BigDecimal('5.60')
+      context 'a submission that already has its management_charge_total calculated' do
+        before do
+          allow(submission).to receive(:management_charge_total).and_return(BigDecimal('0.7'))
+        end
+
+        it 'returns the value in the management_charge_total column' do
+          expect(submission.management_charge).to eq BigDecimal('0.7')
+        end
+      end
+
+      context 'a submission whose management_charge is nil' do
+        it 'returns the sum of all the management charges for the entries of type "invoice"' do
+          expect(submission.management_charge).to eq BigDecimal('5.60')
+        end
       end
     end
 

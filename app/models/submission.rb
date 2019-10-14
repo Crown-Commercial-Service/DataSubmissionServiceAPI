@@ -79,7 +79,7 @@ class Submission < ApplicationRecord
   end
 
   def management_charge
-    entries.invoices.sum(:management_charge)
+    self.management_charge_total ||= entries.invoices.sum(:management_charge)
   end
 
   def total_spend
