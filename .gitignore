@@ -44,5 +44,8 @@ spec/examples.txt
 *.tfstate.*
 *.tfvars
 
+# Cruft
+.DS_Store
+
 # CF
 CF/*.manifest.yml
