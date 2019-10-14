@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-90] - 2019-10-14
+
+- Clean up incorrect URNs created after a Customer with a URN of 0 was mistakenly added to the database
+- Add management_charge_total for Supplier and backfill for troublesome clients with large returns
+- Calculate management charge and send invoice for returns where total_send is 0 but management_charge is non-zero
+
 ## [release-89] - 2019-09-19
 
 - Allow -f command-line switch to work in CF/deploy-app.sh
@@ -616,6 +622,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-90]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-89...release-90
 [release-89]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-88...release-89
 [release-88]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-87...release-88
 [release-87]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-86...release-87

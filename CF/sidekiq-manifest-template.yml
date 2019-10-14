@@ -2,6 +2,7 @@
 applications:
   - name: ccs-rmi-api-sidekiq-SIDEKIQ_QUEUE_NAME-CF_SPACE
     memory: SIDEKIQ_MEMORY_LIMIT
+    disk_quota: SIDEKIQ_DISK_QUOTA
     instances: SIDEKIQ_INSTANCE_COUNT
     services:
       - ccs-rmi-api-CF_SPACE

@@ -6,7 +6,7 @@
       = task.period_date.to_s(:month_year)
   - if task.active_submission
     %td.govuk-table__cell.govuk-table__cell--numeric
-      - unless task.active_submission.total_spend.zero?
+      - unless task.active_submission.management_charge.to_f.zero? && task.active_submission.total_spend.to_f.zero?
         = number_to_currency(task.active_submission.management_charge, unit: '£')
         %br/
         %small
