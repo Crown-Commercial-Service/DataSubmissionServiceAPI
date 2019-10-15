@@ -12,7 +12,7 @@ puts 'Backfilling management_charge_total for CORPORATE TRAVEL MANAGEMENT (NORTH
   raise 'Supplier not found!' unless supplier
 
   Submission.transaction do
-    supplier.submissions.each do |submission|
+    supplier.submissions.find_each do |submission|
       next unless submission.management_charge_total.nil?
 
       submission.management_charge_total = submission.entries.invoices.sum(:management_charge)
