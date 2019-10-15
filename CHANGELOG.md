@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-91] - 2019-10-15
+
+- A new script to clean up incorrect URNs created after a Customer with a URN of 0 was mistakenly added to the database; this time in SQL
+- A script to backfill all management_charge_total for Submissions, again in SQL because the script in the previous release was not performant
+
 ## [release-90] - 2019-10-14
 
 - Clean up incorrect URNs created after a Customer with a URN of 0 was mistakenly added to the database
@@ -622,6 +627,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-91]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-90...release-91
 [release-90]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-89...release-90
 [release-89]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-88...release-89
 [release-88]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-87...release-88
