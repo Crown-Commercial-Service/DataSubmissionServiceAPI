@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-92] - 2019-10-24
+
+- Performance improvements to avoid large returns taking down the service, increased work_mem for postgres, and added a new column called `invoice_total`
+
 ## [release-91] - 2019-10-15
 
 - A new script to clean up incorrect URNs created after a Customer with a URN of 0 was mistakenly added to the database; this time in SQL
@@ -627,6 +631,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-92]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-91...release-92
 [release-91]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-90...release-91
 [release-90]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-89...release-90
 [release-89]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-88...release-89
