@@ -72,7 +72,7 @@ RSpec.describe Ingest::Loader do
       fake_order_row.map { |k, _| [k, '   '] }.to_h
     end
 
-    it 'loads data from the converter into the database' do
+    it 'loads data from the converter into the database and saves the invoice total' do
       create(:customer, urn: '12345')
 
       framework.lots.each do |lot|
@@ -111,6 +111,8 @@ RSpec.describe Ingest::Loader do
 
       expect(file.entries.orders.first.total_value).to eql 22000
       expect(file.entries.orders.first.customer_urn).to eql 12345
+
+      expect(file.submission.invoice_total).to eql 25.98
     end
 
     it 'ignores empty rows when loading data' do
