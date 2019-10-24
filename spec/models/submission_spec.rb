@@ -190,8 +190,18 @@ RSpec.describe Submission do
     end
 
     describe '#total_spend' do
-      it 'returns the sum of all the total_values for the entries of type "invoice"' do
-        expect(submission.total_spend).to eq BigDecimal('560')
+      context 'there is a backfilled invoice_total value for performance' do
+        before { submission.invoice_total = BigDecimal('999') }
+        it 'returns that value in preference' do
+          expect(submission.total_spend).to eq BigDecimal('999')
+        end
+      end
+
+      context 'there is no backfilled invoice_total value' do
+        before { submission.invoice_total = nil }
+        it 'returns the sum of all the total_values for the entries of type "invoice"' do
+          expect(submission.total_spend).to eq BigDecimal('560')
+        end
       end
     end
 

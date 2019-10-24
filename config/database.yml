@@ -6,6 +6,8 @@ default: &default
   username: postgres
   password:
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  variables:
+    work_mem: <%= ENV.fetch('PG_WORK_MEM') { '16MB' } %>
 
 development:
   <<: *default

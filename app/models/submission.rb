@@ -83,7 +83,7 @@ class Submission < ApplicationRecord
   end
 
   def total_spend
-    entries.invoices.sum(:total_value)
+    self.invoice_total ||= entries.invoices.sum(:total_value)
   end
 
   def order_total_value
