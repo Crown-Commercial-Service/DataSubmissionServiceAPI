@@ -13,7 +13,7 @@ module Ingest
     def initialize(converter, submission_file, persist = true)
       @converter = converter
       @submission_file = submission_file
-      @framework = @submission_file.submission.framework
+      @framework = submission.framework
       @definition = @framework.definition
       @persist = persist
 
@@ -37,7 +37,10 @@ module Ingest
       Rails.logger.info "Loading #{@converter.invoices.row_count} invoice rows"
 
       sheet_definition = @definition.for_entry_type('invoice')
-      load_data_from(@converter.invoices, sheet_definition)
+
+      load_data_from(@converter.invoices, sheet_definition) do |invoice_total|
+        submission.update!(invoice_total: invoice_total)
+      end
     end
 
     def load_orders
@@ -58,14 +61,18 @@ module Ingest
     end
 
     # rubocop:disable Metrics/AbcSize
+    #
+    # Load data from given rows and yield the running total from
+    # within the final persist transaction
     def load_data_from(rows, sheet_definition)
       entries = []
+      running_total = 0
       process_csv_row = ProcessCsvRow.new(sheet_definition)
 
       rows.data.each do |row|
         entry = SubmissionEntry.new(
           submission_file: @submission_file,
-          submission: @submission_file.submission,
+          submission: submission,
           entry_type: rows.type,
           source: {
             row: Integer(row['line_number']) + 1,
@@ -83,12 +90,14 @@ module Ingest
 
         entry.validate_against!(sheet_definition)
 
+        running_total += entry.total_value
         entries << entry
       end
 
       if @persist
         SubmissionEntry.transaction do
           SubmissionEntry.import(entries, batch_size: 500, validate: false)
+          yield running_total if block_given?
         end
       else
         File.open("/tmp/ingest_#{@submission_file.id}_#{rows.type}.yml", 'w') do |f|
@@ -97,6 +106,10 @@ module Ingest
       end
     end
     # rubocop:enable Metrics/AbcSize
+
+    def submission
+      @submission_file.submission
+    end
 
     def invoice_attributes
       Set.new(@definition.attributes_for_entry_type('invoice'))
