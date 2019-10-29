@@ -40,8 +40,13 @@ class Admin::FrameworksController < AdminController
   def edit; end
 
   def update
-    @framework.update!(framework_params)
-    flash[:success] = 'Framework saved successfully.'
+    if params.dig(:framework, :template_file).present?
+      @framework.update!(framework_params)
+      flash[:success] = 'Framework saved successfully.'
+    else
+      flash[:failure] = I18n.t('errors.message.missing_template_file')
+    end
+
     redirect_to admin_framework_path(@framework)
   end
 
