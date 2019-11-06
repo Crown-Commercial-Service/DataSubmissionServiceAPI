@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-93] - 2019-11-06
+
+- Ingest doesn't error if running total encounters a nil value
+- Allow update template to fail gracefully if a template file is forgotten
+
 ## [release-92] - 2019-10-24
 
 - Performance improvements to avoid large returns taking down the service, increased work_mem for postgres, and added a new column called `invoice_total`
@@ -631,6 +636,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-93]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-92...release-93
 [release-92]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-91...release-92
 [release-91]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-90...release-91
 [release-90]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-89...release-90
