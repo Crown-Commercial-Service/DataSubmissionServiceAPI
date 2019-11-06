@@ -235,5 +235,33 @@ RSpec.describe Ingest::Loader do
 
       expect { loader.perform }.to raise_error(Ingest::Loader::MissingOrderColumns, /Lot Number/)
     end
+
+    it 'calculates the running total even when a total column is nil' do
+      invoice_rows = double(
+        'rows',
+        data: [
+          fake_invoice_row.merge('line_number' => '1', 'Total Charge (Ex VAT)' => 105.22),
+          fake_invoice_row.merge('line_number' => '2', 'Total Charge (Ex VAT)' => nil),
+        ],
+        row_count: 2,
+        sheet_name: 'Invoices',
+        type: 'invoice'
+      )
+
+      order_rows = double(
+        'rows',
+        data: [],
+        row_count: 0,
+        sheet_name: 'Contracts',
+        type: 'order'
+      )
+
+      converter = double('converter', rows: 2, invoices: invoice_rows, orders: order_rows)
+      loader = Ingest::Loader.new(converter, file)
+
+      loader.perform
+
+      expect(file.submission.invoice_total).to eql 105.22
+    end
   end
 end
