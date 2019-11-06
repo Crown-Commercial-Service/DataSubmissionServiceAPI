@@ -90,7 +90,7 @@ module Ingest
 
         entry.validate_against!(sheet_definition)
 
-        running_total += entry.total_value
+        running_total += entry.total_value || 0
         entries << entry
       end
 
