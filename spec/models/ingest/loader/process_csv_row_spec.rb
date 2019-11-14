@@ -43,12 +43,12 @@ RSpec.describe Ingest::Loader::ProcessCsvRow do
 
       it 'leaves invalid ISO8601 dates alone, so it is caught by a validator' do
         data = {
-          'Customer Invoice Date' => '30/02/2019'
+          'Customer Invoice Date' => '2020-02-30'
         }
 
         result = process_csv_row.process(data)
 
-        expect(result['Customer Invoice Date']).to eql '30/02/2019'
+        expect(result['Customer Invoice Date']).to eql '2020-02-30'
       end
 
       it 'leaves bad data alone, so it is caught by a validator' do

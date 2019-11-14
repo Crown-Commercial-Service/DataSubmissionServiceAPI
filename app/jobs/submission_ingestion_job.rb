@@ -1,4 +1,6 @@
 class SubmissionIngestionJob < ApplicationJob
+  class IngestFailed < StandardError; end
+
   queue_as :ingest
 
   discard_on(Ingest::Loader::MissingInvoiceColumns) do |job, exception|
@@ -13,7 +15,11 @@ class SubmissionIngestionJob < ApplicationJob
     handle_unretryable_job_failure(job, exception)
   end
 
+  discard_on IngestFailed
+
   def perform(submission_file)
+    raise IngestFailed if submission_file.submission.ingest_failed?
+
     orchestrator = Ingest::Orchestrator.new(submission_file)
     orchestrator.perform
   end

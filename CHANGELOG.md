@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-94] - 2019-11-14
+
+- Run the daily data warehouse export at 20:30
+- Don’t retry ingestion job when submission has been marked as ingest_failed
+- [Security] Bump loofah from 2.2.3 to 2.3.1
+- Ensure only valid ISO8601 dates are parsed and converted
+
 ## [release-93] - 2019-11-06
 
 - Ingest doesn't error if running total encounters a nil value
@@ -636,6 +643,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-94]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-93...release-94
 [release-93]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-92...release-93
 [release-92]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-91...release-92
 [release-91]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-90...release-91
