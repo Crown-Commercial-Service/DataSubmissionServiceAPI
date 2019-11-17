@@ -9,8 +9,8 @@ class Framework
       end
 
       def calculate_for(entry)
-        column_names_for_entry = entry.data.dig(varies_by).to_s
-        percentage = value_to_percentage[column_names_for_entry.downcase]
+        column_names_for_entry = Array(varies_by).map { |column| entry.data.dig(column).downcase }
+        percentage = value_to_percentage.dig(*column_names_for_entry)
 
         if percentage.nil?
           Rollbar.error(
@@ -27,7 +27,7 @@ class Framework
       private
 
       def prepare_hash(hash)
-        hash.map { |k, v| [k.to_s.downcase, v] }.to_h
+        hash.deep_transform_keys(&:downcase).with_indifferent_access
       end
     end
   end

@@ -54,4 +54,60 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     expect(Rollbar).to receive(:error)
     expect(calculator.calculate_for(entry)).to eq(0)
   end
+
+  context 'varies by two columns' do
+    it 'calculates the management charge for an entry, based on the given columns' do
+      entry = FactoryBot.create(:submission_entry,
+                                total_value: 2400.0,
+                                data: {
+                                  'Lot Number': '2',
+                                  'Spend Code': 'Other Re-charges'
+                                })
+
+      calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+        varies_by: ['Lot Number', 'Spend Code'],
+        value_to_percentage: {
+          '1': {
+            'Other Re-charges': BigDecimal('0.5'),
+          },
+          '2': {
+            'Other Re-charges': BigDecimal('1.5')
+          }
+        }
+      )
+
+      expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
+    end
+  end
+
+  context 'varies by three columns' do
+    it 'calculates the management charge for an entry, based on the given columns' do
+      entry = FactoryBot.create(:submission_entry,
+                                total_value: 2400.0,
+                                data: {
+                                  'Lot Number': '2',
+                                  'Spend Code': 'Other Re-charges',
+                                  'Secondary Spend Code': 'Additional'
+                                })
+
+      calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+        varies_by: ['Lot Number', 'Spend Code', 'Secondary Spend Code'],
+        value_to_percentage: {
+          '1': {
+            'Other Re-charges': {
+              'Additional': BigDecimal('0.5')
+            }
+          },
+          '2': {
+            'Other Re-charges': {
+              'Normal': BigDecimal('1.5'),
+              'Additional': BigDecimal('1.0')
+            }
+          }
+        }
+      )
+
+      expect(calculator.calculate_for(entry)).to eql(24) # 1% of 2,400.00
+    end
+  end
 end
