@@ -77,7 +77,7 @@ class Framework
         end
 
         def raise_when_management_field_invalid(info)
-          referenced_field_name = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.first(&:present?)
+          referenced_field_name = [info.dig(:column_based, :column_names), info.dig(:flat_rate, :column)].compact.first(&:present?)
           return if referenced_field_name.nil?
 
           field = ast.field_by_sheet_name(:invoice, referenced_field_name)

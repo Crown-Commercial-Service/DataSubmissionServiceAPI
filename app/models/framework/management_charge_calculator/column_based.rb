@@ -9,12 +9,12 @@ class Framework
       end
 
       def calculate_for(entry)
-        column_name_for_entry = entry.data.dig(varies_by).to_s
-        percentage = value_to_percentage[column_name_for_entry.downcase]
+        column_names_for_entry = entry.data.dig(varies_by).to_s
+        percentage = value_to_percentage[column_names_for_entry.downcase]
 
         if percentage.nil?
           Rollbar.error(
-            "Got value '#{column_name_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
+            "Got value '#{column_names_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
             "from entry #{entry.id}. Missing validation?"
           )
 
