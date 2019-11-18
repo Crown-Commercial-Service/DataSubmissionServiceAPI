@@ -78,6 +78,56 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
 
       expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
     end
+
+    context 'dictionary includes wildcards' do
+      let(:calculator) do
+        Framework::ManagementChargeCalculator::ColumnBased.new(
+          varies_by: ['Lot Number', 'Spend Code'],
+          value_to_percentage: {
+            '*': {
+              '*': BigDecimal('2.0')
+            },
+            '1': {
+              '*': BigDecimal('1.5'),
+              'Damages': BigDecimal('0.5')
+            }
+          }
+        )
+      end
+
+      it 'exactly matches all columns, if that combination is valid' do
+        entry = FactoryBot.create(:submission_entry,
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': '1',
+                                    'Spend Code': 'Damages'
+                                  })
+
+        expect(calculator.calculate_for(entry)).to eql(12) # 0.5% of 2,400.00
+      end
+
+      it 'matches on all but the last column, if an exact match was not found' do
+        entry = FactoryBot.create(:submission_entry,
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': '1',
+                                    'Spend Code': 'Other Re-charges'
+                                  })
+
+        expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
+      end
+
+      it 'finally tries the default value, where all columns are wildcards' do
+        entry = FactoryBot.create(:submission_entry,
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': '3', # There is no lot 3
+                                    'Spend Code': 'Other Re-charges'
+                                  })
+
+        expect(calculator.calculate_for(entry)).to eql(48) # 2% of 2,400.00
+      end
+    end
   end
 
   context 'varies by three columns' do

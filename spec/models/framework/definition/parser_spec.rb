@@ -164,6 +164,48 @@ RSpec.describe Framework::Definition::Parser do
             }
           )
         }
+
+        context 'with wildcards' do
+          let(:source) do
+            <<~FDL.strip
+              ManagementCharge varies_by 'Lot Number', 'Spend Code' {
+                '1', '*' -> 0.5%
+                '1', 'Lease Rental' -> 1.5%
+              }
+            FDL
+          end
+
+          it {
+            is_expected.to parse(source).as(
+              management_charge: {
+                column_based: {
+                  column_names: [
+                    { string: 'Lot Number' },
+                    { string: 'Spend Code' }
+                  ],
+                  value_to_percentage: {
+                    dictionary: [
+                      {
+                        key: [
+                          { string: '1' },
+                          { string: '*' }
+                        ],
+                        value: { decimal: '0.5' }
+                      },
+                      {
+                        key: [
+                          { string: '1' },
+                          { string: 'Lease Rental' }
+                        ],
+                        value: { decimal: '1.5' }
+                      }
+                    ]
+                  }
+                }
+              }
+            )
+          }
+        end
       end
     end
 
