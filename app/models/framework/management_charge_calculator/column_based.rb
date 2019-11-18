@@ -31,11 +31,13 @@ class Framework
       end
 
       def percentage_for(column_names_for_entry)
-        column_count = column_names_for_entry.size
-        percentage = nil
+        percentage = value_to_percentage.dig(*column_names_for_entry)
+        return percentage unless percentage.nil?
 
         # Fallback to the most relevant wildcard lookup
-        (column_count + 1).downto(0) do |position|
+        column_count = column_names_for_entry.size
+
+        column_count.downto(0) do |position|
           column_names_with_wildcards = column_names_for_entry.fill('*', position)
           percentage ||= value_to_percentage.dig(*column_names_with_wildcards)
         end
