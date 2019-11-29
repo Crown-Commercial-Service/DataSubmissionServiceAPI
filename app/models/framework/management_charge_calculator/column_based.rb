@@ -27,7 +27,7 @@ class Framework
       private
 
       def prepare_hash(hash)
-        hash.deep_transform_keys(&:downcase).with_indifferent_access
+        hash.deep_transform_keys { |key| key.to_s.downcase }.with_indifferent_access
       end
 
       def percentage_for(column_names_for_entry)

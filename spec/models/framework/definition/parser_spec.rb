@@ -169,8 +169,9 @@ RSpec.describe Framework::Definition::Parser do
           let(:source) do
             <<~FDL.strip
               ManagementCharge varies_by 'Lot Number', 'Spend Code' {
-                '1', '*' -> 0.5%
+                '1', * -> 0.5%
                 '1', 'Lease Rental' -> 1.5%
+                *, * -> 2%
               }
             FDL
           end
@@ -188,7 +189,7 @@ RSpec.describe Framework::Definition::Parser do
                       {
                         key: [
                           { string: '1' },
-                          { string: '*' }
+                          { any_operator: '*' }
                         ],
                         value: { decimal: '0.5' }
                       },
@@ -198,6 +199,13 @@ RSpec.describe Framework::Definition::Parser do
                           { string: 'Lease Rental' }
                         ],
                         value: { decimal: '1.5' }
+                      },
+                      {
+                        key: [
+                          { any_operator: '*' },
+                          { any_operator: '*' }
+                        ],
+                        value: { integer: '2' }
                       }
                     ]
                   }

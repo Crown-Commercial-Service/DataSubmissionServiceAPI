@@ -84,11 +84,11 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
         Framework::ManagementChargeCalculator::ColumnBased.new(
           varies_by: ['Lot Number', 'Spend Code'],
           value_to_percentage: {
-            '*': {
-              '*': BigDecimal('2.0')
+            Framework::Definition::AST::Any => {
+              Framework::Definition::AST::Any => BigDecimal('2.0')
             },
             '1': {
-              '*': BigDecimal('1.5'),
+              Framework::Definition::AST::Any => BigDecimal('1.5'),
               'Damages': BigDecimal('0.5')
             }
           }
