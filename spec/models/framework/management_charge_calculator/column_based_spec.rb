@@ -127,6 +127,31 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
 
         expect(calculator.calculate_for(entry)).to eql(48) # 2% of 2,400.00
       end
+
+      context 'when no fallback wildcard lookup defined' do
+        let(:calculator) do
+          Framework::ManagementChargeCalculator::ColumnBased.new(
+            varies_by: ['Lot Number', 'Spend Code'],
+            value_to_percentage: {
+              '1': {
+                Framework::Definition::AST::Any => BigDecimal('1.5')
+              }
+            }
+          )
+        end
+
+        it 'assume zero rate, and report the missing validation lookup to Rollbar' do
+          entry = FactoryBot.create(:submission_entry,
+                                    total_value: 2400.0,
+                                    data: {
+                                      'Lot Number': '3', # There is no lot 3
+                                      'Spend Code': 'Other Re-charges'
+                                    })
+
+          expect(Rollbar).to receive(:error)
+          expect(calculator.calculate_for(entry)).to eq(0)
+        end
+      end
     end
   end
 
