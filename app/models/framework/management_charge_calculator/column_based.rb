@@ -9,12 +9,12 @@ class Framework
       end
 
       def calculate_for(entry)
-        column_name_for_entry = entry.data.dig(varies_by).to_s
-        percentage = value_to_percentage[column_name_for_entry.downcase]
+        column_names_for_entry = Array(varies_by).map { |column| entry.data.dig(column).downcase }
+        percentage = percentage_for(column_names_for_entry)
 
         if percentage.nil?
           Rollbar.error(
-            "Got value '#{column_name_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
+            "Got value '#{column_names_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
             "from entry #{entry.id}. Missing validation?"
           )
 
@@ -27,7 +27,22 @@ class Framework
       private
 
       def prepare_hash(hash)
-        hash.map { |k, v| [k.to_s.downcase, v] }.to_h
+        hash.deep_transform_keys { |key| key.to_s.downcase }.with_indifferent_access
+      end
+
+      def percentage_for(column_names_for_entry)
+        percentage = value_to_percentage.dig(*column_names_for_entry)
+        return percentage unless percentage.nil?
+
+        # Fallback to the most relevant wildcard lookup
+        column_count = column_names_for_entry.size
+
+        column_count.downto(0) do |position|
+          column_names_with_wildcards = column_names_for_entry.fill('*', position)
+          percentage ||= value_to_percentage.dig(*column_names_with_wildcards)
+        end
+
+        percentage
       end
     end
   end

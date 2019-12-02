@@ -66,7 +66,7 @@ class Framework
       def choose_management_charge_calculator(info)
         if info[:column_based]
           ManagementChargeCalculator::ColumnBased.new(
-            varies_by:           info[:column_based][:column_name],
+            varies_by:           info[:column_based][:column_names],
             value_to_percentage: info[:column_based][:value_to_percentage]
           )
         elsif info[:sector_based]
