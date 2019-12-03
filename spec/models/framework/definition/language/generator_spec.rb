@@ -385,6 +385,37 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'with multi column management charge calculations' do
+      let(:source) do
+        <<~FDL
+          Framework 3787 {
+            Name 'Fake framework'
+            ManagementCharge varies_by 'Lot Number', 'Spend Code' {
+              '1', 'Lease Rental' -> 0.5%
+              '1', 'Damage' -> 0%
+              '2', 'Lease Rental' -> 1.5%
+            }
+
+            Lots {
+              '1' -> 'Lease of passenger motor vehicles and light commercial vehicles up to 3.5 tonnes'
+              '2' -> 'Lease of commercial vehicles 3.5 tonnes and above, including buses, coaches, tra'
+              '3' -> 'Provision of Fleet Management Services, including the management, sourcing and s'
+            }
+
+            InvoiceFields {
+              LotNumber from 'Lot Number'
+              PromotionCode from 'Spend Code'
+              InvoiceValue from 'Supplier Price'
+            }
+          }
+        FDL
+      end
+
+      it 'does not have any errors' do
+        expect(generator.error).to eq(nil)
+      end
+    end
+
     context 'Composing lookups from other lookups - RM3787' do
       let(:source) do
         <<~FDL
