@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_072354) do
+ActiveRecord::Schema.define(version: 2019_12_04_094848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 2019_10_23_072354) do
     t.decimal "management_charge_total", precision: 18, scale: 4
     t.decimal "invoice_total", precision: 18, scale: 4
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
+    t.index ["created_at"], name: "index_submissions_on_created_at", order: :desc
     t.index ["created_by_id"], name: "index_submissions_on_created_by_id"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
     t.index ["submitted_by_id"], name: "index_submissions_on_submitted_by_id"
