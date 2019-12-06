@@ -9,7 +9,7 @@ class Framework
       end
 
       def calculate_for(entry)
-        column_names_for_entry = Array(varies_by).map { |column| entry.data.dig(column).downcase }
+        column_names_for_entry = Array(varies_by).map { |column| entry.data.dig(column).to_s.downcase }
         percentage = percentage_for(column_names_for_entry)
 
         if percentage.nil?

@@ -28,6 +28,19 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     expect(calculator.calculate_for(entry)).to eq(6.1725) # 5% of 123.45
   end
 
+  it 'handles column values that are integers' do
+    entry = FactoryBot.create(:submission_entry, total_value: 123.45, data: { test_value: 1 })
+
+    calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+      varies_by: 'test_value',
+      value_to_percentage: {
+        '1': BigDecimal('5')
+      }
+    )
+
+    expect(calculator.calculate_for(entry)).to eq(6.1725) # 5% of 123.45
+  end
+
   it 'rounds to four decimal places' do
     entry = FactoryBot.create(:submission_entry, total_value: 42.424242, data: { test_value: 'test' })
 
