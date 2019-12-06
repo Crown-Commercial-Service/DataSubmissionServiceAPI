@@ -26,6 +26,7 @@ FactoryBot.define do
 
     factory :submission_with_validated_entries do
       aasm_state :in_review
+      management_charge_total 0.2
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 10.00, management_charge: 0.1)
         create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)

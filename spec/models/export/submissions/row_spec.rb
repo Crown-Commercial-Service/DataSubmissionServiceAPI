@@ -32,28 +32,21 @@ RSpec.describe Export::Submissions::Row do
   end
 
   describe '#submission_type and its dependence on _ projected fields' do
-    before do
-      allow(row).to receive(:invoice_entry_count).and_return(invoices)
-      allow(row).to receive(:contract_entry_count).and_return(orders)
-    end
-
     subject { row.submission_type }
 
-    context 'there are no invoices or order entries' do
-      let(:invoices) { 0 }
-      let(:orders) { 0 }
+    context 'when no file has been submitted' do
+      before do
+        allow(submission).to receive(:_first_filename).and_return(nil)
+      end
+
       it { is_expected.to eql('no_business') }
     end
 
-    context 'there is at least one invoice entry' do
-      let(:invoices) { 1 }
-      let(:orders) { 0 }
-      it { is_expected.to eql('file') }
-    end
+    context 'when a file has been submitted' do
+      before do
+        allow(submission).to receive(:_first_filename).and_return('upload.xls')
+      end
 
-    context 'there is at least one order entry' do
-      let(:invoices) { 0 }
-      let(:orders) { 1 }
       it { is_expected.to eql('file') }
     end
   end
@@ -72,10 +65,10 @@ RSpec.describe Export::Submissions::Row do
     end
   end
 
-  describe '#management_charge_value' do
-    let(:submission) { double 'Submission', _total_management_charge_value: 13.23 }
+  describe '#management_charge_total' do
+    let(:submission) { double 'Submission', management_charge_total: 13.23 }
 
-    it 'presents the charge identified by the _total_management_charge_value projected field' do
+    it 'presents the charge identified by the management_charge_total attr' do
       expect(row.management_charge_value).to eq '13.23'
     end
   end

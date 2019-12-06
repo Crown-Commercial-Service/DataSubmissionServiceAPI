@@ -10,8 +10,6 @@ module Export
       SubmissionFileType
       ContractEntryCount
       ContractValue
-      InvoiceEntryCount
-      InvoiceValue
       CCSManagementChargeValue
       CCSManagementChargeRate
       CreatedDate
