@@ -21,6 +21,7 @@ applications:
     env:
       RAILS_ENV: production
       RAILS_MAX_THREADS: SIDEKIQ_CONCURRENCY
+      PG_MAINTENANCE_WORK_MEM: '1GB'
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'
       MALLOC_ARENA_MAX: 2
