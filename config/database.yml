@@ -8,6 +8,7 @@ default: &default
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   variables:
     work_mem: <%= ENV.fetch('PG_WORK_MEM') { '16MB' } %>
+    maintenance_work_mem: <%= ENV.fetch('PG_MAINTENANCE_WORK_MEM') { '128MB' } %>
 
 development:
   <<: *default
