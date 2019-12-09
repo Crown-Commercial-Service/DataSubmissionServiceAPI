@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_094848) do
+ActiveRecord::Schema.define(version: 2019_12_04_154559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_094848) do
     t.index ["source"], name: "index_submission_entries_on_source", using: :gin
     t.index ["submission_file_id"], name: "index_submission_entries_on_submission_file_id"
     t.index ["submission_id"], name: "index_submission_entries_on_submission_id"
+    t.index ["updated_at"], name: "index_submission_entries_on_updated_at", using: :brin
   end
 
   create_table "submission_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -178,6 +179,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_094848) do
     t.index ["submitted_by_id"], name: "index_submissions_on_submitted_by_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
     t.index ["task_id"], name: "index_submissions_on_task_id"
+    t.index ["updated_at"], name: "index_submissions_on_updated_at", using: :brin
   end
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -200,6 +202,7 @@ ActiveRecord::Schema.define(version: 2019_12_04_094848) do
     t.index ["framework_id"], name: "index_tasks_on_framework_id"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["supplier_id"], name: "index_tasks_on_supplier_id"
+    t.index ["updated_at"], name: "index_tasks_on_updated_at", using: :brin
   end
 
   create_table "urn_lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
