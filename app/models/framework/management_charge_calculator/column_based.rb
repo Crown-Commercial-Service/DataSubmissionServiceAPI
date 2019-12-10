@@ -31,7 +31,7 @@ class Framework
       end
 
       def percentage_for(column_names_for_entry)
-        percentage = value_to_percentage.dig(*column_names_for_entry)
+        percentage = value_to_percentage.dig(column_names_for_entry.to_s)
         return percentage unless percentage.nil?
 
         # Fallback to the most relevant wildcard lookup

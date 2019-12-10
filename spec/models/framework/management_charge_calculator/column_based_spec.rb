@@ -92,6 +92,31 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
     end
 
+    # rubocop:disable Style/StringLiterals
+    context 'when the lookup key is a composite of column names' do
+      it 'applies the expected percentage value' do
+        entry = FactoryBot.create(:submission_entry,
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': 1,
+                                    'Transaction Type': 'Transactional'
+                                  })
+
+        calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+          varies_by: ["Lot Number", "Transaction Type"],
+          value_to_percentage: {
+            "[<any>, \"direct\"]"        => 0.15e1,
+            "[\"1\", \"transactional\"]" => 0.375e-1,
+            "[<any>, <any>]"             => 0.0
+          }
+        )
+
+        expect(Rollbar).not_to receive(:error)
+        expect(calculator.calculate_for(entry)).to eql(0.9) # 0.0375 of 2,400.00
+      end
+    end
+    # rubocop:enable Style/StringLiterals
+
     context 'dictionary includes wildcards' do
       let(:calculator) do
         Framework::ManagementChargeCalculator::ColumnBased.new(
