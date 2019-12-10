@@ -414,7 +414,21 @@ RSpec.describe Framework::Definition::Generator do
       it 'does not have any errors' do
         expect(generator.error).to eq(nil)
       end
+
+      # rubocop:disable Style/StringLiterals
+      it 'uses escaped Array literal keys for lookup' do
+        value_to_percentage = generator.definition
+                                       .management_charge
+                                       .value_to_percentage
+
+        expect(value_to_percentage).to eq(
+          "[\"1\", \"lease rental\"]" => 0.5e0,
+          "[\"1\", \"damage\"]"       => 0,
+          "[\"2\", \"lease rental\"]" => 0.15e1
+        )
+      end
     end
+    # rubocop:enable Style/StringLiterals
 
     context 'Composing lookups from other lookups - RM3787' do
       let(:source) do
