@@ -21,7 +21,7 @@ gem 'jsonapi-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 
 # Audit log
 gem 'rails_event_store'
