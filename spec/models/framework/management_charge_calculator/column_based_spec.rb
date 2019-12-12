@@ -80,12 +80,8 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
         varies_by: ['Lot Number', 'Spend Code'],
         value_to_percentage: {
-          '1': {
-            'Other Re-charges': BigDecimal('0.5'),
-          },
-          '2': {
-            'Other Re-charges': BigDecimal('1.5')
-          }
+          ['1', 'Other Re-charges'] => BigDecimal('0.5'),
+          ['2', 'Other Re-charges'] => BigDecimal('1.5')
         }
       )
 
@@ -97,13 +93,9 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
         Framework::ManagementChargeCalculator::ColumnBased.new(
           varies_by: ['Lot Number', 'Spend Code'],
           value_to_percentage: {
-            Framework::Definition::AST::Any => {
-              Framework::Definition::AST::Any => BigDecimal('2.0')
-            },
-            '1': {
-              Framework::Definition::AST::Any => BigDecimal('1.5'),
-              'Damages': BigDecimal('0.5')
-            }
+            [Framework::Definition::AST::Any, Framework::Definition::AST::Any] => BigDecimal('2.0'),
+            ['1', Framework::Definition::AST::Any] => BigDecimal('1.5'),
+            ['1', 'Damages'] => BigDecimal('0.5')
           }
         )
       end
@@ -146,9 +138,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
           Framework::ManagementChargeCalculator::ColumnBased.new(
             varies_by: ['Lot Number', 'Spend Code'],
             value_to_percentage: {
-              '1': {
-                Framework::Definition::AST::Any => BigDecimal('1.5')
-              }
+              ['1', Framework::Definition::AST::Any] => BigDecimal('1.5')
             }
           )
         end
@@ -181,17 +171,9 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
         varies_by: ['Lot Number', 'Spend Code', 'Secondary Spend Code'],
         value_to_percentage: {
-          '1': {
-            'Other Re-charges': {
-              'Additional': BigDecimal('0.5')
-            }
-          },
-          '2': {
-            'Other Re-charges': {
-              'Normal': BigDecimal('1.5'),
-              'Additional': BigDecimal('1.0')
-            }
-          }
+          ['1', 'Other Re-charges', 'Additional'] => BigDecimal('0.5'),
+          ['2', 'Other Re-charges', 'Normal'] => BigDecimal('1.5'),
+          ['2', 'Other Re-charges', 'Additional'] => BigDecimal('1.0'),
         }
       )
 

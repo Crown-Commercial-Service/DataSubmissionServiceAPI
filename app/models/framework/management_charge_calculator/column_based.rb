@@ -27,11 +27,13 @@ class Framework
       private
 
       def prepare_hash(hash)
-        hash.deep_transform_keys { |key| key.to_s.downcase }.with_indifferent_access
+        hash.transform_keys do |values|
+          Array(values).map { |value| value.to_s.downcase }
+        end
       end
 
       def percentage_for(column_names_for_entry)
-        percentage = value_to_percentage.dig(*column_names_for_entry)
+        percentage = value_to_percentage[column_names_for_entry]
         return percentage unless percentage.nil?
 
         # Fallback to the most relevant wildcard lookup
@@ -39,7 +41,7 @@ class Framework
 
         column_count.downto(0) do |position|
           column_names_with_wildcards = column_names_for_entry.fill('*', position)
-          percentage ||= value_to_percentage.dig(*column_names_with_wildcards)
+          percentage ||= value_to_percentage[column_names_with_wildcards]
         end
 
         percentage
