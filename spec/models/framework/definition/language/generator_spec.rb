@@ -177,10 +177,10 @@ RSpec.describe Framework::Definition::Generator do
               varies_by: 'Spend Code',
               value_to_percentage: {
                 # ManagementChargeCalculator::ColumnBased downcases its keys
-                'lease rental' => BigDecimal('0.5'),
-                'fleet management fee' => BigDecimal('0.5'),
-                'damage' => 0,
-                'other re-charges' => 0
+                ['lease rental'] => BigDecimal('0.5'),
+                ['fleet management fee'] => BigDecimal('0.5'),
+                ['damage'] => 0,
+                ['other re-charges'] => 0
               }
             )
           )
