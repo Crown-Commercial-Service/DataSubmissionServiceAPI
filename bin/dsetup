@@ -1,9 +1,9 @@
 #!/bin/sh
 
-rake db:create
+bundle exec rake db:create
 
-if rake db:migrate:status &> /dev/null; then
-  rake db:migrate
+if bundle exec rake db:migrate:status &> /dev/null; then
+  bundle exec rake db:migrate
 else
-  rake db:setup
+  bundle exec rake db:setup
 fi
