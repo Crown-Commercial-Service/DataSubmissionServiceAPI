@@ -1,4 +1,16 @@
 # Change Log
+## [release-95] - 2019-12-19
+
+- Multi-column management charge calculation
+- Upgrade to Ruby 2.5.7
+- Validate multi-column management charge calcs
+- Add missing database indexes
+- Add 'maintenance_work_mem' setting for Postgres
+- [Security] Bump puma from 3.11.4 to 3.12.2
+- Support integer column headings in management charge calculation
+- Fix multi-column management charge calculation
+- [Security] Bump rack from 2.0.7 to 2.0.8
+- Pin bundler to 2.0.2 and do not update rubygems
 
 ## [release-94] - 2019-11-14
 
@@ -643,6 +655,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-95]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-94...release-95
 [release-94]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-93...release-94
 [release-93]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-92...release-93
 [release-92]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-91...release-92
