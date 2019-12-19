@@ -22,5 +22,6 @@ applications:
     env:
       RAILS_ENV: production
       RAILS_MAX_THREADS: 5
+      PG_MAINTENANCE_WORK_MEM: '1GB'
       SUBMIT_INVOICES: 'true'
       NEW_INGEST: 'true'

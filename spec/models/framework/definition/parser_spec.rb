@@ -87,30 +87,134 @@ RSpec.describe Framework::Definition::Parser do
     end
 
     context 'column based' do
-      let(:source) do
-        <<~FDL.strip
-          ManagementCharge varies_by 'Spend Code' {
-            'Lease Rental' -> 0.5%
-            'Damage'       -> 0%
-           }
-        FDL
-      end
+      context 'with one column' do
+        let(:source) do
+          <<~FDL.strip
+            ManagementCharge varies_by 'Spend Code' {
+              'Lease Rental' -> 0.5%
+              'Damage'       -> 0%
+             }
+          FDL
+        end
 
-      it {
-        is_expected.to parse(source).as(
-          management_charge: {
-            column_based: {
-              column_name: { string: 'Spend Code' },
-              value_to_percentage: {
-                dictionary: [
-                  { key: { string: 'Lease Rental' }, value: { decimal: '0.5' } },
-                  { key: { string: 'Damage' }, value: { integer: '0' } }
-                ]
+        it {
+          is_expected.to parse(source).as(
+            management_charge: {
+              column_based: {
+                column_names: {
+                  string: 'Spend Code'
+                },
+                value_to_percentage: {
+                  dictionary: [
+                    { key: { string: 'Lease Rental' }, value: { decimal: '0.5' } },
+                    { key: { string: 'Damage' }, value: { integer: '0' } }
+                  ]
+                }
               }
             }
+          )
+        }
+      end
+
+      context 'with two columns' do
+        let(:source) do
+          <<~FDL.strip
+            ManagementCharge varies_by 'Lot Number', 'Spend Code' {
+              '1', 'Lease Rental' -> 0.5%
+              '1', 'Damage' -> 0%
+              '2', 'Lease Rental' -> 1.5%
+            }
+          FDL
+        end
+
+        it {
+          is_expected.to parse(source).as(
+            management_charge: {
+              column_based: {
+                column_names: [
+                  { string: 'Lot Number' },
+                  { string: 'Spend Code' }
+                ],
+                value_to_percentage: {
+                  dictionary: [
+                    {
+                      key: [
+                        { string: '1' },
+                        { string: 'Lease Rental' }
+                      ],
+                      value: { decimal: '0.5' }
+                    },
+                    {
+                      key: [
+                        { string: '1' },
+                        { string: 'Damage' }
+                      ],
+                      value: { integer: '0' }
+                    },
+                    {
+                      key: [
+                        { string: '2' },
+                        { string: 'Lease Rental' }
+                      ],
+                      value: { decimal: '1.5' }
+                    }
+                  ]
+                }
+              }
+            }
+          )
+        }
+
+        context 'with wildcards' do
+          let(:source) do
+            <<~FDL.strip
+              ManagementCharge varies_by 'Lot Number', 'Spend Code' {
+                '1', * -> 0.5%
+                '1', 'Lease Rental' -> 1.5%
+                *, * -> 2%
+              }
+            FDL
+          end
+
+          it {
+            is_expected.to parse(source).as(
+              management_charge: {
+                column_based: {
+                  column_names: [
+                    { string: 'Lot Number' },
+                    { string: 'Spend Code' }
+                  ],
+                  value_to_percentage: {
+                    dictionary: [
+                      {
+                        key: [
+                          { string: '1' },
+                          { any_operator: '*' }
+                        ],
+                        value: { decimal: '0.5' }
+                      },
+                      {
+                        key: [
+                          { string: '1' },
+                          { string: 'Lease Rental' }
+                        ],
+                        value: { decimal: '1.5' }
+                      },
+                      {
+                        key: [
+                          { any_operator: '*' },
+                          { any_operator: '*' }
+                        ],
+                        value: { integer: '2' }
+                      }
+                    ]
+                  }
+                }
+              }
+            )
           }
-        )
-      }
+        end
+      end
     end
 
     context 'sector_based' do

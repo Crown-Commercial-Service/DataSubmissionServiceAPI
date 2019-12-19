@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.5.5
+- 2.5.7
 services:
   - postgresql
 addons:
@@ -26,8 +26,7 @@ env:
     - CF_ORG=ccs-report-management-info
     - secure: "BLQLTieSmtao6fVwqlxnFfLtWEyg9szTA7e43Ge4Je37q/4uEjYy4GiDbTBmfRSeGlL4IDZmKVNrxYlAkWcDBHaH0nyVXAocye41LVDLWP7aNdUCx7dfd7i5heV0wagQSKV6ctNUAkTSm//wJQpiMCTfKWABoDZ8Bg0Aozk6sx7JzOL00UrAYl0X/o6UE/hgYwOskmUYiKxAamKguH+WL4vCqvbxF3YWGWfHgUDNzqRpKqrZYm22I6BEGChFxCFY+xrS6cmBJY2db0RJ1IKQD+Is63KEv479QivoiXHFysNc0h3anLaq8fujzqcsHbbbp7b+Sh3QCMEP6KOljrptC5o/Bv5y2TFL6lPHSkimriXNNnMGh4+VF1DHVUXauwMQjkUYOPbJO4wp8gb7k+ck4CMryGzWSpd7pYDYVDk7p7++54F13eZ7N0NXkDv34tL/Fq23HvCf9T8C/W3kf/MP0IpaFTKy8rJnk8BdLRAoHUv9yW5RNdn9eb0/4ZDgZ5EdKz7Ya+qklg3v0CrJtFGPiMAaCcf3A2pW50zWLMN13b0Q4duhSYwh+JlcYy7CFXFFvhNm1QKmTqQ+GHB7HvvJnWX6Mg+LVKNF9KQ849HWzMUiZe/s0sZ6m4jM5TsHo4IPgAJbPslMfI6c+oRuxDI4jztouc1wuFRhpAXPhh074Mk="
 before_install:
-  - gem update --system
-  - gem install bundler
+  - gem install bundler -v 2.0.2
 install:
   - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
   - pyenv global 3.7.1

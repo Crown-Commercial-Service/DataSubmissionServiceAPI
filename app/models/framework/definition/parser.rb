@@ -24,8 +24,9 @@ class Framework
       rule(:management_charge)    { str('ManagementCharge') >> (column_based | flat_rate | sector_based).as(:management_charge) }
       rule(:flat_rate)            { (spaced(percentage).as(:value) >> flat_rate_column.maybe).as(:flat_rate) }
       rule(:flat_rate_column)     { spaced(str('of')) >> string.as(:column) }
-      rule(:column_based)         { spaced(str('varies_by')) >> (spaced(string).as(:column_name) >> spaced(dictionary).as(:value_to_percentage)).as(:column_based) }
+      rule(:column_based)         { spaced(str('varies_by')) >> (column_names.as(:column_names) >> multi_key_dictionary.as(:value_to_percentage)).as(:column_based) }
       rule(:sector_based)         { spaced(str('sector_based')) >> spaced(dictionary).as(:sector_based) }
+
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }
       rule(:contract_fields)      { str('ContractFields') >> spaced(fields_block.as(:contract_fields)) }
       rule(:fields_blocks)        { (invoice_fields >> contract_fields.maybe) | (contract_fields >> invoice_fields.maybe) }
@@ -53,6 +54,9 @@ class Framework
       rule(:depends_on)           { (spaced(str('depends_on')) >> dependent_fields.as(:dependent_fields) >> multi_key_dictionary.as(:values)).as(:depends_on) }
       rule(:dependent_fields)     { dependent_field >> (spaced(str(',')) >> dependent_field).repeat }
       rule(:dependent_field)      { spaced(string) }
+
+      rule(:column_names)         { column_name >> (spaced(str(',')) >> column_name).repeat }
+      rule(:column_name)          { spaced(string) }
 
       rule(:metadata)             { framework_name >> management_charge }
 

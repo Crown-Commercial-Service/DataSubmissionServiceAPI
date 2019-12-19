@@ -77,9 +77,15 @@ class Framework
         end
 
         def raise_when_management_field_invalid(info)
-          referenced_field_name = [info.dig(:column_based, :column_name), info.dig(:flat_rate, :column)].compact.first(&:present?)
-          return if referenced_field_name.nil?
+          management_charge_modifier = [info.dig(:column_based, :column_names), info.dig(:flat_rate, :column)].compact.first(&:present?)
+          return if management_charge_modifier.blank?
 
+          Array(management_charge_modifier).each do |referenced_field_name|
+            validate_management_field(referenced_field_name)
+          end
+        end
+
+        def validate_management_field(referenced_field_name)
           field = ast.field_by_sheet_name(:invoice, referenced_field_name)
           raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist" if field.nil?
           raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
