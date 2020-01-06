@@ -69,11 +69,12 @@ RSpec.describe Export::Relation do
         submitted_by: create(:user, name: 'SubForename SubSurname'),
         submitted_at: Time.zone.local(2018, 9, 20, 10, 11, 12),
         purchase_order_number: 'PO1234',
+        management_charge_total: 1.7912,
         files: [
           create(:submission_file, :with_attachment)
         ],
         entries: [
-          create(:invoice_entry, total_value: 179.12, management_charge: 1.7912),
+          create(:invoice_entry, total_value: 179.12),
           create(:order_entry, total_value: 804.00)
         ]
       )
@@ -91,19 +92,82 @@ RSpec.describe Export::Relation do
     end
 
     it 'writes a header for the submissions export' do
-      expect(output_lines.first).to eql(
-        'TaskID,SubmissionID,Status,SubmissionType,SubmissionFileType,ContractEntryCount,' \
-        'ContractValue,InvoiceEntryCount,InvoiceValue,CCSManagementChargeValue,CCSManagementChargeRate,' \
-        'CreatedDate,CreatedBy,SupplierApprovedDate,SupplierApprovedBy,FinanceExportDate,PONumber'
-      )
+      expect(output_lines.first).to eql(%w[
+        TaskID
+        SubmissionID
+        TotalSpend
+        Status
+        SubmissionType
+        SubmissionFileType
+        ContractEntryCount
+        ContractValue
+        CCSManagementChargeValue
+        CCSManagementChargeRate
+        CreatedDate
+        CreatedBy
+        SupplierApprovedDate
+        SupplierApprovedBy
+        FinanceExportDate
+        PONumber
+      ].join(','))
     end
 
     it 'writes each submission to the export' do
       expect(output_lines.length).to eql(3)
-      expect(output_lines.find { |line| line.match('PO1234') }).to eql(
-        "#{submission.task.id},#{submission.id},supplier_accepted,file,xls,1,804.00,1,179.12,1.79," \
-        '#REMOVED,2018-09-18T14:20:35Z,CrForename CrSurname,2018-09-20T10:11:12Z,SubForename SubSurname,,PO1234'
-      )
+
+      submission_record = CSV.parse(output_lines.join("\n"), headers: true).find do |row|
+        row['SubmissionType'] == 'file'
+      end
+
+      aggregate_failures do
+        expect(submission_record.fetch('TaskID'))
+          .to eq(submission.task.id)
+
+        expect(submission_record.fetch('SubmissionID'))
+          .to eq(submission.id)
+
+        expect(submission_record.fetch('TotalSpend'))
+          .to eq('179.12')
+
+        expect(submission_record.fetch('Status'))
+          .to eq('supplier_accepted')
+
+        expect(submission_record.fetch('SubmissionType'))
+          .to eq('file')
+
+        expect(submission_record.fetch('SubmissionFileType'))
+          .to eq('xls')
+
+        expect(submission_record.fetch('ContractEntryCount'))
+          .to eq('1')
+
+        expect(submission_record.fetch('ContractValue'))
+          .to eq('804.00')
+
+        expect(submission_record.fetch('CCSManagementChargeValue'))
+          .to eq('1.79')
+
+        expect(submission_record.fetch('CCSManagementChargeRate'))
+          .to eq('#REMOVED')
+
+        expect(submission_record.fetch('CreatedDate'))
+          .to eq('2018-09-18T14:20:35Z')
+
+        expect(submission_record.fetch('CreatedBy'))
+          .to eq('CrForename CrSurname')
+
+        expect(submission_record.fetch('SupplierApprovedDate'))
+          .to eq('2018-09-20T10:11:12Z')
+
+        expect(submission_record.fetch('SupplierApprovedBy'))
+          .to eq('SubForename SubSurname')
+
+        expect(submission_record.fetch('FinanceExportDate'))
+          .to be_nil
+
+        expect(submission_record.fetch('PONumber'))
+          .to eq('PO1234')
+      end
     end
 
     it 'has as many headers as row values' do
