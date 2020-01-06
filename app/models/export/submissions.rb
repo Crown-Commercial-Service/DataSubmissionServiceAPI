@@ -5,6 +5,7 @@ module Export
     HEADER = %w[
       TaskID
       SubmissionID
+      TotalSpend
       Status
       SubmissionType
       SubmissionFileType

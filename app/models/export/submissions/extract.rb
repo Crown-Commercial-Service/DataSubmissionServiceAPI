@@ -10,6 +10,7 @@ module Export
         Submission.select(
           <<~POSTGRESQL
             submissions.*,
+            submissions.invoice_total         AS _invoice_total,
             frameworks.short_name             AS _framework_short_name,
             orders.total_value                AS _total_order_value,
             COALESCE(orders.entry_count, 0)   AS _order_entry_count,

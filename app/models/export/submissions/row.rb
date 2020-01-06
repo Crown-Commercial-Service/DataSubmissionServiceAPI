@@ -7,6 +7,7 @@ module Export
         [
           submission.task_id,
           submission.id,
+          submission.total_spend,
           status,
           submission_type,
           submission_file_type,

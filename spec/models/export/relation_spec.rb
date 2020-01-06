@@ -95,6 +95,7 @@ RSpec.describe Export::Relation do
       expect(output_lines.first).to eql(%w[
         TaskID
         SubmissionID
+        TotalSpend
         Status
         SubmissionType
         SubmissionFileType
@@ -124,6 +125,9 @@ RSpec.describe Export::Relation do
 
         expect(submission_record.fetch('SubmissionID'))
           .to eq(submission.id)
+
+        expect(submission_record.fetch('TotalSpend'))
+          .to eq('179.12')
 
         expect(submission_record.fetch('Status'))
           .to eq('supplier_accepted')
