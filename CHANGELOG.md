@@ -1,4 +1,9 @@
 # Change Log
+
+## [release-96] - 2020-01-07
+
+- Data warehouse export hits IOPS read limit every time it is run (Speed up DataWarehouseExport.generate!)
+
 ## [release-95] - 2019-12-19
 
 - Multi-column management charge calculation
@@ -656,6 +661,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-96]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-95...release-96
 [release-95]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-94...release-95
 [release-94]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-93...release-94
 [release-93]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-92...release-93
