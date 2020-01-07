@@ -7,13 +7,12 @@ module Export
         [
           submission.task_id,
           submission.id,
+          submission.total_spend,
           status,
           submission_type,
           submission_file_type,
           contract_entry_count,
           order_value,
-          invoice_entry_count,
-          invoice_value,
           management_charge_value,
           management_charge_rate,
           created_date,
@@ -34,7 +33,7 @@ module Export
       end
 
       def submission_type
-        (invoice_entry_count + contract_entry_count).zero? ? 'no_business' : 'file'
+        submission._first_filename.blank? ? 'no_business' : 'file'
       end
 
       def submission_file_type
@@ -42,7 +41,7 @@ module Export
       end
 
       def management_charge_value
-        format_money(submission._total_management_charge_value)
+        format_money(submission.management_charge_total)
       end
 
       def management_charge_rate
@@ -72,10 +71,6 @@ module Export
       # Fields that are nil for MVP
       def finance_export_date; end
 
-      def invoice_value
-        format_money(submission._total_invoice_value)
-      end
-
       def order_value
         format_money(submission._total_order_value)
       end
@@ -84,10 +79,6 @@ module Export
 
       def contract_entry_count
         submission._order_entry_count
-      end
-
-      def invoice_entry_count
-        submission._invoice_entry_count
       end
 
       def format_money(amount)

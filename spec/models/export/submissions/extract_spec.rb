@@ -22,7 +22,8 @@ RSpec.describe Export::Submissions::Extract do
                files: [
                  create(:submission_file, :with_attachment, filename: 'not-really-an.xls')
                ],
-               aasm_state: 'completed'
+               aasm_state: 'completed',
+               invoice_total: 10
       end
 
       subject(:extract_no_business_submission) { all_relevant.find { |sub| sub.id == no_business_submission.id } }
@@ -44,24 +45,17 @@ RSpec.describe Export::Submissions::Extract do
         end
       end
 
-      describe '#_invoice_entry_count as a projection on the Submission model' do
-        it 'is 0 on the no-business and 2 on the file' do
-          expect(extract_no_business_submission._invoice_entry_count).to be_zero
-          expect(extract_file_submission._invoice_entry_count).to eql(2)
+      describe '#_invoice_total as a projection on the Submission model' do
+        it 'is nil on the no-business and 10.0 on the file' do
+          expect(extract_no_business_submission._invoice_total).to be_nil
+          expect(extract_file_submission._invoice_total.to_digits).to eql('10.0')
         end
       end
 
-      describe '#_total_invoice_value as a projection on the Submission model' do
+      describe '#management_charge_total as an attribute of the Submission model' do
         it 'is nil on the no-business and 20.0 on the file' do
-          expect(extract_no_business_submission._total_invoice_value).to be_nil
-          expect(extract_file_submission._total_invoice_value.to_digits).to eql('20.0')
-        end
-      end
-
-      describe '#_total_management_charge_value as a projection on the Submission model' do
-        it 'is nil on the no-business and 20.0 on the file' do
-          expect(extract_no_business_submission._total_invoice_value).to be_nil
-          expect(extract_file_submission._total_management_charge_value.to_digits).to eql('0.2')
+          expect(extract_no_business_submission.management_charge_total).to be_nil
+          expect(extract_file_submission.management_charge_total.to_digits).to eql('0.2')
         end
       end
 
