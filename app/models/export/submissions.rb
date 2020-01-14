@@ -5,12 +5,13 @@ module Export
     HEADER = %w[
       TaskID
       SubmissionID
-      TotalSpend
       Status
       SubmissionType
       SubmissionFileType
       ContractEntryCount
       ContractValue
+      InvoiceEntryCount
+      InvoiceValue
       CCSManagementChargeValue
       CCSManagementChargeRate
       CreatedDate
