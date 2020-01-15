@@ -95,12 +95,13 @@ RSpec.describe Export::Relation do
       expect(output_lines.first).to eql(%w[
         TaskID
         SubmissionID
-        TotalSpend
         Status
         SubmissionType
         SubmissionFileType
         ContractEntryCount
         ContractValue
+        InvoiceEntryCount
+        InvoiceValue
         CCSManagementChargeValue
         CCSManagementChargeRate
         CreatedDate
@@ -126,9 +127,6 @@ RSpec.describe Export::Relation do
         expect(submission_record.fetch('SubmissionID'))
           .to eq(submission.id)
 
-        expect(submission_record.fetch('TotalSpend'))
-          .to eq('179.12')
-
         expect(submission_record.fetch('Status'))
           .to eq('supplier_accepted')
 
@@ -143,6 +141,9 @@ RSpec.describe Export::Relation do
 
         expect(submission_record.fetch('ContractValue'))
           .to eq('804.00')
+
+        expect(submission_record.fetch('InvoiceValue'))
+          .to eq('179.12')
 
         expect(submission_record.fetch('CCSManagementChargeValue'))
           .to eq('1.79')
