@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-97] - 2020-01-15
+
+- Fix: Restore column order for the submissions export
+
 ## [release-96] - 2020-01-07
 
 - Data warehouse export hits IOPS read limit every time it is run (Speed up DataWarehouseExport.generate!)
@@ -661,6 +665,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-97]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-96...release-97
 [release-96]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-95...release-96
 [release-95]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-94...release-95
 [release-94]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-93...release-94
