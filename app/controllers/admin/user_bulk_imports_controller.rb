@@ -5,13 +5,15 @@ class Admin::UserBulkImportsController < AdminController
     return redirect_to new_admin_user_bulk_import_path, alert: 'Uploaded file is not a CSV file' unless csv?
 
     csv_path = uploaded_file.tempfile.path
-    Import::Users.new(csv_path, logger: Rails.logger).run
+    csv_key = UploadUserList.new(csv_path).call
 
-    redirect_to new_admin_user_bulk_import_path, notice: 'Successfully imported users'
+    UserImportJob.perform_later(csv_key)
+
+    redirect_to new_admin_user_bulk_import_path, notice: 'User import started; this job will run in the background'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
-  rescue ActiveRecord::RecordNotFound, ArgumentError, Import::Users::InvalidSalesforceId => e
-    redirect_to new_admin_user_bulk_import_path, alert: e.message
+  rescue Aws::S3::Errors::ServiceError
+    redirect_to new_admin_user_bulk_import_path, alert: 'There was a problem uploading the file'
   end
 
   private
