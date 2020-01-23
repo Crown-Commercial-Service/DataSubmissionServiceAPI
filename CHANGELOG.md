@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-98] - 2020-01-23
+
+- Bulk user import runs as a background job
+
 ## [release-97] - 2020-01-15
 
 - Fix: Restore column order for the submissions export
@@ -665,6 +669,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-98]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-97...release-98
 [release-97]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-96...release-97
 [release-96]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-95...release-96
 [release-95]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-94...release-95

@@ -21,48 +21,22 @@ RSpec.feature 'Admin can bulk import users' do
   end
 
   context 'with a valid CSV' do
-    scenario 'creates users that do not exist' do
+    before do
+      allow_any_instance_of(UploadUserList).to receive(:call).and_return('fake_key')
+    end
+
+    scenario 'shows the admin a message that the bulk upload happens asynchronously' do
       visit new_admin_user_bulk_import_path
 
       expect(page).to have_text 'Bulk import users'
 
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
 
-      expect { click_button 'Upload' }.to change { User.count }
+      expect(UserImportJob).to receive(:perform_later).with('fake_key')
 
-      expect(page).to have_text 'Successfully imported users'
-
-      jamila_company_user = jamila_company.users.first
-      expect(jamila_company_user.name).to eql 'Jamila Aslan'
-      expect(jamila_company_user.email).to eql jamila_email
-
-      seema_company_user = seema_company.users.first
-      expect(seema_company_user.name).to eql 'Seema Clarke'
-      expect(seema_company_user.email).to eql seema_email
-    end
-  end
-
-  context 'with a CSV which references a salesforce_id that does not exist' do
-    before { seema_company.update(salesforce_id: 'changed') }
-
-    scenario 'displays an error' do
-      visit new_admin_user_bulk_import_path
-      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
-
-      expect { click_button 'Upload' }.to_not change { User.count }
-
-      expect(page).to have_text 'Could not find a supplier with salesforce_id'
-      expect(page).to have_text seema_company_salesforce_id
-    end
-  end
-
-  context 'with a CSV with missing columns' do
-    scenario 'displays an error, showing which columns are missing' do
-      visit new_admin_user_bulk_import_path
-      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users_bad_headers.csv')
       click_button 'Upload'
 
-      expect(page).to have_text 'Missing headers in CSV file: supplier_salesforce_id'
+      expect(page).to have_text 'User import started; this job will run in the background'
     end
   end
 
@@ -82,6 +56,20 @@ RSpec.feature 'Admin can bulk import users' do
       click_button 'Upload'
 
       expect(page).to have_text 'Please choose a file to upload'
+    end
+  end
+
+  context 'when the file fails to upload' do
+    before do
+      allow_any_instance_of(UploadUserList).to receive(:call).and_raise(Aws::S3::Errors::ServiceError.new('foo', 'bar'))
+    end
+
+    scenario 'displays an error' do
+      visit new_admin_user_bulk_import_path
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'There was a problem uploading the file'
     end
   end
 end
