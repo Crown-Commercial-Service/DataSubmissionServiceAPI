@@ -50,7 +50,6 @@ module Import
           wait
         end
       end
-      Rollbar.info("Bulk user import completed: #{@csv_path}")
     end
 
     private
