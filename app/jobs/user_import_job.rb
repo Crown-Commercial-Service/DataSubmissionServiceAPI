@@ -12,7 +12,9 @@ class UserImportJob < ApplicationJob
     s3_client.get_object({ bucket: bucket, key: user_list_key }, target: temp_file)
 
     Rollbar.info("Bulk user import started for: #{user_list_key}")
+
     Import::Users.new(temp_file).run
+    Rollbar.info("Bulk user import completed for: #{user_list_key}")
   ensure
     temp_file.close
     temp_file.unlink
