@@ -385,6 +385,44 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'RM3774 - Campaign Solutions, first OtherFields-using framework' do
+      context 'The OtherFields block is correctly paired with another block' do
+        let(:source) do
+          <<~FDL
+            Framework RM3774 {
+              Name 'Campaign Solutions'
+              ManagementCharge 0.5%
+
+              Lots {
+                '1' -> 'Fake'
+              }
+
+              InvoiceFields {
+                InvoiceValue from 'Somewhere'
+              }
+
+              OtherFields {
+                String Additional1 from 'Somewhere'
+              }
+            }
+          FDL
+        end
+
+        it { is_expected.to be_success }
+
+        describe 'The ::Other class' do
+          subject(:other_class) { definition::Other }
+
+          it do
+            is_expected.to have_field('Somewhere').with_activemodel_type(:string)
+          end
+          it 'does not define a total_value_field' do
+            expect(other_class.total_value_field).to be_nil
+          end
+        end
+      end
+    end
+
     context 'with multi column management charge calculations' do
       let(:source) do
         <<~FDL

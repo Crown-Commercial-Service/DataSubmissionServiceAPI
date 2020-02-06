@@ -29,8 +29,10 @@ class Framework
 
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }
       rule(:contract_fields)      { str('ContractFields') >> spaced(fields_block.as(:contract_fields)) }
-      rule(:fields_blocks)        { (invoice_fields >> contract_fields.maybe) | (contract_fields >> invoice_fields.maybe) }
+      rule(:other_fields)         { str('OtherFields') >> spaced(fields_block.as(:other_fields)) }
+
       rule(:fields_block)         { braced(spaced(field_defs)) }
+      rule(:fields_blocks)        { ((invoice_fields >> contract_fields.maybe) | (contract_fields >> invoice_fields.maybe)) >> other_fields.maybe }
 
       rule(:field_defs)           { field_def.repeat(1) }
       rule(:field_def)            { unknown_field | known_field | additional_field }
