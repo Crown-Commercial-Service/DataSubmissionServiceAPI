@@ -27,6 +27,7 @@ module Ingest
 
       load_invoices
       load_orders
+      load_others
     end
 
     private
@@ -50,6 +51,15 @@ module Ingest
 
       sheet_definition = @definition.for_entry_type('order')
       load_data_from(@converter.orders, sheet_definition)
+    end
+
+    def load_others
+      return if @converter.others.row_count.zero?
+
+      Rails.logger.info "Loading #{@converter.others.row_count} other rows"
+
+      sheet_definition = @definition.for_entry_type('other')
+      load_data_from(@converter.others, sheet_definition)
     end
 
     def determine_correct_framework_used

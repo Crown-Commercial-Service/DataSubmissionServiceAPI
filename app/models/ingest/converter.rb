@@ -20,7 +20,7 @@ module Ingest
     end
 
     def rows
-      @rows ||= invoices.row_count + orders.row_count
+      @rows ||= invoices.row_count + orders.row_count + others.row_count
     end
 
     def invoices
@@ -29,6 +29,10 @@ module Ingest
 
     def orders
       @orders ||= fetch_sheet('order')
+    end
+
+    def others
+      @others ||= fetch_sheet('other')
     end
 
     def sheets
@@ -45,7 +49,7 @@ module Ingest
 
     def fetch_sheet(type)
       sheet_temp_file = excel_temp_file + '_' + type + '.csv'
-      sheet_name = type == 'invoice' ? invoice_sheet_name : order_sheet_name
+      sheet_name = send "#{type}_sheet_name"
 
       return empty_rows if sheet_name.blank?
 
@@ -82,6 +86,10 @@ module Ingest
 
     def order_sheet_name
       @order_sheet_name ||= sheets.find { |sheet| sheet.match(/(order|contract)/i) }
+    end
+
+    def other_sheet_name
+      @other_sheet_name ||= sheets.find { |sheet| sheet.match(/^Briefs Received$/) }
     end
   end
 end

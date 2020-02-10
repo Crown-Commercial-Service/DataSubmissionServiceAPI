@@ -64,12 +64,35 @@ RSpec.describe Ingest::Loader do
       }
     end
 
+    let(:fake_other_row) do
+      {
+        'Awarded (Y/N/In Progress)' => 'N',
+        'Campaign Name' => 'Production of 2 Promotional Videos',
+        'Customer Organisation' => 'National Crime Agency ',
+        'Customer PostCode' => 'SW1H 9HP',
+        'Customer URN' => '10018919',
+        'Date Brief Received' => '2019-12-18',
+        'Participated (Y/N)' => 'N',
+        'Reason for Non-Participation' => 'Timings meant we could not accommodate brief'
+      }
+    end
+
     let(:fake_invoice_row_empty) do
       fake_invoice_row.map { |k, _| [k, '   '] }.to_h
     end
 
     let(:fake_order_row_empty) do
       fake_order_row.map { |k, _| [k, '   '] }.to_h
+    end
+
+    let(:default_other_rows) do
+      double(
+        'rows',
+        data: [fake_other_row.merge('line_number' => '1')],
+        row_count: 1,
+        sheet_name: 'Briefs Received',
+        type: 'other'
+      )
     end
 
     it 'loads data from the converter into the database and saves the invoice total' do
@@ -95,7 +118,7 @@ RSpec.describe Ingest::Loader do
         type: 'order'
       )
 
-      converter = double('converter', rows: 3, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 3, invoices: invoice_rows, orders: order_rows, others: default_other_rows)
 
       loader = Ingest::Loader.new(converter, file)
 
@@ -138,7 +161,7 @@ RSpec.describe Ingest::Loader do
         type: 'order'
       )
 
-      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows, others: default_other_rows)
 
       loader = Ingest::Loader.new(converter, file)
       loader.perform
@@ -172,7 +195,7 @@ RSpec.describe Ingest::Loader do
         type: 'order'
       )
 
-      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 4, invoices: invoice_rows, orders: order_rows, others: default_other_rows)
 
       loader = Ingest::Loader.new(converter, file)
       loader.perform
@@ -201,7 +224,7 @@ RSpec.describe Ingest::Loader do
         type: 'order'
       )
 
-      converter = double('converter', rows: 1, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 1, invoices: invoice_rows, orders: order_rows, others: default_other_rows)
 
       loader = Ingest::Loader.new(converter, file)
 
@@ -256,7 +279,7 @@ RSpec.describe Ingest::Loader do
         type: 'order'
       )
 
-      converter = double('converter', rows: 2, invoices: invoice_rows, orders: order_rows)
+      converter = double('converter', rows: 2, invoices: invoice_rows, orders: order_rows, others: default_other_rows)
       loader = Ingest::Loader.new(converter, file)
 
       loader.perform

@@ -112,6 +112,45 @@ RSpec.describe Ingest::Converter do
     end
   end
 
+  describe '.others' do
+    let(:download) { fake_download('RM3774_example_return.xls') }
+
+    it 'has the other rows' do
+      others = converter.others
+
+      expected_other_row_count = 5
+
+      expect(others).to be_an(Ingest::Converter::Rows)
+      expect(others.row_count).to eql expected_other_row_count
+      expect(others.sheet_name).to eql 'Briefs Received'
+      expect(others.type).to eql 'other'
+      expect(others.data).to be_an(Enumerator)
+
+      rows = others.data.to_a
+
+      order_row_count = 3
+      invoice_row_count = 1
+
+      aggregate_failures do
+        expect(rows.size).to eql expected_other_row_count
+
+        expect(converter.rows).to eql expected_other_row_count + order_row_count + invoice_row_count
+
+        expect(rows[0].to_h).to include(
+          'Awarded (Y/N/In Progress)' => 'N',
+          'Campaign Name' => 'Production of 2 Promotional Videos',
+          'Customer Organisation' => 'National Crime Agency ',
+          'Customer PostCode' => 'SW1H 9HP',
+          'Customer URN' => '10018919',
+          'Date Brief Received' => '2019-12-18',
+          'Participated (Y/N)' => 'N',
+          'Reason for Non-Participation' => 'Timings meant we could not accommodate brief',
+          'line_number' => '1',
+        )
+      end
+    end
+  end
+
   describe '.rows' do
     it 'returns the total number of rows contained in the Excel file' do
       expect(converter.rows).to eql 3
