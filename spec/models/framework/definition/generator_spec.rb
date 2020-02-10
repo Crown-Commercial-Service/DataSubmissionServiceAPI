@@ -421,6 +421,37 @@ RSpec.describe Framework::Definition::Generator do
           end
         end
       end
+
+      context 'The OtherFields block references a lookup that does not exist' do
+        let(:source) do
+          <<~FDL
+            Framework RM3774 {
+              Name 'Campaign Solutions'
+              ManagementCharge 0.5%
+
+              Lots {
+                '1' -> 'Fake'
+              }
+
+              InvoiceFields {
+                InvoiceValue from 'Somewhere'
+              }
+
+              OtherFields {
+                ProductDescription from 'Somewhere' depends_on 'NonExistent' {
+                  'foo' -> 'bar'
+                }
+              }
+            }
+          FDL
+        end
+
+        it { is_expected.to be_error }
+
+        it 'has the error' do
+          expect(generator.error).to eql("'Somewhere' depends on 'NonExistent', which does not exist")
+        end
+      end
     end
 
     context 'with multi column management charge calculations' do

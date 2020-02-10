@@ -18,7 +18,7 @@ class Framework
         end
 
         def entry_types
-          %i[invoice contract].select { |fields_type| ast[:"#{fields_type}_fields"] }
+          %i[invoice contract other].select { |fields_type| ast[:"#{fields_type}_fields"] }
         end
 
         def field_defs(entry_type)
