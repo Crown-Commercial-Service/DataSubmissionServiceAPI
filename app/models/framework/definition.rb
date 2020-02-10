@@ -47,7 +47,13 @@ class Framework
         end
 
         def for_entry_type(entry_type)
-          entry_type == 'invoice' ? self::Invoice : self::Order
+          case entry_type.downcase
+          when 'invoice' then self::Invoice
+          when 'order' then self::Order
+          when 'other' then self::Other
+          else
+            raise ArgumentError, "Unknown entry_type of #{entry_type}"
+          end
         end
 
         def attributes_for_entry_type(entry_type)

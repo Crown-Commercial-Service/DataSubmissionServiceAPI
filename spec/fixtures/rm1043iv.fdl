@@ -66,6 +66,16 @@ Framework RM1043iv {
     ContractValue from 'Total Value'
   }
 
+  OtherFields {
+    CustomerURN from 'Customer URN'
+    CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    ProductDescription from 'Campaign Name'
+    Date Additional1 from 'Date Brief Received'
+    YesNo Additional2 from 'Participated (Y/N)'
+    optional String(..255) Additional4 from 'Reason for Non-Participation'
+  }
+
   Lookups {
     UnitType [
       'Day'
