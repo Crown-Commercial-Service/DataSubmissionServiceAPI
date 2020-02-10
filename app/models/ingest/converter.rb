@@ -89,7 +89,7 @@ module Ingest
     end
 
     def other_sheet_name
-      @other_sheet_name ||= sheets.find { |sheet| sheet.match(/^Briefs Received$/) }
+      @other_sheet_name ||= sheets.find { |sheet| sheet.match(/Briefs Received|ITQs|Bid Invitations|Live Sites/i) }
     end
   end
 end
