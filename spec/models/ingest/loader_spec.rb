@@ -144,7 +144,6 @@ RSpec.describe Ingest::Loader do
         loader.perform
 
         aggregate_failures do
-          expect(file.rows).to eql 4
           expect(file.entries.invoices.count).to eql 2
           expect(file.entries.orders.count).to eql 1
           expect(file.entries.others.count).to eql 1

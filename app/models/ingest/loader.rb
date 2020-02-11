@@ -11,23 +11,16 @@ module Ingest
     ##
     # Given a +converter+ (result of Ingest::Converter) and +submission_file+,
     # validate and load the rows for invoices and orders into the database
-    #
-    # Passing +persist+ as false results in the generated submission entries
-    # being written to a YML file for debugging purposes. No changes are made
-    # to the database
-    def initialize(converter, submission_file, persist = true)
+    def initialize(converter, submission_file)
       @converter = converter
       @submission_file = submission_file
       @framework = submission.framework
       @definition = @framework.definition
-      @persist = persist
 
       @urns = Customer.pluck(:urn, 1).to_h
     end
 
     def perform
-      @submission_file.update!(rows: @converter.total_row_count) if @persist
-
       raise_when_columns_missing
 
       load_entries('invoice') do |total|
@@ -100,15 +93,9 @@ module Ingest
         entries << entry
       end
 
-      if @persist
-        SubmissionEntry.transaction do
-          SubmissionEntry.import(entries, batch_size: 500, validate: false)
-          yield running_total if block_given?
-        end
-      else
-        File.open("/tmp/ingest_#{@submission_file.id}_#{rows.type}.yml", 'w') do |f|
-          f.write entries.to_yaml
-        end
+      SubmissionEntry.transaction do
+        SubmissionEntry.import(entries, batch_size: 500, validate: false)
+        yield running_total if block_given?
       end
     end
     # rubocop:enable Metrics/AbcSize
