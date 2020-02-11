@@ -1,7 +1,12 @@
 module Ingest
   class Loader
-    class MissingInvoiceColumns < StandardError; end
-    class MissingOrderColumns < StandardError; end
+    class MissingColumns < StandardError
+      attr_accessor :entry_type
+      def initialize(entry_type, missing_columns)
+        super("Column(s) missing for #{entry_type}: #{missing_columns}")
+        self.entry_type = entry_type
+      end
+    end
 
     ##
     # Given a +converter+ (result of Ingest::Converter) and +submission_file+,
@@ -23,51 +28,42 @@ module Ingest
     def perform
       @submission_file.update!(rows: @converter.rows) if @persist
 
-      determine_correct_framework_used
+      raise_when_columns_missing
 
-      load_invoices
-      load_orders
-      load_others
+      load_entries('invoice') do |total|
+        submission.update!(invoice_total: total)
+      end
+      load_entries('order')
+      load_entries('other')
     end
 
     private
 
-    def load_invoices
-      return if @converter.invoices.row_count.zero?
+    def load_entries(entry_type)
+      rows = @converter.rows_for(entry_type)
+      return if rows.row_count.zero?
 
-      Rails.logger.info "Loading #{@converter.invoices.row_count} invoice rows"
+      Rails.logger.info "Loading #{rows.row_count} #{entry_type} rows"
 
-      sheet_definition = @definition.for_entry_type('invoice')
+      sheet_definition = @definition.for_entry_type(entry_type)
 
-      load_data_from(@converter.invoices, sheet_definition) do |invoice_total|
-        submission.update!(invoice_total: invoice_total)
+      load_data_from(rows, sheet_definition) do |total|
+        yield total if block_given?
       end
     end
 
-    def load_orders
-      return if @converter.orders.row_count.zero?
+    def raise_when_columns_missing
+      SubmissionEntry::TYPES.each do |entry_type|
+        headers = headers_for(entry_type)
+        next if headers.empty?
 
-      Rails.logger.info "Loading #{@converter.orders.row_count} order rows"
+        attributes = attributes_for(entry_type)
 
-      sheet_definition = @definition.for_entry_type('order')
-      load_data_from(@converter.orders, sheet_definition)
-    end
+        diff = attributes.difference(headers)
+        next if diff.empty?
 
-    def load_others
-      return if @converter.others.row_count.zero?
-
-      Rails.logger.info "Loading #{@converter.others.row_count} other rows"
-
-      sheet_definition = @definition.for_entry_type('other')
-      load_data_from(@converter.others, sheet_definition)
-    end
-
-    def determine_correct_framework_used
-      invoice_diff = invoice_attributes.difference(invoice_headers)
-      order_diff   = order_attributes.difference(order_headers)
-
-      raise MissingInvoiceColumns, invoice_diff.to_a.to_sentence unless invoice_diff.empty? || invoice_headers.empty?
-      raise MissingOrderColumns, order_diff.to_a.to_sentence unless order_diff.empty? || order_headers.empty?
+        raise MissingColumns.new(entry_type, diff.to_a.to_sentence)
+      end
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -121,20 +117,12 @@ module Ingest
       @submission_file.submission
     end
 
-    def invoice_attributes
-      Set.new(@definition.attributes_for_entry_type('invoice'))
+    def attributes_for(entry_type)
+      Set.new(@definition.attributes_for_entry_type(entry_type))
     end
 
-    def order_attributes
-      Set.new(@definition.attributes_for_entry_type('order'))
-    end
-
-    def invoice_headers
-      Set.new(@converter.invoices.data.first.to_h.keys - ['line_number'])
-    end
-
-    def order_headers
-      Set.new(@converter.orders.data.first.to_h.keys - ['line_number'])
+    def headers_for(entry_type)
+      Set.new(@converter.rows_for(entry_type).data.first.to_h.keys - ['line_number'])
     end
   end
 end

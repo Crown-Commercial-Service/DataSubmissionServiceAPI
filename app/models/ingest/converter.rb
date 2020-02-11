@@ -2,14 +2,20 @@ require 'csv'
 
 module Ingest
   ##
-  # Takes the +path+ to the download from AttachedFileDownloader and returns
-  # a +Rows+ object for both invoices and orders, comprising the
+  # Take the +path+ to the download from AttachedFileDownloader and return
+  # a +Rows+ object for all entry types via +[]+, comprising the
   # row +data+ (as a CSV enumerable), +row_count+, +sheet_name+
   # and +type+ (invoice or order)
   #
-  # +rows+ contains the combined row counts for both sheets
+  # +rows+ contains the combined row counts for all sheets
   class Converter
     class UnreadableFile < StandardError; end
+
+    SHEET_NAME_PATTERNS = {
+      'invoice' => /(booking|finance|management|invoice)/i,
+      'order'   => /(order|contract)/i,
+      'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites/i
+    }.freeze
 
     attr_reader :excel_temp_file
 
@@ -17,22 +23,15 @@ module Ingest
 
     def initialize(excel_temp_file)
       @excel_temp_file = excel_temp_file
+      @rows_for = {}
     end
 
     def rows
-      @rows ||= invoices.row_count + orders.row_count + others.row_count
+      @rows ||= SubmissionEntry::TYPES.reduce(0) { |total, type| total + rows_for(type).row_count }
     end
 
-    def invoices
-      @invoices ||= fetch_sheet('invoice')
-    end
-
-    def orders
-      @orders ||= fetch_sheet('order')
-    end
-
-    def others
-      @others ||= fetch_sheet('other')
+    def rows_for(entry_type)
+      @rows_for[entry_type] ||= fetch_sheet(entry_type)
     end
 
     def sheets
@@ -49,7 +48,7 @@ module Ingest
 
     def fetch_sheet(type)
       sheet_temp_file = excel_temp_file + '_' + type + '.csv'
-      sheet_name = send "#{type}_sheet_name"
+      sheet_name = sheet_name_for(type)
 
       return empty_rows if sheet_name.blank?
 
@@ -80,16 +79,8 @@ module Ingest
       row_count
     end
 
-    def invoice_sheet_name
-      @invoice_sheet_name ||= sheets.find { |sheet| sheet.match(/(booking|finance|management|invoice)/i) }
-    end
-
-    def order_sheet_name
-      @order_sheet_name ||= sheets.find { |sheet| sheet.match(/(order|contract)/i) }
-    end
-
-    def other_sheet_name
-      @other_sheet_name ||= sheets.find { |sheet| sheet.match(/Briefs Received|ITQs|Bid Invitations|Live Sites/i) }
+    def sheet_name_for(entry_type)
+      sheets.find { |sheet| sheet.match(SHEET_NAME_PATTERNS[entry_type]) }
     end
   end
 end

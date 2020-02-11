@@ -90,9 +90,19 @@ RSpec.describe Ingest::Loader do
       fake_order_row.map { |k, _| [k, '   '] }.to_h
     end
 
+    let(:invoice_rows) do
+      double(
+        'Converter::Rows',
+        data: [fake_invoice_row.merge('line_number' => '1'), fake_invoice_row.merge('line_number' => '2')],
+        row_count: 2,
+        sheet_name: 'Invoice Sheet',
+        type: 'invoice'
+      )
+    end
+
     let(:order_rows) do
       double(
-        'rows',
+        'Converter::Rows',
         data: [
           fake_order_row.merge('line_number' => '1')
         ],
@@ -104,7 +114,7 @@ RSpec.describe Ingest::Loader do
 
     let(:other_rows) do
       double(
-        'rows',
+        'Converter::Rows',
         data: [fake_other_row.merge('line_number' => '1')],
         row_count: 1,
         sheet_name: 'Briefs Received',
@@ -114,7 +124,11 @@ RSpec.describe Ingest::Loader do
 
     let(:total_row_count) { invoice_rows.data.count + order_rows.data.count + other_rows.data.count }
     let(:converter) do
-      double('converter', rows: total_row_count, invoices: invoice_rows, orders: order_rows, others: other_rows)
+      double('converter', rows: total_row_count).tap do |converter|
+        allow(converter).to receive(:rows_for).with('invoice').and_return(invoice_rows)
+        allow(converter).to receive(:rows_for).with('order').and_return(order_rows)
+        allow(converter).to receive(:rows_for).with('other').and_return(other_rows)
+      end
     end
 
     before do
@@ -126,16 +140,6 @@ RSpec.describe Ingest::Loader do
     end
 
     context 'everything is valid' do
-      let(:invoice_rows) do
-        double(
-          'rows',
-          data: [fake_invoice_row.merge('line_number' => '1'), fake_invoice_row.merge('line_number' => '2')],
-          row_count: 2,
-          sheet_name: 'Invoice Sheet',
-          type: 'invoice'
-        )
-      end
-
       it 'loads data from the converter into the database and saves the invoice total' do
         loader.perform
 
@@ -238,8 +242,10 @@ RSpec.describe Ingest::Loader do
         )
       end
 
-      it 'raises MissingInvoiceColumns' do
-        expect { loader.perform }.to raise_error(Ingest::Loader::MissingInvoiceColumns, /Contract Reference/)
+      it 'raises MissingColumns' do
+        expect { loader.perform }.to raise_error(Ingest::Loader::MissingColumns, /Contract Reference/) do |e|
+          expect(e.entry_type).to eql 'invoice'
+        end
       end
     end
 
@@ -268,8 +274,28 @@ RSpec.describe Ingest::Loader do
         )
       end
 
-      it 'raises MissingOrderColumns' do
-        expect { loader.perform }.to raise_error(Ingest::Loader::MissingOrderColumns, /Lot Number/)
+      it 'raises MissingColumns' do
+        expect { loader.perform }.to raise_error(Ingest::Loader::MissingColumns, /Lot Number/) do |e|
+          expect(e.entry_type).to eql 'order'
+        end
+      end
+    end
+
+    context 'the converter rows do not contain all the framework’s other attributes' do
+      let(:other_rows) do
+        double(
+          'rows',
+          data: [fake_other_row.merge('line_number' => '1').except!('Customer URN')],
+          row_count: 1,
+          sheet_name: '',
+          type: 'other'
+        )
+      end
+
+      it 'raises MissingColumns' do
+        expect { loader.perform }.to raise_error(Ingest::Loader::MissingColumns, /Customer URN/) do |e|
+          expect(e.entry_type).to eql 'other'
+        end
       end
     end
   end
