@@ -20,7 +20,7 @@ module Ingest
         downloader.download!
 
         converter = Ingest::Converter.new(downloader.temp_file.path)
-        @submission_file.update!(rows: converter.total_row_count)
+        @submission_file.update!(rows: total_row_count(converter))
 
         loader = Ingest::Loader.new(converter, @submission_file)
         loader.perform
@@ -48,6 +48,12 @@ module Ingest
       else
         Rails.logger.info 'Some rows had validation errors'
         @submission.ready_for_review!
+      end
+    end
+
+    def total_row_count(converter)
+      @total_row_count ||= @framework.definition.defined_entry_types.reduce(0) do |total, type|
+        total + converter.rows_for(type).row_count
       end
     end
   end

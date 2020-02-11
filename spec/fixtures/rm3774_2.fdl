@@ -1,0 +1,85 @@
+Framework RM3774 {
+  Name 'Campaign Solutions'
+  ManagementCharge sector_based {
+      CentralGovernment  -> 1.5%
+      WiderPublicSector -> 0.5%
+  }
+
+  Lots {
+    '1' -> 'Campaign Solutions'
+  }
+
+  InvoiceFields {
+    CustomerURN from 'Customer URN'
+    CustomerName from 'Customer Organisation'
+    SupplierReferenceNumber from 'Agency Order Number'
+    optional InvoiceDate from 'Customer Invoice Date'
+    InvoiceNumber from 'Customer Invoice Number'
+    ProductDescription from 'Campaign Name'
+    ProductGroup from 'Specialism'
+    ProductClass from 'Grade or Production Cost'
+    ProductSubClass from 'Role or Production Type'
+    UnitType from 'Unit of Purchase' depends_on 'Grade or Production Cost' {
+      'Junior' -> UoMDay
+      'Mid' -> UoMDay
+      'Senior' -> UoMDay
+      'Board' -> UoMDay
+      'Production Cost' -> UoMFixed
+    }
+    UnitPrice from 'Price per Unit'
+    UnitQuantity from 'Quantity'
+    InvoiceValue from 'Total Charge (Ex VAT)'
+    optional String(..255) Additional1 from 'Subcontractor Agency Name'
+    optional SizeofSub Additional2 from 'Size of Subcontractor'
+    optional Expenses from 'Expenses/ Disbursements'
+  }
+
+  OtherFields {
+    CustomerURN from 'Customer URN'
+    CustomerPostCode from 'Customer PostCode'
+    CustomerName from 'Customer Organisation'
+    ProductDescription from 'Campaign Name'
+    Date Additional1 from 'Date Brief Received'
+    YesNo Additional2 from 'Participated (Y/N)'
+    Awarded Additional3 from 'Awarded (Y/N/In Progress)'
+    optional String(..255) Additional4 from 'Reason for Non-Participation'
+  }
+
+
+  Lookups {
+    Awarded [
+    'Y'
+    'N'
+    'In Progress'
+    ]
+
+    SizeofSub [
+      'Micro'
+      'Small'
+      'Medium'
+      'Large'
+      'N/A'
+    ]
+
+    ProductGroup [
+      'Direct Marketing'
+      'Digital Marketing and Social Media'
+      'Public Relations'
+      'Creative for Campaigns'
+      'Strategy Development'
+      'Partnership Marketing'
+    ]
+
+    ProductClass [
+      'Junior'
+      'Mid'
+      'Senior'
+      'Board'
+      'Production Cost'
+    ]
+
+    UoMDay ['Day']
+
+    UoMFixed ['Fixed Price']
+  }
+}

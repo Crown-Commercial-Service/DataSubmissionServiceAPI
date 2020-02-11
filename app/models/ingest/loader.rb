@@ -33,6 +33,8 @@ module Ingest
     private
 
     def load_entries(entry_type)
+      return unless @definition.defines?(entry_type)
+
       rows = @converter.rows_for(entry_type)
       return if rows.row_count.zero?
 

@@ -47,7 +47,7 @@ RSpec.describe Ingest::Orchestrator do
         end
       end
 
-      it 'has our "other" rows' do
+      before do
         [10018919, 10025944, 10010913, 10014115, 10007349, 10038497, 10023079].each do |urn|
           create(:customer, urn: urn)
         end
@@ -58,8 +58,35 @@ RSpec.describe Ingest::Orchestrator do
 
         orchestrator = Ingest::Orchestrator.new(file)
         orchestrator.perform
+      end
 
-        expect(submission.entries.where(entry_type: 'other').count).to eql(5)
+      it 'has our "other" rows plus some invoices and orders' do
+        aggregate_failures do
+          expect(submission.entries.where(entry_type: 'invoice').count).to eql(1)
+          expect(submission.entries.where(entry_type: 'order').count).to eql(3)
+          expect(submission.entries.where(entry_type: 'other').count).to eql(5)
+
+          expect(file.rows).to eql(1 + 3 + 5)
+        end
+      end
+
+      context 'without the Orders' do
+        let(:framework) do
+          create(:framework, :with_fdl, short_name: 'RM3774.2') do |framework|
+            framework.lots.create(number: 1)
+          end
+        end
+
+        it 'does not have any orders because the framework does not ask for them' do
+          aggregate_failures do
+            expect(submission.entries.where(entry_type: 'invoice').count).to eql(1)
+            expect(submission.entries.where(entry_type: 'other').count).to eql(5)
+
+            expect(submission.entries.where(entry_type: 'order').count).to be_zero
+
+            expect(file.rows).to eql(1 + 5)
+          end
+        end
       end
     end
 
