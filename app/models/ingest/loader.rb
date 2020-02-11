@@ -26,7 +26,7 @@ module Ingest
     end
 
     def perform
-      @submission_file.update!(rows: @converter.rows) if @persist
+      @submission_file.update!(rows: @converter.total_row_count) if @persist
 
       raise_when_columns_missing
 

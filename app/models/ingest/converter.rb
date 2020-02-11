@@ -26,8 +26,8 @@ module Ingest
       @rows_for = {}
     end
 
-    def rows
-      @rows ||= SubmissionEntry::TYPES.reduce(0) { |total, type| total + rows_for(type).row_count }
+    def total_row_count
+      @total_row_count ||= SubmissionEntry::TYPES.reduce(0) { |total, type| total + rows_for(type).row_count }
     end
 
     def rows_for(entry_type)

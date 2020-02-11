@@ -124,7 +124,7 @@ RSpec.describe Ingest::Loader do
 
     let(:total_row_count) { invoice_rows.data.count + order_rows.data.count + other_rows.data.count }
     let(:converter) do
-      double('converter', rows: total_row_count).tap do |converter|
+      double('converter', total_row_count: total_row_count).tap do |converter|
         allow(converter).to receive(:rows_for).with('invoice').and_return(invoice_rows)
         allow(converter).to receive(:rows_for).with('order').and_return(order_rows)
         allow(converter).to receive(:rows_for).with('other').and_return(other_rows)

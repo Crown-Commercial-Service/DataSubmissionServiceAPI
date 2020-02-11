@@ -20,7 +20,7 @@ module Ingest
         downloader.download!
 
         converter = Ingest::Converter.new(downloader.temp_file.path)
-        @submission_file.update!(rows: converter.rows)
+        @submission_file.update!(rows: converter.total_row_count)
 
         loader = Ingest::Loader.new(converter, @submission_file)
         loader.perform

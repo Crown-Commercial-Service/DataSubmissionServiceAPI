@@ -134,7 +134,7 @@ RSpec.describe Ingest::Converter do
       aggregate_failures do
         expect(rows.size).to eql expected_other_row_count
 
-        expect(converter.rows).to eql expected_other_row_count + order_row_count + invoice_row_count
+        expect(converter.total_row_count).to eql expected_other_row_count + order_row_count + invoice_row_count
 
         expect(rows[0].to_h).to include(
           'Awarded (Y/N/In Progress)' => 'N',
@@ -151,16 +151,16 @@ RSpec.describe Ingest::Converter do
     end
   end
 
-  describe '.rows' do
+  describe '.total_row_count' do
     it 'returns the total number of rows contained in the Excel file' do
-      expect(converter.rows).to eql 3
+      expect(converter.total_row_count).to eql 3
     end
 
     context 'with a download that has only one sheet to convert' do
       let(:download) { fake_download('rm3767-with-no-orders.xls') }
 
       it 'returns the total number of rows contained in the Excel file' do
-        expect(converter.rows).to eql 1
+        expect(converter.total_row_count).to eql 1
       end
     end
 
@@ -168,7 +168,7 @@ RSpec.describe Ingest::Converter do
       let(:download) { fake_download('rm3767-with-whitespace-rows.xls') }
 
       it 'returns the total number of filled rows contained in the Excel file' do
-        expect(converter.rows).to eql 2
+        expect(converter.total_row_count).to eql 2
       end
     end
   end
