@@ -59,6 +59,12 @@ FactoryBot.define do
           create_list(:submission_file, 1, :with_attachment, submission: submission, rows: submission.entries.count)
         end
       end
+
+      trait :with_others do
+        after(:create) do |submission, _evaluator|
+          create_list(:other_entry, 1, :valid, submission: submission)
+        end
+      end
     end
 
     factory :submission_with_invalid_entries do
