@@ -41,13 +41,7 @@ module Export
     private
 
     def framework_definition_for(framework_short_name)
-      cached = cache[framework_short_name]
-      return cached if cached
-
-      framework_definition = Framework::Definition[framework_short_name]
-      cache[framework_short_name] = framework_definition
-
-      framework_definition
+      cache[framework_short_name] ||= Framework::Definition[framework_short_name]
     end
 
     def source_field_for(destination_field)
