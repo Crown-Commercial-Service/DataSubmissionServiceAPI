@@ -47,7 +47,10 @@ class Framework
         end
 
         def for_entry_type(entry_type)
-          raise ArgumentError, "Unknown entry_type of #{entry_type}" unless defines?(entry_type)
+          unless defines?(entry_type)
+            raise ArgumentError, "entry_type of '#{entry_type}' " \
+                                 "is not in the FDL for #{framework_short_name}"
+          end
 
           const_get(entry_type.capitalize)
         end
