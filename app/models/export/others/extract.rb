@@ -1,5 +1,5 @@
 module Export
-  module Others
+  class Others
     module Extract
       def self.all_relevant(date_range = nil)
         submission_scope = Submission.completed
