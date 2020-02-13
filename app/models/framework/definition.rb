@@ -47,11 +47,27 @@ class Framework
         end
 
         def for_entry_type(entry_type)
-          entry_type == 'invoice' ? self::Invoice : self::Order
+          raise ArgumentError, "Unknown entry_type of #{entry_type}" unless defines?(entry_type)
+
+          const_get(entry_type.capitalize)
+        end
+
+        ##
+        # Does this definition define an entry type, e.g. 'order', 'invoice', 'other'?
+        def defines?(entry_type)
+          defined_entry_types.include?(entry_type)
+        end
+
+        ##
+        # Which entry types are defined in this framework's FDL?
+        def defined_entry_types
+          @defined_entry_types ||= SubmissionEntry::TYPES.select do |entry_type|
+            const_defined?(entry_type.capitalize)
+          end
         end
 
         def attributes_for_entry_type(entry_type)
-          return [] unless constants.include?(entry_type.capitalize.to_sym)
+          return [] unless defines?(entry_type)
 
           for_entry_type(entry_type).new(FakeAttributes.new).attributes.keys
         end

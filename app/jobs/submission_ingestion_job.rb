@@ -3,11 +3,7 @@ class SubmissionIngestionJob < ApplicationJob
 
   queue_as :ingest
 
-  discard_on(Ingest::Loader::MissingInvoiceColumns) do |job, exception|
-    handle_unretryable_job_failure(job, exception)
-  end
-
-  discard_on(Ingest::Loader::MissingOrderColumns) do |job, exception|
+  discard_on(Ingest::Loader::MissingColumns) do |job, exception|
     handle_unretryable_job_failure(job, exception)
   end
 
