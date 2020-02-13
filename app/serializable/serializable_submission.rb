@@ -20,6 +20,10 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
     submission.entries.orders.count
   end
 
+  attribute :other_count do
+    submission.entries.others.count
+  end
+
   attribute :invoice_total_value do
     submission.total_spend
   end
