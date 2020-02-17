@@ -62,7 +62,7 @@ class Framework
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
             lookup_values = ast.lookups[field.lookup_name]
-            field field.sheet_name, field.activemodel_type, field.options(lookup_values)
+            field field.sheet_name, :string, field.options(lookup_values)
           end
         end
       end
