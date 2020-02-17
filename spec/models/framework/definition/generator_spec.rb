@@ -92,7 +92,7 @@ RSpec.describe Framework::Definition::Generator do
 
           it 'is a valid URN' do
             expect(invoice_class).to have_field('Customer URN')
-              .with_activemodel_type(:integer)
+              .with_activemodel_type(:string)
               .validated_by(:urn)
               .not_validated_by(:presence)
           end
