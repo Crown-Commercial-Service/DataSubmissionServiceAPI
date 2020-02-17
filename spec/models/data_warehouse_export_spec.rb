@@ -100,8 +100,8 @@ RSpec.describe DataWarehouseExport do
   end
 
   describe '#generate_files', truncation: true do
-    let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
-    let!(:submission) { create(:completed_submission, framework: framework) }
+    let(:framework) { create(:framework, :with_fdl, short_name: 'RM3774') }
+    let!(:submission) { create(:completed_submission, :with_others, framework: framework) }
     let!(:task) { submission.task }
     let(:export) { DataWarehouseExport.create }
 
@@ -118,7 +118,8 @@ RSpec.describe DataWarehouseExport do
         'tasks_20180101_000000.csv',
         'submissions_20180101_000000.csv',
         'invoices_20180101_000000.csv',
-        'contracts_20180101_000000.csv'
+        'contracts_20180101_000000.csv',
+        'others_20180101_000000.csv'
       ]
 
       expect(generated_files.values).to all(be_a Tempfile)
@@ -155,6 +156,16 @@ RSpec.describe DataWarehouseExport do
       expect(export_lines.size).to eq 2
       expect(export_lines[0]).to match Export::Contracts::HEADER.join(',')
       expect(export_lines[1..2]).to all(match submission.id)
+    end
+
+    it 'generates the others export' do
+      export_lines = generated_files.fetch('others_20180101_000000.csv').read.split("\n")
+
+      aggregate_failures do
+        expect(export_lines.size).to eq 2
+        expect(export_lines[0]).to match Export::Others::HEADER.join(',')
+        expect(export_lines[1..2]).to all(match submission.id)
+      end
     end
 
     context 'when only a subset of models have actually changed' do
