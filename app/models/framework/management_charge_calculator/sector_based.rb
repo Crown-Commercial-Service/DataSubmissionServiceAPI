@@ -17,7 +17,7 @@ class Framework
       def percentage(entry)
         urn = entry.customer_urn
         sector = Customer.select(:sector).find_by(urn: urn).sector
-        send(sector)
+        BigDecimal(send(sector))
       end
     end
   end
