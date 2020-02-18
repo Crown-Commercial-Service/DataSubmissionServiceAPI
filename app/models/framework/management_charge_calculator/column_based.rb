@@ -21,7 +21,7 @@ class Framework
           return 0.0
         end
 
-        (entry.total_value * (percentage / 100)).truncate(4)
+        (entry.total_value * (BigDecimal(percentage) / 100)).truncate(4)
       end
 
       private
