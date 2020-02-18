@@ -24,5 +24,15 @@ RSpec.describe Workday::CommercialAgreements do
         'A206100' => 'GBC20'
       )
     end
+
+    context 'when the workday API returns a 500 status code' do
+      it 'raises an error' do
+        stub_request(:get, 'https://wd3-impl-services1.workday.com/ccx/service/customreport2/tenant/INT003_ISU/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category')
+          .with(headers: { 'Authorization' => 'Basic dXNlcjpwYXNzd29yZA==' })
+          .to_return(status: 500, body: '')
+
+        expect { subject.tax_code_ids }.to raise_error(Workday::ConnectionError)
+      end
+    end
   end
 end
