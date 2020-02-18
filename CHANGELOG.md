@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-99] - 2020-02-18
+
+- Add OtherFields to FDL, ingest and export
+- Fixed a Customer URN issue where a spreadsheet cell would be marked as valid
+    if it *started* with a valid URN (e.g. "123456 Hey Duggee")
+
 ## [release-98] - 2020-01-23
 
 - Bulk user import runs as a background job
@@ -19,7 +25,7 @@
 - Validate multi-column management charge calcs
 - Add missing database indexes
 - Add 'maintenance_work_mem' setting for Postgres
-- [Security] Bump simple_form from 4.1.0 to 5.0.0 
+- [Security] Bump simple_form from 4.1.0 to 5.0.0
 - [Security] Bump puma from 3.11.4 to 3.12.2
 - Support integer column headings in management charge calculation
 - Fix multi-column management charge calculation
@@ -669,6 +675,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-99]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-98...release-99
 [release-98]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-97...release-98
 [release-97]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-96...release-97
 [release-96]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-95...release-96
