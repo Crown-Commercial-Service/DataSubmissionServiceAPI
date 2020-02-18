@@ -13,17 +13,29 @@ RSpec.describe UrnValidator do
     end
   end
 
-  it 'is valid for URNs that exist' do
-    FactoryBot.create(:customer, urn: 12345678)
-
-    entry_data = entry_data_class.new(SubmissionEntry.new(data: { 'Customer URN' => '12345678' }))
-
-    expect(entry_data).to be_valid
+  subject(:entry_data) do
+    entry_data_class.new(SubmissionEntry.new(data: { 'Customer URN' => urn }))
   end
 
-  it 'is invalid for a missing URN' do
-    entry_data = entry_data_class.new(SubmissionEntry.new(data: { 'Customer URN' => '88888888' }))
+  before do
+    create(:customer, urn: 12345678)
+  end
 
-    expect(entry_data).not_to be_valid
+  context 'URN exists' do
+    let(:urn) { '12345678' }
+
+    it { is_expected.to be_valid }
+  end
+
+  context 'URN is missing' do
+    let(:urn) { '88888888' }
+
+    it { is_expected.not_to be_valid }
+  end
+
+  context 'with a value that Ruby would incorrectly coerce with to_i to 12345678' do
+    let(:urn) { '12345678 Hey Duggee' }
+
+    it { is_expected.not_to be_valid }
   end
 end

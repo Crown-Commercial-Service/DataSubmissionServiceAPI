@@ -24,11 +24,11 @@ module Export
 
     def model_classname
       if @relation.klass == SubmissionEntry
-        if @relation.where_values_hash['entry_type'] == 'invoice'
-          'Invoice'
-        else
-          'Contract'
-        end
+        {
+          'invoice' => 'Invoice',
+          'order'   => 'Contract',
+          'other'   => 'Other'
+        }.fetch(@relation.where_values_hash['entry_type'])
       else
         @relation.klass.to_s
       end

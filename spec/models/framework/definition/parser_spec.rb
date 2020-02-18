@@ -26,7 +26,36 @@ RSpec.describe Framework::Definition::Parser do
   end
 
   describe '#framework_definition' do
-    it { is_expected.to parse(framework_definition) }
+    let(:array) do
+      [
+        { framework_short_name: { string: 'CM/05/3769' } },
+        {
+          framework_name: { string: 'Laundry Services - Wave 2' },
+          management_charge: { flat_rate: { value: { integer: '0' } } },
+          lots: { dictionary: [{ key: { string: '1' }, value: { string: 'Laundry Services' } }] }
+        },
+        {
+          invoice_fields: [
+            { field: 'CustomerPostCode', from: { string: 'Customer Postcode' } },
+            { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' } }
+          ]
+        }
+      ]
+    end
+
+    let(:hash) do
+      {
+        framework_short_name: { string: 'CM/05/3769' },
+        framework_name: { string: 'Laundry Services - Wave 2' },
+        management_charge: { flat_rate: { value: { integer: '0' } } },
+        lots: { dictionary: [{ key: { string: '1' }, value: { string: 'Laundry Services' } }] },
+        invoice_fields: [
+          { field: 'CustomerPostCode', from: { string: 'Customer Postcode' } },
+          { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Manufacturers Product Code' } }
+        ]
+      }
+    end
+    it { is_expected.to parse(framework_definition, trace: true).as(hash) }
   end
 
   describe '#framework_identifier' do
@@ -477,6 +506,87 @@ RSpec.describe Framework::Definition::Parser do
           { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Somewhere' } },
         ]
       )
+    end
+  end
+
+  describe '#other_fields' do
+    subject(:rule) { parser.other_fields }
+
+    let(:fields) do
+      <<~FDL.strip
+        OtherFields {
+          String Additional1 from 'Somewhere'
+        }
+      FDL
+    end
+
+    it 'has whatever fields are in the block' do
+      expect(rule).to parse(fields).as(
+        other_fields: [
+          { type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Somewhere' } },
+        ]
+      )
+    end
+  end
+
+  describe '#fields_blocks' do
+    subject(:rule) { parser.fields_blocks }
+
+    context 'an InvoiceFields on its own' do
+      let(:blocks) do
+        <<~FDL.strip
+          InvoiceFields {
+            String Additional1 from 'Somewhere'
+          }
+        FDL
+      end
+
+      it { is_expected.to parse(blocks) }
+    end
+
+    context 'a ContractFields on its own' do
+      let(:blocks) do
+        <<~FDL.strip
+          ContractFields {
+            String Additional1 from 'Somewhere'
+          }
+        FDL
+      end
+
+      it { is_expected.to parse(blocks) }
+    end
+
+    context 'an OtherFields with one of the other blocks' do
+      let(:blocks) do
+        <<~FDL.strip
+          InvoiceFields {
+            String Additional1 from 'Somewhere'
+          }
+
+          OtherFields {
+            String Additional1 from 'Somewhere'
+          }
+        FDL
+      end
+
+      it do
+        is_expected.to parse(blocks).as(
+          invoice_fields: [{ type_def: { primitive: 'String'  }, field: 'Additional1', from: { string: 'Somewhere' } }],
+          other_fields: [{ type_def: { primitive: 'String' }, field: 'Additional1', from: { string: 'Somewhere' } }]
+        )
+      end
+    end
+
+    context 'an OtherFields on its own' do
+      let(:blocks) do
+        <<~FDL.strip
+          OtherFields {
+            String Additional1 from 'Somewhere'
+          }
+        FDL
+      end
+
+      it { is_expected.not_to parse(blocks) }
     end
   end
 

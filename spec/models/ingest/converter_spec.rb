@@ -5,9 +5,9 @@ RSpec.describe Ingest::Converter do
 
   let(:download) { fake_download('rm1557-10-test.xls') }
 
-  describe '.invoices' do
+  describe 'invoices' do
     it 'returns a Rows object, which contains the rows from the relevant sheet' do
-      invoices = converter.invoices
+      invoices = converter.rows_for('invoice')
 
       expect(invoices).to be_a(Ingest::Converter::Rows)
       expect(invoices.row_count).to eql 1
@@ -44,7 +44,7 @@ RSpec.describe Ingest::Converter do
       it 'returns an empty Rows object' do
         allow(Ingest::CommandRunner).to receive(:new).with(/in2csv/).and_call_original
 
-        invoices = converter.invoices
+        invoices = converter.rows_for('invoice')
 
         expect(invoices.data).to be_empty
         expect(invoices.row_count).to eql 0
@@ -55,9 +55,9 @@ RSpec.describe Ingest::Converter do
     end
   end
 
-  describe '.orders' do
+  describe 'orders' do
     it 'returns a Rows object, which contains the rows from the relevant sheet' do
-      orders = converter.orders
+      orders = converter.rows_for('order')
 
       expect(orders).to be_a(Ingest::Converter::Rows)
       expect(orders.row_count).to eql 2
@@ -101,7 +101,7 @@ RSpec.describe Ingest::Converter do
       it 'returns an empty Rows object' do
         allow(Ingest::CommandRunner).to receive(:new).with(/in2csv/).and_call_original
 
-        orders = converter.orders
+        orders = converter.rows_for('order')
 
         expect(orders.data).to be_empty
         expect(orders.row_count).to eql 0
@@ -112,24 +112,36 @@ RSpec.describe Ingest::Converter do
     end
   end
 
-  describe '.rows' do
-    it 'returns the total number of rows contained in the Excel file' do
-      expect(converter.rows).to eql 3
-    end
+  describe 'others' do
+    let(:download) { fake_download('RM3774_example_return.xls') }
 
-    context 'with a download that has only one sheet to convert' do
-      let(:download) { fake_download('rm3767-with-no-orders.xls') }
+    it 'has the other rows' do
+      others = converter.rows_for('other')
 
-      it 'returns the total number of rows contained in the Excel file' do
-        expect(converter.rows).to eql 1
-      end
-    end
+      expected_other_row_count = 5
 
-    context 'with a download that contains rows containing only whitespace' do
-      let(:download) { fake_download('rm3767-with-whitespace-rows.xls') }
+      expect(others).to be_an(Ingest::Converter::Rows)
+      expect(others.row_count).to eql expected_other_row_count
+      expect(others.sheet_name).to eql 'Briefs Received'
+      expect(others.type).to eql 'other'
+      expect(others.data).to be_an(Enumerator)
 
-      it 'returns the total number of filled rows contained in the Excel file' do
-        expect(converter.rows).to eql 2
+      rows = others.data.to_a
+
+      aggregate_failures do
+        expect(rows.size).to eql expected_other_row_count
+
+        expect(rows[0].to_h).to include(
+          'Awarded (Y/N/In Progress)' => 'N',
+          'Campaign Name' => 'Production of 2 Promotional Videos',
+          'Customer Organisation' => 'National Crime Agency ',
+          'Customer PostCode' => 'SW1H 9HP',
+          'Customer URN' => '10018919',
+          'Date Brief Received' => '2019-12-18',
+          'Participated (Y/N)' => 'N',
+          'Reason for Non-Participation' => 'Timings meant we could not accommodate brief',
+          'line_number' => '1',
+        )
       end
     end
   end
@@ -160,7 +172,7 @@ RSpec.describe Ingest::Converter do
     let(:download) { fake_download('sheet-name-with-spaces.xls') }
 
     it 'converts the sheet correctly' do
-      orders = converter.orders
+      orders = converter.rows_for('order')
 
       expect(orders.row_count).to eql 1
       expect(orders.sheet_name).to eql 'New Call Off Contracts'
@@ -174,7 +186,7 @@ RSpec.describe Ingest::Converter do
     let(:download) { fake_download('rm3787-with-empty-rows.xls') }
 
     it 'ignores empty rows when calculating row_count' do
-      invoices = converter.invoices
+      invoices = converter.rows_for('invoice')
 
       expect(invoices.row_count).to eql 6
     end
@@ -184,7 +196,7 @@ RSpec.describe Ingest::Converter do
     let(:download) { fake_download('headers-prefixed-with-space.xls') }
 
     it 'strips those spaces so it is converted correctly' do
-      orders = converter.orders
+      orders = converter.rows_for('order')
 
       # NB: header is " Call Off Value" in template
       expect(orders.data.first.headers).to include('Call Off Value')
@@ -195,7 +207,7 @@ RSpec.describe Ingest::Converter do
     let(:download) { fake_download('rm1059-with-date-like-value.xls') }
 
     it 'preserves the string value' do
-      invoices = converter.invoices
+      invoices = converter.rows_for('invoice')
 
       expect(invoices.data.first['Product / Service Group Level 2']).to eql('1 Year')
     end
@@ -205,7 +217,7 @@ RSpec.describe Ingest::Converter do
     let(:download) { fake_download('rm6096-with-boolean-like-value.xlsx') }
 
     it 'preserves the numerical value' do
-      invoices = converter.invoices
+      invoices = converter.rows_for('invoice')
 
       expect(invoices.data.first['Lot Number']).to eql('1')
     end

@@ -9,6 +9,7 @@ class Framework
         @ast = AST::Presenter.new(ast)
       end
 
+      # rubocop:disable Metrics/AbcSize - we need this to resemble a class
       def transpile
         # method-local bindings required for Class.new blocks
         ast = @ast
@@ -27,8 +28,10 @@ class Framework
         end.tap do |klass|
           klass.const_set('Invoice', entry_data_class(:invoice)) if ast.field_defs(:invoice)
           klass.const_set('Order', entry_data_class(:contract))  if ast.field_defs(:contract)
+          klass.const_set('Other', entry_data_class(:other))     if ast.field_defs(:other)
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       # rubocop:disable Metrics/AbcSize - we need this to resemble a class
       def entry_data_class(entry_type)
@@ -40,14 +43,16 @@ class Framework
             ActiveModel::Name.new(self, nil, entry_type_capitalized)
           end
 
-          _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
-          if _total_value_field.nil?
-            raise Transpiler::Error,
-                  "#{entry_type_capitalized}Fields is missing " \
-                  "an #{entry_type_capitalized}Value field"
-          end
+          if %i[invoice contract].include?(entry_type)
+            _total_value_field = ast.field_by_name(entry_type, "#{entry_type_capitalized}Value")
+            if _total_value_field.nil?
+              raise Transpiler::Error,
+                    "#{entry_type_capitalized}Fields is missing " \
+                    "an #{entry_type_capitalized}Value field"
+            end
 
-          total_value_field _total_value_field.sheet_name
+            total_value_field _total_value_field.sheet_name
+          end
 
           lookups ast.lookups
 
@@ -57,7 +62,7 @@ class Framework
             # Always use a case_insensitive_inclusion validator if
             # there's a lookup with the same name as the field
             lookup_values = ast.lookups[field.lookup_name]
-            field field.sheet_name, field.activemodel_type, field.options(lookup_values)
+            field field.sheet_name, :string, field.options(lookup_values)
           end
         end
       end

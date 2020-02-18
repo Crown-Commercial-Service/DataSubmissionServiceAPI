@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe SerializableSubmission do
-  context 'given a submission with invoices and orders' do
-    let(:submission) { FactoryBot.create(:completed_submission) }
+  context 'given a submission with invoices, orders and others' do
+    let(:submission) do
+      FactoryBot.create(:completed_submission) do |submission|
+        FactoryBot.create(:other_entry, submission: submission)
+      end
+    end
+
     let(:serialized_submission) { SerializableSubmission.new(object: submission) }
 
     it 'exposes a count of the number of invoice entries' do
@@ -11,6 +16,10 @@ RSpec.describe SerializableSubmission do
 
     it 'exposes a count of the number of order entries' do
       expect(serialized_submission.as_jsonapi[:attributes][:order_count]).to eq(1)
+    end
+
+    it 'exposes a count of the number of other entries' do
+      expect(serialized_submission.as_jsonapi[:attributes][:other_count]).to eq(1)
     end
 
     it 'exposes the total value of invoice entries' do
@@ -27,7 +36,9 @@ RSpec.describe SerializableSubmission do
 
     it 'exposes a sheet_errors hash' do
       expect(serialized_submission.as_jsonapi[:attributes][:sheet_errors]).to eq(
-        'InvoicesRaised' => [], 'OrdersReceived' => []
+        'InvoicesRaised' => [],
+        'OrdersReceived' => [],
+        'Bid Invitations' => []
       )
     end
 

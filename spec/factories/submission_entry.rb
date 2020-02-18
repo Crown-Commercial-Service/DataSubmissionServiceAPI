@@ -20,6 +20,11 @@ FactoryBot.define do
       sheet_name 'OrdersReceived'
     end
 
+    factory :other_entry do
+      entry_type 'other'
+      sheet_name 'Bid Invitations'
+    end
+
     trait :valid do
       aasm_state :validated
     end

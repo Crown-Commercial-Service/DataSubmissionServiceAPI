@@ -18,7 +18,8 @@ class DataWarehouseExport < ApplicationRecord
       "tasks_#{timestamp}.csv" => tasks_export_file,
       "submissions_#{timestamp}.csv" => submissions_export_file,
       "invoices_#{timestamp}.csv" => invoices_export_file,
-      "contracts_#{timestamp}.csv" => contracts_export_file
+      "contracts_#{timestamp}.csv" => contracts_export_file,
+      "others_#{timestamp}.csv" => others_export_file,
     }.compact
   end
 
@@ -42,6 +43,10 @@ class DataWarehouseExport < ApplicationRecord
 
   def contracts_export_file
     Export::Relation.new(Export::Contracts::Extract.all_relevant(date_range)).run
+  end
+
+  def others_export_file
+    Export::Relation.new(Export::Others::Extract.all_relevant(date_range)).run
   end
 
   def set_date_range

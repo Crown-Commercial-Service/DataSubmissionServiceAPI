@@ -103,12 +103,6 @@ class Framework
           known? ? warehouse_name : source_type
         end
 
-        ##
-        # The implementation type. Usually :string
-        def activemodel_type
-          %i[urn].include?(primitive_type) ? :integer : :string
-        end
-
         def validators?
           PRIMITIVE_TYPE_VALIDATIONS.fetch(primitive_type).any?
         end
