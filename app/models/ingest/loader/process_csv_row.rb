@@ -104,7 +104,7 @@ module Ingest
       def numeric_fields
         @numeric_fields ||= sheet_definition
                             .validators
-                            .select { |validator| validator.is_a?(IngestedNumericalityValidator) }
+                            .select { |validator| validator.is_a?(ActiveModel::Validations::NumericalityValidator) }
                             .flat_map(&:attributes)
       end
     end

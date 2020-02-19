@@ -45,13 +45,13 @@ RSpec.describe Framework::Definition::Generator do
           end
 
           it 'validates numericality' do
-            expect(invoice_class).to have_field('Total Spend').validated_by(:ingested_numericality)
+            expect(invoice_class).to have_field('Total Spend').validated_by(:numericality)
           end
 
-          it 'is a string validate as a number' do
+          it 'is a string validated as a number' do
             expect(invoice_class).to have_field('Total Spend')
               .with_activemodel_type(:string)
-              .validated_by(:ingested_numericality)
+              .validated_by(:numericality)
           end
         end
 
@@ -74,7 +74,7 @@ RSpec.describe Framework::Definition::Generator do
           it 'is assumed present but not numeric' do
             expect(invoice_class).to have_field('Customer Organisation')
               .validated_by(:presence)
-              .not_validated_by(:ingested_numericality)
+              .not_validated_by(:numericality)
           end
         end
 
@@ -147,7 +147,7 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to have_field('UNSPSC')
             .with_activemodel_type(:string)
-            .validated_by(ingested_numericality: { only_integer: true })
+            .validated_by(numericality: { only_integer: true })
         }
 
         describe '.lookups' do
@@ -362,7 +362,7 @@ RSpec.describe Framework::Definition::Generator do
 
         it {
           is_expected.to have_field('Additional Support Terms')
-            .validated_by(:ingested_numericality)
+            .validated_by(:numericality)
         }
       end
     end
