@@ -54,6 +54,19 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     expect(calculator.calculate_for(entry)).to eq(0.2121) # 0.5% of 123.45
   end
 
+  it 'correctly calculates charges when FDL gives integer percentages' do
+    entry = FactoryBot.create(:submission_entry, total_value: 42.424242, data: { test_value: 'test' })
+
+    calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+      varies_by: 'test_value',
+      value_to_percentage: {
+        'test': 1
+      }
+    )
+
+    expect(calculator.calculate_for(entry)).to eq(0.4242) # 1% of 42.424242
+  end
+
   it 'when the lookup fails, which should have been caught by validation, assume zero rate' do
     entry = FactoryBot.create(:submission_entry, total_value: 42.424242, data: { test_value: 'invalid' })
 
