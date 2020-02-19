@@ -29,11 +29,11 @@ RSpec.describe IngestedNumericalityValidator do
     end
   end
 
-  it 'validates zero-like values' do
+  it 'does not validate zero-like values' do
     ['N/A', '-', ' not applicable '].each do |valid_zero_like|
       instance = entry_data_class.new(SubmissionEntry.new(data: { 'test' => valid_zero_like }))
 
-      expect(instance).to be_valid
+      expect(instance).not_to be_valid
     end
   end
 
