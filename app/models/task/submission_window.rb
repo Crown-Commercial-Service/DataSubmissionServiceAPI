@@ -1,8 +1,7 @@
 require 'bank_holidays'
 
 class Task
-  # Right now only used to calculate the due date for the reporting period
-  class ReportingPeriod
+  class SubmissionWindow
     attr_reader :year, :month
 
     def initialize(year, month)
