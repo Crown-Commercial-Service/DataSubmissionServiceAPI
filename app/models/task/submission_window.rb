@@ -2,6 +2,8 @@ require 'bank_holidays'
 
 class Task
   class SubmissionWindow
+    NUMBER_OF_REPORTING_DAYS = 5
+
     attr_reader :year, :month
 
     def initialize(year, month)
@@ -10,21 +12,26 @@ class Task
     end
 
     def due_date
-      submission_window.last + offset_for_bank_holidays
+      @due_date ||= last_day_of_submission_window
     end
 
     private
 
-    def submission_window
-      Range.new(first_of_month, (first_of_month + 6.days))
-    end
-
-    def first_of_month
+    def first_day_of_submission_window
       Date.new(year, month).end_of_month.next_day
     end
 
-    def offset_for_bank_holidays
-      (submission_window.to_a & BankHolidays.all).size
+    def last_day_of_submission_window
+      working_days.take(NUMBER_OF_REPORTING_DAYS).last
+    end
+
+    def working_days
+      dates = Range.new(first_day_of_submission_window, first_day_of_submission_window + 14.days)
+      dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
+    end
+
+    def bank_holidays
+      @bank_holidays ||= BankHolidays.all
     end
   end
 end
