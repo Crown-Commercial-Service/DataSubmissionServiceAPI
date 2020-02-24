@@ -36,7 +36,7 @@ class Framework
 
           def no_presence_required?
             # UrnValidator doesn't require an accompanying +presence: true+
-            # IngestedNumericality validator treats nil as an error so should
+            # Numericality validator treats nil as an error so should
             # have +allow_nil: true+ for optional fields, not +presence: true+ for mandatory fields
             %i[urn decimal integer date].include?(field.primitive_type)
           end

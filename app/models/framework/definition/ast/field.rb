@@ -9,8 +9,8 @@ class Framework
       class Field
         PRIMITIVE_TYPE_VALIDATIONS = {
           string:     {},
-          decimal:    { ingested_numericality: true },
-          integer:    { ingested_numericality: { only_integer: true } },
+          decimal:    { numericality: true },
+          integer:    { numericality: { only_integer: true } },
           urn:        { urn: true },
           lot_number: { lot_in_agreement: true },
           date:       { ingested_date: true },

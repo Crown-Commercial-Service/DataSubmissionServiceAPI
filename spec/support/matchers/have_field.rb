@@ -9,7 +9,7 @@ require 'active_model/introspector'
 #   .validated_by(:presence, case_insensitive_inclusion: { in: %w[Y N]} )
 # expect(an_entry_data_class).to have_field('My Field Name')
 #   .validated_by(:presence)
-#   .not_validated_by(:ingested_numericality)
+#   .not_validated_by(:numericality)
 RSpec::Matchers.define :have_field do |field_name|
   match do |actual_class|
     introspector = ActiveModel::Introspector.new(actual_class)

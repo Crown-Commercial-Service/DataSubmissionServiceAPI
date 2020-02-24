@@ -31,7 +31,7 @@ module ActiveModel
       def strict_validators?
         validator_hash[:urn] ||
           validator_hash[:lot_in_agreement] ||
-          validator_hash[:ingested_numericality] ||
+          validator_hash[:numericality] ||
           validator_hash[:ingested_date]
       end
 
@@ -54,10 +54,10 @@ module ActiveModel
       # rubocop:disable Metrics/PerceivedComplexity
       # rubocop:disable Metrics/CyclomaticComplexity
       def type
-        if validator_hash[:ingested_numericality] == true ||
-           validator_hash[:ingested_numericality] == { allow_nil: true }
+        if validator_hash[:numericality] == true ||
+           validator_hash[:numericality] == { allow_nil: true }
           'Decimal'
-        elsif validator_hash.dig(:ingested_numericality, :only_integer)
+        elsif validator_hash.dig(:numericality, :only_integer)
           'Integer'
         elsif validator_hash[:ingested_date]
           'Date'
