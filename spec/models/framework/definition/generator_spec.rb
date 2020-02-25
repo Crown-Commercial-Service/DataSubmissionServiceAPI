@@ -457,7 +457,8 @@ RSpec.describe Framework::Definition::Generator do
     context 'with multi column management charge calculations' do
       subject(:calculator) { generator.definition.management_charge }
 
-      let(:source) do
+      let(:source) { valid_source }
+      let(:valid_source) do
         <<~FDL
           Framework 3787 {
             Name 'Fake framework'
@@ -493,6 +494,28 @@ RSpec.describe Framework::Definition::Generator do
           ['1', 'damage']       => { percentage: 0 },
           ['2', 'lease rental'] => { percentage: 0.15e1, column: 'Other Price' }
         )
+      end
+
+      context 'a field has an invalid reference' do
+        let(:invalid_source) { valid_source.sub("1.5% of 'Other Price'", "1.5% of 'Evil Field'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            "Management charge references 'Evil Field' which does not exist"
+          )
+        end
+      end
+
+      context 'a field should not be optional' do
+        let(:invalid_source) { valid_source.sub('Decimal Additional1', 'optional Decimal Additional1') }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            "Management charge references 'Other Price' so it cannot be optional"
+          )
+        end
       end
     end
 
