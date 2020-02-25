@@ -22,8 +22,7 @@ class Framework
       end
       rule(:framework_name)       { str('Name') >> spaced(string.as(:framework_name)) }
       rule(:management_charge)    { str('ManagementCharge') >> (column_based | flat_rate | sector_based).as(:management_charge) }
-      rule(:flat_rate)            { (spaced(percentage).as(:value) >> flat_rate_column.maybe).as(:flat_rate) }
-      rule(:flat_rate_column)     { spaced(str('of')) >> string.as(:column) }
+      rule(:flat_rate)            { percentage_exp.as(:flat_rate) }
       rule(:column_based)         { spaced(str('varies_by')) >> (column_names.as(:column_names) >> multi_key_dictionary.as(:value_to_percentage)).as(:column_based) }
       rule(:sector_based)         { spaced(str('sector_based')) >> spaced(dictionary).as(:sector_based) }
 
@@ -63,7 +62,7 @@ class Framework
       rule(:metadata)             { framework_name >> management_charge }
 
       rule(:allowable_key)        { string | pascal_case_identifier }
-      rule(:allowable_value)      { percentage | lookup_reference | string }
+      rule(:allowable_value)      { percentage_exp | lookup_reference | string }
       rule(:dictionary)           { braced(map_with(allowable_key).repeat(1).as(:dictionary)) }
 
       rule(:allowable_multi_keys) { allowable_multi_key >> (spaced(str(',')) >> allowable_multi_key).repeat }
@@ -83,7 +82,11 @@ class Framework
 
       rule(:integer)    { match(/[0-9]/).repeat.as(:integer) }
       rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) }
-      rule(:percentage) { (decimal | integer) >> str('%') }
+
+      rule(:percentage)     { (decimal | integer) >> str('%') }
+      rule(:of_column)      { spaced(str('of')) >> string.as(:column) }
+      rule(:percentage_exp) { spaced(percentage).as(:percentage) >> of_column.maybe }
+
       rule(:range)      { (range_exp | integer.as(:is)).as(:range) }
       rule(:range_exp)  { integer.as(:min).maybe >> str('..') >> integer.as(:max).maybe }
 

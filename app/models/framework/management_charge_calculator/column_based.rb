@@ -5,46 +5,56 @@ class Framework
 
       def initialize(varies_by:, value_to_percentage:)
         @varies_by = varies_by
-        @value_to_percentage = prepare_hash(value_to_percentage)
+        @value_to_percentage = normalise_hash(value_to_percentage)
       end
 
       def calculate_for(entry)
-        column_names_for_entry = Array(varies_by).map { |column| entry.data.dig(column).to_s.downcase }
-        percentage = percentage_for(column_names_for_entry)
+        percentage_details = percentage_details_for(column_values_for(entry))
 
-        if percentage.nil?
+        if percentage_details.nil?
           Rollbar.error(
-            "Got value '#{column_names_for_entry}' for '#{varies_by}' on #{entry.framework.short_name}"\
+            "Got value '#{column_values_for(entry)}' for '#{varies_by}' on #{entry.framework.short_name}"\
             "from entry #{entry.id}. Missing validation?"
           )
 
           return 0.0
         end
 
-        (entry.total_value * (BigDecimal(percentage) / 100)).truncate(4)
+        source_value = if percentage_details[:column]
+                         entry.data[percentage_details[:column]]
+                       else
+                         entry.total_value
+                       end
+
+        (source_value * (BigDecimal(percentage_details[:percentage]) / 100)).truncate(4)
       end
 
       private
 
-      def prepare_hash(hash)
+      def column_values_for(entry)
+        Array(varies_by).map { |column| entry.data.dig(column).to_s.downcase }
+      end
+
+      # Downcase keys
+      def normalise_hash(hash)
         hash.transform_keys do |values|
           Array(values).map { |value| value.to_s.downcase }
         end
       end
 
-      def percentage_for(column_names_for_entry)
-        percentage = value_to_percentage[column_names_for_entry]
-        return percentage unless percentage.nil?
+      def percentage_details_for(column_names_for_entry)
+        percentage_details = value_to_percentage[column_names_for_entry]
+        return percentage_details unless percentage_details.nil?
 
         # Fallback to the most relevant wildcard lookup
         column_count = column_names_for_entry.size
 
         column_count.downto(0) do |position|
           column_names_with_wildcards = column_names_for_entry.fill('*', position)
-          percentage ||= value_to_percentage[column_names_with_wildcards]
+          percentage_details ||= value_to_percentage[column_names_with_wildcards]
         end
 
-        percentage
+        percentage_details
       end
     end
   end

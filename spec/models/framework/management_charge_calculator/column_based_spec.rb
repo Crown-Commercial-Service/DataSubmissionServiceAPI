@@ -7,8 +7,8 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        'other': 0,
-        'test': BigDecimal('10')
+        'other': { percentage: 0 },
+        'test': { percentage: BigDecimal('10') }
       }
     )
 
@@ -21,7 +21,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        'Test': BigDecimal('5')
+        'Test': { percentage: BigDecimal('5') }
       }
     )
 
@@ -34,7 +34,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        '1': BigDecimal('5')
+        '1': { percentage: BigDecimal('5') }
       }
     )
 
@@ -47,7 +47,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        'test': BigDecimal('0.5')
+        'test': { percentage: BigDecimal('0.5') }
       }
     )
 
@@ -60,7 +60,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        'test': 1
+        'test': { percentage: 1 }
       }
     )
 
@@ -73,7 +73,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
     calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
       varies_by: 'test_value',
       value_to_percentage: {
-        'test': BigDecimal('0.5')
+        'test': { percentage: BigDecimal('0.5') }
       }
     )
 
@@ -93,12 +93,32 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
         varies_by: ['Lot Number', 'Spend Code'],
         value_to_percentage: {
-          ['1', 'Other Re-charges'] => BigDecimal('0.5'),
-          ['2', 'Other Re-charges'] => BigDecimal('1.5')
+          ['1', 'Other Re-charges'] => { percentage: BigDecimal('0.5') },
+          ['2', 'Other Re-charges'] => { percentage: BigDecimal('1.5') }
         }
       )
 
       expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
+    end
+
+    context 'percentage is calculated from another column for a particular lot number' do
+      it 'calculates the management charge for an entry' do
+        entry = FactoryBot.create(:submission_entry,
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': '2',
+                                    'Other Price': 100.00
+                                  })
+
+        calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
+          varies_by: ['Lot Number'],
+          value_to_percentage: {
+            ['2'] => { percentage: BigDecimal('1.5'), column: 'Other Price' }
+          }
+        )
+
+        expect(calculator.calculate_for(entry)).to eql(1.5) # 1.5% of 100.00
+      end
     end
 
     context 'dictionary includes wildcards' do
@@ -106,9 +126,9 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
         Framework::ManagementChargeCalculator::ColumnBased.new(
           varies_by: ['Lot Number', 'Spend Code'],
           value_to_percentage: {
-            [Framework::Definition::AST::Any, Framework::Definition::AST::Any] => BigDecimal('2.0'),
-            ['1', Framework::Definition::AST::Any] => BigDecimal('1.5'),
-            ['1', 'Damages'] => BigDecimal('0.5')
+            [Framework::Definition::AST::Any, Framework::Definition::AST::Any] => { percentage: BigDecimal('2.0') },
+            ['1', Framework::Definition::AST::Any] => { percentage: BigDecimal('1.5') },
+            ['1', 'Damages'] => { percentage: BigDecimal('0.5') }
           }
         )
       end
@@ -151,7 +171,7 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
           Framework::ManagementChargeCalculator::ColumnBased.new(
             varies_by: ['Lot Number', 'Spend Code'],
             value_to_percentage: {
-              ['1', Framework::Definition::AST::Any] => BigDecimal('1.5')
+              ['1', Framework::Definition::AST::Any] => { percentage: BigDecimal('1.5') }
             }
           )
         end
@@ -184,9 +204,9 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
         varies_by: ['Lot Number', 'Spend Code', 'Secondary Spend Code'],
         value_to_percentage: {
-          ['1', 'Other Re-charges', 'Additional'] => BigDecimal('0.5'),
-          ['2', 'Other Re-charges', 'Normal'] => BigDecimal('1.5'),
-          ['2', 'Other Re-charges', 'Additional'] => BigDecimal('1.0'),
+          ['1', 'Other Re-charges', 'Additional'] => { percentage: BigDecimal('0.5') },
+          ['2', 'Other Re-charges', 'Normal'] => { percentage: BigDecimal('1.5') },
+          ['2', 'Other Re-charges', 'Additional'] => { percentage: BigDecimal('1.0') },
         }
       )
 

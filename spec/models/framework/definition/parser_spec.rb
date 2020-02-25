@@ -47,7 +47,7 @@ RSpec.describe Framework::Definition::Parser do
       {
         framework_short_name: { string: 'CM/05/3769' },
         framework_name: { string: 'Laundry Services - Wave 2' },
-        management_charge: { flat_rate: { value: { integer: '0' } } },
+        management_charge: { flat_rate: { percentage: { integer: '0' } } },
         lots: { dictionary: [{ key: { string: '1' }, value: { string: 'Laundry Services' } }] },
         invoice_fields: [
           { field: 'CustomerPostCode', from: { string: 'Customer Postcode' } },
@@ -75,11 +75,17 @@ RSpec.describe Framework::Definition::Parser do
     }
   end
 
-  describe '#percentage' do
-    subject { parser.percentage }
+  describe '#percentage_exp' do
+    subject { parser.percentage_exp }
 
-    it { is_expected.to parse('0%') }
-    it { is_expected.to parse('0.0%') }
+    it { is_expected.to parse('0%').as(percentage: { integer: '0' }) }
+    it { is_expected.to parse('0.0%').as(percentage: { decimal: '0.0' }) }
+    it {
+      is_expected.to parse("0.0% of 'Other Field'").as(
+        percentage:  { decimal: '0.0' },
+        column: { string: 'Other Field' }
+      )
+    }
   end
 
   describe '#range' do
@@ -97,7 +103,7 @@ RSpec.describe Framework::Definition::Parser do
     context 'simple flat rate' do
       it {
         is_expected.to parse('ManagementCharge 0.0%').as(
-          management_charge: { flat_rate: { value: { decimal: '0.0' } } }
+          management_charge: { flat_rate: { percentage: { decimal: '0.0' } } }
         )
       }
     end
@@ -107,7 +113,7 @@ RSpec.describe Framework::Definition::Parser do
         is_expected.to parse("ManagementCharge 0.0% of 'Supplier Price'").as(
           management_charge: {
             flat_rate: {
-              value: { decimal: '0.0' },
+              percentage: { decimal: '0.0' },
               column: { string: 'Supplier Price' }
             }
           }
@@ -135,8 +141,8 @@ RSpec.describe Framework::Definition::Parser do
                 },
                 value_to_percentage: {
                   dictionary: [
-                    { key: { string: 'Lease Rental' }, value: { decimal: '0.5' } },
-                    { key: { string: 'Damage' }, value: { integer: '0' } }
+                    { key: { string: 'Lease Rental' }, value: { percentage: { decimal: '0.5' } } },
+                    { key: { string: 'Damage' }, value: { percentage: { integer: '0' } } }
                   ]
                 }
               }
@@ -145,13 +151,13 @@ RSpec.describe Framework::Definition::Parser do
         }
       end
 
-      context 'with two columns' do
+      context 'with two columns and a percentage expressed in terms of another column' do
         let(:source) do
           <<~FDL.strip
             ManagementCharge varies_by 'Lot Number', 'Spend Code' {
               '1', 'Lease Rental' -> 0.5%
               '1', 'Damage' -> 0%
-              '2', 'Lease Rental' -> 1.5%
+              '2', 'Lease Rental' -> 1.5% of 'Other Price'
             }
           FDL
         end
@@ -171,21 +177,21 @@ RSpec.describe Framework::Definition::Parser do
                         { string: '1' },
                         { string: 'Lease Rental' }
                       ],
-                      value: { decimal: '0.5' }
+                      value: { percentage: { decimal: '0.5' } }
                     },
                     {
                       key: [
                         { string: '1' },
                         { string: 'Damage' }
                       ],
-                      value: { integer: '0' }
+                      value: { percentage: { integer: '0' } }
                     },
                     {
                       key: [
                         { string: '2' },
                         { string: 'Lease Rental' }
                       ],
-                      value: { decimal: '1.5' }
+                      value: { percentage: { decimal: '1.5' }, column: { string: 'Other Price' } }
                     }
                   ]
                 }
@@ -220,21 +226,21 @@ RSpec.describe Framework::Definition::Parser do
                           { string: '1' },
                           { any_operator: '*' }
                         ],
-                        value: { decimal: '0.5' }
+                        value: { percentage: { decimal: '0.5' } }
                       },
                       {
                         key: [
                           { string: '1' },
                           { string: 'Lease Rental' }
                         ],
-                        value: { decimal: '1.5' }
+                        value: { percentage: { decimal: '1.5' } }
                       },
                       {
                         key: [
                           { any_operator: '*' },
                           { any_operator: '*' }
                         ],
-                        value: { integer: '2' }
+                        value: { percentage: { integer: '2' } }
                       }
                     ]
                   }
@@ -261,8 +267,8 @@ RSpec.describe Framework::Definition::Parser do
           management_charge: {
             sector_based: {
               dictionary: [
-                { key: 'CentralGovernment', value: { decimal: '0.5' } },
-                { key: 'WiderPublicSector', value: { decimal: '0.6' } }
+                { key: 'CentralGovernment', value: { percentage: { decimal: '0.5' } } },
+                { key: 'WiderPublicSector', value: { percentage: { decimal: '0.6' } } }
               ]
             }
           }
