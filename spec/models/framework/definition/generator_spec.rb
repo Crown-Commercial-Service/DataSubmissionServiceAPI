@@ -177,10 +177,10 @@ RSpec.describe Framework::Definition::Generator do
               varies_by: 'Spend Code',
               value_to_percentage: {
                 # ManagementChargeCalculator::ColumnBased downcases its keys
-                ['lease rental'] => BigDecimal('0.5'),
-                ['fleet management fee'] => BigDecimal('0.5'),
-                ['damage'] => 0,
-                ['other re-charges'] => 0
+                ['lease rental'] => { percentage: BigDecimal('0.5') },
+                ['fleet management fee'] => { percentage: BigDecimal('0.5') },
+                ['damage'] => { percentage: 0 },
+                ['other re-charges'] => { percentage: 0 }
               }
             )
           )
@@ -455,14 +455,17 @@ RSpec.describe Framework::Definition::Generator do
     end
 
     context 'with multi column management charge calculations' do
-      let(:source) do
+      subject(:calculator) { generator.definition.management_charge }
+
+      let(:source) { valid_source }
+      let(:valid_source) do
         <<~FDL
           Framework 3787 {
             Name 'Fake framework'
             ManagementCharge varies_by 'Lot Number', 'Spend Code' {
               '1', 'Lease Rental' -> 0.5%
               '1', 'Damage' -> 0%
-              '2', 'Lease Rental' -> 1.5%
+              '2', 'Lease Rental' -> 1.5% of 'Other Price'
             }
 
             Lots {
@@ -475,6 +478,7 @@ RSpec.describe Framework::Definition::Generator do
               LotNumber from 'Lot Number'
               PromotionCode from 'Spend Code'
               InvoiceValue from 'Supplier Price'
+              Decimal Additional1 from 'Other Price'
             }
           }
         FDL
@@ -482,6 +486,36 @@ RSpec.describe Framework::Definition::Generator do
 
       it 'does not have any errors' do
         expect(generator.error).to eq(nil)
+      end
+
+      it do
+        expect(calculator.value_to_percentage).to eql(
+          ['1', 'lease rental'] => { percentage: 0.5e0 },
+          ['1', 'damage']       => { percentage: 0 },
+          ['2', 'lease rental'] => { percentage: 0.15e1, column: 'Other Price' }
+        )
+      end
+
+      context 'a field has an invalid reference' do
+        let(:invalid_source) { valid_source.sub("1.5% of 'Other Price'", "1.5% of 'Evil Field'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            "Management charge references 'Evil Field' which does not exist"
+          )
+        end
+      end
+
+      context 'a field should not be optional' do
+        let(:invalid_source) { valid_source.sub('Decimal Additional1', 'optional Decimal Additional1') }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            "Management charge references 'Other Price' so it cannot be optional"
+          )
+        end
       end
     end
 
