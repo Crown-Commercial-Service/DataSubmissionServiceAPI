@@ -90,7 +90,7 @@ class Framework
                                      .select { |percentage_details| percentage_details[:column].present? }
                                      .map    { |percentage_details| percentage_details[:column] }
 
-              varies_by.concat percentage_columns
+              varies_by + percentage_columns
             elsif info[:flat_rate]
               info.dig(:flat_rate, :column)
             end
