@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-100] - 2020-02-27
+
+- Allow management charge combinations of 'varies_by' and 'of'
+- Fix: Due dates are correctly calculated as the 5th working day of the month
+- Fix: Decimal fields containing 'N/A'-like values are no longer valid
+- Fix: Interpret integer management charge percentages correctly
+
 ## [release-99] - 2020-02-18
 
 - Add OtherFields to FDL, ingest and export
@@ -675,6 +682,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-100]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-99...release-100
 [release-99]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-98...release-99
 [release-98]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-97...release-98
 [release-97]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-96...release-97
