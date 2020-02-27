@@ -77,12 +77,24 @@ class Framework
         end
 
         def raise_when_management_field_invalid(info)
-          management_charge_modifier = [info.dig(:column_based, :column_names), info.dig(:flat_rate, :column)].compact.first(&:present?)
-          return if management_charge_modifier.blank?
+          of_columns_for(info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
+        end
 
-          Array(management_charge_modifier).each do |referenced_field_name|
-            validate_management_field(referenced_field_name)
-          end
+        def of_columns_for(info)
+          Array(
+            if info[:column_based]
+              varies_by = Array(info[:column_based][:column_names])
+
+              percentage_columns = info[:column_based][:value_to_percentage]
+                                     .values
+                                     .select { |percentage_details| percentage_details[:column].present? }
+                                     .map    { |percentage_details| percentage_details[:column] }
+
+              varies_by + percentage_columns
+            elsif info[:flat_rate]
+              info.dig(:flat_rate, :column)
+            end
+          )
         end
 
         def validate_management_field(referenced_field_name)

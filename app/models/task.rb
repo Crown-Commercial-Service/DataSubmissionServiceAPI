@@ -82,6 +82,6 @@ class Task < ApplicationRecord
   def set_due_on
     return if period_year.blank? || period_month.blank?
 
-    self.due_on ||= Task::ReportingPeriod.new(period_year, period_month).due_date
+    self.due_on ||= Task::SubmissionWindow.new(period_year, period_month).due_date
   end
 end

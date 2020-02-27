@@ -297,5 +297,34 @@ RSpec.describe Ingest::Loader do
         end
       end
     end
+
+    context 'the converter rows contains "N/A" in a numeric field' do
+      let(:invoice_rows) do
+        double(
+          'Converter::Rows',
+          data: [
+            fake_invoice_row.merge('line_number' => '1', 'Price per Unit' => 'N/A'),
+            fake_invoice_row.merge('line_number' => '2', 'Price per Unit' => '-'),
+          ],
+          row_count: 1,
+          sheet_name: 'Invoice Sheet',
+          type: 'invoice'
+        )
+      end
+
+      it 'loads data from the converter, marking each row as invalid' do
+        loader.perform
+
+        invalid_entries = file.entries.invoices.errored
+
+        aggregate_failures do
+          expect(invalid_entries.count).to eql 2
+
+          invalid_entries.each do |entry|
+            expect(entry.validation_errors.first).to match a_hash_including('message' => 'is not a number')
+          end
+        end
+      end
+    end
   end
 end

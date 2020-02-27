@@ -2,9 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
   let(:calculator) do
+    # Comes from an imagined piece of FDL that has both
+    # integer and decimal and looks like:
+    #
+    # ManagementCharge sector_based {
+    #   CentralGovernment -> 50%
+    #   WiderPublicSector -> 100.0%
+    # }
     Framework::ManagementChargeCalculator::SectorBased.new(
-      central_government: BigDecimal('50'),
-      wider_public_sector: BigDecimal('100')
+      central_government:  Integer('50'),
+      wider_public_sector: BigDecimal('100.0')
     )
   end
   let(:data)     { { 'Customer URN' => customer.urn } }
