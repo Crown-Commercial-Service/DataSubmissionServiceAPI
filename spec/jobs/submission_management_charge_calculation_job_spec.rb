@@ -7,10 +7,9 @@ RSpec.describe SubmissionManagementChargeCalculationJob do
     let!(:invoice_entry_1) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 1235.99) }
     let!(:invoice_entry_2) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 123.45) }
     let!(:order_entry) { FactoryBot.create(:order_entry, :valid, submission: submission, total_value: 123.45) }
+    let(:definition_source_arg) { framework.definition_source }
 
     context 'framework definition source has not changed since the job was enqueued' do
-      let(:definition_source_arg) { framework.definition_source }
-
       before { SubmissionManagementChargeCalculationJob.perform_now(submission, definition_source_arg) }
 
       it 'calculates the management charge for the submission invoice entries' do
@@ -38,6 +37,22 @@ RSpec.describe SubmissionManagementChargeCalculationJob do
         SubmissionManagementChargeCalculationJob.perform_now(submission, definition_source_arg)
 
         expect(submission).to be_management_charge_calculation_failed
+      end
+    end
+
+    context 'submission is not in the correct state to have its management charge calculated' do
+      it 'raises an exception and does not retry the job' do
+        expect_any_instance_of(SubmissionManagementChargeCalculationJob).not_to receive(:retry_job)
+
+        aggregate_failures do
+          %w[ingest_failed validation_failed management_charge_calculation_failed].each do |fail_state|
+            submission.update!(aasm_state: fail_state)
+
+            expect do
+              SubmissionManagementChargeCalculationJob.new.perform(submission, definition_source_arg)
+            end.to raise_error(SubmissionManagementChargeCalculationJob::Incalculable)
+          end
+        end
       end
     end
   end
