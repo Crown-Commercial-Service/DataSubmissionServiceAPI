@@ -3,6 +3,11 @@ class SubmissionIngestionJob < ApplicationJob
 
   queue_as :ingest
 
+  # discard_on ActiveJob::DeserializationError do |job, exception|
+  #   Rollbar.error('ActiveJob::DeserializationError in SubmissionIngestionJob', submission_file: job.arguments.first)
+  #   handle_unretryable_job_failure(job, exception)
+  # end
+
   discard_on(Ingest::Loader::MissingColumns) do |job, exception|
     handle_unretryable_job_failure(job, exception)
   end
