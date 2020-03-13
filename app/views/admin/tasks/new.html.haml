@@ -9,6 +9,6 @@
         = render partial: 'shared/error_summary', locals: { entity: @task } if @task.errors.present?
 
         = form.input :framework_id, collection: @supplier.frameworks.collect {|x| [x.full_name, x.id]}, include_blank: false
-        = form.input :period_year, collection: [Date.today.year, Date.today.year-1], selected: Date.today.year
+        = form.input :period_year, collection: (Date.today.year-10..Date.today.year).to_a.reverse, selected: Date.today.year
         = form.input :period_month, collection: 1..12, selected: Date.today.month
         = form.button :submit, value: 'Create task'
