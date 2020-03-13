@@ -3,13 +3,20 @@
 # marks it as ready for review
 #
 class SubmissionManagementChargeCalculationJob < ApplicationJob
+  DISCARD_STATES = %i[validation_failed ingest_failed management_charge_calculation_failed].freeze
+
   class DefinitionSourceChanged < StandardError; end
+  class Incalculable < StandardError; end
+
+  discard_on Incalculable
 
   discard_on(DefinitionSourceChanged) do |job, _exception|
     handle_definition_source_changed(job)
   end
 
   def perform(submission, definition_source_at_enqueue_time)
+    raise Incalculable if DISCARD_STATES.include?(submission.aasm.current_state)
+
     @submission = submission
     @definition_source_at_enqueue_time = definition_source_at_enqueue_time
 
