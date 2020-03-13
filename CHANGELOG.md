@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-101] - 2020-03-12
+
+- [Security] Bump puma from 3.12.2 to 3.12.4
+- [Security] Bump rake from 12.3.2 to 13.0.1
+- [Security] Bump omniauth from 1.9.0 to 1.9.1
+- Don't calculate management charge if wrong state
+
 ## [release-100] - 2020-02-27
 
 - Allow management charge combinations of 'varies_by' and 'of'
@@ -682,6 +689,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-101]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-100...release-101
 [release-100]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-99...release-100
 [release-99]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-98...release-99
 [release-98]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-97...release-98
