@@ -1,5 +1,8 @@
 # Change Log
 
+## [release-102] - 2020-03-17
+- Allow admins to create tasks up to 10 years in the past
+
 ## [release-101] - 2020-03-12
 
 - [Security] Bump puma from 3.12.2 to 3.12.4
@@ -689,6 +692,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-102]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-101...release-102
 [release-101]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-100...release-101
 [release-100]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-99...release-100
 [release-99]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-98...release-99
