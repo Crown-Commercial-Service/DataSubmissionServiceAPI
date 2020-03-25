@@ -9,7 +9,7 @@ class SubmissionFile < ApplicationRecord
   end
 
   def temporary_download_url
-    file.attachment.service_url if file.attached?
+    Rails.application.routes.url_helpers.rails_blob_url(file.attachment) if file.attached?
   end
 
   def file_key
