@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-103] - 2020-03-26
+- [Security] Upgrade to Rails 5.2.4.2
+- Whitelist "Utility Spend" as an OtherFields sheet name
+
 ## [release-102] - 2020-03-17
 - Allow admins to create tasks up to 10 years in the past
 
@@ -692,6 +696,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-103]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-102...release-103
 [release-102]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-101...release-102
 [release-101]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-100...release-101
 [release-100]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-99...release-100
