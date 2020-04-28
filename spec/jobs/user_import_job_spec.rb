@@ -22,6 +22,16 @@ RSpec.describe UserImportJob do
       UserImportJob.perform_now('users.csv')
     end
 
+    it 'logs Import::Users::InvalidSalesforceId error in Rollbar at info level' do
+      allow(importer).to receive(:run).and_raise Import::Users::InvalidSalesforceId.new('fake')
+      allow(Rollbar).to receive(:info)
+      log_message = 'Bulk user import failed for: user.csv due to: fake'
+
+      UserImportJob.perform_now('user.csv')
+
+      expect(Rollbar).to have_received(:info).with(log_message)
+    end
+
     it 'does not retry the job when the import raises an Import::Users::InvalidSalesforceId error' do
       allow(importer).to receive(:run).and_raise Import::Users::InvalidSalesforceId.new('fake')
 

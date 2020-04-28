@@ -3,7 +3,6 @@ require 'aws-sdk-s3'
 
 class UserImportJob < ApplicationJob
   retry_on Aws::S3::Errors::ServiceError
-  discard_on Import::Users::InvalidSalesforceId
 
   def perform(user_list_key)
     temp_file = Tempfile.new(user_list_key)
@@ -15,6 +14,8 @@ class UserImportJob < ApplicationJob
 
     Import::Users.new(temp_file).run
     Rollbar.info("Bulk user import completed for: #{user_list_key}")
+  rescue Import::Users::InvalidSalesforceId => error
+    Rollbar.info("Bulk user import failed for: #{user_list_key} due to: #{error.message}")
   ensure
     temp_file.close
     temp_file.unlink
