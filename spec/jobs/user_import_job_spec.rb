@@ -22,10 +22,21 @@ RSpec.describe UserImportJob do
       UserImportJob.perform_now('users.csv')
     end
 
+    it 'deletes the user list from S3 after importing' do
+      allow(importer).to receive(:run).and_return true
+
+      expect_any_instance_of(Aws::S3::Client).to receive(:delete_object)
+
+      UserImportJob.perform_now('users.csv')
+    end
+
     it 'does not retry the job when the import raises an Import::Users::InvalidSalesforceId error' do
       allow(importer).to receive(:run).and_raise Import::Users::InvalidSalesforceId.new('fake')
 
       expect_any_instance_of(UserImportJob).not_to receive(:retry_job)
+      expect_any_instance_of(Aws::S3::Client).not_to receive(:delete_object)
+      expect(Rollbar).to receive(:info)
+
       UserImportJob.perform_now('user.csv')
     end
 
@@ -36,6 +47,8 @@ RSpec.describe UserImportJob do
       allow(s3_client).to receive(:delete_object).and_return(Aws::S3::Types::DeleteObjectOutput.new)
 
       expect_any_instance_of(UserImportJob).to receive(:retry_job)
+      expect_any_instance_of(Aws::S3::Client).not_to receive(:delete_object)
+
       UserImportJob.perform_now('user.csv')
     end
   end
