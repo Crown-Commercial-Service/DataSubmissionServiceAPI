@@ -61,7 +61,8 @@ class UrnListImporterJob < ApplicationJob
         name: row['CustomerName'],
         urn: row['URN'].to_i,
         postcode: row['PostCode'],
-        sector: (row['Sector'] == 'Central Government' ? :central_government : :wider_public_sector)
+        sector: (row['Sector'] == 'Central Government' ? :central_government : :wider_public_sector),
+        deleted: false
       )
     end
 
@@ -76,7 +77,10 @@ class UrnListImporterJob < ApplicationJob
       Customer.import(
         customers,
         batch_size: 100,
-        on_duplicate_key_update: { conflict_target: [:urn], columns: %i[name postcode sector] }
+        on_duplicate_key_update: {
+          conflict_target: [:urn],
+          columns: %i[name postcode sector deleted]
+        }
       )
     end
   end
