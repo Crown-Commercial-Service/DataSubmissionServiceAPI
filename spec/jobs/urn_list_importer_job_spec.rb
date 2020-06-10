@@ -34,6 +34,19 @@ RSpec.describe UrnListImporterJob do
         expect(customer.sector).to eql 'central_government'
         expect(urn_list).to be_processed
       end
+
+      it 'soft deletes obsolete customer records' do
+        customer = create(:customer, urn: 10009656, name: 'Deleted organisation')
+
+        UrnListImporterJob.perform_now(urn_list)
+
+        customer.reload
+
+        expect(customer.urn).to eql 10009656
+        expect(customer.name).to eql 'Deleted organisation'
+        expect(customer).to be_deleted
+        expect(urn_list).to be_processed
+      end
     end
 
     context 'given a URN list which fails to download' do
