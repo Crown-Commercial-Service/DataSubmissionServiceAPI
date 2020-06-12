@@ -67,7 +67,9 @@ class Task
     end
 
     def framework_csv_columns_for(supplier)
-      frameworks_with_incomplete_tasks = supplier.tasks.map { |task| task.framework.short_name }.sort
+      frameworks_with_incomplete_tasks = supplier.tasks
+                                                 .map { |task| "#{task.framework.short_name} - #{task.framework.name}" }
+                                                 .sort
 
       frameworks_with_incomplete_tasks.fill(nil, frameworks_with_incomplete_tasks.size...framework_column_count)
     end

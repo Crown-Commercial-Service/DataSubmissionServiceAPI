@@ -19,8 +19,8 @@ RSpec.describe Task::OverdueUserNotificationList do
       let(:frank)      { create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
-        framework1 = create :framework, short_name: 'RM0001'
-        framework2 = create :framework, short_name: 'RM0002'
+        framework1 = create :framework, short_name: 'RM0001', name: 'Framework 1'
+        framework2 = create :framework, short_name: 'RM0002', name: 'Framework 2'
         framework3 = create :framework, short_name: 'COMPLETE0001'
         create :framework, short_name: 'NOTPUBLISHED0001', published: false
 
@@ -53,16 +53,18 @@ RSpec.describe Task::OverdueUserNotificationList do
       end
 
       it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
+        # rubocop:disable Metrics/LineLength
         expect(lines.size).to eq 4
         expect(lines).to include(
-          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM0001,RM0002'
+          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM0001 - Framework 1,RM0002 - Framework 2'
         )
         expect(lines).to include(
-          'alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,RM0001,'
+          'alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,RM0001 - Framework 1,'
         )
         expect(lines).to include(
-          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM0001,'
+          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM0001 - Framework 1,'
         )
+        # rubocop:enable Metrics/LineLength
       end
 
       it 'does not include columns for unpublished frameworks' do
