@@ -27,12 +27,12 @@ RSpec.describe Task::AnticipatedUserNotificationList do
         FactoryBot.create(:membership, user: frank, supplier: supplier_a)
         FactoryBot.create(:membership, user: alice, supplier: supplier_c)
 
-        framework1 = FactoryBot.create(:framework, short_name: 'RM0001')
-        framework2 = FactoryBot.create(:framework, short_name: 'RM0002')
+        framework1 = FactoryBot.create(:framework, short_name: 'RM001', name: 'Framework 1')
+        framework2 = FactoryBot.create(:framework, short_name: 'RM002', name: 'Framework 2')
 
         supplier_a.agreements.create!(framework: framework1)
         supplier_b.agreements.create!(framework: framework1)
-        supplier_b.agreements.create!(framework: framework2, active: false)
+        supplier_b.agreements.create!(framework: framework2)
         supplier_c.agreements.create!(framework: framework1, active: false)
 
         list.generate
@@ -41,12 +41,19 @@ RSpec.describe Task::AnticipatedUserNotificationList do
       subject(:lines) { output.string.split("\n") }
 
       it 'has a header row that lists all the frameworks' do
-        expect(lines.first).to eql('email address,due_date,person_name,supplier_name,reporting_month,RM0001,RM0002')
+        expect(lines.first).to eql(
+          'email address,due_date,person_name,supplier_name,reporting_month,framework,framework'
+        )
       end
 
       it 'has a line for each user including the frameworks their supplier is active on' do
-        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,yes,no')
-        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,yes,no')
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM001 - Framework 1,'
+        )
+
+        expect(lines).to include(
+          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM001 - Framework 1,RM002 - Framework 2'
+        )
       end
 
       it 'ignores inactive agreements' do

@@ -38,7 +38,7 @@ class Task
 
     def csv_line_for(user, supplier)
       CSV.generate_line(
-        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_participation(supplier)
+        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_csv_columns_for(supplier)
       )
     end
 
@@ -61,11 +61,19 @@ class Task
     end
 
     def frameworks_header
-      frameworks.map(&:short_name)
+      Array.new(framework_column_count, 'framework')
     end
 
-    def framework_participation(supplier)
-      frameworks.map { |framework| supplier.active_frameworks.include?(framework) ? 'yes' : 'no' }
+    def framework_column_count
+      @framework_column_count ||= suppliers.map { |supplier| supplier.active_frameworks.ids.uniq.size }.max || 0
+    end
+
+    def framework_csv_columns_for(supplier)
+      framework_names = supplier.active_frameworks
+                                .map { |framework| "#{framework.short_name} - #{framework.name}" }
+                                .sort
+
+      framework_names.fill(nil, framework_names.size...framework_column_count)
     end
 
     def suppliers
