@@ -25,7 +25,7 @@ RSpec.feature 'Admin can bulk import suppliers' do
     scenario 'creates suppliers that do not exist' do
       visit new_admin_supplier_bulk_import_path
 
-      expect(page).to have_text 'Bulk import suppliers'
+      expect(page).to have_text 'Bulk on-board suppliers'
 
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
       click_button 'Upload'
