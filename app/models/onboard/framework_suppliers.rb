@@ -1,6 +1,6 @@
 require 'csv'
 
-# Performs a bulk import of suppliers to a framework
+# Performs a bulk on-board of suppliers to a framework
 #
 # Pass in a path to a CSV file with the following headers:
 #
@@ -20,9 +20,9 @@ require 'csv'
 #
 # Example:
 #
-#   Import::FrameworkSuppliers.new('/tmp/new_framework_suppliers.csv').run
+#   Onboard::FrameworkSuppliers.new('/tmp/new_framework_suppliers.csv').run
 #
-module Import
+module Onboard
   class FrameworkSuppliers
     EXPECTED_HEADERS = %I[framework_short_name lot_number supplier_name salesforce_id coda_reference].freeze
 
@@ -37,7 +37,7 @@ module Import
     def run
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
-          Row.new(row_data).import!
+          Row.new(row_data).onboard!
           log "Supplier #{row_data.fetch(:supplier_name)} added to Lot #{row_data.fetch(:lot_number)} " \
               "on #{row_data.fetch(:framework_short_name)}"
         end
