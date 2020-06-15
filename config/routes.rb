@@ -79,7 +79,7 @@ Rails.application.routes.draw do
       resources :tasks, only: %i[new create]
 
       collection do
-        resource :bulk_import, only: %i[new create], controller: 'supplier_bulk_imports', as: :supplier_bulk_import
+        resource :bulk_onboard, only: %i[new create], controller: 'supplier_bulk_onboards', as: :supplier_bulk_onboard
       end
     end
 
