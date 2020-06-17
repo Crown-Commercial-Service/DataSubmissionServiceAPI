@@ -33,7 +33,8 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
 
   context 'with a valid CSV' do
     scenario 'off-boards suppliers from specified framework lots' do
-      visit new_admin_supplier_bulk_offboard_path
+      visit admin_suppliers_path
+      click_link 'Bulk off-board suppliers'
 
       expect(page).to have_text 'Bulk off-board suppliers'
 

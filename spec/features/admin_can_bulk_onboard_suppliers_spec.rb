@@ -23,7 +23,8 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
 
   context 'with a valid CSV' do
     scenario 'creates suppliers that do not exist' do
-      visit new_admin_supplier_bulk_onboard_path
+      visit admin_suppliers_path
+      click_link 'Bulk on-board suppliers'
 
       expect(page).to have_text 'Bulk on-board suppliers'
 
