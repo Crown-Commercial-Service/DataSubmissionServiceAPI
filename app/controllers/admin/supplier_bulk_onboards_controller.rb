@@ -5,7 +5,7 @@ class Admin::SupplierBulkOnboardsController < AdminController
     return redirect_to new_admin_supplier_bulk_onboard_path, alert: 'Uploaded file is not a CSV file' unless csv?
 
     csv_path = uploaded_file.tempfile.path
-    Import::FrameworkSuppliers.new(csv_path, logger: Rails.logger).run
+    Onboard::FrameworkSuppliers.new(csv_path, logger: Rails.logger).run
 
     redirect_to new_admin_supplier_bulk_onboard_path, notice: 'Successfully on-boarded suppliers'
   rescue ActionController::ParameterMissing

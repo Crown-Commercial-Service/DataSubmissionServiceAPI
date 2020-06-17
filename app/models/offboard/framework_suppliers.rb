@@ -1,28 +1,24 @@
 require 'csv'
 
-# Performs a bulk import of suppliers to a framework
+# Performs a bulk off-board of suppliers from a framework lot
 #
 # Pass in a path to a CSV file with the following headers:
 #
 #   framework_short_name  - the short identifier for the framework, e.g. 'RM606'
-#   lot_number            - the lot number the supplier should have access to
+#   lot_number            - the lot number the supplier should be off-boarded from
 #   supplier_name         - the name of the supplier
 #   salesforce_id         - the Salesforce ID for the supplier
 #   coda_reference        - the Coda reference for the supplier
 #
 # For each row in the CSV, the following will happen:
 #
-#   - the supplier will be added to RMI if it does not exist already
-#   - an agreement linking the supplier to the framework will be created,
-#     unless one exists already
-#   - the lot number will be added to the supplier agreement, unless it exists
-#     already
+#   - the supplier will be off-boarded from the lot in that framework
 #
 # Example:
 #
-#   Import::FrameworkSuppliers.new('/tmp/new_framework_suppliers.csv').run
+#   Offboard::FrameworkSuppliers.new('/tmp/framework_suppliers.csv').run
 #
-module Import
+module Offboard
   class FrameworkSuppliers
     EXPECTED_HEADERS = %I[framework_short_name lot_number supplier_name salesforce_id coda_reference].freeze
 
@@ -37,8 +33,8 @@ module Import
     def run
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
-          Row.new(row_data).import!
-          log "Supplier #{row_data.fetch(:supplier_name)} added to Lot #{row_data.fetch(:lot_number)} " \
+          Row.new(row_data).offboard!
+          log "Supplier #{row_data.fetch(:supplier_name)} removed from Lot #{row_data.fetch(:lot_number)} " \
               "on #{row_data.fetch(:framework_short_name)}"
         end
       end

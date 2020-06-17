@@ -1,4 +1,4 @@
-module Import
+module Onboard
   class FrameworkSuppliers
     class Row
       attr_reader :supplier_name, :salesforce_id, :coda_reference, :framework_short_name, :lot_number
@@ -11,7 +11,7 @@ module Import
         @lot_number = lot_number
       end
 
-      def import!
+      def onboard!
         find_or_create_supplier.tap do |supplier|
           agreement = find_or_create_agreement(supplier)
           find_or_create_agreement_framework_lot(agreement)

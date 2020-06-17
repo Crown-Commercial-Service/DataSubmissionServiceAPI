@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin can bulk import suppliers' do
+RSpec.feature 'Admin can bulk on-board suppliers' do
   let!(:fm1234) do
     create(:framework, short_name: 'FM1234') do |framework|
       create(:framework_lot, number: '1', framework: framework)
@@ -23,7 +23,8 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'with a valid CSV' do
     scenario 'creates suppliers that do not exist' do
-      visit new_admin_supplier_bulk_onboard_path
+      visit admin_suppliers_path
+      click_link 'Bulk on-board suppliers'
 
       expect(page).to have_text 'Bulk on-board suppliers'
 
