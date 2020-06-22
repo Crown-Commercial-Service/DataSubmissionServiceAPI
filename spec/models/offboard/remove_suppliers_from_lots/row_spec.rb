@@ -21,9 +21,7 @@ RSpec.describe Offboard::RemoveSuppliersFromLots::Row do
 
       agreement = supplier.agreements.create!(framework: framework)
 
-      [lot_1, lot_2].each do |lot|
-        agreement.agreement_framework_lots.create!(framework_lot: lot)
-      end
+      agreement.agreement_framework_lots.create!(framework_lot: lot_1)
 
       supplier
     end
@@ -39,13 +37,29 @@ RSpec.describe Offboard::RemoveSuppliersFromLots::Row do
     end
 
     context 'with an existing supplier' do
-      it 'disassociates it from the lot' do
-        row.offboard!
+      context 'when the supplier will still be on at least one lot' do
+        before do
+          supplier.agreements.first.agreement_framework_lots.create(framework_lot: lot_2)
+        end
 
-        agreement = supplier.agreements.first
-        expect(agreement.framework).to eq framework
-        expect(agreement).to be_active
-        expect(agreement.framework_lots).to match_array [lot_2]
+        it 'removes it from the lot' do
+          row.offboard!
+
+          agreement = supplier.agreements.first
+          expect(agreement.framework).to eq framework
+          expect(agreement).to be_active
+          expect(agreement.framework_lots).to match_array [lot_2]
+        end
+      end
+
+      context 'when the supplier will be removed from all lots' do
+        it 'removes it from the lot and deactivates the agreement' do
+          row.offboard!
+
+          agreement = supplier.agreements.first
+          expect(agreement.framework_lots).to be_empty
+          expect(agreement).not_to be_active
+        end
       end
     end
 

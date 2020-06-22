@@ -31,7 +31,7 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
         expect(supplier.coda_reference).to eq coda_reference
       end
 
-      it 'creates an active agreeement for the supplier and associates it with the lot' do
+      it 'creates an active agreement for the supplier and associates it with the lot' do
         supplier = row.onboard!
 
         expect(supplier.agreements.count).to eq 1
@@ -49,7 +49,7 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
         expect { row.onboard! }.not_to change { Supplier.count }
       end
 
-      it 'creates an active agreeement for the existing supplier and associates it with the lot' do
+      it 'creates an active agreement for the existing supplier and associates it with the lot' do
         row.onboard!
 
         expect(matching_supplier.agreements.count).to eq 1
@@ -60,23 +60,42 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
       end
 
       context 'and the supplier is already on the framework' do
-        let!(:matching_agreeement) { matching_supplier.agreements.create!(framework: framework) }
+        context 'and the agreement is active' do
+          let!(:matching_agreement) { matching_supplier.agreements.create!(framework: framework) }
 
-        it 'doesn’t create a duplicate agreement' do
-          expect { row.onboard! }.not_to change { Agreement.count }
+          it 'doesn’t create a duplicate agreement' do
+            expect { row.onboard! }.not_to change { Agreement.count }
+          end
+
+          it 'adds the lot to the supplier’s agreement' do
+            row.onboard!
+
+            expect(matching_agreement.framework_lots).to match_array [lot_1]
+          end
         end
 
-        it 'adds the lot to the supplier’s agreement' do
-          row.onboard!
+        context 'and the agreement is inactive' do
+          let!(:matching_agreement) do
+            matching_supplier.agreements.create!(framework: framework, active: false)
+          end
 
-          expect(matching_agreeement.framework_lots).to match_array [lot_1]
+          it 'doesn’t create a duplicate agreement' do
+            expect { row.onboard! }.not_to change { Agreement.count }
+          end
+
+          it 'adds the lot to the supplier’s agreement and activates the agreement' do
+            row.onboard!
+
+            agreement = matching_supplier.agreements.first
+            expect(agreement.framework_lots).to match_array [lot_1]
+            expect(agreement).to be_active
+          end
         end
       end
-
       context 'and the supplier is already on the framework AND the lot' do
         before do
-          matching_agreeement = matching_supplier.agreements.create!(framework: framework)
-          matching_agreeement.framework_lots << lot_1
+          matching_agreement = matching_supplier.agreements.create!(framework: framework)
+          matching_agreement.framework_lots << lot_1
         end
 
         it 'doesn’t create a duplicate agreement' do

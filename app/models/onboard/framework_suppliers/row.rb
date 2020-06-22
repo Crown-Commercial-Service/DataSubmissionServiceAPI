@@ -15,6 +15,7 @@ module Onboard
         find_or_create_supplier.tap do |supplier|
           agreement = find_or_create_agreement(supplier)
           find_or_create_agreement_framework_lot(agreement)
+          agreement.activate!
         end
       end
 

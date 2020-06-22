@@ -53,6 +53,42 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
     end
   end
 
+  context 'when there is already a supplier' do
+    before do
+      create(
+        :supplier,
+        name: 'Aardvark (UK) Ltd',
+        coda_reference: 'C099999',
+        salesforce_id: '001b000003FAKEFAKE'
+      ) do |supplier|
+        supplier.agreements.create!(framework: fm1234, active: false)
+      end
+    end
+
+    scenario 're-activates previously deactivated agreements' do
+      visit admin_suppliers_path
+      click_link 'Bulk on-board suppliers'
+
+      expect(page).to have_text 'Bulk on-board suppliers'
+
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'Successfully on-boarded suppliers'
+
+      aardvark = Supplier.find_by(name: 'Aardvark (UK) Ltd')
+      aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
+      aardvark_fm9999_lots = aardvark.agreements.find_by(framework: fm9999).framework_lots.pluck(:number)
+
+      expect(aardvark.coda_reference).to eql 'C099999'
+      expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
+      expect(aardvark_fm1234_lots).to match_array %w[1 2b]
+      expect(aardvark_fm9999_lots).to match_array %w[3]
+
+      expect(aardvark.agreements.find_by(framework: fm1234)).to be_active
+    end
+  end
+
   context 'with a CSV which references an unpublished framework' do
     before { fm1234.update(published: false) }
 
