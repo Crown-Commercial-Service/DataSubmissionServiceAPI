@@ -1,10 +1,10 @@
 .govuk-grid-row
   .govuk-grid-column-full
-    %h1.govuk-heading-xl Bulk off-board suppliers
+    %h1.govuk-heading-xl Remove suppliers from lots
 
 .govuk-grid-row
   .govuk-grid-column-full
-    = simple_form_for :bulk_offboard, url: admin_supplier_bulk_offboard_path do |form|
+    = simple_form_for :bulk_remove_from_lots, url: admin_supplier_bulk_lot_removal_path do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
           %h2.govuk-fieldset__heading

@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Offboard::FrameworkSuppliers do
+RSpec.describe Offboard::RemoveSuppliersFromLots do
   it 'raises an error if the expected headers are not present' do
     bad_headers_csv_path = Rails.root.join('spec', 'fixtures', 'framework_suppliers_bad_headers.csv')
 
-    expect { Offboard::FrameworkSuppliers.new(bad_headers_csv_path) }.to raise_error(
+    expect { Offboard::RemoveSuppliersFromLots.new(bad_headers_csv_path) }.to raise_error(
       ArgumentError, /Missing headers in CSV file: salesforce_id/
     )
   end
 
   describe '#run' do
-    let(:csv_path) { Rails.root.join('spec', 'fixtures', 'supplier-offboard.csv') }
-    let(:offboarder) { Offboard::FrameworkSuppliers.new(csv_path, logger: Logger.new('/dev/null')) }
+    let(:csv_path) { Rails.root.join('spec', 'fixtures', 'suppliers-to-offboard-from-framework-lots.csv') }
+    let(:offboarder) { Offboard::RemoveSuppliersFromLots.new(csv_path, logger: Logger.new('/dev/null')) }
 
     let!(:framework) do
       FactoryBot.create(:framework, short_name: 'FM1234')

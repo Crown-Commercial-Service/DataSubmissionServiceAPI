@@ -1,5 +1,5 @@
 module Offboard
-  class FrameworkSuppliers
+  class RemoveSuppliersFromLots
     class Row
       attr_reader :supplier_name, :salesforce_id, :coda_reference, :framework_short_name, :lot_number
 
