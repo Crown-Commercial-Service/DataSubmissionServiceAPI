@@ -17,6 +17,7 @@ module Offboard
 
           agreement = find_agreement(supplier)
           remove_agreement_framework_lot(agreement)
+          agreement.deactivate! if no_lots_on_agreement?(agreement)
         end
       end
 
@@ -40,6 +41,10 @@ module Offboard
 
       def remove_agreement_framework_lot(agreement)
         agreement.agreement_framework_lots.where(framework_lot: framework_lot).destroy_all
+      end
+
+      def no_lots_on_agreement?(agreement)
+        agreement.agreement_framework_lots.empty?
       end
     end
   end

@@ -32,7 +32,7 @@ RSpec.feature 'Admin can bulk remove suppliers from lots' do
   end
 
   context 'with a valid CSV' do
-    scenario 'off-boards suppliers from specified framework lots' do
+    scenario 'removes suppliers from specified framework lots' do
       visit admin_suppliers_path
       click_link 'Remove suppliers from lots'
 
@@ -49,6 +49,25 @@ RSpec.feature 'Admin can bulk remove suppliers from lots' do
       expect(aardvark.coda_reference).to eql 'C099999'
       expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
       expect(aardvark_fm1234_lots).to match_array %w[1]
+    end
+
+    scenario 'deactivates supplier from framework if they are remove from all lots' do
+      visit admin_suppliers_path
+      click_link 'Remove suppliers from lots'
+
+      expect(page).to have_text 'Remove suppliers from lots'
+
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'remove-supplier-from-all-framework-lots.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'Successfully off-boarded suppliers'
+
+      aardvark = Supplier.find_by(name: 'Aardvark (UK) Ltd')
+      aardvark_fm1234_agreement = aardvark.agreements.find_by(framework: fm1234)
+      aardvark_fm1234_lots = aardvark_fm1234_agreement.framework_lots.pluck(:number)
+
+      expect(aardvark_fm1234_lots).to be_empty
+      expect(aardvark_fm1234_agreement).not_to be_active
     end
   end
 
