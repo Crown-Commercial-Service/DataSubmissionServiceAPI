@@ -86,6 +86,10 @@ Rails.application.routes.draw do
         resource :bulk_remove_from_lots, only: %i[new create],
                  controller: 'supplier_bulk_lot_removal',
                  as: :supplier_bulk_lot_removal
+
+        resource :bulk_deactivate, only: %i[new create],
+                 controller: 'supplier_bulk_deactivation',
+                 as: :supplier_bulk_deactivate
       end
     end
 
