@@ -83,9 +83,9 @@ Rails.application.routes.draw do
                  controller: 'supplier_bulk_onboards',
                  as: :supplier_bulk_onboard
 
-        resource :bulk_offboard, only: %i[new create],
-                 controller: 'supplier_bulk_offboards',
-                 as: :supplier_bulk_offboard
+        resource :bulk_remove_from_lots, only: %i[new create],
+                 controller: 'supplier_bulk_lot_removal',
+                 as: :supplier_bulk_lot_removal
       end
     end
 

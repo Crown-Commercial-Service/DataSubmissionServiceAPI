@@ -16,10 +16,10 @@ require 'csv'
 #
 # Example:
 #
-#   Offboard::FrameworkSuppliers.new('/tmp/framework_suppliers.csv').run
+#   Offboard::RemoveSuppliersFromLots.new('/tmp/framework_suppliers.csv').run
 #
 module Offboard
-  class FrameworkSuppliers
+  class RemoveSuppliersFromLots
     EXPECTED_HEADERS = %I[framework_short_name lot_number supplier_name salesforce_id coda_reference].freeze
 
     attr_reader :logger, :wait_time

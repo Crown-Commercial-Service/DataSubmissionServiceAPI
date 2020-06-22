@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Offboard::FrameworkSuppliers::Row do
+RSpec.describe Offboard::RemoveSuppliersFromLots::Row do
   describe '#offboard!' do
     let!(:framework) { FactoryBot.create(:framework) }
     let(:framework_short_name) { framework.short_name }
@@ -29,7 +29,7 @@ RSpec.describe Offboard::FrameworkSuppliers::Row do
     end
 
     subject(:row) do
-      Offboard::FrameworkSuppliers::Row.new(
+      Offboard::RemoveSuppliersFromLots::Row.new(
         framework_short_name: framework_short_name,
         lot_number: lot_number,
         supplier_name: supplier_name,

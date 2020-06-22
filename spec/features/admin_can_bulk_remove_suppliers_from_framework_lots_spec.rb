@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin can bulk off-board suppliers' do
+RSpec.feature 'Admin can bulk remove suppliers from lots' do
   let!(:supplier) do
     supplier = create(:supplier,
                       name: 'Aardvark (UK) Ltd',
@@ -34,11 +34,11 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
   context 'with a valid CSV' do
     scenario 'off-boards suppliers from specified framework lots' do
       visit admin_suppliers_path
-      click_link 'Bulk off-board suppliers'
+      click_link 'Remove suppliers from lots'
 
-      expect(page).to have_text 'Bulk off-board suppliers'
+      expect(page).to have_text 'Remove suppliers from lots'
 
-      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'supplier-offboard.csv')
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers-to-offboard-from-framework-lots.csv')
       click_button 'Upload'
 
       expect(page).to have_text 'Successfully off-boarded suppliers'
@@ -56,8 +56,8 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
     before { fm1234.update(published: false) }
 
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_offboard_path
-      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'supplier-offboard.csv')
+      visit new_admin_supplier_bulk_lot_removal_path
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers-to-offboard-from-framework-lots.csv')
       click_button 'Upload'
 
       expect(page).to have_text 'Couldn\'t find Framework'
@@ -66,7 +66,7 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
 
   context 'with a CSV with missing columns' do
     scenario 'displays an error, showing which columns are missing' do
-      visit new_admin_supplier_bulk_offboard_path
+      visit new_admin_supplier_bulk_lot_removal_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers_with_missing_columns.csv')
       click_button 'Upload'
 
@@ -76,7 +76,7 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
 
   context 'with a non-CSV file' do
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_offboard_path
+      visit new_admin_supplier_bulk_lot_removal_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'not-really-an.xls')
       click_button 'Upload'
 
@@ -86,7 +86,8 @@ RSpec.feature 'Admin can bulk off-board suppliers' do
 
   context 'without attaching a file' do
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_offboard_path
+      visit new_admin_supplier_bulk_lot_removal_path
+
       click_button 'Upload'
 
       expect(page).to have_text 'Please choose a file to upload'
