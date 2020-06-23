@@ -98,6 +98,12 @@ Rails.application.routes.draw do
     end
 
     resources :frameworks, only: %i[index new create show edit update] do
+      resources :reports, only: [], controller: 'frameworks/reports' do
+        collection do
+          get :users
+        end
+      end
+
       member do
         patch :update_fdl
         patch :publish
