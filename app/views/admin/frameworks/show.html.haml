@@ -10,6 +10,8 @@
           = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
         %li.govuk-page-actions--action
           = link_to 'Download users (CSV)', users_admin_framework_reports_path(@framework.id)
+        %li.govuk-page-actions--action
+          = link_to 'Download suppliers/lots (CSV)', lots_admin_framework_reports_path(@framework.id)
 
 .govuk-grid-row
   .govuk-grid-column-full
