@@ -7,9 +7,11 @@
       %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
       %ul.govuk-page-actions--actions
         %li.govuk-page-actions--action
-          = link_to 'Edit definition', edit_admin_framework_path(@framework.id)
+          = link_to 'Edit definition', edit_admin_framework_path(@framework)
         %li.govuk-page-actions--action
-          = link_to 'Download users (CSV)', users_admin_framework_reports_path(@framework.id)
+          = link_to 'Download users (CSV)', users_admin_framework_reports_path(@framework)
+        %li.govuk-page-actions--action
+          = link_to 'Download suppliers/lots (CSV)', lots_admin_framework_reports_path(@framework)
 
 .govuk-grid-row
   .govuk-grid-column-full

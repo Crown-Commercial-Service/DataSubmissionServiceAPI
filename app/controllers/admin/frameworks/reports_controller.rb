@@ -3,6 +3,10 @@ class Admin::Frameworks::ReportsController < AdminController
     send_file csv_file, type: 'text/csv', filename: csv_filename
   end
 
+  def lots
+    send_file csv_file, type: 'text/csv', filename: csv_filename
+  end
+
   private
 
   def framework
@@ -15,8 +19,8 @@ class Admin::Frameworks::ReportsController < AdminController
 
   def csv_file
     Tempfile.new.tap do |file|
-      Export::FrameworkUsers.new(
-        Export::FrameworkUsers::Extract.all_relevant(framework),
+      export_klass.new(
+        export_klass::Extract.all_relevant(framework),
         file
       ).run
 
@@ -25,10 +29,21 @@ class Admin::Frameworks::ReportsController < AdminController
   end
 
   def csv_filename
-    "framework_#{short_name}_users-#{current_date}.csv"
+    "framework_#{short_name}_#{action_name}-#{current_date}.csv"
   end
 
   def current_date
     Time.zone.today
+  end
+
+  def export_klass
+    case action_name
+    when 'users'
+      Export::FrameworkUsers
+    when 'lots'
+      Export::FrameworkSuppliersLots
+    else
+      raise 'Unexpected action in Admin::Frameworks::ReportsController'
+    end
   end
 end

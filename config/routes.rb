@@ -101,6 +101,7 @@ Rails.application.routes.draw do
       resources :reports, only: [], controller: 'frameworks/reports' do
         collection do
           get :users
+          get :lots
         end
       end
 
