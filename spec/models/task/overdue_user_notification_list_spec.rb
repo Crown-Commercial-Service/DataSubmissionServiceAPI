@@ -19,8 +19,8 @@ RSpec.describe Task::OverdueUserNotificationList do
       let(:frank)      { create(:user, :inactive, name: 'Frank Inactive', email: 'frank.inactive@example.com') }
 
       before do
-        framework1 = create :framework, short_name: 'RM0001'
-        framework2 = create :framework, short_name: 'RM0002'
+        framework1 = create :framework, short_name: 'RM0001', name: 'Framework 1'
+        framework2 = create :framework, short_name: 'RM0002', name: 'Framework 2'
         framework3 = create :framework, short_name: 'COMPLETE0001'
         create :framework, short_name: 'NOTPUBLISHED0001', published: false
 
@@ -46,21 +46,29 @@ RSpec.describe Task::OverdueUserNotificationList do
 
       subject(:lines) { output.string.split("\n") }
 
-      it 'has a header row that lists all the frameworks' do
+      it 'adds the optimal number of columns to hold the names of the frameworks users need to report on' do
         expect(lines.first).to eql(
-          'email address,due_date,person_name,supplier_name,reporting_month,COMPLETE0001,RM0001,RM0002'
+          'email address,due_date,person_name,supplier_name,reporting_month,framework,framework'
         )
+      end
+
+      it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
+        # rubocop:disable Metrics/LineLength
+        expect(lines.size).to eq 4
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM0001 - Framework 1,RM0002 - Framework 2'
+        )
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,RM0001 - Framework 1,'
+        )
+        expect(lines).to include(
+          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM0001 - Framework 1,'
+        )
+        # rubocop:enable Metrics/LineLength
       end
 
       it 'does not include columns for unpublished frameworks' do
         expect(lines.first).not_to include('NOTPUBLISHED0001')
-      end
-
-      it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
-        expect(lines.size).to eq 4
-        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,no,yes,yes')
-        expect(lines).to include('alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,no,yes,no')
-        expect(lines).to include('bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,no,yes,no')
       end
 
       it 'does not include inactive users' do

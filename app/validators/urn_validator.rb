@@ -1,6 +1,6 @@
 class UrnValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    return if numeric?(value) && Customer.exists?(urn: value)
+    return if numeric?(value) && Customer.exists?(urn: value, deleted: false)
 
     record.errors.add(attribute, :invalid_urn)
   end

@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Import::FrameworkSuppliers do
+RSpec.describe Onboard::FrameworkSuppliers do
   it 'raises an error if the expected headers are not present' do
     bad_headers_csv_path = Rails.root.join('spec', 'fixtures', 'framework_suppliers_bad_headers.csv')
 
-    expect { Import::FrameworkSuppliers.new(bad_headers_csv_path) }.to raise_error(
+    expect { Onboard::FrameworkSuppliers.new(bad_headers_csv_path) }.to raise_error(
       ArgumentError, /Missing headers in CSV file: salesforce_id/
     )
   end
 
   describe '#run' do
     let(:csv_path) { Rails.root.join('spec', 'fixtures', 'framework_suppliers.csv') }
-    let(:importer) { Import::FrameworkSuppliers.new(csv_path, logger: Logger.new('/dev/null')) }
+    let(:onboarder) { Onboard::FrameworkSuppliers.new(csv_path, logger: Logger.new('/dev/null')) }
 
     let!(:framework) do
       FactoryBot.create(:framework, short_name: 'RM123') do |framework|
@@ -20,8 +20,8 @@ RSpec.describe Import::FrameworkSuppliers do
       end
     end
 
-    it 'imports the suppliers' do
-      expect { importer.run }.to change { Supplier.count }.by 2
+    it 'on-boards the suppliers' do
+      expect { onboarder.run }.to change { Supplier.count }.by 2
     end
 
     context 'when there is bad data in the CSV' do
@@ -30,7 +30,7 @@ RSpec.describe Import::FrameworkSuppliers do
       it 'rolls back any changes to the database' do
         supplier_count_before = Supplier.count
 
-        expect { importer.run }.to raise_error(ActiveRecord::RecordInvalid)
+        expect { onboarder.run }.to raise_error(ActiveRecord::RecordInvalid)
 
         expect(Supplier.count).to eq supplier_count_before
       end
@@ -44,7 +44,7 @@ RSpec.describe Import::FrameworkSuppliers do
       it 'rolls back any changes to the database' do
         supplier_count_before = Supplier.count
 
-        expect { importer.run }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { onboarder.run }.to raise_error(ActiveRecord::RecordNotFound)
 
         expect(Supplier.count).to eq supplier_count_before
       end

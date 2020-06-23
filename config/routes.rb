@@ -79,7 +79,17 @@ Rails.application.routes.draw do
       resources :tasks, only: %i[new create]
 
       collection do
-        resource :bulk_import, only: %i[new create], controller: 'supplier_bulk_imports', as: :supplier_bulk_import
+        resource :bulk_onboard, only: %i[new create],
+                 controller: 'supplier_bulk_onboards',
+                 as: :supplier_bulk_onboard
+
+        resource :bulk_remove_from_lots, only: %i[new create],
+                 controller: 'supplier_bulk_lot_removal',
+                 as: :supplier_bulk_lot_removal
+
+        resource :bulk_deactivate, only: %i[new create],
+                 controller: 'supplier_bulk_deactivation',
+                 as: :supplier_bulk_deactivate
       end
     end
 
@@ -88,6 +98,13 @@ Rails.application.routes.draw do
     end
 
     resources :frameworks, only: %i[index new create show edit update] do
+      resources :reports, only: [], controller: 'frameworks/reports' do
+        collection do
+          get :users
+          get :lots
+        end
+      end
+
       member do
         patch :update_fdl
         patch :publish

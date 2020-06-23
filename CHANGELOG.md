@@ -1,5 +1,19 @@
 # Change Log
 
+## [release-104] - 2020-06-23
+
+- [Security] Bump puma from 3.12.4 to 3.12.6
+- [Security] Bump kaminari from 1.1.1 to 1.2.1
+- [Security] Bump rack from 2.2.2 to 2.2.3
+- [Security] Upgrade to Rails 5.2.4.3
+- URN list importer replaces rather than appends
+- Simplify notify CSV uploads
+- Bulk remove suppliers from framework lots
+- Allow deactivating suppliers on frameworks in bulk
+- Deactivate suppliers when removing them from all their lots
+- Admins can download suppliers and users on a framework
+- Admins can download suppliers and their lots for a given framework
+
 ## [release-103] - 2020-03-26
 - [Security] Upgrade to Rails 5.2.4.2
 - Whitelist "Utility Spend" as an OtherFields sheet name
@@ -696,6 +710,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-104]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-103...release-104
 [release-103]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-102...release-103
 [release-102]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-101...release-102
 [release-101]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-100...release-101

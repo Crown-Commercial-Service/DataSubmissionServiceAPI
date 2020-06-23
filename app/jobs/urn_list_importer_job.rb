@@ -24,7 +24,11 @@ class UrnListImporterJob < ApplicationJob
     downloader.download!
 
     convert_to_csv(downloader.temp_file.path)
-    upsert!(customers_from_csv)
+
+    customers = customers_from_csv
+
+    soft_delete!(customers)
+    upsert!(customers)
 
     urn_list.update!(aasm_state: :processed)
 
@@ -57,7 +61,8 @@ class UrnListImporterJob < ApplicationJob
         name: row['CustomerName'],
         urn: row['URN'].to_i,
         postcode: row['PostCode'],
-        sector: (row['Sector'] == 'Central Government' ? :central_government : :wider_public_sector)
+        sector: (row['Sector'] == 'Central Government' ? :central_government : :wider_public_sector),
+        deleted: false
       )
     end
 
@@ -72,8 +77,20 @@ class UrnListImporterJob < ApplicationJob
       Customer.import(
         customers,
         batch_size: 100,
-        on_duplicate_key_update: { conflict_target: [:urn], columns: %i[name postcode sector] }
+        on_duplicate_key_update: {
+          conflict_target: [:urn],
+          columns: %i[name postcode sector deleted]
+        }
       )
     end
+  end
+
+  def soft_delete!(customers)
+    existing_urns = Customer.pluck(:urn)
+    importing_urns = customers.map(&:urn)
+
+    urns_to_be_deleted = existing_urns - importing_urns
+
+    Customer.where(urn: urns_to_be_deleted).update(deleted: true)
   end
 end

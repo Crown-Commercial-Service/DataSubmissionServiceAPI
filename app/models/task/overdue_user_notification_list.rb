@@ -34,11 +34,11 @@ class Task
     private
 
     def csv_line_for(user, supplier)
-      framework_presence = late_task_framework_presence(supplier)
-      return if framework_presence.all?('no')
+      framework_csv_columns = framework_csv_columns_for(supplier)
+      return if framework_csv_columns.all?(nil)
 
       CSV.generate_line(
-        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_presence
+        [user.email, due_date, user.name, supplier.name, reporting_month] + framework_csv_columns
       )
     end
 
@@ -59,13 +59,19 @@ class Task
     end
 
     def frameworks_header
-      frameworks.map(&:short_name)
+      Array.new(framework_column_count, 'framework')
     end
 
-    def late_task_framework_presence(supplier)
-      frameworks.map do |framework|
-        supplier.tasks.any? { |task| task.incomplete? && task.framework_id == framework.id } ? 'yes' : 'no'
-      end
+    def framework_column_count
+      @framework_column_count ||= suppliers.map { |supplier| supplier.tasks.pluck(:framework_id).uniq.size }.max || 0
+    end
+
+    def framework_csv_columns_for(supplier)
+      frameworks_with_incomplete_tasks = supplier.tasks
+                                                 .map { |task| "#{task.framework.short_name} - #{task.framework.name}" }
+                                                 .sort
+
+      frameworks_with_incomplete_tasks.fill(nil, frameworks_with_incomplete_tasks.size...framework_column_count)
     end
 
     def suppliers

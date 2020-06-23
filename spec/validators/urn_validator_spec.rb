@@ -18,8 +18,10 @@ RSpec.describe UrnValidator do
   end
 
   before do
-    create(:customer, urn: 12345678)
+    create(:customer, urn: 12345678, deleted: deleted)
   end
+
+  let(:deleted) { false }
 
   context 'URN exists' do
     let(:urn) { '12345678' }
@@ -29,6 +31,13 @@ RSpec.describe UrnValidator do
 
   context 'URN is missing' do
     let(:urn) { '88888888' }
+
+    it { is_expected.not_to be_valid }
+  end
+
+  context 'URN is soft-deleted' do
+    let(:urn) { '12345678' }
+    let(:deleted) { true }
 
     it { is_expected.not_to be_valid }
   end

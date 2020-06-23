@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin can bulk import suppliers' do
+RSpec.feature 'Admin can bulk on-board suppliers' do
   let!(:fm1234) do
     create(:framework, short_name: 'FM1234') do |framework|
       create(:framework_lot, number: '1', framework: framework)
@@ -23,14 +23,15 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'with a valid CSV' do
     scenario 'creates suppliers that do not exist' do
-      visit new_admin_supplier_bulk_import_path
+      visit admin_suppliers_path
+      click_link 'Bulk on-board suppliers'
 
-      expect(page).to have_text 'Bulk import suppliers'
+      expect(page).to have_text 'Bulk on-board suppliers'
 
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
       click_button 'Upload'
 
-      expect(page).to have_text 'Successfully imported suppliers'
+      expect(page).to have_text 'Successfully on-boarded suppliers'
 
       aardvark = Supplier.find_by(name: 'Aardvark (UK) Ltd')
       aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
@@ -52,11 +53,47 @@ RSpec.feature 'Admin can bulk import suppliers' do
     end
   end
 
+  context 'when there is already a supplier' do
+    before do
+      create(
+        :supplier,
+        name: 'Aardvark (UK) Ltd',
+        coda_reference: 'C099999',
+        salesforce_id: '001b000003FAKEFAKE'
+      ) do |supplier|
+        supplier.agreements.create!(framework: fm1234, active: false)
+      end
+    end
+
+    scenario 're-activates previously deactivated agreements' do
+      visit admin_suppliers_path
+      click_link 'Bulk on-board suppliers'
+
+      expect(page).to have_text 'Bulk on-board suppliers'
+
+      attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
+      click_button 'Upload'
+
+      expect(page).to have_text 'Successfully on-boarded suppliers'
+
+      aardvark = Supplier.find_by(name: 'Aardvark (UK) Ltd')
+      aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
+      aardvark_fm9999_lots = aardvark.agreements.find_by(framework: fm9999).framework_lots.pluck(:number)
+
+      expect(aardvark.coda_reference).to eql 'C099999'
+      expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
+      expect(aardvark_fm1234_lots).to match_array %w[1 2b]
+      expect(aardvark_fm9999_lots).to match_array %w[3]
+
+      expect(aardvark.agreements.find_by(framework: fm1234)).to be_active
+    end
+  end
+
   context 'with a CSV which references an unpublished framework' do
     before { fm1234.update(published: false) }
 
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_import_path
+      visit new_admin_supplier_bulk_onboard_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers.csv')
       click_button 'Upload'
 
@@ -66,7 +103,7 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'with a CSV with missing columns' do
     scenario 'displays an error, showing which columns are missing' do
-      visit new_admin_supplier_bulk_import_path
+      visit new_admin_supplier_bulk_onboard_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers_with_missing_columns.csv')
       click_button 'Upload'
 
@@ -76,7 +113,7 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'with a CSV with missing salesforce_id' do
     scenario 'displays an error, showing which columns are missing' do
-      visit new_admin_supplier_bulk_import_path
+      visit new_admin_supplier_bulk_onboard_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'suppliers_with_blank_salesforce_id.csv')
       click_button 'Upload'
 
@@ -86,7 +123,7 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'with a non-CSV file' do
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_import_path
+      visit new_admin_supplier_bulk_onboard_path
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'not-really-an.xls')
       click_button 'Upload'
 
@@ -96,7 +133,7 @@ RSpec.feature 'Admin can bulk import suppliers' do
 
   context 'without attaching a file' do
     scenario 'displays an error' do
-      visit new_admin_supplier_bulk_import_path
+      visit new_admin_supplier_bulk_onboard_path
       click_button 'Upload'
 
       expect(page).to have_text 'Please choose a file to upload'
