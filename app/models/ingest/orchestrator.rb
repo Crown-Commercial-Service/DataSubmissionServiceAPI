@@ -1,5 +1,7 @@
 module Ingest
   class Orchestrator
+    class MissingSheets < StandardError; end
+
     ##
     # Given a +submission_file+ perform the complete ingest process
     #
@@ -20,6 +22,8 @@ module Ingest
         downloader.download!
 
         converter = Ingest::Converter.new(downloader.temp_file.path)
+        raise_when_sheets_missing(converter)
+
         @submission_file.update!(rows: total_row_count(converter))
 
         loader = Ingest::Loader.new(converter, @submission_file)
@@ -39,6 +43,15 @@ module Ingest
         @framework.short_name,
         'ingest'
       ]
+    end
+
+    def raise_when_sheets_missing(converter)
+      required_entry_types = Set.new(@framework.definition.defined_entry_types)
+      found_entry_types = Set.new(SubmissionEntry::TYPES.map { |type| converter.rows_for(type).type })
+      diff = required_entry_types.difference(found_entry_types)
+      return if diff.empty?
+
+      raise MissingSheets, "Sheet(s) missing from submission file: #{diff.to_a.to_sentence}"
     end
 
     def calculate_management_charge_if_valid

@@ -90,6 +90,16 @@ RSpec.describe Ingest::Orchestrator do
       end
     end
 
+    context 'with an invalid spreadsheet missing required sheets' do
+      let(:filename) { 'rm1557viii-with-no-invoices.xls' }
+
+      it 'raises MissingSheets' do
+        orchestrator = Ingest::Orchestrator.new(file)
+
+        expect { orchestrator.perform }.to raise_error(Ingest::Orchestrator::MissingSheets)
+      end
+    end
+
     context 'with an invalid submission' do
       let(:filename) { 'rm1557-10-test.xls' }
 
