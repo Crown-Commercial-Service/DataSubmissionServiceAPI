@@ -11,6 +11,10 @@ class SubmissionIngestionJob < ApplicationJob
     handle_unretryable_job_failure(job, exception)
   end
 
+  discard_on(Ingest::Orchestrator::MissingSheets) do |job, exception|
+    handle_unretryable_job_failure(job, exception)
+  end
+
   discard_on IngestFailed
 
   def perform(submission_file)

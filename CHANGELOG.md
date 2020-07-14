@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-105] - 2020-07-14
+
+- Reject submission spreadsheets that are missing sheets required by the framework
+
 ## [release-104] - 2020-06-23
 
 - [Security] Bump puma from 3.12.4 to 3.12.6
@@ -710,6 +714,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-105]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-104...release-105
 [release-104]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-103...release-104
 [release-103]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-102...release-103
 [release-102]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-101...release-102
