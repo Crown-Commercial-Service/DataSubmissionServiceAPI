@@ -59,6 +59,8 @@ services:
     container_name: "data-submission-service-api_db"
     networks:
       private:
+    environment:
+      POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     container_name: "data-submission-service-api_redis"
