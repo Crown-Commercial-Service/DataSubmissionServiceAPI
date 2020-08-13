@@ -21,7 +21,7 @@ services:
     volumes:
       - .:/srv/dss-api:cached
       - node_modules:/srv/dss-api/node_modules:cached
-    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0 -p 3000"
     container_name: "data-submission-service-api_web"
     networks:
       public:
@@ -59,6 +59,8 @@ services:
     container_name: "data-submission-service-api_db"
     networks:
       private:
+    environment:
+      POSTGRES_PASSWORD: "password"
   redis:
     image: redis
     container_name: "data-submission-service-api_redis"
