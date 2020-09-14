@@ -10,6 +10,7 @@ applications:
       - ccs-rmi-logging-CF_SPACE
       - ccs-rmi-redis-CF_SPACE
       - ingest-bucket-CF_SPACE
+      - rmi-splunk-CF_SPACE
       - ADMIN_EMAILS
       - API_SECRETBASE
       - API_AUTH0
