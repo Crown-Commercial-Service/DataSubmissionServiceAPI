@@ -13,3 +13,8 @@ terraform.tfstate
 ./*.tfstate
 .terraform/
 .terraform.tfstate.lock.info
+
+# Large things that bloat the build context in development
+backups
+log
+tmp
