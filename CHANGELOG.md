@@ -1,9 +1,5 @@
 # Change Log
 
-## [release-106] - 2020-09-14
-
-- Add Splunk to manifest to enable monitoring
-
 ## [release-105] - 2020-07-14
 
 - Reject submission spreadsheets that are missing sheets required by the framework
@@ -718,7 +714,6 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
-[release-106]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-105...release-106
 [release-105]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-104...release-105
 [release-104]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-103...release-104
 [release-103]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-102...release-103
