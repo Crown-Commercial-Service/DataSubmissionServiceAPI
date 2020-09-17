@@ -1,5 +1,9 @@
 # Change Log
 
+## [release- bugfix/fixDateFormattingCSVError]
+
+- Fixed Date Formatting Errors upon ingestion.
+
 ## [release-106] - 2020-09-14
 
 - Add Splunk to manifest to enable monitoring

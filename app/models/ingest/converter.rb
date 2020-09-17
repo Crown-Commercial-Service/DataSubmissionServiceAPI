@@ -32,7 +32,7 @@ module Ingest
 
     def sheets
       @sheets ||= begin
-                    response = Ingest::CommandRunner.new("in2csv --names #{excel_temp_file}").run!
+                    response = Ingest::CommandRunner.new("in2csv --names-date-format #{excel_temp_file}").run!
 
                     return response.stdout if response.successful?
 
