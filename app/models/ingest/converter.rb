@@ -50,7 +50,9 @@ module Ingest
 
       command = "in2csv -l --sheet=\"#{sheet_name}\" --locale=en_GB --blanks --skipinitialspace --no-inference"\
                 " #{excel_temp_file} > #{sheet_temp_file}"
-      Ingest::CommandRunner.new(command).run!
+      sheet = Ingest::CommandRunner.new(command).run!
+
+      raise UnreadableFile if sheet.successful? == false
 
       row_count = fetch_row_count(sheet_temp_file)
 
