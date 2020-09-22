@@ -1,8 +1,9 @@
 # Change Log
 
-## [release- bugfix/fixDateFormattingCSVError]
+## [release 107] - 2020-09-22
 
-- Fixed Date Formatting Errors upon ingestion.
+- Bump csvkit version from 1.0.4 to 1.0.5
+- Missed excel validations now raise error
 
 ## [release-106] - 2020-09-14
 
@@ -722,6 +723,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-107]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-106...release-107
 [release-106]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-105...release-106
 [release-105]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-104...release-105
 [release-104]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-103...release-104
