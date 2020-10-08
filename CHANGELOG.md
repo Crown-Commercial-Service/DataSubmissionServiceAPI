@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-108] - 2020-10-08
+
+- Update Travis credentials, from dxw to ccs (password & username).
+
 ## [release 107] - 2020-09-22
 
 - Bump csvkit version from 1.0.4 to 1.0.5
@@ -723,6 +727,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-108]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-107...release-108
 [release-107]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-106...release-107
 [release-106]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-105...release-106
 [release-105]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-104...release-105
