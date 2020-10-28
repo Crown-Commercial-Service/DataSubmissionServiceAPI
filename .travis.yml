@@ -25,13 +25,17 @@ env:
     - CF_USER=ccs-rmi-travis-deploy@crowncommercial.gov.uk
     - CF_ORG=ccs-report-management-info
     - secure: "Ef1vXu9xRPQ/NZKRGgyP+eghwgO1H2xQDTWyAOrXex70HoJraU8wQelD65OXlVLlWJd5DOaa1zrK0v5iWSm1tGvTx/cBzRaTL6s+h4/lhaBYkaki7dxJhbJP2AAxQ/vTJe8AzqWAxtuTywzn9I62L8gBM4/OJT0Tuj+Rkr9yqPeG2fRXhL1QvR9UKaIBxKnXxGLJydOjd6li2UGAxW/xTneTjvoWiDU8sGVlAB8bQXotkoNPsuUfMIGotg5mteAugJTnOeCO1VlYPJ5wvsRVQm1+9tuiilvJiL4zMVAlOsx/INYrcCXSOh8AB0IR3kv1JUXpGJEcWsOmiryKD89GOH2khAu3fbKqDx/VLFzF0Gjqf8GgGyi/Ly6hOrIfm7uJRDPyMEVJP3vvwepfw9LGJz4tao2TWJ1Ed+vsW029rJGmvnzwuLJFb1/LI4eQGlMebZsJO8lAKqAQN2D3sc0jYaK6d/0UhR6CvbLlfYRl2HGqWl5VXyJIvBLtqSKLA/ZgrQpqohS7961jyhyV+5v91uIFfG884VVkIqLQoB6Y5Hmc2Vo0tfhW9n7m+jXZt5cXLnnLCuxz9MR1eG1C5Jql/qYSPggNvp872pRVMHROTe2qwkLnKUNZLzdJ68pqGqXgI9dVA7p+8mi0zU1XL8fOeV7d1IulIe7+52uL8R1KM3A="
+    - CC_TEST_REPORTER_ID=8210faf280e889e60d8da3ad7d3ddcd383023b8f3c5155a04735138761c64721
 before_install:
   - gem install bundler -v 2.0.2
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64  > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 install:
   - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
   - pyenv global 3.7.1
   - pip3 install --user --upgrade -r $PWD/requirements.txt
 before_script:
+  - ./cc-test-reporter before-build
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rake AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_S3_REGION=dummy AWS_S3_BUCKET=dummy SECRET_KEY_BASE=dummy DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile
 bundler_args: --without production
@@ -52,3 +56,5 @@ deploy:
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s prod
     on:
       branch: master
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
