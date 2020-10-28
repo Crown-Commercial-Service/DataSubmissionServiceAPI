@@ -37,6 +37,7 @@ docker-compose.env
 
 # Test artifacts
 spec/examples.txt
+coverage
 
 # Terraform
 **/.terraform/*

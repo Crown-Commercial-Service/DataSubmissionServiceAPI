@@ -96,4 +96,5 @@ group :test do
   gem 'climate_control'
   gem 'webmock'
   gem 'launchy'
+  gem 'simplecov', '0.17', require: false
 end
