@@ -103,7 +103,7 @@ default user full name, either of which can be changed at login if you wish.
 
 ## API Endpoints
 
-A [full list of the API endpoints](endpoints.md) is available in a separate document.
+A [full list of the API endpoints](https://app.swaggerhub.com/apis/Crown-Commercial/RMI/1.0.0#/info) is available in SwaggerHub.
 
 ## Onboarding suppliers and users
 
