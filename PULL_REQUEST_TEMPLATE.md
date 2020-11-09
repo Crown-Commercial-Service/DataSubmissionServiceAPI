@@ -1,7 +1,22 @@
-## Changes in this PR:
+## Description
+Link to the JIRA ticket and a summary of the change.
 
-## Screenshots of UI changes:
+## Why was the change made?
+Provide details about why this change was needed.
 
-### Before
+## Are there any dependencies required for this change?
+List all the dependencies.
 
-### After
+## What type of change is it?
+Please delete options that are not relevant.
+
+ [ ] Bug fix
+
+ [ ] New feature 
+
+ [ ] Breaking change 
+
+ [ ] This change requires a documentation update
+
+## How was the change tested?
+Please describe the tests that you ran to verify your changes.

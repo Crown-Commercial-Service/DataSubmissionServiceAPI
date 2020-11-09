@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-109] - 2020-11-09
+
+- Changed link to endpoint documentation in README
+- Added SimpleCov and Code Climate to Travis build
+- Change to pull request template
+
 ## [release-108] - 2020-10-08
 
 - Update Travis credentials, from dxw to ccs (password & username).
@@ -727,6 +733,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-109]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-108...release-109
 [release-108]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-107...release-108
 [release-107]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-106...release-107
 [release-106]: https://github.com/dxw/DataSubmissionServiceAPI/compare/release-105...release-106
