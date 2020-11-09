@@ -20,6 +20,3 @@ Please delete options that are not relevant.
 
 ## How was the change tested?
 Please describe the tests that you ran to verify your changes.
-
-## Test Report
-Provide a link to the automated test report that has passed through CI/CD pipeline.
