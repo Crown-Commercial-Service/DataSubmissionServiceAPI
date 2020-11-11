@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-110] - 2020-11-11
+
+- Work required for RMI-242
+- Bump rails from 5.2.4.4 to 5.2.4.3
+- [Security] Bump actionview dependency from 5.2.4.3 to 5.2.4.4
+
 ## [release-109] - 2020-11-09
 
 - Changed link to endpoint documentation in README
@@ -733,6 +739,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-109]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-109...release-110
 [release-109]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-108...release-109
 [release-108]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-107...release-108
 [release-107]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-106...release-107
