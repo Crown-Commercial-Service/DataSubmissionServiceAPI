@@ -12,4 +12,7 @@ class SerializableTask < JSONAPI::Serializable::Resource
   attribute :file_key do
     @object.framework.file_key if @include_file == 'true'
   end
+  attribute :file_name do
+    @object.framework.file_name if @include_file == 'true'
+  end
 end
