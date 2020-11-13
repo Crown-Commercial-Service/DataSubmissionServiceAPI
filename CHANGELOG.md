@@ -5,6 +5,8 @@
 - Work required for RMI-242
 - Bump rails from 5.2.4.4 to 5.2.4.3
 - [Security] Bump actionview dependency from 5.2.4.3 to 5.2.4.4
+- Fix: templates now keep their original file extension
+- Admin template uploads restricted to .xls and .xlsx files
 
 ## [release-109] - 2020-11-09
 
