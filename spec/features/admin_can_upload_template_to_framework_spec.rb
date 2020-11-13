@@ -42,7 +42,7 @@ RSpec.feature 'Uploading a template to a Framework' do
 
     context 'when file provided is not .xls or .xlsx' do
       let!(:framework) { create(:framework, published: true) }
-      
+
       it 'responds with a meaningful error message' do
         visit admin_frameworks_path
         click_on framework.name
