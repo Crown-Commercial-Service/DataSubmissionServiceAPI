@@ -86,8 +86,8 @@ class Admin::FrameworksController < AdminController
   def excel_file?
     uploaded_file = params.require(:framework).require(:template_file)
     file_extension = File.extname(uploaded_file.original_filename)
+    mime_types = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
 
-    ['.xls', '.xlsx'].include?(file_extension) &&
-      ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].include?(uploaded_file.content_type)
+    ['.xls', '.xlsx'].include?(file_extension) && mime_types.include?(uploaded_file.content_type)
   end
 end
