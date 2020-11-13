@@ -39,5 +39,17 @@ RSpec.feature 'Uploading a template to a Framework' do
       click_button 'Upload Template'
       expect(page).to have_content(I18n.t('errors.message.missing_template_file'))
     end
+
+    context 'when file provided is not .xls or .xlsx' do
+      let!(:framework) { create(:framework, published: true) }
+  
+      it 'responds with a meaningful error message' do
+        visit admin_frameworks_path
+        click_on framework.name
+        attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
+        click_button 'Upload Template'
+        expect(page).to have_content('Uploaded file must be a .XLS or .XLSX file.')
+      end
+    end
   end
 end
