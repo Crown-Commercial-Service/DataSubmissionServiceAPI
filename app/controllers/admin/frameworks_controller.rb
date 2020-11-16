@@ -87,6 +87,6 @@ class Admin::FrameworksController < AdminController
     uploaded_file = params.require(:framework).require(:template_file)
     file_extension = File.extname(uploaded_file.original_filename)
 
-    ['.xls', '.xlsx'].include?(file_extension) 
+    ['.xls', '.xlsx'].include?(file_extension)
   end
 end
