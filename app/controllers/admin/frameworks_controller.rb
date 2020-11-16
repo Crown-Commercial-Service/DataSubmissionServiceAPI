@@ -41,7 +41,7 @@ class Admin::FrameworksController < AdminController
 
   def update
     if params.dig(:framework, :template_file).present?
-      return redirect_to admin_framework_path, alert: 'Uploaded file must be an excel file' unless excel_file?
+      return redirect_to admin_framework_path, alert: 'Uploaded file must be a .XLS or .XLSX file.' unless excel_file?
 
       @framework.update!(framework_params)
       flash[:success] = 'Framework saved successfully.'
@@ -86,8 +86,7 @@ class Admin::FrameworksController < AdminController
   def excel_file?
     uploaded_file = params.require(:framework).require(:template_file)
     file_extension = File.extname(uploaded_file.original_filename)
-    mime_types = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
 
-    ['.xls', '.xlsx'].include?(file_extension) && mime_types.include?(uploaded_file.content_type)
+    ['.xls', '.xlsx'].include?(file_extension)
   end
 end
