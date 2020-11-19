@@ -30,6 +30,10 @@ class Framework < ApplicationRecord
     template_file&.attachment&.key
   end
 
+  def file_name
+    template_file&.attachment&.filename
+  end
+
   def self.new_from_fdl(definition_source)
     Framework.new(definition_source: definition_source).tap do |framework|
       generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
