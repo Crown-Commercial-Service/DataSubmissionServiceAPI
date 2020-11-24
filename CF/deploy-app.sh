@@ -95,7 +95,7 @@ then
   then
     if [[ ! "$BRANCH" == "preproduction" ]]
     then
-      echo "We only deploy the 'develop' branch to $CF_SPACE"
+      echo "We only deploy the 'preproduction' branch to $CF_SPACE"
       echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
       exit 1
     fi
