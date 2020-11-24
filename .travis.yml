@@ -53,6 +53,10 @@ deploy:
     on:
       branch: develop
   - provider: script
+    script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s preprod
+    on:
+      branch: preproduction
+  - provider: script
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s prod
     on:
       branch: master
