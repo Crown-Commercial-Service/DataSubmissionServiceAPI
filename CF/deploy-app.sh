@@ -12,7 +12,7 @@ usage() {
   echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
   echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
-  echo "  -f                    - Force a deploy of a non standard branch to staging or prod"
+  echo "  -f                    - Force a deploy of a non standard branch to staging, preprod or prod"
   exit 1
 }
 
@@ -90,6 +90,16 @@ then
       exit 1
     fi
   fi
+
+  if [[ "$CF_SPACE" == "preprod" ]]
+  then
+    if [[ ! "$BRANCH" == "preproduction" ]]
+    then
+      echo "We only deploy the 'develop' branch to $CF_SPACE"
+      echo "if you want to deploy $BRANCH to $CF_SPACE use -f"
+      exit 1
+    fi
+  fi
   
   if [[ "$CF_SPACE" == "prod" ]]
   then
@@ -101,13 +111,13 @@ then
     fi
   fi
 fi
-if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "prod" ]]; then
+if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "preprod" || "$CF_SPACE" == "prod" ]]; then
   echo " *********************************************"
   echo "    The '$CF_SPACE' space will be selected"
   echo "     This deploys the apps as HA with"
   echo "      production like resource sizes"
   echo " For feature testing, choose a space with a"
-  echo "      name other than staging / prod"
+  echo "      name other than staging / preprod / prod"
   echo " *********************************************"
 
   MEMORY_LIMIT="512M"
