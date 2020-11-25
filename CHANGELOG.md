@@ -3,7 +3,7 @@
 ## [release-111] - 2020-11-26
 
 - RMI-275: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
-- RMI-274: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method.
+- RMI-243: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method.
 
 ## [release-110] - 2020-11-11
 
