@@ -4,7 +4,7 @@ class Admin::UsersController < AdminController
     submissions_stuck = Submission.joins(:task).where(
       "aasm_state = 'processing' and submissions.updated_at < ? and tasks.status != 'completed'", Time.zone.now - 1.day
     )
-    submissions_stuck.each{ |s| s.update!(aasm_state: :ingest_failed) }
+    submissions_stuck.each { |s| s.update!(aasm_state: :ingest_failed) }
   end
 
   def show
