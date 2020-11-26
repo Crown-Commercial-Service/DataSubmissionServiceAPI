@@ -63,7 +63,7 @@ Layout/AlignHash:
     Enabled: false
 
 Layout/TrailingBlankLines:
-    Enabled: true
+    Enabled: false
 
 Metrics/ClassLength:
     Enabled: false
