@@ -79,7 +79,7 @@ Metrics/AbcSize:
         - 'lib/console_helpers.rb'
 
 Metrics/LineLength:
-    Max: 180
+    Max: 120
     Exclude:
         - 'app/models/framework/definition/**/*'
 
