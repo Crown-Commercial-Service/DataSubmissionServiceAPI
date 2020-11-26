@@ -5,7 +5,8 @@ class Admin::UsersController < AdminController
     # These submissions are collated into array 'submissions_stuck'. If non-empty, this array is then looped
     # through to update them as 'failed' (in a database query), to then be resubmitted by a supplier (or not).
     submissions_stuck = Submission.joins(:task).where(
-      "aasm_state = 'processing' and submissions.updated_at < ? and tasks.status != 'completed'", Time.zone.now - 1.day) 
+      "aasm_state = 'processing' and submissions.updated_at < ? and tasks.status != 'completed'", Time.zone.now - 1.day
+    ) 
     submissions_stuck.each { |s| s.update!(aasm_state: :ingest_failed) } if submissions_stuck.length.positive?
   end
 
