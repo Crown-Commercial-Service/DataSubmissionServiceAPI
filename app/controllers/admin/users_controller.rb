@@ -2,13 +2,13 @@ class Admin::UsersController < AdminController
   def index
     @users = User.search(params[:search]).page(params[:page])
     
-    # The following block (Lines 8 to 13), will check for stuck submissions that have been in 'processing' for longer than 24hrs.
-    # These submissions are then collated into an array called 'submissions_stuck'. If it is non-empty, this array is then looped
+    # The following block (Lines 8 to 13), will check for stuck submissions in 'processing' longer than 24hrs.
+    # These submissions are collated into array 'submissions_stuck'. If non-empty, this array is then looped
     # through to update them as 'failed' (in a database query), to then be resubmitted by a supplier (or not).
     submissions_stuck = Submission.joins(:task).where(
       "aasm_state = 'processing' and submissions.updated_at < ? and tasks.status != 'completed'", Time.zone.now - 1.day
     )
-    if submissions_stuck.length() > 0
+    if submissions_stuck.length().positive?
       submissions_stuck.each { |s| s.update!(aasm_state: :ingest_failed) }
     end
 
