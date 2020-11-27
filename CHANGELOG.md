@@ -2,6 +2,10 @@
 
 ## [release-111] - 2020-11-24
 
+- Fix: ensure invalid dates trigger error message
+
+## [release-111] - 2020-11-24
+
 - RMI-275: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
 
 ## [release-110] - 2020-11-11

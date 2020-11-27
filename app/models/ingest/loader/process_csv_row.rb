@@ -37,7 +37,7 @@ module Ingest
         date_fields.each do |field|
           next if row[field].blank?
 
-          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y') if valid_iso8601_date?(row[field])
+          row[field] = Date.parse(row[field]).strftime('%d/%m/%Y') if valid_date?(row[field])
           row[field] = (Date.new(1899, 12, 30) + row[field].to_i.days).strftime('%d/%m/%Y') if valid_float?(row[field])
         end
 
@@ -77,8 +77,8 @@ module Ingest
         false
       end
 
-      def valid_iso8601_date?(value)
-        !!Date.iso8601(value)
+      def valid_date?(value)
+        !!Date.iso8601(value) && value.match(/\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)
       rescue ArgumentError
         false
       end
