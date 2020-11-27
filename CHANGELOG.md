@@ -2,6 +2,10 @@
 
 ## [release-111] - 2020-11-26
 
+- Fix: ensure invalid dates trigger error message
+
+## [release-111] - 2020-11-24
+
 - RMI-275: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
 - RMI-243: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method. Also add conditional and comment.
 
