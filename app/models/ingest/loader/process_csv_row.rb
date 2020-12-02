@@ -72,7 +72,9 @@ module Ingest
       end
 
       def valid_float?(value)
-        return false if value.match(/E/)
+        # rubocop:disable AllCops
+        return false if value.match?(/E/)
+        # rubocop:enable AllCops
         !!Float(value)
       rescue ArgumentError
         false
