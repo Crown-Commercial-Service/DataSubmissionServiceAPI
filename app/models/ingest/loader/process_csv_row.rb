@@ -72,7 +72,7 @@ module Ingest
       end
 
       def valid_float?(value)
-        return false if value.include? "E"
+        return false if value.match(/E/)
         !!Float(value)
       rescue ArgumentError
         false
