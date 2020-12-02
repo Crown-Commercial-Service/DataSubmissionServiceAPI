@@ -67,7 +67,7 @@ module Ingest
 
       def convert_numbers(row)
         row.each do |field, value|
-          row[field] = convert_number(value) if valid_float?(value)
+          row[field] = convert_number(value) if valid_float?(value) && !value.to_s.match(/E/)
         end
       end
 
@@ -78,7 +78,7 @@ module Ingest
       end
 
       def valid_date?(value)
-        !!Date.iso8601(value) && value.match(/\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/) && !value.match(/E/)
+        !!Date.iso8601(value) && value.match(/\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)
       rescue ArgumentError
         false
       end
