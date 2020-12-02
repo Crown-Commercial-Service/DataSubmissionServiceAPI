@@ -67,7 +67,7 @@ module Ingest
 
       def convert_numbers(row)
         row.each do |field, value|
-          row[field] = convert_number(value) if valid_float?(value)
+          row[field] = convert_number(value) if valid_float?(value) && !value.to_s.match(/E/)
         end
       end
 
