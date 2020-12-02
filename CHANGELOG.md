@@ -1,13 +1,14 @@
 # Change Log
 
+## [release-111] - 2020-12-10
+
+- RMI-12: Fix: If ingested document contains a field with 'E' in (e.g. 705E01510602), it is not converted to number, which causes a stuck submission.
+
 ## [release-111] - 2020-11-26
 
 - Fix: ensure invalid dates trigger error message
-
-## [release-111] - 2020-11-24
-
-- RMI-275: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
-- RMI-243: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method. Also add conditional and comment.
+- RMI-275: Fix: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
+- RMI-243: Feature: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method. Also add conditional and comment.
 
 ## [release-110] - 2020-11-11
 
