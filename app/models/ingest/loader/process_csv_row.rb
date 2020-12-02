@@ -67,14 +67,11 @@ module Ingest
 
       def convert_numbers(row)
         row.each do |field, value|
-          row[field] = convert_number(value) if valid_float?(value)
+          row[field] = convert_number(value) if valid_float?(value) && !value.match(/E/)
         end
       end
 
       def valid_float?(value)
-        # rubocop:disable AllCops
-        return false if value.match?(/E/)
-        # rubocop:enable AllCops
         !!Float(value)
       rescue ArgumentError
         false
