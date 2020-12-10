@@ -96,12 +96,10 @@ RSpec.describe Framework do
         FDL
       end
 
+      it { is_expected.to be true }
+
       it 'has updated its name' do
         expect(existing_framework.reload.name).to eql('Changed successfully')
-      end
-
-      it 'loads the lots into the database' do
-        expect(existing_framework.lots.find_by(number: '99', description: 'Fake')).to be_a(FrameworkLot)
       end
     end
 

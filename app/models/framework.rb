@@ -59,7 +59,6 @@ class Framework < ApplicationRecord
         name: generator.definition.framework_name,
         short_name: generator.definition.framework_short_name
       )
-      load_lots!
     else
       # Hand over to the validator
       update(definition_source: definition_source)
