@@ -1,13 +1,12 @@
 # Change Log
 
-## [release-112] - 2020-12-10
+## [release-111] - 2020-12-10
 
 - RMI-12: Fix: If ingested document contains a field with 'E' in (e.g. 705E01510602), it is not converted to number, which causes a stuck submission.
-- Fix: ensure invalid dates trigger error message.
-- Fix: ensure edits to FDL 'lots' blocks are reflected in db.
 
 ## [release-111] - 2020-11-26
 
+- Fix: ensure invalid dates trigger error message
 - RMI-275: Fix: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
 - RMI-243: Feature: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method. Also add conditional and comment.
 
@@ -29,7 +28,7 @@
 
 - Update Travis credentials, from dxw to ccs (password & username).
 
-## [release-107] - 2020-09-22
+## [release 107] - 2020-09-22
 
 - Bump csvkit version from 1.0.4 to 1.0.5
 - Missed excel validations now raise error
@@ -752,9 +751,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
-[release-112]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-111...release-112
-[release-111]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-110...release-111
-[release-110]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-109...release-110
+[release-109]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-109...release-110
 [release-109]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-108...release-109
 [release-108]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-107...release-108
 [release-107]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-106...release-107
