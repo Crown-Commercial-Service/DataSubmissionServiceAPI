@@ -90,6 +90,6 @@ class Framework < ApplicationRecord
     fdl_lots = generator.definition.lots || {}
     old_lots = lots.reject { |lot| fdl_lots.key? lot.number }
 
-    old_lots.any?(&:has_active_agreement?)
+    old_lots.any?(&:active_agreement?)
   end
 end
