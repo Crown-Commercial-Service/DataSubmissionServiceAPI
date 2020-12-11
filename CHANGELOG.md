@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-113] - 2020-12-24
+
+- RMI-25: Updating 'Lots' block in FDL now reflecting in database. Removing lots with active agreements triggers an alert.
+
 ## [release-112] - 2020-12-10
 
 - RMI-12: Fix: If ingested document contains a field with 'E' in (e.g. 705E01510602), it is not converted to number, which causes a stuck submission.
@@ -752,6 +756,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-113]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-112...release-113
 [release-112]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-111...release-112
 [release-111]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-110...release-111
 [release-110]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-109...release-110
