@@ -1,5 +1,6 @@
 # Change Log
 
+
 ## [release-113] - 2020-12-24
 
 - RMI-25: Updating 'Lots' block in FDL now reflecting in database. Removing lots with active agreements triggers an alert.
@@ -7,11 +8,10 @@
 ## [release-112] - 2020-12-10
 
 - RMI-12: Fix: If ingested document contains a field with 'E' in (e.g. 705E01510602), it is not converted to number, which causes a stuck submission.
-- Fix: ensure invalid dates trigger error message.
-- Fix: ensure edits to FDL 'lots' blocks are reflected in db.
 
 ## [release-111] - 2020-11-26
 
+- Fix: ensure invalid dates trigger error message
 - RMI-275: Fix: Add to travis.yml and deploy-app.sh to accomodate and add Preproduction to the Travis/Github infrastructure.
 - RMI-243: Feature: Add auto-fail ingestions stuck in processing after 24hrs feature, inside the users_controller.rb file, index method. Also add conditional and comment.
 
@@ -33,7 +33,7 @@
 
 - Update Travis credentials, from dxw to ccs (password & username).
 
-## [release-107] - 2020-09-22
+## [release 107] - 2020-09-22
 
 - Bump csvkit version from 1.0.4 to 1.0.5
 - Missed excel validations now raise error
