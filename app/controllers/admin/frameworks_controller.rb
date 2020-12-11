@@ -53,6 +53,10 @@ class Admin::FrameworksController < AdminController
   end
 
   def update_fdl
+    if @framework.published?
+      return redirect_to admin_framework_path, alert: 'Please ensure all suppliers are offboarded from Lots that are to be deleted.' if @framework.lot_has_suppliers_onboarded?(framework_params[:definition_source])
+    end
+
     if @framework.update_from_fdl(framework_params[:definition_source])
       flash[:success] = 'Framework saved successfully.'
       redirect_to admin_framework_path(@framework)

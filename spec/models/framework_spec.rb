@@ -171,14 +171,6 @@ RSpec.describe Framework do
             expect(subject.lots.find_by(number: '3')).to eq(nil)
           end
         end
-
-        context 'that has agreements against it' do
-          let!(:agreement_framework_lot) { create(:agreement_framework_lot, framework_lot: framework_lot) }
-
-          it 'raises an error' do
-            expect { subject.load_lots! }.to raise_error(ActiveRecord::InvalidForeignKey)
-          end
-        end
       end
     end
   end
@@ -190,7 +182,7 @@ RSpec.describe Framework do
       expect(framework.definition).to be_a(Class)
     end
 
-    it 'memoizes its result' do
+    it 'memorizes its result' do
       expect(framework.definition).to eq(framework.definition)
     end
   end
