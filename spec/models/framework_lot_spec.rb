@@ -29,14 +29,14 @@ RSpec.describe FrameworkLot do
       agreement = FactoryBot.create(:agreement, active: true)
       create(:agreement_framework_lot, framework_lot: framework_lot, agreement: agreement)
       
-      expect(framework_lot.has_active_agreement?).to be true
+      expect(framework_lot.active_agreement?).to be true
     end
 
     it 'returns false if there are no active agreements' do
       framework = FactoryBot.create(:framework, short_name: 'cboard8')
       framework_lot = FactoryBot.create(:framework_lot, framework: framework, number: '1a')
 
-      expect(framework_lot.has_active_agreement?).to be false
+      expect(framework_lot.active_agreement?).to be false
     end
   end
 end
