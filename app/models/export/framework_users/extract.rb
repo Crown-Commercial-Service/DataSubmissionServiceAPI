@@ -13,7 +13,11 @@ module Export
             users.name                      AS _user_name,
             users.email                     AS _user_email
           POSTGRESQL
-        ).joins(suppliers: :agreements).merge(Agreement.where(framework_id: framework.id))
+        ).where(
+          <<~POSTGRESQL 
+          auth_id LIKE 'auth0|%' 
+          POSTGRESQL
+          ).joins(suppliers: :agreements).merge(Agreement.where(framework_id: framework.id))
       end
     end
   end
