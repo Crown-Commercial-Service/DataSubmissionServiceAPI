@@ -14,10 +14,10 @@ module Export
             users.email                     AS _user_email
           POSTGRESQL
         ).where(
-          <<~POSTGRESQL 
-          auth_id LIKE 'auth0|%' 
+          <<~POSTGRESQL
+            auth_id LIKE 'auth0|%'
           POSTGRESQL
-          ).joins(suppliers: :agreements).merge(Agreement.where(framework_id: framework.id))
+        ).joins(suppliers: :agreements).merge(Agreement.where(framework_id: framework.id))
       end
     end
   end
