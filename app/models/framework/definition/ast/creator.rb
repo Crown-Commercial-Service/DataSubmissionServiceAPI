@@ -40,7 +40,7 @@ class Framework
           { kind: :additional, type: type, field: field.to_s, from: from }
         end
         rule(type_def: subtree(:type), field: simple(:field), from: subtree(:from), depends_on: subtree(:depends_on)) do
-          { kind: :additional, type: type, field: field.to_s, from: from.to_s, depends_on: depends_on }
+          { kind: :additional, type: type, field: field.to_s, from: from, depends_on: depends_on }
         end
 
         # Unknown fields rules
