@@ -4,7 +4,7 @@
 ## [release-113] - 2020-12-24
 
 - RMI-25: Updating 'Lots' block in FDL now reflecting in database. Removing lots with active agreements triggers an alert.
-- RMI-5: Fix: 'Additional' fields (not known fields), should now be transpiled correctly, and therefore ultimately ingested.
+- RMI-5: Fix: 'Additional' (not known) fields should now be transpiled correctly, when used with 'depends_on', and ultimately ingested.
 
 ## [release-112] - 2020-12-10
 
