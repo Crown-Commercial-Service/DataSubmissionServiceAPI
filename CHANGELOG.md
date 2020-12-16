@@ -1,9 +1,10 @@
 # Change Log
 
 
-## [release-113] - 2020-12-24
+## [release-113] - 2020-12-16
 
 - RMI-25: Updating 'Lots' block in FDL now reflecting in database. Removing lots with active agreements triggers an alert.
+- RMI-280: Excluded inactive users from "Download users on a framework" CSV export
 
 ## [release-112] - 2020-12-10
 
