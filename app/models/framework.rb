@@ -59,6 +59,7 @@ class Framework < ApplicationRecord
         name: generator.definition.framework_name,
         short_name: generator.definition.framework_short_name
       )
+      load_lots!
     else
       # Hand over to the validator
       update(definition_source: definition_source)
@@ -83,5 +84,13 @@ class Framework < ApplicationRecord
         lot.save!
       end
     end
+  end
+
+  def lot_has_suppliers_onboarded?(definition_source)
+    generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
+    fdl_lots = generator.definition.lots || {}
+    old_lots = lots.reject { |lot| fdl_lots.key? lot.number }
+
+    old_lots.any?(&:active_agreement?)
   end
 end
