@@ -19,6 +19,8 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       expect(response.body).to include(admin_notify_download_path(:overdue))
       expect(response.body).to include('Management information is late')
       expect(response.body).to include(admin_notify_download_path(:late))
+      expect(response.body).to include('Management information submission is unfinished')
+      expect(response.body).to include(admin_notify_download_path(:unfinished))
     end
   end
 
@@ -101,6 +103,54 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       expect(response.body).to include 'User A'
       expect(response.body).to include ',February 2018,'
       expect(response.body).to include ',7 March 2018,'
+    end
+  end
+
+  describe '#show when there are unfinished submissions' do
+    let(:reporting_period_A) { Date.new(2019, 2, 1) }
+    let(:reporting_period_B) { Date.new(2019, 3, 1) }
+    let(:due_date_A) { reporting_period_A + 1.month + 7.days }
+    let(:due_date_B) { reporting_period_B + 1.month + 7.days }
+    let(:download_date) { due_date_B + 1.day }
+
+    around do |example|
+      travel_to download_date do
+        example.run
+      end
+    end
+
+    before do
+      user = FactoryBot.create(:user, name: 'User A')
+      supplier = FactoryBot.create(:supplier, name: 'Supplier A')
+
+      FactoryBot.create :membership, user: user, supplier: supplier
+      task_A = FactoryBot.create(
+        :task,
+        supplier: supplier,
+        period_month: reporting_period_A.month,
+        period_year: reporting_period_A.year,
+        due_on: due_date_A
+      )
+      task_B = FactoryBot.create(
+        :task,
+        supplier: supplier,
+        period_month: reporting_period_B.month,
+        period_year: reporting_period_B.year,
+        due_on: due_date_B
+      )
+      FactoryBot.create(:submission_with_invalid_entries, supplier: supplier, task: task_A)
+      FactoryBot.create(:submission_with_validated_entries, supplier: supplier, task: task_B)
+    end
+
+    it 'returns an "unfinished" notifications CSV file, with today’s date in the filename' do
+      get admin_notify_download_path(:unfinished)
+
+      expect(response).to be_successful
+      expect(response.header['Content-Type']).to include 'text/csv'
+      expect(response.header['Content-Disposition']).to eq 'attachment; filename="unfinished_notifications-2019-04-09.csv"'
+      expect(response.body).to include 'email address,person_name,supplier_name,task_name,task_status'
+      expect(response.body).to include 'February 2019,validation_failed'
+      expect(response.body).to include 'March 2019,in_review'
     end
   end
 

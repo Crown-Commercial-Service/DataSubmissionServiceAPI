@@ -26,6 +26,8 @@ class Admin::NotifyDownloadsController < AdminController
       Task::OverdueUserNotificationList.new(month: latest_period.month, year: latest_period.year, output: file)
     when 'due'
       Task::AnticipatedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
+    when 'unfinished'
+      Task::UnfinishedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
     end
   end
 
@@ -38,6 +40,6 @@ class Admin::NotifyDownloadsController < AdminController
   end
 
   def catch_unrecognised_download
-    head(:not_found) unless %w[due late overdue].include?(params[:id])
+    head(:not_found) unless %w[due late overdue unfinished].include?(params[:id])
   end
 end
