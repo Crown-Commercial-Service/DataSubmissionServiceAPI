@@ -57,13 +57,11 @@ class Task
     end
 
     def suppliers
-      # rubocop:disable Metrics/LineLength
-      Supplier.includes(:active_users, :submissions).joins(:submissions).merge(unfinished_submissions_relation).distinct
-      # rubocop:enable Metrics/LineLength
+      Supplier.includes(:active_users, :submissions).joins(:submissions).merge(unfinished_submissions).distinct
     end
 
-    def unfinished_submissions_relation
-      @unfinished_submissions_relation ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
+    def unfinished_submissions
+      @unfinished_submissions ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
     end
   end
 end
