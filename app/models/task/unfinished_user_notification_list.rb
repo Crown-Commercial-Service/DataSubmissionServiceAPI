@@ -22,7 +22,7 @@ class Task
     delegate :info, :warn, to: :logger
 
     def generate
-      logger.info "Generating contacts with unfinished submissions."
+      logger.info 'Generating contacts with unfinished submissions.'
 
       output.puts(CSV.generate_line(HEADER))
 
