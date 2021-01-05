@@ -82,6 +82,7 @@ Metrics/LineLength:
     Max: 120
     Exclude:
         - 'app/models/framework/definition/**/*'
+        - 'app/models/task/unfinished_user_notification_list.rb'
 
 Metrics/BlockLength:
     Max: 40

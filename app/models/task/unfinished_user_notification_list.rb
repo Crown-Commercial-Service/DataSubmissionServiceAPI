@@ -50,15 +50,15 @@ class Task
     end
 
     def validation_failed?(submission)
-        submission.aasm_state.to_s == 'validation_failed'? 'y' : 'n'
+      submission.aasm_state.to_s == 'validation_failed' ? 'y' : 'n'
     end
 
     def ingest_failed?(submission)
-        submission.aasm_state.to_s == 'ingest_failed'? 'y' : 'n'
+      submission.aasm_state.to_s == 'ingest_failed' ? 'y' : 'n'
     end
 
     def in_review?(submission)
-        submission.aasm_state.to_s == 'in_review'? 'y' : 'n'
+      submission.aasm_state.to_s == 'in_review' ? 'y' : 'n'
     end
 
     def suppliers
