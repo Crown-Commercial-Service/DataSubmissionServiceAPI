@@ -138,8 +138,8 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
         period_year: reporting_period_b.year,
         due_on: due_date_b
       )
-      FactoryBot.create(:submission_with_invalid_entries, supplier: supplier, task: task_a)
-      FactoryBot.create(:submission_with_validated_entries, supplier: supplier, task: task_b)
+      FactoryBot.create(:submission_with_invalid_entries, supplier: supplier, task: task_a, created_by: user)
+      FactoryBot.create(:submission_with_validated_entries, supplier: supplier, task: task_b, created_by: user)
     end
 
     it 'returns an "unfinished" notifications CSV file, with today’s date in the filename' do
