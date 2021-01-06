@@ -23,12 +23,8 @@ class Task
 
       output.puts(CSV.generate_line(HEADER))
 
-      suppliers.each do |supplier|
-        supplier.active_users.each do |user|
-          user.submissions.each do |submission|
-            output.puts csv_line_for(user, supplier, submission)
-          end
-        end
+      unfinished_submissions.each do |submission|
+        output.puts csv_line_for(submission.created_by, submission.supplier, submission)
       end
     end
 
@@ -59,10 +55,6 @@ class Task
 
     def in_review?(submission)
       submission.aasm_state.to_s == 'in_review' ? 'y' : 'n'
-    end
-
-    def suppliers
-      Supplier.includes(:active_users, :submissions).joins(:submissions).merge(unfinished_submissions).distinct
     end
 
     def unfinished_submissions
