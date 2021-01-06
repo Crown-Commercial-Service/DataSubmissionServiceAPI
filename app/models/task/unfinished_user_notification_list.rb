@@ -2,19 +2,16 @@ require 'csv'
 
 class Task
   # Used to generate a 'unfinished' CSV for all users
-  # of suppliers with unfinished submissions in the
-  # given year/month period, due to ingest or validation
-  # failure, or still being in review. Outputs via +puts+
+  # of suppliers with unfinished submissions, due to ingest
+  # or validation failure, or still being in review. Outputs via +puts+
   # objects that respond_to? it (+STDOUT+ or +File+ being usual)
   class UnfinishedUserNotificationList
-    HEADER = ['email address', 'person_name', 'supplier_name', 'task_name', 'task_status'].freeze
     UNFINISHED_STATUSES = ['validation_failed', 'ingest_failed', 'in_review'].freeze
+    HEADER = ['email address', 'person_name', 'supplier_name', 'task_name'] + UNFINISHED_STATUSES.freeze
 
-    attr_reader :logger, :output, :month, :year
+    attr_reader :logger, :output
 
-    def initialize(month:, year:, output: STDOUT, logger: Rails.logger)
-      @month = month
-      @year = year
+    def initialize(output: STDOUT, logger: Rails.logger)
       @output = output
       @logger = logger
     end
@@ -39,7 +36,7 @@ class Task
 
     def csv_line_for(user, supplier, submission)
       CSV.generate_line(
-        [user.email, user.name, supplier.name, task_name(submission), task_status(submission)]
+        [user.email, user.name, supplier.name, task_name(submission), validation_failed?(submission), ingest_failed?(submission), in_review?(submission)]
       )
     end
 
@@ -52,8 +49,16 @@ class Task
       "#{task.framework.short_name} - #{task.framework.name} - #{task_month_and_year(task)}"
     end
 
-    def task_status(submission)
-      submission.aasm_state.to_s
+    def validation_failed?(submission)
+      submission.aasm_state.to_s == 'validation_failed' ? 'y' : 'n'
+    end
+
+    def ingest_failed?(submission)
+      submission.aasm_state.to_s == 'ingest_failed' ? 'y' : 'n'
+    end
+
+    def in_review?(submission)
+      submission.aasm_state.to_s == 'in_review' ? 'y' : 'n'
     end
 
     def suppliers
