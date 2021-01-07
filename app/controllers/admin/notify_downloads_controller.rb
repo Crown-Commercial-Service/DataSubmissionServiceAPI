@@ -27,7 +27,7 @@ class Admin::NotifyDownloadsController < AdminController
     when 'due'
       Task::AnticipatedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
     when 'unfinished'
-      Task::UnfinishedUserNotificationList.new(output: file)
+      Task::UnfinishedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
     end
   end
 
