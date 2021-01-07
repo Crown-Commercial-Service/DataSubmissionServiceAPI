@@ -1,5 +1,8 @@
 # Change Log
 
+## [release-114] - 2021-01-07
+
+- RMI-5: Fix: 'Additional' (not known) fields should now be transpiled correctly, when used with 'depends_on', and ultimately ingested.
 
 ## [release-113] - 2020-12-16
 
