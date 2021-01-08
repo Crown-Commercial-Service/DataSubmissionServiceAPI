@@ -24,7 +24,9 @@ class Task
       output.puts(CSV.generate_line(HEADER))
 
       unfinished_submissions.each do |submission|
-        output.puts csv_line_for(submission.created_by, submission.supplier, submission)
+        submission.supplier.active_users.each do |user|
+          output.puts csv_line_for(user, submission.supplier, submission)
+        end
       end
     end
 
