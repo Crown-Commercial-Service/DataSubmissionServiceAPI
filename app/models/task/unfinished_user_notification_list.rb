@@ -60,7 +60,7 @@ class Task
     end
 
     def unfinished_submissions_relation
-      @unfinished_submissions ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
+      @unfinished_submissions_relation ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
     end
 
     def tasks_with_unfinished_submissions
