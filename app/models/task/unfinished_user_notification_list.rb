@@ -23,8 +23,10 @@ class Task
 
       output.puts(CSV.generate_line(HEADER))
 
-      unfinished_submissions.each do |submission|
-        output.puts csv_line_for(submission.created_by, submission.supplier, submission)
+      tasks_with_unfinished_submissions.each do |task|
+        task.supplier.active_users.each do |user|
+          output.puts csv_line_for(user, task.supplier, task.latest_submission)
+        end
       end
     end
 
@@ -57,8 +59,12 @@ class Task
       submission.aasm_state.to_s == 'in_review' ? 'y' : 'n'
     end
 
-    def unfinished_submissions
-      @unfinished_submissions ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
+    def unfinished_submissions_relation
+      @unfinished_submissions_relation ||= Submission.where(aasm_state: UNFINISHED_STATUSES)
+    end
+
+    def tasks_with_unfinished_submissions
+      Task.incomplete.includes(:submissions).joins(:submissions).merge(unfinished_submissions_relation)
     end
   end
 end
