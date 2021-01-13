@@ -150,11 +150,11 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
       expect(response.header['Content-Disposition'])
         .to eq 'attachment; filename="unfinished_notifications-2019-04-09.csv"'
       expect(response.body)
-        .to include 'email address,person_name,supplier_name,task_name'
+        .to include 'email address,task_period,person_name,supplier_name,task_name'
       expect(response.body)
         .to include 'validation_failed,ingest_failed,in_review'
-      expect(response.body).to include 'February 2019,y,n,n'
-      expect(response.body).to include 'March 2019,n,n,y'
+      expect(response.body).to include 'February 2019,09/04/2019,y,n,n'
+      expect(response.body).to include 'March 2019,09/04/2019,n,n,y'
     end
   end
 
