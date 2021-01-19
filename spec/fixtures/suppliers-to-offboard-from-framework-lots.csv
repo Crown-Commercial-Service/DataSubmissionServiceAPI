@@ -1,2 +1,2 @@
-framework_short_name,lot_number,salesforce_id,supplier_name,coda_reference
-FM1234,2a,001b000003FAKEFAKE,Aardvark (UK) Ltd,C099999
+framework_short_name,lot_number,salesforce_id,supplier_name
+FM1234,2a,001b000003FAKEFAKE,Aardvark (UK) Ltd

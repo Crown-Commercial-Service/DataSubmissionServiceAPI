@@ -1,6 +1,6 @@
-framework_short_name,lot_number,salesforce_id,supplier_name,coda_reference
-FM1234,1,001b000003FAKEFAKE,Aardvark (UK) Ltd,C099999
-FM1234,2b,001b000003FAKEFAKE,Aardvark (UK) Ltd,C099999
-FM9999iv,3,001b000003FAKEFAKE,Aardvark (UK) Ltd,C099999
-FM9999iv,2,0010N00004FAKEFAKE,eyx Digital,C088888
-FM9999iv,3,,eyx Digital,C088888
+framework_short_name,lot_number,salesforce_id,supplier_name
+FM1234,1,001b000003FAKEFAKE,Aardvark (UK) Ltd
+FM1234,2b,001b000003FAKEFAKE,Aardvark (UK) Ltd
+FM9999iv,3,001b000003FAKEFAKE,Aardvark (UK) Ltd
+FM9999iv,2,0010N00004FAKEFAKE,eyx Digital
+FM9999iv,3,,eyx Digital

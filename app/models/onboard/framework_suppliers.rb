@@ -8,7 +8,6 @@ require 'csv'
 #   lot_number            - the lot number the supplier should have access to
 #   supplier_name         - the name of the supplier
 #   salesforce_id         - the Salesforce ID for the supplier
-#   coda_reference        - the Coda reference for the supplier
 #
 # For each row in the CSV, the following will happen:
 #
@@ -24,7 +23,7 @@ require 'csv'
 #
 module Onboard
   class FrameworkSuppliers
-    EXPECTED_HEADERS = %I[framework_short_name lot_number supplier_name salesforce_id coda_reference].freeze
+    EXPECTED_HEADERS = %I[framework_short_name lot_number supplier_name salesforce_id].freeze
 
     attr_reader :logger, :wait_time
 

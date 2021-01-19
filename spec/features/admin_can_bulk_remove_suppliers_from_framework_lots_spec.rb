@@ -4,7 +4,6 @@ RSpec.feature 'Admin can bulk remove suppliers from lots' do
   let!(:supplier) do
     supplier = create(:supplier,
                       name: 'Aardvark (UK) Ltd',
-                      coda_reference: 'C099999',
                       salesforce_id: '001b000003FAKEFAKE')
 
     agreement = supplier.agreements.create!(framework: fm1234)
@@ -46,7 +45,6 @@ RSpec.feature 'Admin can bulk remove suppliers from lots' do
       aardvark = Supplier.find_by(name: 'Aardvark (UK) Ltd')
       aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
 
-      expect(aardvark.coda_reference).to eql 'C099999'
       expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
       expect(aardvark_fm1234_lots).to match_array %w[1]
     end

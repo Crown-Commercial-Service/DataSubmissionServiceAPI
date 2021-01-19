@@ -7,10 +7,6 @@ class Framework < ApplicationRecord
 
   validates :name, :definition_source, presence: true
   validates :short_name, presence: true, uniqueness: true
-  validates :coda_reference, allow_nil: true, format: {
-    with: /\A40\d{4}\z/,
-    message: 'must start with “40” and have four additional numbers, for example: “401234”'
-  }
 
   validates :definition_source, fdl: true, allow_nil: true
 
