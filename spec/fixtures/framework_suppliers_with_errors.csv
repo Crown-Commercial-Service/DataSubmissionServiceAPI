@@ -1,4 +1,4 @@
 framework_short_name,lot_number,supplier_name,salesforce_id
 RM123,1,Big Dog Limited,SF123
 RM123,2,Big Dog Limited,SF123
-RM123,1,Bad Cat Limited,SF456
+RM123,1,Bad Cat Limited,BAD_SALESFORCE_ID
