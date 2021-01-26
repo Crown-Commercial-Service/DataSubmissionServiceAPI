@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-115] - 2021-01-21
+
+- RMI-281: Added a new Notify download for unfinished submissions
+
 ## [release-114] - 2021-01-07
 
 - RMI-5: Fix: 'Additional' (not known) fields should now be transpiled correctly, when used with 'depends_on', and ultimately ingested.
@@ -760,6 +764,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-115]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-114...release-115
+[release-114]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-113...release-114
 [release-113]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-112...release-113
 [release-112]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-111...release-112
 [release-111]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-110...release-111
