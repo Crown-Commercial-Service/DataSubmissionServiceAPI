@@ -37,7 +37,6 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
       aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
       aardvark_fm9999_lots = aardvark.agreements.find_by(framework: fm9999).framework_lots.pluck(:number)
 
-      expect(aardvark.coda_reference).to eql 'C099999'
       expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
       expect(aardvark_fm1234_lots).to match_array %w[1 2b]
       expect(aardvark_fm9999_lots).to match_array %w[3]
@@ -46,7 +45,6 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
       eyx_digital_fm1234 = eyx_digital.agreements.find_by(framework: fm1234)
       eyx_digital_fm9999_lots = eyx_digital.agreements.find_by(framework: fm9999).framework_lots.pluck(:number)
 
-      expect(eyx_digital.coda_reference).to eql 'C088888'
       expect(eyx_digital.salesforce_id).to eql '0010N00004FAKEFAKE'
       expect(eyx_digital_fm1234).to be_nil
       expect(eyx_digital_fm9999_lots).to match_array %w[2 3]
@@ -58,7 +56,6 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
       create(
         :supplier,
         name: 'Aardvark (UK) Ltd',
-        coda_reference: 'C099999',
         salesforce_id: '001b000003FAKEFAKE'
       ) do |supplier|
         supplier.agreements.create!(framework: fm1234, active: false)
@@ -80,7 +77,6 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
       aardvark_fm1234_lots = aardvark.agreements.find_by(framework: fm1234).framework_lots.pluck(:number)
       aardvark_fm9999_lots = aardvark.agreements.find_by(framework: fm9999).framework_lots.pluck(:number)
 
-      expect(aardvark.coda_reference).to eql 'C099999'
       expect(aardvark.salesforce_id).to eql '001b000003FAKEFAKE'
       expect(aardvark_fm1234_lots).to match_array %w[1 2b]
       expect(aardvark_fm9999_lots).to match_array %w[3]

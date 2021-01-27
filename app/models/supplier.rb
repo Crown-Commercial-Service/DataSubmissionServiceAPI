@@ -11,10 +11,6 @@ class Supplier < ApplicationRecord
 
   validates :name, presence: true
   validates :salesforce_id, presence: true
-  validates :coda_reference, allow_blank: true, format: {
-    with: /\AC0\d{4,5}\z/,
-    message: 'must start with “C0” and have 4-5 additional numbers, for example: “C012345”'
-  }
 
   scope :excluding, ->(suppliers) { where.not(id: suppliers) }
 

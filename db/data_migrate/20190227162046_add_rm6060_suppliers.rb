@@ -12,7 +12,6 @@ framework = Framework.find_by!(short_name: 'RM6060')
 
 csv.each do |row|
   supplier = Supplier.find_or_create_by!(salesforce_id: row.fetch(:salesforce_id)) do |s|
-    s.coda_reference = row.fetch(:coda_reference)
     s.name = row.fetch(:supplier_name)
   end
 

@@ -1,4 +1,4 @@
-# Set the coda reference and lot details for RM1043.5
+# Set the lot details for RM1043.5
 #
 # Execute with:
 #
