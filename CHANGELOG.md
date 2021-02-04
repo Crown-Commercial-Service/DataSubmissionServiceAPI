@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-116] - 2021-02-04
+
+- RMI-38: Remove Coda References
+
 ## [release-115] - 2021-01-21
 
 - RMI-281: Added a new Notify download for unfinished submissions
