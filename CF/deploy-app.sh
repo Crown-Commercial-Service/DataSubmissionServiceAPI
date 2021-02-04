@@ -37,7 +37,7 @@ SIDEKIQ_INGEST_DISK_QUOTA="4G"
 
 SCRIPT_PATH="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-CF_API_ENDPOINT="https://api.london.cloud.service.gov.uk"
+CF_API_ENDPOINT="https://api.london.cloud.service.gov.uk/v2"
 
 while getopts "a:u:p:o:s:h:f" opt; do
   case $opt in
