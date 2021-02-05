@@ -45,8 +45,6 @@ before_deploy:
   - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
   - sudo apt-get update -qq
   - sudo apt-get install cf7-cli
-  # - cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
-  # - cf install-plugin blue-green-deploy -f -r CF-Community
 deploy:
   - provider: script
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s staging
