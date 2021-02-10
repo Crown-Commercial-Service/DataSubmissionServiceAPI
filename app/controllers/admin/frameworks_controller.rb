@@ -73,7 +73,7 @@ class Admin::FrameworksController < AdminController
   end
 
   def download_template
-    resp = s3_client.get_object( bucket: bucket, key: @framework.file_key)
+    resp = s3_client.get_object(bucket: bucket, key: @framework.file_key)
     send_data resp.body.read, filename: "#{@framework.full_name} Template#{File.extname(@framework.file_name.to_s)}"
   end
 
