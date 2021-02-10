@@ -1,5 +1,5 @@
 class Admin::FrameworksController < AdminController
-  before_action :find_framework, only: %i[show edit update update_fdl publish]
+  before_action :find_framework, only: %i[show edit update update_fdl publish download_template]
   before_action :prevent_republish, only: :publish
 
   def index
@@ -72,6 +72,11 @@ class Admin::FrameworksController < AdminController
     redirect_to admin_framework_path(@framework)
   end
 
+  def download_template
+    resp = s3_client.get_object(bucket: bucket, key: @framework.file_key)
+    send_data resp.body.read, filename: "#{@framework.full_name} Template#{File.extname(@framework.file_name.to_s)}"
+  end
+
   private
 
   def find_framework
@@ -93,5 +98,13 @@ class Admin::FrameworksController < AdminController
     file_extension = File.extname(uploaded_file.original_filename)
 
     ['.xls', '.xlsx'].include?(file_extension)
+  end
+
+  def s3_client
+    @s3_client ||= Aws::S3::Client.new(region: ENV['AWS_S3_REGION'])
+  end
+
+  def bucket
+    ENV.fetch('AWS_S3_BUCKET')
   end
 end

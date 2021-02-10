@@ -14,7 +14,7 @@
           = link_to 'Download suppliers/lots (CSV)', lots_admin_framework_reports_path(@framework)
         %li.govuk-page-actions--action
           - if @framework.template_file.attached?
-            = link_to 'Download template (excel document)', rails_blob_path(@framework.template_file, disposition: "attachment"), {'aria-label' => "Download excel document template for #{@framework.short_name} #{@framework.name}"}
+            = link_to 'Download template (excel document)', download_template_admin_framework_path(@framework, disposition: "attachment"), {'aria-label' => "Download excel document template for #{@framework.short_name} #{@framework.name}"}
 
 .govuk-grid-row
   .govuk-grid-column-full

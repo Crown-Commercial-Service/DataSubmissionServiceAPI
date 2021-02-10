@@ -108,6 +108,7 @@ Rails.application.routes.draw do
       member do
         patch :update_fdl
         patch :publish
+        get :download_template
       end
     end
 
