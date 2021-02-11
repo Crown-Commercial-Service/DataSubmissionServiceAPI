@@ -25,6 +25,6 @@ class Admin::SuppliersController < AdminController
   private
 
   def supplier_params
-    params.require(:supplier).permit(:name, :salesforce_id, :coda_reference)
+    params.require(:supplier).permit(:name, :salesforce_id)
   end
 end

@@ -45,8 +45,8 @@ NEW_FRAMEWORK_DATA = [
   ['RM1557viii', 400116, 'G-Cloud 8', OLD_GCLOUD_LOTS]
 ].freeze
 
-NEW_FRAMEWORK_DATA.each do |short_name, coda_reference, name, lots|
-  framework = Framework.create!(short_name: short_name, coda_reference: coda_reference, name: name)
+NEW_FRAMEWORK_DATA.each do |short_name, name, lots|
+  framework = Framework.create!(short_name: short_name, name: name)
 
   lots.each_pair do |number, description|
     framework.lots.create!(number: number, description: description)

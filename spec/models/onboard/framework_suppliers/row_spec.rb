@@ -8,7 +8,6 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
     let(:lot_number) { lot_1.number }
     let(:supplier_name) { 'Big Dog Limited' }
     let(:salesforce_id) { 'salesforce123' }
-    let(:coda_reference) { 'C012345' }
 
     subject(:row) do
       Onboard::FrameworkSuppliers::Row.new(
@@ -16,7 +15,6 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
         lot_number: lot_number,
         supplier_name: supplier_name,
         salesforce_id: salesforce_id,
-        coda_reference: coda_reference,
       )
     end
 
@@ -28,7 +26,6 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
         expect(supplier).to be_persisted
         expect(supplier.name).to eq supplier_name
         expect(supplier.salesforce_id).to eq salesforce_id
-        expect(supplier.coda_reference).to eq coda_reference
       end
 
       it 'creates an active agreement for the supplier and associates it with the lot' do

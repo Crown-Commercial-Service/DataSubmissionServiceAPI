@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-116] - 2021-02-11
+
+- RMI-38: Remove Coda References
+- RMI-31: Access MI templates through link, on the FDL framework page.
+- RMI-301: Refactor deploy script and add rolling deployment for fix zero downtime deploy.
+
 ## [release-115] - 2021-01-21
 
 - RMI-281: Added a new Notify download for unfinished submissions

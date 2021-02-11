@@ -7,13 +7,11 @@ RSpec.describe Offboard::DeactivateSuppliers::Row do
 
     let(:supplier_name) { 'Big Dog Limited' }
     let(:salesforce_id) { 'salesforce123' }
-    let(:coda_reference) { 'C012345' }
 
     let!(:supplier) do
       supplier = create(:supplier,
                         name: supplier_name,
-                        salesforce_id: salesforce_id,
-                        coda_reference: coda_reference)
+                        salesforce_id: salesforce_id)
 
       supplier.agreements.create!(framework: framework)
 
@@ -25,7 +23,6 @@ RSpec.describe Offboard::DeactivateSuppliers::Row do
         framework_short_name: framework_short_name,
         supplier_name: supplier_name,
         salesforce_id: salesforce_id,
-        coda_reference: coda_reference,
       )
     end
 

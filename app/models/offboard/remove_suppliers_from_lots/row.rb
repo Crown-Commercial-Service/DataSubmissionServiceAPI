@@ -1,12 +1,11 @@
 module Offboard
   class RemoveSuppliersFromLots
     class Row
-      attr_reader :supplier_name, :salesforce_id, :coda_reference, :framework_short_name, :lot_number
+      attr_reader :supplier_name, :salesforce_id, :framework_short_name, :lot_number
 
-      def initialize(supplier_name:, salesforce_id:, coda_reference:, framework_short_name:, lot_number:)
+      def initialize(supplier_name:, salesforce_id:, framework_short_name:, lot_number:)
         @supplier_name = supplier_name
         @salesforce_id = salesforce_id
-        @coda_reference = coda_reference
         @framework_short_name = framework_short_name
         @lot_number = lot_number
       end

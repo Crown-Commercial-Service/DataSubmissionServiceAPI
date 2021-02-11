@@ -6,8 +6,7 @@ exit if Framework.exists?(short_name: 'RM6060')
 
 rm6060 = Framework.create!(
   short_name: 'RM6060',
-  name: 'Vehicle Purchase',
-  coda_reference: 402440
+  name: 'Vehicle Purchase'
 )
 
 # rubocop:disable Metrics/LineLength

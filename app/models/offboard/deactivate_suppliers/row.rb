@@ -1,12 +1,11 @@
 module Offboard
   class DeactivateSuppliers
     class Row
-      attr_reader :supplier_name, :salesforce_id, :coda_reference, :framework_short_name
+      attr_reader :supplier_name, :salesforce_id, :framework_short_name
 
-      def initialize(supplier_name:, salesforce_id:, coda_reference:, framework_short_name:)
+      def initialize(supplier_name:, salesforce_id:, framework_short_name:)
         @supplier_name = supplier_name
         @salesforce_id = salesforce_id
-        @coda_reference = coda_reference
         @framework_short_name = framework_short_name
       end
 

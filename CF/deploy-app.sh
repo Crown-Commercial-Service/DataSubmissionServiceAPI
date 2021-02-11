@@ -148,13 +148,8 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 # push API
 cd .. || exit
 
-# create an app idempotently with the v3 cli
-cf v3-create-app ccs-rmi-api-"$CF_SPACE"
-cf v3-apply-manifest -f CF/"$CF_SPACE".manifest.yml
-# do a zero down time deployment with the v3 cli
-cf v3-zdt-push ccs-rmi-api-"$CF_SPACE"
+cf push ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml --strategy rolling
 
 # push API sidekiq
-# this is not a blue green deploy because that doesnt work with apps with not route
-cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b python_buildpack -b ruby_buildpack
-cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b python_buildpack -b ruby_buildpack
+cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling
+cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling

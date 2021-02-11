@@ -4,7 +4,6 @@ RSpec.feature 'Admin can bulk deactivate suppliers' do
   let!(:supplier) do
     supplier = create(:supplier,
                       name: 'Aardvark (UK) Ltd',
-                      coda_reference: 'C099999',
                       salesforce_id: '001b000003FAKEFAKE')
 
     supplier.agreements.create!(framework: fm1234)

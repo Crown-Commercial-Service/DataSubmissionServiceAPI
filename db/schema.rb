@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_143814) do
   create_table "frameworks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "short_name", null: false
-    t.integer "coda_reference"
     t.text "definition_source", null: false
     t.boolean "published", default: false
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
@@ -185,7 +184,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_143814) do
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
-    t.string "coda_reference", limit: 7
     t.string "salesforce_id"
     t.index ["salesforce_id"], name: "index_suppliers_on_salesforce_id", unique: true
   end

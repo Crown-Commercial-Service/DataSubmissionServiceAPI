@@ -7,7 +7,6 @@ require 'csv'
 #   framework_short_name  - the short identifier for the framework, e.g. 'RM606'
 #   supplier_name         - the name of the supplier
 #   salesforce_id         - the Salesforce ID for the supplier
-#   coda_reference        - the Coda reference for the supplier
 #
 # For each row in the CSV, the following will happen:
 #
@@ -19,7 +18,7 @@ require 'csv'
 #
 module Offboard
   class DeactivateSuppliers
-    EXPECTED_HEADERS = %I[framework_short_name supplier_name salesforce_id coda_reference].freeze
+    EXPECTED_HEADERS = %I[framework_short_name supplier_name salesforce_id].freeze
 
     attr_reader :logger, :wait_time
 
