@@ -121,6 +121,7 @@ Lint/UnderscorePrefixedVariableName:
 Metrics/CyclomaticComplexity:
     Exclude:
         - 'app/models/framework/definition/ast/field.rb'
+        - 'app/models/framework/definition/ast/semantic_checker.rb'
 
 Metrics/PerceivedComplexity:
     Exclude:

@@ -30,6 +30,7 @@ class Framework
             fields = ast.field_defs(entry_type).map { |field_def| AST::Field.new(field_def, ast.lookups) }
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
+
               raise_when_field_mapping_invalid(field, entry_type)
               next unless field.dependent_field_inclusion?
 
@@ -43,16 +44,21 @@ class Framework
         def raise_when_field_mapping_invalid(field, entry_type)
           excluded_headers = %w[CustomerPostcode CustomerPostCode UnitCost VATIncluded UNSPSC CustomerInvoiceDate CustOrderDate]
 
-          return if field.unknown?
-          return if excluded_headers.include? field.warehouse_name
+          return if excluded_headers.include?(field.warehouse_name) || field.unknown?
 
           case entry_type
           when :invoice
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block" unless Export::Invoices::HEADER.include? field.warehouse_name
+            unless Export::Invoices::HEADER.include? field.warehouse_name
+              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block"
+            end
           when :contract
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block" unless Export::Contracts::HEADER.include? field.warehouse_name
-          else 
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block" unless Export::Others::HEADER.include? field.warehouse_name
+            unless Export::Contracts::HEADER.include? field.warehouse_name
+              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block"
+            end
+          else
+            unless Export::Others::HEADER.include? field.warehouse_name
+              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block"
+            end
           end
         end
 
@@ -81,7 +87,7 @@ class Framework
 
         def format_list(array)
           values = array.map { |value| value.is_a?(String) ? "'#{value}'" : value }
-          '(' + values.join(', ') + ')'
+          "(#{values.join(', ')})"
         end
 
         def raise_when_lookup_reference_invalid(field)
@@ -116,8 +122,12 @@ class Framework
 
         def validate_management_field(referenced_field_name)
           field = ast.field_by_sheet_name(:invoice, referenced_field_name)
-          raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist" if field.nil?
-          raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
+          if field.nil?
+            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist"
+          end
+          if field.optional?
+            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional"
+          end
         end
       end
     end
