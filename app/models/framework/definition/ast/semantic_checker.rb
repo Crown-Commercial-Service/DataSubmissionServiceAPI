@@ -48,17 +48,29 @@ class Framework
 
           case entry_type
           when :invoice
-            unless Export::Invoices::HEADER.include? field.warehouse_name
-              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block"
-            end
+            validate_invoice_fields_block(field)
           when :contract
-            unless Export::Contracts::HEADER.include? field.warehouse_name
-              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block"
-            end
+            validate_contract_fields_block(field)
           else
-            unless Export::Others::HEADER.include? field.warehouse_name
-              raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block"
-            end
+            validate_other_fields_block(field)
+          end
+        end
+
+        def validate_invoice_fields_block(field)
+          unless Export::Invoices::HEADER.include? field.warehouse_name
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block"
+          end
+        end
+
+        def validate_contract_fields_block(field)
+          unless Export::Contracts::HEADER.include? field.warehouse_name
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block"
+          end
+        end
+
+        def validate_other_fields_block(field)
+          unless Export::Others::HEADER.include? field.warehouse_name
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block"
           end
         end
 
