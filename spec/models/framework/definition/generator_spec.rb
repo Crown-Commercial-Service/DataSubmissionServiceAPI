@@ -691,7 +691,7 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
-    context "field mapping will not be exported" do
+    context 'field mapping will not be exported' do
       let(:source) do
         <<~FDL
           Framework RM6060 {
@@ -709,7 +709,7 @@ RSpec.describe Framework::Definition::Generator do
 
       it 'has the error' do
         expect(generator.error).to eql(
-          "ContractStartDate is not an exported field in the InvoiceFields block"
+          'ContractStartDate is not an exported field in the InvoiceFields block'
         )
       end
     end
