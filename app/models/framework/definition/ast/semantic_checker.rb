@@ -30,12 +30,29 @@ class Framework
             fields = ast.field_defs(entry_type).map { |field_def| AST::Field.new(field_def, ast.lookups) }
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
+              raise_when_field_mapping_invalid(field, entry_type)
               next unless field.dependent_field_inclusion?
 
               raise_when_dependent_reference_invalid(field, entry_type)
               raise_when_dependent_reference_has_mismatched_arity(field)
               raise_when_lookup_reference_invalid(field)
             end
+          end
+        end
+
+        def raise_when_field_mapping_invalid(field, entry_type)
+          excluded_headers = %w[CustomerPostcode CustomerPostCode UnitCost VATIncluded UNSPSC CustomerInvoiceDate CustOrderDate]
+
+          return if field.unknown?
+          return if excluded_headers.include? field.warehouse_name
+
+          case entry_type
+          when :invoice
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block" unless Export::Invoices::HEADER.include? field.warehouse_name
+          when :contract
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block" unless Export::Contracts::HEADER.include? field.warehouse_name
+          else 
+            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block" unless Export::Others::HEADER.include? field.warehouse_name
           end
         end
 
