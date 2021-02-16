@@ -125,7 +125,7 @@ class Framework
           if field.nil?
             raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist"
           end
-          
+
           raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
         end
       end

@@ -713,7 +713,7 @@ RSpec.describe Framework::Definition::Generator do
         )
       end
     end
-    
+
     context 'mismatched depends_on fields and values' do
       let(:source) do
         <<~FDL
