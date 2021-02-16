@@ -48,30 +48,16 @@ class Framework
 
           case entry_type
           when :invoice
-            validate_invoice_fields_block(field)
+            raise_mapping_error(field, entry_type) unless Export::Invoices::HEADER.include? field.warehouse_name
           when :contract
-            validate_contract_fields_block(field)
+            raise_mapping_error(field, entry_type) unless Export::Contracts::HEADER.include? field.warehouse_name
           else
-            validate_other_fields_block(field)
+            raise_mapping_error(field, entry_type) unless Export::Others::HEADER.include? field.warehouse_name
           end
         end
 
-        def validate_invoice_fields_block(field)
-          unless Export::Invoices::HEADER.include? field.warehouse_name
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the InvoiceFields block"
-          end
-        end
-
-        def validate_contract_fields_block(field)
-          unless Export::Contracts::HEADER.include? field.warehouse_name
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the ContractFields block"
-          end
-        end
-
-        def validate_other_fields_block(field)
-          unless Export::Others::HEADER.include? field.warehouse_name
-            raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the OtherFields block"
-          end
+        def raise_mapping_error(field, entry_type)
+          raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the #{entry_type.capitalize}Fields block"
         end
 
         def raise_when_dependent_reference_invalid(field, entry_type)
