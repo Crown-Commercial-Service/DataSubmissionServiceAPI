@@ -31,7 +31,7 @@ class Framework
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
 
-              raise_when_field_mapping_invalid(field, entry_type)
+              validate_field_mapping(field, entry_type)
               next unless field.dependent_field_inclusion?
 
               raise_when_dependent_reference_invalid(field, entry_type)
@@ -41,21 +41,25 @@ class Framework
           end
         end
 
-        def raise_when_field_mapping_invalid(field, entry_type)
+        def validate_field_mapping(field, entry_type)
           excluded_headers = %w[CustomerPostcode CustomerPostCode UnitCost VATIncluded UNSPSC CustomerInvoiceDate CustOrderDate]
 
           return if excluded_headers.include?(field.warehouse_name) || field.unknown?
 
-          case entry_type
-          when :invoice
-            raise_mapping_error(field, entry_type) unless Export::Invoices::HEADER.include? field.warehouse_name
-          when :contract
-            raise_mapping_error(field, entry_type) unless Export::Contracts::HEADER.include? field.warehouse_name
-          else
-            raise_mapping_error(field, entry_type) unless Export::Others::HEADER.include? field.warehouse_name
-          end
+          raise_mapping_error(field, entry_type) unless export_headers_for(entry_type).include? field.warehouse_name
         end
 
+        def export_headers_for(entry_type)
+          case entry_type
+          when :invoice
+            return Export::Invoices::HEADER
+          when :contract
+            return Export::Contracts::HEADER
+          else
+            return Export::Others::HEADER
+          end
+        end
+        
         def raise_mapping_error(field, entry_type)
           raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the #{entry_type.capitalize}Fields block"
         end
