@@ -52,14 +52,14 @@ class Framework
         def export_headers_for(entry_type)
           case entry_type
           when :invoice
-            return Export::Invoices::HEADER
+            Export::Invoices::HEADER
           when :contract
-            return Export::Contracts::HEADER
+            Export::Contracts::HEADER
           else
-            return Export::Others::HEADER
+            Export::Others::HEADER
           end
         end
-        
+
         def raise_mapping_error(field, entry_type)
           raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the #{entry_type.capitalize}Fields block"
         end
