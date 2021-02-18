@@ -691,6 +691,29 @@ RSpec.describe Framework::Definition::Generator do
       end
     end
 
+    context 'field mapping will not be exported' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5% of 'Supplier Price'
+            Lots { '99' -> 'Fake' }
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+              ContractStartDate from 'Contract Start Date'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql(
+          'ContractStartDate is not an exported field in the InvoiceFields block'
+        )
+      end
+    end
+
     context 'mismatched depends_on fields and values' do
       let(:source) do
         <<~FDL

@@ -62,7 +62,6 @@ Framework RM1043iv {
     }
     String Additional6 from 'Location'
     Decimal Additional7 from 'Day Rate'
-    UnitQuantity from 'Quantity'
     ContractValue from 'Total Value'
   }
 

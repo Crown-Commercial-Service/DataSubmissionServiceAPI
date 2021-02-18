@@ -8,7 +8,6 @@ class Framework
           'InvoiceValue' => :decimal,
           'ContractValue' => :decimal,
           'CustomerPostCode' => :string,
-          'CustomerPostcode' => :string,
           'CustomerName' => :string,
           'CustomerURN' => :urn,
           'InvoiceDate' => :date,
