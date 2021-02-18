@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-117] - 2021-02-18
+
+- RMI-282: Added field mapping validator to prevent fields failing to export.
+
 ## [release-116] - 2021-02-11
 
 - RMI-38: Remove Coda References
@@ -770,6 +774,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-117]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-116...release-117
+[release-116]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-115...release-116
 [release-115]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-114...release-115
 [release-114]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-113...release-114
 [release-113]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-112...release-113
