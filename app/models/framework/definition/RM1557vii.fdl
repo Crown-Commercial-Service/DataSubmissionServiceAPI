@@ -19,7 +19,7 @@ Framework RM1557vii {
     optional String from 'Customer Contact Name'
     optional String from 'Customer Contact Number'
     optional String from 'Customer Email Address'
-    CustomerInvoiceDate from 'Customer Invoice Date'
+    InvoiceDate from 'Customer Invoice Date'
     InvoiceNumber from 'Customer Invoice Number'
     optional String from 'Customer Invoice Line Number'
     ProductGroup from 'Product / Service Group Level 1' depends_on 'Lot Number' {
@@ -54,7 +54,6 @@ Framework RM1557vii {
     optional CustomerReferenceNumber from 'Customer Order Number'
     ContractStartDate from 'Customer Contract Start Date'
     ContractEndDate from 'Completion Date/Delivery Date'
-    CustOrderDate from 'Customer Order Date'
     ProductGroup from 'Product / Service Group Level 1' depends_on 'Lot Number' {
       '1' -> Lot1Service
       '2' -> Lot2Service

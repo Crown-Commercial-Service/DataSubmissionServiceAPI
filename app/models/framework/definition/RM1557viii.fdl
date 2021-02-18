@@ -18,7 +18,7 @@ Framework RM1557viii {
     optional String from 'Buyer Contact Name'
     optional String from 'Buyer Contact Number'
     optional String from 'Buyer Email Address'
-    CustomerInvoiceDate from 'Invoice Date'
+    InvoiceDate from 'Invoice Date'
     InvoiceNumber from 'Invoice Number'
     LotNumber from 'Lot Number'
     ProductGroup from 'Product / Service Group' depends_on 'Lot Number' {
