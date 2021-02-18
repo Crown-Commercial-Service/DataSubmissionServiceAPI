@@ -20,7 +20,7 @@ Framework RM3772 {
     UNSPSC from 'UNSPSC'
     Decimal Additional1 from 'Baseline Price'
     UnitType from 'Unit of Purchase'
-    UnitCost from 'Price per Unit'
+    UnitPrice from 'Price per Unit'
     UnitQuantity from 'Quantity'
     InvoiceValue from 'Total Charge (Ex VAT)'
     VATCharged from 'VAT amount charged'

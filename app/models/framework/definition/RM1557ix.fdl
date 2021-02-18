@@ -15,7 +15,7 @@ Framework RM1557ix {
     CustomerURN from 'Buyer URN'
     CustomerName from 'Buyer Organisation'
     CustomerPostCode from 'Buyer Post Code'
-    CustomerInvoiceDate from 'Invoice Date'
+    InvoiceDate from 'Invoice Date'
     InvoiceNumber from 'Invoice Number'
     LotNumber from 'Lot Number'
     ProductGroup from 'Service Group' depends_on 'Lot Number' {

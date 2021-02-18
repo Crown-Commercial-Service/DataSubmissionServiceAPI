@@ -24,7 +24,7 @@ Framework RM3821 {
     SupplierReferenceNumber from 'Order Reference Number'
     CustomerURN from 'Customer Unique Reference Number (URN)'
     CustomerName from 'Customer Organisation Name'
-    CustomerInvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceDate from 'Customer Invoice/Credit Note Date'
     InvoiceNumber from 'Customer Invoice/Credit Note Number'
     LotNumber from 'Lot Number'
     ProductGroup from 'Product/Service Group Level 1' depends_on 'Lot Number' {

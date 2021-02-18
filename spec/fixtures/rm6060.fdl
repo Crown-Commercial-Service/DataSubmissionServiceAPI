@@ -16,7 +16,7 @@ Framework RM6060 {
    InvoiceFields {
     CustomerName from 'Customer Organisation Name'
     CustomerURN from 'Customer Unique Reference Number (URN)'
-    CustomerInvoiceDate from 'Customer Invoice/Credit Note Date'
+    InvoiceDate from 'Customer Invoice/Credit Note Date'
     InvoiceNumber from 'Customer Invoice/Credit Note Number'
     LotNumber from 'Lot Number'
     String(..8) Additional1 from 'Vehicle Registration Number'
