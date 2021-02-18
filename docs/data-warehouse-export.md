@@ -54,7 +54,7 @@ information. The export contains the following fields.
   - SubmissionID:             unique identifier for the submission for the invoice
   - CustomerURN:              customer URN for the invoice
   - CustomerName:             name for the invoice customer
-  - CustomerPostcode:         postcode for the invoice customer
+  - CustomerPostCode:         postcode for the invoice customer
   - InvoiceDate:              invoice date for the invoice
   - InvoiceNumber:            invoice number for the invoice
   - SupplierReferenceNumber:  reference number from the supplier
@@ -84,7 +84,7 @@ defined in the framework definitions.
   - SubmissionID              unique identifier for the submission for the contract
   - CustomerURN:              customer URN for the invoice
   - CustomerName:             name for the invoice customer
-  - CustomerPostcode:         postcode for the invoice customer
+  - CustomerPostCode:         postcode for the invoice customer
   - SupplierReferenceNumber:  reference number from the supplier
   - CustomerReferenceNumber:  reference number from the customer
   - LotNumber:                lot number for the invoice

@@ -218,7 +218,7 @@ RSpec.describe Export::Relation do
 
     it 'writes a header for the invoices export' do
       expect(output_lines.first).to eql(
-        'SubmissionID,CustomerURN,CustomerName,CustomerPostcode,InvoiceDate,InvoiceNumber,'\
+        'SubmissionID,CustomerURN,CustomerName,CustomerPostCode,InvoiceDate,InvoiceNumber,'\
         'SupplierReferenceNumber,CustomerReferenceNumber,LotNumber,ProductDescription,'\
         'ProductGroup,ProductClass,ProductSubClass,ProductCode,UnitType,UnitPrice,UnitQuantity,'\
         'InvoiceValue,Expenses,VATCharged,PromotionCode,ManagementChargeValue,'\

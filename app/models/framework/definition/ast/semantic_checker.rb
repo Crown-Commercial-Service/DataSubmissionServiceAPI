@@ -42,7 +42,7 @@ class Framework
         end
 
         def validate_field_mapping(field, entry_type)
-          excluded_headers = %w[CustomerPostcode CustomerPostCode UnitCost VATIncluded UNSPSC CustomerInvoiceDate CustOrderDate]
+          excluded_headers = %w[CustomerPostCode UnitCost VATIncluded UNSPSC CustomerInvoiceDate CustOrderDate]
 
           return if excluded_headers.include?(field.warehouse_name) || field.unknown?
 

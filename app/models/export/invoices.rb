@@ -6,7 +6,7 @@ module Export
       SubmissionID
       CustomerURN
       CustomerName
-      CustomerPostcode
+      CustomerPostCode
       InvoiceDate
       InvoiceNumber
       SupplierReferenceNumber
