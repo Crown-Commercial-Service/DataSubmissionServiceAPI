@@ -102,6 +102,7 @@ class Framework
         end
 
         def raise_when_management_field_invalid(info)
+          validate_multi_column_management_charge(info) if info[:column_based]
           of_columns_for(info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
         end
 
@@ -129,6 +130,15 @@ class Framework
           end
 
           raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
+        end
+
+        def validate_multi_column_management_charge(info)
+          management_field_keys = info[:column_based][:value_to_percentage].keys
+          management_field_keys.each do |key_array|
+            if key_array[0] == '<Any>'
+              raise Transpiler::Error, "The first criterion in a multiple depends-on validation cannot be a wildcard."
+            end
+          end
         end
       end
     end

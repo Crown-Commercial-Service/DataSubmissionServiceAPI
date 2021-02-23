@@ -517,6 +517,17 @@ RSpec.describe Framework::Definition::Generator do
           )
         end
       end
+
+      context 'a field begins with a wildcard' do
+        let(:invalid_source) { valid_source.sub('\'1\', \'Damage\' -> 0%', '*, \'Damage\' -> 0%') }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            "The first criterion in a multiple depends-on validation cannot be a wildcard."
+          ) 
+        end
+      end
     end
 
     context 'Composing lookups from other lookups - RM3787' do
