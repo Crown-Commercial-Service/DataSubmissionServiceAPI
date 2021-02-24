@@ -530,7 +530,7 @@ RSpec.describe Framework::Definition::Generator do
       end
 
       context 'only one column field given' do
-        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", "*") }        
+        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", '*') }
         let(:source)         { invalid_source }
 
         it 'has an error' do
