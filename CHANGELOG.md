@@ -1,8 +1,9 @@
 # Change Log
 
-## [release-117] - 2021-02-18
+## [release-117] - 2021-03-04
 
 - RMI-282: Added field mapping validator to prevent fields failing to export.
+- RMI-45: Added transpiler errors for when a field in a multi-column management charge block is missing or begins with a wildcard.
 
 ## [release-116] - 2021-02-11
 

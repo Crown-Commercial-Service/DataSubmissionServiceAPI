@@ -528,6 +528,17 @@ RSpec.describe Framework::Definition::Generator do
           )
         end
       end
+
+      context 'only one column field given' do
+        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", "*") }        
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'This framework definition contains an incorrect or incomplete depends_on rule'
+          )
+        end
+      end
     end
 
     context 'Composing lookups from other lookups - RM3787' do
