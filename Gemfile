@@ -31,7 +31,7 @@ gem 'auth0', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Admin Frontend
 gem 'haml-rails'
