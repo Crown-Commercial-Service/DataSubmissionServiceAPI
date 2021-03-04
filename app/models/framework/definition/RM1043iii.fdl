@@ -42,7 +42,6 @@ Framework RM1043iii {
 
   ContractFields {
     SupplierReferenceNumber from 'SoW / Order Number'
-    CustOrderDate from 'SoW / Order Date'
     optional CustomerReferenceNumber from 'Contract Reference'
     CustomerURN from 'Buyer URN'
     CustomerName from 'Buyer Organisation'

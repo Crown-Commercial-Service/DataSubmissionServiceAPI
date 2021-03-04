@@ -38,7 +38,7 @@ Framework RM3787 {
     SupplierReferenceNumber from 'Supplier Reference Number'
     CustomerURN from 'Customer URN'
     CustomerName from 'Customer Organisation Name'
-    CustomerPostcode from 'Customer Post Code'
+    CustomerPostCode from 'Customer Post Code'
     CustomerReferenceNumber from 'Matter Name'
     String Additional7 from 'Matter Description'
     ContractStartDate from 'Contract Start Date'

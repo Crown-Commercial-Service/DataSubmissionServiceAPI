@@ -84,9 +84,14 @@ class Framework < ApplicationRecord
 
   def lot_has_suppliers_onboarded?(definition_source)
     generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
-    fdl_lots = generator.definition.lots || {}
-    old_lots = lots.reject { |lot| fdl_lots.key? lot.number }
 
-    old_lots.any?(&:active_agreement?)
+    if generator.success?
+      fdl_lots = generator.definition.lots || {}
+      old_lots = lots.reject { |lot| fdl_lots.key? lot.number }
+
+      old_lots.any?(&:active_agreement?)
+    else
+      update(definition_source: definition_source)
+    end
   end
 end

@@ -42,7 +42,6 @@ Framework RM1043iv {
 
   ContractFields {
     SupplierReferenceNumber from 'SoW / Order Number'
-    CustOrderDate from 'SoW / Order Date'
     optional CustomerReferenceNumber from 'Contract Reference'
     CustomerURN from 'Buyer URN'
     CustomerName from 'Buyer Organisation'
@@ -62,7 +61,6 @@ Framework RM1043iv {
     }
     String Additional6 from 'Location'
     Decimal Additional7 from 'Day Rate'
-    UnitQuantity from 'Quantity'
     ContractValue from 'Total Value'
   }
 

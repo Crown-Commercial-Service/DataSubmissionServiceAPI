@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.4'
+gem 'rails', '~> 5.2.4.5'
 
 # State machine
 gem 'aasm'
@@ -31,7 +31,7 @@ gem 'auth0', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Admin Frontend
 gem 'haml-rails'

@@ -30,6 +30,8 @@ class Framework
             fields = ast.field_defs(entry_type).map { |field_def| AST::Field.new(field_def, ast.lookups) }
             fields.each do |field|
               raise Transpiler::Error, field.error if field.error
+
+              validate_field_mapping(field, entry_type)
               next unless field.dependent_field_inclusion?
 
               raise_when_dependent_reference_invalid(field, entry_type)
@@ -37,6 +39,29 @@ class Framework
               raise_when_lookup_reference_invalid(field)
             end
           end
+        end
+
+        def validate_field_mapping(field, entry_type)
+          excluded_headers = %w[CustomerPostCode VATIncluded UNSPSC]
+
+          return if excluded_headers.include?(field.warehouse_name) || field.unknown?
+
+          raise_mapping_error(field, entry_type) unless export_headers_for(entry_type).include? field.warehouse_name
+        end
+
+        def export_headers_for(entry_type)
+          case entry_type
+          when :invoice
+            Export::Invoices::HEADER
+          when :contract
+            Export::Contracts::HEADER
+          else
+            Export::Others::HEADER
+          end
+        end
+
+        def raise_mapping_error(field, entry_type)
+          raise Transpiler::Error, "#{field.warehouse_name} is not an exported field in the #{entry_type.capitalize}Fields block"
         end
 
         def raise_when_dependent_reference_invalid(field, entry_type)
@@ -64,7 +89,7 @@ class Framework
 
         def format_list(array)
           values = array.map { |value| value.is_a?(String) ? "'#{value}'" : value }
-          '(' + values.join(', ') + ')'
+          "(#{values.join(', ')})"
         end
 
         def raise_when_lookup_reference_invalid(field)
@@ -78,6 +103,7 @@ class Framework
 
         def raise_when_management_field_invalid(info)
           of_columns_for(info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
+          validate_multi_column_management_charge(info) if multi_column_based?(info)
         end
 
         def of_columns_for(info)
@@ -99,8 +125,26 @@ class Framework
 
         def validate_management_field(referenced_field_name)
           field = ast.field_by_sheet_name(:invoice, referenced_field_name)
-          raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist" if field.nil?
+          if field.nil?
+            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist"
+          end
+
           raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
+        end
+
+        def validate_multi_column_management_charge(info)
+          management_field_keys = info[:column_based][:value_to_percentage].keys
+          management_field_keys.each do |key|
+            raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule' unless key.is_a?(Array)
+
+            if key[0] == '<Any>'
+              raise Transpiler::Error, 'The first criterion in a multiple depends-on validation cannot be a wildcard.'
+            end
+          end
+        end
+
+        def multi_column_based?(info)
+          Array(info[:column_based][:column_names]).count > 1 if info[:column_based]
         end
       end
     end

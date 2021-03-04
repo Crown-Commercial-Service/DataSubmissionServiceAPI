@@ -517,6 +517,28 @@ RSpec.describe Framework::Definition::Generator do
           )
         end
       end
+
+      context 'a field begins with a wildcard' do
+        let(:invalid_source) { valid_source.sub('\'1\', \'Damage\' -> 0%', '*, \'Damage\' -> 0%') }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'The first criterion in a multiple depends-on validation cannot be a wildcard.'
+          )
+        end
+      end
+
+      context 'only one column field given' do
+        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", '*') }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'This framework definition contains an incorrect or incomplete depends_on rule'
+          )
+        end
+      end
     end
 
     context 'Composing lookups from other lookups - RM3787' do
@@ -688,6 +710,29 @@ RSpec.describe Framework::Definition::Generator do
             }
           )
         }
+      end
+    end
+
+    context 'field mapping will not be exported' do
+      let(:source) do
+        <<~FDL
+          Framework RM6060 {
+            Name 'Fake framework'
+            ManagementCharge 0.5% of 'Supplier Price'
+            Lots { '99' -> 'Fake' }
+
+            InvoiceFields {
+              InvoiceValue from 'Supplier Price'
+              ContractStartDate from 'Contract Start Date'
+            }
+          }
+        FDL
+      end
+
+      it 'has the error' do
+        expect(generator.error).to eql(
+          'ContractStartDate is not an exported field in the InvoiceFields block'
+        )
       end
     end
 
