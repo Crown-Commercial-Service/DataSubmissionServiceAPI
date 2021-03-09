@@ -19,16 +19,6 @@
 
     = render 'shared/header', no_navigation: false
 
-    .govuk-width-container
-      .govuk-phase-banner
-        %p.govuk-phase-banner__content
-          %strong.govuk-tag.govuk-phase-banner__content__tag
-            beta
-          %span.govuk-phase-banner__text
-            This is a new service – your
-            = mail_to support_email_address, 'feedback', class: 'govuk-link'
-            will help us to improve it.
-
 
       %main{ role: 'main', id: 'main-content', class: 'govuk-main-wrapper'}
 
