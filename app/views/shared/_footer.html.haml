@@ -2,6 +2,9 @@
   .govuk-width-container
     .govuk-footer__meta
       .govuk-footer__meta-item.govuk-footer__meta-item--grow
+        %ul.govuk-footer__inline-list
+          %li.govuk-footer__inline-list-item
+            %a.govuk-link{:href => survey_url} Feedback
         %span.govuk-footer__licence-description
           Having problems using this service? Email
           = mail_to(support_email_address, nil,{:class => "govuk-footer__link"})
