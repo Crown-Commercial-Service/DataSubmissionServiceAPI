@@ -19,4 +19,8 @@ module AdminHelper
       alert: 'ccs-in-service-alert--failure'
     }[type.to_sym]
   end
+
+  def survey_url
+    'https://www.smartsurvey.co.uk/s/YF7CY/'
+  end
 end

@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-118] - 2021-03-18
+
+- RMI-27: Removed Beta Banner.
+
 ## [release-117] - 2021-03-04
 
 - RMI-282: Added field mapping validator to prevent fields failing to export.
