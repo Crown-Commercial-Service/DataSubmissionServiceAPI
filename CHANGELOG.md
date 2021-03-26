@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-119] - 2021-04-01
+
+- RMI-319: Moved 'Add Tasks' button.
+
 ## [release-118] - 2021-03-18
 
 - RMI-27: Removed Beta Banner.
