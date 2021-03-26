@@ -3,6 +3,7 @@
 ## [release-119] - 2021-04-01
 
 - RMI-319: Moved 'Add Tasks' button.
+- Update mime0magic dependancy gem.
 
 ## [release-118] - 2021-03-18
 
