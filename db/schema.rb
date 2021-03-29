@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_143814) do
+ActiveRecord::Schema.define(version: 2021_03_29_103814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_143814) do
     t.integer "customer_urn"
     t.index ["aasm_state"], name: "index_submission_entries_on_aasm_state"
     t.index ["entry_type"], name: "index_submission_entries_on_entry_type"
+    t.index ["entry_type"], name: "index_submission_entries_on_invoice_entry_type", where: "((entry_type)::text = 'invoice'::text)"
     t.index ["source"], name: "index_submission_entries_on_source", using: :gin
     t.index ["submission_file_id"], name: "index_submission_entries_on_submission_file_id"
     t.index ["submission_id"], name: "index_submission_entries_on_submission_id"
