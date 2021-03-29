@@ -8,6 +8,8 @@
       %ul.govuk-page-actions--actions
         %li.govuk-page-actions--action
           = link_to 'Edit supplier', edit_admin_supplier_path(@supplier)
+        %li.govuk-page-actions--action
+          = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
 
 .govuk-grid-row
   .govuk-grid-column-full
@@ -31,8 +33,6 @@
       %p
         No tasks for
         = @supplier.name
-
-    = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
 
 .govuk-grid-row
   .govuk-grid-column-full
