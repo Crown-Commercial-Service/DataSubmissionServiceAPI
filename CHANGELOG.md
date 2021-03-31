@@ -4,6 +4,7 @@
 
 - RMI-319: Moved 'Add Tasks' button.
 - Update mime0magic dependancy gem.
+- RMI-303: Added partial index on invoice entry types
 
 ## [release-118] - 2021-03-18
 
@@ -785,6 +786,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119
+[release-118]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-117...release-118
 [release-117]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-116...release-117
 [release-116]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-115...release-116
 [release-115]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-114...release-115
