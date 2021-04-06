@@ -14,10 +14,10 @@ codemirror@^5.46.0:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.48.2.tgz#a9dd3d426dea4cd59efd59cd98e20a9152a30922"
   integrity sha512-i9VsmC8AfA5ji6EDIZ+aoSe4vt9FcwPLdHB1k1ItFbVyuOFRrcfvnoKqwZlC7EVA2UmTRiNEypE4Uo7YvzVY8Q==
 
-govuk-frontend@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.4.0.tgz#a4f32f09f2120166006f2d0c2aa32cccf75f95ef"
-  integrity sha512-WSecWLGM1qZ48UD0YGGWOfaBqrWtwf39cOUAuC8+SMNh7kkZ6Ou2Y7+d3Bt8OEPaFNFR2N2vZO2WRnT2gaCjMg==
+govuk-frontend@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.13.0.tgz#0273f7c92070abd6450c73a006ebb3ddc793463a"
+  integrity sha512-6XDtTt5plSrPQvPgLFN4LCtb9ULuqoXCgkHy5c7XE/70/sVm47RPbLR11tYGPcmV8cOApBhW0wL8y8ryspHfpw==
 
 preact@^8.3.1:
   version "8.3.1"
