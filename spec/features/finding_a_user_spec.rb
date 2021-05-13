@@ -57,6 +57,12 @@ RSpec.feature 'Finding a user' do
     expect(page).to_not have_content 'User Three'
   end
 
+  scenario 'Viewing a specific user' do
+    visit admin_users_path
+    click_link 'User One'
+    expect(page).to have_content 'User One'
+  end
+
   scenario 'View supplier linked to a user' do
     visit admin_users_path
     click_link 'Supplier Beta'

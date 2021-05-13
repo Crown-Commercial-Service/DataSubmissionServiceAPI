@@ -7,18 +7,6 @@
       = @user.created_at.to_s(:date_with_utc_time)
     - unless @user.active?
       %p Inactive user
-  .govuk-grid-column-one-third
-    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
-      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
-      %ul.govuk-page-actions--actions
-        - if @user.active?
-          %li.govuk-page-actions--action
-            = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
-          %li.govuk-page-actions--action
-            = link_to 'Deactivate user', confirm_delete_admin_user_path(@user)
-        - else
-          %li.govuk-page-actions--action
-            = link_to 'Reactivate user', confirm_reactivate_admin_user_path(@user)
 
 .govuk-grid-row{:class => 'govuk-!-margin-top-7'}
   .govuk-grid-column-full
@@ -30,17 +18,11 @@
         %thead.govuk-table__head
           %tr.govuk-table__row
             %th.govuk-table__header Name
-            %th.govuk-table__header Actions
         %tbody.govuk-table__body
           - @memberships.each do |membership|
             %tr.govuk-table__row
               %td.govuk-table__cell= link_to membership.supplier.name, admin_supplier_path(membership.supplier)
-              %td.govuk-table__cell
-                %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
-                  %h3#table-actions-title-1.govuk-visually-hidden Row actions
-                  %ul.govuk-table-actions--actions
-                    %li.govuk-table-actions--action
-                      = link_to 'Unlink', admin_user_membership_path(@user, membership, return_to: 'user')
+              
     -else
       %p
         No suppliers linked to
