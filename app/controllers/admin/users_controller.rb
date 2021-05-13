@@ -13,6 +13,7 @@ class Admin::UsersController < AdminController
   def show
     # redirect route in case of attempt to visit deprecated paths
     return redirect_to admin_root_path if ['new', 'bulk_import'].include?(params[:id])
+    
     @user = User.find(params[:id])
     @memberships = @user.memberships.includes(:supplier)
   end
