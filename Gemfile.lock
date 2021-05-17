@@ -275,7 +275,8 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
-    puma (3.12.6)
+    puma (4.3.8)
+      nio4r (~> 2.0)
     raabro (1.1.6)
     racc (1.5.2)
     rack (2.2.3)
@@ -479,7 +480,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   progress_bar
   pry-rails
-  puma (~> 3.12)
+  puma (~> 4.3, >= 4.3.8)
   rails (~> 5.2.4.6)
   rails_event_store
   rollbar
@@ -503,4 +504,4 @@ RUBY VERSION
    ruby 2.5.8p224
 
 BUNDLED WITH
-   2.2.16
+   2.2.17
