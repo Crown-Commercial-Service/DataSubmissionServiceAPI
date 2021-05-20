@@ -31,24 +31,24 @@ gem 'auth0', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.0'
 
 # Admin Frontend
-gem 'haml-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'haml-rails', '>= 1.0.0'
+gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'uglifier', '>= 1.3.0'
-gem 'kaminari'
-gem 'simple_form'
+gem 'kaminari', '>= 1.2.1'
+gem 'simple_form', '>= 5.0.0'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
-gem 'azure-storage-blob', require: false
+gem 'azure-storage-blob', '>= 1.1.0', require: false
 
 # Exception tracking
 gem 'rollbar'
 
 # Logging
-gem 'lograge'
+gem 'lograge', '>= 0.10.0'
 gem 'skylight', '4.0.0.alpha'
 
 gem 'rubocop'
@@ -63,8 +63,8 @@ gem 'activerecord-import'
 gem 'parslet'
 
 # SOAP-related libraries for Workday integration
-gem 'lolsoap', require: false
-gem 'akami', require: false
+gem 'lolsoap', '>= 0.9.0', require: false
+gem 'akami', '>= 1.3.1', require: false
 gem 'http'
 
 # Used for FDL testing (see FDL::Validations::Test)
@@ -73,10 +73,10 @@ gem 'hashdiff', require: false
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails'
-  gem 'factory_bot_rails'
+  gem 'dotenv-rails', '>= 2.4.0'
+  gem 'factory_bot_rails', '>= 4.10.0'
   gem 'pry-rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 3.7.2'
 end
 
 group :development do
@@ -92,7 +92,7 @@ group :test do
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
-  gem 'capybara'
+  gem 'capybara', '>= 3.1.1'
   gem 'climate_control'
   gem 'webmock'
   gem 'launchy'
