@@ -20,10 +20,10 @@ class Admin::ActiveSubmissionController < AdminController
 
   def attachment
     @attachment ||= begin
-                      attachment = task.active_submission.files.first.file
-                      attachment.filename = "#{task.framework.short_name} #{task.supplier.name} "\
-                        "(#{task.period_date.to_s(:month_year)}).#{attachment.filename.extension}"
-                      attachment
-                    end
+      attachment = task.active_submission.files.first.file
+      attachment.filename = "#{task.framework.short_name} #{task.supplier.name} "\
+        "(#{task.period_date.to_s(:month_year)}).#{attachment.filename.extension}"
+      attachment
+    end
   end
 end

@@ -28,7 +28,9 @@
             %th.govuk-table__header Errors
         %tbody.govuk-table__body
           = render(collection: @tasks, partial: "task")
-
+      %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+        .ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+        = paginate @tasks, :param_name => "task_page"
     -else
       %p
         No tasks for
@@ -39,7 +41,7 @@
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Users
 
-    -if @supplier.users.present?
+    -if @users.present?
       %table.govuk-table
         %thead.govuk-table__head
           %tr.govuk-table__row
@@ -47,7 +49,7 @@
             %th.govuk-table__header Email
             %th.govuk-table__header Active?
         %tbody.govuk-table__body
-          - @supplier.users.each do |user|
+          - @users.each do |user|
             %tr.govuk-table__row
               %td.govuk-table__cell
                 = link_to user.name, admin_user_path(user)
@@ -55,6 +57,9 @@
                 = user.email
               %td.govuk-table__cell
                 = user.active? ? 'Active' : 'Inactive'
+      %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+        .ccs-pagination__summary= page_entries_info @users, entry_name: "user"
+        = paginate @users, :param_name => "user_page"
     -else
       %p
         No users linked to
@@ -65,7 +70,7 @@
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Frameworks
 
-    -if @supplier.frameworks.present?
+    -if @frameworks.present?
       %table.govuk-table
         %thead.govuk-table__head
           %tr.govuk-table__row
@@ -85,6 +90,9 @@
                   = link_to 'Deactivate', admin_supplier_agreement_confirm_deactivation_path(@supplier, agreement)
                 - else
                   = link_to 'Activate', admin_supplier_agreement_confirm_activation_path(@supplier, agreement)
+      %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+        .ccs-pagination__summary= page_entries_info @frameworks, entry_name: "framework"
+        = paginate @frameworks, :param_name => "framework_page"
     -else
       %p
         No frameworks for

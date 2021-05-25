@@ -13,7 +13,7 @@ class Framework
     class Generator
       attr_reader :source, :logger, :error
 
-      def initialize(source, logger = Logger.new(STDERR))
+      def initialize(source, logger = Logger.new($stderr))
         @source = source
         @logger = logger
       end
@@ -28,14 +28,14 @@ class Framework
 
       def definition
         @definition ||= begin
-                          cst = parse(source, logger) || return
-                          ast = Framework::Definition::AST::Creator.new.apply(cst)
+          cst = parse(source, logger) || return
+          ast = Framework::Definition::AST::Creator.new.apply(cst)
 
-                          Framework::Definition::Transpiler.new(ast).transpile
-                        rescue Transpiler::Error => e
-                          @error = e.message
-                          nil
-                        end
+          Framework::Definition::Transpiler.new(ast).transpile
+        rescue Transpiler::Error => e
+          @error = e.message
+          nil
+        end
       end
 
       private

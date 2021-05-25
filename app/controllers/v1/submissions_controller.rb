@@ -4,7 +4,7 @@ class V1::SubmissionsController < APIController
   def show
     submission = current_user.submissions.find(params[:id])
 
-    render jsonapi: submission, include: params.dig(:include)
+    render jsonapi: submission, include: params[:include]
   end
 
   def create
