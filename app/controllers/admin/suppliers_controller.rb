@@ -8,7 +8,7 @@ class Admin::SuppliersController < AdminController
     @tasks = @supplier.tasks.includes(:framework,
                                       active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
     @users = @supplier.users.page(params[:user_page]).per(12)
-    @frameworks = @supplier.frameworks.page(params[:framework_page]).per(12)
+    @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
   end
 
   def edit
