@@ -12,7 +12,7 @@ class AttachedFileDownloader
 
   def download!
     extension = @object.filename.extension.downcase
-    @temp_file = Tempfile.new([@object.record.class.name, '.' + extension])
+    @temp_file = Tempfile.new([@object.record.class.name, ".#{extension}"])
     @temp_file.binmode
 
     begin

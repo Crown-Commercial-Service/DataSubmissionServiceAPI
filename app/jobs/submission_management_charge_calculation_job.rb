@@ -6,6 +6,7 @@ class SubmissionManagementChargeCalculationJob < ApplicationJob
   DISCARD_STATES = %i[validation_failed ingest_failed management_charge_calculation_failed].freeze
 
   class DefinitionSourceChanged < StandardError; end
+
   class Incalculable < StandardError; end
 
   discard_on Incalculable

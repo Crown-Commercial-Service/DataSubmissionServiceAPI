@@ -63,7 +63,8 @@ RSpec.feature 'Viewing a supplier' do
   scenario 'each section\'s pagination works independently' do
     period_month = 0
     12.times do
-      FactoryBot.create(:task, period_month: period_month += 1, period_year: 2018, supplier: supplier, framework: framework)
+      FactoryBot.create(:task, period_month: period_month += 1, period_year: 2018, supplier: supplier,
+framework: framework)
       FactoryBot.create(:user, suppliers: [supplier])
     end
     FactoryBot.create(:task, period_month: 12, period_year: 2017, supplier: supplier, framework: framework)

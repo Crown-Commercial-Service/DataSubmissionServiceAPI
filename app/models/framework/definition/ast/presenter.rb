@@ -11,6 +11,7 @@ class Framework
         extend Forwardable
 
         attr_accessor :ast
+
         def_delegators :ast, :[], :dig
 
         def initialize(ast)

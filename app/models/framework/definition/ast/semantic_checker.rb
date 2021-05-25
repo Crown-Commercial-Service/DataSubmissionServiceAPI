@@ -129,13 +129,17 @@ class Framework
             raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist"
           end
 
-          raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional" if field.optional?
+          if field.optional?
+            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional"
+          end
         end
 
         def validate_multi_column_management_charge(info)
           management_field_keys = info[:column_based][:value_to_percentage].keys
           management_field_keys.each do |key|
-            raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule' unless key.is_a?(Array)
+            unless key.is_a?(Array)
+              raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule'
+            end
 
             if key[0] == '<Any>'
               raise Transpiler::Error, 'The first criterion in a multiple depends-on validation cannot be a wildcard.'

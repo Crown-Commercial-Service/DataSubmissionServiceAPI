@@ -52,6 +52,7 @@ gem 'lograge', '>= 0.10.0'
 gem 'skylight', '4.0.0.alpha'
 
 gem 'rubocop'
+gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 
 gem 'progress_bar', require: false
 

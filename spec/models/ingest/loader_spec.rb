@@ -83,11 +83,11 @@ RSpec.describe Ingest::Loader do
     end
 
     let(:fake_invoice_row_empty) do
-      fake_invoice_row.map { |k, _| [k, '   '] }.to_h
+      fake_invoice_row.transform_values { |_| '   ' }.to_h
     end
 
     let(:fake_order_row_empty) do
-      fake_order_row.map { |k, _| [k, '   '] }.to_h
+      fake_order_row.transform_values { |_| '   ' }.to_h
     end
 
     let(:invoice_rows) do

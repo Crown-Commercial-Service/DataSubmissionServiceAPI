@@ -11,7 +11,7 @@ class Task
 
     attr_reader :logger, :output
 
-    def initialize(output: STDOUT, logger: Rails.logger)
+    def initialize(output: $stdout, logger: Rails.logger)
       @output = output
       @logger = logger
     end

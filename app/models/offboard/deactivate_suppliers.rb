@@ -22,7 +22,7 @@ module Offboard
 
     attr_reader :logger, :wait_time
 
-    def initialize(csv_path, logger: Logger.new(STDOUT))
+    def initialize(csv_path, logger: Logger.new($stdout))
       @csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
       @logger = logger
       verify_csv_headers!

@@ -32,7 +32,7 @@ class Framework
       private
 
       def column_values_for(entry)
-        Array(varies_by).map { |column| entry.data.dig(column).to_s.downcase }
+        Array(varies_by).map { |column| entry.data[column].to_s.downcase }
       end
 
       # Downcase keys

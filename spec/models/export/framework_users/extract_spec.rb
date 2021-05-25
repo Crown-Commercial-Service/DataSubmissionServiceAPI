@@ -117,7 +117,7 @@ RSpec.describe Export::FrameworkUsers::Extract do
           user_emails = User.all.pluck(:email)
           extracted_user_emails = all_relevant.map(&:_user_email)
 
-          expect(extracted_user_emails). to match_array(user_emails)
+          expect(extracted_user_emails).to match_array(user_emails)
         end
       end
 
