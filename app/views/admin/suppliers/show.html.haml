@@ -70,7 +70,7 @@
     %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
       Frameworks
 
-    -if @frameworks.present?
+    -if @supplier.frameworks.present?
       %table.govuk-table
         %thead.govuk-table__head
           %tr.govuk-table__row
@@ -78,7 +78,7 @@
             %th.govuk-table__header Status
             %th.govuk-table__header Actions
         %tbody.govuk-table__body
-          - @supplier.agreements.includes(:framework).each do |agreement|
+          - @agreements.each do |agreement|
             - framework = agreement.framework
             %tr.govuk-table__row{:id => "framework-#{framework.id}" }
               %td.govuk-table__cell
@@ -91,8 +91,8 @@
                 - else
                   = link_to 'Activate', admin_supplier_agreement_confirm_activation_path(@supplier, agreement)
       %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        .ccs-pagination__summary= page_entries_info @frameworks, entry_name: "framework"
-        = paginate @frameworks, :param_name => "framework_page"
+        .ccs-pagination__summary= page_entries_info @agreements, entry_name: "framework"
+        = paginate @agreements, :param_name => "framework_page"
     -else
       %p
         No frameworks for

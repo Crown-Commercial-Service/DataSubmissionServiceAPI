@@ -101,6 +101,7 @@ Metrics/AbcSize:
         - 'spec/**/*'
         - 'lib/console_helpers.rb'
         - 'app/models/submission_completion.rb'
+        - 'app/controllers/admin/suppliers_controller.rb'
 
 Layout/LineLength:
     Max: 120
