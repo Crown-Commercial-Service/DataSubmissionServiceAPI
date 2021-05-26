@@ -5,7 +5,8 @@ class V1::TasksController < APIController
     tasks = current_user.tasks
     tasks = tasks.includes(:supplier).includes(requested_associations)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
-
+    tasks = tasks.where(framework_id: params.dig(:filter, :framework_id)) if params.dig(:filter, :framework_id)
+    
     render jsonapi: tasks, include: params[:include], fields: sparse_field_params
   end
 

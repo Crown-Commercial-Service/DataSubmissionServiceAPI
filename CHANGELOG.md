@@ -1,9 +1,10 @@
 # Change Log
 
-## [release-120] - 2021-05-13
+## [release-120] - 2021-05-27
 
 - RMI-345: set up conclave branch to deploy rmi-conclave integration work to preprod env
 - RMI-343: Update Ruby version from 2.5.7 to 2.5.8 (minor update).
+- RMI-36: Backend dependancy for front-end filtering (adds a paramter dig to the tasks controller)
 
 ## [release-119] - 2021-04-01
 
