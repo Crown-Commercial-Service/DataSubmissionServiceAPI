@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-121] - 2021-06-10(?)
+
+- RMI-317: Paginate admin supplier page.
+
 ## [release-120] - 2021-06-03
 
 - RMI-345: set up conclave branch to deploy rmi-conclave integration work to preprod env
