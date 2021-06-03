@@ -6,4 +6,5 @@
 -#    per_page:      number of items to fetch per page
 -#    remote:        data-remote
 %span.prev
-  = link_to_unless current_page.first?, t('views.pagination.previous').html_safe, url, rel: 'prev', remote: remote
+  %a.ccs-pagination__link{"aria-label" => "Previous page"}
+  = link_to_unless current_page.first?, t('« Previous').html_safe, url, rel: 'prev', remote: remote
