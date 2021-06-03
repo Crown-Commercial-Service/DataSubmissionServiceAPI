@@ -32,7 +32,7 @@ module Import
 
     attr_reader :logger, :wait_time
 
-    def initialize(csv_path, wait_time: DEFAULT_WAIT, logger: Logger.new(STDOUT))
+    def initialize(csv_path, wait_time: DEFAULT_WAIT, logger: Logger.new($stdout))
       @csv_path = csv_path
       @csv = CSV.read(csv_path, headers: true, header_converters: :symbol)
       @logger = logger

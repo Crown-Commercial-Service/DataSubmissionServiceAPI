@@ -10,7 +10,7 @@ class Task
 
     attr_reader :logger, :output, :month, :year
 
-    def initialize(month:, year:, output: STDOUT, logger: Rails.logger)
+    def initialize(month:, year:, output: $stdout, logger: Rails.logger)
       @month = month
       @year = year
       @output = output

@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.5.7
+- 2.5.8
 services:
   - postgresql
 addons:
@@ -53,7 +53,7 @@ deploy:
   - provider: script
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s preprod
     on:
-      branch: preproduction
+      branch: conclave
   - provider: script
     script: bash CF/deploy-app.sh -u $CF_USER -o $CF_ORG -p $CF_PASS -s prod
     on:

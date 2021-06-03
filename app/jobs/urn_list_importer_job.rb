@@ -4,6 +4,7 @@ require 'aws-sdk-s3'
 
 class UrnListImporterJob < ApplicationJob
   class AlreadyImported < StandardError; end
+
   class InvalidFormat < StandardError; end
 
   REQUIRED_COLUMNS = ['URN', 'CustomerName', 'PostCode', 'Sector'].freeze

@@ -2,6 +2,7 @@ module Ingest
   class Loader
     class MissingColumns < StandardError
       attr_accessor :entry_type
+
       def initialize(entry_type, missing_columns)
         super("Column(s) missing for #{entry_type}: #{missing_columns}")
         self.entry_type = entry_type
@@ -84,10 +85,10 @@ module Ingest
 
         next if entry.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
 
-        entry.customer_urn = entry.data.dig(sheet_definition.export_mappings['CustomerURN'])
+        entry.customer_urn = entry.data[sheet_definition.export_mappings['CustomerURN']]
         entry.customer_urn = nil unless @urns.key?(entry.customer_urn)
 
-        entry.total_value = entry.data.dig(sheet_definition.total_value_field)
+        entry.total_value = entry.data[sheet_definition.total_value_field]
 
         entry.validate_against!(sheet_definition)
 

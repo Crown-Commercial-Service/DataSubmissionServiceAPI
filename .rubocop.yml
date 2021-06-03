@@ -1,13 +1,18 @@
----
+require:
+    - rubocop-rails
+
 AllCops:
     TargetRubyVersion: 2.5
     Exclude:
         - 'db/migrate/**/*'
+        - 'db/data_migrate/**/*'
         - 'db/schema.rb'
         - 'db/seeds.rb'
         - 'bin/**/*'
         - 'tmp/**/*'
         - 'vendor/**/*'
+        - 'lib/**/*'
+        - 'config/puma.rb'
 
 Rails:
     Enabled: true
@@ -22,6 +27,24 @@ Rails/Output:
 
 Rails/FilePath:
     Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+    Enabled: false
+
+Rails/ApplicationController:
+    Enabled: false
+
+Style/GlobalStdStream:
+    Exclude:
+        - 'config/environments/production.rb'
+
+Style/ExponentialNotation:
+    Enabled: false
+
+Style/GuardClause:
+    Exclude:
+    - 'app/models/framework/definition/ast/field/options.rb'
+    - 'app/models/framework/definition/ast/semantic_checker.rb'
 
 Style/AndOr:
     Enabled: false
@@ -59,10 +82,10 @@ Style/ClassAndModuleChildren:
 Style/ClassCheck:
     Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
     Enabled: false
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
     Enabled: true
 
 Metrics/ClassLength:
@@ -77,12 +100,15 @@ Metrics/AbcSize:
     Exclude:
         - 'spec/**/*'
         - 'lib/console_helpers.rb'
+        - 'app/models/submission_completion.rb'
+        - 'app/controllers/admin/suppliers_controller.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
     Max: 120
     Exclude:
         - 'app/models/framework/definition/**/*'
         - 'app/models/task/unfinished_user_notification_list.rb'
+        - 'app/models/workday/commercial_agreements.rb'
 
 Metrics/BlockLength:
     Max: 40
@@ -99,11 +125,15 @@ Naming/FileName:
         - 'app/models/framework/definition/**/*'
         - 'spec/models/framework/definition/RM1070_spec.rb'
 
+Naming/VariableNumber:
+    Exclude:
+        - 'spec/**/*'
+
 Lint/AmbiguousBlockAssociation:
     Exclude:
         - 'spec/**/*'
 
-Performance/Casecmp:
+Lint/MissingSuper:
     Enabled: false
 
 Style/MultilineBlockChain:
@@ -122,6 +152,7 @@ Metrics/CyclomaticComplexity:
     Exclude:
         - 'app/models/framework/definition/ast/field.rb'
         - 'app/models/framework/definition/ast/semantic_checker.rb'
+        - 'app/models/ingest/loader.rb'
 
 Metrics/PerceivedComplexity:
     Exclude:

@@ -30,6 +30,7 @@ class Framework
         def_delegators :field_def, :[]
 
         attr_reader :field_def, :lookups
+
         def initialize(field_def, lookups = {})
           @field_def = field_def
           @lookups = lookups

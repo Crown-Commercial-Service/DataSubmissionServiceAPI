@@ -12,7 +12,7 @@ class FindUserInAuth0
     auth0_client.headers = auth0_client.headers.except(:params)
     return nil if auth0_response.empty?
 
-    auth0_response[0].dig('user_id')
+    auth0_response[0]['user_id']
   end
 
   private

@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-120] - 2021-06-03
+
+- RMI-345: set up conclave branch to deploy rmi-conclave integration work to preprod env
+- RMI-343: Update Ruby version from 2.5.7 to 2.5.8 (minor update).
+- RMI-36: Backend dependancy for front-end filtering (adds a paramter dig to the tasks controller).
+- Snyk & dependabot fixes/updates.
+
 ## [release-119] - 2021-04-01
 
 - RMI-319: Moved 'Add Tasks' button.
@@ -786,6 +793,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
 [release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119
 [release-118]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-117...release-118
 [release-117]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-116...release-117

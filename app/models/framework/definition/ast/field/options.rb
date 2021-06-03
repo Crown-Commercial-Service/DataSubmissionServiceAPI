@@ -4,6 +4,7 @@ class Framework
       class Field
         class Options
           attr_reader :field, :options
+
           def initialize(field)
             @field = field
             @options = { presence: true }
@@ -27,7 +28,9 @@ class Framework
 
           def add_inclusion_validators(lookup_values)
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
-            options[:dependent_field_inclusion] =  { parents: field.dependent_fields, in: field.dependent_field_inclusion_values } if field.dependent_field_inclusion?
+            if field.dependent_field_inclusion?
+              options[:dependent_field_inclusion] = { parents: field.dependent_fields, in: field.dependent_field_inclusion_values }
+            end
           end
 
           def set_length_options!
