@@ -12,12 +12,12 @@ RSpec.feature 'Admin users can' do
     scenario 'view a paged list of suppliers' do
       visit admin_suppliers_path
       expect(page).to have_content 'First Supplier'
-      expect(page).to have_content 'Next »'
+      expect(page).to have_content 'Next ›'
     end
 
     scenario 'view a second supplier list page' do
       visit admin_suppliers_path
-      click_on 'Next »'
+      click_on 'Next ›'
       expect(page).to have_content 'Last Supplier'
     end
 
@@ -33,7 +33,7 @@ RSpec.feature 'Admin users can' do
       fill_in 'Search', with: ''
       click_button 'Search'
       expect(page).to have_content 'First Supplier'
-      expect(page).to have_content 'Next »'
+      expect(page).to have_content 'Next ›'
     end
 
     scenario 'see when a supplier search returns no results' do
