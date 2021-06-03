@@ -20,7 +20,7 @@ RSpec.feature 'Viewing a supplier' do
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'December 2018'
     expect(page).to have_content 'Unstarted'
-    expect(page).to have_content 'Displaying 1 task'
+    #expect(page).to have_content 'Displaying 1 task'
   end
 
   scenario 'includes the details of a task’s submissions' do
