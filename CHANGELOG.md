@@ -1,8 +1,9 @@
 # Change Log
 
-## [release-121] - 2021-06-10(?)
+## [release-121] - 2021-06-?
 
 - RMI-317: Paginate admin supplier page.
+- RMI-349: Update Ruby To 2.6.6. from 2.5.8
 
 ## [release-120] - 2021-06-03
 
