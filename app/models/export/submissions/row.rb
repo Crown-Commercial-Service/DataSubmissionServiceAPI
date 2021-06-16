@@ -38,7 +38,9 @@ module Export
       end
 
       def submission_file_type
-        File.extname(submission._first_filename).downcase[1..] if submission._first_filename
+        # rubocop:disable Style/SlicingWithRange
+        File.extname(submission._first_filename).downcase[1..-1] if submission._first_filename
+        # rubocop:enable Style/SlicingWithRange
       end
 
       def management_charge_value
