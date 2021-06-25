@@ -144,7 +144,7 @@ cf target -o "$CF_ORG" -s "$CF_SPACE"
 # It's easier to manually adjust this here, after the env has been selected already as conclave-development, so set it back.
 if [[ "$CF_SPACE" == "conclave-development" ]]
 then
-  "$CF_SPACE" = "preprod"
+  CF_SPACE = "preprod"
 fi
 
 # generate manifest
