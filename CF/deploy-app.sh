@@ -134,17 +134,18 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "conclave-development" || "$CF_
   SIDEKIQ_INGEST_CONCURRENCY="3"
 fi
 
-cd "$SCRIPT_PATH" || exit
-
 # login and target space
 cf login -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -a "$CF_API_ENDPOINT" -s "$CF_SPACE"
 cf target -o "$CF_ORG" -s "$CF_SPACE"
 
 # This is a fix for the environment being renamed - all apps and services are still ending with "-preprod".
 # It's easier to manually adjust this here, after the env has been selected already as conclave-development, so set it back.
-if [[ "$CF_SPACE" == "conclave-development" ]] then;
+if [[ "$CF_SPACE" == "conclave-development" ]]
+then
   CF_SPACE="preprod"
 fi
+
+cd "$SCRIPT_PATH" || exit
 
 # generate manifest
 sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.manifest.yml"
