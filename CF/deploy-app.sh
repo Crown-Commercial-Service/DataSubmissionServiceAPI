@@ -12,7 +12,7 @@ usage() {
   echo "  -o <CF_ORG>           - CloudFoundry org              (required)" 
   echo "  -s <CF_SPACE>         - CloudFoundry space to target  (required)" 
   echo "  -a <CF_API_ENDPOINT>  - CloudFoundry API endpoint     (default: https://api.london.cloud.service.gov.uk)"
-  echo "  -f                    - Force a deploy of a non standard branch to staging, preprod or prod"
+  echo "  -f                    - Force a deploy of a non standard branch to staging, conclave-development or prod"
   exit 1
 }
 
@@ -91,7 +91,7 @@ then
     fi
   fi
 
-  if [[ "$CF_SPACE" == "preprod" ]]
+  if [[ "$CF_SPACE" == "conclave-development" ]]
   then
     if [[ ! "$BRANCH" == "conclave" ]]
     then
@@ -111,13 +111,13 @@ then
     fi
   fi
 fi
-if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "preprod" || "$CF_SPACE" == "prod" ]]; then
+if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "conclave-development" || "$CF_SPACE" == "prod" ]]; then
   echo " *********************************************"
   echo "    The '$CF_SPACE' space will be selected"
   echo "     This deploys the apps as HA with"
   echo "      production like resource sizes"
   echo " For feature testing, choose a space with a"
-  echo "      name other than staging / preprod / prod"
+  echo "      name other than staging / conclave-development / prod"
   echo " *********************************************"
 
   MEMORY_LIMIT="512M"
@@ -139,6 +139,13 @@ cd "$SCRIPT_PATH" || exit
 # login and target space
 cf login -u "$CF_USER" -p "$CF_PASS" -o "$CF_ORG" -a "$CF_API_ENDPOINT" -s "$CF_SPACE"
 cf target -o "$CF_ORG" -s "$CF_SPACE"
+
+# This is a fix for the environment being renamed - all apps and services are still ending with "-preprod".
+# It's easier to manually adjust this here, after the env has been selected already as conclave-development, so set it back.
+if [[ "$CF_SPACE" == "conclave-development" ]]
+then
+  "$CF_SPACE" = "preprod"
+fi
 
 # generate manifest
 sed "s/CF_SPACE/$CF_SPACE/g" manifest-template.yml | sed "s/MEMORY_LIMIT/$MEMORY_LIMIT/g" | sed "s/INSTANCE_COUNT/$INSTANCE_COUNT/g" > "$CF_SPACE.manifest.yml"
