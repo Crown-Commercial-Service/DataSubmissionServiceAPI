@@ -41,19 +41,23 @@ class V1::EventsController < APIController
   private
 
   def add_user_session(user)
-    Session_Store.add({
-      user_id: user[:id],
-      auth_id: user[:auth_id],
-      name: user[:name],
-      email: user[:email]
-    })
+    # rubocop:disable Style/BracesAroundHashParameters
+    SessionStore.add(
+      {
+        user_id: user[:id],
+        auth_id: user[:auth_id],
+        name: user[:name],
+        email: user[:email]
+      }
+    )
+    # rubocop:enable Style/BracesAroundHashParameters
   end
 
   def remove_user_session(id)
     index = 0
-    Session_Store.get_array.each do |e|
-      Session_Store.get_array.delete_at(index) if id == e[:auth_id]
-      index = index + 1
+    SessionStore.sessions_array_data.each do |e|
+      SessionStore.sessions_array_data.delete_at(index) if id == e[:auth_id]
+      index += 1
     end
   end
 
