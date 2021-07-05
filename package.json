@@ -4,6 +4,6 @@
   "dependencies": {
     "accessible-autocomplete": "^1.6.2",
     "codemirror": "^5.61.1",
-    "govuk-frontend": "^2.4.0"
+    "govuk-frontend": "^3.13.0"
   }
 }

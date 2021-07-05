@@ -1,4 +1,4 @@
-@import "govuk-frontend/components/table/table";
+@import "govuk-frontend/govuk/components/table/table";
 
 .govuk-table__cell--numeric {
   @include govuk-font($size: false);
