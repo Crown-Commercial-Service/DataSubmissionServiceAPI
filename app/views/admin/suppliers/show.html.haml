@@ -11,11 +11,21 @@
         %li.govuk-page-actions--action
           = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
 
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Tasks
 
+.govuk-tabs{"data-module" => "govuk-tabs"}
+  %h2.govuk-tabs__title
+    Contents
+  %ul.govuk-tabs__list
+    %li.govuk-tabs__list-item.govuk-tabs__list-item--selected
+      %a.govuk-tabs__tab{href: "#tasks"}
+        Tasks
+    %li.govuk-tabs__list-item
+      %a.govuk-tabs__tab{href: "#users"}
+        Users
+    %li.govuk-tabs__list-item
+      %a.govuk-tabs__tab{href: "#frameworks"}
+        Frameworks
+  #tasks.govuk-tabs__panel
     -if @tasks.present?
       %table.govuk-table
         %thead.govuk-table__head
@@ -35,12 +45,7 @@
       %p
         No tasks for
         = @supplier.name
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Users
-
+  #users.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @users.present?
       %table.govuk-table
         %thead.govuk-table__head
@@ -64,12 +69,7 @@
       %p
         No users linked to
         = @supplier.name
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Frameworks
-
+  #frameworks.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @supplier.frameworks.present?
       %table.govuk-table
         %thead.govuk-table__head
