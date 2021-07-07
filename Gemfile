@@ -17,7 +17,7 @@ gem 'jbuilder', '~> 2.5'
 # JSON API
 gem 'jsonapi-rails'
 
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 4.4.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
