@@ -11,88 +11,46 @@
         %li.govuk-page-actions--action
           = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
 
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Tasks
 
+.govuk-tabs{"data-module" => "govuk-tabs"}
+  %h2.govuk-tabs__title
+    Contents
+  %ul.govuk-tabs__list
+    %li.govuk-tabs__list-item.govuk-tabs__list-item--selected
+      %a.govuk-tabs__tab{href: "#tasks"}
+        Tasks
+    %li.govuk-tabs__list-item
+      %a.govuk-tabs__tab{href: "#users"}
+        Users
+    %li.govuk-tabs__list-item
+      %a.govuk-tabs__tab{href: "#frameworks"}
+        Frameworks
+  #tasks.govuk-tabs__panel
     -if @tasks.present?
-      %table.govuk-table
-        %thead.govuk-table__head
-          %tr.govuk-table__row
-            %th.govuk-table__header Task
-            %th.govuk-table__header.govuk-table__header--numeric Management Charge
-            %th.govuk-table__header Submitted
-            %th.govuk-table__header Status
-            %th.govuk-table__header Return
-            %th.govuk-table__header Errors
-        %tbody.govuk-table__body
-          = render(collection: @tasks, partial: "task")
+      .results{id: 'tasks-table'}= render 'show_tasks', tasks: @tasks
       %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        .ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
-        = paginate @tasks, :param_name => "task_page"
+        #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+        #task_pagination= paginate @tasks, :param_name => "task_page", remote: true
     -else
       %p
         No tasks for
         = @supplier.name
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Users
-
+  #users.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @users.present?
-      %table.govuk-table
-        %thead.govuk-table__head
-          %tr.govuk-table__row
-            %th.govuk-table__header Name
-            %th.govuk-table__header Email
-            %th.govuk-table__header Active?
-        %tbody.govuk-table__body
-          - @users.each do |user|
-            %tr.govuk-table__row
-              %td.govuk-table__cell
-                = link_to user.name, admin_user_path(user)
-              %td.govuk-table__cell
-                = user.email
-              %td.govuk-table__cell
-                = user.active? ? 'Active' : 'Inactive'
+      .results{id: 'users-table'}= render 'show_users', users: @users
       %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        .ccs-pagination__summary= page_entries_info @users, entry_name: "user"
-        = paginate @users, :param_name => "user_page"
+        #user_pagination_summary.ccs-pagination__summary= page_entries_info @users, entry_name: "user"
+        #user_pagination= paginate @users, :param_name => "user_page", remote: true
     -else
       %p
         No users linked to
         = @supplier.name
-
-.govuk-grid-row
-  .govuk-grid-column-full
-    %h2.govuk-heading-m{:class => 'govuk-!-margin-top-7'}
-      Frameworks
-
+  #frameworks.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @supplier.frameworks.present?
-      %table.govuk-table
-        %thead.govuk-table__head
-          %tr.govuk-table__row
-            %th.govuk-table__header Name
-            %th.govuk-table__header Status
-            %th.govuk-table__header Actions
-        %tbody.govuk-table__body
-          - @agreements.each do |agreement|
-            - framework = agreement.framework
-            %tr.govuk-table__row{:id => "framework-#{framework.id}" }
-              %td.govuk-table__cell
-                = framework.full_name
-              %td.govuk-table__cell
-                = agreement.active? ? 'Active' : 'Inactive'
-              %td.govuk-table__cell
-                - if agreement.active?
-                  = link_to 'Deactivate', admin_supplier_agreement_confirm_deactivation_path(@supplier, agreement)
-                - else
-                  = link_to 'Activate', admin_supplier_agreement_confirm_activation_path(@supplier, agreement)
+      .results{id: 'frameworks-table'}= render 'show_frameworks', frameworks: @frameworks
       %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        .ccs-pagination__summary= page_entries_info @agreements, entry_name: "framework"
-        = paginate @agreements, :param_name => "framework_page"
+        #framework_pagination_summary.ccs-pagination__summary= page_entries_info @agreements, entry_name: "framework"
+        #framework_pagination= paginate @agreements, :param_name => "framework_page"
     -else
       %p
         No frameworks for

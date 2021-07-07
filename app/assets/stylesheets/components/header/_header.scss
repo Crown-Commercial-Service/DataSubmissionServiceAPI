@@ -1,4 +1,4 @@
-@import "govuk-frontend/components/header/header";
+@import "govuk-frontend/govuk/components/header/header";
 
 $ccs-header-background: govuk-colour("primary");
 $ccs-header-nav-item-border-color: darken(govuk-colour("primary"), 2);

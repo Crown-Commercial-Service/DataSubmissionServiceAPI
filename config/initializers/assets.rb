@@ -13,5 +13,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-Rails.application.config.assets.paths << Rails.root.join('node_modules', 'govuk-frontend', 'assets', 'images')
-Rails.application.config.assets.precompile += %w[govuk-frontend/assets/images/*]
+Rails.application.config.assets.paths << Rails.root.join('node_modules', 'govuk-frontend', 'govuk', 'assets', 'images')
+Rails.application.config.assets.precompile += %w[govuk-frontend/govuk/assets/images/*]

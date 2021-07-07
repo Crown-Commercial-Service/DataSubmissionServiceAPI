@@ -4,6 +4,7 @@
 
 - RMI-317: Paginate admin supplier page.
 - RMI-349: Update Ruby To 2.6.6. from 2.5.8
+- RMI-316: Use tabs on admin supplier page
 
 ## [release-120] - 2021-06-03
 
@@ -798,6 +799,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
 [release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119
 [release-118]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-117...release-118
