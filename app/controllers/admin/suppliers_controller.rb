@@ -9,6 +9,11 @@ class Admin::SuppliersController < AdminController
                                       active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
     @users = @supplier.users.page(params[:user_page]).per(12)
     @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def edit
