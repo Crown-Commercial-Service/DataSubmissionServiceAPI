@@ -24,6 +24,9 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
+  # Resolves issue with sass-rails
+  # https://github.com/sass/sassc-rails/issues/93
+  config.assets.css_compressor = nil
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
