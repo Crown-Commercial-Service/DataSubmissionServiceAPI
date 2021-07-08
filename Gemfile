@@ -68,7 +68,7 @@ gem 'parslet'
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.9.0', require: false
 gem 'akami', '>= 1.3.1', require: false
-gem 'http'
+gem 'http', '>= 4.0.0'
 
 # Used for FDL testing (see FDL::Validations::Test)
 gem 'hashdiff', require: false
@@ -97,7 +97,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara', '>= 3.1.1'
   gem 'climate_control'
-  gem 'webmock'
-  gem 'launchy'
+  gem 'webmock', '>= 3.4.2'
+  gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '0.17', require: false # SimpleCov 0.18+ not yet supported by Codeclimate
 end
