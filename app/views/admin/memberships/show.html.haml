@@ -1,0 +1,28 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %fieldset.govuk-fieldset
+    %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+      %h1.govuk-fieldset__heading
+        Unlink user from a supplier
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %p
+      The user
+      = @user.name
+      will no longer be able to complete tasks on behalf of the following supplier:
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %table.govuk-table
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Name
+      %tbody.govuk-table__body
+        %tr.govuk-table__row
+          %td.govuk-table__cell=  @membership.supplier.name
+
+    .govuk-form-group
+      = form_for [:admin, @user, @membership], method: :delete do |form|
+        = form.submit 'Unlink user', 'aria-label' => "Unlink user #{@user.name} from a #{@membership.supplier.name}", class: 'govuk-button'
+

@@ -1,0 +1,40 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Link
+      = @user.name
+      to a supplier
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %form{method: 'get'}
+      %h2.govuk-heading-s
+        Search suppliers
+      .ccs-search-form-group
+        %label.govuk-label.govuk-visually-hidden{ for: 'search' } Search
+        %input#search{ name: 'search', type: 'text', value: params[:search], autofocus: true, class: ['govuk-!-width-two-thirds', 'govuk-input'] }
+        %button.govuk-button Search
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %table.govuk-table
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Supplier
+          %th.govuk-table__header Actions
+      %tbody.govuk-table__body
+        - @suppliers.each do |supplier|
+          %tr.govuk-table__row
+            %td.govuk-table__cell= supplier.name
+            %td.govuk-table__cell
+              %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
+                %h3#table-actions-title-1.govuk-visually-hidden Row actions
+                %ul.govuk-table-actions--actions
+                  %li.govuk-table-actions--action
+                    = form_for [:admin, @user, Membership.new] do |form|
+                      = form.hidden_field :supplier_id, value: supplier.id
+                      = form.submit 'Link user', 'aria-label' => "Link user #{@user.name} to #{supplier.name}", class: 'govuk-button--as-link'
+
+    = paginate @suppliers
+
+
