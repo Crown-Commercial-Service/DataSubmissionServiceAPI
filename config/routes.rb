@@ -49,15 +49,23 @@ Rails.application.routes.draw do
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
-      post 'user_terminated'
     end
   end
 
   namespace :admin do
     root 'users#index'
 
-    resources :users, only: %i[index show] do
-      resources :memberships, only: %i[show]
+    resources :users, only: %i[index show new create destroy] do
+      resources :memberships, only: %i[new create show destroy]
+      member do
+        post :edit
+        get :confirm_delete
+        get :confirm_reactivate
+      end
+
+      collection do
+        resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
+      end
     end
 
     resources :suppliers, only: %i[index show edit update] do
@@ -115,6 +123,4 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'admin/sessions#create'
   # The "POST" version of the callback is required for OmniAuth::Strategies::DeveloperAdmin
   post '/auth/:provider/callback', to: 'admin/sessions#create' if OmniAuth::Strategies::DeveloperAdmin.applies?
-
-  match '*path', to: redirect('/admin/users'), via: :all
 end
