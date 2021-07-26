@@ -10,6 +10,8 @@ class Admin::SuppliersController < AdminController
     @users = @supplier.users.page(params[:user_page]).per(12)
     @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
 
+    filter_status params[:status] if params[:status]
+
     respond_to do |format|
       format.html
       format.js
@@ -34,5 +36,12 @@ class Admin::SuppliersController < AdminController
 
   def supplier_params
     params.require(:supplier).permit(:name, :salesforce_id)
+  end
+
+  def filter_status(status_param)
+    return if status_param.size == 2
+
+    @users = @users.active if status_param.include? 'active'
+    @users = @users.inactive if status_param.include? 'inactive'
   end
 end
