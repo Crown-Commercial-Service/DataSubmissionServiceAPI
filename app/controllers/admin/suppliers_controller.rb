@@ -10,6 +10,13 @@ class Admin::SuppliersController < AdminController
     @users = @supplier.users.page(params[:user_page]).per(12)
     @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
 
+    if params[:status]
+      return if params[:status].size == 2
+
+      @users = @users.active if params[:status].include? 'active'
+      @users = @users.inactive if params[:status].include? 'inactive'
+    end
+
     respond_to do |format|
       format.html
       format.js

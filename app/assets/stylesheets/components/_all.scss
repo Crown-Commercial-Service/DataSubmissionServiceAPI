@@ -9,6 +9,7 @@
 @import "govuk-frontend/govuk/components/fieldset/fieldset";
 @import "govuk-frontend/govuk/components/back-link/back-link";
 @import "govuk-frontend/govuk/components/tabs/tabs";
+@import "govuk-frontend/govuk/components/checkboxes/checkboxes";
 
 // custom
 @import "type/type";
@@ -28,3 +29,6 @@
 @import "code/fdl";
 @import "table/table";
 @import "tabs/tabs";
+@import "accordion/accordion";
+@import "enclosure/enclosure";
+@import "checkboxes/checkboxes";
