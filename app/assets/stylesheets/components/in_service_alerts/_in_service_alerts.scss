@@ -1,4 +1,4 @@
-@import "govuk-frontend/components/inset-text/inset-text";
+@import "govuk-frontend/govuk/components/inset-text/inset-text";
 
 //==============//MIXINS
 //background-color lighten and border color for alert messages
@@ -12,7 +12,7 @@
 }
 
 .ccs-in-service-alert--notice {
-  @include bgalert-color-borderleft-color(govuk-colour("grey-1"), 50%);
+  @include bgalert-color-borderleft-color(govuk-colour("dark-grey"), 50%);
 }
 
 .ccs-in-service-alert--failure {

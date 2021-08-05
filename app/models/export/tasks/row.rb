@@ -12,7 +12,14 @@ module Export
       end
 
       def status
-        task.status == 'correcting' ? 'completed' : task.status
+        case task.status
+        when 'correcting'
+          'completed'
+        when 'in_progress'
+          task.active_submission.aasm_state.to_s
+        else
+          task.status
+        end
       end
 
       def row_values

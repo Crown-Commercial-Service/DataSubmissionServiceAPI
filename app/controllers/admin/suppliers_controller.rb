@@ -5,7 +5,17 @@ class Admin::SuppliersController < AdminController
 
   def show
     @supplier = Supplier.find(params[:id])
-    @tasks = @supplier.tasks.includes(:framework, active_submission: :files).order(due_on: :desc)
+    @tasks = @supplier.tasks.includes(:framework,
+                                      active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
+    @users = @supplier.users.page(params[:user_page]).per(12)
+    @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
+
+    filter_status params[:status] if params[:status]
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def edit
@@ -26,5 +36,12 @@ class Admin::SuppliersController < AdminController
 
   def supplier_params
     params.require(:supplier).permit(:name, :salesforce_id)
+  end
+
+  def filter_status(status_param)
+    return if status_param.size == 2
+
+    @users = @users.active if status_param.include? 'active'
+    @users = @users.inactive if status_param.include? 'inactive'
   end
 end
