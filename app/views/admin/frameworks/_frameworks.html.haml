@@ -1,0 +1,12 @@
+%table.govuk-table{:class => 'govuk-!-margin-top-7'}
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__header #
+      %th.govuk-table__header Name
+      %th.govuk-table__header Status
+    %tbody.govuk-table__body
+      - @frameworks.each do |framework|
+        %tr.govuk-table__row
+          %td.govuk-table__cell= link_to framework.short_name, admin_framework_path(framework.id)
+          %td.govuk-table__cell= link_to framework.name, admin_framework_path(framework.id)
+          %td.govuk-table__cell= published_status(framework)

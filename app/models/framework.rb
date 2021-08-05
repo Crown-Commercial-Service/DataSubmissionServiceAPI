@@ -11,6 +11,7 @@ class Framework < ApplicationRecord
   validates :definition_source, fdl: true, allow_nil: true
 
   scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
 
   has_one_attached :template_file
 
