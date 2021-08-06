@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-122] - 2021-08-?
+
+- RMI-358: Status filter on frameworks page
+
 ## [release-121] - 2021-08-05
 
 - RMI-317: Paginate admin supplier page.
@@ -801,6 +805,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
 [release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
 [release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119

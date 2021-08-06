@@ -11,22 +11,47 @@
           = link_to 'New Framework', new_admin_framework_path
 
 .govuk-grid-row
-  .govuk-grid-column-full
-    - if @frameworks.present?
-      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
-        %thead.govuk-table__head
-          %tr.govuk-table__row
-            %th.govuk-table__header #
-            %th.govuk-table__header Name
-            %th.govuk-table__header Status
-        %tbody.govuk-table__body
-          - @frameworks.each do |framework|
-            %tr.govuk-table__row
-              %td.govuk-table__cell= link_to framework.short_name, admin_framework_path(framework.id)
-              %td.govuk-table__cell= link_to framework.name, admin_framework_path(framework.id)
-              %td.govuk-table__cell= published_status(framework)
+  - if @frameworks.present?
+    = form_tag(admin_frameworks_path, method: :get, enforce_utf8: false, remote: :true, id: 'framework_status_filter') do
+      .govuk-grid-column-one-quarter
+        #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion", :class => 'govuk-!-margin-top-7'}
+          .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
+            .govuk-accordion__section-header
+              %h2.govuk-accordion__section-heading
+                %span#accordion-with-summary-sections-heading-1.govuk-accordion__section-button.ccs-accordion__section-button
+                  %h3.govuk-heading-s
+                    Filter Status
+            #accordion-with-summary-sections-content-1.govuk-accordion__section-content{"aria-labelledby" => "accordion-with-summary-sections-heading-1"}
+              .govuk-form-group
+                %fieldset.govuk-fieldset
+                  %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
+                  .govuk-checkboxes{id: 'framework_status_checkboxes'}          
+                    .govuk-checkboxes__item.govuk-checkboxes__item--small
+                      = check_box_tag('framework_status[]', 'New', false,
+                        id: 'framework_status_new',
+                        class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                      = label_tag "New", "New", class: 'govuk-checkboxes__label'
+                    .govuk-checkboxes__item.govuk-checkboxes__item--small
+                      = check_box_tag('framework_status[]', 'Published', false,
+                        id: 'framework_status_published',
+                        class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                      = label_tag "Published", "Published", class: 'govuk-checkboxes__label'
+          %noscript
+            = surround "&nbsp&nbsp".html_safe do
+              = submit_tag "Submit", id: 'framework-status-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'
+      .govuk-grid-column-three-quarters
+        .results{id: 'frameworks-index-table'}= render 'frameworks', frameworks: @frameworks
+        
+  - else
+    %p
+      No frameworks.
 
-    - else
-      %p
-        No frameworks.
+:javascript
+  var frameworkStatusCheckBoxes = document.querySelectorAll('#framework_status_checkboxes');
+  var frameworkStatusForm = document.getElementById('framework_status_filter');
 
+  for (const check of frameworkStatusCheckBoxes) {
+    check.addEventListener( 'change', function() {      
+      Rails.fire(frameworkStatusForm, 'submit');
+    });
+  }
