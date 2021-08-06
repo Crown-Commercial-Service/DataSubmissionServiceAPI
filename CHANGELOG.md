@@ -10,6 +10,7 @@
 - RMI-349: Update Ruby To 2.6.6. from 2.5.8
 - RMI-316: Use tabs on admin supplier page
 - RMI-359: Add status filter to users tab of supplier page
+- RMI-360: Update buildpack version.
 
 ## [release-120] - 2021-06-03
 
