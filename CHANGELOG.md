@@ -3,6 +3,7 @@
 ## [release-122] - 2021-08-?
 
 - RMI-358: Status filter on frameworks page
+- RMI-318: Framework filter on tasks tab in supplier page
 
 ## [release-121] - 2021-08-05
 

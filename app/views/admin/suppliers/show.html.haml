@@ -27,17 +27,45 @@
         Frameworks
   #tasks.govuk-tabs__panel
     -if @tasks.present?
-      .results{id: 'tasks-table'}= render 'show_tasks', tasks: @tasks
-      %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
-        #task_pagination= paginate @tasks, :param_name => "task_page", remote: true
+      = form_tag(filter_tasks_admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'framework_filter') do
+        .govuk-grid-column-one-quarter
+          .ccs-filters-intro{class: 'govuk-!-padding-1'}
+            = link_to 'Clear filters', admin_supplier_path(anchor: 'tasks'), method: :get, enforce_utf8: false, id: 'clear_filter', class: 'ccs-clear-filters', 'aria-label' => 'Clear filters'
+            %h2.govuk-heading-m Apply filter
+          #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion"}
+            .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
+              .govuk-accordion__section-header
+                %h2.govuk-accordion__section-heading
+                  %span#accordion-with-summary-sections-heading-1.govuk-accordion__section-button.ccs-accordion__section-button
+                    %h3.govuk-heading-s
+                      Filter Status
+              #accordion-with-summary-sections-content-1.govuk-accordion__section-content{"aria-labelledby" => "accordion-with-summary-sections-heading-1"}
+                .govuk-form-group
+                  %fieldset.govuk-fieldset
+                    %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
+                    .govuk-checkboxes.ccs-checkboxes--scrollable{id: 'framework-checkboxes'}
+                      - @frameworks.each do |framework|
+                        .govuk-checkboxes__item.govuk-checkboxes__item--small
+                          = check_box_tag('framework_id[]', framework.id, false,
+                            id: "framework_id_#{framework.id}",
+                            class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                          = label_tag "framework_id_#{framework.id}", "#{framework.name} (#{framework.short_name})", class: 'govuk-checkboxes__label'
+          %noscript
+            = surround "&nbsp&nbsp".html_safe do
+              = submit_tag "Submit", id: 'framework-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'
+      .govuk-grid-column-three-quarters
+        .results{id: 'tasks-table'}= render 'show_tasks', tasks: @tasks
+        %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+          #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+          #task_pagination= paginate @tasks, :param_name => "task_page", remote: true
     -else
       %p
         No tasks for
         = @supplier.name
+    .govuk-grid-row
   #users.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @users.present?
-      = form_tag(admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'user_status_filter') do
+      = form_tag(filter_users_admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'user_status_filter') do
         .govuk-grid-column-one-quarter
           #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion"}
             .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
@@ -50,7 +78,7 @@
                 .govuk-form-group
                   %fieldset.govuk-fieldset
                     %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
-                    .govuk-checkboxes            
+                    .govuk-checkboxes{id: 'user-status-checkboxes'}            
                       .govuk-checkboxes__item.govuk-checkboxes__item--small
                         = check_box_tag('status[]', 'active', false,
                           class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
@@ -84,11 +112,24 @@
         = @supplier.name
 
 :javascript
-  var checkBoxes = document.querySelectorAll(".govuk-checkboxes");
-  var form = document.getElementById('user_status_filter');
+  var userFilterCheckBoxes = document.querySelectorAll("#user-status-checkboxes");
+  var userFilterForm = document.getElementById('user_status_filter');
+  var frameworkFilterCheckBoxes = document.querySelectorAll("#framework-checkboxes");
+  var frameworkFilterForm = document.getElementById('framework_filter');
+  var clearFilter = document.getElementById('clear_filter');
 
-  for (const check of checkBoxes) {
-    check.addEventListener( 'change', function() {      
-      Rails.fire(form, 'submit');
+  for (const check of userFilterCheckBoxes) {
+    check.addEventListener( 'change', function() {
+      Rails.fire(userFilterForm, 'submit');
     });
   }
+
+  for (const check of frameworkFilterCheckBoxes) {
+    check.addEventListener( 'change', function() {  
+      Rails.fire(frameworkFilterForm, 'submit');
+    });
+  }
+
+  clearFilter.addEventListener( 'click', function() {    
+    Rails.fire(frameworkFilterForm, 'submit');
+  });

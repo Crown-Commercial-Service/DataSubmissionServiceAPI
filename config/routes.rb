@@ -69,6 +69,11 @@ Rails.application.routes.draw do
     end
 
     resources :suppliers, only: %i[index show edit update] do
+      member do
+        get :selected_tasks, as: 'filter_tasks'
+        get :selected_users, as: 'filter_users'
+      end
+
       resources :agreements, only: [] do
         get :confirm_activation
         get :confirm_deactivation
