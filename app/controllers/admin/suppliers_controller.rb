@@ -7,7 +7,8 @@ class Admin::SuppliersController < AdminController
 
   def selected_tasks
     @tasks = @supplier.tasks.includes(:framework,
-                                      active_submission: :files).where(framework_id: params[:framework_id]).order(due_on: :desc).page(params[:task_page]).per(12)
+                                      active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
+    @tasks = @tasks.where(framework_id: params[:framework_id]) if params[:framework_id]
 
     respond_to do |format|
       format.js
@@ -17,7 +18,7 @@ class Admin::SuppliersController < AdminController
   def selected_users
     @users = @supplier.users.page(params[:user_page]).per(12)
 
-    filter_status params[:status]
+    filter_status params[:status] if params[:status]
 
     respond_to do |format|
       format.js

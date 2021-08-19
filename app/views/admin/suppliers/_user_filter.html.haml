@@ -1,0 +1,25 @@
+= form_tag(filter_users_admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'user_status_filter') do
+  .govuk-grid-column-one-quarter
+    #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion"}
+      .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
+        .govuk-accordion__section-header
+          %h2.govuk-accordion__section-heading
+            %span#accordion-with-summary-sections-heading-1.govuk-accordion__section-button.ccs-accordion__section-button
+              %h3.govuk-heading-s
+                Filter Status
+        #accordion-with-summary-sections-content-1.govuk-accordion__section-content{"aria-labelledby" => "accordion-with-summary-sections-heading-1"}
+          .govuk-form-group
+            %fieldset.govuk-fieldset
+              %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
+              .govuk-checkboxes{id: 'user-status-checkboxes'}            
+                .govuk-checkboxes__item.govuk-checkboxes__item--small
+                  = check_box_tag('status[]', 'active', false,
+                    class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                  = label_tag "Active", "Active", class: 'govuk-checkboxes__label'
+                .govuk-checkboxes__item.govuk-checkboxes__item--small
+                  = check_box_tag('status[]', 'inactive', false,
+                    class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                  = label_tag "Inactive", "Inactive", class: 'govuk-checkboxes__label'
+    %noscript
+      = surround "&nbsp&nbsp".html_safe do
+        = submit_tag "Submit", id: 'status-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'
