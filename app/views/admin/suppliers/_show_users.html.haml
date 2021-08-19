@@ -13,3 +13,6 @@
             = user.email
           %td.govuk-table__cell
             = user.active? ? 'Active' : 'Inactive'
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #user_pagination_summary.ccs-pagination__summary= page_entries_info @users, entry_name: "user"
+  #user_pagination= paginate @users, :param_name => "user_page", remote: true

@@ -30,9 +30,6 @@
       = render 'task_filter', frameworks: @frameworks
       .govuk-grid-column-three-quarters
         .results{id: 'tasks-table'}= render 'show_tasks', tasks: @tasks
-        %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-          #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
-          #task_pagination= paginate @tasks, :param_name => "task_page", remote: true
     -else
       %p
         No tasks for
@@ -43,9 +40,6 @@
       = render 'user_filter'
       .govuk-grid-column-three-quarters
         .results{id: 'users-table'}= render 'show_users', users: @users
-        %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-          #user_pagination_summary.ccs-pagination__summary= page_entries_info @users, entry_name: "user"
-          #user_pagination= paginate @users, :param_name => "user_page", remote: true
     -else
       %p
         No users linked to
@@ -54,9 +48,6 @@
   #frameworks.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @supplier.frameworks.present?
       .results{id: 'frameworks-table'}= render 'show_frameworks', frameworks: @frameworks
-      %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-        #framework_pagination_summary.ccs-pagination__summary= page_entries_info @agreements, entry_name: "framework"
-        #framework_pagination= paginate @agreements, :param_name => "framework_page", remote: true
     -else
       %p
         No frameworks for

@@ -11,6 +11,7 @@ class Admin::SuppliersController < AdminController
     @tasks = @tasks.where(framework_id: params[:framework_id]) if params[:framework_id]
 
     respond_to do |format|
+      format.html
       format.js
     end
   end
@@ -21,14 +22,14 @@ class Admin::SuppliersController < AdminController
     filter_status params[:status] if params[:status]
 
     respond_to do |format|
+      format.html
       format.js
     end
   end
 
   def show
-    @tasks = @supplier.tasks.includes(:framework,
-                                      active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
-    @users = @supplier.users.page(params[:user_page]).per(12)
+    selected_tasks
+    selected_users
     @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
     @frameworks = @tasks.collect(&:framework).uniq.sort_by { |framework| framework.name.downcase }
 
