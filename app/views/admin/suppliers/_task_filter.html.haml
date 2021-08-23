@@ -1,7 +1,7 @@
-= form_tag(filter_tasks_admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'framework_filter') do
+= form_tag(show_tasks_admin_supplier_path, method: :get, enforce_utf8: false, remote: :true, id: 'framework_filter') do
   .govuk-grid-column-one-quarter
     .ccs-filters-intro{class: 'govuk-!-padding-1'}
-      = link_to 'Clear filters', filter_tasks_admin_supplier_path, method: :get, enforce_utf8: false, id: 'clear_filter', class: 'ccs-clear-filters', 'aria-label' => 'Clear filters'
+      = link_to 'Clear filters', admin_supplier_path, method: :get, enforce_utf8: false, id: 'clear_filter', class: 'ccs-clear-filters', 'aria-label' => 'Clear filters'
       %h2.govuk-heading-m Apply filter
     #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion"}
       .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
@@ -22,5 +22,5 @@
                       class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
                     = label_tag "framework_id_#{framework.id}", "#{framework.name} (#{framework.short_name})", class: 'govuk-checkboxes__label'
     %noscript
-      = surround "&nbsp&nbsp".html_safe do
-        = submit_tag "Submit", id: 'framework-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'
+      %p
+        Please enable javascript to use filters.

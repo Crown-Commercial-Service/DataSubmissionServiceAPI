@@ -70,8 +70,8 @@ Rails.application.routes.draw do
 
     resources :suppliers, only: %i[index show edit update] do
       member do
-        get :selected_tasks, as: 'filter_tasks'
-        get :selected_users, as: 'filter_users'
+        get :show_tasks
+        get :show_users
       end
 
       resources :agreements, only: [] do
