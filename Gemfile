@@ -58,8 +58,8 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 
 gem 'progress_bar', require: false
 
-gem 'sidekiq'
-gem 'sidekiq-cron'
+gem 'sidekiq', '>= 6.2.1'
+gem 'sidekiq-cron', '>= 1.0.4'
 
 gem 'activerecord-import'
 
