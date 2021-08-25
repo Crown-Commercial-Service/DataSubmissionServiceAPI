@@ -4,6 +4,7 @@
 
 - RMI-358: Status filter on frameworks page
 - RMI-408: Truncate exported strings
+- RMI-318: Framework filter on tasks tab in supplier page
 
 ## [release-121] - 2021-08-05
 

@@ -9,3 +9,6 @@
       %th.govuk-table__header Errors
   %tbody.govuk-table__body
     = render(collection: @tasks, partial: "task")
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+  #task_pagination= paginate @tasks, :param_name => "task_page", remote: true
