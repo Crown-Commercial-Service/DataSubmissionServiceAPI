@@ -20,7 +20,7 @@
                     = check_box_tag('framework_id[]', framework.id, false,
                       id: "framework_id_#{framework.id}",
                       class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
-                    = label_tag "framework_id_#{framework.id}", "#{framework.name} (#{framework.short_name})", class: 'govuk-checkboxes__label'
+                    = label_tag "framework_id_#{framework.id}", "(#{framework.short_name}) #{framework.name}", class: 'govuk-checkboxes__label'
     %noscript
       %p
         Please enable javascript to use filters.

@@ -62,7 +62,7 @@ class Admin::SuppliersController < AdminController
 
   def load_frameworks
     @tasks = @supplier.tasks.includes(:framework, active_submission: :files)
-    @frameworks = @tasks.collect(&:framework).uniq.sort_by { |framework| framework.name.downcase }
+    @frameworks = @tasks.collect(&:framework).uniq.sort_by(&:short_name)
   end
 
   def filter_status(status_param)
