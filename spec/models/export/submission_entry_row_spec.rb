@@ -53,6 +53,16 @@ RSpec.describe Export::SubmissionEntryRow do
         end
       end
 
+      context 'the value for a requested export field is longer than 255 characters' do
+        let(:field) { 'CustomerName' }
+
+        it 'truncates strings' do
+          expect(value).to eql('One morning, when Gregor Samsa woke from troubled dreams, '\
+          'he found himself transformed in his bed into a horrible vermin. He lay on his armour-like '\
+          'back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arc...')
+        end
+      end
+
       context 'the framework definition is already in the cache' do
         let(:definition) { FrameworkLoader['RM3786'] }
         let(:cache) { { 'RM3786' => definition } }
