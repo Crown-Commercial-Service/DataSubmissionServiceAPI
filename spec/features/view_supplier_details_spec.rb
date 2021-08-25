@@ -60,23 +60,6 @@ RSpec.feature 'Viewing a supplier' do
     expect(page).to have_content 'Displaying 1 user'
   end
 
-  scenario 'allows users to be filtered by status' do
-    FactoryBot.create(:user, name: 'Active User', suppliers: [supplier])
-    FactoryBot.create(:user, name: 'Inactive User', auth_id: nil, suppliers: [supplier])
-
-    visit admin_supplier_path(supplier)
-
-    expect(page).to have_content 'Active User'
-    expect(page).to have_content 'Inactive User'
-    expect(page).to have_content 'Filter Status'
-
-    page.check('status[]', match: :first)
-    find('#status-filter-submit').click
-
-    expect(page).to have_content 'Active User'
-    expect(page).not_to have_content 'Inactive User'
-  end
-
   scenario 'each section\'s pagination works independently' do
     period_month = 0
     12.times do
