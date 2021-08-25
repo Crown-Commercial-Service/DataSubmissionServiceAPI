@@ -60,7 +60,9 @@ FactoryBot.define do
           'Customer Invoice Number' => '3307957',
           'Pro-Bono Price per Unit' => '0.00',
           'Supplier Reference Number' => 'DEP/0008.00032',
-          'Customer Organisation Name' => 'Department for Education',
+          'Customer Organisation Name' => 'One morning, when Gregor Samsa woke from troubled dreams, '\
+          'he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, '\
+          'and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into',
           'Sub-Contractor Name (If Applicable)' => 'N/A'
         }
       end
