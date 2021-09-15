@@ -23,6 +23,7 @@ env:
     - API_ROOT='https://ccs.api/'
   global:
     - CF_ORG=ccs-report-management-info
+    - secure: "N9v+XZcjaaF1nkd+/vim5P3ssK/l9pbQQ5ihliIIkMmXQlURP11xovXxAy0pkqFQC+Vi97f9nYTB+9rWg0KeoSaSpi7F0od8/UASSg9z7TkfxIY4MeqQgPGczwpuKmw3IF5/Qduw9bMFR3tqQsJAwN9rqpKIvo7/TS9sgiNLu9cV1WDDOYE0ItkgyjWkiGtXace98eUaRq3Zpu8i5a8FvpyP1wn2jZDD7ST9I5EFJUXS+18VGHFVdNoGWY3pfPm9+HCLyIkvKc3PMEAv6u95hBoLJVeuI29PH4Lv/q8PVSkNZ8L5whWXVVA9JIhOzBZwjBgd8s7GODAaPhDN6HTt7K1HtU04U6M1L+LvDCOZGM1eoIThgCUP60Y8h5aw6ECJENMrwt4WymJQ07svvGmg9vIuE8864hQC34+lpa0mDreEk2E5rJS/P2o/XlhwMIDvOySNGixd5hjydINxgFfP8/6yhaDJ8Q4lsbPuQsSU0HW8dXNiVRXCTBt2T31mUPNwEA/VeBHa5zMu8IEdV17s0GyNJIWtx0HebXPI7jVBDyhkuhsIlptAasWVHSOoA0YjNW/0aJa2HOW/ad1kOEs14RpbooM1UJsF8GQwMAdUe6nnt/FPen+ZErrFEaiMnpyLOyZnSn8FKBmTsVKz+Zoc+Su/fHEu5L0btVXUGeg/BbA="
 before_install:
   - gem install bundler -v 2.0.2
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  > ./cc-test-reporter
