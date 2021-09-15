@@ -22,10 +22,7 @@ env:
   matrix:
     - API_ROOT='https://ccs.api/'
   global:
-    - CF_USER=ccs-rmi-travis-deploy@crowncommercial.gov.uk
     - CF_ORG=ccs-report-management-info
-    - secure: "Ef1vXu9xRPQ/NZKRGgyP+eghwgO1H2xQDTWyAOrXex70HoJraU8wQelD65OXlVLlWJd5DOaa1zrK0v5iWSm1tGvTx/cBzRaTL6s+h4/lhaBYkaki7dxJhbJP2AAxQ/vTJe8AzqWAxtuTywzn9I62L8gBM4/OJT0Tuj+Rkr9yqPeG2fRXhL1QvR9UKaIBxKnXxGLJydOjd6li2UGAxW/xTneTjvoWiDU8sGVlAB8bQXotkoNPsuUfMIGotg5mteAugJTnOeCO1VlYPJ5wvsRVQm1+9tuiilvJiL4zMVAlOsx/INYrcCXSOh8AB0IR3kv1JUXpGJEcWsOmiryKD89GOH2khAu3fbKqDx/VLFzF0Gjqf8GgGyi/Ly6hOrIfm7uJRDPyMEVJP3vvwepfw9LGJz4tao2TWJ1Ed+vsW029rJGmvnzwuLJFb1/LI4eQGlMebZsJO8lAKqAQN2D3sc0jYaK6d/0UhR6CvbLlfYRl2HGqWl5VXyJIvBLtqSKLA/ZgrQpqohS7961jyhyV+5v91uIFfG884VVkIqLQoB6Y5Hmc2Vo0tfhW9n7m+jXZt5cXLnnLCuxz9MR1eG1C5Jql/qYSPggNvp872pRVMHROTe2qwkLnKUNZLzdJ68pqGqXgI9dVA7p+8mi0zU1XL8fOeV7d1IulIe7+52uL8R1KM3A="
-    - CC_TEST_REPORTER_ID=8210faf280e889e60d8da3ad7d3ddcd383023b8f3c5155a04735138761c64721
 before_install:
   - gem install bundler -v 2.0.2
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  > ./cc-test-reporter
