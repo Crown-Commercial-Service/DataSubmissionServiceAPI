@@ -15,6 +15,7 @@
     min-height: 24px;
     margin-bottom: 0;
     padding: 10px 0 10px 34px;
+    width: fit-content;
 
 }
 
@@ -29,6 +30,7 @@
 
     padding: 0px 15px 0px;
     line-height: 24px;
+    word-break: break-word;
 
 }
 
@@ -92,4 +94,10 @@
 
     }
 
+}
+
+.ccs-checkboxes--scrollable {
+    max-height: govuk-px-to-rem(394);
+    min-height: govuk-px-to-rem(234);
+    overflow: auto;
 }

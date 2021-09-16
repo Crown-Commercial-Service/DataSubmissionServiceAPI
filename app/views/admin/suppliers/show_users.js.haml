@@ -1,0 +1,3 @@
+$('#users-table').html("#{j (render partial: 'show_users', locals: {users: @users})}")
+$('#user_pagination').html("#{j (paginate(@users, :param_name => "user_page", :remote => true).to_s)}");
+$('#user_pagination_summary').html("#{j (page_entries_info(@users, entry_name: "user").to_s)}");

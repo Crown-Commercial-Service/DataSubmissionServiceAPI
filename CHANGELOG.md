@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-122] - 2021-09-16
+
+- RMI-358: Status filter on frameworks page
+- RMI-408: Truncate exported strings
+- RMI-318: Framework filter on tasks tab in supplier page
+- RMI-425: Update travis env variable
+- Snyk: Upgrade codemirror from 5.62.0 to 5.62.3
+- Snyk: Sidekiq upgrade
+
 ## [release-121] - 2021-08-05
 
 - RMI-317: Paginate admin supplier page.
@@ -801,6 +810,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
 [release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
 [release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119

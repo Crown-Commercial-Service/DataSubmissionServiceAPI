@@ -4,15 +4,15 @@ RSpec.feature 'Admin can list frameworks' do
   before do
     # Given that I am logged in as an admin
     sign_in_as_admin
-  end
 
-  scenario 'There are some published and unpublished frameworks' do
     # And there are some published frameworks
     FactoryBot.create(:framework, name: 'Laundry Framework 1', short_name: 'RM1234')
     FactoryBot.create(:framework, name: 'Vehicle Purchase Framework 1', short_name: 'RM5678')
     # And there are some unpublished frameworks
     FactoryBot.create(:framework, published: false, name: 'Vehicle Purchase Framework 2', short_name: 'RM5679')
+  end
 
+  scenario 'There are some published and unpublished frameworks' do
     # When I click the "frameworks" link from the main admin page
     visit admin_root_path
     click_link 'Frameworks'
@@ -35,5 +35,26 @@ RSpec.feature 'Admin can list frameworks' do
       expect(page).to have_text('Vehicle Purchase Framework 2')
       expect(page).to have_text('New')
     end
+  end
+
+  scenario 'frameworks can be filtered by status' do
+    visit admin_root_path
+    click_link 'Frameworks'
+
+    page.check('framework_status_new')
+    find('#framework-status-filter-submit').click
+
+    expect(page).to have_text('RM5679')
+    expect(page).to have_text('Vehicle Purchase Framework 2')
+    expect(page).not_to have_text('RM5678')
+    expect(page).not_to have_text('Vehicle Purchase Framework 1')
+
+    page.check('framework_status_published')
+    find('#framework-status-filter-submit').click
+
+    expect(page).to have_text('RM1234')
+    expect(page).to have_text('Laundry Framework 1')
+    expect(page).not_to have_text('RM5679')
+    expect(page).not_to have_text('Vehicle Purchase Framework 2')
   end
 end
