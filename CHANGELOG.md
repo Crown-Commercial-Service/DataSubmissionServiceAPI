@@ -1,10 +1,13 @@
 # Change Log
 
-## [release-122] - 2021-08-?
+## [release-122] - 2021-09-16
 
 - RMI-358: Status filter on frameworks page
 - RMI-408: Truncate exported strings
 - RMI-318: Framework filter on tasks tab in supplier page
+- RMI-425: Update travis env variable
+- Snyk: Upgrade codemirror from 5.62.0 to 5.62.3
+- Snyk: Sidekiq upgrade
 
 ## [release-121] - 2021-08-05
 
