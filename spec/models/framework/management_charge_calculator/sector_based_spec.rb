@@ -36,70 +36,89 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
   context 'when management charge is based on sector and column' do
     let(:calculator) do
       Framework::ManagementChargeCalculator::SectorBased.new(
-      central_government: {
-        column_names: "Lot Number",
-        value_to_percentage: {
-          "1": { percentage: BigDecimal(20) }, 
-          "2": { percentage: BigDecimal(10) },
-          "3": { percentage: BigDecimal(90), column: 'Other Price' }}},
-      wider_public_sector: {
-        column_names: ['Lot Number', 'Spend Code'],
-        value_to_percentage: {
-          [Framework::Definition::AST::Any, Framework::Definition::AST::Any] => { percentage: BigDecimal(50) },
-          ['2', 'Damages'] => { percentage: BigDecimal(30) }}})
+        central_government: {
+          column_names: 'Lot Number',
+          value_to_percentage: {
+            "1": { percentage: BigDecimal(20) },
+            "2": { percentage: BigDecimal(10) },
+            "3": { percentage: BigDecimal(90), column: 'Other Price' }
+          }
+        },
+        wider_public_sector: {
+          column_names: ['Lot Number', 'Spend Code'],
+          value_to_percentage: {
+            [Framework::Definition::AST::Any, Framework::Definition::AST::Any] => { percentage: BigDecimal(50) },
+            ['2', 'Damages'] => { percentage: BigDecimal(30) }
+          }
+        }
+      )
     end
 
     subject { calculator.calculate_for(entry) }
 
     context 'central government AND lot 1' do
       let(:customer) { create(:customer, :central_government) }
-      let(:entry)    { build(:submission_entry, data: { 'Lot Number': '1' }, total_value: 1000, customer_urn: customer.urn) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '1' }, total_value: 1000, customer_urn: customer.urn)
+      end
 
       it { is_expected.to eq(entry.total_value * 0.2) }
     end
 
     context 'central government AND lot 2' do
       let(:customer) { create(:customer, :central_government) }
-      let(:entry)    { build(:submission_entry, data: { 'Lot Number': '2' }, total_value: 1000, customer_urn: customer.urn) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '2' }, total_value: 1000, customer_urn: customer.urn)
+      end
 
       it { is_expected.to eq(entry.total_value * 0.1) }
     end
 
     context 'wider public sector AND lot 2' do
       let(:customer) { create(:customer, :wider_public_sector) }
-      let(:entry)    { build(:submission_entry, data: { 'Lot Number': '2', 'Spend Code': 'Damages' }, total_value: 1000, customer_urn: customer.urn) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '2', 'Spend Code': 'Damages' }, total_value: 1000,
+       customer_urn: customer.urn)
+      end
 
       it { is_expected.to eq(entry.total_value * 0.3) }
     end
 
     context 'wider public sector AND all columns are wildcards' do
       let(:customer) { create(:customer, :wider_public_sector) }
-      let(:entry)    { build(:submission_entry, data: { 'Lot Number': '3' }, total_value: 1000, customer_urn: customer.urn) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '3' }, total_value: 1000, customer_urn: customer.urn)
+      end
 
       it { is_expected.to eq(entry.total_value * 0.5) }
     end
 
     context 'central government AND percentage is calculated from another column for a particular lot number' do
       let(:customer) { create(:customer, :central_government) }
-      let(:entry)    { build(:submission_entry, data: { 'Lot Number': '3', 'Other Price': 500.00 }, total_value: 1000, customer_urn: customer.urn) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '3', 'Other Price': 500.00 }, total_value: 1000,
+       customer_urn: customer.urn)
+      end
 
       it { is_expected.to eq(500 * 0.9) }
     end
-
   end
 
   context 'when no fallback wildcard lookup defined' do
     let(:calculator) do
       Framework::ManagementChargeCalculator::SectorBased.new(
         central_government: {
-        column_names: "Lot Number",
+          column_names: 'Lot Number',
         value_to_percentage: {
-          "1": {percentage: BigDecimal(20)}, "2": {percentage: BigDecimal(10)}}},
-      wider_public_sector: {
-        column_names: ['Lot Number', 'Spend Code'],
-        value_to_percentage: {
-          ['1', Framework::Definition::AST::Any] => { percentage: BigDecimal('1.5') }
-        }}
+          "1": { percentage: BigDecimal(20) }, "2": { percentage: BigDecimal(10) }
+        }
+        },
+        wider_public_sector: {
+          column_names: ['Lot Number', 'Spend Code'],
+          value_to_percentage: {
+            ['1', Framework::Definition::AST::Any] => { percentage: BigDecimal('1.5') }
+          }
+        }
       )
     end
 

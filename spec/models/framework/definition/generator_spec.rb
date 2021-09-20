@@ -261,8 +261,8 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to match(
             an_object_having_attributes(
-              central_government: {percentage: BigDecimal('0.5')},
-              wider_public_sector: {percentage: BigDecimal('1.2')}
+              central_government: { percentage: BigDecimal('0.5') },
+              wider_public_sector: { percentage: BigDecimal('1.2') }
             )
           )
         }

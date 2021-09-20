@@ -11,29 +11,29 @@ class Framework
       def calculate_for(entry)
         sector = sector_for(entry)
         percentage = if sector.is_a? Numeric
-          BigDecimal(sector)
-        else
-          @varies_by = sector[:column_names]
-          @value_to_percentage = normalise_hash(sector[:value_to_percentage])
-          @percentage_details = percentage_details_for(column_values_for(entry))
-          
-          if @percentage_details.nil?
-            Rollbar.error(
-              "Got value '#{column_values_for(entry)}' for '#{@varies_by}' on #{entry.framework.short_name}"\
-              "from entry #{entry.id}. Missing validation?"
-            )
-  
-            return 0.0
-          end
+                       BigDecimal(sector)
+                     else
+                       @varies_by = sector[:column_names]
+                       @value_to_percentage = normalise_hash(sector[:value_to_percentage])
+                       @percentage_details = percentage_details_for(column_values_for(entry))
 
-          BigDecimal(@percentage_details[:percentage])
-        end
+                       if @percentage_details.nil?
+                         Rollbar.error(
+                           "Got value '#{column_values_for(entry)}' for '#{@varies_by}' on "\
+                           "#{entry.framework.short_name} from entry #{entry.id}. Missing validation?"
+                         )
+
+                         return 0.0
+                       end
+
+                       BigDecimal(@percentage_details[:percentage])
+                     end
 
         source_value = if @percentage_details && @percentage_details[:column]
-            entry.data[@percentage_details[:column]]
-          else
-            entry.total_value
-          end
+                         entry.data[@percentage_details[:column]]
+                       else
+                         entry.total_value
+                       end
 
         (source_value * (percentage / 100)).truncate(4)
       end
@@ -61,7 +61,7 @@ class Framework
           column_names_with_wildcards = column_names_for_entry.fill('*', position)
           percentage_details ||= @value_to_percentage[column_names_with_wildcards]
         end
-        
+
         percentage_details
       end
 
