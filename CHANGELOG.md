@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-123] - 2021-09-?
+
+- RMI-411: Implement updated levy charge model
+
 ## [release-122] - 2021-09-16
 
 - RMI-358: Status filter on frameworks page
@@ -810,6 +814,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
 [release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
 [release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
