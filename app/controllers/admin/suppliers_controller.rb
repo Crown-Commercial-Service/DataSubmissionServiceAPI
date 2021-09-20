@@ -7,8 +7,8 @@ class Admin::SuppliersController < AdminController
   end
 
   def show_tasks
-    @tasks = @supplier.tasks.includes(:framework,
-                                      active_submission: :files).order(due_on: :desc).page(params[:task_page]).per(12)
+    @tasks = @supplier.tasks.includes(:framework, active_submission: :files)
+                      .order(due_on: :desc, id: :desc).page(params[:task_page]).per(12)
     @tasks = @tasks.where(framework_id: params[:framework_id]) if params[:framework_id]
 
     respond_to do |format|

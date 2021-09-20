@@ -3,6 +3,7 @@
 ## [release-123] - 2021-09-?
 
 - RMI-411: Implement updated levy charge model
+- RMI-424: Fix for tasks pagination bug
 
 ## [release-122] - 2021-09-16
 
