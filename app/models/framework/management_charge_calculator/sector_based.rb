@@ -29,13 +29,7 @@ class Framework
                        BigDecimal(@percentage_details[:percentage])
                      end
 
-        source_value = if @percentage_details && @percentage_details[:column]
-                         entry.data[@percentage_details[:column]]
-                       else
-                         entry.total_value
-                       end
-
-        (source_value * (percentage / 100)).truncate(4)
+        (source_value(entry) * (percentage / 100)).truncate(4)
       end
 
       private
@@ -44,6 +38,14 @@ class Framework
         urn = entry.customer_urn
         sector = Customer.select(:sector).find_by(urn: urn).sector
         sector == 'central_government' ? central_government : wider_public_sector
+      end
+
+      def source_value(entry)
+        if @percentage_details && @percentage_details[:column]
+          entry.data[@percentage_details[:column]]
+        else
+          entry.total_value
+        end
       end
 
       def column_values_for(entry)
