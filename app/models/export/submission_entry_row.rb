@@ -16,7 +16,7 @@ module Export
     def value_for(destination_field, default: NOT_IN_DATA)
       source_field = source_field_for(destination_field)
       value = model.data.fetch(source_field, default)
-      truncate(value, length: 255) if value.is_a? String
+      value.is_a?(String) ? truncate(value, length: 255) : value
     end
 
     def values_for_additional
