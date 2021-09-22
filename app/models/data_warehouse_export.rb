@@ -1,5 +1,5 @@
 class DataWarehouseExport < ApplicationRecord
-  EARLIEST_RANGE_FROM = Time.new(2000, 1, 1).utc.freeze
+  EARLIEST_RANGE_FROM = Time.new(2021, 9, 15, 19, 30).utc.freeze
 
   after_initialize :set_date_range
 
