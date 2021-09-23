@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       member do
         get :show_tasks
         get :show_users
+        get :show_frameworks
       end
 
       resources :agreements, only: [] do
