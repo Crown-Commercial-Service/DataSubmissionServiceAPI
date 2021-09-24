@@ -10,8 +10,8 @@ class Framework
 
       def calculate_for(entry)
         sector = sector_for(entry)
-        percentage = if sector.is_a? Numeric
-                       BigDecimal(sector)
+        percentage = if sector[:percentage]
+                       BigDecimal(sector[:percentage])
                      else
                        @varies_by = sector[:column_names]
                        @value_to_percentage = normalise_hash(sector[:value_to_percentage])

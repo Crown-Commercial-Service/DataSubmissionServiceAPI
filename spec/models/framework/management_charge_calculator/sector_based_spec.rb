@@ -11,8 +11,8 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
       #   WiderPublicSector -> 100.0%
       # }
       Framework::ManagementChargeCalculator::SectorBased.new(
-        central_government:  Integer('50'),
-        wider_public_sector: BigDecimal('100.0')
+        central_government:  { percentage: Integer('50') },
+        wider_public_sector: { percentage: BigDecimal('100.0') }
       )
     end
     let(:data)     { { 'Customer URN' => customer.urn } }
