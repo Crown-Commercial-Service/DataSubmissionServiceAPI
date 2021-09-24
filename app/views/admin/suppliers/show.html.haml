@@ -47,17 +47,22 @@
     .govuk-grid-row
   #frameworks.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @supplier.frameworks.present?
-      .results{id: 'frameworks-table'}= render 'show_frameworks', frameworks: @frameworks
+      = render 'framework_filter'
+      .govuk-grid-column-three-quarters
+        .results{id: 'frameworks-table'}= render 'show_frameworks', frameworks: @frameworks
     -else
       %p
         No frameworks for
         = @supplier.name
+    .govuk-grid-row
 
 :javascript
   var userFilterCheckBoxes = document.querySelectorAll("#user-status-checkboxes");
   var userFilterForm = document.getElementById('user_status_filter');
   var frameworkFilterCheckBoxes = document.querySelectorAll("#framework-checkboxes");
   var frameworkFilterForm = document.getElementById('framework_filter');
+  var frameworkStatusFilterCheckBoxes = document.querySelectorAll("#framework-status-checkboxes");
+  var frameworkStatusFilterForm = document.getElementById('framework_status_filter');
   var clearFilter = document.getElementById('clear_filter');
 
   for (const check of userFilterCheckBoxes) {
@@ -69,6 +74,12 @@
   for (const check of frameworkFilterCheckBoxes) {
     check.addEventListener( 'change', function() {  
       Rails.fire(frameworkFilterForm, 'submit');
+    });
+  }
+
+  for (const check of frameworkStatusFilterCheckBoxes) {
+    check.addEventListener( 'change', function() {  
+      Rails.fire(frameworkStatusFilterForm, 'submit');
     });
   }
 
