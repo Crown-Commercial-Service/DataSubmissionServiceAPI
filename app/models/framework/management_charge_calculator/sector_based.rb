@@ -15,7 +15,7 @@ class Framework
                      else
                        @varies_by = sector[:column_names]
                        @value_to_percentage = normalise_hash(sector[:value_to_percentage])
-                       @percentage_details = percentage_details_for(column_values_for(entry))
+                       @percentage_details = get_percentage_details(entry)
 
                        if @percentage_details.nil?
                          Rollbar.error(
@@ -46,6 +46,10 @@ class Framework
         else
           entry.total_value
         end
+      end
+
+      def get_percentage_details(entry)
+        percentage_details_for(column_values_for(entry))
       end
 
       def column_values_for(entry)
