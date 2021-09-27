@@ -1,0 +1,18 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Unfinished Tasks
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Supplier
+          %th.govuk-table__header Task
+          %th.govuk-table__header Submitted
+          %th.govuk-table__header Status
+          %th.govuk-table__header Return
+          %th.govuk-table__header Errors
+      %tbody.govuk-table__body
+        = render(collection: @unfinished_tasks, partial: "task")
