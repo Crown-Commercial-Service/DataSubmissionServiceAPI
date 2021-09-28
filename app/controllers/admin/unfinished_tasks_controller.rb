@@ -1,6 +1,7 @@
 class Admin::UnfinishedTasksController < AdminController
   def index
-    @tasks = Task.incomplete.includes(:submissions).joins(:submissions).merge(unfinished_submissions_relation).order(due_on: :desc)
+    @tasks = Task.incomplete.includes(:submissions).joins(:submissions)
+                            .merge(unfinished_submissions_relation).order(due_on: :desc)
     @tasks = @tasks.reject { |i| i.active_submission.aasm_state == 'processing' }
   end
 
