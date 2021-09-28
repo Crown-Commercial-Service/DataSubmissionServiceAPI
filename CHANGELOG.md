@@ -3,6 +3,9 @@
 ## [release-123] - 2021-09-?
 
 - RMI-411: Implement updated levy charge model
+- RMI-424: Fix for tasks pagination bug
+- RMI-441: Fix for Data Warehouse exports missing fields bug
+- RMI-417: Status filter in frameworks tab on supplier page
 
 ## [release-122] - 2021-09-16
 

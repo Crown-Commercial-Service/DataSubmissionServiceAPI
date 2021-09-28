@@ -10,6 +10,7 @@ class Agreement < ApplicationRecord
             uniqueness: { scope: :supplier_id, message: 'agreement already exists for this supplier' }
 
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   def lot_numbers
     framework_lots.pluck(:number)

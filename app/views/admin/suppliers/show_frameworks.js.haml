@@ -1,0 +1,3 @@
+$('#frameworks-table').html("#{j (render 'show_frameworks', frameworks: @frameworks)}")
+$('#framework_pagination').html("#{j (paginate(@agreements, :param_name => "framework_page", :remote => true).to_s)}");
+$('#framework_pagination_summary').html("#{j (page_entries_info(@agreements, entry_name: "framework").to_s)}");
