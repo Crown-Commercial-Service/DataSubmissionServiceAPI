@@ -9,12 +9,12 @@ class Framework
       end
 
       def calculate_for(entry)
-        sector = sector_for(entry)
-        percentage = if sector[:percentage]
-                       BigDecimal(sector[:percentage])
+        @sector = sector_for(entry)
+        percentage = if @sector[:percentage]
+                       BigDecimal(@sector[:percentage])
                      else
-                       @varies_by = sector[:column_names]
-                       @value_to_percentage = normalise_hash(sector[:value_to_percentage])
+                       @varies_by = @sector[:column_names]
+                       @value_to_percentage = normalise_hash(@sector[:value_to_percentage])
                        @percentage_details = get_percentage_details(entry)
 
                        if @percentage_details.nil?
@@ -43,6 +43,8 @@ class Framework
       def source_value(entry)
         if @percentage_details && @percentage_details[:column]
           entry.data[@percentage_details[:column]]
+        elsif @sector[:column]
+          entry.data[@sector[:column]].to_d
         else
           entry.total_value
         end
