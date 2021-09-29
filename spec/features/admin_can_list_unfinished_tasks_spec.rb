@@ -10,7 +10,8 @@ RSpec.feature 'Admin can list unfinished tasks' do
 
     aasm_states.each do |state|
       task = FactoryBot.create(:task, supplier: supplier)
-      FactoryBot.create(:submission, task: task, created_by: user, supplier: supplier, aasm_state: state) do |submission|
+      FactoryBot.create(:submission, task: task, created_by: user, supplier: supplier,
+aasm_state: state) do |submission|
         FactoryBot.create(:submission_file, :with_attachment, submission: submission, filename: 'test.xlsx')
       end
     end
@@ -32,8 +33,6 @@ RSpec.feature 'Admin can list unfinished tasks' do
 
     click_link('Download', match: :first)
 
-    pp "page.response_headers::::::"
-    pp page.response_headers
     expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
     expect(page.response_headers['Content-Disposition']).to match(/FM1011 Test Supplier Ltd %28January 2019%29\.xlsx/)
     expect(page.body).to include File.open(Rails.root.join('spec', 'fixtures', 'test.xlsx'), 'r:ASCII-8BIT', &:read)
