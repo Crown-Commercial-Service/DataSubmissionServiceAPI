@@ -101,6 +101,7 @@ Rails.application.routes.draw do
 
     resources :tasks, only: [] do
       get 'active_submission/download'
+      get 'latest_submission/download'
     end
 
     resources :frameworks, only: %i[index new create show edit update] do
