@@ -19,7 +19,8 @@ class Admin::SuppliersController < AdminController
   end
 
   def show_frameworks
-    @agreements = @supplier.agreements.includes(:framework).page(params[:framework_page]).per(12)
+    @agreements = @supplier.agreements.joins(:framework)
+                           .merge(Framework.order(short_name: :asc)).page(params[:framework_page]).per(12)
 
     filter_framework_status params[:status] if params[:status]
   end
