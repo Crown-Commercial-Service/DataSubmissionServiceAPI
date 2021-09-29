@@ -12,24 +12,27 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
       # }
       Framework::ManagementChargeCalculator::SectorBased.new(
         central_government:  { percentage: Integer('50') },
-        wider_public_sector: { percentage: BigDecimal('100.0') }
+        wider_public_sector: { percentage: BigDecimal('60.0'), column: 'Other Price' }
       )
     end
-    let(:data)     { { 'Customer URN' => customer.urn } }
-    let(:entry)    { build(:submission_entry, data: data, total_value: 1000, customer_urn: customer.urn) }
+    let(:data) { { 'Customer URN' => customer.urn } }
 
     subject { calculator.calculate_for(entry) }
 
     context 'central government' do
       let(:customer) { create(:customer, :central_government) }
+      let(:entry)    { build(:submission_entry, data: data, total_value: 1000, customer_urn: customer.urn) }
 
       it { is_expected.to eq(entry.total_value / 2) }
     end
 
-    context 'wider public sector' do
+    context 'wider public sector AND percentage is calculated from another column' do
       let(:customer) { create(:customer, :wider_public_sector) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Other Price': 500.00 }, total_value: 1000, customer_urn: customer.urn)
+      end
 
-      it { is_expected.to eq(entry.total_value) }
+      it { is_expected.to eq(500 * 0.6) }
     end
   end
 
