@@ -15,6 +15,6 @@
     = task.latest_submission.aasm_state.titlecase
   %td.govuk-table__cell
     - if task.latest_submission.files.any? && task.latest_submission.files.first.file.attached?
-      = link_to 'Download', admin_task_latest_submission_download_path(task)
+      = link_to 'Download', admin_task_submission_download_path(task, task.latest_submission)
   %td.govuk-table__cell
     = link_to 'View', admin_supplier_submission_path(task.supplier, task.latest_submission) if task.latest_submission.validation_failed?
