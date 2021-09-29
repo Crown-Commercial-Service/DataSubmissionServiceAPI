@@ -1,19 +1,19 @@
 class Admin::SubmissionDownloadController < AdminController
   include ActionController::Live
-  
+
   def download
     response.headers['Content-Type'] = attachment.content_type
     response.headers['Content-Disposition'] = "attachment; #{attachment.filename.parameters}"
-  
+
     attachment.download do |chunk|
       response.stream.write(chunk)
     end
   ensure
     response.stream.close
   end
-  
+
   private
-  
+
   def task
     @task ||= Task.includes(:framework, :supplier).find(params[:task_id])
   end
@@ -21,7 +21,7 @@ class Admin::SubmissionDownloadController < AdminController
   def submission
     @submission ||= Submission.find(params[:submission_id])
   end
-  
+
   def attachment
     @attachment ||= begin
       attachment = submission.files.first.file
@@ -31,4 +31,3 @@ class Admin::SubmissionDownloadController < AdminController
     end
   end
 end
-  
