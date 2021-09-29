@@ -1,4 +1,4 @@
-class Admin::ActiveSubmissionController < AdminController
+class Admin::SubmissionDownloadController < AdminController
   include ActionController::Live
 
   def download
@@ -15,12 +15,16 @@ class Admin::ActiveSubmissionController < AdminController
   private
 
   def task
-    @task ||= Task.includes(:framework, :supplier, :active_submission).find(params[:task_id])
+    @task ||= Task.includes(:framework, :supplier).find(params[:task_id])
+  end
+
+  def submission
+    @submission ||= Submission.find(params[:submission_id])
   end
 
   def attachment
     @attachment ||= begin
-      attachment = task.active_submission.files.first.file
+      attachment = submission.files.first.file
       attachment.filename = "#{task.framework.short_name} #{task.supplier.name} "\
         "(#{task.period_date.to_s(:month_year)}).#{attachment.filename.extension}"
       attachment

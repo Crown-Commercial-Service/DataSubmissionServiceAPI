@@ -7,14 +7,14 @@
     %small
       = task.period_date.to_s(:month_year)
   %td.govuk-table__cell
-    = task.active_submission.created_at.to_s(:date_with_utc_time)
+    = task.latest_submission.created_at.to_s(:date_with_utc_time)
     %br/
     %small
-      = task.active_submission.created_by.email
+      = task.latest_submission.created_by.email
   %td.govuk-table__cell
-    = task.active_submission.aasm_state.titlecase
+    = task.latest_submission.aasm_state.titlecase
   %td.govuk-table__cell
-    - if task.active_submission.files.any? && task.active_submission.files.first.file.attached?
-      = link_to 'Download', admin_task_active_submission_download_path(task)
+    - if task.latest_submission.files.any? && task.latest_submission.files.first.file.attached?
+      = link_to 'Download', admin_task_submission_download_path(task, task.latest_submission)
   %td.govuk-table__cell
-    = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
+    = link_to 'View', admin_supplier_submission_path(task.supplier, task.latest_submission) if task.latest_submission.validation_failed?
