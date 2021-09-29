@@ -6,6 +6,7 @@
 - RMI-424: Fix for tasks pagination bug
 - RMI-441: Fix for Data Warehouse exports missing fields bug
 - RMI-417: Status filter in frameworks tab on supplier page
+- RMI-356: Unfinished tasks page
 
 ## [release-122] - 2021-09-16
 
