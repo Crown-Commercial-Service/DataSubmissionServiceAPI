@@ -4,7 +4,7 @@ FactoryBot.define do
 
     trait :with_attachment do
       transient do
-        filename 'not-really-an.xls'
+        filename { 'not-really-an.xls' }
       end
 
       after(:create) do |submission_file, evaluator|

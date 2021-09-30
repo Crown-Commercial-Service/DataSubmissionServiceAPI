@@ -15,7 +15,7 @@ RSpec.describe Export::Tasks::Row do
     end
 
     it 'reports "in_progress" as the active submission\'s aasm state' do
-      task = FactoryBot.build(:task, status: 'in_progress')
+      task = FactoryBot.create(:task, status: 'in_progress')
       FactoryBot.create(:submission_with_validated_entries, aasm_state: 'in_review', task: task)
       row = Export::Tasks::Row.new(task, {})
       expect(row.status).to eql('in_review')
