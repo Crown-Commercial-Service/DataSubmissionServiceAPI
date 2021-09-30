@@ -5,11 +5,11 @@ FactoryBot.define do
     sequence(:short_name) { |n| "FM#{n + 1000}" }
     sequence(:name) { |n| "G Cloud #{n}" }
 
-    definition_source DEFAULT_FDL.read
-    published true
+    definition_source { DEFAULT_FDL.read }
+    published { true }
 
     transient do
-      lot_count 0
+      lot_count { 0 }
       fdl_file { "#{short_name.downcase.tr('/.', '_')}.fdl" }
     end
 

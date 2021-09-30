@@ -1,43 +1,43 @@
 FactoryBot.define do
   factory :submission_entry do
     transient do
-      row 1
-      column 'Column'
-      sheet_name 'Some sheet'
+      row { 1 }
+      column { 'Column' }
+      sheet_name { 'Some sheet' }
     end
 
     submission
-    entry_type 'invoice'
+    entry_type { 'invoice' }
     data { { test_key: 'some data' } }
     source { { sheet: sheet_name, row: row } }
 
     factory :invoice_entry do
-      sheet_name 'InvoicesRaised'
+      sheet_name { 'InvoicesRaised' }
     end
 
     factory :order_entry, aliases: [:contract_entry] do
-      entry_type 'order'
-      sheet_name 'OrdersReceived'
+      entry_type { 'order' }
+      sheet_name { 'OrdersReceived' }
     end
 
     factory :other_entry do
-      entry_type 'other'
-      sheet_name 'Bid Invitations'
+      entry_type { 'other' }
+      sheet_name { 'Bid Invitations' }
     end
 
     trait :valid do
-      aasm_state :validated
+      aasm_state { :validated }
     end
 
     trait :errored do
-      transient { error_message 'Required value missing' }
+      transient { error_message { 'Required value missing' } }
 
-      aasm_state :errored
+      aasm_state { :errored }
       validation_errors { [{ 'message' => error_message, 'location' => { 'row' => row, 'column' => column } }] }
     end
 
     trait :legal_framework_invoice_data do
-      total_value(-135.98)
+      total_value { -135.98 }
       data do
         {
           'UNSPSC' => '80120000',
@@ -69,7 +69,7 @@ FactoryBot.define do
     end
 
     trait :legal_framework_contract_data do
-      total_value 5000
+      total_value { 5000 }
       data do
         {
           'Matter Name' => 'DWP - Claim by Mr I Dontexist',

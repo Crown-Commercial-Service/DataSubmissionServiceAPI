@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :urn_list do
     transient do
-      filename 'customers.xlsx'
+      filename { 'customers.xlsx' }
     end
 
     after(:create) do |urn_list, evaluator|
