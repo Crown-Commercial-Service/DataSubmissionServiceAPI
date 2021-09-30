@@ -21,7 +21,7 @@ aasm_state: state) do |submission|
 
   scenario 'admin user views unfinished tasks' do
     visit admin_root_path
-    click_link 'Unfinished Tasks'
+    click_link 'Unfinished tasks'
 
     expect(page).to have_text('Validation Failed')
     expect(page).to have_text('Ingest Failed')
@@ -31,7 +31,7 @@ aasm_state: state) do |submission|
 
   scenario "allows a task's submission files to be downloaded" do
     visit admin_root_path
-    click_link 'Unfinished Tasks'
+    click_link 'Unfinished tasks'
 
     click_link('Download', match: :first)
 

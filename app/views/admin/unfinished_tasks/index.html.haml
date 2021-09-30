@@ -5,14 +5,7 @@
 
 .govuk-grid-row
   .govuk-grid-column-full
-    %table.govuk-table{:class => 'govuk-!-margin-top-7'}
-      %thead.govuk-table__head
-        %tr.govuk-table__row
-          %th.govuk-table__header Supplier
-          %th.govuk-table__header Task
-          %th.govuk-table__header Submitted
-          %th.govuk-table__header Status
-          %th.govuk-table__header Return
-          %th.govuk-table__header Errors
-      %tbody.govuk-table__body
-        = render(collection: @tasks, partial: "task")
+    .results{id: 'unfinished-tasks-table'}= render 'tasks_table', partial: "task"
+    %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+      #unfinished_task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+      #unfinished_task_pagination= paginate @tasks, :param_name => "page", remote: true
