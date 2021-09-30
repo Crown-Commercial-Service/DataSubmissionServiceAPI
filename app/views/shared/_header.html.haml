@@ -17,7 +17,7 @@
           %ul#navigation.govuk-header__navigation{"aria-label" => "Top Level Navigation"}
             - if current_user
               %li.govuk-header__navigation-item
-                = link_to 'Unfinished Tasks', admin_unfinished_tasks_path, {:class=>"govuk-header__link"}
+                = link_to 'Unfinished tasks', admin_unfinished_tasks_path, {:class=>"govuk-header__link"}
               %li.govuk-header__navigation-item
                 = link_to 'Users', admin_users_path, {:class=>"govuk-header__link"}
               %li.govuk-header__navigation-item
@@ -25,7 +25,7 @@
               %li.govuk-header__navigation-item
                 = link_to 'Frameworks', admin_frameworks_path, {:class=>"govuk-header__link"}
               %li.govuk-header__navigation-item
-                = link_to 'URN Lists', admin_urn_lists_path, {:class=>"govuk-header__link"}
+                = link_to 'URN lists', admin_urn_lists_path, {:class=>"govuk-header__link"}
               %li.govuk-header__navigation-item
                 = link_to 'Notify downloads', admin_notify_downloads_path, {:class=>"govuk-header__link"}
               %li.govuk-header__navigation-item
