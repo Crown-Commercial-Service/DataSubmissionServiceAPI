@@ -7,11 +7,11 @@ FactoryBot.define do
   #
   # https://github.com/dxw/DataSubmissionServiceAPI/pull/290
   factory :task do
-    status 'unstarted'
+    status { 'unstarted' }
 
-    period_month 1
-    period_year  2019
-    due_on       Date.strptime('2019-02-28').beginning_of_month + 7.days
+    period_month { 1 }
+    period_year  { 2019 }
+    due_on       { Date.strptime('2019-02-28').beginning_of_month + 7.days }
 
     supplier
     association :framework, :with_attachment
@@ -23,7 +23,7 @@ FactoryBot.define do
     end
 
     trait :completed do
-      status 'completed'
+      status { 'completed' }
     end
   end
 end

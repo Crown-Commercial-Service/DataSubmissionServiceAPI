@@ -95,7 +95,7 @@ group :test do
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
-  gem 'capybara', '>= 3.1.1'
+  gem 'capybara', '>= 3.35.3'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
   gem 'launchy', '>= 2.4.3'
