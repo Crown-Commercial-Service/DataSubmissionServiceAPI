@@ -23,7 +23,7 @@ gem 'jquery-rails', '>= 4.4.0'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 4.3', '>= 4.3.8'
+gem 'puma', '~> 5.5'
 
 # Audit log
 gem 'rails_event_store'
