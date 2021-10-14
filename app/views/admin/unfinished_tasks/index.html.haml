@@ -1,0 +1,11 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Unfinished tasks
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    .results{id: 'unfinished-tasks-table'}= render 'tasks_table', partial: "task"
+    %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+      #unfinished_task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+      #unfinished_task_pagination= paginate @tasks, :param_name => "page", remote: true

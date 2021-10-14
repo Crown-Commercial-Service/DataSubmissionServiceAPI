@@ -24,7 +24,11 @@ class Framework
       rule(:management_charge)    { str('ManagementCharge') >> (column_based | flat_rate | sector_based).as(:management_charge) }
       rule(:flat_rate)            { percentage_exp.as(:flat_rate) }
       rule(:column_based)         { spaced(str('varies_by')) >> (column_names.as(:column_names) >> multi_key_dictionary.as(:value_to_percentage)).as(:column_based) }
-      rule(:sector_based)         { spaced(str('sector_based')) >> spaced(dictionary).as(:sector_based) }
+      rule(:sector_based)         { spaced(str('sector_based')) >> (spaced(dictionary) | braced(sector_blocks)).as(:sector_based) }
+
+      rule(:sector_blocks)        { (central_government >> wider_public_sector) | (wider_public_sector >> central_government) }
+      rule(:central_government)   { str('CentralGovernment') >> spaced(str('varies_by')) >> (column_names.as(:column_names) >> multi_key_dictionary.as(:value_to_percentage)).as(:central_government) }
+      rule(:wider_public_sector)  { str('WiderPublicSector') >> spaced(str('varies_by')) >> (column_names.as(:column_names) >> multi_key_dictionary.as(:value_to_percentage)).as(:wider_public_sector) }
 
       rule(:invoice_fields)       { str('InvoiceFields') >> spaced(fields_block.as(:invoice_fields)) }
       rule(:contract_fields)      { str('ContractFields') >> spaced(fields_block.as(:contract_fields)) }

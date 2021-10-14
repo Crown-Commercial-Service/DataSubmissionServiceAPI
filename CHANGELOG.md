@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-123] - 2021-10-14
+
+- RMI-411: Implement updated levy charge model
+- RMI-424: Fix for tasks pagination bug
+- RMI-441: Fix for Data Warehouse exports missing fields bug
+- RMI-417: Status filter in frameworks tab on supplier page
+- RMI-356: Unfinished tasks page
+
 ## [release-122] - 2021-09-16
 
 - RMI-358: Status filter on frameworks page
@@ -810,6 +818,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
 [release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
 [release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120

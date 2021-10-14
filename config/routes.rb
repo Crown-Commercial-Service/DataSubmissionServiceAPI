@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       member do
         get :show_tasks
         get :show_users
+        get :show_frameworks
       end
 
       resources :agreements, only: [] do
@@ -99,7 +100,9 @@ Rails.application.routes.draw do
     end
 
     resources :tasks, only: [] do
-      get 'active_submission/download'
+      resources :submission, only: [], controller: 'submission_download' do
+        get 'download'
+      end
     end
 
     resources :frameworks, only: %i[index new create show edit update] do
@@ -120,6 +123,8 @@ Rails.application.routes.draw do
     resources :urn_lists, only: %i[index new create]
 
     resources :notify_downloads, only: %i[index show]
+
+    resources :unfinished_tasks, only: %i[index]
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out

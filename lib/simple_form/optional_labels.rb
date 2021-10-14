@@ -3,12 +3,10 @@ module SimpleForm
     module OptionalLabels
       module ClassMethods
         def translate_optional_html
-          i18n_cache :translate_optional_html do
-            I18n.t(
-              :"simple_form.optional.html",
-              default: translate_optional_text
-            )
-          end
+          I18n.t(
+            :"simple_form.optional.html",
+            default: translate_optional_text
+          )
         end
 
         def translate_optional_text

@@ -76,8 +76,8 @@ class Framework
           )
         elsif info[:sector_based]
           ManagementChargeCalculator::SectorBased.new(
-            central_government:  info[:sector_based][:central_government][:percentage],
-            wider_public_sector: info[:sector_based][:wider_public_sector][:percentage]
+            central_government:  info[:sector_based][:central_government],
+            wider_public_sector: info[:sector_based][:wider_public_sector]
           )
         elsif info[:flat_rate]
           ManagementChargeCalculator::FlatRate.new(
