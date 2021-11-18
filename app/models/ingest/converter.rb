@@ -14,7 +14,7 @@ module Ingest
     SHEET_NAME_PATTERNS = {
       'invoice' => /(booking|finance|management|invoice)/i,
       'order'   => /(order|contract)/i,
-      'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites|Utility Spend/i
+      'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites|Utility Spend|Success Measures/i
     }.freeze
 
     attr_reader :excel_temp_file
