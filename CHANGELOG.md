@@ -2,9 +2,11 @@
 
 ## [release-124] - 2021-11-11
 
-- [Snyk] Upgrade codemirror from 5.62.0 to 5.63.1
+- [Snyk] Upgrade codemirror from 5.62.0 to 5.63.3
 - [Snyk] Upgrade govuk-frontend from 3.13.0 to 3.14.0
-- RMI-471: Updated sidekiq default disk quota
+- RMI-471: Updated sidekiq default disk quota.
+- RMI-467: Updated sort.
+- RMI-474: Update whitelist sheets.
 
 ## [release-123] - 2021-10-14
 
