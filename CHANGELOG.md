@@ -1,6 +1,6 @@
 # Change Log
 
-## [release-124] - 2021-11-11
+## [release-124] - 2021-11-25
 
 - [Snyk] Upgrade codemirror from 5.62.0 to 5.63.3
 - [Snyk] Upgrade govuk-frontend from 3.13.0 to 3.14.0
