@@ -36,7 +36,7 @@ aasm_state: state) do |submission|
     click_link('Download', match: :first)
 
     expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
-    expect(page.response_headers['Content-Disposition']).to match(/RM0000 Test Supplier Ltd %28February 2019%29\.xlsx/)
+    expect(page.response_headers['Content-Disposition']).to match(/RM0000 Test Supplier Ltd %28April 2019%29\.xlsx/)
     expect(page.body).to include File.open(Rails.root.join('spec', 'fixtures', 'test.xlsx'), 'r:ASCII-8BIT', &:read)
   end
 end

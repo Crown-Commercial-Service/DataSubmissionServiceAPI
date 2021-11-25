@@ -1,7 +1,8 @@
 class Admin::UnfinishedTasksController < AdminController
   def index
-    @tasks = Task.incomplete.includes(:submissions).joins(:submissions)
-                 .merge(unfinished_submissions_relation).order(due_on: :desc)
+    @tasks = Task.incomplete.includes(:submissions).order(due_on: :desc)
+                 .joins(:submissions).order('submissions.updated_at DESC')
+                 .merge(unfinished_submissions_relation)
     @tasks = @tasks.reject { |i| i.latest_submission.aasm_state == 'processing' }
     @tasks = Kaminari.paginate_array(@tasks).page(params[:page]).per(12)
 

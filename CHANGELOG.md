@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-124] - 2021-11-25
+
+- [Snyk] Upgrade codemirror from 5.62.0 to 5.63.3
+- [Snyk] Upgrade govuk-frontend from 3.13.0 to 3.14.0
+- RMI-471: Updated sidekiq default disk quota.
+- RMI-467: Updated sort.
+- RMI-474: Update whitelist sheets.
+
 ## [release-123] - 2021-10-14
 
 - RMI-411: Implement updated levy charge model
@@ -818,6 +826,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-124]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-123...release-124
 [release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
 [release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
 [release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
