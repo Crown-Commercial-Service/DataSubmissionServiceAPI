@@ -8,12 +8,12 @@ addons:
 apt:
   update: true
   packages:
-  - postgresql-10
-  - postgresql-client-10
-  - python3
-  - python3-pip
-  - python3-setuptools
-  - python3-wheel
+    - postgresql-10
+    - postgresql-client-10
+    - python3
+    - python3-pip
+    - python3-setuptools
+    - python3-wheel
 dist: xenial
 cache:
   - bundler
