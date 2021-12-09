@@ -1,2 +1,1 @@
-setuptools==59.5.0
 csvkit==1.0.5
