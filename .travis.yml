@@ -32,6 +32,7 @@ install:
   - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
   # - pip3 install --upgrade pip
   - pyenv global 3.7.1
+  - pip3 install --upgrade "pip < 21.0"
   - pip3 install --user --upgrade -r $PWD/requirements.txt --no-cache-dir
 before_script:
   - ./cc-test-reporter before-build
