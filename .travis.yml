@@ -5,15 +5,15 @@ services:
   - postgresql
 addons:
   postgresql: "10"
-apt:
-  update: true
-  packages:
-  - postgresql-10
-  - postgresql-client-10
-  - python3
-  - python3-pip
-  - python3-setuptools
-  - python3-wheel
+  apt:
+    update: true
+    packages:
+      - postgresql-10
+      - postgresql-client-10
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - python3-wheel
 dist: xenial
 cache:
   - bundler
@@ -31,6 +31,7 @@ before_install:
 install:
   - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
   - pyenv global 3.7.1
+  - pip3 install --upgrade "pip < 21.0"
   - pip3 install --user --upgrade -r $PWD/requirements.txt
 before_script:
   - ./cc-test-reporter before-build
