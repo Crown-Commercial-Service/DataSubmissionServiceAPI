@@ -8,7 +8,7 @@
 
         = render partial: 'shared/error_summary', locals: { entity: @urn_list } if @urn_list.errors.present?
 
-        = form.input :excel_file, label: 'Choose a URN list file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
+        = form.input :excel_file, label: 'Choose a URN list file to upload. Accepted file type is Microsoft Excel (.xlsx).', hide_optional: true
         = form.button :submit, value: 'Upload URN list'
 
         %p
@@ -19,3 +19,4 @@
           %li CustomerName
           %li PostCode
           %li Sector (either 'Central Government' or 'Wider Public Sector')
+          %li Published (either 'TRUE' or 'FALSE')

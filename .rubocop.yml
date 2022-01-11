@@ -46,6 +46,14 @@ Style/GuardClause:
     - 'app/models/framework/definition/ast/field/options.rb'
     - 'app/models/framework/definition/ast/semantic_checker.rb'
 
+Style/RedundantConditional:
+    Exclude:
+    - 'app/jobs/urn_list_importer_job.rb'
+
+Style/NumericPredicate:
+    Exclude:
+    - 'app/jobs/urn_list_importer_job.rb'
+
 Style/AndOr:
     Enabled: false
 
