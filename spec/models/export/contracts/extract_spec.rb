@@ -13,7 +13,7 @@ RSpec.describe Export::Contracts::Extract do
       end
 
       it 'contains only orders from the complete submission' do
-        expect(all_relevant.to_a.length).to be.positive?
+        expect(all_relevant.to_a.length).to be > 0
         expect(all_relevant.map(&:entry_type)).to all(eql('order'))
         expect(all_relevant.map(&:submission_id)).to all(eql(complete_submission.id))
       end
