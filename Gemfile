@@ -66,7 +66,7 @@ gem 'activerecord-import'
 gem 'parslet'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.14'
+gem 'rubyXL', '~> 3.4', '>= 3.4.18'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.9.0', require: false
