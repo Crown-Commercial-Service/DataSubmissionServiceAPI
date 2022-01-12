@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-125] - 2021-12-?
+
+- [Snyk] Upgrade azure-storage-blob from 2.0.1 to 2.0.3
+- RMI-473: Allow secret URNs to be added to URN list in the database
+
 ## [release-124] - 2021-11-25
 
 - [Snyk] Upgrade codemirror from 5.62.0 to 5.63.3

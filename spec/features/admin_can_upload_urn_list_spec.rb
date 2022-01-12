@@ -11,10 +11,10 @@ RSpec.feature 'Admin can upload a URN list' do
 
     expect(page).to have_text 'Upload an new URN list'
 
-    attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'customers.xlsx')
+    attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'customers_test.xlsx')
     click_button 'Upload URN list'
 
-    expect(page).to have_text 'customers.xlsx'
+    expect(page).to have_text 'customers_test.xlsx'
     expect(page).to have_text 'pending'
 
     expect(UrnListImporterJob).to have_been_enqueued

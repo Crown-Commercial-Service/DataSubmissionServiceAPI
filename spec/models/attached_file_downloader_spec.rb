@@ -9,12 +9,12 @@ RSpec.describe AttachedFileDownloader do
   end
 
   describe '#download!' do
-    let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
+    let(:urn_list) { create(:urn_list, filename: 'customers_test.xlsx') }
 
     it 'downloads the file from S3' do
-      stub_s3_get_object('customers.xlsx')
+      stub_s3_get_object('customers_test.xlsx')
 
-      original_file_path = Rails.root.join('spec', 'fixtures', 'customers.xlsx')
+      original_file_path = Rails.root.join('spec', 'fixtures', 'customers_test.xlsx')
 
       downloader = AttachedFileDownloader.new(urn_list.excel_file)
       downloader.download!
@@ -46,10 +46,10 @@ RSpec.describe AttachedFileDownloader do
   end
 
   describe '#cleanup!' do
-    let(:submission_file) { create(:submission_file, :with_attachment, filename: 'customers.xlsx') }
+    let(:submission_file) { create(:submission_file, :with_attachment, filename: 'customers_test.xlsx') }
 
     it 'deletes the temporary file' do
-      stub_s3_get_object('customers.xlsx')
+      stub_s3_get_object('customers_test.xlsx')
 
       downloader = AttachedFileDownloader.new(submission_file.file)
       downloader.download!
