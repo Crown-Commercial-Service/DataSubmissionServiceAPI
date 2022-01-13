@@ -123,7 +123,7 @@ class UrnListImporterJob < ApplicationJob
       row = worksheet[row_num]
       break if row.nil?
 
-      if row[4]&.value.zero?
+      if row[4]&.value&.zero?
         worksheet.delete_row(row_num)
       else
         row_num += 1
