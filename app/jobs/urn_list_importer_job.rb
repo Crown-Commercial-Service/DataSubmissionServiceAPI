@@ -105,9 +105,7 @@ class UrnListImporterJob < ApplicationJob
     workbook = RubyXL::Parser.parse(path)
     worksheet = workbook[0]
 
-    worksheet.each_with_index do |row, index|
-      worksheet.delete_row(index) if row[4] && row[4].value == 0
-    end
+    remove_secret_urns(worksheet)
 
     worksheet.delete_column(4)
 
@@ -115,5 +113,21 @@ class UrnListImporterJob < ApplicationJob
     workbook.write(path)
     urn_list.excel_file.purge
     urn_list.excel_file.attach(io: File.open(path), filename: file_name)
+  end
+
+  def remove_secret_urns(worksheet)
+    row_count = worksheet.sheet_data.rows.size
+    row_num = 1
+
+    until row_num == row_count
+      row = worksheet[row_num]
+      break if row.nil?
+
+      if row[4] && row[4].value == 0
+        worksheet.delete_row(row_num)
+      else
+        row_num += 1
+      end
+    end
   end
 end
