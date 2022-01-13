@@ -132,7 +132,6 @@ class UrnListImporterJob < ApplicationJob
   end
 
   def should_delete(row)
-    pp "should_delete(row):::::"
-    pp row[4]&.value&.zero?
+    row[4]&.value&.zero?
   end
 end
