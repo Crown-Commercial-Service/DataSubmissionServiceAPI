@@ -123,11 +123,16 @@ class UrnListImporterJob < ApplicationJob
       row = worksheet[row_num]
       break if row.nil?
 
-      if row[4]&.value&.zero?
+      if should_delete(row)
         worksheet.delete_row(row_num)
       else
         row_num += 1
       end
     end
+  end
+
+  def should_delete(row)
+    pp "should_delete(row):::::"
+    pp row[4]&.value&.zero?
   end
 end
