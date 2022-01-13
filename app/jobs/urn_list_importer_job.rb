@@ -117,7 +117,7 @@ class UrnListImporterJob < ApplicationJob
   end
 
   def remove_secret_urns(worksheet, row_count, row_num)
-    until row_num == row_count
+    while row_num < row_count
       row = worksheet[row_num]
       break if row.nil?
 
