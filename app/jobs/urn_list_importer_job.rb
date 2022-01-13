@@ -106,7 +106,7 @@ class UrnListImporterJob < ApplicationJob
     worksheet = workbook[0]
     row_count = worksheet.sheet_data.rows.size
 
-    remove_secret_urns(worksheet, row_count)
+    remove_secret_urns(worksheet, row_count, 1)
 
     worksheet.delete_column(4)
 
@@ -116,9 +116,7 @@ class UrnListImporterJob < ApplicationJob
     urn_list.excel_file.attach(io: File.open(path), filename: file_name)
   end
 
-  def remove_secret_urns(worksheet, row_count)
-    row_num = 1
-
+  def remove_secret_urns(worksheet, row_count, row_num)
     until row_num == row_count
       row = worksheet[row_num]
       break if row.nil?
