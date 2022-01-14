@@ -9,7 +9,7 @@ RSpec.feature 'Admin can upload a URN list' do
     visit admin_urn_lists_path
     click_link 'Add a new URN list'
 
-    expect(page).to have_text 'Upload an new URN list'
+    expect(page).to have_text 'Upload a new URN list'
 
     attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'customers_test.xlsx')
     click_button 'Upload URN list'
