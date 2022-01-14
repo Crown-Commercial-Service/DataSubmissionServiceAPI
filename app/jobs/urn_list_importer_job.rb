@@ -104,10 +104,9 @@ class UrnListImporterJob < ApplicationJob
   def remove_published_column(urn_list, path)
     workbook = RubyXL::Parser.parse(path)
     worksheet = workbook[0]
+    row_count = worksheet.sheet_data.rows.size
 
-    worksheet.each_with_index do |row, index|
-      worksheet.delete_row(index) if row[4] && row[4].value == 0
-    end
+    id_and_remove_non_publish_rows(worksheet, row_count, 1)
 
     worksheet.delete_column(4)
 
@@ -115,5 +114,21 @@ class UrnListImporterJob < ApplicationJob
     workbook.write(path)
     urn_list.excel_file.purge
     urn_list.excel_file.attach(io: File.open(path), filename: file_name)
+  end
+
+  def id_and_remove_non_publish_rows(worksheet, row_count, row_num)
+    while row_num <= row_count
+      row = worksheet[row_num]
+      break if row.nil?
+
+      row_num += 1 unless delete_non_publish_row(worksheet, row_num, row)
+    end
+  end
+
+  def delete_non_publish_row(worksheet, row_num, row)
+    return unless row[4]&.value&.zero?
+
+    worksheet.delete_row(row_num)
+    true
   end
 end
