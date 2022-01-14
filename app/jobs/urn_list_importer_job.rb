@@ -117,7 +117,7 @@ class UrnListImporterJob < ApplicationJob
   end
 
   def id_and_remove_non_publish_rows(worksheet, row_count, row_num)
-    while row_num < row_count
+    while row_num <= row_count
       row = worksheet[row_num]
       break if row.nil?
 
