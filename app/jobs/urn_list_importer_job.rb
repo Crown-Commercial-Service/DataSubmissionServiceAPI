@@ -106,7 +106,7 @@ class UrnListImporterJob < ApplicationJob
     worksheet = workbook[0]
     row_count = worksheet.sheet_data.rows.size
 
-    remove_secret_urns(worksheet, row_count, 1)
+    id_and_remove_non_publish_rows(worksheet, row_count, 1)
 
     worksheet.delete_column(4)
 
@@ -116,20 +116,19 @@ class UrnListImporterJob < ApplicationJob
     urn_list.excel_file.attach(io: File.open(path), filename: file_name)
   end
 
-  def remove_secret_urns(worksheet, row_count, row_num)
+  def id_and_remove_non_publish_rows(worksheet, row_count, row_num)
     while row_num < row_count
       row = worksheet[row_num]
       break if row.nil?
 
-      if should_delete(row)
-        worksheet.delete_row(row_num)
-      else
-        row_num += 1
-      end
+      row_num += 1 unless delete_non_publish_row(worksheet, row_num, row)
     end
   end
 
-  def should_delete(row)
-    row[4]&.value&.zero?
+  def delete_non_publish_row(worksheet, row_num, row)
+    return unless row[4]&.value&.zero?
+
+    worksheet.delete_row(row_num)
+    true
   end
 end
