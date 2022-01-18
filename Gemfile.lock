@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://gems.contribsys.com/
   specs:
     aasm (4.12.3)
       concurrent-ruby (~> 1.0)
@@ -433,6 +434,8 @@ GEM
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
+    sidekiq-pro (5.2.4)
+      sidekiq (>= 6.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -530,8 +533,8 @@ DEPENDENCIES
   ruby_event_store-rspec
   sass-rails (~> 5.0, >= 5.0.7)
   shoulda-matchers
-  sidekiq (>= 6.2.1)
   sidekiq-cron (>= 1.0.4)
+  sidekiq-pro!
   simple_form (>= 5.0.0)
   simplecov (= 0.17)
   skylight (= 4.0.0.alpha)
