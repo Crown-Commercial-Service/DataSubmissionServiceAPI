@@ -3,7 +3,7 @@ applications:
   - name: ccs-rmi-api-sidekiq-SIDEKIQ_QUEUE_NAME-CF_SPACE
     memory: SIDEKIQ_MEMORY_LIMIT
     buildpacks:
-    - https://github.com/reemi1510/sidekiq-pro-buildpack.git
+    # - https://github.com/reemi1510/sidekiq-pro-buildpack.git
     - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.49
     disk_quota: SIDEKIQ_DISK_QUOTA
     instances: SIDEKIQ_INSTANCE_COUNT
