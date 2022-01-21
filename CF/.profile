@@ -1,2 +1,2 @@
-export WELCOME_MESSAGE="TESTY MCTESTFACE"
+export WELCOME_MESSAGE="::::::::::::::::::TESTY MCTESTFACE::::::::::::;;;;"
 echo $WELCOME_MESSAGE
