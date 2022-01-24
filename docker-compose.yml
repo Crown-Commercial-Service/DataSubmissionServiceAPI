@@ -6,7 +6,6 @@ services:
       context: .
       args:
         RAILS_ENV: "development"
-        BUNDLE_GEMS__CONTRIBSYS__COM: ${BUNDLE_GEMS__CONTRIBSYS__COM}
     image: local/data_submission_service_api_app
     ports: ["3000:3000"]
     environment:
@@ -35,7 +34,6 @@ services:
       context: .
       args:
         RAILS_ENV: "development"
-        BUNDLE_GEMS__CONTRIBSYS__COM: ${BUNDLE_GEMS__CONTRIBSYS__COM}
     environment:
       RAILS_ENV: "development"
     env_file:

@@ -33,7 +33,7 @@ $ bin/dstart
 If you'd like to see all logs, like `Sidekiq` or `Redis` you can use the conventional docker-compose command - you will lose the ability to use `pry`:
 
 ```bash
-$ docker-compose --env-file docker-compose.env up --build
+$ docker-compose up
 ```
 
 If you'd like to shut all containers down, and remove database information persisted in `docker volumes` you can run the following command which rebuilds everything from scratch:
