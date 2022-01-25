@@ -16,7 +16,7 @@ RSpec.describe UrnListImporterJob do
       it 'inserts all customers' do
         expect { UrnListImporterJob.perform_now(urn_list) }
           .to change { Customer.count }
-          .by(2)
+          .by(3)
 
         expect(urn_list).to be_processed
       end

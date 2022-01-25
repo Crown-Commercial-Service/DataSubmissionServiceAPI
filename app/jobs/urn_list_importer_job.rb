@@ -126,7 +126,10 @@ class UrnListImporterJob < ApplicationJob
   end
 
   def delete_non_publish_row(worksheet, row_num, row)
-    return unless row[4]&.value&.zero?
+    value = row[4].value if row[4]
+    value = value.upcase if value.is_a? String
+    value = ActiveModel::Type::Boolean.new.cast(value)
+    return unless value == false
 
     worksheet.delete_row(row_num)
     true
