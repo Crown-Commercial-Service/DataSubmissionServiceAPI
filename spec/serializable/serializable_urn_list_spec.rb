@@ -7,7 +7,7 @@ RSpec.describe SerializableUrnList do
 
     it "exposes the attached file's name" do
       expect(serialized_urn_list.as_jsonapi[:attributes][:filename]).to eql 'customers_test.xlsx'
-      expect(serialized_urn_list.as_jsonapi[:attributes][:byte_size]).to eql 4962
+      expect(serialized_urn_list.as_jsonapi[:attributes][:byte_size]).to eql 5062
       expect(serialized_urn_list.as_jsonapi[:attributes][:file_key]).to eql urn_list.file_key
     end
   end
