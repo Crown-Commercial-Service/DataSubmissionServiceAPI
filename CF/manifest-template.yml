@@ -3,7 +3,6 @@ applications:
   - name: ccs-rmi-api-CF_SPACE
     memory: MEMORY_LIMIT
     buildpacks:
-    # - https://github.com/reemi1510/sidekiq-pro-buildpack.git
     - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.49
     instances: INSTANCE_COUNT
     routes:
