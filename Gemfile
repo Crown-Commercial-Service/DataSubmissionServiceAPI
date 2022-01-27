@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.7'
+ruby '2.6.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4.6'
@@ -44,7 +44,7 @@ gem 'simple_form', '>= 5.0.0'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
-gem 'azure-storage-blob', '>= 1.1.0', require: false
+gem 'azure-storage-blob', '>= 2.0.3', require: false
 
 # Exception tracking
 gem 'rollbar'
@@ -58,12 +58,15 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 
 gem 'progress_bar', require: false
 
-gem 'sidekiq', '>= 6.2.1'
+gem 'sidekiq', '>= 6.4.0'
 gem 'sidekiq-cron', '>= 1.0.4'
 
 gem 'activerecord-import'
 
 gem 'parslet'
+
+# For parsing and manipulating excel docs
+gem 'rubyXL', '~> 3.4', '>= 3.4.18'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.9.0', require: false

@@ -8,15 +8,15 @@ RSpec.describe UrnListImporterJob do
   end
 
   describe '#perform' do
-    before { stub_s3_get_object('customers.xlsx') }
+    before { stub_s3_get_object('customers_test.xlsx') }
 
-    let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
+    let(:urn_list) { create(:urn_list, filename: 'customers_test.xlsx') }
 
     context 'given a well-formed URN list in Excel format' do
       it 'inserts all customers' do
         expect { UrnListImporterJob.perform_now(urn_list) }
           .to change { Customer.count }
-          .by(2)
+          .by(3)
 
         expect(urn_list).to be_processed
       end
@@ -68,7 +68,7 @@ RSpec.describe UrnListImporterJob do
     context 'given a URN list which fails to download' do
       before { stub_s3_get_object_with_exception(Timeout::Error) }
 
-      let(:urn_list) { create(:urn_list, filename: 'customers.xlsx') }
+      let(:urn_list) { create(:urn_list, filename: 'customers_test.xlsx') }
 
       it 'throws an error, and retries the job' do
         allow_any_instance_of(AttachedFileDownloader)
