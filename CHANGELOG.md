@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-126] - 2022-02-?
+
+- RMI-480: Enable Sidekiq pro
+
 ## [release-125] - 2022-01-27
 
 - [Snyk] Upgrade azure-storage-blob from 2.0.1 to 2.0.3
