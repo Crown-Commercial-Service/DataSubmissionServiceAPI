@@ -1,11 +1,12 @@
 # Change Log
 
-## [release-125] - 2021-12-?
+## [release-125] - 2022-01-27
 
 - [Snyk] Upgrade azure-storage-blob from 2.0.1 to 2.0.3
 - RMI-473: Allow secret URNs to be added to URN list in the database
 - RMI-495: Ruby version bumped to 2.6.8
-- RMI-480: Enable Sidekiq pro
+- [Snyk] Upgrade codemirror to 5.65.0
+- [Snyk] Security upgrade sidekiq from 6.2.2 to 6.4.0
 
 ## [release-124] - 2021-11-25
 
@@ -833,6 +834,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-125]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-124...release-125
 [release-124]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-123...release-124
 [release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
 [release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
