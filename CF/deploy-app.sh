@@ -148,8 +148,6 @@ sed "s/CF_SPACE/$CF_SPACE/g" sidekiq-manifest-template.yml | sed "s/SIDEKIQ_MEMO
 # push API
 cd .. || exit
 
-# bundle config gems.contribsys.com $BUNDLE_GEMS__CONTRIBSYS__COM
-
 cf push ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml --strategy rolling
 
 # push API sidekiq
