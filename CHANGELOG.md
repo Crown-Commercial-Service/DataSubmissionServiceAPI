@@ -1,7 +1,8 @@
 # Change Log
 
-## [release-126] - 2022-02-?
+## [release-126] - 2022-02-03
 
+- RMI-494: Fixed nav menu dropdown
 - RMI-480: Enable Sidekiq pro
 
 ## [release-125] - 2022-01-27
@@ -838,6 +839,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-126]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-125...release-126
 [release-125]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-124...release-125
 [release-124]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-123...release-124
 [release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
