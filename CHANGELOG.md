@@ -1,11 +1,8 @@
 # Change Log
 
-## [release-127] - 2022-02-03
+## [release-126] - 2022-02-03
 
 - RMI-494: Fixed nav menu dropdown
-
-## [release-126] - 2022-02-?
-
 - RMI-480: Enable Sidekiq pro
 
 ## [release-125] - 2022-01-27
