@@ -6,6 +6,7 @@ services:
       context: .
       args:
         RAILS_ENV: "test"
+        BUNDLE_GEMS__CONTRIBSYS__COM: ${BUNDLE_GEMS__CONTRIBSYS__COM}
     environment:
       RAILS_ENV: "test"
       DATABASE_URL: "postgres://postgres:password@db-test:5432/DataSubmissionServiceApi_test?template=template0&pool=5&encoding=unicode"
