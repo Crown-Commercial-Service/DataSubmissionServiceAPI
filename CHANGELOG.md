@@ -4,6 +4,7 @@
 
 - RMI-494: Fixed nav menu dropdown
 - RMI-480: Enable Sidekiq pro
+- Increses GPaaS Memory Limit for API App.
 
 ## [release-125] - 2022-01-27
 
