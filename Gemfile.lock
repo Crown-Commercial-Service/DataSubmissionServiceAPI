@@ -520,7 +520,6 @@ DEPENDENCIES
   puma (~> 5.6, >= 5.6.2)
   rails (~> 5.2.6.2)
   rails_event_store
-  railties (~> 5.2, >= 5.2.6.2)
   rollbar
   rspec-json_expectations
   rspec-rails (>= 3.7.2)
