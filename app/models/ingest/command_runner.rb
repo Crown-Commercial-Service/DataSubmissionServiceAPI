@@ -1,3 +1,5 @@
+require 'open3'
+
 module Ingest
   ##
   # Run the given +command+ using Open3
