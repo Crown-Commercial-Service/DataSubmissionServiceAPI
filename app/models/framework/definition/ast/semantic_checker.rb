@@ -135,10 +135,15 @@ class Framework
         end
 
         def validate_multi_column_management_charge(info)
+          column_names = info[:column_based][:column_names]
           management_field_keys = info[:column_based][:value_to_percentage].keys
           management_field_keys.each do |key|
             unless key.is_a?(Array)
               raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule'
+            end
+
+            if key.count != column_names.count
+              raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
             end
 
             if key[0] == '<Any>'
