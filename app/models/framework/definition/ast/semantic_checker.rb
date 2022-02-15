@@ -138,17 +138,27 @@ class Framework
           column_names = info[:column_based][:column_names]
           management_field_keys = info[:column_based][:value_to_percentage].keys
           management_field_keys.each do |key|
-            unless key.is_a?(Array)
-              raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule'
-            end
+            raise_when_incomplete_or_incorrect_keys(key)
+            raise_when_unexpected_number_of_variables(key, column_names)
+            raise_when_first_arg_wildcard(key)
+          end
+        end
 
-            if key.count != column_names.count
-              raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
-            end
+        def raise_when_incomplete_or_incorrect_keys(key)
+          unless key.is_a?(Array)
+            raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule'
+          end
+        end
 
-            if key[0] == '<Any>'
-              raise Transpiler::Error, 'The first criterion in a multiple depends-on validation cannot be a wildcard.'
-            end
+        def raise_when_unexpected_number_of_variables(key, column_names)
+          if key.count != column_names.count
+            raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
+          end
+        end
+
+        def raise_when_first_arg_wildcard(key)
+          if key[0] == '<Any>'
+            raise Transpiler::Error, 'The first criterion in a multiple depends-on validation cannot be a wildcard.'
           end
         end
 
