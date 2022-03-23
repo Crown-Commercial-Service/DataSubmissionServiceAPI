@@ -69,7 +69,7 @@ gem 'parslet'
 gem 'rubyXL', '~> 3.4', '>= 3.4.18'
 
 # SOAP-related libraries for Workday integration
-gem 'lolsoap', '>= 0.9.0', require: false
+gem 'lolsoap', '>= 0.10.0', require: false
 gem 'akami', '>= 1.3.1', require: false
 gem 'http', '>= 4.0.0'
 
