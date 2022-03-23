@@ -15,8 +15,8 @@ RSpec.describe '/v1' do
 
       expect(response).to be_successful
       expect(data.size).to eq(2)
-      #expect(data.first).to have_attributes(:short_name)
-      expect(data.first).to have_attributes(:name)
+      expect(data).to have_attributes(:short_name)
+      expect(data).to have_attributes(:name)
     end
   end
 end
