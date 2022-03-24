@@ -529,6 +529,17 @@ RSpec.describe Framework::Definition::Generator do
         end
       end
 
+      context 'more arguments given than the number of variables in varies_by' do
+        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", "'1', 'Lease Rental', '1'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'Unexpected number of variables in ["1", "Lease Rental", "1"], inside ManagementCharge block.'
+          )
+        end
+      end
+
       context 'only one column field given' do
         let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", '*') }
         let(:source)         { invalid_source }

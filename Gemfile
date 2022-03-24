@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.6'
+gem 'rails', '~> 5.2.6.3'
 
 # State machine
 gem 'aasm'
@@ -23,7 +23,7 @@ gem 'jquery-rails', '>= 4.4.0'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.5'
+gem 'puma', '~> 5.6', '>= 5.6.2'
 
 # Audit log
 gem 'rails_event_store'
@@ -36,11 +36,11 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.0'
 
 # Admin Frontend
-gem 'haml-rails', '>= 1.0.0'
-gem 'sass-rails', '~> 5.0', '>= 5.0.7'
+gem 'haml-rails', '>= 2.0.1'
+gem 'sass-rails', '~> 5.1', '>= 5.1.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'kaminari', '>= 1.2.1'
-gem 'simple_form', '>= 5.0.0'
+gem 'simple_form', '>= 5.1.0'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
@@ -50,7 +50,7 @@ gem 'azure-storage-blob', '>= 2.0.3', require: false
 gem 'rollbar'
 
 # Logging
-gem 'lograge', '>= 0.10.0'
+gem 'lograge', '>= 0.11.2'
 gem 'skylight', '4.0.0.alpha'
 
 gem 'rubocop'
@@ -69,7 +69,7 @@ gem 'parslet'
 gem 'rubyXL', '~> 3.4', '>= 3.4.18'
 
 # SOAP-related libraries for Workday integration
-gem 'lolsoap', '>= 0.9.0', require: false
+gem 'lolsoap', '>= 0.10.0', require: false
 gem 'akami', '>= 1.3.1', require: false
 gem 'http', '>= 4.0.0'
 
@@ -79,8 +79,8 @@ gem 'hashdiff', require: false
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '>= 2.4.0'
-  gem 'factory_bot_rails', '>= 4.10.0'
+  gem 'dotenv-rails', '>= 2.7.6'
+  gem 'factory_bot_rails', '>= 6.2.0'
   gem 'pry-rails'
   gem 'rspec-rails', '>= 3.7.2'
 end
