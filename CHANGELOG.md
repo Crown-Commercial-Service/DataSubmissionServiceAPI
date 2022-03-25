@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-128] - 2022-03-24
+
+- RMI-504: Dependency updates, to fix security vulnerabilities. (Manual Update).
+
 ## [release-127] - 2022-02-24
 
 - [Snyk] Upgrade codemirror from 5.65.0 to 5.65.1 
