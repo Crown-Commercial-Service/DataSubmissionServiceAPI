@@ -2,7 +2,7 @@ monthly_tasks_generation:
   cron: '0 2 1 * *'
   class: 'MonthlyTasksGenerationJob'
   queue: default
-daily_data_warehouse_export:
-  cron: '30 20 * * * Europe/London'
-  class: DataWarehouseExportJob
-  queue: default
+# daily_data_warehouse_export:
+  # cron: '30 20 * * * Europe/London'
+  # class: DataWarehouseExportJob
+  # queue: default
