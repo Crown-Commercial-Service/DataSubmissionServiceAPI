@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SubmissionEntriesStage do
+RSpec.describe SubmissionEntry do
   it { is_expected.to belong_to(:submission) }
   it { is_expected.to belong_to(:submission_file) }
 
