@@ -12,8 +12,8 @@ RSpec.describe SubmissionEntriesStage do
     let(:sheet_2_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 2') }
 
     it 'returns entries for the specified sheet' do
-      expect(SubmissionEntriesStage.sheet('Sheet 1')).to contain_exactly(sheet_1_entry, another_sheet_1_entry)
-      expect(SubmissionEntriesStage.sheet('Sheet 2')).to contain_exactly(sheet_2_entry)
+      expect(SubmissionEntry.sheet('Sheet 1')).to contain_exactly(sheet_1_entry, another_sheet_1_entry)
+      expect(SubmissionEntry.sheet('Sheet 2')).to contain_exactly(sheet_2_entry)
     end
   end
 
@@ -27,8 +27,8 @@ RSpec.describe SubmissionEntriesStage do
     let!(:bobs_charity_entry) { FactoryBot.create(:submission_entry, customer_urn: bobs_charity.urn) }
 
     it 'return entries for the specified sectors' do
-      expect(SubmissionEntriesStage.central_government).to contain_exactly(home_office_entry, health_dept_entry)
-      expect(SubmissionEntriesStage.wider_public_sector).to contain_exactly(bobs_charity_entry)
+      expect(SubmissionEntry.central_government).to contain_exactly(home_office_entry, health_dept_entry)
+      expect(SubmissionEntry.wider_public_sector).to contain_exactly(bobs_charity_entry)
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe SubmissionEntriesStage do
     let!(:second_row) { FactoryBot.create(:submission_entry, row: 2) }
 
     it 'returns entries ordered by their source row' do
-      expect(SubmissionEntriesStage.ordered_by_row).to eq [first_row, second_row, tenth_row]
+      expect(SubmissionEntry.ordered_by_row).to eq [first_row, second_row, tenth_row]
     end
   end
 
