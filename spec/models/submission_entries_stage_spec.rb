@@ -33,9 +33,9 @@ RSpec.describe SubmissionEntriesStage do
   end
 
   describe 'ordered_by_row' do
-    let!(:tenth_row) { FactoryBot.create(:submission_entries_stages, row: 10) }
-    let!(:first_row)  { FactoryBot.create(:submission_entries_stages, row: 1) }
-    let!(:second_row) { FactoryBot.create(:submission_entries_stages, row: 2) }
+    let!(:tenth_row) { FactoryBot.create(:submission_entry, row: 10) }
+    let!(:first_row)  { FactoryBot.create(:submission_entry, row: 1) }
+    let!(:second_row) { FactoryBot.create(:submission_entry, row: 2) }
 
     it 'returns entries ordered by their source row' do
       expect(SubmissionEntriesStage.ordered_by_row).to eq [first_row, second_row, tenth_row]
@@ -44,7 +44,7 @@ RSpec.describe SubmissionEntriesStage do
 
   it 'is associated with a customer via the customer‘s URN' do
     customer = FactoryBot.create(:customer)
-    submission_entries_stages = FactoryBot.create(:submission_entries_stages, customer_urn: customer.urn)
+    submission_entries_stages = FactoryBot.create(:submission_entry, customer_urn: customer.urn)
 
     expect(submission_entries_stages.customer).to eq customer
   end
