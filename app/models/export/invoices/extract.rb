@@ -6,9 +6,9 @@ module Export
         submission_scope = submission_scope.where(updated_at: date_range) if date_range.present?
 
         SubmissionEntry.invoices
-                              .select('submission_entries.*, frameworks.short_name AS _framework_short_name')
-                              .joins(submission: :framework)
-                              .merge(submission_scope)
+                       .select('submission_entries.*, frameworks.short_name AS _framework_short_name')
+                       .joins(submission: :framework)
+                       .merge(submission_scope)
       end
     end
   end
