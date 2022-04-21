@@ -7,7 +7,7 @@ RSpec.describe SubmissionEntriesStage do
   it { is_expected.to validate_presence_of(:data) }
 
   describe 'sheet scope' do
-    let(:sheet_1_entry) { FactoryBot.create(:submission_entry sheet_name: 'Sheet 1') }
+    let(:sheet_1_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 1') }
     let(:another_sheet_1_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 1') }
     let(:sheet_2_entry) { FactoryBot.create(:submission_entry, sheet_name: 'Sheet 2') }
 
