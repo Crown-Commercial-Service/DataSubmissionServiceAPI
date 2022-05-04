@@ -25,6 +25,6 @@ module Export
       VATCharged
       PromotionCode
       ManagementChargeValue
-    ].concat(SubmissionEntryRow.additional_field_names).freeze
+    ].concat(SubmissionEntriesStageRow.additional_field_names).freeze
   end
 end

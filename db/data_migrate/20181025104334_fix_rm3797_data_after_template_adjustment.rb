@@ -14,4 +14,10 @@ submissions.each do |submission|
     entry.data.delete("Publisher's Name")
     entry.save!
   end
+
+  submission.entries_stages.each do |entry|
+    entry.data['Publisher Name'] = entry.data["Publisher's Name"]
+    entry.data.delete("Publisher's Name")
+    entry.save!
+  end
 end

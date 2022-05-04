@@ -47,6 +47,10 @@ class SubmissionManagementChargeCalculationJob < ApplicationJob
       entry.update! management_charge: framework_definition.calculate_management_charge(entry)
     end
 
+    @submission.entries_stages.invoices.find_each do |entry|
+      entry.update! management_charge: framework_definition.calculate_management_charge(entry)
+    end
+
     @submission.update!(management_charge_total: @submission.entries.invoices.sum(:management_charge))
     @submission.ready_for_review!
   end

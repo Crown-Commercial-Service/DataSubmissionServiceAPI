@@ -73,67 +73,72 @@ module Ingest
       entries_stage = []
       running_total = 0
       running_total_stage = 0
-      process_csv_row = ProcessCsvRow.new(sheet_definition)
+      #process_csv_row = ProcessCsvRow.new(sheet_definition)
+
+      puts "here345678"
 
       rows.data.each do |row|
-        entry = SubmissionEntry.new(
-          submission_file: @submission_file,
-          submission: submission,
-          entry_type: rows.type,
-          source: {
-            row: Integer(row['line_number']) + 1,
-            sheet: rows.sheet_name
-          },
-          data: process_csv_row.process(row)
-        )
+        # entry = SubmissionEntry.new(
+        #   submission_file: @submission_file,
+        #   submission: submission,
+        #   entry_type: rows.type,
+        #   source: {
+        #     row: Integer(row['line_number']) + 1,
+        #     sheet: rows.sheet_name
+        #   },
+        #   data: process_csv_row.process(row)
+        # )
 
-        next if entry.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
+        # entry_stage = SubmissionEntriesStage.new(
+        #   submission_file: @submission_file,
+        #   submission: submission,
+        #   entry_type: rows.type,
+        #   source: {
+        #     row: Integer(row['line_number']) + 1,
+        #     sheet: rows.sheet_name
+        #   },
+        #   data: process_csv_row.process(row)
+        # )
 
-        entry.customer_urn = entry.data[sheet_definition.export_mappings['CustomerURN']]
-        entry.customer_urn = nil unless @urns.key?(entry.customer_urn)
+        # puts "hereeeeee96645"
 
-        entry.total_value = entry.data[sheet_definition.total_value_field]
 
-        entry.validate_against!(sheet_definition)
+        # #next if entry.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
+        # next if entry_stage.data.values.map { |w| w.to_s.strip }.all?(&:blank?) # Skip empty rows
 
-        running_total += entry.total_value || 0
-        entries << entry
+        # puts "hereeeee897675665"
+
+        # #entry.customer_urn = entry.data[sheet_definition.export_mappings['CustomerURN']]
+        # entry_stage.customer_urn = entry.data[sheet_definition.export_mappings['CustomerURN']]
+
+        # #entry.customer_urn = nil unless @urns.key?(entry.customer_urn)
+        # entry_stage.customer_urn = nil unless @urns.key?(entry.customer_urn)
+
+        # #entry.total_value = entry.data[sheet_definition.total_value_field]
+        # entry_stage.total_value = entry.data[sheet_definition.total_value_field]
+
+        # #entry.validate_against!(sheet_definition)
+        # entry_stage.validate_against!(sheet_definition)
+
+        # #running_total += entry.total_value || 0
+        # running_total_stage += entry_stage.total_value || 0
+
+        # #entries << entry
+        # entries_stage << entry_stage
+        # puts "hereeeee71010"
       end
 
-      SubmissionEntry.transaction do
-        SubmissionEntry.import(entries, batch_size: 500, validate: false)
-        yield running_total if block_given?
-      end
+      # SubmissionEntriesStage.transaction do
+      #   puts "heree1234567890"
+      #   SubmissionEntriesStage.import(entries_stage, batch_size: 500, validate: false)
+      #   yield running_total_stage if block_given?
+      # end
 
-      rows.data.each do |row|
-        entry_stage = SubmissionEntriesStage.new(
-          submission_file: @submission_file,
-          submission: submission,
-          entry_type: rows.type,
-          source: {
-            row: Integer(row['line_number']) + 1,
-            sheet: rows.sheet_name
-          },
-          data: process_csv_row.process(row)
-        )
-
-        next if entry_stage.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
-
-        entry_stage.customer_urn = entry_stage.data[sheet_definition.export_mappings['CustomerURN']]
-        entry_stage.customer_urn = nil unless @urns.key?(entry_stage.customer_urn)
-
-        entry_stage.total_value = entry_stage.data[sheet_definition.total_value_field]
-
-        entry_stage.validate_against!(sheet_definition)
-
-        running_total_stage += entry_stage.total_value || 0
-        entries_stage << entry_stage
-      end
-
-      SubmissionEntriesStage.transaction do
-        SubmissionEntriesStage.import(entries_stage, batch_size: 500, validate: false)
-        yield running_total_stage if block_given?
-      end
+      # SubmissionEntry.transaction do
+      #   puts "here000677676"
+      #   SubmissionEntry.import(entries, batch_size: 500, validate: false)
+      #   yield running_total if block_given?
+      # end      
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength

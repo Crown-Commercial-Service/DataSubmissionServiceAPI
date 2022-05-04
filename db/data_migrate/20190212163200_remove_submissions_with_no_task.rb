@@ -15,6 +15,7 @@ Submission.delete(RETIRED_FRAMEWORK_SUBMISSION)
 
 # Be explicit about deleting relations first
 SubmissionEntry.where(submission_id: ERRONEOUS_DOS3_SUBMISSION).each(&:delete)
+SubmissionEntriesStage.where(submission_id: ERRONEOUS_DOS3_SUBMISSION).each(&:delete)
 SubmissionFile.where(submission_id:  ERRONEOUS_DOS3_SUBMISSION).each(&:delete)
 
 Submission.delete(ERRONEOUS_DOS3_SUBMISSION)
