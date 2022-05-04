@@ -1,6 +1,6 @@
 module Export
   class Invoices
-    class Row < SubmissionEntryRow
+    class Row < SubmissionEntriesStageRow
       alias_method :invoice, :model
 
       # rubocop:disable Metrics/AbcSize
