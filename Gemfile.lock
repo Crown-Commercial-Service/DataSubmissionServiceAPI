@@ -86,6 +86,7 @@ GEM
       faraday_middleware (~> 1.0, >= 1.0.0.rc1)
       net-http-persistent (~> 4.0)
       nokogiri (~> 1, >= 1.10.8)
+    bigdecimal (1.4.4)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
     bounded_context (0.30.0)
@@ -492,6 +493,7 @@ DEPENDENCIES
   aws-sdk-cloudwatch
   aws-sdk-s3
   azure-storage-blob (>= 2.0.3)
+  bigdecimal (~> 1.4, >= 1.4.4)
   bootsnap (~> 1.11, >= 1.11.1)
   brakeman
   byebug

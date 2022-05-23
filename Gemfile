@@ -10,6 +10,7 @@ gem 'rails', '~> 5.2.7.1'
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+gem 'bigdecimal', '~> 1.4', '>= 1.4.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
