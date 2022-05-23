@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.6.2'
+gem 'rails', '~> 5.2.7.1'
 
 # State machine
 gem 'aasm'
@@ -23,7 +23,7 @@ gem 'jquery-rails', '>= 4.4.0'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.6', '>= 5.6.2'
+gem 'puma', '~> 5.6', '>= 5.6.4'
 
 # Audit log
 gem 'rails_event_store'
@@ -69,12 +69,15 @@ gem 'parslet'
 gem 'rubyXL', '~> 3.4', '>= 3.4.18'
 
 # SOAP-related libraries for Workday integration
-gem 'lolsoap', '>= 0.9.0', require: false
+gem 'lolsoap', '>= 0.10.0', require: false
 gem 'akami', '>= 1.3.1', require: false
 gem 'http', '>= 4.0.0'
 
 # Used for FDL testing (see FDL::Validations::Test)
 gem 'hashdiff', require: false
+
+# Manually set Nokgiri version, to update version.
+gem 'nokogiri', '>= 1.13.4'
 
 group :development, :test do
   gem 'brakeman', require: false
