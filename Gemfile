@@ -9,7 +9,7 @@ gem 'rails', '~> 5.2.7.1'
 # State machine
 gem 'aasm'
 
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
