@@ -19,7 +19,7 @@ class Framework
         end
 
         def run
-          raise_when_management_field_invalid(ast[:management_charge])
+          management_field_validations(ast[:management_charge])
           raise_when_field_invalid
         end
 
@@ -101,9 +101,26 @@ class Framework
           end
         end
 
+        def management_field_validations(info)
+          if info[:sector_based]
+            raise_when_sector_based_management_field_invalid(info)
+          else
+            raise_when_management_field_invalid(info)
+          end
+        end
+
+        def raise_when_sector_based_management_field_invalid(info)
+          info[:sector_based].each do |sector, sector_info|
+            of_columns_for(sector_info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
+            validate_multi_column_management_charge(sector_info) if multi_column_based?(sector_info)
+            raise_when_unexpected_number_of_variables(sector_info) if sector_info[:column_names]
+          end
+        end
+
         def raise_when_management_field_invalid(info)
           of_columns_for(info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
           validate_multi_column_management_charge(info) if multi_column_based?(info)
+          raise_when_unexpected_number_of_variables(info)
         end
 
         def of_columns_for(info)
@@ -112,6 +129,15 @@ class Framework
               varies_by = Array(info[:column_based][:column_names])
 
               percentage_columns = info[:column_based][:value_to_percentage]
+                                     .values
+                                     .select { |percentage_details| percentage_details[:column].present? }
+                                     .map    { |percentage_details| percentage_details[:column] }
+
+              varies_by + percentage_columns
+            elsif info[:column_names]
+              varies_by = Array(info[:column_names])
+
+              percentage_columns = info[:value_to_percentage]
                                      .values
                                      .select { |percentage_details| percentage_details[:column].present? }
                                      .map    { |percentage_details| percentage_details[:column] }
@@ -134,12 +160,10 @@ class Framework
           end
         end
 
-        def validate_multi_column_management_charge(info)
-          column_names = info[:column_based][:column_names]
-          management_field_keys = info[:column_based][:value_to_percentage].keys
+        def validate_multi_column_management_charge(info) 
+          management_field_keys = info[:value_to_percentage]&.keys || info[:column_based][:value_to_percentage]&.keys
           management_field_keys.each do |key|
             raise_when_incomplete_or_incorrect_keys(key)
-            raise_when_unexpected_number_of_variables(key, column_names)
             raise_when_first_arg_wildcard(key)
           end
         end
@@ -150,9 +174,18 @@ class Framework
           end
         end
 
-        def raise_when_unexpected_number_of_variables(key, column_names)
-          if key.count != column_names.count
-            raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
+        def raise_when_unexpected_number_of_variables(info)
+          return if info[:flat_rate]
+
+          column_names = info[:column_names] || info[:column_based][:column_names]
+          management_field_keys = info[:value_to_percentage]&.keys || info[:column_based][:value_to_percentage]&.keys
+          
+          management_field_keys.each do |key|
+            next if key.is_a?(String) && column_names.is_a?(String)
+
+            if key.count != column_names.count
+              raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
+            end
           end
         end
 
@@ -163,7 +196,11 @@ class Framework
         end
 
         def multi_column_based?(info)
-          Array(info[:column_based][:column_names]).count > 1 if info[:column_based]
+          if info[:column_based]
+            Array(info[:column_based][:column_names]).count > 1
+          elsif info[:column_names]
+            Array(info[:column_names]).count > 1
+          end
         end
       end
     end
