@@ -1,4 +1,5 @@
 require 'rails_helper'
+SimpleCov.command_name 'RSpec'
 
 RSpec.feature 'Adding a user' do
   let(:email) { 'new@example.com' }

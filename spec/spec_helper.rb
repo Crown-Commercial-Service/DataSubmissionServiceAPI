@@ -6,7 +6,6 @@ require 'aasm/rspec'
 require 'webmock/rspec'
 require 'simplecov'
 SimpleCov.start 'rails' do
-  SimpleCov.command_name 'RSpec'
   add_group 'Deserializable', 'app/deserializable'
   add_group 'Serializable', 'app/serializable'
   add_group 'Services', 'app/services'
