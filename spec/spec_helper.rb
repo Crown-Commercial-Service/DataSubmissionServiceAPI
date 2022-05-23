@@ -6,6 +6,7 @@ require 'aasm/rspec'
 require 'webmock/rspec'
 require 'simplecov'
 SimpleCov.start 'rails' do
+  command_name 'Unit Tests'
   add_group 'Deserializable', 'app/deserializable'
   add_group 'Serializable', 'app/serializable'
   add_group 'Services', 'app/services'
