@@ -3,3 +3,5 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-10-0
+exclude_patterns:
+- "app/models/framework/definition/ast/semantic_checker.rb"

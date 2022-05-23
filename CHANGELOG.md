@@ -1,11 +1,18 @@
 # Change Log
 
+## [release-128] - 2022-05-26
+
+- [Snyk] Upgrade Rails from 5.2.6.2 to 5.2.7.1
+- [Snyk] Upgrade codemirror from 5.65.1 to 5.65.3
+- Upgrade Puma from 5.6.2 to 5.6.4
+- Upgrade Ruby from 2.6.8 to 2.7.4
+- RMI-479: Added check in FDL semantic checker for number of variables
+
 ## [release-127] - 2022-02-24
 
 - [Snyk] Upgrade codemirror from 5.65.0 to 5.65.1 
 - [Snyk] Upgrade Rails from 5.2.4.6 to 5.2.6.2
 - [Snyk] Upgrade Puma from 5.5 to 5.6
-- RMI-479: Added check in FDL semantic checker for number of variables
 
 ## [release-126] - 2022-02-03
 
@@ -847,6 +854,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-128]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-127...release-128
 [release-127]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-126...release-127
 [release-126]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-125...release-126
 [release-125]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-124...release-125
