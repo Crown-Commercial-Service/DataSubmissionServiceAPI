@@ -1,5 +1,4 @@
 require 'rails_helper'
-SimpleCov.command_name 'Unit Tests'
 
 RSpec.describe Agreement do
   it 'does not allow a supplier to have more than one agreement against the same framework' do
