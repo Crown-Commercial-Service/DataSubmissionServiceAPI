@@ -105,5 +105,5 @@ group :test do
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
   gem 'launchy', '>= 2.4.3'
-  gem 'simplecov', '0.17', require: false # SimpleCov 0.18+ not yet supported by Codeclimate
+  gem 'simplecov', '~> 0.21.2'
 end
