@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-129] - 2022-05-23
+
+- Our buildpack was updated from 1.8.52 to 1.8.53, so update to compatiable Ruby 2.7.5.
+
 ## [release-128] - 2022-03-24
 
 - RMI-504: Dependency updates, to fix security vulnerabilities. (Manual Update).
@@ -851,6 +855,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-128]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-127...release-128
 [release-127]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-126...release-127
 [release-126]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-125...release-126
 [release-125]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-124...release-125
