@@ -112,15 +112,13 @@ class Framework
         def raise_when_sector_based_management_field_invalid(info)
           info[:sector_based].each do |_sector, sector_info|
             of_columns_for(sector_info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
-            validate_multi_column_management_charge(sector_info) if multi_column_based?(sector_info)
-            raise_when_unexpected_number_of_variables(sector_info) if sector_info[:column_names]
+            validate_management_field_keys(sector_info) if sector_info[:column_names]
           end
         end
 
         def raise_when_management_field_invalid(info)
           of_columns_for(info).each { |referenced_field_name| validate_management_field(referenced_field_name) }
-          validate_multi_column_management_charge(info) if multi_column_based?(info)
-          raise_when_unexpected_number_of_variables(info) unless info[:flat_rate]
+          validate_management_field_keys(info) unless info[:flat_rate]
         end
 
         def of_columns_for(info)
@@ -160,35 +158,30 @@ class Framework
           end
         end
 
-        def validate_multi_column_management_charge(info)
-          management_field_keys = info[:value_to_percentage]&.keys || info[:column_based][:value_to_percentage]&.keys
-          management_field_keys.each do |key|
-            raise_when_incomplete_or_incorrect_keys(key)
-            raise_when_first_arg_wildcard(key)
-          end
-        end
-
-        def raise_when_incomplete_or_incorrect_keys(key)
-          unless key.is_a?(Array)
-            raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete depends_on rule'
-          end
-        end
-
-        def raise_when_unexpected_number_of_variables(info)
+        def validate_management_field_keys(info)
           column_names = info[:column_names] || info[:column_based][:column_names]
           management_field_keys = info[:value_to_percentage]&.keys || info[:column_based][:value_to_percentage]&.keys
 
           management_field_keys.each do |key|
-            next if single_key_and_column(key, column_names)
+            raise_when_incomplete_or_incorrect_keys(key, column_names)
 
-            if key.count != column_names.count
-              raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
+            if multi_key_and_multi_column(key, column_names)
+              raise_when_first_arg_wildcard(key)
+              raise_when_unexpected_number_of_variables(key, column_names)
             end
           end
         end
 
-        def single_key_and_column(key, column_names)
-          key.is_a?(String) && column_names.is_a?(String)
+        def raise_when_incomplete_or_incorrect_keys(key, column_names)
+          if multi_key_and_single_column(key, column_names) || single_key_and_multi_column(key, column_names)
+            raise Transpiler::Error, 'This framework definition contains an incorrect or incomplete varies_by rule'
+          end
+        end
+
+        def raise_when_unexpected_number_of_variables(key, column_names)
+          if key.count != column_names.count
+            raise Transpiler::Error, "Unexpected number of variables in #{key}, inside ManagementCharge block."
+          end
         end
 
         def raise_when_first_arg_wildcard(key)
@@ -197,12 +190,16 @@ class Framework
           end
         end
 
-        def multi_column_based?(info)
-          if info[:column_based]
-            Array(info[:column_based][:column_names]).count > 1
-          elsif info[:column_names]
-            Array(info[:column_names]).count > 1
-          end
+        def multi_key_and_single_column(key, column_names)
+          key.is_a?(Array) && column_names.is_a?(String)
+        end
+
+        def single_key_and_multi_column(key, column_names)
+          (key.is_a?(String) || key == '<Any>') && column_names.is_a?(Array)
+        end
+
+        def multi_key_and_multi_column(key, column_names)
+          key.is_a?(Array) && column_names.is_a?(Array)
         end
       end
     end
