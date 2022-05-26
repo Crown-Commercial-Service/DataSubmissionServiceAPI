@@ -161,11 +161,14 @@ class Framework
         def validate_management_field_keys(info)
           column_names = info[:column_names] || info[:column_based][:column_names]
           management_field_keys = info[:value_to_percentage]&.keys || info[:column_based][:value_to_percentage]&.keys
-          
+
           management_field_keys.each do |key|
             raise_when_incomplete_or_incorrect_keys(key, column_names)
-            raise_when_first_arg_wildcard(key) if multi_key_and_multi_column(key, column_names)
-            raise_when_unexpected_number_of_variables(key, column_names) if multi_key_and_multi_column(key, column_names)
+
+            if multi_key_and_multi_column(key, column_names)
+              raise_when_first_arg_wildcard(key)
+              raise_when_unexpected_number_of_variables(key, column_names)
+            end
           end
         end
 
