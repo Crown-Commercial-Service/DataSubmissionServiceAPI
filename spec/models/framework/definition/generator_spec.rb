@@ -540,13 +540,24 @@ RSpec.describe Framework::Definition::Generator do
         end
       end
 
+      context 'multiple arguments given and only one variable in varies_by' do
+        let(:invalid_source) { valid_source.sub("'Lot Number', 'Spend Code'", "'Lot Number'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'This framework definition contains an incorrect or incomplete varies_by rule'
+          )
+        end
+      end
+
       context 'only one column field given' do
         let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", '*') }
         let(:source)         { invalid_source }
 
         it 'has an error' do
           expect(generator.error).to eql(
-            'This framework definition contains an incorrect or incomplete depends_on rule'
+            'This framework definition contains an incorrect or incomplete varies_by rule'
           )
         end
       end
