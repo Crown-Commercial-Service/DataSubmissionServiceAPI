@@ -23,7 +23,13 @@ module Export
     private
 
     def model_classname
-      if @relation.klass == SubmissionEntry
+      if @relation.klass == SubmissionEntriesStage
+        {
+          'invoice' => 'Invoice',
+          'order'   => 'Contract',
+          'other'   => 'Other'
+        }.fetch(@relation.where_values_hash['entry_type'])
+      elsif @relation.klass == SubmissionEntry
         {
           'invoice' => 'Invoice',
           'order'   => 'Contract',

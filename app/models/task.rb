@@ -74,6 +74,7 @@ dependent: :nullify
     transaction do
       submissions.where('created_at > ?', active_submission.created_at).find_each do |submission|
         submission.entries.destroy_all
+        submission.entries_stages.destroy_all
         submission.files.destroy_all
         submission.destroy
       end

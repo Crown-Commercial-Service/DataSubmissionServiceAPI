@@ -13,5 +13,9 @@ submissions.each do |submission|
   submission.entries.invoices.find_each do |entry|
     entry.update! management_charge: rm6060.definition.calculate_management_charge(entry)
   end
+
+  submission.entries_stages.invoices.find_each do |entry|
+    entry.update! management_charge: rm6060.definition.calculate_management_charge(entry)
+  end
   puts "Recalculated charge: #{submission.management_charge}"
 end

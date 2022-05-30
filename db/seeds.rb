@@ -72,6 +72,9 @@ submission_file.file.attach(
 processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 processing_submission.entries.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
 
+processing_submission.entries_stages.find_or_create_by!(submission_file: submission_file, data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+processing_submission.entries_stages.find_or_create_by!(submission_file: submission_file, data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
+
 
 framework_valid = create_framework(11)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_valid)
@@ -95,6 +98,10 @@ valid_submission.entries.find_or_create_by!(submission_file: submission_file, aa
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 1 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 2 })
 
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 1 })
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'order', source: { sheet: "OrdersReceived", row: 2 })
 
 framework_invalid = create_framework(12)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_invalid)
@@ -121,6 +128,14 @@ invalid_submission.entries.find_or_create_by!(
   entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 },
 ).update_attribute(:validation_errors, [{ "message": "Required value error", "location": { "row": 2, "column": 1 } }])
 
+invalid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+invalid_submission.entries_stages.find_or_create_by!(
+  submission_file: submission_file,
+  aasm_state: "errored",
+  data: { key: "" },
+  entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 },
+).update_attribute(:validation_errors, [{ "message": "Required value error", "location": { "row": 2, "column": 1 } }])
+
 # completed task
 framework_completed = create_framework(13)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_completed)
@@ -141,3 +156,6 @@ submission_file.file.attach(
 )
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
 valid_submission.entries.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
+
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 1 })
+valid_submission.entries_stages.find_or_create_by!(submission_file: submission_file, aasm_state: "validated", data: { key: "another value" }, entry_type: 'invoice', source: { sheet: "InvoicesRaised", row: 2 })
