@@ -144,6 +144,28 @@ ActiveRecord::Schema.define(version: 2021_12_13_132535) do
     t.index ["updated_at"], name: "index_submission_entries_on_updated_at", using: :brin
   end
 
+  create_table "submission_entries_stages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "submission_id", null: false
+    t.uuid "submission_file_id"
+    t.jsonb "source"
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "aasm_state"
+    t.jsonb "validation_errors"
+    t.string "entry_type"
+    t.decimal "total_value"
+    t.decimal "management_charge", precision: 18, scale: 4
+    t.integer "customer_urn"
+    t.index ["aasm_state"], name: "index_submission_entries_stages_on_aasm_state"
+    t.index ["entry_type"], name: "index_submission_entries_stage_on_invoice_entry_type", where: "((entry_type)::text = 'invoice'::text)"
+    t.index ["entry_type"], name: "index_submission_entries_stages_on_entry_type"
+    t.index ["source"], name: "index_submission_entries_stages_on_source", using: :gin
+    t.index ["submission_file_id"], name: "index_submission_entries_stages_on_submission_file_id"
+    t.index ["submission_id"], name: "index_submission_entries_stages_on_submission_id"
+    t.index ["updated_at"], name: "index_submission_entries_stages_on_updated_at", using: :brin
+  end
+
   create_table "submission_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
     t.integer "rows"
@@ -230,6 +252,9 @@ ActiveRecord::Schema.define(version: 2021_12_13_132535) do
   add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
   add_foreign_key "submission_entries", "submission_files"
   add_foreign_key "submission_entries", "submissions"
+  add_foreign_key "submission_entries_stages", "customers", column: "customer_urn", primary_key: "urn"
+  add_foreign_key "submission_entries_stages", "submission_files"
+  add_foreign_key "submission_entries_stages", "submissions"
   add_foreign_key "submission_files", "submissions"
   add_foreign_key "submission_invoices", "submissions"
   add_foreign_key "submissions", "frameworks"
