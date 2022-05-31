@@ -63,12 +63,16 @@ module Ingest
     end
 
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     #
     # Load data from given rows and yield the running total from
     # within the final persist transaction
     def load_data_from(rows, sheet_definition)
       entries = []
+      entries_stage = []
       running_total = 0
+      running_total_stage = 0
       process_csv_row = ProcessCsvRow.new(sheet_definition)
 
       rows.data.each do |row|
@@ -100,8 +104,40 @@ module Ingest
         SubmissionEntry.import(entries, batch_size: 500, validate: false)
         yield running_total if block_given?
       end
+
+      rows.data.each do |row|
+        entry_stage = SubmissionEntriesStage.new(
+          submission_file: @submission_file,
+          submission: submission,
+          entry_type: rows.type,
+          source: {
+            row: Integer(row['line_number']) + 1,
+            sheet: rows.sheet_name
+          },
+          data: process_csv_row.process(row)
+        )
+
+        next if entry_stage.data.values.map { |v| v.to_s.strip }.all?(&:blank?) # Skip empty rows
+
+        entry_stage.customer_urn = entry_stage.data[sheet_definition.export_mappings['CustomerURN']]
+        entry_stage.customer_urn = nil unless @urns.key?(entry_stage.customer_urn)
+
+        entry_stage.total_value = entry_stage.data[sheet_definition.total_value_field]
+
+        entry_stage.validate_against!(sheet_definition)
+
+        running_total_stage += entry_stage.total_value || 0
+        entries_stage << entry_stage
+      end
+
+      SubmissionEntriesStage.transaction do
+        SubmissionEntriesStage.import(entries_stage, batch_size: 500, validate: false)
+        yield running_total_stage if block_given?
+      end
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def submission
       @submission_file.submission

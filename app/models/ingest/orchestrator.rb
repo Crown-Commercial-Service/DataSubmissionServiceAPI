@@ -13,10 +13,12 @@ module Ingest
       @framework = @submission.framework
     end
 
+    # rubocop:disable Metrics/AbcSize
     def perform
       Rails.logger.tagged(logger_tags) do
         @submission.update!(aasm_state: :processing)
         SubmissionEntry.where(submission_file_id: @submission_file.id).delete_all
+        SubmissionEntriesStage.where(submission_file_id: @submission_file.id).delete_all
 
         downloader = AttachedFileDownloader.new(@submission_file.file)
         downloader.download!
@@ -34,6 +36,7 @@ module Ingest
         calculate_management_charge_if_valid
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

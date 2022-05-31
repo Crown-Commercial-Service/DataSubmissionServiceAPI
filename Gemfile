@@ -94,6 +94,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Generate scaffold commands from schema.rb, instead of the other way around
+  # gem 'schema_to_scaffold'
+  # To spin up locally using postgis, (along with edits to database.yml)
+  # gem 'activerecord-postgis-adapter'
 end
 
 group :test do
