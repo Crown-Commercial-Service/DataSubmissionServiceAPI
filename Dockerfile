@@ -1,4 +1,4 @@
-FROM ruby:2
+FROM ruby:2.7.5
 
 MAINTAINER dxw <rails@dxw.com>
 
@@ -46,7 +46,7 @@ COPY Gemfile.lock $INSTALL_PATH/Gemfile.lock
 COPY package.json yarn.lock $INSTALL_PATH/
 
 RUN yarn
-RUN gem update --system 3.0.0
+RUN gem update --system 
 RUN gem install bundler
 
 ARG BUNDLE_GEMS__CONTRIBSYS__COM
