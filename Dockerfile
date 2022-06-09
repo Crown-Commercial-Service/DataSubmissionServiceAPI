@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:2.7.4
 
 MAINTAINER dxw <rails@dxw.com>
 

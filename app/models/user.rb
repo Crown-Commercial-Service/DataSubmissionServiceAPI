@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :suppliers, through: :memberships
   has_many :submissions, through: :suppliers
   has_many :tasks, through: :suppliers
+  has_many :customer_effort_scores
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   scope :active, -> { where.not(auth_id: nil) }
