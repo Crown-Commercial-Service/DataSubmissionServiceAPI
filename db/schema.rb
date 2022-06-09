@@ -130,27 +130,6 @@ ActiveRecord::Schema.define(version: 2022_06_06_133405) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
-  create_table "staging_submission_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "submission_id", null: false
-    t.uuid "submission_file_id"
-    t.jsonb "source"
-    t.jsonb "data"
-    t.jsonb "validation_errors"
-    t.string "aasm_state"
-    t.string "entry_type"
-    t.decimal "total_value"
-    t.decimal "management_charge", precision: 18, scale: 4
-    t.integer "customer_urn"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["aasm_state"], name: "index_staging_submission_entries_on_aasm_state"
-    t.index ["entry_type"], name: "index_staging_submission_entries_on_entry_type"
-    t.index ["source"], name: "index_staging_submission_entries_on_source", using: :gin
-    t.index ["submission_file_id"], name: "index_staging_submission_entries_on_submission_file_id"
-    t.index ["submission_id"], name: "index_staging_submission_entries_on_submission_id"
-    t.index ["updated_at"], name: "index_staging_submission_entries_on_updated_at", using: :brin
-  end
-
   create_table "submission_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
     t.uuid "submission_file_id"
@@ -266,6 +245,19 @@ ActiveRecord::Schema.define(version: 2022_06_06_133405) do
   add_foreign_key "agreement_framework_lots", "framework_lots"
   add_foreign_key "customer_effort_scores", "users"
   add_foreign_key "framework_lots", "frameworks"
+  add_foreign_key "memberships", "suppliers"
+  add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
+  add_foreign_key "submission_entries", "submission_files"
+  add_foreign_key "submission_entries", "submissions"
   add_foreign_key "submission_entries_stages", "submission_files"
   add_foreign_key "submission_entries_stages", "submissions"
+  add_foreign_key "submission_files", "submissions"
+  add_foreign_key "submission_invoices", "submissions"
+  add_foreign_key "submissions", "frameworks"
+  add_foreign_key "submissions", "suppliers"
+  add_foreign_key "submissions", "tasks"
+  add_foreign_key "submissions", "users", column: "created_by_id"
+  add_foreign_key "submissions", "users", column: "submitted_by_id"
+  add_foreign_key "tasks", "frameworks"
+  add_foreign_key "tasks", "suppliers"
 end
