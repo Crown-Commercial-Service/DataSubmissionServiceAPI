@@ -1,3 +1,3 @@
 class DeserializableCustomerEffortScore < JSONAPI::Deserializable::Resource
-  attributes :ratings, :comments, :user_id
+  attributes :rating, :comments, :user_id
 end
