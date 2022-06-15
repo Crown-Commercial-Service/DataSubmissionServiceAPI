@@ -3,6 +3,7 @@
 ## [release-129] - 2022-06-16
 
 - RMI-341: Created mechanism to measure customer effort score
+- Upgrade Ruby from 2.7.4 to 2.7.5
 
 ## [release-128] - 2022-05-26
 
