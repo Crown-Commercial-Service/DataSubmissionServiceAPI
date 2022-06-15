@@ -9,7 +9,7 @@ RSpec.describe '/v1' do
         data: {
           type: 'customer_effort_scores',
           attributes: {
-          rating: 5,
+          rating: 'Very easy',
           comments: 'Never been happier',
           user_id: user.id
           }
