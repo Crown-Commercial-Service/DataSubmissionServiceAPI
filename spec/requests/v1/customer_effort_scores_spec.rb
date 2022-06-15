@@ -5,11 +5,11 @@ RSpec.describe '/v1' do
     let(:user) { FactoryBot.create(:user) }
 
     let(:params) do
-        {
+      {
         data: {
           type: 'customer_effort_scores',
           attributes: {
-          rating: 'Very easy',
+            rating: 'Very easy',
           comments: 'Never been happier',
           user_id: user.id
           }
@@ -18,7 +18,8 @@ RSpec.describe '/v1' do
     end
 
     it 'saves customer feedback' do
-      post '/v1/customer_effort_scores', params: params.to_json, headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+      post '/v1/customer_effort_scores', params: params.to_json,
+        headers: json_headers.merge('X-Auth-Id' => user.auth_id)
 
       expect(response).to have_http_status(204)
 
