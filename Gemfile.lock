@@ -259,8 +259,6 @@ GEM
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-darwin)
-      racc (~> 1.4)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -531,7 +529,7 @@ DEPENDENCIES
   ruby_event_store-rspec
   sass-rails (~> 5.1, >= 5.1.0)
   shoulda-matchers
-  sidekiq-cron (>= 1.0.4)
+  sidekiq-cron (>= 1.2.0)
   sidekiq-pro!
   simple_form (>= 5.1.0)
   simplecov (~> 0.21.2)
