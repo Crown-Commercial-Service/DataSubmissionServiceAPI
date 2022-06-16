@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_132535) do
+ActiveRecord::Schema.define(version: 2022_06_16_090621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 2021_12_13_132535) do
     t.index ["active"], name: "index_agreements_on_active"
     t.index ["framework_id"], name: "index_agreements_on_framework_id"
     t.index ["supplier_id"], name: "index_agreements_on_supplier_id"
+  end
+
+  create_table "customer_effort_scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "rating", null: false
+    t.string "comments"
+    t.datetime "created_at"
+    t.uuid "user_id"
+    t.index ["user_id"], name: "index_customer_effort_scores_on_user_id"
   end
 
   create_table "customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -180,7 +188,6 @@ ActiveRecord::Schema.define(version: 2021_12_13_132535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "reversal", default: false, null: false
-    t.string "invoice_number"
     t.index ["submission_id"], name: "index_submission_invoices_on_submission_id"
   end
 
@@ -247,6 +254,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_132535) do
 
   add_foreign_key "agreement_framework_lots", "agreements"
   add_foreign_key "agreement_framework_lots", "framework_lots"
+  add_foreign_key "customer_effort_scores", "users"
   add_foreign_key "framework_lots", "frameworks"
   add_foreign_key "memberships", "suppliers"
   add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
