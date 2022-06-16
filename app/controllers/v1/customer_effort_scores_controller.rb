@@ -8,9 +8,12 @@ class V1::CustomerEffortScoresController < APIController
       comments: feedback[:comments],
       user_id: feedback[:user_id]
     )
-    score.save!
 
-    head :no_content
+    if score.save
+      head :no_content
+    else
+      render jsonapi: score.errors, status: :bad_request
+    end
   end
 
   private

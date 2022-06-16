@@ -536,7 +536,7 @@ DEPENDENCIES
   ruby_event_store-rspec
   sass-rails (~> 5.1, >= 5.1.0)
   shoulda-matchers
-  sidekiq-cron (>= 1.0.4)
+  sidekiq-cron (>= 1.2.0)
   sidekiq-pro!
   simple_form (>= 5.1.0)
   simplecov (~> 0.21.2)
