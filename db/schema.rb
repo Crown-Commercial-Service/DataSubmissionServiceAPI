@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_133405) do
+ActiveRecord::Schema.define(version: 2022_06_16_090621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_133405) do
   end
 
   create_table "customer_effort_scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "rating"
+    t.integer "rating", null: false
     t.string "comments"
     t.datetime "created_at"
     t.uuid "user_id"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(version: 2022_06_06_133405) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "reversal", default: false, null: false
-    t.string "invoice_number"
     t.index ["submission_id"], name: "index_submission_invoices_on_submission_id"
   end
 
