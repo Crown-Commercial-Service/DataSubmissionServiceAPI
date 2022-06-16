@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-129] - 2022-06-16
+
+- RMI-341: Created mechanism to measure customer effort score
+- Upgrade Ruby from 2.7.4 to 2.7.5
+
 ## [release-128] - 2022-05-26
 
 - [Snyk] Upgrade Rails from 5.2.6.2 to 5.2.7.1
@@ -854,6 +859,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-129]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-128...release-129
 [release-128]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-127...release-128
 [release-127]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-126...release-127
 [release-126]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-125...release-126
