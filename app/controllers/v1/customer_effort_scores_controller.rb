@@ -8,7 +8,7 @@ class V1::CustomerEffortScoresController < APIController
       comments: feedback[:comments],
       user_id: feedback[:user_id]
     )
-    
+
     if score.save
       head :no_content
     else
