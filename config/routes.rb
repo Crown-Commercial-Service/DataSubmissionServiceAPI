@@ -46,8 +46,6 @@ Rails.application.routes.draw do
 
     resources :urn_lists, only: :index
 
-    resource :customer_effort_scores, only: :create
-
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
