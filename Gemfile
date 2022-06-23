@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.7.1'
@@ -60,7 +60,7 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
-gem 'sidekiq-cron', '>= 1.0.4'
+gem 'sidekiq-cron', '>= 1.2.0'
 
 gem 'activerecord-import'
 
