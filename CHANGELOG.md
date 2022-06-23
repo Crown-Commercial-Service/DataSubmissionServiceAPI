@@ -1,6 +1,6 @@
 # Change Log
 
-## [release-129] - 2022-06-16
+## [release-129] - 2022-06-23
 
 - Upgrade Ruby from 2.7.4 to 2.7.5
 - Bump jmespath from 1.5.0 to 1.6.1
