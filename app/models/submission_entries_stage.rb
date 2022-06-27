@@ -5,8 +5,7 @@ class SubmissionEntriesStage < ApplicationRecord
 
   belongs_to :submission
   belongs_to :submission_file, optional: true
-  belongs_to :customer, primary_key: :urn, foreign_key: :customer_urn, optional: true,
-inverse_of: :submission_entries_stages
+  belongs_to :customer, primary_key: :urn, foreign_key: :customer_urn, optional: true, inverse_of: :submission_entries_stages
   has_one :framework, through: :submission
 
   validates :data, presence: true
