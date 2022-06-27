@@ -5,8 +5,8 @@ module Export
         submission_scope = Submission.completed
         submission_scope = submission_scope.where(updated_at: date_range) if date_range.present?
 
-        SubmissionEntriesStage.others
-                       .select('submission_entries_stages.*, frameworks.short_name AS _framework_short_name')
+        SubmissionEntry.others
+                       .select('submission_entries.*, frameworks.short_name AS _framework_short_name')
                        .joins(submission: :framework)
                        .merge(submission_scope)
       end
