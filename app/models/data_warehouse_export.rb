@@ -11,6 +11,7 @@ class DataWarehouseExport < ApplicationRecord
         export.save!
       end
     end
+    SubmissionEntriesStage.delete_all
   end
 
   def generate_files
