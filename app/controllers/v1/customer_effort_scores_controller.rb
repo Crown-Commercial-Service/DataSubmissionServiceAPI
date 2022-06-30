@@ -3,16 +3,16 @@ class V1::CustomerEffortScoresController < APIController
 
   def create
     feedback = params[:customer_effort_score]
-    score = CustomerEffortScore.new(
+    customer_effort_score = CustomerEffortScore.new(
       rating: rating_to_integer(feedback[:rating]),
       comments: feedback[:comments],
       user_id: feedback[:user_id]
     )
 
-    if score.save
+    if customer_effort_score.save
       head :no_content
     else
-      render jsonapi: score.errors, status: :bad_request
+      render jsonapi_errors: customer_effort_score.errors, status: :bad_request
     end
   end
 
@@ -22,9 +22,9 @@ class V1::CustomerEffortScoresController < APIController
     case feedback
     when 'Very easy' then 5
     when 'Easy' then 4
-    when 'Neither easy or hard' then 3
-    when 'Hard' then 2
-    when 'Very hard' then 1
+    when 'Neither easy or difficult' then 3
+    when 'Difficult' then 2
+    when 'Very difficult' then 1
     end
   end
 end
