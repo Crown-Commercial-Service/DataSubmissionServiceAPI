@@ -45,7 +45,7 @@ RSpec.describe '/v1' do
           }
         }
       end
-      
+
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
@@ -71,7 +71,7 @@ RSpec.describe '/v1' do
           }
         }
       end
-      
+
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
@@ -97,7 +97,7 @@ RSpec.describe '/v1' do
           }
         }
       end
-      
+
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
@@ -123,7 +123,7 @@ RSpec.describe '/v1' do
           }
         }
       end
-      
+
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
@@ -149,7 +149,7 @@ RSpec.describe '/v1' do
           }
         }
       end
-      
+
       it 'responds with an error status' do
         post '/v1/customer_effort_scores', params: params.to_json,
           headers: json_headers.merge('X-Auth-Id' => user.auth_id)
