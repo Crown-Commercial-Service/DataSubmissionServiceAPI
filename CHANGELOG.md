@@ -1,9 +1,14 @@
 # Change Log
 
-## [release-129] - 2022-06-23
+## [release-130] - 2022-06-30
 
 - RMI-341: Created mechanism to measure customer effort score
+
+## [release-129] - 2022-06-23
+
 - Upgrade Ruby from 2.7.4 to 2.7.5
+- Bump jmespath from 1.5.0 to 1.6.1
+- [Snyk] Upgrade codemirror from 5.65.4 to 5.65.5
 
 ## [release-128] - 2022-05-26
 
@@ -859,6 +864,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-130]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-129...release-130
 [release-129]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-128...release-129
 [release-128]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-127...release-128
 [release-127]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-126...release-127
