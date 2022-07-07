@@ -1,8 +1,9 @@
 # Change Log
 
-## [release-130] - 2022-06-30
+## [release-130] - 2022-07-14
 
 - RMI-341: Created mechanism to measure customer effort score
+- [Dependabot] Upgrade rails-html-sanitizer from 1.4.2 to 1.4.3
 
 ## [release-129] - 2022-06-23
 
