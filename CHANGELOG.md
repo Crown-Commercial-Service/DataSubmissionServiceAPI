@@ -1,6 +1,6 @@
 # Change Log
 
-## [release-130] - 2022-06-30
+## [release-130] - 2022-07-14
 
 - RMI-341: Created mechanism to measure customer effort score
 
