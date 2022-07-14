@@ -3,6 +3,9 @@
 ## [release-130] - 2022-07-14
 
 - RMI-341: Created mechanism to measure customer effort score
+- [Snyk] Security upgrade rails from 5.2.7.1 to 5.2.8.1
+- [Snyk] Upgrade codemirror from 5.65.5 to 5.65.6
+- [Dependabot] Bump rails-html-sanitizer from 1.4.2 to 1.4.3
 
 ## [release-129] - 2022-06-23
 
