@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.7.1'
+gem 'rails', '~> 5.2.8.1'
 
 # State machine
 gem 'aasm'
@@ -40,7 +40,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.0'
 gem 'haml-rails', '>= 2.0.1'
 gem 'sass-rails', '~> 5.1', '>= 5.1.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'kaminari', '>= 1.2.1'
+gem 'kaminari', '>= 1.2.2'
 gem 'simple_form', '>= 5.1.0'
 
 gem 'aws-sdk-cloudwatch', require: false
