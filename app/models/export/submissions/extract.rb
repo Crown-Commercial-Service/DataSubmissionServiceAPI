@@ -23,7 +23,7 @@ module Export
                          submission_id,
                          SUM(total_value) AS total_value,
                          COUNT(*)         AS entry_count
-                       FROM submission_entries
+                       FROM submission_entries_stages
                        WHERE entry_type = 'order'
                        GROUP BY submission_id) AS orders ON orders.submission_id = submissions.id
             LEFT JOIN submission_files ON submission_files.submission_id = submissions.id

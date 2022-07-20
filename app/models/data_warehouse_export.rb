@@ -9,6 +9,7 @@ class DataWarehouseExport < ApplicationRecord
         files = export.generate_files
         Export::AzureUpload.new(files).perform
         export.save!
+        export.clear_records_from_staging_table
       end
     end
   end
@@ -25,6 +26,10 @@ class DataWarehouseExport < ApplicationRecord
 
   def date_range
     (range_from..range_to)
+  end
+
+  def clear_records_from_staging_table
+    SubmissionEntriesStage.where(updated_at: date_range).delete_all
   end
 
   private
