@@ -13,7 +13,7 @@ gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 gem 'bigdecimal', '~> 1.4', '>= 1.4.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.7', '>= 2.7.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -52,7 +52,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.11.2'
-gem 'skylight', '4.0.0.alpha'
+gem 'skylight', '4.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
@@ -93,7 +93,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen', '~> 2.0.1'
   # Generate scaffold commands from schema.rb, instead of the other way around
   # gem 'schema_to_scaffold'
   # To spin up locally using postgis, (along with edits to database.yml)
