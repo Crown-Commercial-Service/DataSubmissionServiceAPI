@@ -10,7 +10,6 @@ gem 'rails', '~> 5.2.8.1'
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
-gem 'bigdecimal', '~> 1.4', '>= 1.4.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7', '>= 2.7.0'
@@ -30,7 +29,7 @@ gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'rails_event_store'
 
 # Auth0
-gem 'auth0', require: false
+gem 'auth0', '~> 5.6', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
@@ -105,7 +104,7 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 5.1'
   gem 'capybara', '>= 3.35.3'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
