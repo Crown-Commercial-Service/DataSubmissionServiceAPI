@@ -40,7 +40,7 @@ class Admin::DownloadsController < AdminController
     when 'unfinished'
       Task::UnfinishedUserNotificationList.new(output: file)
     else
-      Task::CustomerEffortScoreList.new(date_from: @from_date, date_to: @to_date, output: file)
+      Task::CustomerEffortScoreList.new(date_from: @from_date, date_to: @to_date.end_of_day, output: file)
     end
   end
 
@@ -53,14 +53,14 @@ class Admin::DownloadsController < AdminController
   end
 
   def valid_dates?
-    @from_date = "#{params[:dd_from]}-#{params[:mm_from]}-#{params[:yyyy_from]}".to_date
-    @to_date = "#{params[:dd_to]}-#{params[:mm_to]}-#{params[:yyyy_to]}".to_date
+    @from_date = "#{params[:dd_from]}-#{params[:mm_from]}-#{params[:yyyy_from]}".to_datetime
+    @to_date = "#{params[:dd_to]}-#{params[:mm_to]}-#{params[:yyyy_to]}".to_datetime
   rescue ArgumentError
     false
   end
 
   def valid_date_order?
-    @to_date > @from_date && @to_date <= Time.zone.now.to_date
+    @to_date > @from_date && @to_date <= Time.zone.now
   end
 
   def catch_unrecognised_download
