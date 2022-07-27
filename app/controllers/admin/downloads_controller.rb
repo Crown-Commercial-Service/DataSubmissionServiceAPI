@@ -15,7 +15,7 @@ class Admin::DownloadsController < AdminController
                          alert: "'From' date must be before 'To' date and 'To' date cannot be in the future"
     end
 
-    send_file csv_file, type: 'text/csv', filename: "customer_effort_scores-#{@from_date}-#{@to_date}.csv"
+    send_file csv_file, type: 'text/csv', filename: "customer_effort_scores-#{@from_date.to_date}-#{@to_date.to_date}.csv"
   end
 
   private
