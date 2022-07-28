@@ -3,6 +3,7 @@
 ## [release-131] - 2022-07-28
 
 - RMI-518: Removed BigDecimal gem and upgraded shoulda-matchers to address warnings in logs
+- RMI-501: Updates to staging table for overnight export process
 - [Snyk] Upgrade jbuilder, spring-watcher-listen and skylight
 - [Dependabot] Bump tzinfo from 1.2.9 to 1.2.10
 - Amended url in sandbox workday xml file
