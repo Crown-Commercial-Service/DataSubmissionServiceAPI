@@ -11,6 +11,7 @@ class Submission < ApplicationRecord
 
   has_many :files, dependent: :nullify, class_name: 'SubmissionFile'
   has_many :entries, dependent: :nullify, class_name: 'SubmissionEntry'
+  has_many :staging_entries, dependent: :nullify, class_name: 'SubmissionEntriesStage'
   has_one :invoice,
           -> { where(reversal: false) },
           dependent: :nullify,
