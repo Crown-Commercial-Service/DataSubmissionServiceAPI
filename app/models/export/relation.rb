@@ -23,7 +23,7 @@ module Export
     private
 
     def model_classname
-      if @relation.klass == SubmissionEntry
+      if @relation.klass == SubmissionEntriesStage
         {
           'invoice' => 'Invoice',
           'order'   => 'Contract',

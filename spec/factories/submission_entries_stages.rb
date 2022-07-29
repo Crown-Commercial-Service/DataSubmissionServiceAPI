@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :submission_entries_stages do
+  factory :submission_entries_stage do
     transient do
       row { 1 }
       column { 'Column' }

@@ -26,20 +26,21 @@ RSpec.describe Export::Invoices::Extract do
       let!(:submission) do
         create(:submission, aasm_state: 'completed', updated_at: 2.days.ago) do |submission|
           submission.entries << create(:invoice_entry)
+          submission.staging_entries << create(:invoice_entry_stage)
         end
       end
       let(:date_range) { 1.day.ago..1.minute.from_now }
 
       it 'only includes invoices whose submissions were updated during the range' do
         all_relevant = Export::Invoices::Extract.all_relevant(date_range)
-        expect(all_relevant).not_to match_array submission.entries
+        expect(all_relevant).not_to match_array submission.staging_entries
 
         # rubocop:disable Rails/SkipsModelValidations
         submission.touch
         # rubocop:enable Rails/SkipsModelValidations
 
         all_relevant = Export::Invoices::Extract.all_relevant(date_range)
-        expect(all_relevant).to match_array submission.entries
+        expect(all_relevant).to match_array submission.staging_entries
       end
     end
   end

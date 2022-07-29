@@ -76,6 +76,10 @@ RSpec.describe Export::Relation do
         entries: [
           create(:invoice_entry, total_value: 179.12),
           create(:order_entry, total_value: 804.00)
+        ],
+        staging_entries: [
+          create(:invoice_entry_stage, total_value: 179.12),
+          create(:order_entry_stage, total_value: 804.00)
         ]
       )
     end
@@ -191,13 +195,13 @@ RSpec.describe Export::Relation do
     let!(:invoice) do
       # Explicit times are necessary because Export::Invoices::Extract.all_relevant
       # relies on order(:created_date)
-      create :invoice_entry, :legal_framework_invoice_data, submission: complete_submission,
+      create :invoice_entry_stage, :legal_framework_invoice_data, submission: complete_submission,
                                                             management_charge: 142.99,
                                                             created_at: Time.zone.local(2018, 12, 25, 13, 55, 59)
     end
 
     let!(:invoice2) do
-      create :invoice_entry, submission: complete_submission,
+      create :invoice_entry_stage, submission: complete_submission,
                              created_at: Time.zone.local(2018, 12, 25, 14, 55, 59)
     end
 
@@ -261,12 +265,12 @@ RSpec.describe Export::Relation do
     let!(:contract) do
       # Explicit times are necessary because Export::Contracts::Extract.all_relevant
       # relies on order(:created_date)
-      create :contract_entry, :legal_framework_contract_data, submission: complete_submission,
+      create :contract_entry_stage, :legal_framework_contract_data, submission: complete_submission,
                                                               created_at: Time.zone.local(2018, 12, 25, 13, 55, 59)
     end
 
     let!(:contract2) do
-      create :contract_entry, submission: complete_submission,
+      create :contract_entry_stage, submission: complete_submission,
                               created_at: Time.zone.local(2018, 12, 25, 14, 55, 59)
     end
 
@@ -300,9 +304,9 @@ RSpec.describe Export::Relation do
     it 'writes each contract to the export' do
       expect(output_lines.length).to eql(3)
       expect(output_lines).to include(
-        "#{contract.submission_id},10010915,Government Legal Department,WC1B 4ZZ,471600.00001,"\
+        "#{contract.submission_id},10010913,Government Legal Department,WC1B 4Z3,471600.00004,"\
         'DWP - Claim by Mr I Dontexist,1,Contentious Employment,,,,,,,,,'\
-        '2018-06-27,2020-06-27,5000.00,Further Competition,N/A,N,Central Government Department,'\
+        '2019-06-27,2020-06-27,5000.00,Further Competition,N/A,N,Central Government Department,'\
         'N,0.00,15,,,,,,,,,,,,,,,,,,'
       )
     end

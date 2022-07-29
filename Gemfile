@@ -10,10 +10,9 @@ gem 'rails', '~> 5.2.8.1'
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
-gem 'bigdecimal', '~> 1.4', '>= 1.4.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.7', '>= 2.7.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -30,7 +29,7 @@ gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'rails_event_store'
 
 # Auth0
-gem 'auth0', require: false
+gem 'auth0', '~> 4.4', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
@@ -52,7 +51,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.11.2'
-gem 'skylight', '4.0.0.alpha'
+gem 'skylight', '4.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
@@ -93,7 +92,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen', '~> 2.0.1'
   # Generate scaffold commands from schema.rb, instead of the other way around
   # gem 'schema_to_scaffold'
   # To spin up locally using postgis, (along with edits to database.yml)
@@ -105,7 +104,7 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 5.1'
   gem 'capybara', '>= 3.35.3'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
