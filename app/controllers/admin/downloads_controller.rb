@@ -54,8 +54,8 @@ filename: "customer_effort_scores-#{@from_date.to_date}-#{@to_date.to_date}.csv"
   end
 
   def valid_dates?
-    @from_date = "#{params[:dd_from]}-#{params[:mm_from]}-#{params[:yyyy_from]}".to_datetime
-    @to_date = "#{params[:dd_to]}-#{params[:mm_to]}-#{params[:yyyy_to]}".to_datetime
+    @from_date = Date.strptime("#{params[:dd_from]}-#{params[:mm_from]}-#{params[:yyyy_from]}", '%d-%m-%Y')
+    @to_date = Date.strptime("#{params[:dd_to]}-#{params[:mm_to]}-#{params[:yyyy_to]}", '%d-%m-%Y')
   rescue ArgumentError
     false
   end
