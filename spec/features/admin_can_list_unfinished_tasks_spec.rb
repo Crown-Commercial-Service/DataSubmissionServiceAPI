@@ -33,7 +33,7 @@ aasm_state: state) do |submission|
     visit admin_root_path
     click_link 'Unfinished tasks'
 
-    click_link('Download', match: :first)
+    find(:xpath, "(//a[text()='Download'])[1]").click
 
     expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
     expect(page.response_headers['Content-Disposition']).to match(/RM0000 Test Supplier Ltd %28April 2019%29\.xlsx/)

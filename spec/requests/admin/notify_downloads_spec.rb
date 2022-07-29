@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin Notify Downloads', type: :request do
+RSpec.describe 'Admin Downloads', type: :request do
   include SingleSignOnHelpers
 
   before do
@@ -10,17 +10,53 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
   end
 
   describe '#index' do
-    it 'lists the available Notify downloads' do
-      get admin_notify_downloads_path
+    it 'lists the available downloads' do
+      get admin_downloads_path
 
       expect(response).to be_successful
+      expect(response.body).to include('Downloads')
+      expect(response.body).to include('Customer effort score download')
+      expect(response.body).to include(new_admin_download_path)
       expect(response.body).to include('Notify downloads')
       expect(response.body).to include('Management information is overdue')
-      expect(response.body).to include(admin_notify_download_path(:overdue))
+      expect(response.body).to include(admin_download_path(:overdue))
       expect(response.body).to include('Management information is late')
-      expect(response.body).to include(admin_notify_download_path(:late))
+      expect(response.body).to include(admin_download_path(:late))
       expect(response.body).to include('Management information submission is unfinished')
-      expect(response.body).to include(admin_notify_download_path(:unfinished))
+      expect(response.body).to include(admin_download_path(:unfinished))
+    end
+  end
+
+  describe '#new' do
+    before do
+      FactoryBot.create(:customer_effort_score)
+    end
+
+    context 'when valid dates provided' do
+      let(:day_to) { Time.zone.now.strftime('%d') }
+      let(:month_to) { Time.zone.now.strftime('%m') }
+      let(:year_to) { Time.zone.now.year.to_s }
+      let(:params) do
+        {
+          'dd_from' => '15',
+          'mm_from' => '10',
+          'yyyy_from' => '2021',
+          'dd_to' => day_to,
+          'mm_to' => month_to,
+          'yyyy_to' => year_to
+        }
+      end
+
+      it 'downloads a customer effort score CSV with dates in the filename' do
+        get new_admin_download_path, params: params
+
+        expect(response).to be_successful
+        expect(response.header['Content-Type']).to eq 'text/csv'
+        expect(response.header['Content-Disposition'])
+          .to include "attachment; filename=\"customer_effort_scores-2021-10-15-#{year_to}-#{month_to}-#{day_to}.csv"
+        expect(response.body).to include 'user id,rating,comments,date'
+        expect(response.body).to include 'Perfect, no notes.'
+      end
     end
   end
 
@@ -51,7 +87,7 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
 
     context 'when requesting the "overdue" notifications' do
       it 'returns a "overdue" notifications CSV file, with today’s date in the filename' do
-        get admin_notify_download_path(:overdue)
+        get admin_download_path(:overdue)
 
         expect(response).to be_successful
         expect(response.header['Content-Type']).to include 'text/csv'
@@ -64,7 +100,7 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
 
     context 'when requesting the "late" notifications' do
       it 'returns a "late" notifications CSV file, with today’s date in the filename' do
-        get admin_notify_download_path(:late)
+        get admin_download_path(:late)
 
         expect(response).to be_successful
         expect(response.header['Content-Type']).to include 'text/csv'
@@ -94,7 +130,7 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
     end
 
     it 'returns the "due" notifications CSV file, with today’s date in the filename' do
-      get admin_notify_download_path(:due)
+      get admin_download_path(:due)
 
       expect(response).to be_successful
       expect(response.header['Content-Type']).to include 'text/csv'
@@ -143,7 +179,7 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
     end
 
     it 'returns an "unfinished" notifications CSV file, with today’s date in the filename' do
-      get admin_notify_download_path(:unfinished)
+      get admin_download_path(:unfinished)
 
       expect(response).to be_successful
       expect(response.header['Content-Type']).to include 'text/csv'
@@ -160,7 +196,7 @@ RSpec.describe 'Admin Notify Downloads', type: :request do
 
   describe '#show for a non-existent download' do
     it 'returns a 404' do
-      get admin_notify_download_path(:random)
+      get admin_download_path(:random)
       expect(response).to be_not_found
     end
   end

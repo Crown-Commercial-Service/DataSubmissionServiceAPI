@@ -124,7 +124,7 @@ Rails.application.routes.draw do
 
     resources :urn_lists, only: %i[index new create]
 
-    resources :notify_downloads, only: %i[index show]
+    resources :downloads, only: %i[index show new]
 
     resources :unfinished_tasks, only: %i[index]
 
