@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "accessible-autocomplete": "^1.6.2",
-    "codemirror": "^5.65.6",
+    "codemirror": "^5.65.7",
     "govuk-frontend": "^3.14.0"
   }
 }
