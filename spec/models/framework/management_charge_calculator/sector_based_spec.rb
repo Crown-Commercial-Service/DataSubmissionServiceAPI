@@ -107,11 +107,11 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
       it { is_expected.to eq(500 * 0.9) }
     end
 
-    context 'central government AND percentage is calculated from the sum of other columns for a particular lot number' do
+    context 'central government AND percentage is calculated from the sum of other columns for given lot number' do
       let(:customer) { create(:customer, :central_government) }
       let(:entry)    do
-        build(:submission_entry, data: { 'Lot Number': '4', 'Other Price': 500.00, 'Another Price': 300.00 }, total_value: 1000,
-       customer_urn: customer.urn)
+        build(:submission_entry, data: { 'Lot Number': '4', 'Other Price': 500.00, 'Another Price': 300.00 },
+          total_value: 1000, customer_urn: customer.urn)
       end
 
       it { is_expected.to eq((500 + 300) * 0.5) }

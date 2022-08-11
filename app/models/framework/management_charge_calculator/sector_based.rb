@@ -41,7 +41,7 @@ class Framework
       end
 
       def source_value(entry)
-        if @percentage_details && @percentage_details[:column] && @percentage_details[:column].is_a?(Array)
+        if @percentage_details && @percentage_details[:column].is_a?(Array)
           @percentage_details[:column].map { |column| entry.data[column] }.reduce(:+)
         elsif @percentage_details && @percentage_details[:column]
           entry.data[@percentage_details[:column]]

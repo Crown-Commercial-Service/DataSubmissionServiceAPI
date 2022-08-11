@@ -125,14 +125,14 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
 
       it 'calculates the management charge for an entry, based on the sum of other columns' do
         entry = FactoryBot.create(:submission_entry,
-          total_value: 2400.0,
-          data: {
-            'Lot Number': '3',
-            'Other Price': 100.00,
-            'Another Price': 200.00
-          })
+                                  total_value: 2400.0,
+                                  data: {
+                                    'Lot Number': '3',
+                                    'Other Price': 100.00,
+                                    'Another Price': 200.00
+                                  })
 
-          expect(calculator.calculate_for(entry)).to eql(1.5) # 0.5% of (100.00 + 200.00)
+        expect(calculator.calculate_for(entry)).to eql(1.5) # 0.5% of (100.00 + 200.00)
       end
     end
 

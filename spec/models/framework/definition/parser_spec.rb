@@ -199,7 +199,8 @@ RSpec.describe Framework::Definition::Parser do
                         { string: '3' },
                         { string: 'Test' }
                       ],
-                      value: { percentage: { decimal: '1.5' }, column: [{ string: 'Other Price' }, { string: 'Another Price' }] }
+                      value: { percentage: { decimal: '1.5' },
+column: [{ string: 'Other Price' }, { string: 'Another Price' }] }
                     }
                   ]
                 }
