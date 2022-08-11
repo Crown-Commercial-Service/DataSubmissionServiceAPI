@@ -87,9 +87,10 @@ class Framework
       rule(:integer)    { match(/[0-9]/).repeat.as(:integer) }
       rule(:decimal)    { (match(/[0-9]/).repeat >> (str('.') >> match(/[0-9]/).repeat >> space?)).as(:decimal) }
 
-      rule(:percentage)     { (decimal | integer) >> str('%') }
-      rule(:of_column)      { spaced(str('of')) >> string.as(:column) }
-      rule(:percentage_exp) { spaced(percentage).as(:percentage) >> of_column.maybe }
+      rule(:percentage)      { (decimal | integer) >> str('%') }
+      rule(:of_columns)      { spaced(str('of')) >> of_column_names.as(:column) }
+      rule(:of_column_names) { column_name >> (spaced(str('AND')) >> column_name).repeat }
+      rule(:percentage_exp)  { spaced(percentage).as(:percentage) >> of_columns.maybe }
 
       rule(:range)      { (range_exp | integer.as(:is)).as(:range) }
       rule(:range_exp)  { integer.as(:min).maybe >> str('..') >> integer.as(:max).maybe }
