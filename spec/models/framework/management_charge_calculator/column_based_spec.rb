@@ -101,8 +101,18 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
       expect(calculator.calculate_for(entry)).to eql(36) # 1.5% of 2,400.00
     end
 
-    context 'percentage is calculated from another column for a particular lot number' do
-      it 'calculates the management charge for an entry' do
+    context 'percentage is calculated from other columns for particular lot numbers' do
+      let(:calculator) do
+        Framework::ManagementChargeCalculator::ColumnBased.new(
+          varies_by: ['Lot Number'],
+          value_to_percentage: {
+            ['2'] => { percentage: BigDecimal('1.5'), column: 'Other Price' },
+            ['3'] => { percentage: BigDecimal('0.5'), column: ['Other Price', 'Another Price'] }
+          }
+        )
+      end
+
+      it 'calculates the management charge for an entry, based on another column' do
         entry = FactoryBot.create(:submission_entry,
                                   total_value: 2400.0,
                                   data: {
@@ -110,14 +120,19 @@ RSpec.describe Framework::ManagementChargeCalculator::ColumnBased do
                                     'Other Price': 100.00
                                   })
 
-        calculator = Framework::ManagementChargeCalculator::ColumnBased.new(
-          varies_by: ['Lot Number'],
-          value_to_percentage: {
-            ['2'] => { percentage: BigDecimal('1.5'), column: 'Other Price' }
-          }
-        )
-
         expect(calculator.calculate_for(entry)).to eql(1.5) # 1.5% of 100.00
+      end
+
+      it 'calculates the management charge for an entry, based on the sum of other columns' do
+        entry = FactoryBot.create(:submission_entry,
+          total_value: 2400.0,
+          data: {
+            'Lot Number': '3',
+            'Other Price': 100.00,
+            'Another Price': 200.00
+          })
+
+          expect(calculator.calculate_for(entry)).to eql(1.5) # 0.5% of (100.00 + 200.00)
       end
     end
 

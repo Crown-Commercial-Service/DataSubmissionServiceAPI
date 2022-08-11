@@ -151,13 +151,14 @@ RSpec.describe Framework::Definition::Parser do
         }
       end
 
-      context 'with two columns and a percentage expressed in terms of another column' do
+      context 'with two columns and a percentage expressed in terms of one or more other columns' do
         let(:source) do
           <<~FDL.strip
             ManagementCharge varies_by 'Lot Number', 'Spend Code' {
               '1', 'Lease Rental' -> 0.5%
               '1', 'Damage' -> 0%
               '2', 'Lease Rental' -> 1.5% of 'Other Price'
+              '3', 'Test' -> 1.5% of 'Other Price' AND 'Another Price'
             }
           FDL
         end
@@ -192,6 +193,13 @@ RSpec.describe Framework::Definition::Parser do
                         { string: 'Lease Rental' }
                       ],
                       value: { percentage: { decimal: '1.5' }, column: { string: 'Other Price' } }
+                    },
+                    {
+                      key: [
+                        { string: '3' },
+                        { string: 'Test' }
+                      ],
+                      value: { percentage: { decimal: '1.5' }, column: [{ string: 'Other Price' }, { string: 'Another Price' }] }
                     }
                   ]
                 }

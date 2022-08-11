@@ -44,7 +44,8 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
           value_to_percentage: {
             "1": { percentage: BigDecimal(20) },
             "2": { percentage: BigDecimal(10) },
-            "3": { percentage: BigDecimal(90), column: 'Other Price' }
+            "3": { percentage: BigDecimal(90), column: 'Other Price' },
+            "4": { percentage: BigDecimal(50), column: ['Other Price', 'Another Price'] }
           }
         },
         wider_public_sector: {
@@ -104,6 +105,16 @@ RSpec.describe Framework::ManagementChargeCalculator::SectorBased do
       end
 
       it { is_expected.to eq(500 * 0.9) }
+    end
+
+    context 'central government AND percentage is calculated from the sum of other columns for a particular lot number' do
+      let(:customer) { create(:customer, :central_government) }
+      let(:entry)    do
+        build(:submission_entry, data: { 'Lot Number': '4', 'Other Price': 500.00, 'Another Price': 300.00 }, total_value: 1000,
+       customer_urn: customer.urn)
+      end
+
+      it { is_expected.to eq((500 + 300) * 0.5) }
     end
   end
 
