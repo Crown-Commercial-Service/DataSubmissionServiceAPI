@@ -148,13 +148,14 @@ class Framework
         end
 
         def validate_management_field(referenced_field_name)
-          field = ast.field_by_sheet_name(:invoice, referenced_field_name)
-          if field.nil?
-            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' which does not exist"
-          end
+          field_names = Array(referenced_field_name)
+          field_names.each do |name|
+            field = ast.field_by_sheet_name(:invoice, name)
+            raise Transpiler::Error, "Management charge references '#{name}' which does not exist" if field.nil?
 
-          if field.optional?
-            raise Transpiler::Error, "Management charge references '#{referenced_field_name}' so it cannot be optional"
+            if field.optional?
+              raise Transpiler::Error, "Management charge references '#{name}' so it cannot be optional"
+            end
           end
         end
 

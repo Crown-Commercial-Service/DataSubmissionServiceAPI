@@ -9,9 +9,9 @@ class Framework
       end
 
       def calculate_for(entry)
-        percentage_details = percentage_details_for(column_values_for(entry))
+        @percentage_details = percentage_details_for(column_values_for(entry))
 
-        if percentage_details.nil?
+        if @percentage_details.nil?
           Rollbar.error(
             "Got value '#{column_values_for(entry)}' for '#{varies_by}' on #{entry.framework.short_name}"\
             "from entry #{entry.id}. Missing validation?"
@@ -20,16 +20,20 @@ class Framework
           return 0.0
         end
 
-        source_value = if percentage_details[:column]
-                         entry.data[percentage_details[:column]]
-                       else
-                         entry.total_value
-                       end
-
-        (source_value * (BigDecimal(percentage_details[:percentage]) / 100)).truncate(4)
+        (source_value(entry) * (BigDecimal(@percentage_details[:percentage]) / 100)).truncate(4)
       end
 
       private
+
+      def source_value(entry)
+        if @percentage_details[:column].is_a?(Array)
+          @percentage_details[:column].map { |column| entry.data[column] }.reduce(:+)
+        elsif @percentage_details[:column]
+          entry.data[@percentage_details[:column]]
+        else
+          entry.total_value
+        end
+      end
 
       def column_values_for(entry)
         Array(varies_by).map { |column| entry.data[column].to_s.downcase }
