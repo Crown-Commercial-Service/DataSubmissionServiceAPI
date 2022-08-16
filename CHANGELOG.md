@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-132] - 2022-08-16
+
+- RMI-508: allow admin users to dowload customer effort scores
+- RMI-513: update FDL and management charge calculator to support new levy model
+- RMI-519: Fix for submissions not exported in the invoices / contracts extracts and missing management_charge in staging entries
+- [Snyk] Upgrade codemirror from 5.65.6 to 5.65.7
+
 ## [release-131] - 2022-07-28
 
 - RMI-518: Removed BigDecimal gem and upgraded shoulda-matchers to address warnings in logs
@@ -875,6 +882,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-132]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-131...release-132
 [release-131]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-130...release-131
 [release-130]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-129...release-130
 [release-129]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-128...release-129
