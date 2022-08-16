@@ -9,5 +9,6 @@ exclude_patterns:
 - "app/models/workday/submit_invoice_adjustment.rb"
 - "app/models/workday/submit_reversal_invoice.rb"
 - "app/models/workday/submit_reversal_invoice_adjustment.rb"
+- "app/models/workday/commercial_agreements.rb"
 - "spec/"
 - "db/"
