@@ -12,15 +12,15 @@ module Workday
       result
     end
 
-    # def tax_code_ids
-    #   result = {}
-    #   report_entries.each do |report_entry|
-    #     framework_number = report_entry.at_xpath('wd:Framework_Number').text
-    #     tax_code_xml = report_entry.at_xpath('wd:Tax_Code_Reference/wd:ID[@wd:type="commercialAgreementTaxCode"]')
-    #     result[framework_number] = tax_code_xml.text if tax_code_xml
-    #   end
-    #   result
-    # end
+    def tax_code_ids
+      result = {}
+      report_entries.each do |report_entry|
+        framework_number = report_entry.at_xpath('wd:Framework_Number').text
+        tax_code_xml = report_entry.at_xpath('wd:Tax_Code_Reference/wd:ID[@wd:type="commercialAgreementTaxCode"]')
+        result[framework_number] = tax_code_xml.text if tax_code_xml
+      end
+      result
+    end
 
     private
 
