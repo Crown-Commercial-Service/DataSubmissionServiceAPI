@@ -41,6 +41,7 @@ RSpec.describe DataWarehouseExport do
   describe 'DataWarehouseExport.generate!', truncation: true do
     let(:framework) { create(:framework, :with_fdl, short_name: 'RM3786') }
     let!(:submission) { create(:completed_submission, framework: framework) }
+    let!(:submission_in_review) { create(:submission_with_validated_entries, framework: framework) }
     let!(:task) { submission.task }
     let(:azure_export_upload) { spy('azure_upload') }
 
@@ -68,6 +69,16 @@ RSpec.describe DataWarehouseExport do
 
       expect(Export::AzureUpload).to have_received(:new).with expected_file_map
       expect(azure_export_upload).to have_received(:perform)
+    end
+
+    it 'clears relevant records from staging table following export' do
+      expect(SubmissionEntriesStage.where(submission_id: submission.id)).to exist
+      expect(SubmissionEntriesStage.where(submission_id: submission_in_review.id)).to exist
+
+      DataWarehouseExport.generate!
+
+      expect(SubmissionEntriesStage.where(submission_id: submission.id)).not_to exist
+      expect(SubmissionEntriesStage.where(submission_id: submission_in_review.id)).to exist
     end
 
     context 'with no previous exports' do

@@ -29,7 +29,9 @@ class DataWarehouseExport < ApplicationRecord
   end
 
   def clear_records_from_staging_table
-    SubmissionEntriesStage.where(updated_at: date_range).delete_all
+    relevant_states = %w[completed validation_failed replaced ingest_failed management_charge_calculation_failed]
+    submission_scope = Submission.where(updated_at: date_range, aasm_state: relevant_states)
+    SubmissionEntriesStage.joins(:submission).merge(submission_scope).delete_all
   end
 
   private
