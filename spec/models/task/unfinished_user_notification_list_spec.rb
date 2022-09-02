@@ -1,12 +1,11 @@
 require 'rails_helper'
 require 'stringio'
 
-RSpec.describe Task::OverdueUserNotificationList do
-  subject(:generator) do
-    Task::OverdueUserNotificationList.new(year: year, month: month, template_id: template_id, output: output)
-  end
+RSpec.describe Task::UnfinishedUserNotificationList do
+  subject(:generator) { Task::UnfinishedUserNotificationList.new(output: output) }
 
   describe '#generate' do
+    let(:output) { StringIO.new }
     let(:notify_client) { spy('notify_client') }
 
     before { stub_govuk_bank_holidays_request }
@@ -14,7 +13,6 @@ RSpec.describe Task::OverdueUserNotificationList do
     context 'there are incomplete submissions for the month in question' do
       let(:year)  { 2019 }
       let(:month) { 1 }
-      let(:template_id) { '65691304-e659-40d3-93a3-e7d254a02d45' }
 
       let(:alice)      { create :user, name: 'Alice Example', email: 'alice@example.com' }
       let(:bob)        { create :user, name: 'Bob Example', email: 'bob@example.com' }
@@ -41,28 +39,41 @@ RSpec.describe Task::OverdueUserNotificationList do
         create :task, supplier: supplier_a, framework: framework2, period_month: 1
         create :task, supplier: supplier_b, framework: framework1, period_month: 1
 
-        create :task, :completed, supplier: supplier_a, framework: framework3
-        create :task, :completed, supplier: supplier_c, framework: framework1
+        task_a = create :task, supplier: supplier_a, framework: framework3
+        task_b = create :task, supplier: supplier_b, framework: framework3
+
+        create :submission_with_invalid_entries, supplier: supplier_a, task: task_a, created_by: alice
+        create :submission_with_validated_entries, supplier: supplier_b, task: task_b, created_by: bob
 
         allow(Notifications::Client).to receive(:new).and_return notify_client
 
+        generator.generate
         generator.notify
       end
 
-      it 'calls Notify for all users with overdue tasks' do
-        expect(notify_client).to have_received(:send_email).exactly(3).times
+      subject(:lines) { output.string.split("\n") }
 
-        expect(notify_client).to have_received(:send_email).with(
-          email_address: 'alice@example.com',
-          template_id: template_id,
-          personalisation: {
-            person_name: alice.name,
-            supplier_name: 'Supplier B',
-            framework: ['RM0001 - Framework 1', nil],
-            reporting_month: 'January 2019',
-            due_date: '7 February 2019'
-          }
-        ).once
+      it 'calls Notify for all users with unfinished tasks' do
+        expect(notify_client).to have_received(:send_email).exactly(3).times
+      end
+
+      it 'has a header row that lists relevant aasm states' do
+        expect(lines.first).to eql(
+          'email address,task_period,person_name,supplier_name,task_name,submission_date,validation_failed' \
+          ',ingest_failed,in_review'
+        )
+      end
+
+      it 'ignores inactive agreements' do
+        expect(output.string).not_to include('Inactive Supplier')
+      end
+
+      it 'ignores inactive users' do
+        expect(output.string).not_to include('Frank Inactive')
+      end
+
+      it 'does not include suppliers with no incomplete submissions' do
+        expect(output.string).not_to include('Charley Goodsupplier')
       end
     end
   end

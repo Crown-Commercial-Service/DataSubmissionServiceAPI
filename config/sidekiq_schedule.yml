@@ -6,3 +6,19 @@ daily_data_warehouse_export:
   cron: '30 20 * * * Europe/London'
   class: DataWarehouseExportJob
   queue: default
+notify_tasks_due:
+  cron: '0 3 1 * * Europe/London'
+  class: NotifyTasksDueJob
+  queue: default
+notify_tasks_overdue:
+  cron: '0 3 * * * Europe/London'
+  class: NotifyTasksOverdueJob
+  queue: default
+notify_tasks_late:
+  cron: '0 3 * * * Europe/London'
+  class: NotifyTasksLateJob
+  queue: default
+notify_tasks_unfinished:
+  cron: '0 3 * * * Europe/London'
+  class: NotifyTasksUnfinishedJob
+  queue: default
