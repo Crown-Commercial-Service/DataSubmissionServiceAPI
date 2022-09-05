@@ -1,10 +1,15 @@
 require 'csv'
+require 'notifications/client'
 
 class Task
-  # Used to generate a 'unfinished' CSV for all users
+  # Used to generate either an 'unfinished' CSV for all users
   # of suppliers with unfinished submissions, due to ingest
-  # or validation failure, or still being in review. Outputs via +puts+
-  # objects that respond_to? it (+STDOUT+ or +File+ being usual)
+  # or validation failure, or still being in review, or call
+  # GOV.UK Notify API, generating emails for the above.
+
+  # Outputs via +puts+ objects that respond_to? it
+  # (+STDOUT+ or +File+ being usual)
+
   class UnfinishedUserNotificationList
     UNFINISHED_STATUSES = ['validation_failed', 'ingest_failed', 'in_review'].freeze
     HEADER = ['email address', 'task_period', 'person_name', 'supplier_name', 'task_name', 'submission_date'] + UNFINISHED_STATUSES.freeze
@@ -30,7 +35,35 @@ class Task
       end
     end
 
+    def notify
+      logger.info 'Emailing contacts with unfinished submissions.'
+
+      tasks_with_unfinished_submissions.each do |task|
+        task.supplier.active_users.each do |user|
+          submission = task.latest_submission
+          notify_client.send_email(
+            email_address: user.email,
+            template_id: '3434c9dd-af04-490a-b53a-e7600a09aa4d',
+            personalisation: {
+              person_name: user.name,
+              supplier_name: task.supplier.name,
+              task_name: task_name(task),
+              task_period: task_month_and_year(task),
+              submission_date: submission_date(submission),
+              ingest_failed: ingest_failed?(submission),
+              validation_failed: validation_failed?(submission),
+              in_review: in_review?(submission)
+            }
+          )
+        end
+      end
+    end
+
     private
+
+    def notify_client
+      @notify_client ||= Notifications::Client.new(ENV['NOTIFY_API_KEY'])
+    end
 
     def csv_line_for(user, supplier, submission, task)
       CSV.generate_line(

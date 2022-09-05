@@ -34,23 +34,11 @@ filename: "customer_effort_scores-#{@from_date.to_date}-#{@to_date.to_date}.csv"
 
   def task_notification_list(file)
     case params[:id]
-    when 'late', 'overdue'
-      Task::OverdueUserNotificationList.new(month: latest_period.month, year: latest_period.year, output: file)
-    when 'due'
-      Task::AnticipatedUserNotificationList.new(month: current_date.month, year: current_date.year, output: file)
     when 'unfinished'
       Task::UnfinishedUserNotificationList.new(output: file)
     else
       Task::CustomerEffortScoreList.new(date_from: @from_date, date_to: @to_date.end_of_day, output: file)
     end
-  end
-
-  def latest_period
-    current_date.beginning_of_month - 1.month
-  end
-
-  def current_date
-    Time.zone.today
   end
 
   def valid_dates?
