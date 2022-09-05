@@ -1,5 +1,3 @@
-require 'bank_holidays'
-
 class NotifyTasksUnfinishedJob < ApplicationJob
   def perform
     return unless [fourth_working_day, ninth_working_day].include?(Time.zone.today)
@@ -10,18 +8,12 @@ class NotifyTasksUnfinishedJob < ApplicationJob
   private
 
   def fourth_working_day
-    dates = Range.new(Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).to_a
-    dates = dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
-    dates[3]
+    @fourth_working_day ||= Task::SubmissionWindow.new(Date.current.last_month.year,
+                                                       Date.current.last_month.month).on_working_day(4)
   end
 
   def ninth_working_day
-    dates = Range.new(Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).to_a
-    dates = dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
-    dates[8]
-  end
-
-  def bank_holidays
-    @bank_holidays ||= BankHolidays.all
+    @ninth_working_day ||= Task::SubmissionWindow.new(Date.current.last_month.year,
+                                                      Date.current.last_month.month).on_working_day(9)
   end
 end

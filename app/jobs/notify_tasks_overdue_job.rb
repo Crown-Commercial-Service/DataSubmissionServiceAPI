@@ -1,5 +1,3 @@
-require 'bank_holidays'
-
 class NotifyTasksOverdueJob < ApplicationJob
   def perform
     case Time.zone.today
@@ -23,18 +21,12 @@ class NotifyTasksOverdueJob < ApplicationJob
   end
 
   def sixth_working_day
-    dates = Range.new(Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).to_a
-    dates = dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
-    dates[5]
+    @sixth_working_day ||= Task::SubmissionWindow.new(submission_period_year, 
+                                                      submission_period_month).on_working_day(6)
   end
 
   def eleventh_working_day
-    dates = Range.new(Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).to_a
-    dates = dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
-    dates[10]
-  end
-
-  def bank_holidays
-    @bank_holidays ||= BankHolidays.all
+    @eleventh_working_day ||= Task::SubmissionWindow.new(submission_period_year,
+                                                         submission_period_month).on_working_day(11)
   end
 end
