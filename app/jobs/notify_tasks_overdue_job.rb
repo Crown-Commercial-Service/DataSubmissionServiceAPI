@@ -21,7 +21,7 @@ class NotifyTasksOverdueJob < ApplicationJob
   end
 
   def sixth_working_day
-    @sixth_working_day ||= Task::SubmissionWindow.new(submission_period_year, 
+    @sixth_working_day ||= Task::SubmissionWindow.new(submission_period_year,
                                                       submission_period_month).on_working_day(6)
   end
 
