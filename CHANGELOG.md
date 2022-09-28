@@ -2,7 +2,9 @@
 
 ## [release-133] - 2022-09-29
 
-- RMI
+- RMI-401: Replaced UI instaces of "Framework" with "Agreement", to web pages, or where it will be seen on the site.
+- RMI-353: Add additional year filter to the completed tasks page.
+- RMI-522: Include Glassbox into the cookie configuration and page.
 
 ## [release-132] - 2022-08-16
 
@@ -886,6 +888,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-133]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-132...release-133
 [release-132]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-131...release-132
 [release-131]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-130...release-131
 [release-130]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-129...release-130
