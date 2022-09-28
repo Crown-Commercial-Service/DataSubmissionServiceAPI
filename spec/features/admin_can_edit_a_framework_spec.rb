@@ -53,7 +53,7 @@ RSpec.feature 'Admin can edit a framework' do
         # When I click on Edit definition
         click_link('Edit definition')
         # Then I should see an edit page for the framework definition
-        expect(page).to have_content('Edit framework definition')
+        expect(page).to have_content('Edit agreement definition')
         # When I change the framework definition
         fill_in 'Definition source', with: edited_source
         # And I click "Save definition"
