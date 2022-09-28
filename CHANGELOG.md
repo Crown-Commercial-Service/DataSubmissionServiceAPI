@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-133] - 2022-09-29
+
+- RMI
+
 ## [release-132] - 2022-08-16
 
 - RMI-508: allow admin users to dowload customer effort scores
