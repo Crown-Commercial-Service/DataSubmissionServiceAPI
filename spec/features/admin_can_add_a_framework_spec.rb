@@ -26,12 +26,12 @@ RSpec.feature 'Admin can add a framework' do
         # When I visit the frameworks page
         visit admin_frameworks_path
         # Then I should see no frameworks
-        expect(page).to have_text('No frameworks')
+        expect(page).to have_text('No agreements')
 
         # And I click 'new framework'
         click_link 'New Framework'
         # Then I should see a "new framework" page
-        expect(page).to have_text('New framework')
+        expect(page).to have_text('New agreement')
 
         # When I paste a valid framework
         fill_in 'Definition', with: valid_source
@@ -88,7 +88,7 @@ RSpec.feature 'Admin can add a framework' do
       # And I click 'new framework'
       click_link 'New Framework'
       # Then I should see a "new framework" page
-      expect(page).to have_text('New framework')
+      expect(page).to have_text('New agreement')
 
       # When I paste an invalid framework
       fill_in 'Definition', with: invalid_source
@@ -112,7 +112,7 @@ RSpec.feature 'Admin can add a framework' do
       # And I click 'new framework'
       click_link 'New Framework'
       # Then I should see a "new framework" page
-      expect(page).to have_text('New framework')
+      expect(page).to have_text('New agreement')
 
       # When I paste an invalid framework
       fill_in 'Definition', with: invalid_source
