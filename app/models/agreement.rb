@@ -16,6 +16,10 @@ class Agreement < ApplicationRecord
     framework_lots.pluck(:number)
   end
 
+  def relevant_lots
+    framework_lots.pluck(:number, :description)
+  end
+
   def activate!
     update!(active: true)
   end
