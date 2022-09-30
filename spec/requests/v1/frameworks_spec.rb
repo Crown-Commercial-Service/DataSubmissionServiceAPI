@@ -18,4 +18,22 @@ RSpec.describe '/v1' do
       expect(data.first).to have_attributes(:short_name, :name)
     end
   end
+
+  describe 'GET /v1/frameworks/:framework_id?include_file=true' do
+    it 'returns the details of a given framework, with file_key' do
+      framework = FactoryBot.create(:framework, :with_attachment, name: 'G-Cloud 42', short_name: 'RM1234')
+
+      get "/v1/frameworks/#{framework.id}?include_file=true"
+
+        expect(response).to be_successful
+
+        expect(json['data']).to have_id(framework.id)
+
+        expect(json['data']).to have_attributes(:name, :short_name, :file_name)
+
+        expect(json['data'])
+          .to have_attribute(:file_key)
+          .with_value(framework.file_key)
+    end
+  end
 end
