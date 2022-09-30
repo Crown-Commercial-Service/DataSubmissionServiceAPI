@@ -54,23 +54,23 @@ RSpec.describe '/v1' do
     it 'does not include agreements that do not belong to suppliers linked to the current user' do
       framework1 = FactoryBot.create(:framework, name: 'Framework 123')
       framework2 = FactoryBot.create(:framework, name: 'Framework xyz')
-      agreement1 = FactoryBot.create(:agreement, active: true, framework: framework1, supplier: supplier)
-      agreement2 = FactoryBot.create(:agreement, active: false, framework: framework2)
-  
+      FactoryBot.create(:agreement, active: true, framework: framework1, supplier: supplier)
+      FactoryBot.create(:agreement, active: false, framework: framework2)
+
       get '/v1/agreements', headers: { 'X-Auth-Id' => user.auth_id }
-  
+
       expect(response).to be_successful
-  
+
       expect(json['data'].size).to eql 1
       expect(json['data'][0]).to have_attribute(:framework_id).with_value(framework1.id)
     end
-  
+
     it 'can include framework and supplier' do
       framework = FactoryBot.create(:framework, name: 'Framework 123')
       agreement = FactoryBot.create(:agreement, active: true, framework: framework, supplier: supplier)
-  
+
       get '/v1/agreements?include=framework,supplier', headers: { 'X-Auth-Id' => user.auth_id }
-  
+
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(agreement.id)
       expect(json['data'][0])

@@ -25,15 +25,15 @@ RSpec.describe '/v1' do
 
       get "/v1/frameworks/#{framework.id}?include_file=true"
 
-        expect(response).to be_successful
+      expect(response).to be_successful
 
-        expect(json['data']).to have_id(framework.id)
+      expect(json['data']).to have_id(framework.id)
 
-        expect(json['data']).to have_attributes(:name, :short_name, :file_name)
+      expect(json['data']).to have_attributes(:name, :short_name, :file_name)
 
-        expect(json['data'])
-          .to have_attribute(:file_key)
-          .with_value(framework.file_key)
+      expect(json['data'])
+        .to have_attribute(:file_key)
+        .with_value(framework.file_key)
     end
   end
 end
