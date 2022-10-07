@@ -1,10 +1,11 @@
 # Change Log
 
-## [release-133] - 2022-09-29
+## [release-133] - 2022-10-??
 
 - RMI-401: Replaced UI instaces of "Framework" with "Agreement", to web pages, or where it will be seen on the site.
-- RMI-353: Add additional year filter to the completed tasks page.
-- RMI-522: Include Glassbox into the cookie configuration and page.
+- RMI-228: notify API integration
+- RMI-33: New supplier's agreements page
+- RMI-419: Added status filtering for supplier's Agreements page
 
 ## [release-132] - 2022-08-16
 
