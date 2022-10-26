@@ -5,7 +5,7 @@ RSpec.describe Task::AnticipatedUserNotificationList do
   subject(:list) { Task::AnticipatedUserNotificationList.new(year: year, month: month, output: output) }
 
   describe '#generate' do
-    let(:notify_client) { spy('notify_client') }
+    let(:output) { StringIO.new }
 
     before { stub_govuk_bank_holidays_request }
 
@@ -35,25 +35,33 @@ RSpec.describe Task::AnticipatedUserNotificationList do
         supplier_b.agreements.create!(framework: framework2)
         supplier_c.agreements.create!(framework: framework1, active: false)
 
-        allow(Notifications::Client).to receive(:new).and_return notify_client
-
-        list.notify
+        list.generate
       end
 
-      it 'calls Notify for all users with upcoming tasks' do
-        expect(notify_client).to have_received(:send_email).exactly(2).times
+      subject(:lines) { output.string.split("\n") }
 
-        expect(notify_client).to have_received(:send_email).with(
-          email_address: 'alice@example.com',
-          template_id: 'c67cd90d-e0d9-4d6e-bc4d-68ef5e20d2e4',
-          personalisation: {
-            person_name: 'Alice Example',
-            supplier_name: 'Supplier A',
-            framework: ['RM001 - Framework 1', nil],
-            reporting_month: 'January 2019',
-            due_date: '7 February 2019'
-          }
-        ).once
+      it 'has a header row that lists all the frameworks' do
+        expect(lines.first).to eql(
+          'email address,due_date,person_name,supplier_name,reporting_month,framework,framework'
+        )
+      end
+
+      it 'has a line for each user including the frameworks their supplier is active on' do
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM001 - Framework 1,'
+        )
+
+        expect(lines).to include(
+          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM001 - Framework 1,RM002 - Framework 2'
+        )
+      end
+
+      it 'ignores inactive agreements' do
+        expect(output.string).not_to include('Inactive Supplier')
+      end
+
+      it 'ignores inactive users' do
+        expect(output.string).not_to include('Frank Inactive')
       end
     end
   end
