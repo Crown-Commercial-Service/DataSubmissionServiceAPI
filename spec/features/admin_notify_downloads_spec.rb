@@ -79,13 +79,12 @@ RSpec.feature 'Admin Downloads section' do
   scenario 'admin user downloads Notify CSV' do
     click_on 'Downloads'
 
-    within '#notify-download-unfinished' do
+    within '#notify-download-late' do
       click_on 'Download CSV'
 
       expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
-      expect(page.response_headers['Content-Disposition']).to match(/"unfinished_notifications-2018-12-09.csv"$/)
-      expect(page.body).to include 'email address,task_period,person_name,supplier_name,task_name,' \
-      'submission_date,validation_failed,ingest_failed,in_review'
+      expect(page.response_headers['Content-Disposition']).to match(/filename="late_notifications-2018-12-09.csv"$/)
+      expect(page.body).to include 'email address,due_date,person_name'
     end
   end
 end

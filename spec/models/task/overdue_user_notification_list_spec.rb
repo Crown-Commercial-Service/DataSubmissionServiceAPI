@@ -2,19 +2,16 @@ require 'rails_helper'
 require 'stringio'
 
 RSpec.describe Task::OverdueUserNotificationList do
-  subject(:generator) do
-    Task::OverdueUserNotificationList.new(year: year, month: month, template_id: template_id, output: output)
-  end
+  subject(:generator) { Task::OverdueUserNotificationList.new(year: year, month: month, output: output) }
 
   describe '#generate' do
-    let(:notify_client) { spy('notify_client') }
+    let(:output) { StringIO.new }
 
     before { stub_govuk_bank_holidays_request }
 
     context 'there are incomplete submissions for the month in question' do
       let(:year)  { 2019 }
       let(:month) { 1 }
-      let(:template_id) { '65691304-e659-40d3-93a3-e7d254a02d45' }
 
       let(:alice)      { create :user, name: 'Alice Example', email: 'alice@example.com' }
       let(:bob)        { create :user, name: 'Bob Example', email: 'bob@example.com' }
@@ -44,25 +41,42 @@ RSpec.describe Task::OverdueUserNotificationList do
         create :task, :completed, supplier: supplier_a, framework: framework3
         create :task, :completed, supplier: supplier_c, framework: framework1
 
-        allow(Notifications::Client).to receive(:new).and_return notify_client
-
-        generator.notify
+        generator.generate
       end
 
-      it 'calls Notify for all users with overdue tasks' do
-        expect(notify_client).to have_received(:send_email).exactly(3).times
+      subject(:lines) { output.string.split("\n") }
 
-        expect(notify_client).to have_received(:send_email).with(
-          email_address: 'alice@example.com',
-          template_id: template_id,
-          personalisation: {
-            person_name: alice.name,
-            supplier_name: 'Supplier B',
-            framework: ['RM0001 - Framework 1', nil],
-            reporting_month: 'January 2019',
-            due_date: '7 February 2019'
-          }
-        ).once
+      it 'adds the optimal number of columns to hold the names of the frameworks users need to report on' do
+        expect(lines.first).to eql(
+          'email address,due_date,person_name,supplier_name,reporting_month,framework,framework'
+        )
+      end
+
+      it 'has a line for each user and supplier, listing the frameworks they have late tasks for' do
+        # rubocop:disable Metrics/LineLength
+        expect(lines.size).to eq 4
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM0001 - Framework 1,RM0002 - Framework 2'
+        )
+        expect(lines).to include(
+          'alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,RM0001 - Framework 1,'
+        )
+        expect(lines).to include(
+          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM0001 - Framework 1,'
+        )
+        # rubocop:enable Metrics/LineLength
+      end
+
+      it 'does not include columns for unpublished frameworks' do
+        expect(lines.first).not_to include('NOTPUBLISHED0001')
+      end
+
+      it 'does not include inactive users' do
+        expect(output.string).not_to include('Frank Inactive')
+      end
+
+      it 'does not include suppliers with no incomplete submissions' do
+        expect(output.string).not_to include('Charley Goodsupplier')
       end
     end
   end

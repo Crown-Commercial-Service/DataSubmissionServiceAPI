@@ -15,10 +15,6 @@ class Task
       @due_date ||= last_day_of_submission_window
     end
 
-    def on_working_day(number)
-      working_days[number - 1]
-    end
-
     private
 
     def first_day_of_submission_window
@@ -30,7 +26,7 @@ class Task
     end
 
     def working_days
-      dates = Range.new(first_day_of_submission_window, first_day_of_submission_window + 20.days)
+      dates = Range.new(first_day_of_submission_window, first_day_of_submission_window + 14.days)
       dates.reject { |date| date.saturday? || date.sunday? || bank_holidays.include?(date) }
     end
 
