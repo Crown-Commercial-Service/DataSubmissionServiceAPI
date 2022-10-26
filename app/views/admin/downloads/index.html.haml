@@ -68,6 +68,18 @@
           %th.govuk-table__header Notify template
           %th.govuk-table__header Actions
       %tbody.govuk-table__body
+        %tr.govuk-table__row#notify-download-due
+          %td.govuk-table__cell
+            Management information is due
+          %td.govuk-table__cell= link_to 'Download CSV', admin_download_path(:due)
+        %tr.govuk-table__row#notify-download-overdue
+          %td.govuk-table__cell
+            Management information is overdue
+          %td.govuk-table__cell= link_to 'Download CSV', admin_download_path(:overdue)
+        %tr.govuk-table__row#notify-download-late
+          %td.govuk-table__cell
+            Management information is late
+          %td.govuk-table__cell= link_to 'Download CSV', admin_download_path(:late)
         %tr.govuk-table__row#notify-download-unfinished
           %td.govuk-table__cell
             Management information submission is unfinished

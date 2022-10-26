@@ -19,9 +19,6 @@ gem 'jsonapi-rails'
 
 gem 'jquery-rails', '>= 4.4.0'
 
-# For GOV.UK Notifications API
-gem 'notifications-ruby-client', '~> 5.3'
-
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
