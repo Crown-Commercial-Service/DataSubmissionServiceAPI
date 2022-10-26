@@ -66,7 +66,7 @@ gem 'activerecord-import'
 gem 'parslet'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.18'
+gem 'rubyXL', '~> 3.4', '>= 3.4.25'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.10.0', require: false
@@ -77,7 +77,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.13.4'
+gem 'nokogiri', '>= 1.13.9'
 
 group :development, :test do
   gem 'brakeman', require: false
