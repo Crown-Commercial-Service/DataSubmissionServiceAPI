@@ -1,11 +1,13 @@
 # Change Log
 
-## [release-133] - 2022-10-??
+## [release-133] - 2022-11-02
 
 - RMI-401: Replaced UI instaces of "Framework" with "Agreement", to web pages, or where it will be seen on the site.
-- RMI-228: notify API integration
 - RMI-33: New supplier's agreements page
 - RMI-419: Added status filtering for supplier's Agreements page
+- [Snyk] Upgrade codemirror from 5.65.7 to 5.65.9
+- RMI-525: Update travis yaml for postgres 11
+- [Snyk] Upgrade rubbyXL and nokogiri 
 
 ## [release-132] - 2022-08-16
 
