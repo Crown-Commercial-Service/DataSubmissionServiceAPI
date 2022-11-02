@@ -8,6 +8,7 @@ class Task
   #
   # Outputs via +puts+ objects that respond_to? it (+STDOUT+ or
   # +File+ being usual)
+
   class AnticipatedUserNotificationList
     HEADER = ['email address', 'due_date', 'person_name', 'supplier_name', 'reporting_month'].freeze
 

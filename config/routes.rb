@@ -42,9 +42,11 @@ Rails.application.routes.draw do
       resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
-    resources :frameworks, only: :index
+    resources :frameworks, only: %i[index show]
 
     resources :urn_lists, only: :index
+
+    resources :agreements, only: :index
 
     resource :customer_effort_scores, only: :create
 

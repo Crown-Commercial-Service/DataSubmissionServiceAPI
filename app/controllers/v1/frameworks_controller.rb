@@ -6,4 +6,10 @@ class V1::FrameworksController < APIController
 
     render jsonapi: frameworks
   end
+
+  def show
+    framework = Framework.find(params[:id])
+
+    render jsonapi: framework, include: params[:include], expose: { include_file: params[:include_file] }
+  end
 end
