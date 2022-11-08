@@ -10,7 +10,7 @@ RSpec.feature 'Admin can download a list of users/suppliers on a framework' do
 
     travel_to Date.new(2020, 6, 17) do
       visit admin_frameworks_path
-      click_link 'G-Cloud 42'
+      click_link 'RM1234'
       click_link 'Download users'
     end
 
