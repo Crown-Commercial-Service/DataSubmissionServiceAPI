@@ -15,13 +15,13 @@
                 .govuk-checkboxes__item.govuk-checkboxes__item--small
                   = check_box_tag('status[]', 'active', false,
                     class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
-                    id: 'status_active')
-                  = label_tag "status_active", "Active", class: 'govuk-checkboxes__label'
+                    id: 'user_status_active')
+                  = label_tag "user_status_active", "Active", class: 'govuk-checkboxes__label'
                 .govuk-checkboxes__item.govuk-checkboxes__item--small
                   = check_box_tag('status[]', 'inactive', false,
                     class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
-                    id: 'status_inactive')
-                  = label_tag "status_inactive", "Inactive", class: 'govuk-checkboxes__label'
+                    id: 'user_status_inactive')
+                  = label_tag "user_status_inactive", "Inactive", class: 'govuk-checkboxes__label'
     %noscript
       %p
         Please enable javascript to use filters.
