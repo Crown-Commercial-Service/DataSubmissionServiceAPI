@@ -47,7 +47,7 @@ RSpec.feature 'Admin can edit a framework' do
         # Then I should see a list of frameworks
         expect(page).to have_content('Framework to be changed')
         # When I click on the existing framework
-        click_link('Framework to be changed')
+        click_link('RM999')
         # Then I should see the framework
         expect(page).to have_content('Framework RM999 {')
         # When I click on Edit definition
@@ -101,7 +101,7 @@ RSpec.feature 'Admin can edit a framework' do
         # Then I should see a list of frameworks
         expect(page).to have_content('Framework to be changed')
         # When I click on the existing framework
-        click_link('Framework to be changed')
+        click_link('RM999')
         # And I click on Edit definition
         click_link('Edit definition')
         # When I change the framework definition

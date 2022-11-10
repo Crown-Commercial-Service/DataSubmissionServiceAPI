@@ -30,12 +30,12 @@
                       = check_box_tag('framework_status[]', 'New', false,
                         id: 'framework_status_new',
                         class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
-                      = label_tag "New", "New", class: 'govuk-checkboxes__label'
+                      = label_tag "framework_status_new", "New", class: 'govuk-checkboxes__label'
                     .govuk-checkboxes__item.govuk-checkboxes__item--small
                       = check_box_tag('framework_status[]', 'Published', false,
                         id: 'framework_status_published',
                         class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
-                      = label_tag "Published", "Published", class: 'govuk-checkboxes__label'
+                      = label_tag "framework_status_published", "Published", class: 'govuk-checkboxes__label'
           %noscript
             = surround "&nbsp&nbsp".html_safe do
               = submit_tag "Submit", id: 'framework-status-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'

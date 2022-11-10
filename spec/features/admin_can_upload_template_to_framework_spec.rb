@@ -10,7 +10,7 @@ RSpec.feature 'Uploading a template to a Framework' do
 
     scenario 'everything is fine' do
       visit admin_frameworks_path
-      click_on framework.name
+      click_on framework.short_name
       attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'test.xls')
       click_button 'Upload Template'
       expect(page).to have_content('test.xls')
@@ -22,7 +22,7 @@ RSpec.feature 'Uploading a template to a Framework' do
 
     scenario 'everything is fine' do
       visit admin_frameworks_path
-      click_on framework.name
+      click_on framework.short_name
       attach_file 'Replace file', Rails.root.join('spec', 'fixtures', 'test.xls')
       click_button 'Upload Template'
       expect(page).to have_content('test.xls')
@@ -34,7 +34,7 @@ RSpec.feature 'Uploading a template to a Framework' do
 
     it 'responds with a meaningful error message' do
       visit admin_frameworks_path
-      click_on framework.name
+      click_on framework.short_name
       # Omit step to provide a file to simulate the bug
       click_button 'Upload Template'
       expect(page).to have_content(I18n.t('errors.message.missing_template_file'))
@@ -45,7 +45,7 @@ RSpec.feature 'Uploading a template to a Framework' do
 
       it 'responds with a meaningful error message' do
         visit admin_frameworks_path
-        click_on framework.name
+        click_on framework.short_name
         attach_file 'Choose', Rails.root.join('spec', 'fixtures', 'users.csv')
         click_button 'Upload Template'
         expect(page).to have_content('Uploaded file must be a .XLS or .XLSX file.')
