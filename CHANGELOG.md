@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-134] - 2022-11-10
+
+- RMI-559: Fix accessibility issues on Framework and Supplier pages
+
 ## [release-133] - 2022-11-02
 
 - RMI-401: Replaced UI instaces of "Framework" with "Agreement", to web pages, or where it will be seen on the site.
@@ -891,6 +895,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134
 [release-133]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-132...release-133
 [release-132]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-131...release-132
 [release-131]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-130...release-131
