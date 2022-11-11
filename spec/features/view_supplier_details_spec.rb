@@ -7,11 +7,11 @@ RSpec.feature 'Viewing a supplier' do
 
   before { sign_in_as_admin }
 
-  scenario 'shows paginated list of frameworks the supplier has an agreement for' do
+  scenario 'shows paginated list of agreements the supplier has an agreement for' do
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'Test Supplier Ltd'
     expect(page).to have_content 'RM0000 Test Framework'
-    expect(page).to have_content 'Displaying 1 framework'
+    expect(page).to have_content 'Displaying 1 agreement'
   end
 
   scenario 'shows paginated list of the supplier’s tasks' do
@@ -74,6 +74,6 @@ framework: framework)
     click_link('Next »', match: :first)
     expect(page).to have_content 'Displaying task 13 - 13 of 13 in total'
     expect(page).to have_content 'Displaying users 1 - 12 of 13 in total'
-    expect(page).to have_content 'Displaying 1 framework'
+    expect(page).to have_content 'Displaying 1 agreement'
   end
 end
