@@ -18,5 +18,5 @@
             - else
               = link_to 'Activate', admin_supplier_agreement_confirm_activation_path(@supplier, agreement)
 %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
-  #framework_pagination_summary.ccs-pagination__summary= page_entries_info @agreements, entry_name: "framework"
+  #framework_pagination_summary.ccs-pagination__summary= page_entries_info @agreements, entry_name: "agreement"
   #framework_pagination= paginate @agreements, :param_name => "framework_page", remote: true

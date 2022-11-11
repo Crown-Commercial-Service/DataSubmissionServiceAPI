@@ -1,14 +1,14 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
     %h1.govuk-heading-xl
-      Frameworks
+      Agreements
 
   .govuk-grid-column-one-third
     %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
       %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
       %ul.govuk-page-actions--actions
         %li.govuk-page-actions--action
-          = link_to 'New Framework', new_admin_framework_path
+          = link_to 'New Agreement', new_admin_framework_path
 
 .govuk-grid-row
   - if @frameworks.present?
