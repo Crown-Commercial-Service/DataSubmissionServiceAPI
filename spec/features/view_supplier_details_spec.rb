@@ -4,6 +4,7 @@ RSpec.feature 'Viewing a supplier' do
   let!(:supplier) { FactoryBot.create(:supplier, name: 'Test Supplier Ltd') }
   let!(:framework) { FactoryBot.create(:framework, name: 'Test Framework', short_name: 'RM0000') }
   let!(:agreement) { FactoryBot.create(:agreement, supplier: supplier, framework: framework) }
+  let!(:user) { FactoryBot.create(:user, name: 'User One', email: 'email_one@ccs.co.uk', suppliers: [supplier]) }
 
   before { sign_in_as_admin }
 
@@ -28,7 +29,7 @@ RSpec.feature 'Viewing a supplier' do
       :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :in_progress
     )
     FactoryBot.create(
-      :submission_with_validated_entries, supplier: supplier, framework: framework, task: task
+      :submission_with_validated_entries, supplier: supplier, framework: framework, task: task, created_by: user
     )
 
     visit admin_supplier_path(supplier)
@@ -40,7 +41,7 @@ RSpec.feature 'Viewing a supplier' do
       :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :completed
     )
 
-    FactoryBot.create(:submission, supplier: supplier, framework: framework, task: task) do |submission|
+    FactoryBot.create(:submission, supplier: supplier, framework: framework, task: task, created_by: user) do |submission|
       FactoryBot.create(:submission_file, :with_attachment, submission: submission, filename: 'test.xlsx')
     end
 
@@ -53,7 +54,6 @@ RSpec.feature 'Viewing a supplier' do
   end
 
   scenario 'shows paginated list of the users linked to the supplier' do
-    FactoryBot.create(:user, suppliers: [supplier])
 
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'Active?'
@@ -68,7 +68,6 @@ framework: framework)
       FactoryBot.create(:user, suppliers: [supplier])
     end
     FactoryBot.create(:task, period_month: 12, period_year: 2017, supplier: supplier, framework: framework)
-    FactoryBot.create(:user, suppliers: [supplier])
 
     visit admin_supplier_path(supplier)
     click_link('Next »', match: :first)
