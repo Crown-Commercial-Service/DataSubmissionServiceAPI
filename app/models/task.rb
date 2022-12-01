@@ -66,7 +66,7 @@ dependent: :nullify
   end
 
   def past_submissions
-    submissions.where('created_at < ?', active_submission.updated_at).order(updated_at: :desc) if active_submission
+    submissions.where(aasm_state: :replaced).order(updated_at: :desc)
   end
 
   # Returns true when the task is yet to be completed by the Supplier
