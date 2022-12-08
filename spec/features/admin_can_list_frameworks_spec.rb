@@ -12,12 +12,12 @@ RSpec.feature 'Admin can list frameworks' do
     FactoryBot.create(:framework, published: false, name: 'Vehicle Purchase Framework 2', short_name: 'RM5679')
   end
 
-  scenario 'There are some published and unpublished frameworks' do
-    # When I click the "frameworks" link from the main admin page
+  scenario 'There are some published and unpublished agreements' do
+    # When I click the "Agreements" link from the main admin page
     visit admin_root_path
-    click_link 'Frameworks'
+    click_link 'Agreements'
 
-    # Then I should see a list of frameworks with their statuses
+    # Then I should see a list of agreements with their statuses
     within 'tbody > tr:nth-child(1)' do
       expect(page).to have_text('RM1234')
       expect(page).to have_text('Laundry Framework 1')
@@ -37,9 +37,9 @@ RSpec.feature 'Admin can list frameworks' do
     end
   end
 
-  scenario 'frameworks can be filtered by status' do
+  scenario 'agreements can be filtered by status' do
     visit admin_root_path
-    click_link 'Frameworks'
+    click_link 'Agreements'
 
     page.check('framework_status_new')
     find('#framework-status-filter-submit').click

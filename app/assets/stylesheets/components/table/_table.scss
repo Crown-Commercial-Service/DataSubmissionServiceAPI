@@ -4,3 +4,6 @@
   @include govuk-font($size: false);
 }
 
+.rmi-govuk-table__cell {
+  position: relative;
+}

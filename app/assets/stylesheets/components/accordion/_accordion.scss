@@ -107,3 +107,31 @@
 .js-enabled .ccs-accordion__section-button {
     color: #0B0C0C;
 }
+
+.rmi-table-accordion-content {
+    display:none
+    }
+
+    .rmi-table-accordion-content--expanded {
+    display: table-row-group;
+    }
+
+.rmi-govuk-table-accordion-expanded::after {
+    height: 0!important;
+  }
+
+.rmi-govuk-table__body .govuk-accordion__icon {
+
+    right: 0px!important;
+    top: 22px!important;
+
+    &:before {
+        height: 0!important;
+        border-width: 1px!important;
+    }
+
+    &:after {
+        width: 0!important;
+        border-width: 1px!important;
+    }
+}

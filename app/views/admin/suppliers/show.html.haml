@@ -23,8 +23,8 @@
       %a.govuk-tabs__tab{href: "#users"}
         Users
     %li.govuk-tabs__list-item
-      %a.govuk-tabs__tab{href: "#frameworks"}
-        Frameworks
+      %a.govuk-tabs__tab{href: "#agreements"}
+        Agreements
   #tasks.govuk-tabs__panel
     -if @tasks.present?
       = render 'task_filter', frameworks: @frameworks
@@ -45,7 +45,7 @@
         No users linked to
         = @supplier.name
     .govuk-grid-row
-  #frameworks.govuk-tabs__panel.govuk-tabs__panel--hidden
+  #agreements.govuk-tabs__panel.govuk-tabs__panel--hidden
     -if @supplier.frameworks.present?
       = render 'framework_filter'
       .govuk-grid-column-three-quarters

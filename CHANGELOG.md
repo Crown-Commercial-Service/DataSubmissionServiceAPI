@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-135] - 2022-12-08
+
+- RMI-554: Replace the term framework with agreement in views
+- RMI-30: Update the Suppliers Page - Tasks tab - to include "Replaced" tasks
+- [Snyk] Security upgrade ruby from 2.7.5 to 2.7.6
+
 ## [release-134] - 2022-11-10
 
 - RMI-559: Fix accessibility issues on Framework and Supplier pages
@@ -895,6 +901,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
 [release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134
 [release-133]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-132...release-133
 [release-132]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-131...release-132

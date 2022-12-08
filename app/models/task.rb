@@ -65,6 +65,10 @@ dependent: :nullify
     Date.new(period_year, period_month)
   end
 
+  def past_submissions
+    submissions.where(aasm_state: :replaced).order(updated_at: :desc)
+  end
+
   # Returns true when the task is yet to be completed by the Supplier
   def incomplete?
     !completed? && !correcting?
