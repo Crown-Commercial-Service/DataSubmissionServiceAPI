@@ -1,8 +1,10 @@
 # Change Log
 
-## [release-135] - 2022-11-24
+## [release-135] - 2022-12-08
 
 - RMI-554: Replace the term framework with agreement in views
+- RMI-30: Update the Suppliers Page - Tasks tab - to include "Replaced" tasks
+- [Snyk] Security upgrade ruby from 2.7.5 to 2.7.6
 
 ## [release-134] - 2022-11-10
 
