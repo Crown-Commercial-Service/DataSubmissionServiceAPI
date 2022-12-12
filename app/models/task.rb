@@ -21,11 +21,13 @@ class Task < ApplicationRecord
 
   scope :incomplete, -> { where.not(status: 'completed') }
 
+  # rubocop:disable Metrics/LineLength
   scope :latest_submission_with_state, lambda { |status_param|
     joins(:submissions)
       .where('submissions.created_at = (SELECT MAX(submissions.created_at) FROM submissions WHERE submissions.task_id = tasks.id)')
       .where('submissions.aasm_state IN (?)', status_param)
   }
+  # rubocop:enable Metrics/LineLength
 
   validates :status, presence: true
   validates :period_year, presence: true
