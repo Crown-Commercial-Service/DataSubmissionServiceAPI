@@ -1,10 +1,6 @@
 class Admin::UnfinishedTasksController < AdminController
   def index
-    @tasks = Task.incomplete.includes(:submissions).order(due_on: :desc)
-                 .joins(:submissions).order('submissions.updated_at DESC')
-                 .merge(unfinished_submissions_relation)
-    @tasks = @tasks.reject { |i| i.latest_submission.aasm_state == 'processing' }
-    @tasks = Kaminari.paginate_array(@tasks).page(params[:page]).per(12)
+    @tasks = Task.incomplete.latest_submission_with_state(unfinished_submissions_relation(params[:status])).includes(:supplier).order("suppliers.name asc").page(params[:page]).per(12)
 
     respond_to do |format|
       format.html
@@ -14,8 +10,11 @@ class Admin::UnfinishedTasksController < AdminController
 
   private
 
-  def unfinished_submissions_relation
-    unfinished_statuses = %i[validation_failed ingest_failed in_review]
-    Submission.where(aasm_state: unfinished_statuses)
+  def unfinished_submissions_relation(aasm_states)
+    if aasm_states.nil?
+      aasm_states = %i[validation_failed ingest_failed in_review]
+    else
+      aasm_states
+    end
   end
 end

@@ -21,6 +21,12 @@ class Task < ApplicationRecord
 
   scope :incomplete, -> { where.not(status: 'completed') }
 
+  scope :latest_submission_with_state, lambda { |status_param|
+    joins(:submissions)
+      .where('submissions.created_at = (SELECT MAX(submissions.created_at) FROM submissions WHERE submissions.task_id = tasks.id)')
+      .where('submissions.aasm_state IN (?)', status_param)
+  }
+
   validates :status, presence: true
   validates :period_year, presence: true
   validates :period_month,
