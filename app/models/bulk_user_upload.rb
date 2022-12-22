@@ -6,6 +6,6 @@ class BulkUserUpload < ApplicationRecord
     state :processed
     state :failed
   end
-  
+
   has_one_attached :csv_file
 end

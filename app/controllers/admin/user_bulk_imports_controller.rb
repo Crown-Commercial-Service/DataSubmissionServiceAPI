@@ -1,5 +1,5 @@
 class Admin::UserBulkImportsController < AdminController
-  def new 
+  def new
     @bulk_user_uploads = BulkUserUpload.order(created_at: :desc).all
   end
 
@@ -10,7 +10,7 @@ class Admin::UserBulkImportsController < AdminController
 
     UserImportJob.perform_later(@bulk_user_upload) if @bulk_user_upload.save
 
-    redirect_to new_admin_user_bulk_import_path
+    render action: :new
   rescue ActionController::ParameterMissing
     redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
   end
