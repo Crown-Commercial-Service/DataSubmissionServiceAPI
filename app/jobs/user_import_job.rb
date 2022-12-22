@@ -17,8 +17,8 @@ class UserImportJob < ApplicationJob
 
     Rollbar.info("Bulk user import started for: #{downloader.temp_file.path}")
 
-    Import::Users.new(downloader.temp_file.path).run 
-    
+    Import::Users.new(downloader.temp_file.path).run
+
     bulk_user_upload.update!(aasm_state: :processed)
     Rollbar.info("Bulk user import completed for: #{downloader.temp_file.path}")
 

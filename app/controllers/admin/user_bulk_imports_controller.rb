@@ -8,14 +8,11 @@ class Admin::UserBulkImportsController < AdminController
 
     @bulk_user_upload = BulkUserUpload.new(bulk_user_upload_params)
 
-    if @bulk_user_upload.save
-      UserImportJob.perform_later(@bulk_user_upload)
-    end
+    UserImportJob.perform_later(@bulk_user_upload) if @bulk_user_upload.save
 
     redirect_to new_admin_user_bulk_import_path
-
-    rescue ActionController::ParameterMissing
-      redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
+  rescue ActionController::ParameterMissing
+    redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
   end
 
   private

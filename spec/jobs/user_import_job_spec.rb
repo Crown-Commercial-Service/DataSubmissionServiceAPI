@@ -12,10 +12,10 @@ RSpec.describe UserImportJob do
       Aws.config[:s3] = { stub_responses: true }
       allow(Import::Users).to receive(:new).and_return(importer_double)
     end
-    
+
     let(:bulk_user_upload) { create(:bulk_user_upload, :with_attachment) }
     let(:importer_double) { double(run: true) }
-    
+
     context 'given a valid csv' do
       it 'passes the user list to Import::Users' do
         expect(importer_double).to receive(:run)

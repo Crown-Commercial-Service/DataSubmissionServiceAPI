@@ -26,6 +26,7 @@ require 'csv'
 module Import
   class Users
     class InvalidSalesforceId < StandardError; end
+
     class InvalidFormat < StandardError; end
 
     DEFAULT_WAIT = 0.2
