@@ -1,28 +1,31 @@
 class Admin::UserBulkImportsController < AdminController
-  def new; end
+  def new 
+    @bulk_user_uploads = BulkUserUpload.order(created_at: :desc).all
+  end
 
   def create
     return redirect_to new_admin_user_bulk_import_path, alert: 'Uploaded file is not a CSV file' unless csv?
 
-    csv_path = uploaded_file.tempfile.path
-    csv_key = UploadUserList.new(csv_path).call
+    @bulk_user_upload = BulkUserUpload.new(bulk_user_upload_params)
 
-    UserImportJob.perform_later(csv_key)
+    if @bulk_user_upload.save
+      UserImportJob.perform_later(@bulk_user_upload)
+    end
 
-    redirect_to new_admin_user_bulk_import_path, notice: 'User import started; this job will run in the background'
-  rescue ActionController::ParameterMissing
-    redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
-  rescue Aws::S3::Errors::ServiceError
-    redirect_to new_admin_user_bulk_import_path, alert: 'There was a problem uploading the file'
+    redirect_to new_admin_user_bulk_import_path
+
+    rescue ActionController::ParameterMissing
+      redirect_to new_admin_user_bulk_import_path, alert: 'Please choose a file to upload'
   end
 
   private
 
-  def uploaded_file
-    params.require(:bulk_import).require(:csv_file)
+  def bulk_user_upload_params
+    params.require(:bulk_import).permit(:csv_file)
   end
 
   def csv?
+    uploaded_file = params.require(:bulk_import).require(:csv_file)
     File.extname(uploaded_file.original_filename) == '.csv' &&
       ['text/csv', 'application/vnd.ms-excel'].include?(uploaded_file.content_type)
   end

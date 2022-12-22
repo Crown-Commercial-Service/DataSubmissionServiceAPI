@@ -3,31 +3,27 @@ require 'aws-sdk-s3'
 
 class UserImportJob < ApplicationJob
   retry_on Aws::S3::Errors::ServiceError
-  discard_on Import::Users::InvalidSalesforceId
-
-  def perform(user_list_key)
-    temp_file = Tempfile.new(user_list_key)
-    temp_file.binmode
-
-    s3_client.get_object({ bucket: bucket, key: user_list_key }, target: temp_file)
-
-    Rollbar.info("Bulk user import started for: #{user_list_key}")
-
-    Import::Users.new(temp_file).run
-    Rollbar.info("Bulk user import completed for: #{user_list_key}")
-  ensure
-    temp_file.close
-    temp_file.unlink
-    s3_client.delete_object(bucket: bucket, key: user_list_key)
+  discard_on Import::Users::InvalidSalesforceId do |job, _error|
+    job.arguments.first.update!(aasm_state: :failed)
   end
 
-  private
-
-  def s3_client
-    @s3_client ||= Aws::S3::Client.new(region: ENV['AWS_S3_REGION'])
+  discard_on Import::Users::InvalidFormat do |job, _error|
+    job.arguments.first.update!(aasm_state: :failed)
   end
 
-  def bucket
-    ENV.fetch('AWS_S3_BUCKET')
+  def perform(bulk_user_upload)
+    downloader = AttachedFileDownloader.new(bulk_user_upload.csv_file)
+    downloader.download!
+
+    Rollbar.info("Bulk user import started for: #{downloader.temp_file.path}")
+
+    Import::Users.new(downloader.temp_file.path).run 
+    
+    bulk_user_upload.update!(aasm_state: :processed)
+    Rollbar.info("Bulk user import completed for: #{downloader.temp_file.path}")
+
+    downloader.temp_file.close
+    downloader.temp_file.unlink
+    downloader.delete_object
   end
 end
