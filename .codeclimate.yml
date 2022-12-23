@@ -3,6 +3,11 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-10-0
+checks:
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 6
 exclude_patterns:
 - "app/models/framework/definition/ast/semantic_checker.rb"
 - "app/models/workday/submit_invoice.rb"
