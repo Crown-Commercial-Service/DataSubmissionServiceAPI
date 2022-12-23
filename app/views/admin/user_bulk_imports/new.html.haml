@@ -21,3 +21,18 @@
           %li email
           %li supplier_salesforce_id
 
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @bulk_user_uploads.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Filename
+            %th.govuk-table__header Upload Date
+            %th.govuk-table__header Status
+        %tbody.govuk-table__body
+          - @bulk_user_uploads.each do |upload|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= upload.csv_file.filename
+              %td.govuk-table__cell= upload.created_at
+              %td.govuk-table__cell= upload.aasm_state

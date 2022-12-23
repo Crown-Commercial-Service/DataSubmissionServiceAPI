@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_090621) do
+ActiveRecord::Schema.define(version: 2022_12_15_112844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -55,6 +55,13 @@ ActiveRecord::Schema.define(version: 2022_06_16_090621) do
     t.index ["active"], name: "index_agreements_on_active"
     t.index ["framework_id"], name: "index_agreements_on_framework_id"
     t.index ["supplier_id"], name: "index_agreements_on_supplier_id"
+  end
+
+  create_table "bulk_user_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "aasm_state"
+    t.index ["aasm_state"], name: "index_bulk_user_uploads_on_aasm_state"
   end
 
   create_table "customer_effort_scores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
