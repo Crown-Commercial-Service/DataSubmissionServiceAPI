@@ -1,4 +1,4 @@
-%table.govuk-table{:class => 'govuk-!-margin-top-7'}
+%table.govuk-table
   %thead.govuk-table__head
     %tr.govuk-table__row
       %th.govuk-table__header Supplier
@@ -29,3 +29,6 @@
             = link_to 'Download', admin_task_submission_download_path(task, task.latest_submission)
         %td.govuk-table__cell
           = link_to 'View', admin_supplier_submission_path(task.supplier, task.latest_submission) if task.latest_submission.validation_failed?
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #unfinished_task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+  #unfinished_task_pagination= paginate @tasks, :param_name => "page", remote: true

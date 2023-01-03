@@ -27,6 +27,8 @@ module Import
   class Users
     class InvalidSalesforceId < StandardError; end
 
+    class InvalidFormat < StandardError; end
+
     DEFAULT_WAIT = 0.2
     EXPECTED_HEADERS = %I[supplier_salesforce_id email name].freeze
 
@@ -63,7 +65,7 @@ module Import
     end
 
     def verify_csv_headers!
-      raise ArgumentError, "Missing headers in CSV file: #{missing_headers.to_sentence}" if missing_headers.any?
+      raise InvalidFormat, "Missing headers in CSV file: #{missing_headers.to_sentence}" if missing_headers.any?
     end
 
     def missing_headers

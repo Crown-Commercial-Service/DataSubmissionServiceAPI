@@ -5,7 +5,7 @@ RSpec.describe Import::Users do
     bad_headers_csv_path = Rails.root.join('spec', 'fixtures', 'users_bad_headers.csv')
 
     expect { Import::Users.new(bad_headers_csv_path) }.to raise_error(
-      ArgumentError, /Missing headers in CSV file: supplier_salesforce_id/
+      Import::Users::InvalidFormat, /Missing headers in CSV file: supplier_salesforce_id/
     )
   end
 

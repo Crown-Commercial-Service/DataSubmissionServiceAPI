@@ -32,6 +32,10 @@ class AttachedFileDownloader
     @temp_file.unlink
   end
 
+  def delete_object
+    s3_client.delete_object(bucket: bucket, key: key)
+  end
+
   def s3_client
     @s3_client ||= Aws::S3::Client.new(region: ENV['AWS_S3_REGION'])
   end
