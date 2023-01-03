@@ -1,6 +1,11 @@
 GEM
-  remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (5.3.0)
+      sidekiq (>= 6.3.0)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     aasm (4.12.3)
       concurrent-ruby (~> 1.0)
@@ -251,7 +256,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
+    mini_portile2 (2.8.1)
     minitest (5.16.2)
     msgpack (1.5.1)
     multi_json (1.15.0)
@@ -303,7 +308,7 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.6.1)
+    racc (1.6.2)
     rack (2.2.4)
     rack-protection (2.1.0)
       rack
@@ -433,8 +438,6 @@ GEM
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
-    sidekiq-pro (5.3.0)
-      sidekiq (>= 6.3.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
