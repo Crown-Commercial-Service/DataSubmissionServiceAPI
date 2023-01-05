@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-136] - 2023-01-05
+
+- RMI-553: Add status filter to Unfinished Tasks page and sort table by supplier name (A-Z)
+- RMI-9: Report success/failure of bulk user upload in admin UI
+- [Snyk] Upgrade codemirror from 5.65.9 to 5.65.10 
+- [Dependabot] Bump rails-html-sanitizer from 1.4.3 to 1.4.4
+- [Snyk] Security upgrade sass-rails from 5.1.0 to 6.0.0 
+- [Snyk] Bump loofah from 2.18.0 to 2.19.1
+
 ## [release-135] - 2022-12-08
 
 - RMI-554: Replace the term framework with agreement in views
@@ -901,6 +910,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
 [release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
 [release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134
 [release-133]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-132...release-133
