@@ -6,6 +6,7 @@ class V1::TasksController < APIController
     tasks = tasks.includes(:supplier).includes(requested_associations)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(framework_id: params.dig(:filter, :framework_id)) if params.dig(:filter, :framework_id)
+    tasks = tasks.order('due_on DESC', 'frameworks.name ASC') if requested_associations.include?(:framework)
 
     render jsonapi: tasks, include: params[:include], fields: sparse_field_params
   end
@@ -81,6 +82,7 @@ class V1::TasksController < APIController
   end
 
   def requested_associations
+    # pp "requested_associations:::::::::::::::::"
     params.fetch(:include, '').split(',').map(&:to_sym)
   end
 end
