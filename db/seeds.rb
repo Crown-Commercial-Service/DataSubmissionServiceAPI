@@ -23,7 +23,7 @@ def create_framework(number)
 end
 
 supplier = Supplier.find_or_create_by!(name: 'Bobs Cheese Shop', salesforce_id: 'CHEESE-1')
-due_date = Date.today.next_month.change(day: 7)
+due_date = Date.new(2018, 2, 7)
 
 framework_unstarted = create_framework(8)
 Agreement.find_or_create_by!(supplier: supplier, framework: framework_unstarted)
@@ -32,8 +32,8 @@ Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_unstarted,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'Unstarted task'
 )
 
@@ -45,8 +45,8 @@ in_progress_task = Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_pending,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'In progress task (pending submission)'
 )
 supplier.submissions.find_or_create_by!(framework: framework_pending, task: in_progress_task)
@@ -59,8 +59,8 @@ task_processing = Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_processing,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'In progress task (processing submission)'
 )
 processing_submission = supplier.submissions.find_or_create_by!(framework: framework_processing, task: task_processing, aasm_state: "processing")
@@ -80,8 +80,8 @@ task_in_review = Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_valid,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'In review task (validated submission)'
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_valid, task: task_in_review, aasm_state: "in_review")
@@ -103,8 +103,8 @@ task_in_review_with_errors = Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_invalid,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'Validation failed task (invalid submission)'
 )
 invalid_submission = supplier.submissions.find_or_create_by!(framework: framework_invalid, task: task_in_review_with_errors, aasm_state: "validation_failed")
@@ -129,8 +129,8 @@ task_completed = Task.find_or_create_by!(
   due_on: due_date,
   framework: framework_completed,
   supplier: supplier,
-  period_month: Date.today.month,
-  period_year: Date.today.year,
+  period_month: 1,
+  period_year: 2018,
   description: 'Completed task'
 )
 valid_submission = supplier.submissions.find_or_create_by!(framework: framework_completed, task: task_completed, aasm_state: "completed")
