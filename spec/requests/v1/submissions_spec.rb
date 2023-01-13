@@ -181,7 +181,7 @@ RSpec.describe '/v1' do
         end
 
         it 'records the submission completion time' do
-          submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+          submission_time = Time.zone.local(2018, 2, 10, 12, 13, 14)
 
           travel_to(submission_time) do
             post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }

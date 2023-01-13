@@ -76,7 +76,7 @@ RSpec.describe Task do
     end
 
     it 'records the submission time' do
-      submission_time = Time.zone.local(2018, 1, 10, 12, 13, 14)
+      submission_time = Time.zone.local(2018, 2, 10, 12, 13, 14)
 
       travel_to(submission_time) do
         task.file_no_business!(user)
