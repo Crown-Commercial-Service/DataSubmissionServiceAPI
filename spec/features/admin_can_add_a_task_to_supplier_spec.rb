@@ -17,7 +17,7 @@ RSpec.feature 'Admin users can' do
         visit admin_suppliers_path
         click_on 'First Supplier'
         click_on 'Add a missing task'
-        select '5', from: 'Period month'
+        select 'May', from: 'Period month'
         select '2019', from: 'Period year'
         select 'Framework 1', from: 'Framework'
         click_button 'Create task'
@@ -30,11 +30,24 @@ RSpec.feature 'Admin users can' do
         visit admin_suppliers_path
         click_on 'First Supplier'
         click_on 'Add a missing task'
-        select '4', from: 'Period month'
+        select 'April', from: 'Period month'
         select '2019', from: 'Period year'
         select 'Framework 1', from: 'Framework'
         click_button 'Create task'
         expect(page).to have_content 'This task already exists'
+      end
+    end
+
+    scenario 'when task is in the future' do
+      travel_to Date.new(2019, 6, 15) do
+        visit admin_suppliers_path
+        click_on 'First Supplier'
+        click_on 'Add a missing task'
+        select 'July', from: 'Period month'
+        select '2019', from: 'Period year'
+        select 'Framework 1', from: 'Framework'
+        click_button 'Create task'
+        expect(page).to have_content 'Task cannot be in the future'
       end
     end
   end
