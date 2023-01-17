@@ -41,7 +41,6 @@ class V1::EventsController < APIController
   private
 
   def add_user_session(user)
-    # rubocop:disable Style/BracesAroundHashParameters
     SessionStore.add(
       {
         user_id: user[:id],
@@ -50,7 +49,6 @@ class V1::EventsController < APIController
         email: user[:email]
       }
     )
-    # rubocop:enable Style/BracesAroundHashParameters
   end
 
   def remove_user_session(id)
