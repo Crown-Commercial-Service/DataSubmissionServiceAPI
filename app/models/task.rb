@@ -21,6 +21,14 @@ class Task < ApplicationRecord
 
   scope :incomplete, -> { where.not(status: 'completed') }
 
+  # rubocop:disable Metrics/LineLength
+  scope :latest_submission_with_state, lambda { |status_param|
+    joins(:submissions)
+      .where('submissions.created_at = (SELECT MAX(submissions.created_at) FROM submissions WHERE submissions.task_id = tasks.id)')
+      .where('submissions.aasm_state IN (?)', status_param)
+  }
+  # rubocop:enable Metrics/LineLength
+
   validates :status, presence: true
   validates :period_year, presence: true
   validates :period_month,
@@ -28,6 +36,7 @@ class Task < ApplicationRecord
             uniqueness: { scope: %i[supplier_id framework_id period_year], message: 'This task already exists' }
   validates :framework_id, presence: true
   validates :due_on, presence: true
+  validate :not_a_future_task
 
   before_validation :set_due_on, on: :create
 
@@ -41,8 +50,11 @@ class Task < ApplicationRecord
   completed_or_latest_scope = lambda do
     order(Arel.sql("CASE submissions.aasm_state WHEN 'completed' THEN 1 ELSE 2 END"), created_at: :desc)
   end
-  has_one :active_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task
-  has_one :latest_submission, -> { order(created_at: :desc) }, class_name: 'Submission', inverse_of: :task
+  has_one :active_submission, completed_or_latest_scope, class_name: 'Submission', inverse_of: :task,
+dependent: :nullify
+  has_one :latest_submission, lambda {
+                                order(created_at: :desc)
+                              }, class_name: 'Submission', inverse_of: :task, dependent: :nullify
 
   def file_no_business!(user)
     transaction do
@@ -62,6 +74,10 @@ class Task < ApplicationRecord
     Date.new(period_year, period_month)
   end
 
+  def past_submissions
+    submissions.where(aasm_state: :replaced).order(updated_at: :desc)
+  end
+
   # Returns true when the task is yet to be completed by the Supplier
   def incomplete?
     !completed? && !correcting?
@@ -71,6 +87,7 @@ class Task < ApplicationRecord
     transaction do
       submissions.where('created_at > ?', active_submission.created_at).find_each do |submission|
         submission.entries.destroy_all
+        submission.staging_entries.destroy_all
         submission.files.destroy_all
         submission.destroy
       end
@@ -83,5 +100,12 @@ class Task < ApplicationRecord
     return if period_year.blank? || period_month.blank?
 
     self.due_on ||= Task::SubmissionWindow.new(period_year, period_month).due_date
+  end
+
+  def not_a_future_task
+    return if period_year.blank? || period_month.blank?
+
+    task_period = Date.new(period_year, period_month)
+    errors.add(:base, 'Task cannot be in the future') unless task_period < Time.zone.today.beginning_of_month
   end
 end

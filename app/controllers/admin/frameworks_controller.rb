@@ -4,6 +4,8 @@ class Admin::FrameworksController < AdminController
 
   def index
     @frameworks = Framework.order(:short_name).all
+
+    filter_framework_status params[:framework_status] if params[:framework_status]
   end
 
   def new
@@ -78,6 +80,13 @@ class Admin::FrameworksController < AdminController
   end
 
   private
+
+  def filter_framework_status(status_param)
+    return if status_param.size == 2
+
+    @frameworks = @frameworks.unpublished if status_param.include? 'New'
+    @frameworks = @frameworks.published if status_param.include? 'Published'
+  end
 
   def find_framework
     @framework = Framework.find(params[:id])

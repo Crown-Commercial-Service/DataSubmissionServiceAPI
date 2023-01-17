@@ -1,0 +1,18 @@
+%table.govuk-table
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__header Name
+      %th.govuk-table__header Email
+      %th.govuk-table__header Active?
+    %tbody.govuk-table__body
+      - @users.each do |user|
+        %tr.govuk-table__row
+          %td.govuk-table__cell
+            = link_to user.name, admin_user_path(user)
+          %td.govuk-table__cell
+            = user.email
+          %td.govuk-table__cell
+            = user.active? ? 'Active' : 'Inactive'
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #user_pagination_summary.ccs-pagination__summary= page_entries_info @users, entry_name: "user"
+  #user_pagination= paginate @users, :param_name => "user_page", remote: true

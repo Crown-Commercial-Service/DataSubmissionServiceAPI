@@ -22,7 +22,7 @@ then
  usage
 fi
 
-MEMORY_LIMIT="512M"
+MEMORY_LIMIT="1G"
 INSTANCE_COUNT="1"
 
 SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
@@ -120,11 +120,11 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "conclave-development" || "$CF_
   echo "      name other than staging / conclave-development / prod"
   echo " *********************************************"
 
-  MEMORY_LIMIT="512M"
+  MEMORY_LIMIT="1G"
   INSTANCE_COUNT="3"
 
   SIDEKIQ_DEFAULT_MEMORY_LIMIT="2048M"
-  SIDEKIQ_DEFAULT_DISK_QUOTA="1G"
+  SIDEKIQ_DEFAULT_DISK_QUOTA="4G"
   SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
   SIDEKIQ_DEFAULT_CONCURRENCY="5"
 

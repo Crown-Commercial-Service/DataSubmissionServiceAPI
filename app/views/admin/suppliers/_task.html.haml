@@ -1,31 +1,64 @@
-%tr.govuk-table__row
-  %td.govuk-table__cell
-    = task.framework.short_name
-    %br/
-    %small
-      = task.period_date.to_s(:month_year)
-  - if task.active_submission
-    %td.govuk-table__cell.govuk-table__cell--numeric
-      - unless task.active_submission.management_charge.to_f.zero? && task.active_submission.total_spend.to_f.zero?
-        = number_to_currency(task.active_submission.management_charge, unit: '£')
-        %br/
+%tbody.govuk-table__body.rmi-govuk-table__body
+  %tr.govuk-table__row
+    %td.govuk-table__cell
+      = task.framework.short_name
+      %br/
+      %small
+        = task.period_date.to_s(:month_year)
+    - if task.active_submission
+      %td.govuk-table__cell.govuk-table__cell--numeric
+        - unless task.active_submission.management_charge.to_f.zero? && task.active_submission.total_spend.to_f.zero?
+          = number_to_currency(task.active_submission.management_charge, unit: '£')
+          %br/
+          %small
+            from
+            = number_to_currency(task.active_submission.total_spend, unit: '£')
+            spend
+      %td.govuk-table__cell
+        = task.active_submission.created_at.to_s(:date_with_utc_time)
+        %br
         %small
-          from
-          = number_to_currency(task.active_submission.total_spend, unit: '£')
-          spend
-    %td.govuk-table__cell
-      = task.active_submission.created_at.to_s(:date_with_utc_time)
-    %td.govuk-table__cell
-      = task.active_submission.aasm_state.titlecase
-    %td.govuk-table__cell
-      - if task.active_submission.files.any? && task.active_submission.files.first.file.attached?
-        = link_to 'Download', admin_task_active_submission_download_path(task)
-    %td.govuk-table__cell
-      = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
-  - else
-    %td.govuk-table__cell
-    %td.govuk-table__cell
-    %td.govuk-table__cell
-      = task.status.titlecase
-    %td.govuk-table__cell
-    %td.govuk-table__cell
+          = task.active_submission.created_by.email.scan(/.{1,20}/).join("\n")
+      %td.govuk-table__cell{:colspan => 2}
+        %small
+          = task.active_submission.aasm_state.titlecase
+      %td.govuk-table__cell
+        - if task.active_submission.files.any? && task.active_submission.files.first.file.attached?
+          = link_to 'Download', admin_task_submission_download_path(task, task.active_submission)
+      %td.govuk-table__cell
+        = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
+      %td.govuk-table__cell.rmi-govuk-table__cell{:colspan => 2}
+        - if task.past_submissions && task.past_submissions.any?
+          %span.rmi-govuk-table-accordion-icon.govuk-accordion__icon{"data-table-icon" => task.id }
+    - else
+      %td.govuk-table__cell
+      %td.govuk-table__cell
+      %td.govuk-table__cell{:colspan => 2}
+        = task.status.titlecase
+      %td.govuk-table__cell
+      %td.govuk-table__cell
+      %td.govuk-table__cell{:colspan => 2}
+  - if task.past_submissions && task.past_submissions.any?
+    %tbody.rmi-table-accordion-content{"data-table-accordion" => task.id }
+      -task.past_submissions.each do |submission|
+        %tr
+          %td.govuk-table__cell
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            - unless submission.management_charge.to_f.zero? && submission.total_spend.to_f.zero?
+              = number_to_currency(submission.management_charge, unit: '£')
+              %br/
+              %small
+                from
+                = number_to_currency(submission.total_spend, unit: '£')
+                spend
+          %td.govuk-table__cell
+            = submission.created_at.to_s(:date_with_utc_time)
+            %br
+            %small
+              = submission.created_by.email.scan(/.{1,20}/).join("\n")
+          %td.govuk-table__cell{:colspan => 2}
+            %small
+              = submission.aasm_state.titlecase
+          %td.govuk-table__cell
+          %td.govuk-table__cell
+          %td.govuk-table__cell{:colspan => 2}

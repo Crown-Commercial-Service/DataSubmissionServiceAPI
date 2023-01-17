@@ -5,13 +5,14 @@ class Task
   # of suppliers with unfinished submissions, due to ingest
   # or validation failure, or still being in review. Outputs via +puts+
   # objects that respond_to? it (+STDOUT+ or +File+ being usual)
+
   class UnfinishedUserNotificationList
     UNFINISHED_STATUSES = ['validation_failed', 'ingest_failed', 'in_review'].freeze
     HEADER = ['email address', 'task_period', 'person_name', 'supplier_name', 'task_name', 'submission_date'] + UNFINISHED_STATUSES.freeze
 
     attr_reader :logger, :output
 
-    def initialize(output: STDOUT, logger: Rails.logger)
+    def initialize(output: $stdout, logger: Rails.logger)
       @output = output
       @logger = logger
     end

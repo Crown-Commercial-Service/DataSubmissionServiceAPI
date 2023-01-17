@@ -8,12 +8,13 @@ class Task
   #
   # Outputs via +puts+ objects that respond_to? it (+STDOUT+ or
   # +File+ being usual)
+
   class AnticipatedUserNotificationList
     HEADER = ['email address', 'due_date', 'person_name', 'supplier_name', 'reporting_month'].freeze
 
     attr_reader :logger, :output, :month, :year
 
-    def initialize(month:, year:, output: STDOUT, logger: Rails.logger)
+    def initialize(month:, year:, output: $stdout, logger: Rails.logger)
       @month = month
       @year = year
       @output = output

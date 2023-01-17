@@ -10,7 +10,7 @@ RSpec.feature 'Admin can download a list of lots and their suppliers on a framew
 
     travel_to Date.new(2020, 6, 17) do
       visit admin_frameworks_path
-      click_link 'G-Cloud 42'
+      click_link 'RM1234'
       click_link 'Download suppliers/lots'
     end
 

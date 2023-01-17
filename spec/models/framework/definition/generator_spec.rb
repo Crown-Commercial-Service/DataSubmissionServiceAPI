@@ -261,8 +261,8 @@ RSpec.describe Framework::Definition::Generator do
         it {
           is_expected.to match(
             an_object_having_attributes(
-              central_government:  BigDecimal('0.5'),
-              wider_public_sector: BigDecimal('1.2'),
+              central_government: { percentage: BigDecimal('0.5') },
+              wider_public_sector: { percentage: BigDecimal('1.2') }
             )
           )
         }
@@ -529,13 +529,35 @@ RSpec.describe Framework::Definition::Generator do
         end
       end
 
+      context 'more arguments given than the number of variables in varies_by' do
+        let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", "'1', 'Lease Rental', '1'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'Unexpected number of variables in ["1", "Lease Rental", "1"], inside ManagementCharge block.'
+          )
+        end
+      end
+
+      context 'multiple arguments given and only one variable in varies_by' do
+        let(:invalid_source) { valid_source.sub("'Lot Number', 'Spend Code'", "'Lot Number'") }
+        let(:source)         { invalid_source }
+
+        it 'has an error' do
+          expect(generator.error).to eql(
+            'This framework definition contains an incorrect or incomplete varies_by rule'
+          )
+        end
+      end
+
       context 'only one column field given' do
         let(:invalid_source) { valid_source.sub("'1', 'Lease Rental'", '*') }
         let(:source)         { invalid_source }
 
         it 'has an error' do
           expect(generator.error).to eql(
-            'This framework definition contains an incorrect or incomplete depends_on rule'
+            'This framework definition contains an incorrect or incomplete varies_by rule'
           )
         end
       end

@@ -1,4 +1,4 @@
-@import "govuk-frontend/components/tag/tag";
+@import "govuk-frontend/govuk/components/tag/tag";
 
 .govuk-tag {
   padding-bottom: 4px;
@@ -19,5 +19,5 @@
 }
 
 .govuk-tag__notice {
-  background-color: govuk-colour("grey-1");
+  background-color: govuk-colour("dark-grey");
 }

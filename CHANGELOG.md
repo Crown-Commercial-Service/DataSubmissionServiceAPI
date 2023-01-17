@@ -1,9 +1,128 @@
 # Change Log
 
-## [release-120] - 2021-05-13
+## [release-136] - 2023-01-05
+
+- RMI-553: Add status filter to Unfinished Tasks page and sort table by supplier name (A-Z)
+- RMI-9: Report success/failure of bulk user upload in admin UI
+- [Snyk] Upgrade codemirror from 5.65.9 to 5.65.10 
+- [Dependabot] Bump rails-html-sanitizer from 1.4.3 to 1.4.4
+- [Snyk] Security upgrade sass-rails from 5.1.0 to 6.0.0 
+- [Snyk] Bump loofah from 2.18.0 to 2.19.1
+
+## [release-135] - 2022-12-08
+
+- RMI-554: Replace the term framework with agreement in views
+- RMI-30: Update the Suppliers Page - Tasks tab - to include "Replaced" tasks
+- [Snyk] Security upgrade ruby from 2.7.5 to 2.7.6
+
+## [release-134] - 2022-11-10
+
+- RMI-559: Fix accessibility issues on Framework and Supplier pages
+
+## [release-133] - 2022-11-02
+
+- RMI-401: Replaced UI instaces of "Framework" with "Agreement", to web pages, or where it will be seen on the site.
+- RMI-33: New supplier's agreements page
+- RMI-419: Added status filtering for supplier's Agreements page
+- [Snyk] Upgrade codemirror from 5.65.7 to 5.65.9
+- RMI-525: Update travis yaml for postgres 11
+- [Snyk] Upgrade rubbyXL and nokogiri 
+
+## [release-132] - 2022-08-16
+
+- RMI-508: allow admin users to dowload customer effort scores
+- RMI-513: update FDL and management charge calculator to support new levy model
+- RMI-519: Fix for submissions not exported in the invoices / contracts extracts and missing management_charge in staging entries
+- [Snyk] Upgrade codemirror from 5.65.6 to 5.65.7
+
+## [release-131] - 2022-07-28
+
+- RMI-518: Removed BigDecimal gem and upgraded shoulda-matchers to address warnings in logs
+- RMI-501: Updates to staging table for overnight export process
+- [Snyk] Upgrade jbuilder, spring-watcher-listen and skylight
+- [Dependabot] Bump tzinfo from 1.2.9 to 1.2.10
+- Amended url in sandbox workday xml file
+
+## [release-130] - 2022-07-14
+
+- RMI-341: Created mechanism to measure customer effort score
+- [Snyk] Security upgrade rails from 5.2.7.1 to 5.2.8.1
+- [Snyk] Upgrade codemirror from 5.65.5 to 5.65.6
+- [Dependabot] Bump rails-html-sanitizer from 1.4.2 to 1.4.3
+
+## [release-129] - 2022-06-23
+
+- Upgrade Ruby from 2.7.4 to 2.7.5
+- Bump jmespath from 1.5.0 to 1.6.1
+- [Snyk] Upgrade codemirror from 5.65.4 to 5.65.5
+
+## [release-128] - 2022-05-26
+
+- [Snyk] Upgrade Rails from 5.2.6.2 to 5.2.7.1
+- [Snyk] Upgrade codemirror from 5.65.1 to 5.65.3
+- Upgrade Puma from 5.6.2 to 5.6.4
+- Upgrade Ruby from 2.6.8 to 2.7.4
+- RMI-479: Added check in FDL semantic checker for number of variables
+
+## [release-127] - 2022-02-24
+
+- [Snyk] Upgrade codemirror from 5.65.0 to 5.65.1 
+- [Snyk] Upgrade Rails from 5.2.4.6 to 5.2.6.2
+- [Snyk] Upgrade Puma from 5.5 to 5.6
+
+## [release-126] - 2022-02-03
+
+- RMI-494: Fixed nav menu dropdown
+- RMI-480: Enable Sidekiq pro
+- Increses GPaaS Memory Limit for API App.
+
+## [release-125] - 2022-01-27
+
+- [Snyk] Upgrade azure-storage-blob from 2.0.1 to 2.0.3
+- RMI-473: Allow secret URNs to be added to URN list in the database
+- RMI-495: Ruby version bumped to 2.6.8
+- [Snyk] Upgrade codemirror to 5.65.0
+- [Snyk] Security upgrade sidekiq from 6.2.2 to 6.4.0
+
+## [release-124] - 2021-11-25
+
+- [Snyk] Upgrade codemirror from 5.62.0 to 5.63.3
+- [Snyk] Upgrade govuk-frontend from 3.13.0 to 3.14.0
+- RMI-471: Updated sidekiq default disk quota.
+- RMI-467: Updated sort.
+- RMI-474: Update whitelist sheets.
+
+## [release-123] - 2021-10-14
+
+- RMI-411: Implement updated levy charge model
+- RMI-424: Fix for tasks pagination bug
+- RMI-441: Fix for Data Warehouse exports missing fields bug
+- RMI-417: Status filter in frameworks tab on supplier page
+- RMI-356: Unfinished tasks page
+
+## [release-122] - 2021-09-16
+
+- RMI-358: Status filter on frameworks page
+- RMI-408: Truncate exported strings
+- RMI-318: Framework filter on tasks tab in supplier page
+- RMI-425: Update travis env variable
+- Snyk: Upgrade codemirror from 5.62.0 to 5.62.3
+- Snyk: Sidekiq upgrade
+
+## [release-121] - 2021-08-05
+
+- RMI-317: Paginate admin supplier page.
+- RMI-349: Update Ruby To 2.6.6. from 2.5.8
+- RMI-316: Use tabs on admin supplier page
+- RMI-359: Add status filter to users tab of supplier page
+- RMI-360: Update buildpack version.
+
+## [release-120] - 2021-06-03
 
 - RMI-345: set up conclave branch to deploy rmi-conclave integration work to preprod env
 - RMI-343: Update Ruby version from 2.5.7 to 2.5.8 (minor update).
+- RMI-36: Backend dependancy for front-end filtering (adds a paramter dig to the tasks controller).
+- Snyk & dependabot fixes/updates.
 
 ## [release-119] - 2021-04-01
 
@@ -791,6 +910,22 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
+[release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
+[release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134
+[release-133]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-132...release-133
+[release-132]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-131...release-132
+[release-131]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-130...release-131
+[release-130]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-129...release-130
+[release-129]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-128...release-129
+[release-128]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-127...release-128
+[release-127]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-126...release-127
+[release-126]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-125...release-126
+[release-125]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-124...release-125
+[release-124]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-123...release-124
+[release-123]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-122...release-123
+[release-122]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-121...release-122
+[release-121]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-120...release-121
 [release-120]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-119...release-120
 [release-119]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-118...release-119
 [release-118]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-117...release-118

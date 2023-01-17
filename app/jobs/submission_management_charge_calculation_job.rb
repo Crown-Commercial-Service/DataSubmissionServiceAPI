@@ -6,6 +6,7 @@ class SubmissionManagementChargeCalculationJob < ApplicationJob
   DISCARD_STATES = %i[validation_failed ingest_failed management_charge_calculation_failed].freeze
 
   class DefinitionSourceChanged < StandardError; end
+
   class Incalculable < StandardError; end
 
   discard_on Incalculable
@@ -44,6 +45,10 @@ class SubmissionManagementChargeCalculationJob < ApplicationJob
 
     @submission.entries.invoices.find_each do |entry|
       entry.update! management_charge: framework_definition.calculate_management_charge(entry)
+    end
+
+    @submission.staging_entries.invoices.find_each do |staging_entry|
+      staging_entry.update! management_charge: framework_definition.calculate_management_charge(staging_entry)
     end
 
     @submission.update!(management_charge_total: @submission.entries.invoices.sum(:management_charge))

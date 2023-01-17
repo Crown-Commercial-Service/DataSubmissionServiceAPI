@@ -1,0 +1,54 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl
+      Unfinished tasks
+
+.govuk-grid-row
+  = form_tag(admin_unfinished_tasks_path, method: :get, enforce_utf8: false, remote: :true, id: 'task_status_filter') do
+    .govuk-grid-column-one-quarter
+      .ccs-filters-intro{class: 'govuk-!-padding-1'}
+        = link_to 'Clear filter', admin_unfinished_tasks_path, method: :get, enforce_utf8: false, id: 'clear_filter', class: 'ccs-clear-filters', 'aria-label' => 'Clear filters'
+        %h2.govuk-heading-m Apply filter
+      #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion"}
+        .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
+          .govuk-accordion__section-header
+            %h2.govuk-accordion__section-heading
+              %span#accordion-with-summary-sections-heading-1.govuk-accordion__section-button.ccs-accordion__section-button
+                %h3.govuk-heading-s
+                  Filter Status
+          #accordion-with-summary-sections-content-1.govuk-accordion__section-content{"aria-labelledby" => "accordion-with-summary-sections-heading-1"}
+            .govuk-form-group
+              %fieldset.govuk-fieldset
+                %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
+                .govuk-checkboxes{id: 'task-status-checkboxes'}            
+                  .govuk-checkboxes__item.govuk-checkboxes__item--small
+                    = check_box_tag('status[]', 'validation_failed', false,
+                      class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
+                      id: 'task_status_validation_failed')
+                    = label_tag "task_status_validation_failed", "Validation Failed", class: 'govuk-checkboxes__label'
+                  .govuk-checkboxes__item.govuk-checkboxes__item--small
+                    = check_box_tag('status[]', 'ingest_failed', false,
+                      class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
+                      id: 'task_status_ingest_failed')
+                    = label_tag "task_status_ingest_failed", "Ingest Failed", class: 'govuk-checkboxes__label'
+                  .govuk-checkboxes__item.govuk-checkboxes__item--small
+                    = check_box_tag('status[]', 'in_review', false,
+                      class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
+                      id: 'task_status_in_review')
+                    = label_tag "task_status_in_review", "In Review", class: 'govuk-checkboxes__label'
+      %noscript
+        %p
+          Please enable javascript to use filters.
+
+  .govuk-grid-column-three-quarters
+    .results{id: 'unfinished-tasks-table'}= render 'tasks_table', tasks: @tasks
+
+:javascript
+  var unfinishedTaskFilterCheckBoxes = document.querySelectorAll("#task-status-checkboxes");
+  var unfinishedTaskFilterForm = document.getElementById('task_status_filter');
+
+  for (const check of unfinishedTaskFilterCheckBoxes) {
+    check.addEventListener( 'change', function() {
+      Rails.fire(unfinishedTaskFilterForm, 'submit');
+    });
+  }

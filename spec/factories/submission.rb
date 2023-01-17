@@ -5,32 +5,37 @@ FactoryBot.define do
     task
 
     factory :no_business_submission do
-      aasm_state :completed
+      aasm_state { :completed }
       association :task, status: 'completed'
     end
 
     transient do
-      invoice_entries 0
-      order_entries 0
+      invoice_entries { 0 }
+      order_entries { 0 }
     end
 
     after(:create) do |submission, evaluator|
       create_list(:invoice_entry, evaluator.invoice_entries, submission: submission)
       create_list(:order_entry, evaluator.order_entries, submission: submission)
+      create_list(:invoice_entry_stage, evaluator.invoice_entries, submission: submission)
+      create_list(:order_entry_stage, evaluator.order_entries, submission: submission)
     end
 
     factory :submission_with_pending_entries do
-      invoice_entries 2
-      order_entries 1
+      invoice_entries { 2 }
+      order_entries { 1 }
     end
 
     factory :submission_with_validated_entries do
-      aasm_state :in_review
-      management_charge_total 0.2
+      aasm_state { :in_review }
+      management_charge_total { 0.2 }
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 10.00, management_charge: 0.1)
         create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)
         create_list(:other_entry, 1, :valid, submission: submission)
+        create_list(:invoice_entry_stage, 2, :valid, submission: submission, total_value: 10.00, management_charge: 0.1)
+        create_list(:order_entry_stage, 1, :valid, submission: submission, total_value: 3.00)
+        create_list(:other_entry_stage, 1, :valid, submission: submission)
         if submission.files.empty?
           create_list(:submission_file, 1, :with_attachment, submission: submission, rows: submission.entries.count)
         end
@@ -38,7 +43,7 @@ FactoryBot.define do
     end
 
     factory :submission_with_validated_entries_over_5k do
-      aasm_state :in_review
+      aasm_state { :in_review }
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 3000.00, management_charge: 300000)
         create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)
@@ -49,12 +54,14 @@ FactoryBot.define do
     end
 
     factory :completed_submission do
-      aasm_state :completed
+      aasm_state { :completed }
       association :task, status: 'completed'
 
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission, total_value: 10.00, management_charge: 0.1)
         create_list(:order_entry, 1, :valid, submission: submission, total_value: 3.00)
+        create_list(:invoice_entry_stage, 2, :valid, submission: submission, total_value: 10.00, management_charge: 0.1)
+        create_list(:order_entry_stage, 1, :valid, submission: submission, total_value: 3.00)
         if submission.files.empty?
           create_list(:submission_file, 1, :with_attachment, submission: submission, rows: submission.entries.count)
         end
@@ -63,12 +70,13 @@ FactoryBot.define do
       trait :with_others do
         after(:create) do |submission, _evaluator|
           create_list(:other_entry, 1, :valid, submission: submission)
+          create_list(:other_entry_stage, 1, :valid, submission: submission)
         end
       end
     end
 
     factory :submission_with_invalid_entries do
-      aasm_state :validation_failed
+      aasm_state { :validation_failed }
 
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission)
@@ -80,7 +88,7 @@ FactoryBot.define do
     end
 
     factory :submission_with_unprocessed_entries do
-      aasm_state :processing
+      aasm_state { :processing }
 
       after(:create) do |submission, _evaluator|
         create_list(:invoice_entry, 2, :valid, submission: submission)

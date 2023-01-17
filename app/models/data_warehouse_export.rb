@@ -9,6 +9,7 @@ class DataWarehouseExport < ApplicationRecord
         files = export.generate_files
         Export::AzureUpload.new(files).perform
         export.save!
+        export.clear_records_from_staging_table
       end
     end
   end
@@ -25,6 +26,12 @@ class DataWarehouseExport < ApplicationRecord
 
   def date_range
     (range_from..range_to)
+  end
+
+  def clear_records_from_staging_table
+    relevant_states = %w[completed validation_failed replaced ingest_failed management_charge_calculation_failed]
+    submission_scope = Submission.where(updated_at: date_range, aasm_state: relevant_states)
+    SubmissionEntriesStage.joins(:submission).merge(submission_scope).delete_all
   end
 
   private

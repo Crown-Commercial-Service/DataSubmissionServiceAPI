@@ -30,7 +30,7 @@ RSpec.feature 'Admin can edit a framework' do
 
     scenario 'everything is fine' do
       visit admin_framework_path(framework)
-      click_button('Publish framework')
+      click_button('Publish agreement')
       expect(page).to have_content('Framework published successfully')
       expect(framework.lots.count).to eq(2)
     end

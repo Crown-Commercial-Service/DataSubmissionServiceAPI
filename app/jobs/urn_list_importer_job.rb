@@ -1,9 +1,13 @@
 require 'tempfile'
 require 'csv'
 require 'aws-sdk-s3'
+require 'rubyXL'
+require 'rubyXL/convenience_methods/workbook'
+require 'rubyXL/convenience_methods/worksheet'
 
 class UrnListImporterJob < ApplicationJob
   class AlreadyImported < StandardError; end
+
   class InvalidFormat < StandardError; end
 
   REQUIRED_COLUMNS = ['URN', 'CustomerName', 'PostCode', 'Sector'].freeze
@@ -30,6 +34,8 @@ class UrnListImporterJob < ApplicationJob
     soft_delete!(customers)
     upsert!(customers)
 
+    remove_published_column(urn_list, downloader.temp_file.path)
+
     urn_list.update!(aasm_state: :processed)
 
     downloader.temp_file.close
@@ -40,7 +46,7 @@ class UrnListImporterJob < ApplicationJob
 
   def convert_to_csv(path)
     command = "in2csv --sheet=\"Customers\" --locale=en_GB --blanks --skipinitialspace #{path}"
-    command += " | csvcut -c 'URN,CustomerName,PostCode,Sector'"
+    command += " | csvcut -c 'URN,CustomerName,PostCode,Sector,Published'"
     command += " > \"#{csv_temp_file.path}\""
 
     result = Ingest::CommandRunner.new(command).run!
@@ -62,7 +68,8 @@ class UrnListImporterJob < ApplicationJob
         urn: row['URN'].to_i,
         postcode: row['PostCode'],
         sector: (row['Sector'] == 'Central Government' ? :central_government : :wider_public_sector),
-        deleted: false
+        deleted: false,
+        published: (row['Published'] == 'False' ? false : true)
       )
     end
 
@@ -79,7 +86,7 @@ class UrnListImporterJob < ApplicationJob
         batch_size: 100,
         on_duplicate_key_update: {
           conflict_target: [:urn],
-          columns: %i[name postcode sector deleted]
+          columns: %i[name postcode sector deleted published]
         }
       )
     end
@@ -92,5 +99,39 @@ class UrnListImporterJob < ApplicationJob
     urns_to_be_deleted = existing_urns - importing_urns
 
     Customer.where(urn: urns_to_be_deleted).update(deleted: true)
+  end
+
+  def remove_published_column(urn_list, path)
+    workbook = RubyXL::Parser.parse(path)
+    worksheet = workbook[0]
+    row_count = worksheet.sheet_data.rows.size
+
+    id_and_remove_non_publish_rows(worksheet, row_count, 1)
+
+    worksheet.delete_column(4)
+
+    file_name = urn_list.excel_file.filename
+    workbook.write(path)
+    urn_list.excel_file.purge
+    urn_list.excel_file.attach(io: File.open(path), filename: file_name)
+  end
+
+  def id_and_remove_non_publish_rows(worksheet, row_count, row_num)
+    while row_num <= row_count
+      row = worksheet[row_num]
+      break if row.nil?
+
+      row_num += 1 unless delete_non_publish_row(worksheet, row_num, row)
+    end
+  end
+
+  def delete_non_publish_row(worksheet, row_num, row)
+    value = row[4].value if row[4]
+    value = value.upcase if value.is_a? String
+    value = ActiveModel::Type::Boolean.new.cast(value)
+    return unless value == false
+
+    worksheet.delete_row(row_num)
+    true
   end
 end

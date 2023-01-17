@@ -1,4 +1,4 @@
-FROM ruby:2.6.6
+FROM ruby:2.7.6
 
 MAINTAINER dxw <rails@dxw.com>
 
@@ -46,8 +46,11 @@ COPY Gemfile.lock $INSTALL_PATH/Gemfile.lock
 COPY package.json yarn.lock $INSTALL_PATH/
 
 RUN yarn
-RUN gem update --system 3.0.0
+RUN gem update --system 
 RUN gem install bundler
+
+ARG BUNDLE_GEMS__CONTRIBSYS__COM
+RUN bundle config gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM} 
 
 # bundle ruby gems based on the current environment, default to production
 RUN echo $RAILS_ENV

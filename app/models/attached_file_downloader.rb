@@ -12,7 +12,7 @@ class AttachedFileDownloader
 
   def download!
     extension = @object.filename.extension.downcase
-    @temp_file = Tempfile.new([@object.record.class.name, '.' + extension])
+    @temp_file = Tempfile.new([@object.record.class.name, ".#{extension}"])
     @temp_file.binmode
 
     begin
@@ -30,6 +30,10 @@ class AttachedFileDownloader
   def cleanup!
     @temp_file.close
     @temp_file.unlink
+  end
+
+  def delete_object
+    s3_client.delete_object(bucket: bucket, key: key)
   end
 
   def s3_client

@@ -1,0 +1,14 @@
+%table.govuk-table
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__header Task
+      %th.govuk-table__header.govuk-table__header--numeric Management Charge
+      %th.govuk-table__header Submitted
+      %th.govuk-table__header{:colspan => 2} Status
+      %th.govuk-table__header Return
+      %th.govuk-table__header Errors
+      %th.govuk-table__header{:colspan => 2}
+  = render(collection: @tasks, partial: "task")
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #task_pagination_summary.ccs-pagination__summary= page_entries_info @tasks, entry_name: "task"
+  #task_pagination= paginate @tasks, :param_name => "task_page", remote: true

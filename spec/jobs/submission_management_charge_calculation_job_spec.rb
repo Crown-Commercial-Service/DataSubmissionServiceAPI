@@ -7,6 +7,15 @@ RSpec.describe SubmissionManagementChargeCalculationJob do
     let!(:invoice_entry_1) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 1235.99) }
     let!(:invoice_entry_2) { FactoryBot.create(:invoice_entry, :valid, submission: submission, total_value: 123.45) }
     let!(:order_entry) { FactoryBot.create(:order_entry, :valid, submission: submission, total_value: 123.45) }
+    let!(:staging_invoice_entry_1) do
+      FactoryBot.create(:invoice_entry_stage, :valid, submission: submission, total_value: 1235.99)
+    end
+    let!(:staging_invoice_entry_2) do
+      FactoryBot.create(:invoice_entry_stage, :valid, submission: submission, total_value: 123.45)
+    end
+    let!(:staging_order_entry) do
+      FactoryBot.create(:order_entry_stage, :valid, submission: submission, total_value: 123.45)
+    end
     let(:definition_source_arg) { framework.definition_source }
 
     context 'framework definition source has not changed since the job was enqueued' do
@@ -16,6 +25,12 @@ RSpec.describe SubmissionManagementChargeCalculationJob do
         expect(invoice_entry_1.reload.management_charge).to eq 18.5398
         expect(invoice_entry_2.reload.management_charge).to eq 1.8517
         expect(order_entry.reload.management_charge).to be_nil
+      end
+
+      it 'calculates the management charge for the submission invoice staging entries' do
+        expect(staging_invoice_entry_1.reload.management_charge).to eq 18.5398
+        expect(staging_invoice_entry_2.reload.management_charge).to eq 1.8517
+        expect(staging_order_entry.reload.management_charge).to be_nil
       end
 
       it 'updates the submission with the management charge total' do

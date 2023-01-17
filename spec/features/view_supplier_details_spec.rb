@@ -4,21 +4,24 @@ RSpec.feature 'Viewing a supplier' do
   let!(:supplier) { FactoryBot.create(:supplier, name: 'Test Supplier Ltd') }
   let!(:framework) { FactoryBot.create(:framework, name: 'Test Framework', short_name: 'RM0000') }
   let!(:agreement) { FactoryBot.create(:agreement, supplier: supplier, framework: framework) }
+  let!(:user) { FactoryBot.create(:user, name: 'User One', email: 'email_one@ccs.co.uk', suppliers: [supplier]) }
 
   before { sign_in_as_admin }
 
-  scenario 'lists frameworks the supplier has an agreement for' do
+  scenario 'shows paginated list of agreements the supplier has an agreement for' do
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'Test Supplier Ltd'
     expect(page).to have_content 'RM0000 Test Framework'
+    expect(page).to have_content 'Displaying 1 agreement'
   end
 
-  scenario 'lists the supplier’s tasks' do
+  scenario 'shows paginated list of the supplier’s tasks' do
     FactoryBot.create(:task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework)
 
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'December 2018'
     expect(page).to have_content 'Unstarted'
+    expect(page).to have_content 'Displaying 1 task'
   end
 
   scenario 'includes the details of a task’s submissions' do
@@ -26,7 +29,7 @@ RSpec.feature 'Viewing a supplier' do
       :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :in_progress
     )
     FactoryBot.create(
-      :submission_with_validated_entries, supplier: supplier, framework: framework, task: task
+      :submission_with_validated_entries, supplier: supplier, framework: framework, task: task, created_by: user
     )
 
     visit admin_supplier_path(supplier)
@@ -38,7 +41,8 @@ RSpec.feature 'Viewing a supplier' do
       :task, period_month: 12, period_year: 2018, supplier: supplier, framework: framework, status: :completed
     )
 
-    FactoryBot.create(:submission, supplier: supplier, framework: framework, task: task) do |submission|
+    FactoryBot.create(:submission, supplier: supplier, framework: framework, task: task,
+created_by: user) do |submission|
       FactoryBot.create(:submission_file, :with_attachment, submission: submission, filename: 'test.xlsx')
     end
 
@@ -50,10 +54,25 @@ RSpec.feature 'Viewing a supplier' do
     expect(page.body).to include File.open(Rails.root.join('spec', 'fixtures', 'test.xlsx'), 'r:ASCII-8BIT', &:read)
   end
 
-  scenario 'lists the users linked to the supplier' do
-    FactoryBot.create(:user, suppliers: [supplier])
-
+  scenario 'shows paginated list of the users linked to the supplier' do
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'Active?'
+    expect(page).to have_content 'Displaying 1 user'
+  end
+
+  scenario 'each section\'s pagination works independently' do
+    period_month = 0
+    12.times do
+      FactoryBot.create(:task, period_month: period_month += 1, period_year: 2018, supplier: supplier,
+framework: framework)
+      FactoryBot.create(:user, suppliers: [supplier])
+    end
+    FactoryBot.create(:task, period_month: 12, period_year: 2017, supplier: supplier, framework: framework)
+
+    visit admin_supplier_path(supplier)
+    click_link('Next »', match: :first)
+    expect(page).to have_content 'Displaying task 13 - 13 of 13 in total'
+    expect(page).to have_content 'Displaying users 1 - 12 of 13 in total'
+    expect(page).to have_content 'Displaying 1 agreement'
   end
 end

@@ -51,4 +51,8 @@ Rails.application.configure do
 
   # Disable caching
   config.cache_store = :null_store
+
+  # Resolves issue with sass-rails
+  # https://github.com/sass/sassc-rails/issues/93
+  config.assets.css_compressor = nil
 end

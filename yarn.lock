@@ -2,24 +2,24 @@
 # yarn lockfile v1
 
 
-accessible-autocomplete@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/accessible-autocomplete/-/accessible-autocomplete-1.6.2.tgz#cb69d37748ba5b0351c84422468538890e25759c"
-  integrity sha512-7S+6Vi82LQFSSd5feKedu46tiY2/DShpdXiRp0NY3cLwc+DKe1ayWd66mb3JVi8LTQubRM7jco+u92e6w0bbvg==
+"accessible-autocomplete@^1.6.2":
+  "integrity" "sha512-7S+6Vi82LQFSSd5feKedu46tiY2/DShpdXiRp0NY3cLwc+DKe1ayWd66mb3JVi8LTQubRM7jco+u92e6w0bbvg=="
+  "resolved" "https://registry.npmjs.org/accessible-autocomplete/-/accessible-autocomplete-1.6.2.tgz"
+  "version" "1.6.2"
   dependencies:
-    preact "^8.3.1"
+    "preact" "^8.3.1"
 
-codemirror@^5.61.0:
-  version "5.61.0"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.61.0.tgz#318e5b034a707207948b92ffc2862195e8fdb08e"
-  integrity sha512-D3wYH90tYY1BsKlUe0oNj2JAhQ9TepkD51auk3N7q+4uz7A/cgJ5JsWHreT0PqieW1QhOuqxQ2reCXV1YXzecg==
+"codemirror@^5.65.3":
+  "integrity" "sha512-tytrSm5Rh52b6j36cbDXN+FHwHCl9aroY4BrDZB2NFFL3Wjfq9nuYVLFFhaOYOczKAg3JXTr8BuT8LcE5QY4Iw=="
+  "resolved" "https://registry.npmjs.org/codemirror/-/codemirror-5.65.4.tgz"
+  "version" "5.65.4"
 
-govuk-frontend@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-2.4.0.tgz#a4f32f09f2120166006f2d0c2aa32cccf75f95ef"
-  integrity sha512-WSecWLGM1qZ48UD0YGGWOfaBqrWtwf39cOUAuC8+SMNh7kkZ6Ou2Y7+d3Bt8OEPaFNFR2N2vZO2WRnT2gaCjMg==
+"govuk-frontend@^3.14.0":
+  "integrity" "sha512-y7FTuihCSA8Hty+e9h0uPhCoNanCAN+CLioNFlPmlbeHXpbi09VMyxTcH+XfnMPY4Cp++7096v0rLwwdapTXnA=="
+  "resolved" "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-3.14.0.tgz"
+  "version" "3.14.0"
 
-preact@^8.3.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.1.tgz#ed34f79d09edc5efd32a378a3416ef5dc531e3ac"
-  integrity sha512-s8H1Y8O9e+mOBo3UP1jvWqArPmjCba2lrrGLlq/0kN1XuIINUbYtf97iiXKxCuG3eYwmppPKnyW2DBrNj/TuTg==
+"preact@^8.3.1":
+  "integrity" "sha512-s8H1Y8O9e+mOBo3UP1jvWqArPmjCba2lrrGLlq/0kN1XuIINUbYtf97iiXKxCuG3eYwmppPKnyW2DBrNj/TuTg=="
+  "resolved" "https://registry.npmjs.org/preact/-/preact-8.3.1.tgz"
+  "version" "8.3.1"

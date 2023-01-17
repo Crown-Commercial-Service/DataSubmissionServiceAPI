@@ -1,13 +1,15 @@
 // standard
-@import "govuk-frontend/components/input/input";
-@import "govuk-frontend/components/file-upload/file-upload";
-@import "govuk-frontend/components/skip-link/skip-link";
-@import "govuk-frontend/components/phase-banner/phase-banner";
-@import "govuk-frontend/components/error-summary/error-summary";
-@import "govuk-frontend/components/select/select";
-@import "govuk-frontend/components/breadcrumbs/breadcrumbs";
-@import "govuk-frontend/components/fieldset/fieldset";
-@import "govuk-frontend/components/back-link/back-link";
+@import "govuk-frontend/govuk/components/input/input";
+@import "govuk-frontend/govuk/components/file-upload/file-upload";
+@import "govuk-frontend/govuk/components/skip-link/skip-link";
+@import "govuk-frontend/govuk/components/phase-banner/phase-banner";
+@import "govuk-frontend/govuk/components/error-summary/error-summary";
+@import "govuk-frontend/govuk/components/select/select";
+@import "govuk-frontend/govuk/components/breadcrumbs/breadcrumbs";
+@import "govuk-frontend/govuk/components/fieldset/fieldset";
+@import "govuk-frontend/govuk/components/back-link/back-link";
+@import "govuk-frontend/govuk/components/tabs/tabs";
+@import "govuk-frontend/govuk/components/checkboxes/checkboxes";
 
 // custom
 @import "type/type";
@@ -26,3 +28,8 @@
 @import "actions/all";
 @import "code/fdl";
 @import "table/table";
+@import "tabs/tabs";
+@import "accordion/accordion";
+@import "enclosure/enclosure";
+@import "checkboxes/checkboxes";
+@import "filters_intro/filters-intro";

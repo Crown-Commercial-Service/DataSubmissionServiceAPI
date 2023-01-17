@@ -1,4 +1,4 @@
-@import "govuk-frontend/components/button/button";
+@import "govuk-frontend/govuk/components/button/button";
 
 $govuk-button-colour: govuk-colour("secondary");
 $govuk-button-hover-colour: darken($govuk-button-colour, 5%);
@@ -73,7 +73,7 @@ $button-shadow-size: $govuk-border-width-form-element;
     color: $govuk-link-active-colour;
   }
   &:focus {
-    @include govuk-focusable-fill();
+    @include govuk-focused-text();
   }
 }
 

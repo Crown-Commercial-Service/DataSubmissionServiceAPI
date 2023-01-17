@@ -1,20 +1,18 @@
 language: ruby
 rvm:
-- 2.6.6
+- 2.7.6
 services:
   - postgresql
 addons:
-  postgresql: "10"
-apt:
-  update: true
-  packages:
-  - postgresql-10
-  - postgresql-client-10
-  - python3
-  - python3-pip
-  - python3-setuptools
-  - python3-wheel
-dist: xenial
+  postgresql: "11"
+  apt:
+    update: true
+    packages:
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - python3-wheel
+dist: bionic
 cache:
   - bundler
   - pip
@@ -22,19 +20,23 @@ env:
   matrix:
     - API_ROOT='https://ccs.api/'
   global:
-    - CF_USER=ccs-rmi-travis-deploy@crowncommercial.gov.uk
     - CF_ORG=ccs-report-management-info
-    - secure: "Ef1vXu9xRPQ/NZKRGgyP+eghwgO1H2xQDTWyAOrXex70HoJraU8wQelD65OXlVLlWJd5DOaa1zrK0v5iWSm1tGvTx/cBzRaTL6s+h4/lhaBYkaki7dxJhbJP2AAxQ/vTJe8AzqWAxtuTywzn9I62L8gBM4/OJT0Tuj+Rkr9yqPeG2fRXhL1QvR9UKaIBxKnXxGLJydOjd6li2UGAxW/xTneTjvoWiDU8sGVlAB8bQXotkoNPsuUfMIGotg5mteAugJTnOeCO1VlYPJ5wvsRVQm1+9tuiilvJiL4zMVAlOsx/INYrcCXSOh8AB0IR3kv1JUXpGJEcWsOmiryKD89GOH2khAu3fbKqDx/VLFzF0Gjqf8GgGyi/Ly6hOrIfm7uJRDPyMEVJP3vvwepfw9LGJz4tao2TWJ1Ed+vsW029rJGmvnzwuLJFb1/LI4eQGlMebZsJO8lAKqAQN2D3sc0jYaK6d/0UhR6CvbLlfYRl2HGqWl5VXyJIvBLtqSKLA/ZgrQpqohS7961jyhyV+5v91uIFfG884VVkIqLQoB6Y5Hmc2Vo0tfhW9n7m+jXZt5cXLnnLCuxz9MR1eG1C5Jql/qYSPggNvp872pRVMHROTe2qwkLnKUNZLzdJ68pqGqXgI9dVA7p+8mi0zU1XL8fOeV7d1IulIe7+52uL8R1KM3A="
-    - CC_TEST_REPORTER_ID=8210faf280e889e60d8da3ad7d3ddcd383023b8f3c5155a04735138761c64721
+    - secure: "N9v+XZcjaaF1nkd+/vim5P3ssK/l9pbQQ5ihliIIkMmXQlURP11xovXxAy0pkqFQC+Vi97f9nYTB+9rWg0KeoSaSpi7F0od8/UASSg9z7TkfxIY4MeqQgPGczwpuKmw3IF5/Qduw9bMFR3tqQsJAwN9rqpKIvo7/TS9sgiNLu9cV1WDDOYE0ItkgyjWkiGtXace98eUaRq3Zpu8i5a8FvpyP1wn2jZDD7ST9I5EFJUXS+18VGHFVdNoGWY3pfPm9+HCLyIkvKc3PMEAv6u95hBoLJVeuI29PH4Lv/q8PVSkNZ8L5whWXVVA9JIhOzBZwjBgd8s7GODAaPhDN6HTt7K1HtU04U6M1L+LvDCOZGM1eoIThgCUP60Y8h5aw6ECJENMrwt4WymJQ07svvGmg9vIuE8864hQC34+lpa0mDreEk2E5rJS/P2o/XlhwMIDvOySNGixd5hjydINxgFfP8/6yhaDJ8Q4lsbPuQsSU0HW8dXNiVRXCTBt2T31mUPNwEA/VeBHa5zMu8IEdV17s0GyNJIWtx0HebXPI7jVBDyhkuhsIlptAasWVHSOoA0YjNW/0aJa2HOW/ad1kOEs14RpbooM1UJsF8GQwMAdUe6nnt/FPen+ZErrFEaiMnpyLOyZnSn8FKBmTsVKz+Zoc+Su/fHEu5L0btVXUGeg/BbA="
 before_install:
   - gem install bundler -v 2.0.2
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - bundle config gems.contribsys.com $BUNDLE_GEMS__CONTRIBSYS__COM
 install:
-  - bundle install --jobs=3 --retry=3 --deployment --without=production --path=${BUNDLE_PATH:-vendor/bundle}
+  - bundle config set --local deployment 'true' without 'production' path 'vendor/bundle'
+  - bundle install --jobs=3 --retry=3
+  - pyenv install 3.7.1
   - pyenv global 3.7.1
+  - pip3 install --upgrade "pip < 21.0"
   - pip3 install --user --upgrade -r $PWD/requirements.txt
 before_script:
+  - sudo apt-get install -y postgresql-11 postgresql-client-11
+  - psql -U postgres -c 'CREATE DATABASE DataSubmissionServiceApi_test;'
   - ./cc-test-reporter before-build
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rake AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_S3_REGION=dummy AWS_S3_BUCKET=dummy SECRET_KEY_BASE=dummy DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile

@@ -8,13 +8,15 @@ module Export
   #
   # These rows also define 8 additional ++AdditionalN++ fields.
   class SubmissionEntryRow < CsvRow
+    include ActionView::Helpers::TextHelper
     NUMBER_OF_ADDITIONAL_FIELDS = 24
 
     include StringUtils
 
     def value_for(destination_field, default: NOT_IN_DATA)
       source_field = source_field_for(destination_field)
-      model.data.fetch(source_field, default)
+      value = model.data.fetch(source_field, default)
+      value.is_a?(String) ? truncate(value, length: 255) : value
     end
 
     def values_for_additional

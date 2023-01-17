@@ -20,24 +20,24 @@ RSpec.feature 'Admin can add a framework' do
       FDL
     end
 
-    context 'there are no existing frameworks' do
+    context 'there are no existing agreements' do
       scenario 'everything is fine' do
-        # And there are no existing frameworks
-        # When I visit the frameworks page
+        # And there are no existing agreements
+        # When I visit the agreements page
         visit admin_frameworks_path
-        # Then I should see no frameworks
-        expect(page).to have_text('No frameworks')
+        # Then I should see no agreements
+        expect(page).to have_text('No agreements')
 
-        # And I click 'new framework'
-        click_link 'New Framework'
-        # Then I should see a "new framework" page
-        expect(page).to have_text('New framework')
+        # And I click 'new agreements'
+        click_link 'New Agreement'
+        # Then I should see a "new agreement" page
+        expect(page).to have_text('New agreement')
 
-        # When I paste a valid framework
+        # When I paste a valid agreement
         fill_in 'Definition', with: valid_source
         # And I click "Save definition"
         click_button 'Save definition'
-        # Then I should see "framework saved successfully"
+        # Then I should see "agreement saved successfully"
         expect(page).to have_text('Definition saved successfully')
 
         # And I should see my FDL
@@ -45,21 +45,21 @@ RSpec.feature 'Admin can add a framework' do
       end
     end
 
-    context 'there is an existing framework with the same name' do
+    context 'there is an existing agreement with the same name' do
       let!(:existing_framework) { create :framework, short_name: 'RM6060', definition_source: valid_source }
 
-      scenario 'it rejects the new framework' do
-        # When I visit the frameworks page
+      scenario 'it rejects the new agreement' do
+        # When I visit the agreements page
         visit admin_frameworks_path
-        # And I click 'new framework'
-        click_link 'New Framework'
+        # And I click 'new agreement'
+        click_link 'New Agreement'
 
-        # When I paste the valid framework with the same name
+        # When I paste the valid agreement with the same name
         fill_in 'Definition', with: valid_source
         # And I click "Save definition"
         click_button 'Save definition'
 
-        # Then I should see that the framework already exists"
+        # Then I should see that the agreement already exists"
         expect(page).to have_text('Short name has already been taken')
         # And I should see my FDL
         expect(find_field('Definition source').value).to include('Framework RM6060 {')
@@ -67,7 +67,7 @@ RSpec.feature 'Admin can add a framework' do
     end
   end
 
-  context 'we have a syntactically valid framework source, but it is missing InvoiceValue' do
+  context 'we have a syntactically valid agreement source, but it is missing InvoiceValue' do
     let(:invalid_source) do
       <<~FDL
         Framework RM6060 {
@@ -81,16 +81,16 @@ RSpec.feature 'Admin can add a framework' do
       FDL
     end
 
-    scenario 'the framework source is rejected' do
-      # When I visit the frameworks page
+    scenario 'the agreement source is rejected' do
+      # When I visit the agreements page
       visit admin_frameworks_path
 
-      # And I click 'new framework'
-      click_link 'New Framework'
-      # Then I should see a "new framework" page
-      expect(page).to have_text('New framework')
+      # And I click 'new agreement'
+      click_link 'New Agreement'
+      # Then I should see a "new agreement" page
+      expect(page).to have_text('New agreement')
 
-      # When I paste an invalid framework
+      # When I paste an invalid agreement
       fill_in 'Definition', with: invalid_source
       # And I click "Save definition"
       click_button 'Save definition'
@@ -102,19 +102,19 @@ RSpec.feature 'Admin can add a framework' do
     end
   end
 
-  context 'we have an invalid framework source' do
+  context 'we have an invalid agreement source' do
     let(:invalid_source) { 'Frameworxk RM6060 {       }' }
 
-    scenario 'the framework source is rejected' do
-      # When I visit the frameworks page
+    scenario 'the agreement source is rejected' do
+      # When I visit the agreements page
       visit admin_frameworks_path
 
-      # And I click 'new framework'
-      click_link 'New Framework'
-      # Then I should see a "new framework" page
-      expect(page).to have_text('New framework')
+      # And I click 'new agreement'
+      click_link 'New Agreement'
+      # Then I should see a "new agreement" page
+      expect(page).to have_text('New agreement')
 
-      # When I paste an invalid framework
+      # When I paste an invalid agreement
       fill_in 'Definition', with: invalid_source
       # And I click "Save definition"
       click_button 'Save definition'

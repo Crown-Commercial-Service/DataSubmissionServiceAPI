@@ -42,9 +42,13 @@ Rails.application.routes.draw do
       resources :blobs, only: :create, controller: 'submission_file_blobs'
     end
 
-    resources :frameworks, only: :index
+    resources :frameworks, only: %i[index show]
 
     resources :urn_lists, only: :index
+
+    resources :agreements, only: :index
+
+    resource :customer_effort_scores, only: :create
 
     namespace :events do
       post 'user_signed_in'
@@ -69,6 +73,12 @@ Rails.application.routes.draw do
     end
 
     resources :suppliers, only: %i[index show edit update] do
+      member do
+        get :show_tasks
+        get :show_users
+        get :show_frameworks
+      end
+
       resources :agreements, only: [] do
         get :confirm_activation
         get :confirm_deactivation
@@ -94,7 +104,9 @@ Rails.application.routes.draw do
     end
 
     resources :tasks, only: [] do
-      get 'active_submission/download'
+      resources :submission, only: [], controller: 'submission_download' do
+        get 'download'
+      end
     end
 
     resources :frameworks, only: %i[index new create show edit update] do
@@ -114,7 +126,9 @@ Rails.application.routes.draw do
 
     resources :urn_lists, only: %i[index new create]
 
-    resources :notify_downloads, only: %i[index show]
+    resources :downloads, only: %i[index show new]
+
+    resources :unfinished_tasks, only: %i[index]
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out

@@ -14,7 +14,7 @@ module Ingest
     SHEET_NAME_PATTERNS = {
       'invoice' => /(booking|finance|management|invoice)/i,
       'order'   => /(order|contract)/i,
-      'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites|Utility Spend/i
+      'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites|Utility Spend|Success Measures|Customer data|Lot1 Rebate/i
     }.freeze
 
     attr_reader :excel_temp_file
@@ -32,18 +32,18 @@ module Ingest
 
     def sheets
       @sheets ||= begin
-                    response = Ingest::CommandRunner.new("in2csv --names #{excel_temp_file}").run!
+        response = Ingest::CommandRunner.new("in2csv --names #{excel_temp_file}").run!
 
-                    return response.stdout if response.successful?
+        return response.stdout if response.successful?
 
-                    raise UnreadableFile
-                  end
+        raise UnreadableFile
+      end
     end
 
     private
 
     def fetch_sheet(type)
-      sheet_temp_file = excel_temp_file + '_' + type + '.csv'
+      sheet_temp_file = "#{excel_temp_file}_#{type}.csv"
       sheet_name = sheet_name_for(type)
 
       return empty_rows if sheet_name.blank?
