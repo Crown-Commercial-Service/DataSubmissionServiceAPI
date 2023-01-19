@@ -36,6 +36,7 @@ class Task < ApplicationRecord
             uniqueness: { scope: %i[supplier_id framework_id period_year], message: 'This task already exists' }
   validates :framework_id, presence: true
   validates :due_on, presence: true
+  validate :not_a_future_task
 
   before_validation :set_due_on, on: :create
 
@@ -99,5 +100,12 @@ dependent: :nullify
     return if period_year.blank? || period_month.blank?
 
     self.due_on ||= Task::SubmissionWindow.new(period_year, period_month).due_date
+  end
+
+  def not_a_future_task
+    return if period_year.blank? || period_month.blank?
+
+    task_period = Date.new(period_year, period_month)
+    errors.add(:base, 'Task cannot be in the future') unless task_period < Time.zone.today.beginning_of_month
   end
 end

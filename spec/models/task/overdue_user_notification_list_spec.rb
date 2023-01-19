@@ -10,7 +10,7 @@ RSpec.describe Task::OverdueUserNotificationList do
     before { stub_govuk_bank_holidays_request }
 
     context 'there are incomplete submissions for the month in question' do
-      let(:year)  { 2019 }
+      let(:year)  { 2018 }
       let(:month) { 1 }
 
       let(:alice)      { create :user, name: 'Alice Example', email: 'alice@example.com' }
@@ -56,13 +56,13 @@ RSpec.describe Task::OverdueUserNotificationList do
         # rubocop:disable Metrics/LineLength
         expect(lines.size).to eq 4
         expect(lines).to include(
-          'alice@example.com,7 February 2019,Alice Example,Supplier A,January 2019,RM0001 - Framework 1,RM0002 - Framework 2'
+          'alice@example.com,7 February 2018,Alice Example,Supplier A,January 2018,RM0001 - Framework 1,RM0002 - Framework 2'
         )
         expect(lines).to include(
-          'alice@example.com,7 February 2019,Alice Example,Supplier B,January 2019,RM0001 - Framework 1,'
+          'alice@example.com,7 February 2018,Alice Example,Supplier B,January 2018,RM0001 - Framework 1,'
         )
         expect(lines).to include(
-          'bob@example.com,7 February 2019,Bob Example,Supplier B,January 2019,RM0001 - Framework 1,'
+          'bob@example.com,7 February 2018,Bob Example,Supplier B,January 2018,RM0001 - Framework 1,'
         )
         # rubocop:enable Metrics/LineLength
       end
