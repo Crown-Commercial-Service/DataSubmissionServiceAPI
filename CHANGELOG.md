@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-137] - 2023-01-19
+
+- RMI-527: Change task sort order for supplier home page
+- RMI-577: create task page improvements
+- RMI-517: prevent admins from creating manual tasks dated in the future.
+- RMI-530: Edits to "OtherFields" sheet name allowlist
+- [Snyk] Upgrade codemirror from 5.65.10 to 5.65.11 
+
 ## [release-136] - 2023-01-05
 
 - RMI-553: Add status filter to Unfinished Tasks page and sort table by supplier name (A-Z)
@@ -910,6 +918,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-137]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-136...release-137
 [release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
 [release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
 [release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134
