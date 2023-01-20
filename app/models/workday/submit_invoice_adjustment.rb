@@ -50,6 +50,7 @@ module Workday
             invoice_line.Worktags_Reference.ID      framework.short_name, 'ns0:type': 'Custom_Organization_Reference_ID'
             invoice_line.Tax_Code_Reference.ID      tax_code_id, 'ns0:type': 'Tax_Code_ID'
             invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'Revenue_Category_ID'
+            invoice_line.Ship_To_Customer_Reference.ID supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
           end
         end
       end
