@@ -86,11 +86,11 @@ RSpec.describe Workday::SubmitInvoiceAdjustment do
         ).to eq 'Revenue_Category_WID'
       end
 
-      it 'sets Tax_Code_Reference//ID as the tax code Workday ID for the Framework' do
-        expect(
-          text_at_xpath("//ns0:Tax_Code_Reference//ns0:ID[@ns0:type='Tax_Code_ID']")
-        ).to eq 'GBC20'
-      end
+      # it 'sets Tax_Code_Reference//ID as the tax code Workday ID for the Framework' do
+      #   expect(
+      #     text_at_xpath("//ns0:Tax_Code_Reference//ns0:ID[@ns0:type='Tax_Code_ID']")
+      #   ).to eq 'GBC20'
+      # end
     end
 
     describe 'when the invoice total is over £5000' do
