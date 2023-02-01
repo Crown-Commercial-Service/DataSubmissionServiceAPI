@@ -31,6 +31,8 @@ class V1::TasksController < APIController
   def no_business
     task = current_user.tasks.find(params[:id])
 
+    task.cancel_correction if task.correcting?
+
     if task.completed? && !correcting_submission?
       render jsonapi: task.active_submission
       return
