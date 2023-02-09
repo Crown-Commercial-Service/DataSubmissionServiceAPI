@@ -320,7 +320,7 @@ GEM
     parser (3.0.1.1)
       ast (~> 2.4.1)
     parslet (1.8.2)
-    pg (1.0.0)
+    pg (1.4.5)
     progress_bar (1.2.0)
       highline (~> 1.6)
       options (~> 2.3.0)
@@ -552,7 +552,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.0)
   parslet
-  pg (>= 0.18, < 2.0)
+  pg (~> 1.1, >= 1.1.1)
   progress_bar
   pry-rails
   puma (~> 5.6, >= 5.6.4)

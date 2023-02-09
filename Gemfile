@@ -20,7 +20,7 @@ gem 'jsonapi-rails'
 gem 'jquery-rails', '>= 4.4.0'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.1', '>= 1.1.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 5.6', '>= 5.6.4'
