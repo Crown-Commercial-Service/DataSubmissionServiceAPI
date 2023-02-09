@@ -560,7 +560,7 @@ DEPENDENCIES
   rails_event_store
   rollbar
   rspec-json_expectations
-  rspec-rails (>= 3.7.2)
+  rspec-rails (~> 6.0.0)
   rubocop
   rubocop-rails (~> 2.10, >= 2.10.1)
   rubyXL (~> 3.4, >= 3.4.25)

@@ -85,7 +85,7 @@ group :development, :test do
   gem 'dotenv-rails', '>= 2.7.6'
   gem 'factory_bot_rails', '>= 6.2.0'
   gem 'pry-rails'
-  gem 'rspec-rails', '>= 3.7.2'
+  gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :development do
