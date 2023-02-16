@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-138] - 2023-02-16
+
+- RMI-502: Fix for workday transaction not being reversed
+- RMI-573: Stop sending revenue category information to Workday
+- RMI-579: Make Workday use 'Ship To' address
+- RMI-582: Fix for blanks on completed tasks page
+- RMI-583: Fix for discrepency between completed tasks and individual completed task view.
+- [Security] Bump globalid from 1.0.0 to 1.0.1 
+
 ## [release-137] - 2023-01-19
 
 - RMI-527: Change task sort order for supplier home page
@@ -918,6 +927,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-138]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-137...release-138
 [release-137]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-136...release-137
 [release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
 [release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
