@@ -16,14 +16,6 @@ RSpec.describe Workday::CommercialAgreements do
         'A206100' => 'CAH_Workplace'
       )
     end
-  end
-
-  describe '#tax_code_ids' do
-    it 'should return Tax Code IDs' do
-      expect(subject.tax_code_ids).to eq(
-        'A206100' => 'GBC20'
-      )
-    end
 
     context 'when the workday API returns a 500 status code' do
       it 'raises an error' do
@@ -31,7 +23,7 @@ RSpec.describe Workday::CommercialAgreements do
           .with(headers: { 'Authorization' => 'Basic dXNlcjpwYXNzd29yZA==' })
           .to_return(status: 500, body: '')
 
-        expect { subject.tax_code_ids }.to raise_error(Workday::ConnectionError)
+        expect { subject.revenue_category_ids }.to raise_error(Workday::ConnectionError)
       end
     end
   end

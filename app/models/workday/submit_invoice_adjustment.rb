@@ -48,8 +48,8 @@ module Workday
             invoice_line.Extended_Amount            formatted_management_charge
             invoice_line.Analytical_Amount          formatted_total_spend
             invoice_line.Worktags_Reference.ID      framework.short_name, 'ns0:type': 'Custom_Organization_Reference_ID'
-            invoice_line.Tax_Code_Reference.ID      tax_code_id, 'ns0:type': 'Tax_Code_ID'
             invoice_line.Revenue_Category_Reference.ID framework_revenue_category_id, 'ns0:type': 'Revenue_Category_ID'
+            invoice_line.Ship_To_Customer_Reference.ID supplier_salesforce_id, 'ns0:type': 'Customer_Reference_ID'
           end
         end
       end
@@ -66,10 +66,6 @@ module Workday
 
     def framework_revenue_category_id
       workday_commercial_agreements.revenue_category_ids[framework.short_name]
-    end
-
-    def tax_code_id
-      workday_commercial_agreements.tax_code_ids[framework.short_name]
     end
 
     def invoice_memo
