@@ -30,8 +30,8 @@ before_install:
 install:
   - bundle config set --local deployment 'true' without 'production' path 'vendor/bundle'
   - bundle install --jobs=3 --retry=3
-  - pyenv install 3.7.1
-  - pyenv global 3.7.1
+  - pyenv install 3.8.16
+  - pyenv global 3.8.16
   - pip3 install --upgrade pip
   - pip3 install --upgrade setuptools
   - pip3 install --user --upgrade -r $PWD/requirements.txt
