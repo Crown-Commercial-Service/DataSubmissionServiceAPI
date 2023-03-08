@@ -151,5 +151,5 @@ cd .. || exit
 cf push ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml --strategy rolling
 
 # push API sidekiq
-cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling
-cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling
+cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b ruby_buildpack --strategy rolling
+cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b ruby_buildpack --strategy rolling
