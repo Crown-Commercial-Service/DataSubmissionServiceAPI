@@ -50,7 +50,7 @@ class UrnListImporterJob < ApplicationJob
     command += " > \"#{csv_temp_file.path}\""
 
     result = Ingest::CommandRunner.new(command).run!
-    raise InvalidFormat if result.stderr.any?
+    raise InvalidFormat unless result.successful?
   end
 
   def csv_temp_file
