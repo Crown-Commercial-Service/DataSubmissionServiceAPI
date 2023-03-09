@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-139] - 2023-03-09
+
+- RMI-589: Set sidekiq buildpacks in manifest to fix builds
+
 ## [release-138] - 2023-02-16
 
 - RMI-502: Fix for workday transaction not being reversed
@@ -927,6 +931,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-139]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-138...release-139
 [release-138]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-137...release-138
 [release-137]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-136...release-137
 [release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
