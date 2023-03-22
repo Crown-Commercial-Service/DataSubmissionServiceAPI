@@ -13,12 +13,12 @@
               %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
               .govuk-checkboxes{id: 'framework-status-checkboxes'}            
                 .govuk-checkboxes__item.govuk-checkboxes__item--small
-                  = check_box_tag('status[]', 'active', false,
+                  = check_box_tag('framework_status[]', 'active', false,
                     class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
                     id: 'framework_status_active')
                   = label_tag "framework_status_active", "Active", class: 'govuk-checkboxes__label'
                 .govuk-checkboxes__item.govuk-checkboxes__item--small
-                  = check_box_tag('status[]', 'inactive', false,
+                  = check_box_tag('framework_status[]', 'inactive', false,
                     class: 'govuk-checkboxes__input govuk-checkboxes__input--small',
                     id: 'framework_status_inactive')
                   = label_tag "framework_status_inactive", "Inactive", class: 'govuk-checkboxes__label'
