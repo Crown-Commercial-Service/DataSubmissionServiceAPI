@@ -1,11 +1,16 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin can upload a URN list' do
-  before do
-    sign_in_as_admin
+RSpec.feature 'Admin can upload a URN lists' do
+  let(:urn_list) do
+    create(:urn_list, aasm_state: :processed)
   end
 
-  scenario 'everything is fine' do
+  before do
+    sign_in_as_admin
+    urn_list
+  end
+
+  scenario 'uploading a URN list' do
     visit admin_urn_lists_path
     click_link 'Add a new URN list'
 
