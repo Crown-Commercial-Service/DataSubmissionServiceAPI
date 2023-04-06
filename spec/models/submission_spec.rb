@@ -27,8 +27,10 @@ RSpec.describe Submission do
   end
 
   describe '#replace_with_no_business state machine event' do
-    let(:submission) { FactoryBot.create(:completed_submission) } 
-    let(:submission_with_no_invoice) { FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed') }
+    let(:submission) { FactoryBot.create(:completed_submission) }
+    let(:submission_with_no_invoice) do
+      FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed')
+    end
     let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do
@@ -85,7 +87,9 @@ RSpec.describe Submission do
 
   describe '#mark_as_replaced state machine event' do
     let(:submission) { FactoryBot.create(:completed_submission) }
-    let(:submission_with_no_invoice) { FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed') }
+    let(:submission_with_no_invoice) do
+      FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed')
+    end
     let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do

@@ -110,7 +110,7 @@ class Submission < ApplicationRecord
   end
 
   def create_reversal_invoice?
-    !self.report_no_business? && self.management_charge != 0 && ENV['SUBMIT_INVOICES']
+    !report_no_business? && management_charge != 0 && ENV['SUBMIT_INVOICES']
   end
 
   def errors_for(sheet_name)
