@@ -263,9 +263,7 @@ ActiveRecord::Schema.define(version: 2023_04_18_113856) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "session_token", limit: 255
     t.index ["auth_id"], name: "index_users_on_auth_id", unique: true
-    t.index ["session_token"], name: "index_users_on_session_token"
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
