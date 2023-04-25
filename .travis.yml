@@ -38,7 +38,7 @@ before_script:
   - sudo apt-get install -y postgresql-11 postgresql-client-11
   - psql -U postgres -c 'CREATE DATABASE DataSubmissionServiceApi_test;'
   - ./cc-test-reporter before-build
-  - bundle exec rails db:migrate RAILS_ENV=test
+  # - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rake AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_S3_REGION=dummy AWS_S3_BUCKET=dummy SECRET_KEY_BASE=dummy DATABASE_URL=postgresql:does_not_exist --quiet assets:precompile
 bundler_args: --without production
 before_deploy:
