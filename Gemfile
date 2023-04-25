@@ -66,6 +66,8 @@ gem 'activerecord-import'
 
 gem 'parslet'
 
+gem "webpacker"
+
 # For parsing and manipulating excel docs
 gem 'rubyXL', '~> 3.4', '>= 3.4.25'
 
