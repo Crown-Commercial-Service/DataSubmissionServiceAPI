@@ -1,4 +1,4 @@
-class V1::AgreementsController < APIController
+class V1::AgreementsController < ApiController
   def index
     agreements = current_user.agreements
     agreements = agreements.includes(requested_associations)

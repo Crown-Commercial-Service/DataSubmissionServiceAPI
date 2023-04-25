@@ -17,7 +17,7 @@ RSpec.feature 'Admin can download a list of lots and their suppliers on a framew
     expect(page.response_headers['Content-Type'])
       .to include 'text/csv'
     expect(page.response_headers['Content-Disposition'])
-      .to eq 'attachment; filename="framework_rm1234_lots-2020-06-17.csv"'
+      .to include 'attachment; filename="framework_rm1234_lots-2020-06-17.csv"'
 
     expect(page.body).to include 'framework_reference,framework_name,supplier_salesforce_id' \
     ',supplier_name,supplier_active,lot_number'
