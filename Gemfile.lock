@@ -583,7 +583,6 @@ DEPENDENCIES
   skylight (~> 5.3, >= 5.3.4)
   spring
   spring-watcher-listen (~> 2.0.1)
-  sprockets (~> 3.7, >= 3.7.2)
   uglifier (>= 1.3.0)
   webmock (>= 3.4.2)
 
