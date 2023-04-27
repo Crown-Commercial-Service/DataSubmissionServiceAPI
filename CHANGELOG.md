@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-141] - 2023-04-27
+
+- RMI-596: Fix for reversal invoices not generating when Workday API fails
+
 ## [release-140] - 2023-03-30
 
 - RMI-587: Fix for pagination counteracting filtering in admin supplier page
@@ -938,6 +942,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-141]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-140...release-141
 [release-140]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-139...release-140
 [release-139]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-138...release-139
 [release-138]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-137...release-138
