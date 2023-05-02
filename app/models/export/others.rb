@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class Others < ToIO
+  class Others < ToIo
     HEADER = %w[
       SubmissionID
       CustomerURN

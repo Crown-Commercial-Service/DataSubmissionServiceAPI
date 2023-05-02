@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class Submissions < ToIO
+  class Submissions < ToIo
     HEADER = %w[
       TaskID
       SubmissionID

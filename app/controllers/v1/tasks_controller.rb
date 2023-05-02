@@ -1,4 +1,4 @@
-class V1::TasksController < APIController
+class V1::TasksController < ApiController
   deserializable_resource :task, only: %i[create update]
 
   def index

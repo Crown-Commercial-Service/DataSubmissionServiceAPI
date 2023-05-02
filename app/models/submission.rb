@@ -92,7 +92,7 @@ class Submission < ApplicationRecord
   end
 
   def sheet_errors
-    Hash[sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
+    sheet_names.index_with { |sheet_name| errors_for(sheet_name) }
   end
 
   def file_key

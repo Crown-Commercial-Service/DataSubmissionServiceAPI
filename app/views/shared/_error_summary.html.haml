@@ -3,6 +3,6 @@
     There is a problem
   .govuk-error-summary__body
     %ul.govuk-list.govuk-error-summary__list
-      - entity.errors.each do |attribute, error|
+      - entity.errors.each do |error|
         %li
-          %a{href: "##{entity.model_name.element}_#{attribute}"}= error
+          %a{href: "##{entity.model_name.element}_#{error.attribute}"}= error.message

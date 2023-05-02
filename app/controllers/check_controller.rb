@@ -1,4 +1,4 @@
-class CheckController < APIController
+class CheckController < ApiController
   skip_before_action :authenticate
   skip_before_action :reject_without_user!
 

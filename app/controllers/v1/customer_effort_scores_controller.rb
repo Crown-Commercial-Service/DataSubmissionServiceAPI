@@ -1,4 +1,4 @@
-class V1::CustomerEffortScoresController < APIController
+class V1::CustomerEffortScoresController < ApiController
   deserializable_resource :customer_effort_score, only: %i[create]
 
   def create

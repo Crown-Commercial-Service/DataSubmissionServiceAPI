@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class FrameworkSuppliersLots < ToIO
+  class FrameworkSuppliersLots < ToIo
     HEADER = %w[
       framework_reference
       framework_name
