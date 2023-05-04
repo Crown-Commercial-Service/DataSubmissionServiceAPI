@@ -22,13 +22,21 @@ module Workday
       @commercial_agreement_xml ||= commercial_agreement.to_s
     end
 
+    def base_url
+      if ENV['WORKDAY_TENANT'] == 'production'
+        'https://wd3-services1.myworkday.com'
+      else
+        'https://wd3-impl-services1.workday.com'
+      end
+    end
+
     def commercial_agreement
       @commercial_agreement ||= begin
         result = HTTP.basic_auth(
           user: Workday.username,
           pass: Workday.api_password
         ).get(
-          "https://wd3-impl-services1.workday.com/ccx/service/customreport2/#{Workday.tenant}/INT003_ISU/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category"
+          "#{base_url}/ccx/service/customreport2/#{Workday.tenant}/INT003_ISU/CR_INT003_Commercial_Agreement_Cost_Center_and_Revenue_Category"
         )
 
         raise Workday::ConnectionError if result.status == 500
