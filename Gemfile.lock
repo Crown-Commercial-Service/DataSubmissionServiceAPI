@@ -579,7 +579,7 @@ DEPENDENCIES
   rubyXL (~> 3.4, >= 3.4.25)
   ruby_event_store-rspec
   sass-rails (~> 6.0, >= 6.0.0)
-  shoulda-matchers (~> 5.1)
+  shoulda-matchers (~> 5.1, >= 5.1.0)
   sidekiq-cron (>= 1.2.0)
   sidekiq-pro!
   simple_form (>= 5.1.0)

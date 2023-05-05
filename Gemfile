@@ -108,7 +108,7 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers', '~> 5.1'
+  gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
   gem 'capybara', '>= 3.35.3'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
