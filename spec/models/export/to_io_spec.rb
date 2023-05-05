@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'csv'
 
-RSpec.describe Export::ToIO do
+RSpec.describe Export::ToIo do
   before do
     FactoryBot.create_list(:supplier, 2)
   end
@@ -9,10 +9,10 @@ RSpec.describe Export::ToIO do
   let(:relation) { Supplier.order(name: :asc) }
   let!(:result) { subclass.new(relation, StringIO.new).run }
 
-  # An example subclass of Export::ToIO, whose rows use a class variable to
+  # An example subclass of Export::ToIo, whose rows use a class variable to
   # keep track of the passed cache values
   let(:subclass) do
-    Class.new(Export::ToIO) do
+    Class.new(Export::ToIo) do
       const_set(:HEADER, [])
 
       row_class = Class.new(Export::CsvRow) do

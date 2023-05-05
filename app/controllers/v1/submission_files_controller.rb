@@ -1,4 +1,4 @@
-class V1::SubmissionFilesController < APIController
+class V1::SubmissionFilesController < ApiController
   deserializable_resource :submission_file, only: %i[update]
 
   skip_before_action :reject_without_user!, except: %i[show]

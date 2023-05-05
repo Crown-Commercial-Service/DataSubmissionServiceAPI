@@ -44,8 +44,6 @@ Rails.application.routes.draw do
 
     resources :frameworks, only: %i[index show]
 
-    resources :urn_lists, only: :index
-
     resources :agreements, only: :index
 
     resource :customer_effort_scores, only: :create
@@ -124,7 +122,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :urn_lists, only: %i[index new create]
+    resources :urn_lists, only: %i[index new create] do
+      member do
+        get :download
+      end
+    end
 
     resources :downloads, only: %i[index show new]
 

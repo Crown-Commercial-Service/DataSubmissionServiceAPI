@@ -15,14 +15,14 @@ class Admin::SuppliersController < AdminController
   def show_users
     @users = @supplier.users.page(params[:user_page]).per(12)
 
-    filter_user_status params[:status] if params[:status]
+    filter_user_status params[:user_status] if params[:user_status]
   end
 
   def show_frameworks
     @agreements = @supplier.agreements.joins(:framework)
                            .merge(Framework.order(short_name: :asc)).page(params[:framework_page]).per(12)
 
-    filter_framework_status params[:status] if params[:status]
+    filter_framework_status params[:framework_status] if params[:framework_status]
   end
 
   def show

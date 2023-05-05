@@ -1,4 +1,4 @@
-class APIController < ActionController::API
+class ApiController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   before_action :authenticate
   before_action :reject_without_user!

@@ -92,7 +92,7 @@ RSpec.describe 'Admin Downloads', type: :request do
         expect(response).to be_successful
         expect(response.header['Content-Type']).to include 'text/csv'
         expect(response.header['Content-Disposition'])
-          .to eq 'attachment; filename="overdue_notifications-2019-03-09.csv"'
+          .to include 'attachment; filename="overdue_notifications-2019-03-09.csv"'
         expect(response.body).to include 'email address,due_date,person_name'
         expect(response.body).to include 'User A'
       end
@@ -104,7 +104,8 @@ RSpec.describe 'Admin Downloads', type: :request do
 
         expect(response).to be_successful
         expect(response.header['Content-Type']).to include 'text/csv'
-        expect(response.header['Content-Disposition']).to eq 'attachment; filename="late_notifications-2019-03-09.csv"'
+        expect(response.header['Content-Disposition']).to include 'attachment; ' \
+        'filename="late_notifications-2019-03-09.csv"'
         expect(response.body).to include 'email address,due_date,person_name'
         expect(response.body).to include 'User A'
       end
@@ -134,7 +135,8 @@ RSpec.describe 'Admin Downloads', type: :request do
 
       expect(response).to be_successful
       expect(response.header['Content-Type']).to include 'text/csv'
-      expect(response.header['Content-Disposition']).to eq 'attachment; filename="due_notifications-2018-02-27.csv"'
+      expect(response.header['Content-Disposition']).to include 'attachment; ' \
+      'filename="due_notifications-2018-02-27.csv"'
       expect(response.body).to include 'email address,due_date,person_name'
       expect(response.body).to include 'User A'
       expect(response.body).to include ',February 2018,'
@@ -184,7 +186,7 @@ RSpec.describe 'Admin Downloads', type: :request do
       expect(response).to be_successful
       expect(response.header['Content-Type']).to include 'text/csv'
       expect(response.header['Content-Disposition'])
-        .to eq 'attachment; filename="unfinished_notifications-2019-04-09.csv"'
+        .to include 'attachment; filename="unfinished_notifications-2019-04-09.csv"'
       expect(response.body)
         .to include 'email address,task_period,person_name,supplier_name,task_name'
       expect(response.body)

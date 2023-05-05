@@ -1,5 +1,3 @@
-require_dependency 'framework'
-
 class Framework
   module Definition
     class MissingError < StandardError; end

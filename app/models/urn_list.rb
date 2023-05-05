@@ -12,4 +12,8 @@ class UrnList < ApplicationRecord
   def file_key
     excel_file&.attachment&.key
   end
+
+  def file_name
+    excel_file&.attachment&.filename
+  end
 end
