@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-142] - 2023-05-11
+
+- [Snyk] Security upgrade rails from 5.2.8.1 to 6.1.7.3
+- RMI-601: Fix for supplier page pagination issue
+- RMI-602: Workday endpoint update
+
 ## [release-141] - 2023-04-27
 
 - RMI-596: Fix for reversal invoices not generating when Workday API fails
@@ -942,6 +948,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-142]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-141...release-142
 [release-141]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-140...release-141
 [release-140]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-139...release-140
 [release-139]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-138...release-139
