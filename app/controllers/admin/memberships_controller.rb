@@ -1,7 +1,7 @@
 class Admin::MembershipsController < AdminController
   before_action :find_user
   def new
-    @suppliers = Supplier.excluding(@user.suppliers).order(:name).search(params[:search]).page(params[:page])
+    @suppliers = Supplier.not_including(@user.suppliers).order(:name).search(params[:search]).page(params[:page])
   end
 
   def create

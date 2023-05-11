@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.8.1'
+gem 'rails', '~> 6.1.7.3'
 
 # State machine
 gem 'aasm'
@@ -12,7 +12,8 @@ gem 'aasm'
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7', '>= 2.7.0'
+# gem 'jbuilder', '~> 2.7', '>= 2.7.0'
+gem 'jbuilder', '~> 2.11', '>= 2.11.1'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -26,7 +27,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 5.6', '>= 5.6.4'
 
 # Audit log
-gem 'rails_event_store'
+gem 'rails_event_store', '~> 1.3', '>= 1.3.1'
 
 # Auth0
 gem 'auth0', '~> 4.4', require: false
@@ -51,7 +52,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.11.2'
-gem 'skylight', '4.0.0'
+gem 'skylight', '~> 5.3', '>= 5.3.4'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
@@ -79,13 +80,16 @@ gem 'hashdiff', require: false
 # Manually set Nokgiri version, to update version.
 gem 'nokogiri', '>= 1.13.9'
 
+# Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
+gem 'net-http'
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '>= 2.7.6'
   gem 'factory_bot_rails', '>= 6.2.0'
   gem 'pry-rails'
-  gem 'rspec-rails', '>= 3.7.2'
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
 end
 
 group :development do
@@ -104,7 +108,7 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers', '~> 5.1'
+  gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
   gem 'capybara', '>= 3.35.3'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
