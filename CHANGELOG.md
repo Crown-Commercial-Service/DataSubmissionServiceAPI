@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-143] - 2023-05-25
+
+- RMI-616: Upgrade csvkit from 1.0.5 to 1.1.1
+
 ## [release-142] - 2023-05-11
 
 - [Snyk] Security upgrade rails from 5.2.8.1 to 6.1.7.3
@@ -948,6 +952,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-143]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-142...release-143
 [release-142]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-141...release-142
 [release-141]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-140...release-141
 [release-140]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-139...release-140
