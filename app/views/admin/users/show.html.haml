@@ -4,7 +4,7 @@
     %p= @user.email
     %p
       Created at:
-      = @user.created_at.to_s(:date_with_utc_time)
+      = @user.created_at.to_fs(:date_with_utc_time)
     - unless @user.active?
       %p Inactive user
   .govuk-grid-column-one-third

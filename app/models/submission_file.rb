@@ -9,7 +9,7 @@ class SubmissionFile < ApplicationRecord
   end
 
   def temporary_download_url
-    file.attachment.service_url if file.attached?
+    file.attachment.url if file.attached?
   end
 
   def file_key
