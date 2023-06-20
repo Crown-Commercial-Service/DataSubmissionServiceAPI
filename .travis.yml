@@ -32,7 +32,6 @@ install:
   - bundle install --jobs=3 --retry=3
   - pyenv install 3.7.1
   - pyenv global 3.7.1
-  - pip3 install --upgrade "pip < 21.0"
   - pip3 install --user --upgrade -r $PWD/requirements.txt
 before_script:
   - sudo apt-get install -y postgresql-11 postgresql-client-11
