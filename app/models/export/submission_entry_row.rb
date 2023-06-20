@@ -32,7 +32,7 @@ module Export
     def formatted_decimal(value)
       return '#NOTINDATA' if value == '#NOTINDATA'
 
-      value = value.gsub(/([^0-9.\-]+)/, '').to_f if value.is_a?(String)
+      value = value.gsub(/([^0-9.-]+)/, '').to_f if value.is_a?(String)
       value
     end
 

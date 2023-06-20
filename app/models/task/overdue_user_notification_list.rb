@@ -51,7 +51,7 @@ class Task
     end
 
     def due_date
-      @due_date ||= SubmissionWindow.new(year, month).due_date.to_s(:day_month_year)
+      @due_date ||= SubmissionWindow.new(year, month).due_date.to_fs(:day_month_year)
     end
 
     def frameworks

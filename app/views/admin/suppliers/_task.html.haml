@@ -4,7 +4,7 @@
       = task.framework.short_name
       %br/
       %small
-        = task.period_date.to_s(:month_year)
+        = task.period_date.to_fs(:month_year)
     - if task.active_submission
       %td.govuk-table__cell.govuk-table__cell--numeric
         - unless task.active_submission.management_charge.to_f.zero? && task.active_submission.total_spend.to_f.zero?
@@ -15,7 +15,7 @@
             = number_to_currency(task.active_submission.total_spend, unit: '£')
             spend
       %td.govuk-table__cell
-        = task.active_submission.created_at.to_s(:date_with_utc_time)
+        = task.active_submission.created_at.to_fs(:date_with_utc_time)
         %br
         %small
           = task.active_submission.created_by.email.scan(/.{1,20}/).join("\n")

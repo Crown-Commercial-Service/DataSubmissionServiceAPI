@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7.3'
+gem 'rails', '~> 7.0', '>= 7.0.4'
 
 # State machine
 gem 'aasm'
@@ -27,7 +27,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 5.6', '>= 5.6.4'
 
 # Audit log
-gem 'rails_event_store', '~> 1.3', '>= 1.3.1'
+gem 'rails_event_store', '~> 2.0'
 
 # Auth0
 gem 'auth0', '~> 4.4', require: false
@@ -83,6 +83,8 @@ gem 'nokogiri', '>= 1.13.9'
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http'
 
+gem 'sprockets-rails'
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -95,8 +97,8 @@ end
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.1'
+  gem 'spring', '~> 4.0'
+  gem 'spring-watcher-listen', '~> 2.1'
   # Generate scaffold commands from schema.rb, instead of the other way around
   # gem 'schema_to_scaffold'
   # To spin up locally using postgis, (along with edits to database.yml)
@@ -109,7 +111,7 @@ group :test do
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
-  gem 'capybara', '>= 3.35.3'
+  gem 'capybara', '~> 3.37', '>= 3.37.1'
   gem 'climate_control'
   gem 'webmock', '>= 3.4.2'
   gem 'launchy', '>= 2.4.3'

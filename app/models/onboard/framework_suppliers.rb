@@ -36,7 +36,7 @@ module Onboard
     def run
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
-          Row.new(row_data).onboard!
+          Row.new(**row_data).onboard!
           log "Supplier #{row_data.fetch(:supplier_name)} added to Lot #{row_data.fetch(:lot_number)} " \
               "on #{row_data.fetch(:framework_short_name)}"
         end

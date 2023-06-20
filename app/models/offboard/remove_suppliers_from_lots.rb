@@ -32,7 +32,7 @@ module Offboard
     def run
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
-          Row.new(row_data).offboard!
+          Row.new(**row_data).offboard!
           log "Supplier #{row_data.fetch(:supplier_name)} removed from Lot #{row_data.fetch(:lot_number)} " \
               "on #{row_data.fetch(:framework_short_name)}"
         end
