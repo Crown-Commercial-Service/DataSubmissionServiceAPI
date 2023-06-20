@@ -125,6 +125,7 @@ Layout/LineLength:
         - 'app/models/task/unfinished_user_notification_list.rb'
         - 'app/models/workday/commercial_agreements.rb'
         - 'app/models/ingest/converter.rb'
+        - 'lib/tasks/yarn.rake'
 
 Metrics/BlockLength:
     Max: 40
