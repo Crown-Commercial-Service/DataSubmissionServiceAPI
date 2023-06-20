@@ -27,7 +27,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 5.6', '>= 5.6.4'
 
 # Audit log
-gem 'rails_event_store', '~> 2.0'
+gem 'rails_event_store', '~> 2.9', '>= 2.9.1'
 
 # Auth0
 gem 'auth0', '~> 4.4', require: false
