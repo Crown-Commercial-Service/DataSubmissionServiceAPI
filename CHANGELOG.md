@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-145] - 2023-06-22
+
+- RMI-620: Rails upgrade from 6.1.7.3 to 7 and Ruby upgrade from 2.7 to 3.1.4
+
 ## [release-144] - 2023-06-12
 
 - RMI-618: updated ingest error handling
@@ -956,6 +960,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-145]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-144...release-145
 [release-144]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-143...release-144
 [release-143]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-142...release-143
 [release-142]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-141...release-142

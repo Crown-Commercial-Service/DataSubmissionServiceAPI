@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Framework::ManagementChargeCalculator::FlatRate do
-  let(:calculator) { Framework::ManagementChargeCalculator::FlatRate.new(calculator_arguments) }
+  let(:calculator) { Framework::ManagementChargeCalculator::FlatRate.new(**calculator_arguments) }
 
   describe '#calculate_for' do
     let(:calculator_arguments) { { percentage: BigDecimal('1.5') } }

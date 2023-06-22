@@ -4,7 +4,7 @@ applications:
     memory: SIDEKIQ_MEMORY_LIMIT
     buildpacks:
       - https://github.com/cloudfoundry/python-buildpack.git#v1.8.4
-      - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.54
+      - https://github.com/cloudfoundry/ruby-buildpack.git
     disk_quota: SIDEKIQ_DISK_QUOTA
     instances: SIDEKIQ_INSTANCE_COUNT
     services:

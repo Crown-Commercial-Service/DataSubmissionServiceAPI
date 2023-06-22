@@ -22,7 +22,7 @@ then
  usage
 fi
 
-MEMORY_LIMIT="1G"
+MEMORY_LIMIT="3G"
 INSTANCE_COUNT="1"
 
 SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
@@ -120,7 +120,7 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "preprod" || "$CF_SPACE" == "pr
   echo "      name other than staging / preprod / prod"
   echo " *********************************************"
 
-  MEMORY_LIMIT="1G"
+  MEMORY_LIMIT="3G"
   INSTANCE_COUNT="3"
 
   SIDEKIQ_DEFAULT_MEMORY_LIMIT="2048M"

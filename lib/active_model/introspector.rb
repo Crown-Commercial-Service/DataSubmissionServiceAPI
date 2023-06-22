@@ -87,7 +87,7 @@ module ActiveModel
     end
 
     def empty_entry
-      @empty_entry ||= Struct.new(:data).new(data: {})
+      @empty_entry ||= Struct.new(:data).new({data: {}})
     end
   end
 end

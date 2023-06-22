@@ -47,7 +47,7 @@ module Import
 
       ActiveRecord::Base.transaction do
         @csv.each do |row_data|
-          user = Row.new(row_data).import!
+          user = Row.new(**row_data).import!
           log "User #{user.email} is associated with #{user.suppliers.map(&:name).to_sentence}"
           wait
         end
