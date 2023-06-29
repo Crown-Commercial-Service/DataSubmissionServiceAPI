@@ -304,5 +304,16 @@ RSpec.describe Submission do
         expect(submission.invoice_details).to eq('Invoice details')
       end
     end
+
+    context 'when there is a Workday connection error' do
+      let(:submission) { FactoryBot.create(:completed_submission) }
+      let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+      it 'returns nil' do
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_raise(Workday::ConnectionError)
+
+        expect(submission.invoice_details).to eq(nil)
+      end
+    end
   end
 end

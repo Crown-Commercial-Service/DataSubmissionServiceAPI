@@ -107,6 +107,8 @@ class Submission < ApplicationRecord
     return unless invoice || reversal_invoice
 
     Workday::CustomerInvoice.new(self).invoice_details
+  rescue Workday::ConnectionError
+    nil
   end
 
   private
