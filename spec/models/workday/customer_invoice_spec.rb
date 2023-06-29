@@ -17,9 +17,9 @@ RSpec.describe Workday::CustomerInvoice do
   describe '#invoice_details' do
     it 'should return customer invoice details' do
       expect(customer_invoice.invoice_details).to eq(
-        :invoice_amount=>"123.45", 
-        :invoice_number=>"CINV-01234567", 
-        :payment_status=>"Unpaid"
+        invoice_amount: '123.45',
+        invoice_number: 'CINV-01234567',
+        payment_status: 'Unpaid'
       )
     end
 

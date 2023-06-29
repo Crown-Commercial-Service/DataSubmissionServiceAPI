@@ -104,7 +104,7 @@ class Submission < ApplicationRecord
   end
 
   def invoice_details
-    return unless self.invoice || self.reversal_invoice
+    return unless invoice || reversal_invoice
 
     Workday::CustomerInvoice.new(self).invoice_details
   end

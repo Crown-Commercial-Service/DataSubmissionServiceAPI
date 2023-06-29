@@ -9,7 +9,7 @@ module Workday
 
     def invoice_details
       result = {}
-      
+
       invoice_number = report_entry.at_xpath('wd:Invoice/@wd:Descriptor').text
 
       result[:invoice_number] = invoice_number.delete_prefix 'Customer Invoice: '

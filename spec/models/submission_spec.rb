@@ -296,9 +296,9 @@ RSpec.describe Submission do
     context 'when submission invoice exists' do
       let(:submission) { FactoryBot.create(:completed_submission) }
       let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
-      
+
       it 'returns invoice number, amount and status' do
-        invoice_details_double = double(invoice_details: 'Invoice details') 
+        invoice_details_double = double(invoice_details: 'Invoice details')
         allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_return(invoice_details_double)
 
         expect(submission.invoice_details).to eq('Invoice details')
