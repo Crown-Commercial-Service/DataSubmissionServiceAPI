@@ -38,6 +38,8 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
 
   attributes :file_key, :filename
 
+  attribute :invoice_details
+
   private
 
   def submission
