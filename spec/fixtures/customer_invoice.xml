@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wd:Report_Data xmlns:wd="urn:com.workday.report/CR_Customer_Invoice_API">
+    <wd:Report_Entry>
+        <wd:Invoice wd:Descriptor="Customer Invoice: CINV-01234567">
+            <wd:ID wd:type="WID">xqav57jjnkwbkyc98qqfhf8edqxhcsa1</wd:ID>
+            <wd:ID wd:type="Customer_Invoice_Reference_ID">CUSTOMER_INVOICE-9-123456</wd:ID>
+        </wd:Invoice>
+        <wd:Company wd:Descriptor="Crown Commercial Service">
+            <wd:ID wd:type="WID">tidz2tvhq2ocfi79kxmi1kwpfusgiw4h</wd:ID>
+            <wd:ID wd:type="Organization_Reference_ID">Crown_Commercial_Service</wd:ID>
+            <wd:ID wd:type="Company_Reference_ID">Crown_Commercial_Service</wd:ID>
+        </wd:Company>
+        <wd:Customer wd:Descriptor="TESTY MCTESTFACE LIMITED">
+            <wd:ID wd:type="WID">pvh14rjwhhe56xdvk15kxdqd1fcus8r7</wd:ID>
+            <wd:ID wd:type="Customer_Reference_ID">009a000001OZabcABC</wd:ID>
+            <wd:ID wd:type="Customer_ID">CU000123</wd:ID>
+        </wd:Customer>
+        <wd:Customer_Status wd:Descriptor="Active">
+            <wd:ID wd:type="WID">e89wxqi1wkliivt9a7os2zadf1bph595</wd:ID>
+            <wd:ID wd:type="Business_Entity_Status_Value_ID">ACTIVE</wd:ID>
+        </wd:Customer_Status>
+        <wd:Invoice_Status wd:Descriptor="Approved">
+            <wd:ID wd:type="WID">br5cv12f8zjwas72tdn8vivmieadc4n5</wd:ID>
+            <wd:ID wd:type="Document_Status_ID">APPROVED</wd:ID>
+        </wd:Invoice_Status>
+        <wd:Invoice_Type wd:Descriptor="Standard">
+            <wd:ID wd:type="WID">rv2baulo1454p3l8rxmxt28sbl2eq8y7</wd:ID>
+            <wd:ID wd:type="Customer_Invoice_Type_ID">Standard</wd:ID>
+        </wd:Invoice_Type>
+        <wd:Invoice_Date>2023-03-30-07:00</wd:Invoice_Date>
+        <wd:Invoice_Amount>123.45</wd:Invoice_Amount>
+        <wd:Amount_Due>123.45</wd:Amount_Due>
+        <wd:Currency wd:Descriptor="GBP">
+            <wd:ID wd:type="WID">x1t0l3sh614ngneqckphckvaepogyuiq</wd:ID>
+            <wd:ID wd:type="Currency_ID">GBP</wd:ID>
+            <wd:ID wd:type="Currency_Numeric_Code">826</wd:ID>
+        </wd:Currency>
+        <wd:Due_Date>2023-04-29-07:00</wd:Due_Date>
+        <wd:Is_On_Hold>0</wd:Is_On_Hold>
+        <wd:Payment_Terms wd:Descriptor="Net 30">
+            <wd:ID wd:type="WID">irepqe0eelkk47y8def7vfx1x4sko5w0</wd:ID>
+            <wd:ID wd:type="Payment_Terms_ID">Net30</wd:ID>
+        </wd:Payment_Terms>
+        <wd:Payment_Status wd:Descriptor="Unpaid">
+            <wd:ID wd:type="WID">wb8ycsb6qcuucayqdriozx7gei9llo64</wd:ID>
+            <wd:ID wd:type="Document_Payment_Status_ID">UNPAID</wd:ID>
+        </wd:Payment_Status>
+        <wd:Memo>Submission ID: c565f0f2-823c-402c-a6b4-de1022e4aacb</wd:Memo>
+    </wd:Report_Entry>
+</wd:Report_Data>
