@@ -26,15 +26,16 @@ RSpec.describe '/v1' do
     end
 
     it 'returns a list of customers' do
-      customer1 = FactoryBot.create(:customer, :central_government, name: 'Home Office') 
+      customer1 = FactoryBot.create(:customer, :central_government, name: 'Home Office')
       customer2 = FactoryBot.create(:customer, :central_government, name: 'Department for Health', published: false)
       customer3 = FactoryBot.create(:customer, :wider_public_sector, name: 'Bob’s Charity')
-  
+
       get '/v1/customers', headers: { 'X-Auth-Id' => user.auth_id }
 
       expect(response).to be_successful
 
       expect(json['data'].map { |data| data['id'] }).to contain_exactly(customer1.id, customer3.id)
+      expect(json['data'].map { |data| data['id'] }).not_to contain_exactly(customer2.id)
 
       json_customer = json['data'].find { |data| data['id'] == customer1.id }
       expect(json_customer).to have_attribute(:urn).with_value(customer1.urn)

@@ -16,9 +16,17 @@ RSpec.describe Customer do
   end
 
   describe '.search' do
-    let(:silly_walks_ministry) { FactoryBot.create(:customer, :central_government, name: 'Ministry of Silly Walks', urn: 12345678, postcode: "AB1 2CD" ) }
-    let(:outrageous_hats_ministry) { FactoryBot.create(:customer, :central_government, name: 'Ministry of Outrageous Hats', urn: 87654321, postcode: "X1 2YZ") }
-    let(:bobs_charity) { FactoryBot.create(:customer, :wider_public_sector, name: 'Bob’s Charity', urn: 12348765, postcode: "CD1 2EF") }
+    let(:silly_walks_ministry) do
+      FactoryBot.create(:customer, :central_government, name: 'Ministry of Silly Walks', urn: 12345678,
+     postcode: 'AB1 2CD')
+    end
+    let(:outrageous_hats_ministry) do
+      FactoryBot.create(:customer, :central_government, name: 'Ministry of Outrageous Hats', urn: 87654321,
+     postcode: 'X1 2YZ')
+    end
+    let(:bobs_charity) do
+      FactoryBot.create(:customer, :wider_public_sector, name: 'Bob’s Charity', urn: 12348765, postcode: 'CD1 2EF')
+    end
 
     it 'returns customers with URNs matching the supplied search term' do
       expect(Customer.search('1234')).to match_array([silly_walks_ministry, bobs_charity])
@@ -38,7 +46,7 @@ RSpec.describe Customer do
 
     it 'returns the scope for all customers if the query is blank' do
       expect(Customer.search(nil)).to eq Customer.all
-      expect(Customer.search("")).to eq Customer.all
+      expect(Customer.search('')).to eq Customer.all
     end
   end
 end

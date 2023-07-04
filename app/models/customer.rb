@@ -17,6 +17,11 @@ class Customer < ApplicationRecord
   validates :urn, presence: true, uniqueness: true
 
   def self.search(query)
-    query.blank? ? all : where('cast(urn as text) ILIKE :query OR name ILIKE :query OR postcode ILIKE :query', query: "%#{query}%")
+    if query.blank?
+      all
+    else
+      where('cast(urn as text) ILIKE :query OR name ILIKE :query OR postcode ILIKE :query',
+            query: "%#{query}%")
+    end
   end
 end
