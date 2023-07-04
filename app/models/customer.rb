@@ -15,4 +15,8 @@ class Customer < ApplicationRecord
 
   validates :name, :sector, presence: true
   validates :urn, presence: true, uniqueness: true
+
+  def self.search(query)
+    query.blank? ? all : where('cast(urn as text) ILIKE :query OR name ILIKE :query OR postcode ILIKE :query', query: "%#{query}%")
+  end
 end
