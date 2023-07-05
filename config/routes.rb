@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
     resources :agreements, only: :index
 
+    resources :customers, only: :index
+
     resource :customer_effort_scores, only: :create
 
     namespace :events do
