@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-146] - 2023-07-06
+
+- RMI-427: Workday invoice number integration
+- RMI-606: Searchable URN table
+
 ## [release-145] - 2023-06-22
 
 - RMI-620: Rails upgrade from 6.1.7.3 to 7 and Ruby upgrade from 2.7 to 3.1.4
@@ -960,6 +965,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-146]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-145...release-146
 [release-145]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-144...release-145
 [release-144]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-143...release-144
 [release-143]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-142...release-143
