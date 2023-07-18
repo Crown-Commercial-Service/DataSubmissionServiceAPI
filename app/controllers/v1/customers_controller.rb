@@ -3,7 +3,8 @@ class V1::CustomersController < ApiController
     customer_urns = Customer.where(deleted: false)
                             .where(published: true)
                             .order(:name)
-                            .search(params.dig(:filter, :search))
+    
+    customer_urns = customer_urns.search(params.dig(:filter, :search)) if params.dig(:filter, :search)
 
     render jsonapi: customer_urns
   end
