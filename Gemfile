@@ -18,7 +18,7 @@ gem 'jbuilder', '~> 2.11', '>= 2.11.1'
 # JSON API
 gem 'jsonapi-rails'
 
-gem 'jquery-rails', '>= 4.4.0'
+gem 'jquery-rails', '>= 4.5.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -27,21 +27,21 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 5.6', '>= 5.6.4'
 
 # Audit log
-gem 'rails_event_store', '~> 2.0'
+gem 'rails_event_store', '~> 2.10'
 
 # Auth0
 gem 'auth0', '~> 4.4', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
 # Admin Frontend
-gem 'haml-rails', '>= 2.0.1'
+gem 'haml-rails', '>= 2.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'kaminari', '>= 1.2.2'
-gem 'simple_form', '>= 5.1.0'
+gem 'simple_form', '>= 5.2.0'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
@@ -51,7 +51,7 @@ gem 'azure-storage-blob', '>= 2.0.3', require: false
 gem 'rollbar'
 
 # Logging
-gem 'lograge', '>= 0.11.2'
+gem 'lograge', '>= 0.12.0'
 gem 'skylight', '~> 5.3', '>= 5.3.4'
 
 gem 'rubocop'
@@ -88,10 +88,10 @@ gem 'sprockets-rails'
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '>= 2.7.6'
+  gem 'dotenv-rails', '>= 2.8.0'
   gem 'factory_bot_rails', '>= 6.2.0'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.2'
 end
 
 group :development do
