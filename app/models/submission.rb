@@ -103,6 +103,14 @@ class Submission < ApplicationRecord
     files.first&.filename
   end
 
+  def invoice_details
+    return unless invoice || reversal_invoice
+
+    Workday::CustomerInvoice.new(self).invoice_details
+  rescue Workday::ConnectionError
+    nil
+  end
+
   private
 
   def enqueue_reversal_invoice_creation_job(user)
