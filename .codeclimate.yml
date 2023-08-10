@@ -12,6 +12,8 @@ exclude_patterns:
 - "app/models/framework/definition/ast/semantic_checker.rb"
 - "app/models/ingest/converter.rb"
 - "app/models/ingest/loader.rb"
+- "app/models/onboard/framework_suppliers.rb"
+- "app/models/offboard/remove_suppliers_from_lots.rb"
 - "app/models/workday/submit_invoice.rb"
 - "app/models/workday/submit_invoice_adjustment.rb"
 - "app/models/workday/submit_reversal_invoice.rb"

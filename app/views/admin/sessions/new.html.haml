@@ -5,7 +5,7 @@
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    = button_to 'Start now', auth_provider_path, class: 'govuk-button govuk-button--start', id: 'start-now'
+    = button_to 'Start now', auth_provider_path, method: :post, class: 'govuk-button govuk-button--start', id: 'start-now'
     %h2.govuk-heading-m
       Before you start
     %p

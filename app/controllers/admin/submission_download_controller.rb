@@ -19,7 +19,7 @@ class Admin::SubmissionDownloadController < AdminController
     @attachment ||= begin
       attachment = submission.files.first.file
       attachment.filename = "#{task.framework.short_name} #{task.supplier.name} "\
-        "(#{task.period_date.to_s(:month_year)}).#{attachment.filename.extension}"
+        "(#{task.period_date.to_fs(:month_year)}).#{attachment.filename.extension}"
       attachment
     end
   end

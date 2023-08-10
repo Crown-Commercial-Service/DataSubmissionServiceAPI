@@ -41,7 +41,7 @@
                 %th.govuk-table__header Uploaded
             %tbody.govuk-table__body
               %td.govuk-table__cell= @framework.template_file.filename
-              %td.govuk-table__cell= @framework.template_file.attachment.created_at.to_s(:date_with_utc_time)
+              %td.govuk-table__cell= @framework.template_file.attachment.created_at.to_fs(:date_with_utc_time)
 
           = form.input :template_file, label: 'Replace file', hide_optional: true
         - else
