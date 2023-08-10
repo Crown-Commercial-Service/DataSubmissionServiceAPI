@@ -563,7 +563,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.6, >= 5.6.4)
   rails (~> 7.0, >= 7.0.5.1)
-  rails_event_store (~> 2.0)
+  rails_event_store (~> 2.10)
   rollbar
   rspec-json_expectations
   rspec-rails (~> 6.0, >= 6.0.2)
