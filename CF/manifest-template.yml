@@ -3,7 +3,7 @@ applications:
   - name: ccs-rmi-api-CF_SPACE
     memory: MEMORY_LIMIT
     buildpacks:
-    - https://github.com/cloudfoundry/ruby-buildpack.git
+    - https://github.com/cloudfoundry/ruby-buildpack.git#v1.10.3
     instances: INSTANCE_COUNT
     routes:
       - route: ccs-rmi-api-CF_SPACE.apps.internal
