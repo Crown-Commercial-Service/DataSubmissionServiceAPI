@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_094738) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_18_131845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_094738) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "deleted", default: false
     t.boolean "published", default: true
+    t.index ["name"], name: "index_customers_on_name"
     t.index ["postcode"], name: "index_customers_on_postcode"
     t.index ["sector"], name: "index_customers_on_sector"
     t.index ["urn"], name: "index_customers_on_urn", unique: true

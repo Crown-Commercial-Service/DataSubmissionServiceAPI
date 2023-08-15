@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-147] - 2023-08-15
+
+- RMI-627: Improve loading time of supplier URN list page
+- [Snyk] Security upgrade rails_event_store from 2.0 to 2.10
+- [Snyk] Security upgrade rails from 7.0.4 to 7.0.5.1 + jquery-rails from 4.4.0 to 4.5.0 + various minor version bumps
+- [Snyk] Upgrade codemirror from 5.65.12 to 5.65.13
+- RMI-637: fix for GPG error in build
+
 ## [release-146] - 2023-07-06
 
 - RMI-427: Workday invoice number integration
@@ -965,6 +973,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-147]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-146...release-147
 [release-146]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-145...release-146
 [release-145]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-144...release-145
 [release-144]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-143...release-144
