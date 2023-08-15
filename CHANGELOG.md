@@ -1,11 +1,12 @@
 # Change Log
 
-## [release-147] - 2023-08-14
+## [release-147] - 2023-08-15
 
 - RMI-627: Improve loading time of supplier URN list page
 - [Snyk] Security upgrade rails_event_store from 2.0 to 2.10
 - [Snyk] Security upgrade rails from 7.0.4 to 7.0.5.1 + jquery-rails from 4.4.0 to 4.5.0 + various minor version bumps
 - [Snyk] Upgrade codemirror from 5.65.12 to 5.65.13
+- RMI-637: fix for GPG error in build
 
 ## [release-146] - 2023-07-06
 
