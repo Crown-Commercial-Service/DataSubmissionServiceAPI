@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SerializableSubmission do
   context 'given a submission with invoices, orders and others' do
+    let(:user) { FactoryBot.create(:user) }
     let(:submission) do
-      FactoryBot.create(:completed_submission) do |submission|
+      FactoryBot.create(:completed_submission, submitted_by: user) do |submission|
         FactoryBot.create(:other_entry, submission: submission)
       end
     end
@@ -40,6 +41,10 @@ RSpec.describe SerializableSubmission do
         'OrdersReceived' => [],
         'Bid Invitations' => []
       )
+    end
+
+    it 'exposes associated submitted_by user details' do
+      expect(serialized_submission.as_jsonapi[:attributes][:submitter]).to eq(user)
     end
 
     it 'exposes the submissions file key' do
