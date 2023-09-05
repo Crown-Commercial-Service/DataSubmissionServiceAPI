@@ -69,6 +69,7 @@ Rails.application.routes.draw do
 
       collection do
         resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
+        resource :bulk_deactivate, only: %i[new create], controller: 'user_bulk_deactivation', as: :user_bulk_deactivate
       end
     end
 
