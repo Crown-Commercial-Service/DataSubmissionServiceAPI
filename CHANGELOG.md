@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-148] - 2023-09-05
+
+- RMI-631: add submitter details to Frontend view completed task page
+- [Snyk] Upgrade codemirror from 5.65.13 to 5.65.14
+
 ## [release-147] - 2023-08-15
 
 - RMI-627: Improve loading time of supplier URN list page
@@ -973,6 +978,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-148]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-147...release-148
 [release-147]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-146...release-147
 [release-146]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-145...release-146
 [release-145]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-144...release-145
