@@ -15,3 +15,5 @@ if [ $? -ne 0 ]; then
   echo "Tests failed! Exiting with status 1..."
   exit 1
 fi
+
+docker compose --file docker-compose.test.yml --env-file docker-compose.env down
