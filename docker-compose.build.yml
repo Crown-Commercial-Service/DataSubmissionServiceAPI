@@ -2,6 +2,7 @@
 version: "3"
 services:
   datasubmissionserviceapi:
+    image: datasubmissionserviceapi:$COMMIT_HASH
     environment:
       RAILS_ENV: "test"
       BUNDLE_GEMS__CONTRIBSYS__COM: ${BUNDLE_GEMS__CONTRIBSYS__COM}
