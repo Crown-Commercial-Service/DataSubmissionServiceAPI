@@ -36,6 +36,10 @@ class SerializableSubmission < JSONAPI::Serializable::Resource
 
   attribute :submitted_at
 
+  attribute :submitter do
+    submission.submitted_by
+  end
+
   attributes :file_key, :filename
 
   attribute :invoice_details

@@ -25,7 +25,7 @@ RSpec.describe '/v1' do
         :invoice_count, :order_count, :other_count,
         :invoice_total_value, :order_total_value,
         :sheet_errors, :report_no_business?, :submitted_at,
-        :file_key, :filename
+        :submitter, :file_key, :filename
       )
     end
 
