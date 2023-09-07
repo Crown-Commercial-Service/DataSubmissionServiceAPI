@@ -3,7 +3,7 @@
 COMMIT_HASH=$(git rev-parse --short HEAD)
 export COMMIT_HASH
 
-docker build -t datasubmissionserviceapi:$COMMIT_HASH --build-arg BUNDLE_GEMS__CONTRIBSYS__COM=$1 .
+docker build -t datasubmissionserviceapi:$COMMIT_HASH --build-arg BUNDLE_GEMS__CONTRIBSYS__COM=$1 --build-arg RAILS_ENV=test .
 
 docker compose --file docker-compose.build.yml --env-file docker-compose.env build
 docker compose --file docker-compose.build.yml --env-file docker-compose.env up -d db-test
