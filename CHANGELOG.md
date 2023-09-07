@@ -1,9 +1,10 @@
 # Change Log
 
-## [release-148] - 2023-09-05
+## [release-148] - 2023-09-07
 
 - RMI-631: add submitter details to Frontend view completed task page
 - [Snyk] Upgrade codemirror from 5.65.13 to 5.65.14
+- RMI-647: View completed task page (Frontend) should still display given failed Workday call
 
 ## [release-147] - 2023-08-15
 
