@@ -46,7 +46,7 @@ module Workday
           "#{base_url}/ccx/service/customreport2/#{Workday.tenant}/INT003_ISU/CR_Customer_Invoice_API?Customer_Invoice!WID=#{@workday_reference}"
         )
 
-        raise Workday::ConnectionError if result.status == 500
+        raise Workday::ConnectionError unless result.status == 200
 
         result
       end
