@@ -1,7 +1,7 @@
 ---
 version: "3"
 services:
-  datasubmissionserviceapi:
+  test:
     image: datasubmissionserviceapi:$COMMIT_HASH
     environment:
       RAILS_ENV: "test"
