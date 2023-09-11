@@ -15,8 +15,7 @@ RSpec.describe Workday::SubmitInvoice do
 
   before do
     commercial_agreements = double(
-      revenue_category_ids: { framework.short_name => 'Revenue_Category_WID' },
-      tax_code_ids: { framework.short_name => 'GBC20' }
+      revenue_category_ids: { framework.short_name => 'Revenue_Category_WID' }
     )
     allow(Workday::CommercialAgreements).to receive(:new).and_return(commercial_agreements)
   end
@@ -86,11 +85,11 @@ RSpec.describe Workday::SubmitInvoice do
         ).to eq 'Revenue_Category_WID'
       end
 
-      # it 'sets Tax_Code_Reference//ID as the tax code Workday ID for the Framework' do
-      #   expect(
-      #     text_at_xpath("//ns0:Tax_Code_Reference//ns0:ID[@ns0:type='Tax_Code_ID']")
-      #   ).to eq 'GBC20'
-      # end
+      it 'sets Ship_To_Customer_Reference//ID with the Supplier’s salesforce_id identified as Customer_Reference_ID' do
+        expect(
+          text_at_xpath("//ns0:Ship_To_Customer_Reference//ns0:ID[@ns0:type='Customer_Reference_ID']")
+        ).to eq supplier.salesforce_id
+      end
     end
 
     def text_at_xpath(xpath)

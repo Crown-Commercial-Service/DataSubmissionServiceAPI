@@ -1,5 +1,74 @@
 # Change Log
 
+## [release-148] - 2023-09-07
+
+- RMI-631: add submitter details to Frontend view completed task page
+- [Snyk] Upgrade codemirror from 5.65.13 to 5.65.14
+- RMI-647: View completed task page (Frontend) should still display given failed Workday call
+
+## [release-147] - 2023-08-15
+
+- RMI-627: Improve loading time of supplier URN list page
+- [Snyk] Security upgrade rails_event_store from 2.0 to 2.10
+- [Snyk] Security upgrade rails from 7.0.4 to 7.0.5.1 + jquery-rails from 4.4.0 to 4.5.0 + various minor version bumps
+- [Snyk] Upgrade codemirror from 5.65.12 to 5.65.13
+- RMI-637: fix for GPG error in build
+
+## [release-146] - 2023-07-06
+
+- RMI-427: Workday invoice number integration
+- RMI-606: Searchable URN table
+
+## [release-145] - 2023-06-22
+
+- RMI-620: Rails upgrade from 6.1.7.3 to 7 and Ruby upgrade from 2.7 to 3.1.4
+
+## [release-144] - 2023-06-12
+
+- RMI-618: updated ingest error handling
+
+## [release-143] - 2023-05-25
+
+- RMI-616: Upgrade csvkit from 1.0.5 to 1.1.1
+
+## [release-142] - 2023-05-11
+
+- [Snyk] Security upgrade rails from 5.2.8.1 to 6.1.7.3
+- RMI-601: Fix for supplier page pagination issue
+- RMI-602: Workday endpoint update
+
+## [release-141] - 2023-04-27
+
+- RMI-596: Fix for reversal invoices not generating when Workday API fails
+
+## [release-140] - 2023-03-30
+
+- RMI-587: Fix for pagination counteracting filtering in admin supplier page
+- RMI-549: Imporvements to URN page
+- [Dependabot] Bump rack from 2.2.5 to 2.2.6.4
+- [Snyk] Upgrade codemirror from 5.65.11 to 5.65.12
+
+## [release-139] - 2023-03-09
+
+- RMI-589: Set sidekiq buildpacks in manifest to fix builds
+
+## [release-138] - 2023-02-16
+
+- RMI-502: Fix for workday transaction not being reversed
+- RMI-573: Stop sending revenue category information to Workday
+- RMI-579: Make Workday use 'Ship To' address
+- RMI-582: Fix for blanks on completed tasks page
+- RMI-583: Fix for discrepency between completed tasks and individual completed task view.
+- [Security] Bump globalid from 1.0.0 to 1.0.1 
+
+## [release-137] - 2023-01-19
+
+- RMI-527: Change task sort order for supplier home page
+- RMI-577: create task page improvements
+- RMI-517: prevent admins from creating manual tasks dated in the future.
+- RMI-530: Edits to "OtherFields" sheet name allowlist
+- [Snyk] Upgrade codemirror from 5.65.10 to 5.65.11 
+
 ## [release-136] - 2023-01-05
 
 - RMI-553: Add status filter to Unfinished Tasks page and sort table by supplier name (A-Z)
@@ -910,6 +979,18 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-148]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-147...release-148
+[release-147]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-146...release-147
+[release-146]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-145...release-146
+[release-145]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-144...release-145
+[release-144]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-143...release-144
+[release-143]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-142...release-143
+[release-142]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-141...release-142
+[release-141]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-140...release-141
+[release-140]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-139...release-140
+[release-139]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-138...release-139
+[release-138]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-137...release-138
+[release-137]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-136...release-137
 [release-136]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-135...release-136
 [release-135]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-134...release-135
 [release-134]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-133...release-134

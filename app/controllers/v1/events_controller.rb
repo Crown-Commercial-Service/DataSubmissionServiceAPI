@@ -1,11 +1,8 @@
-class V1::EventsController < APIController
+class V1::EventsController < ApiController
   skip_before_action :reject_without_user!
 
   def user_signed_in
-    @user = User.find_by(auth_id: event_params[:user_id])
-    add_user_session(@user) if @user
-
-    event_store.publish_event(
+    event_store.publish(
       UserSignedIn.new(
         data: { user_id: event_params[:user_id] }
       )
@@ -15,9 +12,7 @@ class V1::EventsController < APIController
   end
 
   def user_signed_out
-    remove_user_session(event_params[:user_id])
-
-    event_store.publish_event(
+    event_store.publish(
       UserSignedOut.new(
         data: { user_id: event_params[:user_id] }
       )

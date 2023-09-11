@@ -44,9 +44,9 @@ Rails.application.routes.draw do
 
     resources :frameworks, only: %i[index show]
 
-    resources :urn_lists, only: :index
-
     resources :agreements, only: :index
+
+    resources :customers, only: :index
 
     resource :customer_effort_scores, only: :create
 
@@ -69,6 +69,7 @@ Rails.application.routes.draw do
 
       collection do
         resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
+        resource :bulk_deactivate, only: %i[new create], controller: 'user_bulk_deactivation', as: :user_bulk_deactivate
       end
     end
 
@@ -124,7 +125,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :urn_lists, only: %i[index new create]
+    resources :urn_lists, only: %i[index new create] do
+      member do
+        get :download
+      end
+    end
 
     resources :downloads, only: %i[index show new]
 

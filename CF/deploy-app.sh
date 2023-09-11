@@ -22,7 +22,7 @@ then
  usage
 fi
 
-MEMORY_LIMIT="1G"
+MEMORY_LIMIT="3G"
 INSTANCE_COUNT="1"
 
 SIDEKIQ_DEFAULT_INSTANCE_COUNT="1"
@@ -120,7 +120,7 @@ if [[ "$CF_SPACE" == "staging" || "$CF_SPACE" == "conclave-development" || "$CF_
   echo "      name other than staging / conclave-development / prod"
   echo " *********************************************"
 
-  MEMORY_LIMIT="1G"
+  MEMORY_LIMIT="3G"
   INSTANCE_COUNT="3"
 
   SIDEKIQ_DEFAULT_MEMORY_LIMIT="2048M"
@@ -158,5 +158,5 @@ cd .. || exit
 cf push ccs-rmi-api-"$CF_SPACE" -f CF/"$CF_SPACE".manifest.yml --strategy rolling
 
 # push API sidekiq
-cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling
-cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml -b python_buildpack -b ruby_buildpack --strategy rolling
+cf push -f CF/"$CF_SPACE".sidekiq.default.manifest.yml --strategy rolling
+cf push -f CF/"$CF_SPACE".sidekiq.ingest.manifest.yml --strategy rolling

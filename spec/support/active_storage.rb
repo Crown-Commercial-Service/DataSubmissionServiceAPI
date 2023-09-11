@@ -1,6 +1,6 @@
 RSpec.configure do |config|
   config.before(:each) do
-    ActiveStorage::Current.host = 'http://s3.example.com'
+    ActiveStorage::Current.url_options = { host: 'http://s3.example.com' }
   end
 
   config.after(:each) do

@@ -92,7 +92,7 @@ class Submission < ApplicationRecord
   end
 
   def sheet_errors
-    Hash[sheet_names.map { |sheet_name| [sheet_name, errors_for(sheet_name)] }]
+    sheet_names.index_with { |sheet_name| errors_for(sheet_name) }
   end
 
   def file_key
@@ -103,6 +103,14 @@ class Submission < ApplicationRecord
     files.first&.filename
   end
 
+  def invoice_details
+    return unless invoice || reversal_invoice
+
+    Workday::CustomerInvoice.new(self).invoice_details
+  rescue Workday::ConnectionError
+    nil
+  end
+
   private
 
   def enqueue_reversal_invoice_creation_job(user)
@@ -110,7 +118,7 @@ class Submission < ApplicationRecord
   end
 
   def create_reversal_invoice?
-    invoice.present? && ENV['SUBMIT_INVOICES']
+    !report_no_business? && management_charge != 0 && ENV['SUBMIT_INVOICES']
   end
 
   def errors_for(sheet_name)

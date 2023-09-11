@@ -16,9 +16,9 @@
           = task.framework.short_name
           %br/
           %small
-            = task.period_date.to_s(:month_year)
+            = task.period_date.to_fs(:month_year)
         %td.govuk-table__cell
-          = task.latest_submission.created_at.to_s(:date_with_utc_time)
+          = task.latest_submission.created_at.to_fs(:date_with_utc_time)
           %br/
           %small
             = task.latest_submission.created_by.email

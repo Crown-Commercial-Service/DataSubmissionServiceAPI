@@ -1,4 +1,4 @@
-class V1::FrameworksController < APIController
+class V1::FrameworksController < ApiController
   skip_before_action :authenticate, :reject_without_user!
 
   def index

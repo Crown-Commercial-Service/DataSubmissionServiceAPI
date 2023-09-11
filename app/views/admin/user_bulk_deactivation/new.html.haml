@@ -1,0 +1,20 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h1.govuk-heading-xl Bulk deactivate users
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    = simple_form_for :bulk_deactivate, url: admin_user_bulk_deactivate_path do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
+          %h2.govuk-fieldset__heading
+            CSV
+
+        = form.input :csv_file, as: :file, label: 'Choose a CSV file to upload.', hide_optional: true
+        = form.button :submit, 'Upload'
+
+        %p
+          This file should contain the following columns:
+
+        %ul.govuk-list.govuk-list--bullet
+          %li email

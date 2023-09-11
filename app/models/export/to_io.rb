@@ -1,5 +1,5 @@
 module Export
-  class ToIO
+  class ToIo
     attr_reader :relation, :output
 
     def initialize(relation, output)

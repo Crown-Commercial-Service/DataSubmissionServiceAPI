@@ -28,6 +28,9 @@ RSpec.describe Submission do
 
   describe '#replace_with_no_business state machine event' do
     let(:submission) { FactoryBot.create(:completed_submission) }
+    let(:submission_with_no_invoice) do
+      FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed')
+    end
     let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do
@@ -58,7 +61,7 @@ RSpec.describe Submission do
 
       context 'when there is no invoice for the submission' do
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.replace_with_no_business(correcting_user)
+          submission_with_no_invoice.replace_with_no_business(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
@@ -72,9 +75,7 @@ RSpec.describe Submission do
         end
       end
 
-      context 'when there is an invoice for the submission' do
-        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
-
+      context 'when there should be an invoice for the original submission' do
         it 'does not enqueue the creation of a reversal invoice' do
           submission.replace_with_no_business(correcting_user)
 
@@ -86,6 +87,9 @@ RSpec.describe Submission do
 
   describe '#mark_as_replaced state machine event' do
     let(:submission) { FactoryBot.create(:completed_submission) }
+    let(:submission_with_no_invoice) do
+      FactoryBot.create(:submission_with_zero_management_charge, aasm_state: 'completed')
+    end
     let(:correcting_user) { FactoryBot.create(:user) }
 
     it 'transitions from completed to replaced' do
@@ -101,9 +105,7 @@ RSpec.describe Submission do
         end
       end
 
-      context 'when there is an invoice for the submission' do
-        let!(:invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
-
+      context 'when there should be an invoice for the original submission' do
         it 'enqueues the creation of a reversal invoice with the correct arguments' do
           allow(SubmissionReversalInvoiceCreationJob).to receive(:perform_later)
 
@@ -114,9 +116,9 @@ RSpec.describe Submission do
         end
       end
 
-      context 'when there is no invoice for the submission' do
+      context 'when there should be no invoice for the original submission' do
         it 'does not enqueue the creation of a reversal invoice' do
-          submission.mark_as_replaced(correcting_user)
+          submission_with_no_invoice.mark_as_replaced(correcting_user)
 
           expect(SubmissionReversalInvoiceCreationJob).to_not have_been_enqueued
         end
@@ -286,6 +288,31 @@ RSpec.describe Submission do
       it 'returns nil' do
         submission = FactoryBot.create(:no_business_submission)
         expect(submission.filename).to eq(nil)
+      end
+    end
+  end
+
+  describe '#invoice_details' do
+    context 'when submission invoice exists' do
+      let(:submission) { FactoryBot.create(:completed_submission) }
+      let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+      it 'returns invoice number, amount and status' do
+        invoice_details_double = double(invoice_details: 'Invoice details')
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_return(invoice_details_double)
+
+        expect(submission.invoice_details).to eq('Invoice details')
+      end
+    end
+
+    context 'when there is a Workday connection error' do
+      let(:submission) { FactoryBot.create(:completed_submission) }
+      let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
+
+      it 'returns nil' do
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_raise(Workday::ConnectionError)
+
+        expect(submission.invoice_details).to eq(nil)
       end
     end
   end

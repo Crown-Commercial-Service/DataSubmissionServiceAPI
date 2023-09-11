@@ -1,4 +1,4 @@
-class V1::SubmissionsController < APIController
+class V1::SubmissionsController < ApiController
   deserializable_resource :submission, only: %i[create update]
 
   def show

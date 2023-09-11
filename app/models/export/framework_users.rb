@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class FrameworkUsers < ToIO
+  class FrameworkUsers < ToIo
     HEADER = %w[
       framework_reference
       framework_name

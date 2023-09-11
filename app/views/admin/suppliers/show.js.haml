@@ -1,9 +1,12 @@
-$('#frameworks-table').html("#{j (render 'show_frameworks', frameworks: @frameworks)}")
-$('#framework_pagination').html("#{j (paginate(@agreements, :param_name => "framework_page", :remote => true).to_s)}");
-$('#framework_pagination_summary').html("#{j (page_entries_info(@agreements, entry_name: "agreement").to_s)}");
-$('#tasks-table').html("#{j (render partial: 'show_tasks', locals: {tasks: @tasks})}")
-$('#task_pagination').html("#{j (paginate(@tasks, :param_name => "task_page", :remote => true).to_s)}");
-$('#task_pagination_summary').html("#{j (page_entries_info(@tasks, entry_name: "task").to_s)}");
-$('#users-table').html("#{j (render partial: 'show_users', locals: {users: @users})}")
-$('#user_pagination').html("#{j (paginate(@users, :param_name => "user_page", :remote => true).to_s)}");
-$('#user_pagination_summary').html("#{j (page_entries_info(@users, entry_name: "user").to_s)}");
+-if params[:framework_status] || params[:framework_page]
+  $('#frameworks-table').html("#{j (render 'show_frameworks', frameworks: @frameworks)}")
+  $('#framework_pagination').html("#{j (paginate(@agreements, :param_name => "framework_page", :remote => true).to_s)}");
+  $('#framework_pagination_summary').html("#{j (page_entries_info(@agreements, entry_name: "agreement").to_s)}");
+-if params[:framework_id] || params[:task_page]
+  $('#tasks-table').html("#{j (render partial: 'show_tasks', locals: {tasks: @tasks})}")
+  $('#task_pagination').html("#{j (paginate(@tasks, :param_name => "task_page", :remote => true).to_s)}");
+  $('#task_pagination_summary').html("#{j (page_entries_info(@tasks, entry_name: "task").to_s)}");
+-if params[:user_status] || params[:user_page]
+  $('#users-table').html("#{j (render partial: 'show_users', locals: {users: @users})}")
+  $('#user_pagination').html("#{j (paginate(@users, :param_name => "user_page", :remote => true).to_s)}");
+  $('#user_pagination_summary').html("#{j (page_entries_info(@users, entry_name: "user").to_s)}");

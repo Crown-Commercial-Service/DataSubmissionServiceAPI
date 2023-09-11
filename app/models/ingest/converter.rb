@@ -52,7 +52,7 @@ module Ingest
                 " #{excel_temp_file} > #{sheet_temp_file}"
       sheet = Ingest::CommandRunner.new(command).run!
 
-      raise UnreadableFile if sheet.successful? == false
+      raise UnreadableFile if sheet.stderr.any? { |s| s.include?('Error') }
 
       row_count = fetch_row_count(sheet_temp_file)
 

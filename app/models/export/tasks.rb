@@ -1,7 +1,7 @@
 require 'csv'
 
 module Export
-  class Tasks < ToIO
+  class Tasks < ToIo
     HEADER = %w[
       TaskID
       Month

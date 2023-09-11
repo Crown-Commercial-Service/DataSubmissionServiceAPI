@@ -12,7 +12,7 @@ class Supplier < ApplicationRecord
   validates :name, presence: true
   validates :salesforce_id, presence: true
 
-  scope :excluding, ->(suppliers) { where.not(id: suppliers) }
+  scope :not_including, ->(suppliers) { where.not(id: suppliers) }
 
   def self.search(query)
     query.blank? ? all : where('name ILIKE :query', query: "%#{query}%")

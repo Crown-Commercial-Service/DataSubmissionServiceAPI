@@ -2,14 +2,7 @@ class Admin::SubmissionDownloadController < AdminController
   include ActionController::Live
 
   def download
-    response.headers['Content-Type'] = attachment.content_type
-    response.headers['Content-Disposition'] = "attachment; #{attachment.filename.parameters}"
-
-    attachment.download do |chunk|
-      response.stream.write(chunk)
-    end
-  ensure
-    response.stream.close
+    send_data attachment.download, filename: attachment.filename.to_s
   end
 
   private
@@ -26,7 +19,7 @@ class Admin::SubmissionDownloadController < AdminController
     @attachment ||= begin
       attachment = submission.files.first.file
       attachment.filename = "#{task.framework.short_name} #{task.supplier.name} "\
-        "(#{task.period_date.to_s(:month_year)}).#{attachment.filename.extension}"
+        "(#{task.period_date.to_fs(:month_year)}).#{attachment.filename.extension}"
       attachment
     end
   end
