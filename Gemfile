@@ -52,7 +52,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.12.0'
-gem 'skylight', '~> 5.3', '>= 5.3.4'
+gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
@@ -60,7 +60,7 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
-gem 'sidekiq-cron', '>= 1.2.0'
+gem 'sidekiq-cron', '>= 1.3.0'
 
 gem 'activerecord-import'
 
