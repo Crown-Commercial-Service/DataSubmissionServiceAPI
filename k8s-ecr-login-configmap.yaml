@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecr-login-data-submission-service
+data:
+  config.json: |
+    {
+      "credHelpers": {
+        "473251818902.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
+        "157055423267.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
+        "671910228148.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
+        "321344124181.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login"
+      }
+    }

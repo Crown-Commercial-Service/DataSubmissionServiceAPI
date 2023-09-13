@@ -1,0 +1,173 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: buildkit-
+  labels:
+    app.kubernetes.io/name: data-submission-service-api
+spec:
+  template:
+    metadata:
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/buildkit: unconfined
+    # see buildkit/docs/rootless.md for caveats of rootless mode
+    spec:
+      securityContext:
+        fsGroup: 1000
+      serviceAccount: buildkit
+      restartPolicy: Never
+      initContainers:
+        - name: started
+          image: alpine:3.10
+          command:
+            - sh
+            - -c
+            - "true"
+        - name: receive-archive
+          image: alpine:3.10
+          command:
+            - sh
+            - -c
+            - sleep 30
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            - name: repo
+              mountPath: /tmp
+        - name: extract-archive
+          image: alpine:3.10
+          command:
+            - sh
+            - -c
+            - "tar -zxf /tmp/repo.tar.gz -C /workspace"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+            - name: repo
+              mountPath: /tmp
+              readOnly: true
+        # This initContainer downloads the Docker Credential helper for AWS ECR. For efficiency, it caches it to an EFS volume
+        # https://github.com/awslabs/amazon-ecr-credential-helper
+        - name: aws-ecr-login
+          image: alpine:3.10
+          command:
+            - sh
+            - -c
+            - >-
+              (ls /binaries/docker-credential-ecr-login && cp /binaries/docker-credential-ecr-login /usr/local/bin) || (wget
+              https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.7.1/linux-amd64/docker-credential-ecr-login
+              -O /binaries/docker-credential-ecr-login) && cp /binaries/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login
+              && chmod +x /usr/local/bin/docker-credential-ecr-login
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            - name: local-bin
+              mountPath: /usr/local/bin
+            - name: binaries
+              mountPath: /binaries
+        # Use for debugging the previous initContainers
+        # - name: sh
+        #   image: alpine:3.10
+        #   command:
+        #     - sh
+        #     - -c
+        #     - "tail -f /dev/null"
+        #   securityContext:
+        #     runAsUser: 1000
+        #     runAsGroup: 1000
+        #   volumeMounts:
+        #     - name: workspace
+        #       mountPath: /workspace
+      containers:
+        - name: buildkit
+          image: moby/buildkit:v0.12.1-rootless
+          env:
+            - name: BUILDKITD_FLAGS
+              value: --oci-worker-no-process-sandbox
+          command:
+            - buildctl-daemonless.sh
+          args:
+            - build
+            - --frontend
+            - dockerfile.v0
+            - --local
+            - context=/workspace
+            - --local
+            - dockerfile=/workspace
+            #SANDBOX_ECR- --output
+            #SANDBOX_ECR- "type=image,\"name=157055423267.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,157055423267.dkr.ecr.eu-west-2.amazonaws.com/repo-name:latest\",push=true"
+            #DEV_ECR- --output
+            #DEV_ECR- "type=image,\"name=671910228148.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,671910228148.dkr.ecr.eu-west-2.amazonaws.com/repo-name:latest\",push=true"
+            #PRE_PROD_ECR- --output
+            #PRE_PROD_ECR- type=image,name=321344124181.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,push=true
+            #PROD_ECR- --output
+            #PROD_ECR- type=image,name=PRODUCTION.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,push=true
+            - --export-cache
+            - type=local,mode=max,dest=/cache/data-submission-service-api
+            - --import-cache
+            - type=local,src=/cache/data-submission-service-api
+            # TODO: Implement per-branch caching as per https://docs.docker.com/build/cache/backends/#multiple-caches
+            # - --import-cache
+            # - type=local,src=/cache/conclave-document-upload-REF_PLACEHOLDER
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4Gi
+            requests:
+              cpu: "3"
+              memory: 4Gi
+          securityContext:
+            # TODO: Remove once confirmed not required
+            capabilities:
+              add:
+                - chown
+            # Needs Kubernetes >= 1.19
+            seccompProfile:
+              type: Unconfined
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            # Dockerfile has `VOLUME /home/user/.local/share/buildkit` by default too,
+            # but the default VOLUME does not work with rootless on Google's Container-Optimized OS
+            # as it is mounted with `nosuid,nodev`.
+            # https://github.com/moby/buildkit/issues/879#issuecomment-1240347038
+            - name: buildkit
+              mountPath: /home/user/.local/share/buildkit
+            - name: buildkit-cache
+              mountPath: /cache
+            - name: docker-config
+              mountPath: /home/user/.docker
+              readOnly: true
+            - name: local-bin
+              mountPath: /usr/local/bin
+              readOnly: true
+            - name: workspace
+              readOnly: true
+              mountPath: /workspace
+      volumes:
+        # EFS volume where binaries are stored for quick access. Retained.
+        - name: binaries
+          persistentVolumeClaim:
+            claimName: binaries
+        # EBS volume used as the buildkit working directory. Needs to be big enough to do the build. Discarded at the of the job.
+        - name: buildkit
+          persistentVolumeClaim:
+            claimName: PVC_PLACEHOLDER
+        # EFS volume for the local buildkit cache. Retained.
+        - name: buildkit-cache
+          persistentVolumeClaim:
+            claimName: buildkit-cache
+        - name: docker-config
+          configMap:
+            name: ecr-login-data-submission-service-api
+        - name: local-bin
+          emptyDir: {}
+        - name: repo
+          emptyDir: {}
+        - name: workspace
+          emptyDir: {}
