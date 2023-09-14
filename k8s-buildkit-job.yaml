@@ -100,7 +100,7 @@ spec:
             - --local
             - dockerfile=/workspace
             #SANDBOX_ECR- --output
-            #SANDBOX_ECR- "type=image,\"name=157055423267.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,157055423267.dkr.ecr.eu-west-2.amazonaws.com/repo-name:latest\",push=true"
+            #SANDBOX_ECR- "type=image,\"name=053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:TAG_PLACEHOLDER,053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:latest\",push=true"
             #DEV_ECR- --output
             #DEV_ECR- "type=image,\"name=053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:TAG_PLACEHOLDER,053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:latest\",push=true"
             #PRE_PROD_ECR- --output
