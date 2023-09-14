@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ecr-login-data-submission-service
+  name: ecr-login-data-submission-service-api
 data:
   config.json: |
     {

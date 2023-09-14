@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   generateName: buildkit-
   labels:
-    app.kubernetes.io/name: data-submission-service
+    app.kubernetes.io/name: data-submission-service-api
 spec:
   accessModes:
     - ReadWriteOnce
