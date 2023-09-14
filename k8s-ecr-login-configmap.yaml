@@ -10,6 +10,7 @@ data:
         "473251818902.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
         "157055423267.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
         "671910228148.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
-        "321344124181.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login"
+        "321344124181.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login",
+        "053307063686.dkr.ecr.eu-west-2.amazonaws.com": "ecr-login"
       }
     }
