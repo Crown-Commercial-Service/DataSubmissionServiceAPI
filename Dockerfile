@@ -62,7 +62,7 @@ COPY . $INSTALL_PATH
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
 # runtime stage
-FROM ruby:3.0.3-alpine
+FROM ruby:3.1.4-alpine
 ENV INSTALL_PATH /srv/dss-api
 RUN mkdir -p $INSTALL_PATH
 
