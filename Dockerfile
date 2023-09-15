@@ -1,5 +1,5 @@
 # Build Stage
-FROM ruby:3.0.3-alpine
+FROM ruby:3.1.4-alpine
 RUN apk add build-base curl libpq-dev nodejs tzdata
 
 RUN YARN_VERSION=1.17.3 \
