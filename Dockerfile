@@ -1,6 +1,6 @@
 # Build Stage
 FROM ruby:3.0.3-alpine
-RUN apk add build-base curl libpq-dev
+RUN apk add build-base curl libpq-dev tzdata
 
 RUN YARN_VERSION=1.17.3 \
   set -ex \
@@ -68,16 +68,16 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN apk --no-cache add libc-utils libpq-dev nodejs
-
-# This would be better moved to the base image
-RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen \
-  && localedef -i en_GB -f UTF-8 en_GB.UTF-8 \
-  && update-locale en_GB.UTF-8 UTF-8
-ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
+RUN apk --no-cache add curl libc-utils libpq-dev nodejs
 
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
+
+# Set locale and timezone
+COPY --from=0 /usr/share/zoneinfo/Europe/London /etc/localtime
+RUN echo "Europe/London" > /etc/timezone
+RUN echo 'export LC_ALL=en_GB.UTF-8' >> /etc/profile.d/locale.sh && \
+  sed -i 's|LANG=C.UTF-8|LANG=en_GB.UTF-8|' /etc/profile.d/locale.sh
 
 COPY --from=0 /usr/local/bundle /usr/local/bundle
 
