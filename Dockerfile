@@ -1,6 +1,6 @@
 # Build Stage
 FROM ruby:3.0.3-alpine
-RUN apk add build-base libpq-dev
+RUN apk add build-base curl libpq-dev
 
 RUN YARN_VERSION=1.17.3 \
   set -ex \
@@ -68,7 +68,7 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN apk --no-cache add curl libc-utils libpq-dev nodejs
+RUN apk --no-cache add libc-utils libpq-dev nodejs
 
 # This would be better moved to the base image
 RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen \
