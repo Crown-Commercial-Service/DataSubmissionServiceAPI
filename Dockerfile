@@ -1,5 +1,5 @@
 # Build Stage
-FROM ruby:3.0.1-alpine
+FROM ruby:3.0.3-alpine
 RUN apk add build-base libpq-dev
 
 RUN YARN_VERSION=1.17.3 \
