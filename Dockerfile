@@ -68,10 +68,10 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN apk add libpq-dev musl-locales nodejs
+RUN apk add glibc-locales libpq-dev musl-locales nodejs
 
 # This would be better moved to the base image
-RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
+RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && localedef en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
 ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
 
 COPY ./docker-entrypoint.sh /
