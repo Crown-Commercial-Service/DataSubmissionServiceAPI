@@ -6,7 +6,7 @@ RSpec.describe '/v1' do
   describe 'GET /v1/customers' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
         expect(response.status).to eq(401)
       end
     end
@@ -19,7 +19,7 @@ RSpec.describe '/v1' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
         get '/v1/agreements', params: {}, headers: {
           HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg'),
-          'X-Auth-Id' => JWT.encode(user.auth_id, "test")
+          'X-Auth-Id' => JWT.encode(user.auth_id, 'test')
         }
         expect(response).to be_successful
       end
@@ -30,7 +30,7 @@ RSpec.describe '/v1' do
       customer2 = FactoryBot.create(:customer, :central_government, name: 'Department for Health', published: false)
       customer3 = FactoryBot.create(:customer, :wider_public_sector, name: 'Bob’s Charity')
 
-      get '/v1/customers', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/customers', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 

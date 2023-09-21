@@ -13,7 +13,7 @@ RSpec.describe '/v1' do
     it 'returns the requested submission' do
       submission = FactoryBot.create(:submission, supplier: supplier)
 
-      get "/v1/submissions/#{submission.id}", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get "/v1/submissions/#{submission.id}", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -33,7 +33,7 @@ RSpec.describe '/v1' do
       submission = FactoryBot.create(:submission, supplier: supplier)
       file = FactoryBot.create(:submission_file, submission: submission)
 
-      get "/v1/submissions/#{submission.id}?include=files", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get "/v1/submissions/#{submission.id}?include=files", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data']).to have_id(submission.id)
@@ -46,7 +46,8 @@ RSpec.describe '/v1' do
       framework = FactoryBot.create(:framework, short_name: 'RM1234')
       submission = FactoryBot.create(:submission, framework: framework, supplier: supplier)
 
-      get "/v1/submissions/#{submission.id}?include=framework", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get "/v1/submissions/#{submission.id}?include=framework",
+          headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
       expect(response).to be_successful
 
       expect(json['data']).to have_id(submission.id)
@@ -61,7 +62,7 @@ RSpec.describe '/v1' do
       submission = FactoryBot.create(:submission, supplier: supplier)
 
       expect do
-        get "/v1/submissions/#{submission.id}", headers: { 'X-Auth-Id' => JWT.encode(bad_user.auth_id, "test") }
+        get "/v1/submissions/#{submission.id}", headers: { 'X-Auth-Id' => JWT.encode(bad_user.auth_id, 'test') }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -85,7 +86,7 @@ RSpec.describe '/v1' do
       it 'creates a new submission and returns its id' do
         post "/v1/submissions?task_id=#{task.id}",
              params: params.to_json,
-             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
+             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
 
         expect(response).to have_http_status(:created)
 
@@ -101,7 +102,7 @@ RSpec.describe '/v1' do
       it 'records the user who created the submission' do
         post "/v1/submissions?task_id=#{task.id}",
              params: params.to_json,
-             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
+             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
 
         submission = Submission.first
 
@@ -120,14 +121,14 @@ RSpec.describe '/v1' do
           expect do
             post "/v1/submissions?task_id=#{task.id}",
                  params: params.to_json,
-                 headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
+                 headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
           end.to_not change { task.submissions.count }
         end
 
         it 'responds with an error status' do
           post "/v1/submissions?task_id=#{task.id}",
                params: params.to_json,
-               headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
+               headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
 
           expect(response).to_not be_successful
         end
@@ -142,7 +143,7 @@ RSpec.describe '/v1' do
           expect do
             post "/v1/submissions?task_id=#{task.id}",
                  params: params.to_json,
-                 headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
+                 headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
           end.to change { task.submissions.count }.by(1)
         end
       end
@@ -162,7 +163,7 @@ RSpec.describe '/v1' do
 
       context 'with no previous completed submission against the task' do
         it 'marks the submission as complete' do
-          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
           expect(response).to be_successful
 
@@ -173,7 +174,7 @@ RSpec.describe '/v1' do
         end
 
         it 'records the user who completed the submission' do
-          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
           submission.reload
 
@@ -184,7 +185,8 @@ RSpec.describe '/v1' do
           submission_time = Time.zone.local(2018, 2, 10, 12, 13, 14)
 
           travel_to(submission_time) do
-            post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+            post "/v1/submissions/#{submission.id}/complete",
+                 headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
             submission.reload
 
@@ -204,7 +206,7 @@ RSpec.describe '/v1' do
         end
 
         it 'marks the submission as completed AND the old submission is replaced' do
-          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+          post "/v1/submissions/#{submission.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
           expect(response).to be_successful
 

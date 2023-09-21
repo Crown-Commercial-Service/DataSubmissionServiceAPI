@@ -5,7 +5,7 @@ RSpec.describe '/v1' do
     it 'returns the details of the current user' do
       user = FactoryBot.create(:user)
 
-      get '/v1/users', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/users', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data'].size).to eql 1
@@ -22,7 +22,7 @@ RSpec.describe '/v1' do
       user = FactoryBot.create(:user)
       user.suppliers << FactoryBot.create_list(:supplier, 2)
 
-      get '/v1/users', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/users', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(json['data'].size).to eql 1
       expect(response).to be_successful

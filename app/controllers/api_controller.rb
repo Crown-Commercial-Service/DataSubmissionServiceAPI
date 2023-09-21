@@ -12,9 +12,9 @@ class ApiController < ActionController::API
   end
 
   def current_user
-    if token
-      @current_user ||= User.find_by(auth_id: current_auth_id)
-    end
+    return unless token
+
+    @current_user ||= User.find_by(auth_id: current_auth_id)
   end
 
   private
@@ -24,7 +24,7 @@ class ApiController < ActionController::API
   end
 
   def token
-    request.env["HTTP_X_AUTH_ID"]
+    request.env['HTTP_X_AUTH_ID']
   end
 
   def current_auth_id

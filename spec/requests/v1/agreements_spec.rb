@@ -12,7 +12,7 @@ RSpec.describe '/v1' do
   describe 'GET /v1/agreements' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
         expect(response.status).to eq(401)
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe '/v1' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
         get '/v1/agreements', params: {}, headers: {
           HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg'),
-          'X-Auth-Id' => JWT.encode(user.auth_id, "test")
+          'X-Auth-Id' => JWT.encode(user.auth_id, 'test')
         }
         expect(response).to be_successful
       end
@@ -37,7 +37,7 @@ RSpec.describe '/v1' do
       agreement1 = FactoryBot.create(:agreement, active: true, framework: framework1, supplier: supplier)
       agreement2 = FactoryBot.create(:agreement, active: false, framework: framework2, supplier: supplier)
 
-      get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -57,7 +57,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:agreement, active: true, framework: framework1, supplier: supplier)
       FactoryBot.create(:agreement, active: false, framework: framework2)
 
-      get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -69,7 +69,7 @@ RSpec.describe '/v1' do
       framework = FactoryBot.create(:framework, name: 'Framework 123')
       agreement = FactoryBot.create(:agreement, active: true, framework: framework, supplier: supplier)
 
-      get '/v1/agreements?include=framework,supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, "test") }
+      get '/v1/agreements?include=framework,supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(agreement.id)
