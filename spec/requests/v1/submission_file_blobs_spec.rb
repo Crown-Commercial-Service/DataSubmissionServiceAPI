@@ -31,7 +31,7 @@ RSpec.describe '/v1' do
       post(
         v1_file_blobs_path(submission_file.id),
         params: params.to_json,
-        headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+        headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
       )
 
       expect(response).to have_http_status(:created)

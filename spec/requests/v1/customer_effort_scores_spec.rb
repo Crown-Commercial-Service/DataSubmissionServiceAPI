@@ -20,7 +20,7 @@ RSpec.describe '/v1' do
 
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(204)
 
@@ -48,7 +48,7 @@ RSpec.describe '/v1' do
 
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(204)
 
@@ -74,7 +74,7 @@ RSpec.describe '/v1' do
 
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(204)
 
@@ -100,7 +100,7 @@ RSpec.describe '/v1' do
 
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(204)
 
@@ -126,7 +126,7 @@ RSpec.describe '/v1' do
 
       it 'saves customer feedback' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(204)
 
@@ -152,7 +152,7 @@ RSpec.describe '/v1' do
 
       it 'responds with an error status' do
         post '/v1/customer_effort_scores', params: params.to_json,
-          headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+          headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, "test"))
 
         expect(response).to have_http_status(400)
 
