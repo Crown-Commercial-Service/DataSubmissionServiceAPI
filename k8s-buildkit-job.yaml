@@ -89,6 +89,13 @@ spec:
           env:
             - name: BUILDKITD_FLAGS
               value: --oci-worker-no-process-sandbox
+            # Hardcode the region here. Can be swapped for a configmap if we ever need to do multi-region ECR.
+            - name: REGION
+              value: eu-west-2
+          envFrom:
+          - configMapRef:
+              name: buildkit-aws-accounts
+              prefix: AWS_ACCOUNT_
           command:
             - buildctl-daemonless.sh
           args:
@@ -100,13 +107,13 @@ spec:
             - --local
             - dockerfile=/workspace
             #SANDBOX_ECR- --output
-            #SANDBOX_ECR- "type=image,\"name=053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:TAG_PLACEHOLDER,053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:latest\",push=true"
+            #SANDBOX_ECR- "type=image,\"name=$(AWS_ACCOUNT_RMI_SANDBOX).dkr.ecr.$(REGION).amazonaws.com/api:TAG_PLACEHOLDER,$(AWS_ACCOUNT_RMI_SANDBOX).dkr.ecr.$(REGION).amazonaws.com/api:latest\",push=true"
             #DEV_ECR- --output
-            #DEV_ECR- "type=image,\"name=053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:TAG_PLACEHOLDER,053307063686.dkr.ecr.eu-west-2.amazonaws.com/api:latest\",push=true"
-            #PRE_PROD_ECR- --output
-            #PRE_PROD_ECR- type=image,name=321344124181.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,push=true
+            #DEV_ECR- "type=image,\"name=$(AWS_ACCOUNT_RMI_DEVELOPMENT).dkr.ecr.$(REGION).amazonaws.com/api:TAG_PLACEHOLDER,$(AWS_ACCOUNT_RMI_DEVELOPMENT).dkr.ecr.$(REGION).amazonaws.com/api:latest\",push=true"
+            #STAGING_ECR- --output
+            #STAGING_ECR- type=image,name=$(AWS_ACCOUNT_RMI_STAGING).dkr.ecr.$(REGION).amazonaws.com/api:TAG_PLACEHOLDER,push=true
             #PROD_ECR- --output
-            #PROD_ECR- type=image,name=PRODUCTION.dkr.ecr.eu-west-2.amazonaws.com/repo-name:TAG_PLACEHOLDER,push=true
+            #PROD_ECR- type=image,name=$(AWS_ACCOUNT_RMI_PRODUCTION).dkr.ecr.$(REGION).amazonaws.com/api:TAG_PLACEHOLDER,push=true
             - --export-cache
             - type=local,mode=max,dest=/cache/data-submission-service-api
             - --import-cache
@@ -164,7 +171,7 @@ spec:
             claimName: buildkit-cache
         - name: docker-config
           configMap:
-            name: ecr-login-data-submission-service-api
+            name: buildkit-docker-config
         - name: local-bin
           emptyDir: {}
         - name: repo
