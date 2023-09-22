@@ -173,21 +173,21 @@ spec:
             claimName: binaries
         # EBS volume used as the buildkit working directory. Needs to be big enough to do the build. Discarded at the of the job.
         - name: buildkit
-          ephemeral:
-            volumeClaimTemplate:
-              metadata:
-                generateName: buildkit-
-                labels:
-                  app.kubernetes.io/name: data-submission-service-api
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 40Gi
-                storageClassName: gp3
-          # persistentVolumeClaim:
-          #   claimName: PVC_PLACEHOLDER
+          persistentVolumeClaim:
+            claimName: PVC_PLACEHOLDER
+          # ephemeral:
+          #   volumeClaimTemplate:
+          #     metadata:
+          #       generateName: buildkit-
+          #       labels:
+          #         app.kubernetes.io/name: data-submission-service-api
+          #     spec:
+          #       accessModes:
+          #         - ReadWriteOnce
+          #       resources:
+          #         requests:
+          #           storage: 40Gi
+          #       storageClassName: gp3
         # EFS volume for the local buildkit cache. Retained.
         - name: buildkit-cache
           persistentVolumeClaim:
@@ -200,17 +200,17 @@ spec:
         - name: repo
           emptyDir: {}
         - name: workspace
-          ephemeral:
-            volumeClaimTemplate:
-              metadata:
-                generateName: buildkit-
-                labels:
-                  app.kubernetes.io/name: data-submission-service-api
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 1Gi
-                storageClassName: gp3
-          # emptyDir: {}
+          emptyDir: {}
+          # ephemeral:
+          #   volumeClaimTemplate:
+          #     metadata:
+          #       generateName: buildkit-
+          #       labels:
+          #         app.kubernetes.io/name: data-submission-service-api
+          #     spec:
+          #       accessModes:
+          #         - ReadWriteOnce
+          #       resources:
+          #         requests:
+          #           storage: 1Gi
+          #       storageClassName: gp3
