@@ -95,7 +95,7 @@ spec:
           envFrom:
           - configMapRef:
               name: buildkit-aws-accounts
-              prefix: AWS_ACCOUNT_
+            prefix: AWS_ACCOUNT_
           command:
             - buildctl-daemonless.sh
           args:
