@@ -92,15 +92,10 @@ spec:
             # Hardcode the region here. Can be swapped for a configmap if we ever need to do multi-region ECR.
             - name: REGION
               value: eu-west-2
-            - name: SIDEKIQ_USERNAME
+            - name: BUNDLE_GEMS__CONTRIBSYS__COM
               valueFrom:
                 secretKeyRef:
-                  name: sidekiq-username
-                  key: text
-            - name: SIDEKIQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: sidekiq-password
+                  name: sidekiq-credentials
                   key: text
           envFrom:
           - configMapRef:
