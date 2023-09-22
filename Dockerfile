@@ -1,10 +1,6 @@
-FROM ruby:3.1
-
-MAINTAINER dxw <rails@dxw.com>
-
-RUN apt-get update && apt-get install -qq -y build-essential libpq-dev nodejs locales --fix-missing --no-install-recommends
-RUN echo "en_GB.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_GB.UTF-8 UTF-8 && update-locale en_GB.UTF-8 UTF-8
-ENV LANGUAGE=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
+# Build Stage
+FROM ruby:3.1.4-alpine
+RUN apk add build-base curl libpq-dev nodejs tzdata
 
 RUN YARN_VERSION=1.17.3 \
   set -ex \
@@ -46,27 +42,47 @@ COPY Gemfile.lock $INSTALL_PATH/Gemfile.lock
 COPY package.json yarn.lock $INSTALL_PATH/
 
 RUN yarn
-RUN gem update --system 
+RUN gem update --system
 RUN gem install bundler
 
 ARG BUNDLE_GEMS__CONTRIBSYS__COM
-RUN bundle config gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM} 
+RUN bundle config gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
 
 # bundle ruby gems based on the current environment, default to production
 RUN echo $RAILS_ENV
 RUN \
   if [ "$RAILS_ENV" = "production" ]; then \
-    bundle install --without development test --retry 10; \
+    bundle install --without development test --jobs 4 --retry 10; \
   else \
-    bundle install --retry 10; \
+    bundle install --jobs 4 --retry 10; \
   fi
 
 COPY . $INSTALL_PATH
 
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
+# runtime stage
+FROM ruby:3.1.4-alpine
+ENV INSTALL_PATH /srv/dss-api
+RUN mkdir -p $INSTALL_PATH
+
+WORKDIR $INSTALL_PATH
+
+RUN apk --no-cache add curl libc-utils libpq-dev nodejs
+
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
+
+# Set locale and timezone
+COPY --from=0 /usr/share/zoneinfo/Europe/London /etc/localtime
+RUN echo "Europe/London" > /etc/timezone
+RUN echo 'export LC_ALL=en_GB.UTF-8' >> /etc/profile.d/locale.sh && \
+  sed -i 's|LANG=C.UTF-8|LANG=en_GB.UTF-8|' /etc/profile.d/locale.sh
+
+COPY --from=0 /usr/local/bundle /usr/local/bundle
+
+COPY . .
+
 EXPOSE 3000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

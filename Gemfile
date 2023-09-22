@@ -20,8 +20,6 @@ gem 'jsonapi-rails'
 
 gem 'jquery-rails', '>= 4.5.0'
 
-gem 'jwt', '~> 2.2'
-
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
@@ -32,7 +30,7 @@ gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'rails_event_store', '~> 2.10'
 
 # Auth0
-gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
+gem 'auth0', '~> 4.4', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
@@ -61,7 +59,9 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 
 gem 'progress_bar', require: false
 
-gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
+# Use free version until we have the credentials in Jenkins
+# gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
+gem 'sidekiq', '>=5.2.10'
 gem 'sidekiq-cron', '>= 1.2.0'
 
 gem 'activerecord-import'
