@@ -92,6 +92,16 @@ spec:
             # Hardcode the region here. Can be swapped for a configmap if we ever need to do multi-region ECR.
             - name: REGION
               value: eu-west-2
+            - name: SIDEKIQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: sidekiq-username
+                  key: text
+            - name: SIDEKIQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sidekiq-password
+                  key: text
           envFrom:
           - configMapRef:
               name: buildkit-aws-accounts
@@ -163,8 +173,21 @@ spec:
             claimName: binaries
         # EBS volume used as the buildkit working directory. Needs to be big enough to do the build. Discarded at the of the job.
         - name: buildkit
-          persistentVolumeClaim:
-            claimName: PVC_PLACEHOLDER
+          ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                generateName: buildkit-
+                labels:
+                  app.kubernetes.io/name: data-submission-service-api
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 40Gi
+                storageClassName: gp3
+          # persistentVolumeClaim:
+          #   claimName: PVC_PLACEHOLDER
         # EFS volume for the local buildkit cache. Retained.
         - name: buildkit-cache
           persistentVolumeClaim:
@@ -177,4 +200,17 @@ spec:
         - name: repo
           emptyDir: {}
         - name: workspace
-          emptyDir: {}
+          ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                generateName: buildkit-
+                labels:
+                  app.kubernetes.io/name: data-submission-service-api
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 1Gi
+                storageClassName: gp3
+          # emptyDir: {}
