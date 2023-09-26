@@ -12,4 +12,4 @@ spec:
   resources:
     requests:
       storage: 40Gi
-  storageClassName: gp3
+  storageClassName: io2
