@@ -61,9 +61,9 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 
 gem 'progress_bar', require: false
 
-# Use free version until we have the credentials in Jenkins
-# gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
-gem 'sidekiq', '>=5.2.10'
+# Try the pro version
+gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
+# gem 'sidekiq', '>=5.2.10'
 gem 'sidekiq-cron', '>= 1.2.0'
 
 gem 'activerecord-import'
