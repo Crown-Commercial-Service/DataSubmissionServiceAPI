@@ -111,6 +111,8 @@ spec:
             - context=/workspace
             - --local
             - dockerfile=/workspace
+            - --opt
+            - build-arg:BUNDLE_GEMS__CONTRIBSYS__COM=$(BUNDLE_GEMS__CONTRIBSYS__COM)
             #SANDBOX_ECR- --output
             #SANDBOX_ECR- "type=image,\"name=$(AWS_ACCOUNT_RMI_SANDBOX).dkr.ecr.$(REGION).amazonaws.com/api:TAG_PLACEHOLDER,$(AWS_ACCOUNT_RMI_SANDBOX).dkr.ecr.$(REGION).amazonaws.com/api:latest\",push=true"
             #DEV_ECR- --output
