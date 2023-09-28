@@ -12,6 +12,8 @@ spec:
         container.apparmor.security.beta.kubernetes.io/buildkit: unconfined
     # see buildkit/docs/rootless.md for caveats of rootless mode
     spec:
+      nodeSelector:
+        fast-disks: "yes"
       securityContext:
         fsGroup: 1000
       serviceAccount: buildkit
