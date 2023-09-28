@@ -12,8 +12,6 @@ spec:
         container.apparmor.security.beta.kubernetes.io/buildkit: unconfined
     # see buildkit/docs/rootless.md for caveats of rootless mode
     spec:
-      nodeSelector:
-        fast-disks: "yes"
       securityContext:
         fsGroup: 1000
       serviceAccount: buildkit
@@ -135,7 +133,7 @@ spec:
               cpu: "4"
               memory: 4Gi
             requests:
-              cpu: "1"
+              cpu: "3"
               memory: 4Gi
           securityContext:
             # TODO: Remove once confirmed not required
