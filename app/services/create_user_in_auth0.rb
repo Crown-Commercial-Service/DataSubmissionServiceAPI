@@ -9,11 +9,11 @@ class CreateUserInAuth0
 
   def call
     auth0_response = auth0_client.create_user(
-      user.name,
+      'Username-Password-Authentication',
+      name: user.name,
       email: user.email,
       email_verified: true,
-      password: CreateUserInAuth0.temporary_password,
-      connection: 'Username-Password-Authentication',
+      password: CreateUserInAuth0.temporary_password
     )
     user.update(auth_id: auth0_response.fetch('user_id'))
   rescue Auth0::Unsupported => e
