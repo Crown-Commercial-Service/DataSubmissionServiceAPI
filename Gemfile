@@ -20,17 +20,19 @@ gem 'jsonapi-rails'
 
 gem 'jquery-rails', '>= 4.5.0'
 
+gem 'jwt', '~> 2.2'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.6', '>= 5.6.4'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 
 # Audit log
 gem 'rails_event_store', '~> 2.11', '>= 2.11.1'
 
 # Auth0
-gem 'auth0', '~> 4.4', require: false
+gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
