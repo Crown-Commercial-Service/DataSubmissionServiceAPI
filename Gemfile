@@ -41,7 +41,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 # Admin Frontend
 gem 'haml-rails', '>= 2.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
 gem 'simple_form', '>= 5.2.0'
 
