@@ -150,7 +150,12 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    database_cleaner (1.7.0)
+    database_cleaner (2.0.2)
+      database_cleaner-active_record (>= 2, < 3)
+    database_cleaner-active_record (2.1.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
@@ -582,7 +587,7 @@ DEPENDENCIES
   byebug
   capybara (~> 3.37, >= 3.37.1)
   climate_control
-  database_cleaner
+  database_cleaner (~> 2.0, >= 2.0.2)
   dotenv-rails (>= 2.8.0)
   factory_bot_rails (>= 6.2.0)
   haml-rails (>= 2.1.0)
