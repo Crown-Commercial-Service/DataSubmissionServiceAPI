@@ -12,16 +12,22 @@ class ApiController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by(auth_id: current_auth_id)
-  end
+    return unless token
 
-  def current_auth_id
-    request.headers['X-Auth-Id']
+    @current_user ||= User.find_by(auth_id: current_auth_id)
   end
 
   private
 
   def reject_without_user!
     raise ActionController::BadRequest, 'Invalid X-Auth-Id' if current_user.nil?
+  end
+
+  def token
+    request.env['HTTP_X_AUTH_ID']
+  end
+
+  def current_auth_id
+    Auth.decode(token)
   end
 end

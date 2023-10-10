@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0', '>= 7.0.5.1'
+gem 'rails', '~> 7.0', '>= 7.0.7.1'
 
 # State machine
 gem 'aasm'
@@ -20,17 +20,19 @@ gem 'jsonapi-rails'
 
 gem 'jquery-rails', '>= 4.5.0'
 
+gem 'jwt', '~> 2.2'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.6', '>= 5.6.4'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 
 # Audit log
-gem 'rails_event_store', '~> 2.10'
+gem 'rails_event_store', '~> 2.11', '>= 2.11.1'
 
 # Auth0
-gem 'auth0', '~> 4.4', require: false
+gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
@@ -51,18 +53,18 @@ gem 'azure-storage-blob', '>= 2.0.3', require: false
 gem 'rollbar'
 
 # Logging
-gem 'lograge', '>= 0.12.0'
+gem 'lograge', '>= 0.13.0'
 gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
-gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
+gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 gem 'sidekiq-cron', '>= 1.2.0'
 
-gem 'activerecord-import'
+gem 'activerecord-import', '>= 1.5.0'
 
 gem 'parslet'
 
