@@ -26,7 +26,7 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.configure do |env|
-    env.js_compressor  = :uglifier
+    env.js_compressor = :uglifier
   end
   # Resolves issue with sass-rails
   # https://github.com/sass/sassc-rails/issues/93
