@@ -303,7 +303,6 @@ GEM
     msgpack (1.5.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mutex_m (0.1.2)
     net-http (0.3.2)
       uri
     net-http-persistent (4.0.1)
