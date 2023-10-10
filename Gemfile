@@ -26,7 +26,7 @@ gem 'jwt', '~> 2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.6', '>= 5.6.4'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 
 # Audit log
 gem 'rails_event_store', '~> 2.11', '>= 2.11.1'
@@ -54,17 +54,17 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.13.0'
-gem 'skylight', '~> 5.3', '>= 5.3.4'
+gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
-gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
+gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 gem 'sidekiq-cron', '>= 1.2.0'
 
-gem 'activerecord-import'
+gem 'activerecord-import', '>= 1.5.0'
 
 gem 'parslet'
 
@@ -108,7 +108,7 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 2.0', '>= 2.0.2'
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
