@@ -1,7 +1,7 @@
 GEM
   remote: https://gems.contribsys.com/
   specs:
-    sidekiq-pro (5.3.0)
+    sidekiq-pro (7.1.5)
       sidekiq (>= 6.3.0)
 
 GEM
