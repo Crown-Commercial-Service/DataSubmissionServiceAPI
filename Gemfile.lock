@@ -2,7 +2,7 @@ GEM
   remote: https://gems.contribsys.com/
   specs:
     sidekiq-pro (7.1.5)
-      sidekiq (>= 6.3.0)
+      sidekiq (>= 7.1.5, < 8)
 
 GEM
   remote: https://rubygems.org/
@@ -429,7 +429,6 @@ GEM
       ffi (~> 1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
-    redis (4.5.1)
     redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
@@ -513,7 +512,7 @@ GEM
       tilt
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.1.4)
+    sidekiq (7.1.6)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
