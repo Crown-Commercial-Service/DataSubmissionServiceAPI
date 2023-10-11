@@ -12,7 +12,7 @@ RSpec.describe '/v1' do
   describe 'GET /tasks' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
+        get '/v1/tasks', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
         expect(response.status).to eq(401)
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe '/v1' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
         get '/v1/tasks', params: {}, headers: {
           HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials('dxw', 'sdfhg'),
-          'X-Auth-Id' => user.auth_id
+          'X-Auth-Id' => JWT.encode(user.auth_id, 'test')
         }
         expect(response).to be_successful
       end
@@ -35,7 +35,7 @@ RSpec.describe '/v1' do
       task2 = FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
       task3 = FactoryBot.create(:task, status: 'in_progress', supplier: supplier)
 
-      get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -52,7 +52,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
       FactoryBot.create(:task, status: 'in_progress')
 
-      get '/v1/tasks', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -64,7 +64,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task, supplier: supplier)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
-      get '/v1/tasks?include=submissions', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks?include=submissions', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(task.id)
@@ -79,7 +79,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task, supplier: supplier)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
-      get '/v1/tasks?include=active_submission', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks?include=active_submission', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data'][0]).to have_id(task.id)
@@ -98,7 +98,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
       FactoryBot.create(:task, status: 'completed', supplier: supplier)
 
-      get '/v1/tasks?filter[status]=completed', headers: { 'X-Auth-Id' => user.auth_id }
+      get '/v1/tasks?filter[status]=completed', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -113,7 +113,7 @@ RSpec.describe '/v1' do
       FactoryBot.create(:completed_submission, task: task, purchase_order_number: 'PO123')
 
       get '/v1/tasks?include=active_submission&fields[submissions]=status,invoice_count',
-          headers: { 'X-Auth-Id' => user.auth_id }
+          headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -135,7 +135,7 @@ RSpec.describe '/v1' do
         supplier: supplier
       )
 
-      get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => user.auth_id }
+      get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -164,7 +164,7 @@ RSpec.describe '/v1' do
           supplier: supplier
         )
 
-        get "/v1/tasks/#{task.id}?include_file=true", headers: { 'X-Auth-Id' => user.auth_id }
+        get "/v1/tasks/#{task.id}?include_file=true", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
         expect(response).to be_successful
 
@@ -178,7 +178,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task, supplier: supplier)
       submission = FactoryBot.create(:submission, task: task, aasm_state: 'pending', supplier: supplier)
 
-      get "/v1/tasks/#{task.id}?include=submissions", headers: { 'X-Auth-Id' => user.auth_id }
+      get "/v1/tasks/#{task.id}?include=submissions", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
       expect(json['data']).to have_id(task.id)
@@ -192,7 +192,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
 
       expect do
-        get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => user.auth_id }
+        get "/v1/tasks/#{task.id}", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -201,13 +201,13 @@ RSpec.describe '/v1' do
     let(:task) { FactoryBot.create(:task, supplier: supplier) }
 
     it 'marks the task as completed' do
-      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(task.reload).to be_completed
     end
 
     it 'creates and returns a completed submission' do
-      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to have_http_status(:created)
 
@@ -218,7 +218,7 @@ RSpec.describe '/v1' do
     end
 
     it 'records the user who created the submission' do
-      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       submission = task.submissions.last
 
@@ -226,7 +226,7 @@ RSpec.describe '/v1' do
     end
 
     it 'records the user who completed the submission' do
-      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+      post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       submission = task.submissions.last
 
@@ -237,7 +237,7 @@ RSpec.describe '/v1' do
       submission_time = Time.zone.local(2018, 2, 10, 12, 13, 14)
 
       travel_to(submission_time) do
-        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
         submission = task.submissions.last
 
@@ -249,7 +249,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
 
       expect do
-        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -258,7 +258,7 @@ RSpec.describe '/v1' do
         FactoryBot.create(:submission, task: task)
         submission = task.file_no_business!(user)
 
-        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => user.auth_id }
+        post "/v1/tasks/#{task.id}/no_business", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
         expect(json['data']).to have_id submission.id
       end
@@ -273,7 +273,8 @@ RSpec.describe '/v1' do
       end
 
       it 'updates the old submission to replaced' do
-        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+        post "/v1/tasks/#{task.id}/no_business",
+             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test')), params: body
         submission.reload
         expect(submission.aasm_state).to eq('replaced')
       end
@@ -281,14 +282,15 @@ RSpec.describe '/v1' do
       it 'creates a new no business submission' do
         expect do
           post "/v1/tasks/#{task.id}/no_business",
-               headers: json_headers.merge('X-Auth-Id' => user.auth_id),
+               headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test')),
                params: body
         end.to change { task.submissions.count }.by(1)
         expect(task.active_submission.report_no_business?).to be true
       end
 
       it 'returns the completed submission' do
-        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+        post "/v1/tasks/#{task.id}/no_business",
+             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test')), params: body
 
         task.reload
         new_submission = task.active_submission
@@ -299,7 +301,8 @@ RSpec.describe '/v1' do
       end
 
       it 'keeps the task as completed' do
-        post "/v1/tasks/#{task.id}/no_business", headers: json_headers.merge('X-Auth-Id' => user.auth_id), params: body
+        post "/v1/tasks/#{task.id}/no_business",
+             headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test')), params: body
         task.reload
         expect(task.status).to eq('completed')
       end
@@ -310,7 +313,7 @@ RSpec.describe '/v1' do
     it "changes a task's status to completed" do
       task = FactoryBot.create(:task, supplier: supplier)
 
-      post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+      post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
 
@@ -323,7 +326,7 @@ RSpec.describe '/v1' do
       task = FactoryBot.create(:task)
 
       expect do
-        post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => user.auth_id }
+        post "/v1/tasks/#{task.id}/complete", headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
       end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -341,7 +344,8 @@ RSpec.describe '/v1' do
         }
       }
 
-      patch "/v1/tasks/#{task.id}", params: params.to_json, headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+      patch "/v1/tasks/#{task.id}", params: params.to_json,
+headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
 
       expect(response).to be_successful
 
@@ -366,7 +370,8 @@ RSpec.describe '/v1' do
                         created_at: 1.day.ago,
                         aasm_state: 'in_review')
 
-      patch "/v1/tasks/#{task.id}/cancel_correction", headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+      patch "/v1/tasks/#{task.id}/cancel_correction",
+            headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
 
       expect(response).to be_successful
 
@@ -379,7 +384,8 @@ RSpec.describe '/v1' do
     it 'returns an error if attempting to do this on a non correcting task' do
       task = FactoryBot.create(:task, supplier: supplier, status: 'completed')
       expect do
-        patch "/v1/tasks/#{task.id}/cancel_correction", headers: json_headers.merge('X-Auth-Id' => user.auth_id)
+        patch "/v1/tasks/#{task.id}/cancel_correction",
+              headers: json_headers.merge('X-Auth-Id' => JWT.encode(user.auth_id, 'test'))
       end.to raise_error(AASM::InvalidTransition)
     end
   end

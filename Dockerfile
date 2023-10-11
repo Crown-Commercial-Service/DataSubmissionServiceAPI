@@ -17,7 +17,7 @@ RUN YARN_VERSION=1.17.3 \
 
 COPY requirements.txt $INSTALL_PATH/requirements.txt
 # This should be kept in sync with the version specified in runtime.txt
-ENV PYTHON_VERSION 3.7.4
+ENV PYTHON_VERSION 3.8
 RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
     && tar -xf Python-${PYTHON_VERSION}.tgz \
     && cd Python-${PYTHON_VERSION} \
