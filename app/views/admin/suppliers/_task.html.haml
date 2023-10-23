@@ -52,7 +52,7 @@
                 = number_to_currency(submission.total_spend, unit: '£')
                 spend
           %td.govuk-table__cell
-            = submission.created_at.to_s(:date_with_utc_time)
+            = submission.created_at.to_fs(:date_with_utc_time)
             %br
             %small
               = submission.created_by.email.scan(/.{1,20}/).join("\n")
