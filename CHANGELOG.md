@@ -1,9 +1,15 @@
 # Change Log
 
-## [release-149] - 2023-09-28
+## [release-149] - 2023-10-26
 
 - RMI-646: enable encryption on traffic between front-end and API layer
 - RMI-649: enable RMI apps to be run within Jenkins using docker
+- RMI-657: python upgrade from 3.7.x to 3.8.x
+- [Snyk] Security upgrade puma from 5.6.4 to 5.6.7
+- [Snyk] Security upgrade rails from 7.0.5.1 to 7.0.7.1
+- [Snyk] Security upgrade skylight from 5.3.4 to 6.0.0
+- [Snyk] Security upgrade sidekiq-cron from 1.2.0 to 1.3.0 and upgrade sidekiq and sidekiq-pro to 7.1.5
+- RMI-654: Upgrade to jquery3
 
 ## [release-148] - 2023-09-07
 
