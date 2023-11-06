@@ -310,7 +310,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     mutex_m (0.1.1)
-    net-http (0.3.2)
+    net-http (0.4.0)
       uri
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
@@ -559,7 +559,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.1)
     unicode-display_width (2.4.2)
-    uri (0.12.1)
+    uri (0.13.0)
     version_gem (1.1.3)
     webmock (3.19.1)
       addressable (>= 2.8.0)
@@ -606,7 +606,7 @@ DEPENDENCIES
   listen (~> 3.5, >= 3.5.1)
   lograge (>= 0.14.0)
   lolsoap (>= 0.10.0)
-  net-http
+  net-http (>= 0.4.0)
   nokogiri (>= 1.13.9)
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.1)
@@ -641,4 +641,4 @@ RUBY VERSION
    ruby 3.1.4p223
 
 BUNDLED WITH
-   2.4.20
+   2.3.26
