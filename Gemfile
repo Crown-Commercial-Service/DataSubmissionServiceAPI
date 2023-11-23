@@ -68,6 +68,9 @@ gem 'activerecord-import', '>= 1.5.0'
 
 gem 'parslet'
 
+# To enable app maintenance mode
+gem 'rack-maintenance', '~> 3.0'
+
 # For parsing and manipulating excel docs
 gem 'rubyXL', '~> 3.4', '>= 3.4.25'
 
