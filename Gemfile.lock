@@ -373,6 +373,9 @@ GEM
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
+    rack-maintenance (3.0.0)
+      rack (>= 2.1.4)
+      rake (>= 12.3.3)
     rack-protection (3.0.6)
       rack
     rack-session (1.0.1)
@@ -615,6 +618,7 @@ DEPENDENCIES
   progress_bar
   pry-rails
   puma (~> 5.6, >= 5.6.7)
+  rack-maintenance (~> 3.0)
   rails (~> 7.1, >= 7.1.0)
   rails_event_store (~> 2.11, >= 2.11.1)
   rollbar
