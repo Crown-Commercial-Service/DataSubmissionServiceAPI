@@ -54,7 +54,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.14.0'
-gem 'skylight', '~> 6.0', '>= 6.0.0'
+# gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
