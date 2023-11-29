@@ -68,7 +68,7 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN apk upgrade && apk --no-cache add curl libc-utils libpq-dev nodejs
+RUN apk --no-cache upgrade && apk --no-cache add curl libc-utils libpq-dev nodejs
 
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
