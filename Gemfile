@@ -60,9 +60,12 @@ gem 'rubocop-rails', '~> 2.10', '>= 2.10.1'
 gem 'progress_bar', require: false
 
 # Use free version until we have the credentials in Jenkins
-# gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
-gem 'sidekiq', '>=5.2.10'
+gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
+# gem 'sidekiq', '>=5.2.10'
 gem 'sidekiq-cron', '>= 1.2.0'
+
+# Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
 
 gem 'activerecord-import'
 
