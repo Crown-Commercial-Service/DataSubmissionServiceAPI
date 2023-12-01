@@ -52,7 +52,7 @@ RUN bundle config gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
 RUN echo $RAILS_ENV
 RUN \
   if [ "$RAILS_ENV" = "production" ]; then \
-    bundle install --without development test --jobs 4 --retry 10; \
+    bundle config set --local without 'development test' && bundle install --jobs 4 --retry 10; \
   else \
     bundle install --jobs 4 --retry 10; \
   fi
