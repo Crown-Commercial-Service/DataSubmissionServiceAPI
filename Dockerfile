@@ -1,5 +1,5 @@
 # Build Stage
-FROM ruby:3.1.4-alpine
+FROM ruby:3.1.4-alpine AS base
 RUN apk add build-base curl libpq-dev nodejs tzdata
 
 RUN YARN_VERSION=1.17.3 \
@@ -79,7 +79,7 @@ RUN echo "Europe/London" > /etc/timezone
 RUN echo 'export LC_ALL=en_GB.UTF-8' >> /etc/profile.d/locale.sh && \
   sed -i 's|LANG=C.UTF-8|LANG=en_GB.UTF-8|' /etc/profile.d/locale.sh
 
-COPY --from=0 /usr/local/bundle /usr/local/bundle
+COPY --from=base /usr/local/bundle /usr/local/bundle
 
 COPY . .
 
