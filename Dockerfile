@@ -1,6 +1,6 @@
 # Build Stage
 FROM public.ecr.aws/docker/library/ruby:3.1-alpine
-RUN apk upgrade && apk add build-base curl libc-utils libpq-dev nodejs tzdata && rm -rf /var/cache/apk/*
+RUN apk add build-base curl libc-utils libpq-dev nodejs tzdata && rm -rf /var/cache/apk/*
 
 # Set locale and timezone
 RUN echo "Europe/London" > /etc/timezone
@@ -65,6 +65,22 @@ COPY . $INSTALL_PATH
 
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
+# runtime stage
+FROM public.ecr.aws/docker/library/ruby:3.1-alpine
+ENV INSTALL_PATH /srv/dss-api
+RUN mkdir -p $INSTALL_PATH
+
+WORKDIR $INSTALL_PATH
+
+RUN apk add curl libpq nodejs && rm -rf /var/cache/apk/*
+
+COPY --from=base /etc/profile.d/locale.sh /etc/profile.d/locale.sh
+COPY --from=base /etc/timezone /etc/timezone
+COPY --from=base /usr/local/bundle /usr/local/bundle
+COPY --from=base /usr/share/zoneinfo /usr/share/zoneinfo
+COPY . $INSTALL_PATH
+COPY --from=base $INSTALL_PATH/node_modules $INSTALL_PATH/node_modules
+COPY --from=base $INSTALL_PATH/public/assets $INSTALL_PATH/public/assets
 RUN mv docker-entrypoint.sh /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 EXPOSE 3000
