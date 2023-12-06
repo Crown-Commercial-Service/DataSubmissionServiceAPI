@@ -74,13 +74,14 @@ WORKDIR $INSTALL_PATH
 
 RUN apk add curl libpq nodejs && rm -rf /var/cache/apk/*
 
+# Copy compiled files from the base image, leaving unnecessary build tools and libraries out of the runtime image
 COPY --from=base /etc/profile.d/locale.sh /etc/profile.d/locale.sh
 COPY --from=base /etc/timezone /etc/timezone
-# Required for csvkit
+# bz2 and lzma are required for csvkit
 COPY --from=base /usr/lib/libbz2.so.1 /usr/lib/libbz2.so.1
 COPY --from=base /usr/lib/liblzma.so.5 /usr/lib/liblzma.so.5
-COPY --from=base /usr/local/bundle /usr/local/bundle
 COPY --from=base /usr/local/bin/python3 /usr/local/bin/
+COPY --from=base /usr/local/bundle /usr/local/bundle
 RUN ln -s /usr/local/bin/python3 /usr/local/bin/python3.7
 COPY --from=base /usr/local/bin/csv* /usr/local/bin/in2csv /usr/local/bin/sql2csv /usr/local/bin/
 COPY --from=base /usr/local/lib/python3.7 /usr/local/lib/python3.7
