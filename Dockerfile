@@ -74,7 +74,7 @@ COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 # Set locale and timezone
-COPY --from=0 /usr/share/zoneinfo/Europe/London /etc/localtime
+COPY --from=base /usr/share/zoneinfo/Europe/London /etc/localtime
 RUN echo "Europe/London" > /etc/timezone
 RUN echo 'export LC_ALL=en_GB.UTF-8' >> /etc/profile.d/locale.sh && \
   sed -i 's|LANG=C.UTF-8|LANG=en_GB.UTF-8|' /etc/profile.d/locale.sh
