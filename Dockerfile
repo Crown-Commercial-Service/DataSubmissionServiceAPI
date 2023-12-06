@@ -1,6 +1,6 @@
 # Build Stage
 FROM public.ecr.aws/docker/library/ruby:3.1-alpine
-RUN apk upgrade && apk add build-base curl libc-libs libpq-dev nodejs tzdata && rm -rf /var/cache/apk/*
+RUN apk upgrade && apk add build-base curl libc-utils libpq-dev nodejs tzdata && rm -rf /var/cache/apk/*
 
 # Set locale and timezone
 RUN echo "Europe/London" > /etc/timezone
