@@ -96,7 +96,7 @@ COPY --from=base $INSTALL_PATH/public/assets $INSTALL_PATH/public/assets
 RUN mv docker-entrypoint.sh /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 # Run as non-root user
-RUN adduser -D -u 1000 -g 1000 && chown -R 1000:1000 $INSTALL_PATH
+RUN addgroup -g 1000 && adduser -D -u 1000 -G 1000 && chown -R 1000:1000 $INSTALL_PATH
 USER 1000:1000
 
 EXPOSE 3000
