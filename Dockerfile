@@ -1,5 +1,5 @@
 # Build Stage
-FROM ruby:3.1.4-alpine AS base
+FROM ruby:3.1-alpine AS base
 RUN apk add build-base curl libpq-dev nodejs tzdata
 
 RUN YARN_VERSION=1.17.3 \
@@ -62,13 +62,13 @@ COPY . $INSTALL_PATH
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
 # runtime stage
-FROM ruby:3.1.4-alpine
+FROM ruby:3.1-alpine
 ENV INSTALL_PATH /srv/dss-api
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN apk upgrade && add curl libc-utils libpq nodejs
+RUN apk upgrade && apk add curl libc-utils libpq nodejs
 
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
