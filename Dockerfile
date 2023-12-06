@@ -95,6 +95,10 @@ COPY --from=base $INSTALL_PATH/node_modules $INSTALL_PATH/node_modules
 COPY --from=base $INSTALL_PATH/public/assets $INSTALL_PATH/public/assets
 RUN mv docker-entrypoint.sh /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
+# Run as non-root user
+RUN chown -R 1000:1000 $INSTALL_PATH
+USER 1000:1000
+
 EXPOSE 3000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
