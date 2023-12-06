@@ -1,5 +1,5 @@
 # Build Stage
-FROM public.ecr.aws/docker/library/ruby:3.1-alpine
+FROM public.ecr.aws/docker/library/ruby:3.1-alpine AS base
 RUN apk add build-base curl libc-utils libpq-dev nodejs tzdata && rm -rf /var/cache/apk/*
 
 # Set locale and timezone
