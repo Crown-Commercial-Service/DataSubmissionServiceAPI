@@ -1,4 +1,9 @@
-# Build Stage
+# This is a multi-stage image build. The rationale is to copy compiled files
+# from the base stage, leaving unnecessary build tools and libraries out of
+# the runtime image. This results in a smaller image with fewer attack vectors
+# It also improves build times by caching the base stage.
+
+# Base stage
 FROM public.ecr.aws/docker/library/ruby:3.1-alpine AS base
 RUN apk add build-base bzip2-dev curl libc-utils libpq-dev nodejs tzdata xz-dev && rm -rf /var/cache/apk/*
 
@@ -65,7 +70,7 @@ COPY . $INSTALL_PATH
 
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
-# runtime stage
+# Runtime stage
 FROM public.ecr.aws/docker/library/ruby:3.1-alpine
 ENV INSTALL_PATH /srv/dss-api
 RUN mkdir -p $INSTALL_PATH
@@ -74,7 +79,6 @@ WORKDIR $INSTALL_PATH
 
 RUN apk add curl libpq nodejs && rm -rf /var/cache/apk/*
 
-# Copy compiled files from the base image, leaving unnecessary build tools and libraries out of the runtime image
 COPY --from=base /etc/profile.d/locale.sh /etc/profile.d/locale.sh
 COPY --from=base /etc/timezone /etc/timezone
 # bz2 and lzma are required for csvkit
