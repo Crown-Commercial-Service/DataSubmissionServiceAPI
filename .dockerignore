@@ -3,6 +3,7 @@
 .env.local
 .dockerignore
 config/master.key
+Dockerfile
 
 # Terraform
 *.tfstate
