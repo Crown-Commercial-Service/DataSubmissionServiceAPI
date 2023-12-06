@@ -32,7 +32,7 @@ gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'rails_event_store', '~> 2.10'
 
 # Auth0
-gem 'auth0', '~> 4.4', require: false
+gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
