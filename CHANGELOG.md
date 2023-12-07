@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-150] - 2023-12-07
+
+- RMI-670: set up maintenance mode page
+
 ## [release-149] - 2023-10-26
 
 - RMI-646: enable encryption on traffic between front-end and API layer
@@ -990,6 +994,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-150]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-149...release-150
 [release-149]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-148...release-149
 [release-148]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-147...release-148
 [release-147]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-146...release-147

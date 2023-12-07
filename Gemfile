@@ -54,7 +54,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.14.0'
-gem 'skylight', '~> 6.0', '>= 6.0.0'
+# gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
@@ -67,6 +67,9 @@ gem 'sidekiq-cron', '>= 1.3.0'
 gem 'activerecord-import', '>= 1.5.0'
 
 gem 'parslet'
+
+# To enable app maintenance mode
+gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
 gem 'rubyXL', '~> 3.4', '>= 3.4.25'
