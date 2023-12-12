@@ -554,6 +554,8 @@ GEM
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2023.3)
+      tzinfo (>= 1.0.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -635,6 +637,7 @@ DEPENDENCIES
   spring (~> 4.0)
   spring-watcher-listen (~> 2.1)
   sprockets-rails
+  tzinfo-data
   uglifier (~> 4.2)
   webmock (>= 3.4.2)
 
@@ -642,4 +645,4 @@ RUBY VERSION
    ruby 3.1.4p223
 
 BUNDLED WITH
-   2.4.20
+   2.4.22
