@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-152] - 2024-01-18
+
+- RMI-658: allow admin users to update user names
+
 ## [release-151] - 2023-12-13
 
 - RMI-673: update maintenance mode page
@@ -999,6 +1003,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-152]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-151...release-152
 [release-151]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-150...release-151
 [release-150]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-149...release-150
 [release-149]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-148...release-149
