@@ -16,6 +16,8 @@
             = link_to 'Link to a supplier', new_admin_user_membership_path(@user)
           %li.govuk-page-actions--action
             = link_to 'Deactivate user', confirm_delete_admin_user_path(@user)
+          %li.govuk-page-actions--action
+            = link_to 'Update user name', edit_admin_user_path(@user)
         - else
           %li.govuk-page-actions--action
             = link_to 'Reactivate user', confirm_reactivate_admin_user_path(@user)

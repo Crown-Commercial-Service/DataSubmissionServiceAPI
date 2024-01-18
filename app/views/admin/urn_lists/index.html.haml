@@ -9,8 +9,9 @@
       %ul.govuk-page-actions--actions
         %li.govuk-page-actions--action
           = link_to 'Add a new URN list', new_admin_urn_list_path
-        %li.govuk-page-actions--action
-          = link_to 'Download URN list', download_admin_urn_list_path(@latest_urn_list, disposition: "attachment"), {'aria-label' => 'Download latest URN list'}
+        - if @latest_urn_list.present?
+          %li.govuk-page-actions--action
+            = link_to 'Download URN list', download_admin_urn_list_path(@latest_urn_list, disposition: "attachment"), {'aria-label' => 'Download latest URN list'}
 
 .govuk-grid-row
   .govuk-grid-column-full
