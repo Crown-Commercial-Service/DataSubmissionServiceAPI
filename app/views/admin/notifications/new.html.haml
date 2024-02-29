@@ -1,0 +1,18 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = simple_form_for [:admin, @notification] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h1.govuk-fieldset__heading
+            Create a new notification
+            
+        = form.input :notification_message, hide_optional: true, wrapper: :govuk_textarea_wrapper
+        %button#markdown-preview-btn{type: "button", class: 'govuk-button'} Preview
+        = form.button :submit, value: 'Publish Notification', data: { disable_with: "Publish Notification" }
+
+    .govuk-notification-banner{"aria-labelledby" => "govuk-notification-banner-title", "data-module" => "govuk-notification-banner", role: "region"}
+      .govuk-notification-banner__header
+        %h2#govuk-notification-banner-title.govuk-notification-banner__title
+          Important
+      #markdown-preview.govuk-notification-banner__content
+

@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
     resource :customer_effort_scores, only: :create
 
+    resources :notifications, only: :index
+
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
@@ -134,6 +136,14 @@ Rails.application.routes.draw do
     resources :downloads, only: %i[index show new]
 
     resources :unfinished_tasks, only: %i[index]
+
+    resources :notifications, only: %i[index new create] do
+      member do
+        post :unpublish
+      end
+    end
+
+    post 'notifications/preview', to: 'notifications#preview'
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out

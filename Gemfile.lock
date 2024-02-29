@@ -309,7 +309,7 @@ GEM
     msgpack (1.5.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mutex_m (0.1.1)
+    mutex_m (0.1.2)
     net-http (0.3.2)
       uri
     net-http-persistent (4.0.1)
@@ -432,6 +432,7 @@ GEM
       ffi (~> 1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
+    redcarpet (3.6.0)
     redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
@@ -621,6 +622,7 @@ DEPENDENCIES
   rack-maintenance (~> 3.0)
   rails (~> 7.1, >= 7.1.0)
   rails_event_store (~> 2.11, >= 2.11.1)
+  redcarpet (~> 3.6)
   rollbar
   rspec-json_expectations
   rspec-rails (~> 6.0, >= 6.0.2)

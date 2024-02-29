@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_18_131845) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_07_115851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -146,6 +146,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_131845) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["supplier_id"], name: "index_memberships_on_supplier_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "notification_message"
+    t.boolean "published", default: false
+    t.datetime "published_at"
+    t.datetime "unpublished_at"
+    t.string "user"
+    t.index ["published"], name: "index_notifications_on_published"
   end
 
   create_table "submission_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
