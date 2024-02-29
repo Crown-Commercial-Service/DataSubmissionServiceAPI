@@ -7,10 +7,11 @@ RSpec.describe Notification, type: :model do
   end
 
   describe '#unpublish!' do
-    let!(:notification) { create :notification, published: true, notification_message: 'It may be too late for another coffee' }
+    let!(:notification) do
+      create :notification, published: true, notification_message: 'It may be too late for another coffee'
+    end
     subject! { notification.unpublish! }
     it 'sets published value to false and the unpublished_at timestamp' do
-
       notification.reload
       expect(notification.published).to be_falsey
       expect(notification.unpublished_at).not_to be_nil

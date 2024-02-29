@@ -12,7 +12,7 @@ RSpec.describe 'Admin Notifications', type: :request do
   describe '#preview' do
     it 'renders the Markdown content as HTML' do
       markdown_content = '**Bold Text**'
-      expected_html = "<p class=\"govuk-notification-banner__heading\"><strong>Bold Text</strong></p>"
+      expected_html = '<p class="govuk-notification-banner__heading"><strong>Bold Text</strong></p>'
 
       post admin_notifications_preview_path, params: { text: markdown_content }
 

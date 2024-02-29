@@ -1,21 +1,21 @@
 require 'custom_markdown_renderer'
 
 class Admin::NotificationsController < AdminController
-
-  def index 
+  def index
     @published_notification = Notification.published.first
     @notifications = Notification.order(created_at: :desc).all
   end
 
-  def new 
+  def new
     @notification = Notification.new
   end
 
-  def create 
+  def create
     renderer = CustomMarkdownRenderer.new
     markdown_parser = Redcarpet::Markdown.new(renderer)
     html = markdown_parser.render(notification_params[:notification_message])
-    @notification = Notification.new(notification_message: html, user: current_user['email'], published: true, published_at: Time.zone.now)
+    @notification = Notification.new(notification_message: html, user: current_user['email'], published: true,
+                                     published_at: Time.zone.now)
     Notification.transaction do
       if @notification.save
         flash[:success] = 'Notification created successfully.'

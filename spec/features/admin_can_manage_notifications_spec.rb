@@ -12,7 +12,7 @@ RSpec.feature 'Managing notifications' do
     click_link 'Create a new notification'
 
     expect(page).to have_text('Create a new notification')
-    
+
     fill_in 'notification_notification_message', with: 'Urgent update!'
     click_button 'Publish Notification'
 

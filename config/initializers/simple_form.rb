@@ -14,7 +14,8 @@ SimpleForm.setup do |config|
     b.use :input, class: 'govuk-input', error_class: 'govuk-input--error'
   end
 
-  config.wrappers :govuk_textarea_wrapper, tag: 'div', class: 'govuk-textarea-wrapper', error_class: 'govuk-error' do |b|
+  config.wrappers :govuk_textarea_wrapper, tag: 'div', class: 'govuk-textarea-wrapper',
+error_class: 'govuk-error' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
