@@ -9,6 +9,7 @@ checks:
     config:
       threshold: 6
 exclude_patterns:
+- "app/assets/javascripts/main.js"
 - "app/models/framework/definition/ast/semantic_checker.rb"
 - "app/models/ingest/converter.rb"
 - "app/models/ingest/loader.rb"
