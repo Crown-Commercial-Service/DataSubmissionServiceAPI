@@ -1,0 +1,12 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = simple_form_for [:admin, @user] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+          %h1.govuk-fieldset__heading
+            Update user name
+
+        = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
+
+        = form.input :name, hide_optional: true
+        = form.button :submit, value: 'Update user'

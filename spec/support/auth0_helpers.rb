@@ -26,6 +26,16 @@ module Auth0Helpers
       .to_return(status: 500, body: '')
   end
 
+  def stub_auth0_update_user_request(user)
+    stub_request(:patch, "https://testdomain/api/v2/users/#{user.auth_id}")
+      .to_return(status: 200, body: "{\"name\":\"#{user.name}\"}")
+  end
+
+  def stub_auth0_update_user_request_failure(user)
+    stub_request(:patch, "https://testdomain/api/v2/users/#{user.auth_id}")
+      .to_return(status: 500, body: '')
+  end
+
   def stub_auth0_get_users_request(email:, auth_id: 'auth|123', user_already_exists: false)
     stubbed_response = if user_already_exists
                          [{ email: email, user_id: auth_id }]
