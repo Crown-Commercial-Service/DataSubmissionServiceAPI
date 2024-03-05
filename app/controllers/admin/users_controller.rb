@@ -1,4 +1,6 @@
 class Admin::UsersController < AdminController
+  before_action :find_user, only: %i[show edit update reactivate_user confirm_delete confirm_reactivate destroy]
+
   def index
     @users = User.search(params[:search]).page(params[:page])
     # The following block (Lines 8 to 11), will check for stuck submissions in 'processing' longer than 24hrs.
@@ -11,7 +13,6 @@ class Admin::UsersController < AdminController
   end
 
   def show
-    @user = User.find(params[:id])
     @memberships = @user.memberships.includes(:supplier)
   end
 
@@ -30,24 +31,27 @@ class Admin::UsersController < AdminController
     render action: :new
   end
 
-  def edit
-    @user = User.find(params[:id])
+  def edit; end
+
+  def reactivate_user
     result = ReactivateUser.new(user: @user).call
-    flash[:alert] = I18n.t('error_adding_user_to_auth0') if result.failure?
+    flash[:alert] = I18n.t('errors.messages.error_adding_user_to_auth0') if result.failure?
 
     redirect_to admin_user_path(@user)
   end
 
-  def confirm_delete
-    @user = User.find(params[:id])
+  def update
+    result = UpdateUser.new(@user, user_params[:name]).call
+    flash[:alert] = I18n.t('errors.messages.error_updating_user_in_auth0') if result.failure?
+
+    redirect_to admin_user_path(@user)
   end
 
-  def confirm_reactivate
-    @user = User.find(params[:id])
-  end
+  def confirm_delete; end
+
+  def confirm_reactivate; end
 
   def destroy
-    @user = User.find(params[:id])
     DeactivateUser.new(user: @user).call
     flash[:alert] = 'User has been deactivated'
     redirect_to admin_users_path
@@ -57,5 +61,9 @@ class Admin::UsersController < AdminController
 
   def user_params
     params.require(:user).permit(:name, :email)
+  end
+
+  def find_user
+    @user = User.find(params[:id])
   end
 end
