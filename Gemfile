@@ -26,7 +26,7 @@ gem 'jwt', '~> 2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 5.6', '>= 5.6.7'
+gem 'puma', '~> 6.4', '>= 6.4.2'
 
 # Audit log
 gem 'rails_event_store', '~> 2.13', '>= 2.13.0'
@@ -98,7 +98,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '>= 3.0.0'
-  gem 'factory_bot_rails', '>= 6.3.0'
+  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 6.0', '>= 6.0.4'
 end
