@@ -47,7 +47,7 @@
         - else
           = form.input :template_file, label: 'Choose a file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
 
-        = form.button :submit, value: 'Upload Template'
+        = form.button :submit, value: 'Upload Template', data: { disable_with: "Update Agreement" }
 
 - unless @framework.published
   .govuk-grid-row
@@ -57,4 +57,4 @@
           %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
             %h2.govuk-fieldset__heading
               Publish
-          = form.button :submit, value: 'Publish agreement'
+          = form.button :submit, value: 'Publish agreement', data: { disable_with: "Update Agreement" }
