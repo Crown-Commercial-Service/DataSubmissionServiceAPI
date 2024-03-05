@@ -1,10 +1,10 @@
 language: ruby
 rvm:
-- 3.1.4
+  - 3.1.4
 services:
   - postgresql
 addons:
-  postgresql: "11"
+  postgresql: "14"
   apt:
     update: true
     packages:
@@ -12,7 +12,7 @@ addons:
       - python3-pip
       - python3-setuptools
       - python3-wheel
-dist: bionic
+dist: jammy
 cache:
   - bundler
   - pip
@@ -35,7 +35,8 @@ install:
   - pip3 install --upgrade "pip < 21.0"
   - pip3 install --user --upgrade -r $PWD/requirements.txt
 before_script:
-  - sudo apt-get install -y postgresql-11 postgresql-client-11
+  - sudo apt-get -qq update
+  - sudo apt-get install -y postgresql-client
   - psql -U postgres -c 'CREATE DATABASE DataSubmissionServiceApi_test;'
   - ./cc-test-reporter before-build
   - bundle exec rails db:migrate RAILS_ENV=test

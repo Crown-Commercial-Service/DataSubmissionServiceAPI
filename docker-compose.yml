@@ -22,7 +22,7 @@ services:
     volumes:
       - .:/srv/dss-api:cached
       - node_modules:/srv/dss-api/node_modules:cached
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0 -p 3000"
+    command: sh -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0 -p 3000"
     container_name: "data-submission-service-api_web"
     networks:
       public:
@@ -49,7 +49,7 @@ services:
     restart: on-failure
     volumes:
       - .:/srv/dss-api:cached
-    command: bash -c "bundle exec sidekiq"
+    command: sh -c "bundle exec sidekiq"
     container_name: "data-submission-service-api_worker"
     networks:
       private:
