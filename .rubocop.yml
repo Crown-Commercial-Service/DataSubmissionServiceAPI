@@ -65,6 +65,10 @@ Style/Alias:
 Style/FrozenStringLiteralComment:
     Enabled: false
 
+Style/HashEachMethods:
+    Exclude:
+    - 'app/models/framework/definition/ast/semantic_checker.rb'
+
 Style/HashLikeCase:
     Exclude:
     - 'app/controllers/v1/customer_effort_scores_controller.rb'
