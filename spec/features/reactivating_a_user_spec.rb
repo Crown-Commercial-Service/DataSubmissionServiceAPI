@@ -29,7 +29,7 @@ RSpec.feature 'Reactivating a user' do
     click_on 'Reactivate user'
     click_on 'Reactivate user'
 
-    expect(page).to have_content(I18n.t('error_adding_user_to_auth0'))
+    expect(page).to have_content(I18n.t('errors.messages.error_adding_user_to_auth0'))
     expect(Rails.logger).to have_received(:error)
       .with(/Error adding user #{user.email} to Auth0 during ReactivateUser/)
   end

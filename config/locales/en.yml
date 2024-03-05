@@ -31,4 +31,5 @@ en:
       invalid_lot_number: 'is not included in the supplier framework agreement'
       invalid_dependent_field: '"%{value}" is not a valid %{attr} for the given %{parent_field_name} of "%{parent_field_value}". Please refer to the lookups tab in the template.'
       error_adding_user_to_auth0: 'There was an error adding the user to Auth0. Please try again.'
+      error_updating_user_in_auth0: "There was an error updating this user's name in Auth0. Please try again."
       missing_template_file: 'Missing template file'

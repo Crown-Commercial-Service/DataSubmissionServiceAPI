@@ -54,7 +54,7 @@ gem 'rollbar'
 
 # Logging
 gem 'lograge', '>= 0.14.0'
-gem 'skylight', '~> 6.0', '>= 6.0.0'
+# gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop'
 gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
@@ -62,11 +62,18 @@ gem 'rubocop-rails', '~> 2.11', '>= 2.11.0'
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
+# gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
 gem 'sidekiq-cron', '>= 1.3.0'
+
+# Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
 
 gem 'activerecord-import', '>= 1.5.0'
 
 gem 'parslet'
+
+# To enable app maintenance mode
+gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
 gem 'rubyXL', '~> 3.4', '>= 3.4.25'
