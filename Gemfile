@@ -31,6 +31,9 @@ gem 'puma', '~> 6.4', '>= 6.4.2'
 # Audit log
 gem 'rails_event_store', '~> 2.13', '>= 2.13.0'
 
+# Markdown parser
+gem 'redcarpet', '~> 3.6'
+
 # Auth0
 gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
