@@ -1,0 +1,28 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl
+      Notifications
+
+  .govuk-grid-column-one-third
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'Create a new notification', new_admin_notification_path
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    - if @published_notification.present?
+      %h2.govuk-heading-m
+        Current notification
+      .govuk-notification-banner{"aria-labelledby" => "govuk-notification-banner-title", "data-module" => "govuk-notification-banner", role: "region", class: 'govuk-!-margin-bottom-3'}
+        .govuk-notification-banner__header
+          %h2#govuk-notification-banner-title.govuk-notification-banner__title
+            Important
+        .govuk-notification-banner__content
+          = @published_notification.notification_message.html_safe
+      = button_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
+    - else
+      %h2.govuk-heading-m
+        No notification currently published    
+
