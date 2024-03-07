@@ -1,5 +1,21 @@
 # Change Log
 
+## [release-153] - 2023-03-07
+
+- RMI-652: notification banner
+- [Snyk] Upgrade codemirror from 5.65.15 to 5.65.16
+- [Snyk] Upgrade govuk-frontend from 3.14.0 to 3.15.0
+- [Snyk] Security upgrade rspec-rails from 6.0.3 to 6.0.4
+- [Snyk] Security upgrade sidekiq-cron from 1.10.1 to 1.11.0
+- [Snyk] Security upgrade rails_event_store from 2.12.1 to 2.13.0
+- [Snyk] Security upgrade factory_bot_rails from 6.2.0 to 6.3.0
+- [Snyk] Security upgrade puma from 5.6.7 to 5.6.8
+- [Snyk] Security upgrade net-http from 0.3.2 to 0.4.0
+- [Snyk] Security upgrade rails from 7.1.0 to 7.1.3.1
+- [Snyk] Security upgrade actionpack from 7.1.0 to 7.1.3.2
+- [Snyk] Security upgrade rails_event_store from 2.11.1 to 2.13.0
+- [Snyk] Security upgrade rack from 3.0.8 to 3.0.9.1
+
 ## [release-152] - 2024-01-18
 
 - RMI-658: allow admin users to update user names
@@ -1003,6 +1019,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-153]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-152...release-153
 [release-152]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-151...release-152
 [release-151]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-150...release-151
 [release-150]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-149...release-150
