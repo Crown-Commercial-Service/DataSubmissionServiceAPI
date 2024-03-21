@@ -106,13 +106,13 @@ class Submission < ApplicationRecord
   def invoice_details
     return unless invoice
 
-    call_workday(self.invoice.workday_reference)
+    call_workday(invoice.workday_reference)
   end
 
   def credit_note_details
     return unless reversal_invoice
 
-    call_workday(self.reversal_invoice.workday_reference)
+    call_workday(reversal_invoice.workday_reference)
   end
 
   def call_workday(workday_reference)
