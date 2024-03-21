@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Workday::CustomerInvoice do
-  subject(:customer_invoice) { Workday::CustomerInvoice.new(submission) }
+  subject(:customer_invoice) { Workday::CustomerInvoice.new(submission_invoice.workday_reference) }
   let(:submission) { FactoryBot.create(:submission) }
   let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 

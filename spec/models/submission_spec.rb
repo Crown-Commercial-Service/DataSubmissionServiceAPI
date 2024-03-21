@@ -299,7 +299,7 @@ RSpec.describe Submission do
 
       it 'returns invoice number, amount and status' do
         invoice_details_double = double(invoice_details: 'Invoice details')
-        allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_return(invoice_details_double)
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_return(invoice_details_double)
 
         expect(submission.invoice_details).to eq('Invoice details')
       end
@@ -310,9 +310,23 @@ RSpec.describe Submission do
       let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
 
       it 'returns nil' do
-        allow(Workday::CustomerInvoice).to receive(:new).with(submission).and_raise(Workday::ConnectionError)
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_raise(Workday::ConnectionError)
 
         expect(submission.invoice_details).to eq(nil)
+      end
+    end
+  end
+
+  describe '#credit_note_details' do
+    context 'when submission reversal invoice exists' do
+      let(:submission) { FactoryBot.create(:completed_submission) }
+      let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission, reversal: true) }
+
+      it 'returns invoice number, amount and status' do
+        invoice_details_double = double(invoice_details: 'Invoice details')
+        allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_return(invoice_details_double)
+
+        expect(submission.credit_note_details).to eq('Invoice details')
       end
     end
   end

@@ -27,6 +27,7 @@
           = link_to 'Download', admin_task_submission_download_path(task, task.active_submission)
       %td.govuk-table__cell
         = link_to 'View', admin_supplier_submission_path(task.supplier, task.active_submission) if task.active_submission.validation_failed?
+        = link_to 'View', admin_supplier_submission_details_path(task.supplier, task.active_submission) if task.active_submission.completed? && task.active_submission.replaceable?
       %td.govuk-table__cell.rmi-govuk-table__cell{:colspan => 2}
         - if task.past_submissions && task.past_submissions.any?
           %span.rmi-govuk-table-accordion-icon.govuk-accordion__icon{"data-table-icon" => task.id }
@@ -34,7 +35,8 @@
       %td.govuk-table__cell
       %td.govuk-table__cell
       %td.govuk-table__cell{:colspan => 2}
-        = task.status.titlecase
+        %small
+          = task.status.titlecase
       %td.govuk-table__cell
       %td.govuk-table__cell
       %td.govuk-table__cell{:colspan => 2}
@@ -61,4 +63,5 @@
               = submission.aasm_state.titlecase
           %td.govuk-table__cell
           %td.govuk-table__cell
+            = link_to 'View', admin_supplier_submission_details_path(submission.supplier, submission) if submission.replaced? && submission.replaceable?
           %td.govuk-table__cell{:colspan => 2}

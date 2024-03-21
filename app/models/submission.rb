@@ -104,9 +104,19 @@ class Submission < ApplicationRecord
   end
 
   def invoice_details
-    return unless invoice || reversal_invoice
+    return unless invoice
 
-    Workday::CustomerInvoice.new(self).invoice_details
+    call_workday(self.invoice.workday_reference)
+  end
+
+  def credit_note_details
+    return unless reversal_invoice
+
+    call_workday(self.reversal_invoice.workday_reference)
+  end
+
+  def call_workday(workday_reference)
+    Workday::CustomerInvoice.new(workday_reference).invoice_details
   rescue Workday::ConnectionError
     nil
   end
