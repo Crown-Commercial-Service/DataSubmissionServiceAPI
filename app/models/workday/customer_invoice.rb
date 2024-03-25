@@ -2,9 +2,8 @@ module Workday
   class ConnectionError < StandardError; end
 
   class CustomerInvoice
-    def initialize(submission)
-      @submission = submission
-      @workday_reference = submission.invoice.workday_reference
+    def initialize(workday_reference)
+      @workday_reference = workday_reference
     end
 
     def invoice_details

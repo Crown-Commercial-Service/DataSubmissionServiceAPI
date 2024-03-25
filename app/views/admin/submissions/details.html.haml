@@ -1,0 +1,97 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    = link_to 'Back', admin_supplier_path(@submission.supplier), { class: 'govuk-back-link', title: 'Back to supplier' }
+
+    %h1.govuk-heading-xl
+      = @submission.task.framework.short_name
+      = @submission.task.framework.name
+      for
+      = @submission.task.period_date.to_fs(:month_year)
+
+.govuk-grid-row
+  .govuk-grid-column-three-quarters
+    %dl.govuk-summary-list.govuk-summary-list--no-border
+      .govuk-summary-list__row
+        %dt.govuk-summary-list__key
+          Reported
+        %dd.govuk-summary-list__value
+          = @submission.task.updated_at || '-'
+
+      .govuk-summary-list__row
+        %dt.govuk-summary-list__key
+          Reported by
+        %dd.govuk-summary-list__value
+          = @submission.created_by[:email]
+
+      - if @submission.purchase_order_number.present?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Purchase order number
+          %dd.govuk-summary-list__value
+            = @submission.purchase_order_number
+
+      - if @submission.files.any? && @submission.files.first.file.attached?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Filename
+          %dd.govuk-summary-list__value
+            = link_to(@submission.files.first.file.filename, admin_task_submission_download_path(@submission.task, @submission))
+
+      - if @submission.invoice_details.present?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Invoice number
+          %dd.govuk-summary-list__value
+            = @submission.invoice_details[:invoice_number]
+
+      - if @submission.invoice_details.present?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Invoice amount
+          %dd.govuk-summary-list__value
+            = number_to_currency(@submission.invoice_details[:invoice_amount], unit: '£')
+
+      - if @submission.invoice_details.present?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Payment status
+          %dd.govuk-summary-list__value
+            = @submission.invoice_details[:payment_status]
+
+      - if @submission.credit_note_details.present?
+        .govuk-summary-list__row
+          %dt.govuk-summary-list__key
+            Credit note
+          %dd.govuk-summary-list__value
+            = @submission.credit_note_details[:invoice_number]
+
+    %table.govuk-table
+      %caption.govuk-table__caption.govuk-visually-hidden
+        Submission
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header{ scope: 'col' } Submitted
+          %th.govuk-table__header.govuk-table__header--numeric{ scope: 'col' } Rows
+          %th.govuk-table__header.govuk-table__header--numeric{ scope: 'col' } Total
+
+      %tbody.govuk-table__body
+        %tr.govuk-table__row.invoices
+          %th.govuk-table__header{ scope: 'row' }
+            Invoices
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            = @submission.entries.invoices.count
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            = number_to_currency(@submission.total_spend, unit: '£')
+        %tr.govuk-table__row.contracts
+          %th.govuk-table__header{ scope: 'row' }
+            Contracts
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            = @submission.entries.orders.count
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            = number_to_currency(@submission.order_total_value, unit: '£')
+        %tr.govuk-table__row.others
+          %th.govuk-table__header{ scope: 'row' }
+            Others
+          %td.govuk-table__cell.govuk-table__cell--numeric
+            = @submission.entries.others.count
+          %td.govuk-table__cell.govuk-table__cell
