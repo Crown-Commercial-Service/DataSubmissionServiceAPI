@@ -38,11 +38,12 @@
             %tr.govuk-table__row
               %td.govuk-table__cell= link_to membership.supplier.name, admin_supplier_path(membership.supplier)
               %td.govuk-table__cell
-                %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
-                  %h3#table-actions-title-1.govuk-visually-hidden Row actions
-                  %ul.govuk-table-actions--actions
-                    %li.govuk-table-actions--action
-                      = link_to 'Unlink', admin_user_membership_path(@user, membership, return_to: 'user')
+                - if @user.multiple_suppliers?
+                  %nav.govuk-table-actions{"aria-labelledby" => "table-actions-title-1"}
+                    %h3#table-actions-title-1.govuk-visually-hidden Row actions
+                    %ul.govuk-table-actions--actions
+                      %li.govuk-table-actions--action
+                        = link_to 'Unlink', admin_user_membership_path(@user, membership, return_to: 'user')
     -else
       %p
         No suppliers linked to
