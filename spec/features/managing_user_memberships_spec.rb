@@ -33,7 +33,7 @@ RSpec.feature 'Managing user memberships' do
       expect(page).to have_content('Supplier 2')
       expect(page).to have_content('Unlink')
 
-      click_link("Unlink", :match => :first)
+      click_link('Unlink', match: :first)
       click_on 'Unlink user'
 
       expect(page).to_not have_content('Supplier 1')
