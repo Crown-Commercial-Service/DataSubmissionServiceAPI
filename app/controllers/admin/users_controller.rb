@@ -18,17 +18,29 @@ class Admin::UsersController < AdminController
 
   def new
     @user = User.new
+    @suppliers = Supplier.order(:name).search(params[:search]).page(params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
-  def create
-    @user = User.new(user_params)
-    if @user.valid?
-      result = CreateUser.new(user: @user).call
-      flash[:alert] = I18n.t('error_adding_user_to_auth0') if result.failure?
-
-      return redirect_to admin_user_path(@user) if @user.persisted?
+  def create 
+    params[:supplier_salesforce_ids].first.split(',') if params[:supplier_salesforce_ids].length === 1
+    supplier_sf_ids = params[:supplier_salesforce_ids]
+    if supplier_sf_ids.all?(&:blank?)
+      flash[:alert] = "You must select at least one supplier."
+      return redirect_to new_admin_user_path
     end
-    render action: :new
+
+    begin
+      import_user_with_suppliers(user_params, supplier_sf_ids)
+      flash[:notice] = "User created successfully with linked suppliers."
+      redirect_to admin_users_path
+    rescue StandardError => e
+      flash[:error] = "Failed to create user: #{e.message}"
+      redirect_to new_admin_user_path
+    end
   end
 
   def edit; end
@@ -60,10 +72,16 @@ class Admin::UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, supplier_salesforce_ids: [])
   end
 
   def find_user
     @user = User.find(params[:id])
+  end
+
+  def import_user_with_suppliers(user_data, supplier_sf_ids)
+    supplier_sf_ids.each do |supplier_id|
+      Import::Users::Row.new(email: user_data['email'], name: user_data['name'], supplier_salesforce_id: supplier_id.strip).import!
+    end
   end
 end

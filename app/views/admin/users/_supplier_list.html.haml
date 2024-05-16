@@ -1,0 +1,23 @@
+%table.govuk-table
+  %thead.govuk-table__head
+    %tr.govuk-table__row
+      %th.govuk-table__header Supplier
+      %noscript
+        %th.govuk-table__header Salesforce ID
+  %tbody.govuk-table__body
+    - @suppliers.each do |supplier|
+      %tr.govuk-table__row
+        %td.govuk-table__cell
+          %noscript
+            = supplier.name 
+          .govuk-checkboxes.js-checkbox-container
+            .govuk-checkboxes__item
+              = check_box_tag "supplier_salesforce_ids[]", supplier.salesforce_id, false, id: "supplier_#{supplier.salesforce_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small'
+              = label_tag "supplier_#{supplier.salesforce_id}", supplier.name, class: 'govuk-checkboxes__label'
+        %noscript
+          %td.govuk-table__cell
+            %noscript
+              = supplier.salesforce_id
+%nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
+  #supplier_pagination_summary.ccs-pagination__summary= page_entries_info @suppliers, entry_name: "supplier"
+  #supplier_pagination= paginate @suppliers, :param_name => "supplier_page", remote: true
