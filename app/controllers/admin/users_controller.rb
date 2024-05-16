@@ -25,17 +25,16 @@ class Admin::UsersController < AdminController
     end
   end
 
-  def create 
-    params[:supplier_salesforce_ids].first.split(',') if params[:supplier_salesforce_ids].length === 1
-    supplier_sf_ids = params[:supplier_salesforce_ids]
+  def create
+    supplier_sf_ids = split_sf_ids(params[:supplier_salesforce_ids])
     if supplier_sf_ids.all?(&:blank?)
-      flash[:alert] = "You must select at least one supplier."
+      flash[:alert] = 'You must select at least one supplier.'
       return redirect_to new_admin_user_path
     end
 
     begin
       import_user_with_suppliers(user_params, supplier_sf_ids)
-      flash[:notice] = "User created successfully with linked suppliers."
+      flash[:notice] = 'User created successfully with linked suppliers.'
       redirect_to admin_users_path
     rescue StandardError => e
       flash[:error] = "Failed to create user: #{e.message}"
@@ -79,9 +78,14 @@ class Admin::UsersController < AdminController
     @user = User.find(params[:id])
   end
 
+  def split_sf_ids(sf_ids)
+    sf_ids.first.split(',') if sf_ids.length === 1 # rubocop:disable Style/CaseEquality
+  end
+
   def import_user_with_suppliers(user_data, supplier_sf_ids)
     supplier_sf_ids.each do |supplier_id|
-      Import::Users::Row.new(email: user_data['email'], name: user_data['name'], supplier_salesforce_id: supplier_id.strip).import!
+      Import::Users::Row.new(email: user_data['email'], name: user_data['name'],
+                             supplier_salesforce_id: supplier_id.strip).import!
     end
   end
 end
