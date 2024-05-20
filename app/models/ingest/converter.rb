@@ -12,7 +12,7 @@ module Ingest
     class UnreadableFile < StandardError; end
 
     SHEET_NAME_PATTERNS = {
-      'invoice' => /(booking|finance|management|invoice|Transactions)/i,
+      'invoice' => /(booking|finance|management|invoice|transactions)/i,
       'order'   => /(order|contract)/i,
       'other'   => /Briefs Received|ITQs|Bid Invitations|Live Sites|Utility Spend|Success Measures|Customer data|Lot1 Rebate|Tenders Received/i
     }.freeze
