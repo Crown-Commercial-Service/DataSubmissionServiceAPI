@@ -47,13 +47,13 @@ RSpec.feature 'Adding a user' do
       fill_in 'Name', with: 'New User'
       fill_in 'salesforce-ids', with: supplier_2.salesforce_id
       click_button 'Add new user'
-  
+
       expect(page).to have_content('You must provide an email address.')
     end
   end
 
   context 'when an existing email provided' do
-    let!(:existing_user) { create :user, email: email}
+    let!(:existing_user) { create :user, email: email }
     scenario 'it fails and alerts you the user already exists' do
       click_on 'Users'
       click_on 'Add a new user'

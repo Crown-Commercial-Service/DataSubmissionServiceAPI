@@ -28,19 +28,17 @@ class Admin::UsersController < AdminController
   def create
     return redirect_to new_admin_user_path, alert: 'You must provide an email address.' if params[:user][:email].blank?
     return redirect_to new_admin_user_path, alert: 'Email address already exists.' if existing_email?
+
     supplier_sf_ids = split_sf_ids(params[:supplier_salesforce_ids])
     if supplier_sf_ids.all?(&:blank?)
-      flash[:alert] = 'You must select at least one supplier.'
-      return redirect_to new_admin_user_path
+      return redirect_to new_admin_user_path, alert: 'You must select at least one supplier.'
     end
 
     begin
       import_user_with_suppliers(user_params, supplier_sf_ids)
-      flash[:notice] = 'User created successfully with linked suppliers.'
-      redirect_to admin_users_path
+      redirect_to admin_users_path, notice: 'User created successfully with linked suppliers.'
     rescue StandardError => e
-      flash[:error] = "Failed to create user: #{e.message}"
-      redirect_to new_admin_user_path
+      redirect_to new_admin_user_path, alert: "Failed to create user: #{e.message}"
     end
   end
 
