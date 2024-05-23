@@ -4,7 +4,7 @@
 
 - RMI-625: Workday invoice number integration 
 - RMI-592: Allow suppliers to see replaced submissions info
-- RMI-671: Ruby upgrade from 3.1.4 to 3.2.2
+- RMI-671: Ruby upgrade from 3.1.4 to 3.2.2 and Sidekiq pro from 7.1.5 to 7.2.0
 - RMI-694: Prevent existing users from being linked to no suppliers
 - RMI-695: Force new users to be linked to at least 1 supplier when manually created
 - RMI-696: Add new sheet name patterns
