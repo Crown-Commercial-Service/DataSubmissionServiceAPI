@@ -1,5 +1,14 @@
 # Change Log
 
+## [release-154] - 2023-05-23
+
+- RMI-625: Workday invoice number integration 
+- RMI-592: Allow suppliers to see replaced submissions info
+- RMI-671: Ruby upgrade from 3.1.4 to 3.2.2 and Sidekiq pro from 7.1.5 to 7.2.0
+- RMI-694: Prevent existing users from being linked to no suppliers
+- RMI-695: Force new users to be linked to at least 1 supplier when manually created
+- RMI-696: Add new sheet name patterns
+
 ## [release-153] - 2023-03-07
 
 - RMI-652: notification banner
@@ -1019,6 +1028,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-154]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-153...release-154
 [release-153]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-152...release-153
 [release-152]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-151...release-152
 [release-151]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-150...release-151
