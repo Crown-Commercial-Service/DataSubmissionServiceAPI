@@ -2,9 +2,8 @@ module Workday
   class ConnectionError < StandardError; end
 
   class CustomerInvoice
-    def initialize(submission)
-      @submission = submission
-      @workday_reference = submission.invoice.workday_reference
+    def initialize(workday_reference)
+      @workday_reference = workday_reference
     end
 
     def invoice_details
@@ -15,6 +14,7 @@ module Workday
       result[:invoice_number] = invoice_number.delete_prefix 'Customer Invoice: '
       result[:invoice_amount] = report_entry.at_xpath('wd:Invoice_Amount').text
       result[:payment_status] = report_entry.at_xpath('wd:Payment_Status/@wd:Descriptor').text
+      result[:invoice_date] = report_entry.at_xpath('wd:Invoice_Date').text
 
       result
     end

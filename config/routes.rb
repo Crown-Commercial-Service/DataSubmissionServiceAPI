@@ -88,7 +88,11 @@ Rails.application.routes.draw do
         put :activate
         put :deactivate
       end
-      resources :submissions, only: %i[show]
+
+      resources :submissions, only: %i[show] do
+        get :details
+      end
+
       resources :tasks, only: %i[new create]
 
       collection do

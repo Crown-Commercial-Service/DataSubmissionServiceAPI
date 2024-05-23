@@ -17,13 +17,27 @@ RSpec.feature 'Managing user memberships' do
     expect(page).to have_content('Supplier 2')
   end
 
-  scenario 'removing a user from a supplier' do
-    visit admin_user_path(user)
-    expect(page).to have_content('Supplier 1')
-    click_on 'Unlink'
-    click_on 'Unlink user'
+  context 'user is linked to one supplier only' do
+    scenario 'admin cannot remove a user from a supplier' do
+      visit admin_user_path(user)
+      expect(page).to have_content('Supplier 1')
+      expect(page).to_not have_content('Unlink')
+    end
+  end
 
-    expect(page).to_not have_content('Supplier 1')
+  context 'user is linked to more than one supplier ' do
+    scenario 'admin can remove a user from a supplier' do
+      FactoryBot.create(:membership, user: user, supplier: supplier_2)
+      visit admin_user_path(user)
+      expect(page).to have_content('Supplier 1')
+      expect(page).to have_content('Supplier 2')
+      expect(page).to have_content('Unlink')
+
+      click_link('Unlink', match: :first)
+      click_on 'Unlink user'
+
+      expect(page).to_not have_content('Supplier 1')
+    end
   end
 
   scenario 'searching for a supplier' do
