@@ -83,7 +83,7 @@ class Admin::UsersController < AdminController
   end
 
   def split_sf_ids(sf_ids)
-    sf_ids.first.split(',') if sf_ids.length === 1 # rubocop:disable Style/CaseEquality
+    sf_ids.length === 1 ? sf_ids.first.split(',') : sf_ids # rubocop:disable Style/CaseEquality
   end
 
   def import_user_with_suppliers(user_data, supplier_sf_ids)
