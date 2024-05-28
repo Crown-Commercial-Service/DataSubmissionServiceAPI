@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-155] - 2023-05-28
+
+- RMI-698: fix create user issue
+
 ## [release-154] - 2023-05-23
 
 - RMI-625: Workday invoice number integration 
@@ -1028,6 +1032,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-155]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-154...release-155
 [release-154]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-153...release-154
 [release-153]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-152...release-153
 [release-152]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-151...release-152
