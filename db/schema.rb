@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_07_115851) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_103925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -61,6 +61,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_115851) do
     t.index ["active"], name: "index_agreements_on_active"
     t.index ["framework_id"], name: "index_agreements_on_framework_id"
     t.index ["supplier_id"], name: "index_agreements_on_supplier_id"
+  end
+
+  create_table "api_keys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "key", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_api_keys_on_key", unique: true
   end
 
   create_table "bulk_user_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
