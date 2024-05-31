@@ -9,16 +9,11 @@ module ApiKeyAuthenticatable
 
   def authenticate_with_api_key
     api_key = request.headers['API-Key']
-    Rails.logger.debug("API-Key header: #{api_key.inspect}")
 
-    if api_key.nil?
-      Rails.logger.warn('API-Key header is missing')
-      render json: { error: 'API key is missing' }, status: :unauthorized and return
-    end
+    render json: { error: 'API key is missing' }, status: :unauthorized and return if api_key.nil?
 
-    unless ApiKey.exists?(key: api_key)
-      Rails.logger.warn("API-Key not found: #{api_key}")
-      render json: { error: 'API key is invalid' }, status: :unauthorized and return
-    end
+    return if ApiKey.exists?(key: api_key)
+
+    render json: { error: 'API key is invalid' }, status: :unauthorized and return
   end
 end
