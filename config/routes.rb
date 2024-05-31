@@ -58,6 +58,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :v2, defaults: { format: :json } do
+    resources :users, only: :index
+  end
+
   namespace :admin do
     root 'users#index'
 
