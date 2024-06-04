@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     resources :suppliers, only: :index
     resources :memberships, only: :index
     resources :agreements, only: :index
+    resources :customers, only: :index
   end
 
   namespace :admin do
