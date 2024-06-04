@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   namespace :v2, defaults: { format: :json } do
     resources :users, only: :index
+    resources :suppliers, only: :index
   end
 
   namespace :admin do
