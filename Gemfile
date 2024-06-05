@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1', '>= 7.1.3.1'
+gem 'rails', '~> 7.1', '>= 7.1.3.4'
 
 # State machine
 gem 'aasm'
@@ -39,14 +39,14 @@ gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
 gem 'haml-rails', '>= 2.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
-gem 'simple_form', '>= 5.3.0'
+gem 'simple_form', '>= 5.3.1'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
@@ -100,10 +100,10 @@ gem 'sprockets-rails'
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '>= 3.0.0'
+  gem 'dotenv-rails', '>= 3.1.1'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.0', '>= 6.0.4'
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
 end
 
 group :development do
