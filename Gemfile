@@ -95,7 +95,7 @@ gem 'nokogiri', '>= 1.16.2'
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
 
-gem 'sprockets-rails'
+gem 'sprockets-rails', '>= 3.5.0'
 
 group :development, :test do
   gem 'brakeman', require: false
