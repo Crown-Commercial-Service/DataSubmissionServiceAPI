@@ -20,6 +20,10 @@ class Task < ApplicationRecord
   end
 
   scope :incomplete, -> { where.not(status: 'completed') }
+  scope :within_date_range, -> (date_range) {
+    start_date, end_date = date_range
+    where("to_date(period_year || '-' || LPAD(period_month::text, 2, '0') || '-01', 'YYYY-MM-DD') BETWEEN ? AND ?", start_date, end_date)
+  }
 
   # rubocop:disable Metrics/LineLength
   scope :latest_submission_with_state, lambda { |status_param|

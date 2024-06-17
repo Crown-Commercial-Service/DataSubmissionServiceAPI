@@ -6,9 +6,12 @@ class V1::TasksController < ApiController
     tasks = tasks.includes(:supplier).includes(requested_associations)
     tasks = tasks.where(status: params.dig(:filter, :status)) if params.dig(:filter, :status)
     tasks = tasks.where(framework_id: params.dig(:filter, :framework_id)) if params.dig(:filter, :framework_id)
-    tasks.order!(due_on: :desc)
+    tasks = tasks.within_date_range(params.dig(:filter, :task_period)) if params.dig(:filter, :task_period)
+    tasks = tasks.order!(due_on: params.dig(:filter, :sort_order)) if params.dig(:filter, :sort_order)
 
-    render jsonapi: tasks, include: params[:include], fields: sparse_field_params
+    meta = pagination_metdata(tasks)
+
+    render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta
   end
 
   def show
@@ -85,5 +88,23 @@ class V1::TasksController < ApiController
 
   def requested_associations
     params.fetch(:include, '').split(',').map(&:to_sym)
+  end
+
+  def pagination_metdata(tasks)
+    page_number = params.dig(:page, :page) || 1
+    total_tasks = tasks.count
+    total_pages = (total_tasks.to_f / 2).ceil
+
+    tasks = tasks.page(page_number).per(2)
+
+    meta = {
+      pagination: {
+        total: total_tasks,
+        per_page: tasks.limit_value,
+        offset_value: tasks.offset_value,
+        current_page: page_number,
+        total_pages: total_pages
+      }
+    }
   end
 end
