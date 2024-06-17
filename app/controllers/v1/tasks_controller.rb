@@ -93,9 +93,9 @@ class V1::TasksController < ApiController
   def pagination_metdata(tasks)
     page_number = params.dig(:page, :page) || 1
     total_tasks = tasks.count
-    total_pages = (total_tasks.to_f / 2).ceil
+    total_pages = (total_tasks.to_f / 25).ceil
 
-    tasks = tasks.page(page_number).per(2)
+    tasks = tasks.page(page_number).per(25)
 
     {
       pagination: {
