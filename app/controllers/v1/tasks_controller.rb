@@ -10,6 +10,7 @@ class V1::TasksController < ApiController
     tasks = tasks.order!(due_on: params.dig(:filter, :sort_order)) if params.dig(:filter, :sort_order)
 
     meta = pagination_metdata(tasks)
+    tasks = tasks.page(meta[:pagination][:current_page]).per(25) if params.dig(:filter, :pagination_required)
 
     render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta
   end
