@@ -97,7 +97,7 @@ class V1::TasksController < ApiController
 
     tasks = tasks.page(page_number).per(2)
 
-    meta = {
+    {
       pagination: {
         total: total_tasks,
         per_page: tasks.limit_value,
