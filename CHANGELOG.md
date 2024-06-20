@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-156] - 2023-06-20
+
+- RMI-684: set up api key authentication and v2 get endpoint for users
+- RMI-685: v2 get endpoint for suppliers
+- RMI-686: v2 get endpoint for memberships
+- RMI-689: v2 get endpoint for agreements
+- RMI-693: v2 get endpoint for customers
+- RMI-690: v2 get endpoint for frameworks
+- RMI-700: Speed up loading time for completed tasks page in supplier frontend
+
 ## [release-155] - 2023-05-28
 
 - RMI-698: fix create user issue
@@ -1032,6 +1042,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-156]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-155...release-156
 [release-155]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-154...release-155
 [release-154]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-153...release-154
 [release-153]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-152...release-153
