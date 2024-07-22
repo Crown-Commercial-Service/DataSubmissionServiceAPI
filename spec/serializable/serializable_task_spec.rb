@@ -6,10 +6,10 @@ RSpec.describe SerializableTask do
     let(:task) { FactoryBot.create(:task, status: :completed) }
     let(:old_submission) do
       FactoryBot.create(
-          :submission_with_validated_entries,
-          submitted_by: user,
-          aasm_state: 'replaced',
-          task: task
+        :submission_with_validated_entries,
+        submitted_by: user,
+        aasm_state: 'replaced',
+        task: task
       )
     end
 
