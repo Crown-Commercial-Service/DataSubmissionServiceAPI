@@ -13,7 +13,7 @@ gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.11', '>= 2.11.1'
+gem 'jbuilder', '~> 2.12', '>= 2.12.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -59,8 +59,8 @@ gem 'rollbar'
 gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
-gem 'rubocop'
-gem 'rubocop-rails', '~> 2.21', '>= 2.21.0'
+gem 'rubocop', '>= 1.62.0'
+gem 'rubocop-rails', '~> 2.24', '>= 2.24.1'
 
 gem 'progress_bar', require: false
 
@@ -79,7 +79,7 @@ gem 'parslet'
 gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.25'
+gem 'rubyXL', '~> 3.4', '>= 3.4.26'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.11.0', require: false
@@ -90,7 +90,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.16.2'
+gem 'nokogiri', '>= 1.16.5'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
@@ -125,7 +125,7 @@ group :test do
   gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
-  gem 'webmock', '>= 3.4.2'
+  gem 'webmock', '>= 3.20.0'
   gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '~> 0.21.2'
 end
