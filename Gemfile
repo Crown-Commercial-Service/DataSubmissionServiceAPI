@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1', '>= 7.1.3.1'
+gem 'rails', '~> 7.1', '>= 7.1.3.3'
 
 # State machine
 gem 'aasm'
@@ -13,7 +13,7 @@ gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.11', '>= 2.11.1'
+gem 'jbuilder', '~> 2.12', '>= 2.12.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -39,14 +39,14 @@ gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
 gem 'haml-rails', '>= 2.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
-gem 'simple_form', '>= 5.3.0'
+gem 'simple_form', '>= 5.3.1'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
@@ -79,7 +79,7 @@ gem 'parslet'
 gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.25'
+gem 'rubyXL', '~> 3.4', '>= 3.4.26'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.11.0', require: false
@@ -90,7 +90,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.16.2'
+gem 'nokogiri', '>= 1.16.5'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
@@ -100,10 +100,10 @@ gem 'sprockets-rails'
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '>= 3.0.0'
+  gem 'dotenv-rails', '>= 3.1.1'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.0', '>= 6.0.4'
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
 end
 
 group :development do
