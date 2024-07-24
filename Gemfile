@@ -59,8 +59,8 @@ gem 'rollbar'
 gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
-gem 'rubocop'
-gem 'rubocop-rails', '~> 2.21', '>= 2.21.0'
+gem 'rubocop', '>= 1.62.0'
+gem 'rubocop-rails', '~> 2.24', '>= 2.24.1'
 
 gem 'progress_bar', require: false
 
@@ -125,7 +125,7 @@ group :test do
   gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
-  gem 'webmock', '>= 3.4.2'
+  gem 'webmock', '>= 3.20.0'
   gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '~> 0.21.2'
 end
