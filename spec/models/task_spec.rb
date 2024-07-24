@@ -12,6 +12,20 @@ RSpec.describe Task do
     expect(Task.new.status).to eq 'unstarted'
   end
 
+  describe '.within_date_range' do
+    it 'returns tasks within a given date range' do
+      task1 = create(:task, period_year: 2023, period_month: 5)
+      task2 = create(:task, period_year: 2023, period_month: 6)
+      task3 = create(:task, period_year: 2023, period_month: 7)
+
+      date_range = [Date.new(2023, 5, 1), Date.new(2023, 6, 1)]
+
+      tasks = Task.within_date_range(date_range)
+      expect(tasks).to include(task1, task2)
+      expect(tasks).not_to include(task3)
+    end
+  end
+
   describe '#active_submission' do
     let(:task) { FactoryBot.create(:task) }
     let(:task2) { FactoryBot.create(:task) }
