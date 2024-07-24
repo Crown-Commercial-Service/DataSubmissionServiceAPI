@@ -12,13 +12,13 @@ class V1::TasksController < ApiController
     meta = pagination_metdata(tasks)
     tasks = tasks.page(meta[:pagination][:current_page]).per(25) if params.dig(:filter, :pagination_required)
 
-    render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta
+    render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta, expose: context
   end
 
   def show
     task = current_user.tasks.find(params[:id])
 
-    render jsonapi: task, include: params[:include], expose: { include_file: params[:include_file] }
+    render jsonapi: task, include: params[:include], expose: { include_file: params[:include_file] }.merge(context)
   end
 
   def update
@@ -89,6 +89,10 @@ class V1::TasksController < ApiController
 
   def requested_associations
     params.fetch(:include, '').split(',').map(&:to_sym)
+  end
+
+  def context
+    { include_past_submissions: requested_associations.include?(:past_submissions) }
   end
 
   def pagination_metdata(tasks)
