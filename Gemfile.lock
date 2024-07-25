@@ -376,7 +376,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.0)
-    rack (3.0.11)
+    rack (3.1.5)
     rack-maintenance (3.0.0)
       rack (>= 2.1.4)
       rake (>= 12.3.3)
@@ -441,7 +441,7 @@ GEM
     redis-client (0.21.1)
       connection_pool
     regexp_parser (2.9.2)
-    reline (0.5.8)
+    reline (0.5.9)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
