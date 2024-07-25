@@ -1,5 +1,16 @@
 # Change Log
 
+## [release-157] - 2023-07-25
+
+- RMI-701: Further improvements to frontend task history load time
+- [Snyk] Security upgrade rails from 7.1.3.2 to 7.1.3.3
+- [Snyk] Upgrade rexml from 3.2.6 to 3.2.8
+- [Snyk] Upgrade nokogiri from 1.16.2 to 1.16.5
+- [Snyk] Upgrade rexml from 3.2.8 to 3.3.2
+- [Snyk] Upgrade actiontext and actionpack from 7.1.3.3 to 7.1.3.4  
+- [Snyk] Security upgrade sprockets-rails from 3.4.2 to 3.5.0
+- [Snyk] Security upgrade zipp from 3.15.0 to 3.19.1
+
 ## [release-156] - 2023-06-20
 
 - RMI-684: set up api key authentication and v2 get endpoint for users
@@ -1042,6 +1053,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-157]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-156...release-157
 [release-156]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-155...release-156
 [release-155]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-154...release-155
 [release-154]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-153...release-154
