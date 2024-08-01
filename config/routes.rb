@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :customers, only: :index
     resources :frameworks, only: :index
     resources :framework_lots, only: :index
+    resources :agreement_framework_lots, only: :index
   end
 
   namespace :admin do
