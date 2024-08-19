@@ -1,6 +1,11 @@
 # Change Log
 
-## [release-157] - 2023-07-25
+## [release-158] - 2024-08-19
+
+- RMI-691: get framework lots 
+- RMI-692: get agreement framework lots
+
+## [release-157] - 2024-07-25
 
 - RMI-701: Further improvements to frontend task history load time
 - [Snyk] Security upgrade rails from 7.1.3.2 to 7.1.3.3
@@ -11,7 +16,7 @@
 - [Snyk] Security upgrade sprockets-rails from 3.4.2 to 3.5.0
 - [Snyk] Security upgrade zipp from 3.15.0 to 3.19.1
 
-## [release-156] - 2023-06-20
+## [release-156] - 2024-06-20
 
 - RMI-684: set up api key authentication and v2 get endpoint for users
 - RMI-685: v2 get endpoint for suppliers
@@ -21,11 +26,11 @@
 - RMI-690: v2 get endpoint for frameworks
 - RMI-700: Speed up loading time for completed tasks page in supplier frontend
 
-## [release-155] - 2023-05-28
+## [release-155] - 2024-05-28
 
 - RMI-698: fix create user issue
 
-## [release-154] - 2023-05-23
+## [release-154] - 2024-05-23
 
 - RMI-625: Workday invoice number integration 
 - RMI-592: Allow suppliers to see replaced submissions info
@@ -34,7 +39,7 @@
 - RMI-695: Force new users to be linked to at least 1 supplier when manually created
 - RMI-696: Add new sheet name patterns
 
-## [release-153] - 2023-03-07
+## [release-153] - 2024-03-07
 
 - RMI-652: notification banner
 - [Snyk] Upgrade codemirror from 5.65.15 to 5.65.16
@@ -1053,6 +1058,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-158]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-157...release-158
 [release-157]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-156...release-157
 [release-156]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-155...release-156
 [release-155]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-154...release-155
