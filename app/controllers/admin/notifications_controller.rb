@@ -10,12 +10,13 @@ class Admin::NotificationsController < AdminController
     @notification = Notification.new
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     renderer = CustomMarkdownRenderer.new
     markdown_parser = Redcarpet::Markdown.new(renderer)
     html = markdown_parser.render(notification_params[:notification_message])
-    @notification = Notification.new(summary: notification_params[:summary], notification_message: html, user: current_user['email'], published: true,
-                                     published_at: Time.zone.now)
+    @notification = Notification.new(summary: notification_params[:summary], notification_message: html,
+                                     user: current_user['email'], published: true, published_at: Time.zone.now)
     Notification.transaction do
       if @notification.save
         flash[:success] = 'Notification created successfully.'
@@ -26,6 +27,7 @@ class Admin::NotificationsController < AdminController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def preview
     renderer = CustomMarkdownRenderer.new

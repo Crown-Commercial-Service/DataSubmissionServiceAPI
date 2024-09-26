@@ -26,7 +26,8 @@ RSpec.describe '/v1' do
     end
 
     it 'returns the details of the current published notification' do
-      FactoryBot.create(:notification, published: true, summary: 'Testy McTestface', notification_message: 'The answer is 42')
+      FactoryBot.create(:notification, published: true, summary: 'Testy McTestface',
+notification_message: 'The answer is 42')
 
       get '/v1/notifications', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
