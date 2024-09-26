@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
   describe 'validations' do
-    subject { create(:notification, published: true, notification_message: 'test') }
+    subject { create(:notification, published: true) }
+    it { is_expected.to validate_presence_of(:summary) }
     it { is_expected.to validate_presence_of(:notification_message) }
   end
 

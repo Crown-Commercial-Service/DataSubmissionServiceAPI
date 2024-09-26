@@ -13,23 +13,27 @@ RSpec.feature 'Managing notifications' do
 
     expect(page).to have_text('Create a new notification')
 
-    fill_in 'notification_notification_message', with: 'Urgent update!'
+    fill_in 'notification_summary', with: 'Urgent update!'
+    fill_in 'notification_notification_message', with: 'Oh never mind.'
     click_button 'Publish Notification'
 
     expect(page).to have_text('Notification created successfully.')
     expect(page).to have_content('Urgent update!')
+    expect(page).to have_content('Oh never mind.')
   end
 
-  scenario 'notification message is empty' do
+  scenario 'summary or notification message is empty' do
     visit new_admin_notification_path
     click_button 'Publish Notification'
 
+    expect(page).to have_text('Summary cannot be blank')
     expect(page).to have_text('Notification message cannot be blank')
   end
 
   scenario 'unpublish current notification' do
     visit new_admin_notification_path
-    fill_in 'notification_notification_message', with: 'Urgent update!'
+    fill_in 'notification_summary', with: 'Urgent update!'
+    fill_in 'notification_notification_message', with: 'Oh never mind.'
     click_button 'Publish Notification'
 
     expect(page).to have_text('Current notification')
