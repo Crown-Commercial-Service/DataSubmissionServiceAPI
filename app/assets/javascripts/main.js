@@ -19,17 +19,18 @@ window.onload = function() {
   });
 
   $("body").on('click', '#markdown-preview-btn', function( event ) {
-    console.log("Inside previewBtn click function");
-    const text = document.getElementById("notification_notification_message").value;
-    console.log(text);
-    console.log(JSON.stringify({ text: text }));
+    const summary = document.getElementById("notification_summary").value;
+    const message = document.getElementById("notification_notification_message").value;
+    const previewContainer = document.getElementById('preview-container');
+    const data = { summary: summary, message: message }
+
     fetch('/admin/notifications/preview', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content 
       },
-      body: JSON.stringify({ text: text })
+      body: JSON.stringify(data)
     })
     .then(response => {
       if(response.ok) {
@@ -37,8 +38,10 @@ window.onload = function() {
       }
       throw new Error('Network response was not ok.');
     })
-    .then(data => {
-      document.getElementById("markdown-preview").innerHTML = data.html;
-    });
+    .then(html => {
+      previewContainer.classList.remove('govuk-visually-hidden');
+      document.getElementById("summary-preview").innerHTML = html.summary;
+      document.getElementById("markdown-preview").innerHTML = html.message;
+    })
   });
 };

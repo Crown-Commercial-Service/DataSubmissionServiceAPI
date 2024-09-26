@@ -10,28 +10,31 @@ class Admin::NotificationsController < AdminController
     @notification = Notification.new
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     renderer = CustomMarkdownRenderer.new
     markdown_parser = Redcarpet::Markdown.new(renderer)
     html = markdown_parser.render(notification_params[:notification_message])
-    @notification = Notification.new(notification_message: html, user: current_user['email'], published: true,
-                                     published_at: Time.zone.now)
+    @notification = Notification.new(summary: notification_params[:summary], notification_message: html,
+                                     user: current_user['email'], published: true, published_at: Time.zone.now)
     Notification.transaction do
       if @notification.save
         flash[:success] = 'Notification created successfully.'
         redirect_to admin_notifications_path
       else
+        @notification.assign_attributes(notification_message: notification_params[:notification_message])
         render action: :new
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def preview
     renderer = CustomMarkdownRenderer.new
     markdown_parser = Redcarpet::Markdown.new(renderer)
-    @html = markdown_parser.render(params[:text])
+    @markdown_message = markdown_parser.render(params[:message])
 
-    render json: { html: @html }
+    render json: { summary: params[:summary], message: @markdown_message }
   end
 
   def unpublish
@@ -46,6 +49,6 @@ class Admin::NotificationsController < AdminController
   private
 
   def notification_params
-    params.require(:notification).permit(:notification_message)
+    params.require(:notification).permit(:summary, :notification_message)
   end
 end
