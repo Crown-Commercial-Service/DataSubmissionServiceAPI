@@ -5,14 +5,14 @@
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
           %h1.govuk-fieldset__heading
             Create a new notification
-            
-        = form.input :notification_message, hide_optional: true, wrapper: :govuk_textarea_wrapper
+
+        = form.input :summary, hide_optional: true
+        = form.input :notification_message, label: 'Notification message', hide_optional: true, wrapper: :govuk_textarea_wrapper, input_html: { rows: '10' }
         %button#markdown-preview-btn{type: "button", class: 'govuk-button'} Preview
         = form.button :submit, value: 'Publish Notification', data: { disable_with: "Publish Notification" }
 
-    .govuk-notification-banner{"aria-labelledby" => "govuk-notification-banner-title", "data-module" => "govuk-notification-banner", role: "region"}
-      .govuk-notification-banner__header
-        %h2#govuk-notification-banner-title.govuk-notification-banner__title
-          Important
-      #markdown-preview.govuk-notification-banner__content
-
+    #preview-container.govuk-visually-hidden
+      %details.govuk-details
+        %summary.govuk-details__summary.govuk-heading-m
+          %span#summary-preview.govuk-details__summary-text
+        #markdown-preview.govuk-details__text

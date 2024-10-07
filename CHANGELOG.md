@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-159] - 2024-10-07
+
+- NRMI-28: Change notification banner to details component
+- NRMI-27: Resize admin notification message text box
+
 ## [release-158] - 2024-08-19
 
 - RMI-691: get framework lots 
@@ -1058,6 +1063,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-159]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-158...release-159
 [release-158]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-157...release-158
 [release-157]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-156...release-157
 [release-156]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-155...release-156

@@ -23,6 +23,8 @@ en:
               blank: 'Salesforce ID cannot be blank'
         notification:
           attributes:
+            summary:
+              blank: 'Summary cannot be blank'
             notification_message:
               blank: 'Notification message cannot be blank'
   errors:

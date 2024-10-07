@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  validates :notification_message, presence: true
+  validates :summary, :notification_message, presence: true
 
   before_save :ensure_single_published_notification
 

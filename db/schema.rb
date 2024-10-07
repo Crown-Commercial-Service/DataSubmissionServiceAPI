@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_103925) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_24_105747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
@@ -162,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_103925) do
     t.datetime "published_at"
     t.datetime "unpublished_at"
     t.string "user"
+    t.text "summary", null: false
     t.index ["published"], name: "index_notifications_on_published"
   end
 

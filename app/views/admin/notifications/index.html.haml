@@ -15,11 +15,11 @@
     - if @published_notification.present?
       %h2.govuk-heading-m
         Current notification
-      .govuk-notification-banner{"aria-labelledby" => "govuk-notification-banner-title", "data-module" => "govuk-notification-banner", role: "region", class: 'govuk-!-margin-bottom-3'}
-        .govuk-notification-banner__header
-          %h2#govuk-notification-banner-title.govuk-notification-banner__title
-            Important
-        .govuk-notification-banner__content
+      %details.govuk-details{ open: true }
+        %summary.govuk-details__summary.govuk-heading-m
+          %span.govuk-details__summary-text
+            = @published_notification.summary.html_safe
+        .govuk-details__text
           = @published_notification.notification_message.html_safe
       = button_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
     - else
