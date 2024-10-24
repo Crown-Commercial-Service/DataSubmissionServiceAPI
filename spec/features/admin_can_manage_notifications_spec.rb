@@ -54,7 +54,7 @@ RSpec.feature 'Managing notifications' do
       fill_in 'notification_notification_message', with: "I'm number #{number}"
       click_button 'Publish Notification'
     end
-    
+
     visit admin_notifications_path
 
     expect(page).to have_text('Testy McTestface 1')
