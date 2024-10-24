@@ -26,3 +26,18 @@
       %h2.govuk-heading-m
         No notification currently published    
 
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @notifications.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Header
+            %th.govuk-table__header Published
+            %th.govuk-table__header Unpublished
+        %tbody.govuk-table__body
+          - @notifications.each do |notification|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= link_to notification.summary, admin_notification_path(notification.id)
+              %td.govuk-table__cell= notification.published_at
+              %td.govuk-table__cell= notification.unpublished_at

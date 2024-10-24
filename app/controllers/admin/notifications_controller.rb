@@ -3,11 +3,15 @@ require 'custom_markdown_renderer'
 class Admin::NotificationsController < AdminController
   def index
     @published_notification = Notification.published.first
-    @notifications = Notification.order(created_at: :desc).all
+    @notifications = Notification.order(published_at: :desc).all
   end
 
   def new
     @notification = Notification.new
+  end
+
+  def show
+    @notification = Notification.find(params[:id])
   end
 
   # rubocop:disable Metrics/AbcSize
