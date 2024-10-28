@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-160] - 2024-10-28
+
+- NRMI-10: Added past notifications log
+
 ## [release-159] - 2024-10-07
 
 - NRMI-28: Change notification banner to details component
@@ -1063,6 +1067,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-160]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-159...release-160
 [release-159]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-158...release-159
 [release-158]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-157...release-158
 [release-157]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-156...release-157

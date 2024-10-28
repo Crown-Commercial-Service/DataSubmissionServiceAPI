@@ -152,7 +152,7 @@ Rails.application.routes.draw do
 
     resources :unfinished_tasks, only: %i[index]
 
-    resources :notifications, only: %i[index new create] do
+    resources :notifications, only: %i[index new show create] do
       member do
         post :unpublish
       end
