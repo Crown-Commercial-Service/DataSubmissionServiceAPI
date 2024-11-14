@@ -4,7 +4,9 @@ class Admin::NotificationsController < AdminController
   def index
     markdown_parser = Redcarpet::Markdown.new(CustomMarkdownRenderer)
     @published_notification = Notification.published.first
-    @published_notification_message = markdown_parser.render(@published_notification[:notification_message]) if @published_notification
+    if @published_notification
+      @published_notification_message = markdown_parser.render(@published_notification[:notification_message])
+    end
     @notifications = Notification.order(published_at: :desc).all
   end
 
@@ -20,7 +22,8 @@ class Admin::NotificationsController < AdminController
   end
 
   def create
-    @notification = Notification.new(summary: notification_params[:summary], notification_message: notification_params[:notification_message],
+    @notification = Notification.new(summary: notification_params[:summary],
+                                     notification_message: notification_params[:notification_message],
                                      user: current_user['email'], published: true, published_at: Time.zone.now)
     Notification.transaction do
       if @notification.save
