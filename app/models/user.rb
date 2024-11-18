@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :agreements, through: :suppliers
   has_many :tasks, through: :suppliers
   has_many :customer_effort_scores, dependent: :nullify
+  validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   scope :active, -> { where.not(auth_id: nil) }

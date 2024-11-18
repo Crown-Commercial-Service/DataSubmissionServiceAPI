@@ -40,6 +40,18 @@ RSpec.feature 'Adding a user' do
     expect(page).to have_content(supplier_2.name)
   end
 
+  context 'when no name is provided' do
+    scenario 'it fails and prompts you to provide a name' do
+      click_on 'Users'
+      click_on 'Add a new user'
+      fill_in 'Email address', with: email
+      fill_in 'salesforce-ids', with: supplier_2.salesforce_id
+      click_button 'Add new user'
+
+      expect(page).to have_content('You must provide a name.')
+    end
+  end
+
   context 'when no email provided' do
     scenario 'it fails and prompts you to provide an email address' do
       click_on 'Users'
