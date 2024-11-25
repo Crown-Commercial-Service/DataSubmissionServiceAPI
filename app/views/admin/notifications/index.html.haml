@@ -20,8 +20,9 @@
           %span.govuk-details__summary-text
             = @published_notification.summary.html_safe
         .govuk-details__text
-          = @published_notification.notification_message.html_safe
-      = button_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
+          = @published_notification_message.html_safe
+      = link_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
+      = link_to 'Edit', new_admin_notification_path(published_notification: @published_notification), class: 'govuk-button'
     - else
       %h2.govuk-heading-m
         No notification currently published    
