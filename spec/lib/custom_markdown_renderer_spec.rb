@@ -7,19 +7,19 @@ RSpec.describe CustomMarkdownRenderer do
 
   describe '#header' do
     it 'renders a level 1 header with the correct GOV.UK class' do
-      expect(markdown.render("# Heading 1").strip).to eq('<h1 class="govuk-heading-xl">Heading 1</h1>')
+      expect(markdown.render('# Heading 1').strip).to eq('<h1 class="govuk-heading-xl">Heading 1</h1>')
     end
 
     it 'renders a level 2 header with the correct GOV.UK class' do
-      expect(markdown.render("## Heading 2").strip).to eq('<h2 class="govuk-heading-l">Heading 2</h2>')
+      expect(markdown.render('## Heading 2').strip).to eq('<h2 class="govuk-heading-l">Heading 2</h2>')
     end
 
     it 'renders a level 3 header with the correct GOV.UK class' do
-      expect(markdown.render("### Heading 3").strip).to eq('<h3 class="govuk-heading-m">Heading 3</h3>')
+      expect(markdown.render('### Heading 3').strip).to eq('<h3 class="govuk-heading-m">Heading 3</h3>')
     end
 
     it 'renders a level 4 header with the correct GOV.UK class' do
-      expect(markdown.render("#### Heading 4").strip).to eq('<h4 class="govuk-heading-s">Heading 4</h4>')
+      expect(markdown.render('#### Heading 4').strip).to eq('<h4 class="govuk-heading-s">Heading 4</h4>')
     end
   end
 
@@ -27,13 +27,13 @@ RSpec.describe CustomMarkdownRenderer do
     it 'renders an unordered list with the GOV.UK bullet class' do
       input = "- Item 1\n- Item 2\n"
       output = '<ul class="govuk-list govuk-list--bullet"><li>Item 1</li><li>Item 2</li></ul>'
-      expect(markdown.render(input).gsub("\n",'')).to eq(output)
+      expect(markdown.render(input).gsub("\n", '')).to eq(output)
     end
 
     it 'renders an ordered list with the GOV.UK number class' do
       input = "1. Item 1\n2. Item 2\n"
       output = '<ol class="govuk-list govuk-list--number"><li>Item 1</li><li>Item 2</li></ol>'
-      expect(markdown.render(input).gsub("\n",'')).to eq(output)
+      expect(markdown.render(input).gsub("\n", '')).to eq(output)
     end
   end
 
@@ -67,7 +67,7 @@ RSpec.describe CustomMarkdownRenderer do
     it 'renders nested lists correctly' do
       input = "- Parent\n  - Child\n"
       output = '<ul class="govuk-list govuk-list--bullet"><li>Parent<ul class="govuk-list govuk-list--bullet"><li>Child</li></ul></li></ul>'
-      expect(markdown.render(input).gsub("\n",'')).to eq(output)
+      expect(markdown.render(input).gsub("\n", '')).to eq(output)
     end
   end
 end

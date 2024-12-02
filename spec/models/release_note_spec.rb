@@ -8,8 +8,8 @@ RSpec.describe ReleaseNote, type: :model do
   end
 
   describe '#publish!' do
-    let!(:release_note) {create :release_note}
-    
+    let!(:release_note) { create :release_note }
+
     subject! { release_note.publish! }
     it 'sets published value to true' do
       release_note.reload

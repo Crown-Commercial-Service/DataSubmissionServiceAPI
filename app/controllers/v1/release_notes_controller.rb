@@ -3,7 +3,7 @@ require 'custom_markdown_renderer'
 class V1::ReleaseNotesController < ApiController
   def index
     release_notes = ReleaseNote.published.order(created_at: :desc)
-    
+
     release_notes.each do |release_note|
       release_note[:body] = render_markdown(release_note[:body]) if release_notes
     end
