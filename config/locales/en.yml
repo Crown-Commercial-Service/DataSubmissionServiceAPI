@@ -29,6 +29,12 @@ en:
               blank: 'Summary cannot be blank'
             notification_message:
               blank: 'Notification message cannot be blank'
+        release_note:
+          attributes:
+            header:
+              blank: 'Header cannot be blank'
+            body:
+              blank: 'Body cannot be blank'
   errors:
     format: "%{message}"
     messages:

@@ -1,0 +1,18 @@
+.govuk-grid-row
+  .govuk-grid-column-full
+    = simple_form_for [:admin, @release_note] do |form|
+      %fieldset.govuk-fieldset
+        %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
+          %h2.govuk-fieldset__heading
+            Edit release note
+
+        = render partial: 'shared/error_summary', locals: { entity: @release_note } if @release_note.errors.present?
+
+        = form.input :header, label: 'Header', hide_optional: true
+        = form.input :body, label: 'Body', hide_optional: true, wrapper: :govuk_textarea_wrapper, input_html: { rows: '10' }
+        %button#release-note-markdown-preview-btn{type: "button", class: 'govuk-button'} Preview
+        = form.button :submit, value: 'Save release note', data: { disable_with: "Update release note" }
+
+    #release-note-preview-container.govuk-visually-hidden
+      %h2.govuk-heading-m#header-preview
+      #release-note-markdown-preview%p.govuk-body
