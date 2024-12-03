@@ -90,7 +90,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.16.5'
+gem 'nokogiri', '>= 1.16.8'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
