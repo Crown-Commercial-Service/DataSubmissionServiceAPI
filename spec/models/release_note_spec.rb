@@ -14,6 +14,7 @@ RSpec.describe ReleaseNote, type: :model do
     it 'sets published value to true' do
       release_note.reload
       expect(release_note.published).to be_truthy
+      expect(release_note.published_at).not_to be_nil
     end
   end
 end
