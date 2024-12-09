@@ -52,6 +52,8 @@ Rails.application.routes.draw do
 
     resources :notifications, only: :index
 
+    resources :release_notes, only: %i[index show]
+
     namespace :events do
       post 'user_signed_in'
       post 'user_signed_out'
@@ -158,7 +160,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :release_notes, only: %i[index new create show edit update] do
+      member do
+        patch :publish
+      end
+    end
+
     post 'notifications/preview', to: 'notifications#preview'
+    post 'release_notes/preview', to: 'release_notes#preview'
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
