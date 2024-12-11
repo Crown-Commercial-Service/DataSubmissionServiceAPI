@@ -11,7 +11,7 @@
     - @tasks.each do |task|
       %tr.govuk-table__row
         %td.govuk-table__cell
-          = task.supplier.name
+          = link_to task.supplier.name, admin_supplier_path(task.supplier)
         %td.govuk-table__cell
           = task.framework.short_name
           %br/
