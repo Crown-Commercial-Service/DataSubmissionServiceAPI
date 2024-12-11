@@ -39,4 +39,12 @@ aasm_state: state) do |submission|
     expect(page.response_headers['Content-Disposition']).to include 'RM0000 Test Supplier Ltd %28February 2018%29.xlsx'
     expect(page.body).to include File.open(Rails.root.join('spec', 'fixtures', 'test.xlsx'), 'r:ASCII-8BIT', &:read)
   end
+
+  scenario 'admin can click through to supplier page' do
+    visit admin_unfinished_tasks_path
+
+    click_link('Test Supplier Ltd', match: :first)
+
+    expect(page).to have_text('Edit supplier')
+  end
 end
