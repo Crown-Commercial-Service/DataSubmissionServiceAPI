@@ -36,6 +36,10 @@ Rails.application.routes.draw do
         post :no_business
         patch :cancel_correction
       end
+
+      collection do
+        get :index_by_supplier
+      end
     end
 
     resources :files, only: [] do
