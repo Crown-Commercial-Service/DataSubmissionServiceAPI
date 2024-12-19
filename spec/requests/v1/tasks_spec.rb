@@ -201,9 +201,9 @@ RSpec.describe '/v1' do
     it 'returns a list of tasks grouped by supplier' do
       supplier2 = FactoryBot.create(:supplier)
       Membership.create(supplier: supplier2, user: user)
-      unstarted_task1 = FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
-      unstarted_task2 = FactoryBot.create(:task, status: 'unstarted', supplier: supplier2)
-      in_progress_task = FactoryBot.create(:task, status: 'in_progress', supplier: supplier)
+      FactoryBot.create(:task, status: 'unstarted', supplier: supplier)
+      FactoryBot.create(:task, status: 'unstarted', supplier: supplier2)
+      FactoryBot.create(:task, status: 'in_progress', supplier: supplier)
 
       get '/v1/tasks/index_by_supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
@@ -213,7 +213,7 @@ RSpec.describe '/v1' do
       expect(json['data'].map { |data| data['id'] }).to contain_exactly(supplier.id, supplier2.id)
       expect(json['data'][0]).to have_attribute(:name)
 
-      json_task1 = json['included'][0]#['attributes']
+      json_task1 = json['included'][0]
       expect(json_task1).to have_attribute(:status).with_value('unstarted')
     end
   end
