@@ -17,7 +17,7 @@ class V1::TasksController < ApiController
 
   def index_by_supplier
     suppliers = current_user.suppliers.includes(tasks: :framework).where(tasks: { status: 'unstarted' }).order(
-      'tasks.due_on desc', 'frameworks.name asc'
+      'tasks.due_on asc', 'frameworks.name asc'
     )
 
     render jsonapi: suppliers, include: ['tasks.framework'], class: {
