@@ -15,6 +15,18 @@ class V1::TasksController < ApiController
     render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta, expose: context
   end
 
+  def index_by_supplier
+    suppliers = current_user.suppliers.includes(tasks: :framework).where(tasks: { status: 'unstarted' }).order(
+      'tasks.due_on asc', 'frameworks.name asc'
+    )
+
+    render jsonapi: suppliers, include: ['tasks.framework'], class: {
+      Supplier: SerializableSupplier,
+      Task: SerializableTask,
+      Framework: SerializableFramework
+    }
+  end
+
   def show
     task = current_user.tasks.find(params[:id])
 

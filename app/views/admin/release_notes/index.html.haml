@@ -1,0 +1,29 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl
+      Release notes
+
+  .govuk-grid-column-one-third
+    %nav.govuk-page-actions{"aria-labelledby" => "page-actions-title"}
+      %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
+      %ul.govuk-page-actions--actions
+        %li.govuk-page-actions--action
+          = link_to 'New release note', new_admin_release_note_path
+
+.govuk-grid-row
+  - if @release_notes.present?
+    %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+      %thead.govuk-table__head
+        %tr.govuk-table__row
+          %th.govuk-table__header Header
+          %th.govuk-table__header Created at
+          %th.govuk-table__header Published
+      %tbody.govuk-table__body
+        - @release_notes.each do |release_note|
+          %tr.govuk-table__row
+            %td.govuk-table__cell= link_to release_note.header, admin_release_note_path(release_note.id)
+            %td.govuk-table__cell= release_note.created_at
+            %td.govuk-table__cell= release_note.published
+  - else
+    %p{class: 'govuk-!-padding-left-3'}
+      No release notes.

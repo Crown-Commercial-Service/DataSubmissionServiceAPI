@@ -39,11 +39,35 @@ RSpec.feature 'Managing notifications' do
     expect(page).to have_text('Current notification')
     expect(page).not_to have_text('No notification currently published')
 
-    click_button 'Unpublish'
+    click_link 'Unpublish'
 
     expect(page).not_to have_text('Current notification')
     expect(page).to have_text('Notification was successfully unpublished.')
     expect(page).to have_text('No notification currently published')
+  end
+
+  scenario 'edit current notification but keep a record' do
+    visit new_admin_notification_path
+    fill_in 'notification_summary', with: 'Just FYI'
+    fill_in 'notification_notification_message', with: 'You should wear sunscreen'
+    click_button 'Publish Notification'
+
+    expect(page).to have_text('Current notification')
+    expect(page).to have_text('Edit')
+
+    click_link 'Edit'
+
+    expect(page).to have_text('Just FYI')
+    expect(page).to have_text('sunscreen')
+
+    fill_in 'notification_summary', with: 'Just FYI2'
+    fill_in 'notification_notification_message', with: 'Drink water'
+    click_button 'Publish Notification'
+
+    expect(page).to have_text('Notification created successfully.')
+    expect(page).to have_text('Just FYI')
+    expect(page).to have_text('Just FYI 2')
+    expect(page).to have_text('Drink water')
   end
 
   scenario 'view past notifications' do

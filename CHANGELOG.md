@@ -1,5 +1,15 @@
 # Change Log
 
+## [release-162] - 2024-12-09
+
+- NRMI-78: release notes feature
+- NRMI-84: fix for optional FDL fields with depends_on
+
+## [release-161] - 2024-11-25
+
+- NRMI-76: Make name mandatory when adding a new user
+- NRMI-9: Add edit notification functionality
+
 ## [release-160] - 2024-10-28
 
 - NRMI-10: Added past notifications log
@@ -1067,6 +1077,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-162]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-161...release-162
+[release-161]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-160...release-161
 [release-160]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-159...release-160
 [release-159]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-158...release-159
 [release-158]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-157...release-158

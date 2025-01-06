@@ -26,7 +26,6 @@ class Admin::UsersController < AdminController
   end
 
   def create
-    return redirect_to new_admin_user_path, alert: 'You must provide an email address.' if params[:user][:email].blank?
     return redirect_to new_admin_user_path, alert: 'Email address already exists.' if existing_email?
 
     supplier_sf_ids = split_sf_ids(params[:supplier_salesforce_ids])
