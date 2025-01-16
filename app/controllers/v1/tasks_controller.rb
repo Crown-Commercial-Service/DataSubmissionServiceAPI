@@ -16,11 +16,14 @@ class V1::TasksController < ApiController
   end
 
   def index_by_supplier
-    suppliers = current_user.suppliers.includes(tasks: :framework).where(tasks: { status: 'unstarted' }).order(
-      'tasks.due_on asc', 'frameworks.name asc'
-    )
+    task_ids = params[:task_ids]
+    suppliers_and_tasks = current_user.suppliers.includes(tasks: :framework)
+                                      .where(tasks: { status: 'unstarted' })
+                                      .order('tasks.due_on asc', 'frameworks.name asc')
 
-    render jsonapi: suppliers, include: ['tasks.framework'], class: {
+    suppliers_and_tasks = suppliers_and_tasks.where(tasks: { id: task_ids }) if task_ids
+
+    render jsonapi: suppliers_and_tasks, include: ['tasks.framework'], class: {
       Supplier: SerializableSupplier,
       Task: SerializableTask,
       Framework: SerializableFramework
@@ -63,6 +66,18 @@ class V1::TasksController < ApiController
     submission = task.active_submission
 
     render jsonapi: submission, status: :created
+  end
+
+  def bulk_no_business
+    tasks = current_user.tasks.find(params.dig('_jsonapi', 'task_ids'))
+
+    Task.transaction do
+      tasks.each do |task|
+        task.file_no_business!(current_user)
+      end
+    end
+
+    render jsonapi: tasks, status: :created
   end
 
   def complete

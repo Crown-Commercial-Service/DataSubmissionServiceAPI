@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
       collection do
         get :index_by_supplier
+        post :bulk_no_business
       end
     end
 
