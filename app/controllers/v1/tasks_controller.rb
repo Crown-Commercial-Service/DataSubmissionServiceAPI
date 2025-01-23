@@ -78,8 +78,8 @@ class V1::TasksController < ApiController
     end
 
     tasks_completed = current_user.suppliers.includes(tasks: :framework)
-                                               .where(tasks: { id: params.dig('_jsonapi', 'task_ids') })
-                                               .order('tasks.due_on asc', 'frameworks.name asc')
+                                  .where(tasks: { id: params.dig('_jsonapi', 'task_ids') })
+                                  .order('tasks.due_on asc', 'frameworks.name asc')
 
     render jsonapi: tasks_completed, include: ['tasks.framework'], class: {
       Supplier: SerializableSupplier,
