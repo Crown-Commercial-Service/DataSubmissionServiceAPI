@@ -251,7 +251,8 @@ params: { _jsonapi: { task_ids: [task2.id] } }
 
       expect(task2.reload).to be_completed
       expect(task1.reload).to_not be_completed
-      expect(json['data'][0]).to have_id task2.id
+      completed_tasks = json['data'].map { |data| data['relationships'] }
+      expect(completed_tasks[0]['tasks']['data'][0]).to have_id task2.id
     end
   end
 

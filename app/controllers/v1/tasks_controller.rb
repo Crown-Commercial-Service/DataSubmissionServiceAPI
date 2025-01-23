@@ -18,9 +18,9 @@ class V1::TasksController < ApiController
   def index_by_supplier
     task_ids = params[:task_ids]
     suppliers_and_tasks = current_user.suppliers.includes(tasks: :framework)
-                                      .where(tasks: { status: 'unstarted' })
                                       .order('tasks.due_on asc', 'frameworks.name asc')
 
+    suppliers_and_tasks = suppliers_and_tasks.where(tasks: { status: params[:status] }) if params[:status]
     suppliers_and_tasks = suppliers_and_tasks.where(tasks: { id: task_ids }) if task_ids
 
     render jsonapi: suppliers_and_tasks, include: ['tasks.framework'], class: {
@@ -77,7 +77,15 @@ class V1::TasksController < ApiController
       end
     end
 
-    render jsonapi: tasks, status: :created
+    tasks_completed = current_user.suppliers.includes(tasks: :framework)
+                                               .where(tasks: { id: params.dig('_jsonapi', 'task_ids') })
+                                               .order('tasks.due_on asc', 'frameworks.name asc')
+
+    render jsonapi: tasks_completed, include: ['tasks.framework'], class: {
+      Supplier: SerializableSupplier,
+      Task: SerializableTask,
+      Framework: SerializableFramework
+    }, status: :created
   end
 
   def complete
