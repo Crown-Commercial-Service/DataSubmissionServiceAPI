@@ -170,6 +170,8 @@ GEM
       dotenv (= 3.1.2)
       railties (>= 6.1)
     drb (2.2.1)
+    email_validator (2.2.4)
+      activemodel
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
@@ -603,6 +605,7 @@ DEPENDENCIES
   climate_control
   database_cleaner (~> 2.0, >= 2.0.2)
   dotenv-rails (>= 3.1.1)
+  email_validator
   factory_bot_rails (~> 6.4, >= 6.4.2)
   haml-rails (>= 2.1.0)
   hashdiff

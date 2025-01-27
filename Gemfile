@@ -11,6 +11,8 @@ gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
 
+gem 'email_validator', require: 'email_validator/strict'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
 gem 'jbuilder', '~> 2.12', '>= 2.12.0'
