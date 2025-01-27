@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :tasks, through: :suppliers
   has_many :customer_effort_scores, dependent: :nullify
   validates :name, presence: true
-  validates :email, email: {mode: :strict}, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, email: { mode: :strict }, presence: true, uniqueness: { case_sensitive: false }
 
   scope :active, -> { where.not(auth_id: nil) }
   scope :inactive, -> { where(auth_id: nil) }
