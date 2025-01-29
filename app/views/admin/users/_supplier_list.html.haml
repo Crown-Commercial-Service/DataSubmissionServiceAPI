@@ -8,13 +8,13 @@
     - @suppliers.each do |supplier|
       %tr.govuk-table__row
         %td.govuk-table__cell
-          %noscript
-            = supplier.name 
-          .govuk-checkboxes.js-checkbox-container
+          .govuk-checkboxes
             .govuk-checkboxes__item
               = check_box_tag "supplier_salesforce_ids[]", supplier.salesforce_id, false, id: "supplier_#{supplier.salesforce_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small'
               = label_tag "supplier_#{supplier.salesforce_id}", supplier.name, class: 'govuk-checkboxes__label'
         %noscript
+          %td.govuk-table__cell
+            = supplier.name 
           %td.govuk-table__cell
             %noscript
               = supplier.salesforce_id

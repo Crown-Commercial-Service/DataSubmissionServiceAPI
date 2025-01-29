@@ -46,19 +46,19 @@
 
 :javascript
   document.addEventListener("DOMContentLoaded", function() {
+
+    const selectedSuppliers = new Map();
+
+    const elements = Array.from(document.querySelectorAll('.govuk-checkboxes__input'));
+    const checkValues = elements.map(input => input.checked);
+
+    localStorage.setItem('selected-suppliers', JSON.stringify(checkValues));
     
-    function reinitializeCheckboxContainers() {
-      document.querySelectorAll('.js-checkbox-container').forEach(function(container) {
-      container.style.display = 'block';
-    });
-    }
-
-    const selectedSuppliers = new Map(); // Use a Map to store IDs and names
-
     function updateCheckboxes() {
-      document.querySelectorAll('.govuk-checkboxes__input').forEach(input => {
+      document.querySelectorAll('.govuk-checkboxes__input').forEach((input, index) => {
         input.checked = selectedSuppliers.has(input.value);
         input.addEventListener('change', toggleSupplierSelection);
+        input.checked = checkValues[index]
       });
     }
 
@@ -100,15 +100,12 @@
       }
     }
 
-    updateCheckboxes();
-    reinitializeCheckboxContainers();
-
     document.getElementById('supplier-search-form').addEventListener('ajax:complete', function(){
       updateCheckboxes();
-      reinitializeCheckboxContainers();
     });
 
     updateSelectedSuppliersDisplay();
     updateHiddenField();
+    updateCheckboxes();
   });
 

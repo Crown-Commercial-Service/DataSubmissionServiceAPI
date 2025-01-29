@@ -18,7 +18,7 @@ class Admin::UsersController < AdminController
 
   def new
     @user = User.new
-    @suppliers = Supplier.order(:name).search(params[:search]).page(params[:page])
+    @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
     respond_to do |format|
       format.html
       format.js
