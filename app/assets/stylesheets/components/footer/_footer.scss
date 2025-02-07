@@ -4,3 +4,19 @@
   margin-top: govuk-spacing(9);
 }
 
+.govuk-footer__copyright-logo {
+  display: block;
+  height: 30px;
+  background-image: govuk-image-url("copyright_logo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include govuk-media-query($until: desktop) {
+    width: auto;
+    background-image: govuk-image-url("copyright_logo.png");
+    background-size: contain;
+  }
+  @include govuk-media-query($until: tablet) {
+    height: 24px;
+    margin-bottom: govuk-spacing(3);
+  }
+}
