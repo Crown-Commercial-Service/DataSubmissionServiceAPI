@@ -19,22 +19,49 @@ class Admin::UsersController < AdminController
   def new
     @user = User.new
     @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
+    @selected_suppliers = session[:selected_suppliers] || {}
     respond_to do |format|
       format.html
       format.js
     end
   end
 
+  def update_selected_suppliers
+    if request.get?
+      render json: { selected_suppliers: session[:selected_suppliers] ||= {} }
+    else
+      selected_suppliers = session[:selected_suppliers] ||= {}
+      supplier_id = params[:supplier_id]
+
+      if params[:checked] == true
+        supplier_name = params[:supplier_name]
+        selected_suppliers[supplier_id] = supplier_name unless selected_suppliers.key?(supplier_id)
+      else
+        selected_suppliers.delete(supplier_id)
+      end
+
+      render json: { selected_suppliers: selected_suppliers }
+    end
+  end
+
+  def reset_selected_suppliers
+    Rails.logger.debug "Before reset: #{session[:selected_suppliers].inspect}"
+    session[:selected_suppliers] = {}
+    Rails.logger.debug "After reset: #{session[:selected_suppliers].inspect}"
+    head :ok
+  end
+
   def create
     return redirect_to new_admin_user_path, alert: 'Email address already exists.' if existing_email?
 
-    supplier_sf_ids = split_sf_ids(params[:supplier_salesforce_ids])
+    supplier_sf_ids = session[:selected_suppliers].keys
     if supplier_sf_ids.all?(&:blank?)
       return redirect_to new_admin_user_path, alert: 'You must select at least one supplier.'
     end
 
     begin
       import_user_with_suppliers(user_params, supplier_sf_ids)
+      session[:selected_suppliers] = {}
       redirect_to admin_users_path, notice: 'User created successfully with linked suppliers.'
     rescue StandardError => e
       redirect_to new_admin_user_path, alert: "Failed to create user: #{e.message}"

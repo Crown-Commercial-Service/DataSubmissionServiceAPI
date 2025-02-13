@@ -6,11 +6,11 @@
         %th.govuk-table__header Salesforce ID
   %tbody.govuk-table__body
     - @suppliers.each do |supplier|
-      %tr.govuk-table__row
+      %tr.govuk-table__row{"data-supplier-id" => supplier.salesforce_id}
         %td.govuk-table__cell
           .govuk-checkboxes
             .govuk-checkboxes__item
-              = check_box_tag "supplier_salesforce_ids[]", supplier.salesforce_id, false, id: "supplier_#{supplier.salesforce_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small'
+              = check_box_tag "supplier_salesforce_ids[]", supplier.salesforce_id, session[:selected_suppliers]&.include?(supplier.salesforce_id), id: "supplier_#{supplier.salesforce_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small'
               = label_tag "supplier_#{supplier.salesforce_id}", supplier.name, class: 'govuk-checkboxes__label'
         %noscript
           %td.govuk-table__cell

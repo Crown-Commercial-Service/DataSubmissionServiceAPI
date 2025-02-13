@@ -20,7 +20,6 @@
         
         %p Supplier(s)
         #selected-suppliers.govuk-body
-        #selected-suppliers-hidden
 
         %noscript
           .govuk-form-group
@@ -45,67 +44,93 @@
       .results{id: 'suppliers-list'}= render 'supplier_list', suppliers: @suppliers
 
 :javascript
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const supplierList = document.getElementById('suppliers-list');
+    const selectedSuppliersDisplay = document.getElementById('selected-suppliers');
 
-    const selectedSuppliers = new Map();
-
-    const elements = Array.from(document.querySelectorAll('.govuk-checkboxes__input'));
-    const checkValues = elements.map(input => input.checked);
-
-    localStorage.setItem('selected-suppliers', JSON.stringify(checkValues));
-    
-    function updateCheckboxes() {
-      document.querySelectorAll('.govuk-checkboxes__input').forEach((input, index) => {
-        input.checked = selectedSuppliers.has(input.value);
-        input.addEventListener('change', toggleSupplierSelection);
-        input.checked = checkValues[index]
-      });
-    }
-
-    function toggleSupplierSelection() {
-      const label = document.querySelector(`label[for="${this.id}"]`);
-      if (this.checked) {
-        selectedSuppliers.set(this.value, label ? label.textContent : '');
-      } else {
-        selectedSuppliers.delete(this.value);
-      }
-      updateSelectedSuppliersDisplay();
-      updateHiddenField()
-    }
+    let selectedSuppliers = {};
 
     function updateSelectedSuppliersDisplay() {
-      const outputElement = document.getElementById('selected-suppliers');
-      const selectedList = Array.from(selectedSuppliers.values()).join('<br>');
-      outputElement.innerHTML = selectedList || 'Please select at least one supplier below';
-      outputElement.className = 'govuk-hint';
+      if (!selectedSuppliersDisplay) return;
+
+      const selectedNames = Object.values(selectedSuppliers);
+
+      selectedSuppliersDisplay.innerHTML = selectedNames.length
+        ? selectedNames.map(name => `${name}`).join('<br>')
+        : '<p>Please select at least one supplier below</p>';
     }
 
-    function updateHiddenField() {
-      const hiddenContainer = document.getElementById('selected-suppliers-hidden');
-      hiddenContainer.innerHTML = '';
-
-      if (selectedSuppliers.size > 0) {
-        selectedSuppliers.forEach((name,id) => {
-          const hiddenInput = document.createElement('input');
-          hiddenInput.type = 'hidden';
-          hiddenInput.name = 'supplier_salesforce_ids[]';
-          hiddenInput.value = id;
-          hiddenContainer.appendChild(hiddenInput);
-        });
-      } else {
-        const emptyInput = document.createElement('input');
-        emptyInput.type = 'hidden';
-        emptyInput.name = 'supplier_salesforce_ids[]';
-        hiddenContainer.appendChild(emptyInput);
-      }
+    if (selectedSuppliersDisplay) {
+      fetch('/admin/users/update_selected_suppliers', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Fetched selected suppliers:", data.selected_suppliers);
+        if (!data.selected_suppliers || Object.keys(data.selected_suppliers).length === 0) {
+          selectedSuppliers = {};
+          document.querySelectorAll('.govuk-checkboxes__input').forEach(checkbox => checkbox.checked = false);
+        } else {
+          selectedSuppliers = data.selected_suppliers;
+        }
+        updateSelectedSuppliersDisplay();
+      })
+      .catch(error => console.error("Error fetching selected suppliers:", error));
     }
 
-    document.getElementById('supplier-search-form').addEventListener('ajax:complete', function(){
-      updateCheckboxes();
-    });
+    if (supplierList) {
+      supplierList.addEventListener('change', (event) => {
+        if (event.target.classList.contains('govuk-checkboxes__input')) {
+          const supplierId = event.target.value;
+          console.log(supplierId);
+          const isChecked = event.target.checked;
+          console.log(isChecked);
+          const supplierName = event.target.closest('tr').querySelector('.govuk-checkboxes__label').textContent.trim();
 
-    updateSelectedSuppliersDisplay();
-    updateHiddenField();
-    updateCheckboxes();
+          if (isChecked) {
+            selectedSuppliers[supplierId] = supplierName;
+          } else {
+            delete selectedSuppliers[supplierId];
+          }
+
+          fetch('/admin/users/update_selected_suppliers', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ supplier_id: supplierId, supplier_name: supplierName, checked: isChecked })
+          }).then(response => response.json())
+            .then(data => {
+              console.log("Updated Selected Suppliers:", data.selected_suppliers);
+              selectedSuppliers = data.selected_suppliers || {};
+              updateSelectedSuppliersDisplay();
+              })
+            .catch(error => console.error("Error updating selection:", error));
+        }
+      });
+    } 
   });
 
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      console.log("Navigated back - forcing full reload");
+      window.location.reload();
+    }
+  });
+  
+  window.addEventListener('beforeunload', () => {
+    fetch('/admin/users/reset_selected_suppliers', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        }
+    });
+  });
