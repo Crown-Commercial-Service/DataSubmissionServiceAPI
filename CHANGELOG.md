@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-164] - 2025-03-31
+
+- NRMI-138: Enable supplier's to view/resubmit tasks pre-dating Jan-2019
+
 ## [release-163] - 2025-03-18
 
 - NRMI-79: link supplier on unfinished tasks page
@@ -1089,6 +1093,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
 [release-163]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-162...release-163
 [release-162]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-161...release-162
 [release-161]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-160...release-161
