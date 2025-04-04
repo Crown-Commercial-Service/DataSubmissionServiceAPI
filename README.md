@@ -30,10 +30,10 @@ The most common command used to start all containers. It does database set up if
 $ bin/dstart
 ```
 
-If you'd like to see all logs, like `Sidekiq` or `Redis` you can use the conventional docker-compose command - you will lose the ability to use `pry`:
+If you'd like to see all logs, like `Sidekiq` or `Redis` you can use the conventional `docker compose` command - you will lose the ability to use `pry`:
 
 ```bash
-$ docker-compose --env-file docker-compose.env up --build
+$ docker compose --env-file docker-compose.env up --build
 ```
 
 If you'd like to shut all containers down, and remove database information persisted in `docker volumes` you can run the following command which rebuilds everything from scratch:
@@ -78,7 +78,7 @@ $ bin/dtest-server down
 When making changes to the Gemfile we should use Docker too in order to ensure we use a consistent version of Bundler:
 
 ```bash
-$ docker-compose run --rm web bundle
+$ docker compose run --rm web bundle
 ```
 
 The Bundler version in the Gemfile.lock should remain unchanged unless part of a deliberate update.
