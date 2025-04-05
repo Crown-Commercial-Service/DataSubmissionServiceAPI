@@ -28,7 +28,7 @@ gem 'jwt', '~> 2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 6.4', '>= 6.4.2'
+gem 'puma', '~> 6.4', '>= 6.4.3'
 
 # Audit log
 gem 'rails_event_store', '~> 2.13', '>= 2.13.0'
