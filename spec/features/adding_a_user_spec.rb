@@ -16,7 +16,13 @@ RSpec.feature 'Adding a user' do
   end
 
   scenario 'successfully' do
-    visit new_admin_user_path
+    click_on 'Users'
+    click_on 'Add a new user'
+
+    fill_in 'Name', with: 'New User'
+    fill_in 'Email address', with: email
+
+    click_button 'Select suppliers'
 
     expect(page).to have_content(supplier_1.name)
     expect(page).to have_content(supplier_1.salesforce_id)
@@ -29,24 +35,25 @@ RSpec.feature 'Adding a user' do
     expect(page).not_to have_content(supplier_1.name)
     expect(page).to have_content(supplier_2.name)
 
-    fill_in 'Name', with: 'New User'
-    fill_in 'Email address', with: email
-    fill_in 'salesforce-ids', with: supplier_2.salesforce_id
+    check "supplier_#{supplier_2.salesforce_id}"
 
-    click_on 'Add new user'
+    click_button 'Confirm'
 
     expect(page).to have_content('New User')
     expect(page).to have_content('new@example.com')
     expect(page).to have_content(supplier_2.name)
+
+    click_button 'Create user'
+
+    expect(page).to have_content('User created successfully with linked suppliers.')
   end
 
   context 'when no name is provided' do
     scenario 'it fails and prompts you to provide a name' do
-      click_on 'Users'
-      click_on 'Add a new user'
+      visit new_admin_user_path
+      
       fill_in 'Email address', with: email
-      fill_in 'salesforce-ids', with: supplier_2.salesforce_id
-      click_button 'Add new user'
+      click_button 'Select suppliers'
 
       expect(page).to have_content('You must provide a name.')
     end
@@ -54,11 +61,10 @@ RSpec.feature 'Adding a user' do
 
   context 'when no email provided' do
     scenario 'it fails and prompts you to provide an email address' do
-      click_on 'Users'
-      click_on 'Add a new user'
+      visit new_admin_user_path
+
       fill_in 'Name', with: 'New User'
-      fill_in 'salesforce-ids', with: supplier_2.salesforce_id
-      click_button 'Add new user'
+      click_button 'Select suppliers'
 
       expect(page).to have_content('You must provide an email address.')
     end
@@ -67,36 +73,26 @@ RSpec.feature 'Adding a user' do
   context 'when an existing email provided' do
     let!(:existing_user) { create :user, email: email }
     scenario 'it fails and alerts you the user already exists' do
-      click_on 'Users'
-      click_on 'Add a new user'
+      visit new_admin_user_path
+
       fill_in 'Name', with: 'New User'
       fill_in 'Email address', with: email
-      click_button 'Add new user'
+      click_button 'Select suppliers'
 
-      expect(page).to have_content('Email address already exists.')
+      expect(page).to have_content('Email address has already been taken.')
     end
   end
 
   context 'when no supplier provided' do
     scenario 'it fails and prompts you to select a supplier' do
-      click_on 'Users'
-      click_on 'Add a new user'
+      visit new_admin_user_path
+
       fill_in 'Name', with: 'New User'
       fill_in 'Email address', with: email
-      click_button 'Add new user'
+      click_button 'Select suppliers'
+      click_button 'Confirm'
 
       expect(page).to have_content('You must select at least one supplier.')
     end
-  end
-
-  scenario 'with invalid Salesforce provided' do
-    click_on 'Users'
-    click_on 'Add a new user'
-    fill_in 'Name', with: 'New User'
-    fill_in 'Email address', with: 'bla@example.com'
-    fill_in 'salesforce-ids', with: 'INVALIDSFID123'
-    click_button 'Add new user'
-
-    expect(page).to have_content('Failed to create user')
   end
 end

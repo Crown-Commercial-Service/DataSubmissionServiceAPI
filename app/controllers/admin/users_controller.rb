@@ -17,51 +17,45 @@ class Admin::UsersController < AdminController
   end
 
   def new
+    @user = User.new(user_params)
+  rescue
     @user = User.new
-    @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
-    @selected_suppliers = session[:selected_suppliers] || {}
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
-  def update_selected_suppliers
-    if request.get?
-      render json: { selected_suppliers: session[:selected_suppliers] ||= {} }
-    else
-      selected_suppliers = session[:selected_suppliers] ||= {}
-      supplier_id = params[:supplier_id]
+  def build
+    @user = User.new(user_params)
 
-      if params[:checked] == true
-        supplier_name = params[:supplier_name]
-        selected_suppliers[supplier_id] = supplier_name unless selected_suppliers.key?(supplier_id)
-      else
-        selected_suppliers.delete(supplier_id)
+    if @user.valid?
+      @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
+      respond_to do |format|
+        format.html { render :select_suppliers }
+        format.js { render :select_suppliers }
       end
-
-      render json: { selected_suppliers: selected_suppliers }
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def reset_selected_suppliers
-    Rails.logger.debug "Before reset: #{session[:selected_suppliers].inspect}"
-    session[:selected_suppliers] = {}
-    Rails.logger.debug "After reset: #{session[:selected_suppliers].inspect}"
-    head :ok
+  def validate_suppliers
+    @user = User.new(user_params)
+    @selected_supplier_ids = Array(params[:supplier_salesforce_ids]).uniq
+
+    if @selected_supplier_ids.empty?
+      flash[:failure] = 'You must select at least one supplier.'
+      @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
+      render :select_suppliers, status: :unprocessable_entity
+    else
+      @suppliers = Supplier.where(salesforce_id: @selected_supplier_ids)
+      render :confirm
+    end
   end
 
   def create
-    return redirect_to new_admin_user_path, alert: 'Email address already exists.' if existing_email?
-
-    supplier_sf_ids = session[:selected_suppliers].keys
-    if supplier_sf_ids.all?(&:blank?)
-      return redirect_to new_admin_user_path, alert: 'You must select at least one supplier.'
-    end
-
+    supplier_sf_ids = params[:supplier_salesforce_ids].uniq
+    
     begin
-      import_user_with_suppliers(user_params, supplier_sf_ids)
-      session[:selected_suppliers] = {}
+      import_user_with_suppliers(params[:name], params[:email], supplier_sf_ids)
+
       redirect_to admin_users_path, notice: 'User created successfully with linked suppliers.'
     rescue StandardError => e
       redirect_to new_admin_user_path, alert: "Failed to create user: #{e.message}"
@@ -108,13 +102,9 @@ class Admin::UsersController < AdminController
     User.find_by('lower(email) = ?', params[:user][:email].downcase)
   end
 
-  def split_sf_ids(sf_ids)
-    sf_ids.length === 1 ? sf_ids.first.split(',') : sf_ids # rubocop:disable Style/CaseEquality
-  end
-
-  def import_user_with_suppliers(user_data, supplier_sf_ids)
+  def import_user_with_suppliers(name, email, supplier_sf_ids)
     supplier_sf_ids.each do |supplier_id|
-      Import::Users::Row.new(email: user_data['email'], name: user_data['name'],
+      Import::Users::Row.new(email: email, name: name,
                              supplier_salesforce_id: supplier_id.strip).import!
     end
   end
