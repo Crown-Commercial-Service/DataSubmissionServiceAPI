@@ -93,7 +93,7 @@ Rails.application.routes.draw do
         match 'build', via: %i[get post]
         get :select_suppliers
         post :validate_suppliers
-        post :confirm 
+        post :confirm
       end
     end
 

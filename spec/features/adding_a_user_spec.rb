@@ -51,7 +51,7 @@ RSpec.feature 'Adding a user' do
   context 'when no name is provided' do
     scenario 'it fails and prompts you to provide a name' do
       visit new_admin_user_path
-      
+
       fill_in 'Email address', with: email
       click_button 'Select suppliers'
 
