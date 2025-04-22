@@ -331,7 +331,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.3)
-    nokogiri (1.18.5)
+    nokogiri (1.18.8)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -621,7 +621,7 @@ DEPENDENCIES
   lograge (>= 0.14.0)
   lolsoap (>= 0.11.0)
   net-http (>= 0.4.0)
-  nokogiri (>= 1.18.4)
+  nokogiri (>= 1.18.8)
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.2)
   parslet
