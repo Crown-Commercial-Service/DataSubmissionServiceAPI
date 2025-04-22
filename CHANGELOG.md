@@ -1,5 +1,21 @@
 # Change Log
 
+## [release-164] - 2025-03-31
+
+- NRMI-138: Enable supplier's to view/resubmit tasks pre-dating Jan-2019
+
+## [release-163] - 2025-03-18
+
+- NRMI-79: link supplier on unfinished tasks page
+- NRMI-80: select valid outstanding tasks for bulk report no business
+- NRMI-81: confirm/cancel bulk report no business
+- NRMI-82: bulk tasks no business completed view
+- NRMI-89: add error message for invalid emails in create user
+- NRMI-117: fix for missing payment status in workday response issue
+- NRMI-98: change logo
+- NRMI-94: fix accessibility issue
+- NRMI-93: fix table overflow in mobile view
+
 ## [release-162] - 2024-12-09
 
 - NRMI-78: release notes feature
@@ -1077,6 +1093,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
+[release-163]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-162...release-163
 [release-162]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-161...release-162
 [release-161]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-160...release-161
 [release-160]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-159...release-160
