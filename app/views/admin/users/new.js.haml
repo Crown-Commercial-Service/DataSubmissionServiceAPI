@@ -1,3 +1,0 @@
-$('#suppliers-list').html("#{j (render 'supplier_list', suppliers: @suppliers)}")
-$('#supplier_pagination').html("#{j (paginate(@suppliers, :param_name => "page", :remote => true).to_s)}");
-$('#supplier_pagination_summary').html("#{j (page_entries_info(@suppliers, entry_name: "supplier").to_s)}");
