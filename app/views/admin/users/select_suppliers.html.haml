@@ -1,0 +1,80 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h2.govuk-heading-l
+      Select suppliers
+
+    = form_with url: build_admin_users_path, method: :get, html: { data: { remote: true, turbo: false } } do
+      = hidden_field_tag "user[name]", @user[:name]
+      = hidden_field_tag "user[email]", @user[:email]
+      - Array(params[:supplier_salesforce_ids]).each do |id|
+        = hidden_field_tag "supplier_salesforce_ids[]", id
+
+      %h2.govuk-heading-s
+        Search suppliers
+      .ccs-search-form-group
+        = label_tag :search, "Search", class: ['govuk-label', 'govuk-visually-hidden']
+        = text_field_tag :search, params[:search], class: ['govuk-!-width-two-thirds', 'govuk-input']
+        = submit_tag "Search", class: "govuk-button govuk-button--secondary"
+
+    = form_with url: validate_suppliers_admin_users_path, method: :post, local: true do
+      = hidden_field_tag "user[name]", @user[:name]
+      = hidden_field_tag "user[email]", @user[:email]
+
+      #supplier-hidden-fields
+        = render partial: 'selected_supplier_fields', locals: { suppliers: @suppliers, selected_ids: params[:supplier_salesforce_ids] }
+
+      .results{id: 'suppliers-list'}
+        = render partial: 'supplier_list', locals: { suppliers: @suppliers, selected_ids: params[:supplier_salesforce_ids] }
+
+      = submit_tag "Confirm", class: "govuk-button"
+
+:javascript 
+  document.addEventListener("DOMContentLoaded", () => {
+    const selectedSuppliers = new Set();
+
+    document.body.addEventListener("change", (event) => {
+      if (event.target.matches(".supplier-checkbox")) {
+        const id = event.target.value;
+        if (event.target.checked) {
+          selectedSuppliers.add(id);
+        } else {
+          selectedSuppliers.delete(id);
+        }
+        updateHiddenFields();
+      }
+    });
+
+    function updateHiddenFields() {
+      const container = document.getElementById("supplier-hidden-fields");
+      if (!container) return;
+
+      container.innerHTML = "";
+      selectedSuppliers.forEach((id) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "supplier_salesforce_ids[]";
+        input.value = id;
+        container.appendChild(input);
+      });
+    }
+
+    function restoreCheckboxes() {
+      selectedSuppliers.forEach((id) => {
+        const checkbox = document.querySelector(`.supplier-checkbox[value="${id}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+      updateHiddenFields();
+    }
+
+    const targetNode = document.getElementById("suppliers-list");
+    if (targetNode) {
+      const observer = new MutationObserver(() => {
+        restoreCheckboxes();
+      });
+
+      observer.observe(targetNode, {
+        childList: true,
+        subtree: true
+      });
+    }
+  });

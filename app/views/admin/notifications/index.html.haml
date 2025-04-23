@@ -15,14 +15,30 @@
     - if @published_notification.present?
       %h2.govuk-heading-m
         Current notification
-      .govuk-notification-banner{"aria-labelledby" => "govuk-notification-banner-title", "data-module" => "govuk-notification-banner", role: "region", class: 'govuk-!-margin-bottom-3'}
-        .govuk-notification-banner__header
-          %h2#govuk-notification-banner-title.govuk-notification-banner__title
-            Important
-        .govuk-notification-banner__content
-          = @published_notification.notification_message.html_safe
-      = button_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
+      %details.govuk-details{ open: true }
+        %summary.govuk-details__summary.govuk-heading-m
+          %span.govuk-details__summary-text
+            = @published_notification.summary.html_safe
+        .govuk-details__text
+          = @published_notification_message.html_safe
+      = link_to 'Unpublish', unpublish_admin_notification_path(@published_notification), method: :post, class: 'govuk-button'
+      = link_to 'Edit', new_admin_notification_path(published_notification: @published_notification), class: 'govuk-button'
     - else
       %h2.govuk-heading-m
         No notification currently published    
 
+.govuk-grid-row
+  .govuk-grid-column-full
+    - if @notifications.present?
+      %table.govuk-table{:class => 'govuk-!-margin-top-7'}
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header Header
+            %th.govuk-table__header Published
+            %th.govuk-table__header Unpublished
+        %tbody.govuk-table__body
+          - @notifications.each do |notification|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= link_to notification.summary, admin_notification_path(notification.id)
+              %td.govuk-table__cell= notification.published_at
+              %td.govuk-table__cell= notification.unpublished_at

@@ -45,11 +45,11 @@ $ccs-header-nav-item-border-color: darken(govuk-colour("primary"), 2);
   @include govuk-media-query($until: desktop) {
     width: auto;
     height: 32px;
-    background-image: govuk-image-url("logo_horiozontal_white.svg");
+    background-image: govuk-image-url("logo_horizontal_white.svg");
     background-size: contain;
   }
   @include govuk-media-query($until: tablet) {
-    height: 24px;
+    height: 34px;
     margin-bottom: govuk-spacing(3);
   }
 }

@@ -1,3 +1,6 @@
+- current_page_ids = @suppliers.map { |s| s.salesforce_id.to_s }
+- selected_ids = Array(params[:supplier_salesforce_ids]).map(&:to_s)
+
 %table.govuk-table
   %thead.govuk-table__head
     %tr.govuk-table__row
@@ -6,18 +9,18 @@
         %th.govuk-table__header Salesforce ID
   %tbody.govuk-table__body
     - @suppliers.each do |supplier|
-      %tr.govuk-table__row
+      - supplier_id = supplier.salesforce_id
+      - is_checked = selected_ids.include?(supplier_id)
+      %tr.govuk-table__row{"data-supplier-id" => supplier_id}
         %td.govuk-table__cell
-          %noscript
-            = supplier.name 
-          .govuk-checkboxes.js-checkbox-container
+          .govuk-checkboxes{id: 'supplier_checkboxes'} 
             .govuk-checkboxes__item
-              = check_box_tag "supplier_salesforce_ids[]", supplier.salesforce_id, false, id: "supplier_#{supplier.salesforce_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small'
-              = label_tag "supplier_#{supplier.salesforce_id}", supplier.name, class: 'govuk-checkboxes__label'
+              = check_box_tag "supplier_salesforce_ids[]", supplier_id, is_checked, id: "supplier_#{supplier_id}", class: 'govuk-checkboxes__input govuk-checkboxes__input--small supplier-checkbox'
+              = label_tag "supplier_#{supplier_id}", supplier.name, class: 'govuk-checkboxes__label'
         %noscript
           %td.govuk-table__cell
-            %noscript
-              = supplier.salesforce_id
+            = supplier.salesforce_id
+  
 %nav.pagination.ccs-pagination{"aria-label" => "Pagination", :role => "navigation"}
   #supplier_pagination_summary.ccs-pagination__summary= page_entries_info @suppliers, entry_name: "supplier"
-  #supplier_pagination= paginate @suppliers, :param_name => "supplier_page", remote: true
+  #supplier_pagination= paginate @suppliers, :param_name => "supplier_page", remote: true, params: { controller: 'admin/users', action: 'build', "user[name]": @user[:name], "user[email]": @user[:email], "supplier_salesforce_ids[]": params[:supplier_salesforce_ids], search: params[:search] }

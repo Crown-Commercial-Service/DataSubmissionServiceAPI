@@ -1,5 +1,5 @@
 class SerializableNotification < JSONAPI::Serializable::Resource
   type 'notifications'
 
-  attribute :notification_message
+  attributes :summary, :notification_message
 end
