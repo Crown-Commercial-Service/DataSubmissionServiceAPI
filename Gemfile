@@ -62,7 +62,7 @@ gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.62.0'
-gem 'rubocop-rails', '~> 2.24', '>= 2.24.1'
+gem 'rubocop-rails', '~> 2.30', '>= 2.30.0'
 
 gem 'progress_bar', require: false
 
@@ -92,7 +92,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.16.5'
+gem 'nokogiri', '>= 1.18.8'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
