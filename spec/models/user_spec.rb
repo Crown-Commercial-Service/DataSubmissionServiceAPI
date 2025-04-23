@@ -11,6 +11,14 @@ RSpec.describe User, type: :model do
       expect(new_user).not_to be_valid
       expect(new_user.errors[:email]).to be_present
     end
+
+    it 'fails for invalid address formats' do
+      user = FactoryBot.create(:user)
+      user.email = 'somebody@example'
+
+      expect(user).not_to be_valid
+      expect(user.errors[:email]).to be_present
+    end
   end
 
   describe '#name=' do

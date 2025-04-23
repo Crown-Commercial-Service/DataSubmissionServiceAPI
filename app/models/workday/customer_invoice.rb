@@ -13,7 +13,8 @@ module Workday
 
       result[:invoice_number] = invoice_number.delete_prefix 'Customer Invoice: '
       result[:invoice_amount] = report_entry.at_xpath('wd:Invoice_Amount').text
-      result[:payment_status] = report_entry.at_xpath('wd:Payment_Status/@wd:Descriptor').text
+      payment_status_xml = report_entry.at_xpath('wd:Payment_Status/@wd:Descriptor')
+      result[:payment_status] = payment_status_xml.text if payment_status_xml
       result[:invoice_date] = report_entry.at_xpath('wd:Invoice_Date').text
 
       result

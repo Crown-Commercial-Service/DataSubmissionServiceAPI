@@ -17,25 +17,45 @@ class Admin::UsersController < AdminController
   end
 
   def new
+    @user = User.new(user_params)
+  rescue StandardError
     @user = User.new
-    @suppliers = Supplier.order(:name).search(params[:search]).page(params[:page])
-    respond_to do |format|
-      format.html
-      format.js
+  end
+
+  def build
+    @user = User.new(user_params)
+
+    if @user.valid?
+      @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
+      respond_to do |format|
+        format.html { render :select_suppliers }
+        format.js { render :select_suppliers }
+      end
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def validate_suppliers
+    @user = User.new(user_params)
+    @selected_supplier_ids = Array(params[:supplier_salesforce_ids]).uniq
+
+    if @selected_supplier_ids.empty?
+      flash[:failure] = 'You must select at least one supplier.'
+      @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
+      render :select_suppliers, status: :unprocessable_entity
+    else
+      @suppliers = Supplier.where(salesforce_id: @selected_supplier_ids)
+      render :confirm
     end
   end
 
   def create
-    return redirect_to new_admin_user_path, alert: 'You must provide an email address.' if params[:user][:email].blank?
-    return redirect_to new_admin_user_path, alert: 'Email address already exists.' if existing_email?
-
-    supplier_sf_ids = split_sf_ids(params[:supplier_salesforce_ids])
-    if supplier_sf_ids.all?(&:blank?)
-      return redirect_to new_admin_user_path, alert: 'You must select at least one supplier.'
-    end
+    supplier_sf_ids = params[:supplier_salesforce_ids].uniq
 
     begin
-      import_user_with_suppliers(user_params, supplier_sf_ids)
+      import_user_with_suppliers(params[:name], params[:email], supplier_sf_ids)
+
       redirect_to admin_users_path, notice: 'User created successfully with linked suppliers.'
     rescue StandardError => e
       redirect_to new_admin_user_path, alert: "Failed to create user: #{e.message}"
@@ -82,13 +102,9 @@ class Admin::UsersController < AdminController
     User.find_by('lower(email) = ?', params[:user][:email].downcase)
   end
 
-  def split_sf_ids(sf_ids)
-    sf_ids.length === 1 ? sf_ids.first.split(',') : sf_ids # rubocop:disable Style/CaseEquality
-  end
-
-  def import_user_with_suppliers(user_data, supplier_sf_ids)
+  def import_user_with_suppliers(name, email, supplier_sf_ids)
     supplier_sf_ids.each do |supplier_id|
-      Import::Users::Row.new(email: user_data['email'], name: user_data['name'],
+      Import::Users::Row.new(email: email, name: name,
                              supplier_salesforce_id: supplier_id.strip).import!
     end
   end

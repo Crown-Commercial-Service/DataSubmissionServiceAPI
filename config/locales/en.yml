@@ -12,8 +12,10 @@ en:
       models:
         user:
           attributes:
+            name:
+              blank: 'You must provide a name.'
             email:
-              blank: 'Enter an email address'
+              blank: 'You must provide an email address.'
               invalid: 'Enter an email address in the correct format, like name@example.com'
         supplier:
           attributes:
@@ -23,8 +25,16 @@ en:
               blank: 'Salesforce ID cannot be blank'
         notification:
           attributes:
+            summary:
+              blank: 'Summary cannot be blank'
             notification_message:
               blank: 'Notification message cannot be blank'
+        release_note:
+          attributes:
+            header:
+              blank: 'Header cannot be blank'
+            body:
+              blank: 'Body cannot be blank'
   errors:
     format: "%{message}"
     messages:
