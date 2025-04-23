@@ -152,6 +152,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    cronex (0.15.0)
+      tzinfo
+      unicode (>= 0.4.4.5)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.0)
@@ -171,7 +174,7 @@ GEM
     email_validator (2.2.4)
       activemodel
     erubi (1.13.1)
-    et-orbi (1.2.7)
+    et-orbi (1.2.11)
       tzinfo
     execjs (2.9.1)
     factory_bot (6.4.6)
@@ -208,8 +211,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    fugit (1.10.1)
-      et-orbi (~> 1, >= 1.2.7)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -444,7 +447,7 @@ GEM
     rdoc (6.12.0)
       psych (>= 4.0.0)
     redcarpet (3.6.0)
-    redis-client (0.21.1)
+    redis-client (0.22.2)
       connection_pool
     regexp_parser (2.10.0)
     reline (0.6.0)
@@ -529,15 +532,16 @@ GEM
     securerandom (0.4.1)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.2.2)
-      concurrent-ruby (< 2)
+    sidekiq (7.3.5)
       connection_pool (>= 2.3.0)
+      logger
       rack (>= 2.2.4)
-      redis-client (>= 0.19.0)
-    sidekiq-cron (1.12.0)
-      fugit (~> 1.8)
+      redis-client (>= 0.22.2)
+    sidekiq-cron (2.0.0)
+      cronex (>= 0.13.0)
+      fugit (~> 1.8, >= 1.11.1)
       globalid (>= 1.0.1)
-      sidekiq (>= 6)
+      sidekiq (>= 6.5.0)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -576,6 +580,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.1)
+    unicode (0.4.4.5)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -650,7 +655,7 @@ DEPENDENCIES
   ruby_event_store-rspec
   sass-rails (~> 6.0, >= 6.0.0)
   shoulda-matchers (~> 5.1, >= 5.1.0)
-  sidekiq-cron (>= 1.11.0)
+  sidekiq-cron (>= 2.0.0)
   sidekiq-pro!
   simple_form (>= 5.3.1)
   simplecov (~> 0.21.2)
