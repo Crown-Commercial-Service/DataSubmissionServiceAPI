@@ -381,7 +381,7 @@ GEM
       date
       stringio
     public_suffix (6.0.0)
-    puma (6.4.2)
+    puma (6.4.3)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -641,7 +641,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   progress_bar
   pry-rails
-  puma (~> 6.4, >= 6.4.2)
+  puma (~> 6.4, >= 6.4.3)
   rack-maintenance (~> 3.0)
   rails (~> 7.2, >= 7.2.0)
   rails_event_store (~> 2.13, >= 2.13.0)
