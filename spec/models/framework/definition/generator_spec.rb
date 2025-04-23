@@ -357,7 +357,7 @@ RSpec.describe Framework::Definition::Generator do
 
         it {
           is_expected.to have_field('Vehicle Segment')
-            .validated_by(dependent_field_inclusion: { parents: ['Lot Number'], in: mappings })
+            .validated_by(dependent_field_inclusion: { parents: ['Lot Number'], in: mappings, optional: nil })
         }
 
         it {
@@ -715,7 +715,7 @@ RSpec.describe Framework::Definition::Generator do
               parents: ['Service Type'],
               in: {
                 ['core'] => %w[Hi], ['non-core'] => %w[There], ['mixture'] => %w[Hi There]
-              }
+              }, optional: nil
             }
           )
         }
@@ -728,7 +728,7 @@ RSpec.describe Framework::Definition::Generator do
                 ['core', '1'] => ['Hi'],
                 ['mixture', '2'] => ['There'],
                 ['non-core', Framework::Definition::AST::Any] => ['Hi', 'There']
-              }
+              }, optional: nil
             }
           )
         }

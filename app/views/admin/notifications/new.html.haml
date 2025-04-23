@@ -6,8 +6,8 @@
           %h1.govuk-fieldset__heading
             Create a new notification
 
-        = form.input :summary, hide_optional: true
-        = form.input :notification_message, label: 'Notification message', hide_optional: true, wrapper: :govuk_textarea_wrapper, input_html: { rows: '10' }
+        = form.input :summary, hide_optional: true, input_html: { value: @published_notification&.summary }
+        = form.input :notification_message, label: 'Notification message', hide_optional: true, wrapper: :govuk_textarea_wrapper, input_html: { rows: '10', value: @published_notification&.notification_message }
         %button#markdown-preview-btn{type: "button", class: 'govuk-button'} Preview
         = form.button :submit, value: 'Publish Notification', data: { disable_with: "Publish Notification" }
 
