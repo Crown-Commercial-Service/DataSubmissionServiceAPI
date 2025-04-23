@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.4.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.2', '>= 7.2.0'
@@ -10,6 +10,8 @@ gem 'rails', '~> 7.2', '>= 7.2.0'
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+
+gem 'csv', '~> 3.3', '>= 3.3.4'
 
 gem 'email_validator', require: 'email_validator/strict'
 
