@@ -36,6 +36,11 @@ Rails.application.routes.draw do
         post :no_business
         patch :cancel_correction
       end
+
+      collection do
+        get :index_by_supplier
+        post :bulk_no_business
+      end
     end
 
     resources :files, only: [] do
@@ -85,6 +90,10 @@ Rails.application.routes.draw do
       collection do
         resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
         resource :bulk_deactivate, only: %i[new create], controller: 'user_bulk_deactivation', as: :user_bulk_deactivate
+        match 'build', via: %i[get post]
+        get :select_suppliers
+        post :validate_suppliers
+        post :confirm
       end
     end
 

@@ -4,6 +4,8 @@ class ReleaseNote < ApplicationRecord
   scope :published, -> { where(published: true) }
 
   def publish!
-    update(published: true)
+    self.published =  true
+    self.published_at = Time.zone.now
+    save!
   end
 end
