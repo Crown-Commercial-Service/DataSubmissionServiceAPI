@@ -12,14 +12,14 @@ RSpec.describe 'Admin Notifications', type: :request do
   describe '#preview' do
     it 'renders the Markdown content as HTML' do
       markdown_content = '**Bold Text**'
-      expected_html = '<p class="govuk-notification-banner__heading"><strong>Bold Text</strong></p>'
+      expected_html = '<p class="govuk-body"><strong>Bold Text</strong></p>'
 
-      post admin_notifications_preview_path, params: { text: markdown_content }
+      post admin_notifications_preview_path, params: { summary: 'summary', message: markdown_content }
 
       expect(response).to be_successful
       expect(response.header['Content-Type']).to include 'application/json'
       json_response = JSON.parse(response.body)
-      expect(json_response['html']).to eq(expected_html)
+      expect(json_response['message']).to eq(expected_html)
     end
   end
 

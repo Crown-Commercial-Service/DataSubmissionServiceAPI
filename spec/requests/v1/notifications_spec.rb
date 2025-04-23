@@ -6,7 +6,7 @@ RSpec.describe '/v1' do
   describe 'GET /v1/notifications' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
+        get '/v1/notifications', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
         expect(response.status).to eq(401)
       end
     end
@@ -26,11 +26,14 @@ RSpec.describe '/v1' do
     end
 
     it 'returns the details of the current published notification' do
-      FactoryBot.create(:notification, published: true, notification_message: 'The answer is 42')
+      FactoryBot.create(:notification, published: true, summary: 'Testy McTestface',
+notification_message: 'The answer is 42')
 
       get '/v1/notifications', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
 
       expect(response).to be_successful
+      expect(json['data'])
+        .to have_attribute(:summary)
       expect(json['data'])
         .to have_attribute(:notification_message)
     end

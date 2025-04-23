@@ -197,6 +197,65 @@ RSpec.describe '/v1' do
     end
   end
 
+  describe 'GET /v1/tasks/index_by_supplier' do
+    let(:supplier2) do
+      supplier = FactoryBot.create(:supplier)
+      Membership.create(supplier: supplier, user: user)
+      supplier
+    end
+    let!(:task1) { FactoryBot.create(:task, status: 'unstarted', supplier: supplier) }
+    let!(:task2) { FactoryBot.create(:task, status: 'unstarted', supplier: supplier2) }
+    let!(:task3) { FactoryBot.create(:task, status: 'in_progress', supplier: supplier) }
+
+    it 'returns a list of tasks grouped by supplier' do
+      get '/v1/tasks/index_by_supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
+
+      expect(response).to be_successful
+      expect(json['data'].size).to eql 2
+
+      expect(json['data'].map { |data| data['id'] }).to contain_exactly(supplier.id, supplier2.id)
+      expect(json['data'][0]).to have_attribute(:name).with_value(supplier.name)
+
+      json_task1 = json['included'][0]
+      expect(json_task1).to have_attribute(:status).with_value('unstarted')
+    end
+
+    context 'with task_ids' do
+      it 'returns grouped tasks for the given task IDs' do
+        get '/v1/tasks/index_by_supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') },
+params: { task_ids: [task2.id] }
+
+        expect(response).to be_successful
+        expect(json['data'].size).to eql 1
+        expect(json['data'].map { |data| data['id'] }).to contain_exactly(supplier2.id)
+        expect(json['data'][0]).to have_attribute(:name).with_value(supplier2.name)
+      end
+
+      it 'returns an empty array if no tasks match the IDs' do
+        get '/v1/tasks/index_by_supplier', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') },
+params: { task_ids: [123] }
+
+        expect(response).to be_successful
+        expect(json['data'].size).to eql 0
+      end
+    end
+  end
+
+  describe 'POST /v1/tasks/bulk_no_business' do
+    let!(:task1) { FactoryBot.create(:task, status: 'unstarted', supplier: supplier) }
+    let!(:task2) { FactoryBot.create(:task, status: 'unstarted', supplier: supplier) }
+
+    it 'marks the tasks as completed for the given task IDs and returns an array of the completed tasks' do
+      post '/v1/tasks/bulk_no_business', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') },
+params: { _jsonapi: { task_ids: [task2.id] } }
+
+      expect(task2.reload).to be_completed
+      expect(task1.reload).to_not be_completed
+      completed_tasks = json['data'].map { |data| data['relationships'] }
+      expect(completed_tasks[0]['tasks']['data'][0]).to have_id task2.id
+    end
+  end
+
   describe 'POST /v1/tasks/:task_id/no_business' do
     let(:task) { FactoryBot.create(:task, supplier: supplier) }
 

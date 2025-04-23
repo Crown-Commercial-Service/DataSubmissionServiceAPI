@@ -1,0 +1,26 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl
+      Confirm user and suppliers
+
+    %p 
+      %strong Name: 
+      = @user[:name]
+
+    %p 
+      %strong Email: 
+      = @user[:email]
+
+    %p 
+      %strong Suppliers: 
+      %ul.govuk-list.govuk-list--bullet
+        - @suppliers.each do |supplier|
+          %li= supplier.name
+
+    = simple_form_for [:admin, @user] do |form|
+      = hidden_field_tag :name, @user[:name]
+      = hidden_field_tag :email, @user[:email]
+      - @selected_supplier_ids.each do |supplier_id|
+        = hidden_field_tag "supplier_salesforce_ids[]", supplier_id
+
+      = form.button :submit, value: 'Create user'
