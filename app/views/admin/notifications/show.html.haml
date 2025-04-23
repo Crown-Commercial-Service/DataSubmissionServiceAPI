@@ -1,0 +1,10 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = link_to 'Back', admin_notifications_path, { class: 'govuk-back-link govuk-!-margin-bottom-5', title: 'Back to notifications' }
+
+    %details#notification.govuk-details{ open: true }
+      %summary.govuk-details__summary.govuk-heading-m
+        %span.govuk-details__summary-text
+          = @notification.summary.html_safe
+      .govuk-details__text
+        = @notification_message.html_safe

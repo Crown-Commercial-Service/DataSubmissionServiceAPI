@@ -15,7 +15,7 @@ class SerializableTask < JSONAPI::Serializable::Resource
         {
           id: submission.id,
           submitted_at: submission.submitted_at,
-          submitted_by: submission.submitted_by.email,
+          submitted_by: submission.submitted_by&.email,
           invoice_total: submission.invoice_total,
           file_name: submission.filename,
           invoice_details: submission.invoice_details,

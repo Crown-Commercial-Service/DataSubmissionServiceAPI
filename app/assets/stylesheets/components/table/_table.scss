@@ -1,5 +1,13 @@
 @import "govuk-frontend/govuk/components/table/table";
 
+.govuk-table {
+  @media (max-width: 768px) {
+    display: block;
+    height: 100%;
+    overflow: auto;
+  }
+}
+
 .govuk-table__cell--numeric {
   @include govuk-font($size: false);
 }

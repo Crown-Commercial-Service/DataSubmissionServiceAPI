@@ -2,36 +2,45 @@ require 'custom_markdown_renderer'
 
 class Admin::NotificationsController < AdminController
   def index
+    markdown_parser = Redcarpet::Markdown.new(CustomMarkdownRenderer)
     @published_notification = Notification.published.first
-    @notifications = Notification.order(created_at: :desc).all
+    if @published_notification
+      @published_notification_message = markdown_parser.render(@published_notification[:notification_message])
+    end
+    @notifications = Notification.order(published_at: :desc).all
   end
 
   def new
     @notification = Notification.new
+    @published_notification = Notification.find(params[:published_notification]) if params[:published_notification]
+  end
+
+  def show
+    markdown_parser = Redcarpet::Markdown.new(CustomMarkdownRenderer)
+    @notification = Notification.find(params[:id])
+    @notification_message = markdown_parser.render(@notification[:notification_message])
   end
 
   def create
-    renderer = CustomMarkdownRenderer.new
-    markdown_parser = Redcarpet::Markdown.new(renderer)
-    html = markdown_parser.render(notification_params[:notification_message])
-    @notification = Notification.new(notification_message: html, user: current_user['email'], published: true,
-                                     published_at: Time.zone.now)
+    @notification = Notification.new(summary: notification_params[:summary],
+                                     notification_message: notification_params[:notification_message],
+                                     user: current_user['email'], published: true, published_at: Time.zone.now)
     Notification.transaction do
       if @notification.save
         flash[:success] = 'Notification created successfully.'
         redirect_to admin_notifications_path
       else
+        @notification.assign_attributes(notification_message: notification_params[:notification_message])
         render action: :new
       end
     end
   end
 
   def preview
-    renderer = CustomMarkdownRenderer.new
-    markdown_parser = Redcarpet::Markdown.new(renderer)
-    @html = markdown_parser.render(params[:text])
+    markdown_parser = Redcarpet::Markdown.new(CustomMarkdownRenderer)
+    @markdown_message = markdown_parser.render(params[:message])
 
-    render json: { html: @html }
+    render json: { summary: params[:summary], message: @markdown_message }
   end
 
   def unpublish
@@ -46,6 +55,6 @@ class Admin::NotificationsController < AdminController
   private
 
   def notification_params
-    params.require(:notification).permit(:notification_message)
+    params.require(:notification).permit(:summary, :notification_message)
   end
 end
