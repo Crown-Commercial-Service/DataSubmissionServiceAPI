@@ -1,0 +1,16 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    = link_to 'Back', admin_release_notes_path, { class: 'govuk-back-link govuk-!-margin-bottom-5', title: 'Back to release notes' }
+    
+    %fieldset.govuk-fieldset
+      %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
+
+        %h2.govuk-heading-m
+          = @release_note.header.html_safe
+        %p.govuk-body
+          = @release_note_body.html_safe
+
+        = link_to 'Edit', edit_admin_release_note_path(@release_note), {class: 'govuk-button govuk-!-margin-right-1'}
+        - unless @release_note.published
+          = link_to 'Publish', publish_admin_release_note_path(@release_note), method: :patch, class: 'govuk-button'
+            

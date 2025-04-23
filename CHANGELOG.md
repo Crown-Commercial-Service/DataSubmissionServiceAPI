@@ -1,6 +1,57 @@
 # Change Log
 
-## [release-156] - 2023-06-20
+## [release-164] - 2025-03-31
+
+- NRMI-138: Enable supplier's to view/resubmit tasks pre-dating Jan-2019
+
+## [release-163] - 2025-03-18
+
+- NRMI-79: link supplier on unfinished tasks page
+- NRMI-80: select valid outstanding tasks for bulk report no business
+- NRMI-81: confirm/cancel bulk report no business
+- NRMI-82: bulk tasks no business completed view
+- NRMI-89: add error message for invalid emails in create user
+- NRMI-117: fix for missing payment status in workday response issue
+- NRMI-98: change logo
+- NRMI-94: fix accessibility issue
+- NRMI-93: fix table overflow in mobile view
+
+## [release-162] - 2024-12-09
+
+- NRMI-78: release notes feature
+- NRMI-84: fix for optional FDL fields with depends_on
+
+## [release-161] - 2024-11-25
+
+- NRMI-76: Make name mandatory when adding a new user
+- NRMI-9: Add edit notification functionality
+
+## [release-160] - 2024-10-28
+
+- NRMI-10: Added past notifications log
+
+## [release-159] - 2024-10-07
+
+- NRMI-28: Change notification banner to details component
+- NRMI-27: Resize admin notification message text box
+
+## [release-158] - 2024-08-19
+
+- RMI-691: get framework lots 
+- RMI-692: get agreement framework lots
+
+## [release-157] - 2024-07-25
+
+- RMI-701: Further improvements to frontend task history load time
+- [Snyk] Security upgrade rails from 7.1.3.2 to 7.1.3.3
+- [Snyk] Upgrade rexml from 3.2.6 to 3.2.8
+- [Snyk] Upgrade nokogiri from 1.16.2 to 1.16.5
+- [Snyk] Upgrade rexml from 3.2.8 to 3.3.2
+- [Snyk] Upgrade actiontext and actionpack from 7.1.3.3 to 7.1.3.4  
+- [Snyk] Security upgrade sprockets-rails from 3.4.2 to 3.5.0
+- [Snyk] Security upgrade zipp from 3.15.0 to 3.19.1
+
+## [release-156] - 2024-06-20
 
 - RMI-684: set up api key authentication and v2 get endpoint for users
 - RMI-685: v2 get endpoint for suppliers
@@ -10,11 +61,11 @@
 - RMI-690: v2 get endpoint for frameworks
 - RMI-700: Speed up loading time for completed tasks page in supplier frontend
 
-## [release-155] - 2023-05-28
+## [release-155] - 2024-05-28
 
 - RMI-698: fix create user issue
 
-## [release-154] - 2023-05-23
+## [release-154] - 2024-05-23
 
 - RMI-625: Workday invoice number integration 
 - RMI-592: Allow suppliers to see replaced submissions info
@@ -23,7 +74,7 @@
 - RMI-695: Force new users to be linked to at least 1 supplier when manually created
 - RMI-696: Add new sheet name patterns
 
-## [release-153] - 2023-03-07
+## [release-153] - 2024-03-07
 
 - RMI-652: notification banner
 - [Snyk] Upgrade codemirror from 5.65.15 to 5.65.16
@@ -1042,6 +1093,14 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
+[release-163]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-162...release-163
+[release-162]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-161...release-162
+[release-161]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-160...release-161
+[release-160]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-159...release-160
+[release-159]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-158...release-159
+[release-158]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-157...release-158
+[release-157]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-156...release-157
 [release-156]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-155...release-156
 [release-155]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-154...release-155
 [release-154]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-153...release-154

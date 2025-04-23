@@ -9,7 +9,7 @@ class CreateUser
     result = Result.new(true)
 
     User.transaction do
-      user.save
+      user.save!
       begin
         CreateUserInAuth0.new(user: user).call
       rescue Auth0::Exception
