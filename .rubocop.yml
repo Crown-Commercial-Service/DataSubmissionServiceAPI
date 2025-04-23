@@ -132,6 +132,7 @@ Layout/LineLength:
         - 'app/models/workday/customer_invoice.rb'
         - 'app/models/ingest/converter.rb'
         - 'lib/tasks/yarn.rake'
+        - 'spec/lib/custom_markdown_renderer_spec.rb'
 
 Metrics/BlockLength:
     Max: 40

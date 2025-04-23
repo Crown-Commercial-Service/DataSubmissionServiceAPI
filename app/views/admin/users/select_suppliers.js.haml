@@ -1,0 +1,4 @@
+$('#suppliers-list').html("#{j (render 'supplier_list', locals: { suppliers: @suppliers, selected_ids: params[:supplier_salesforce_ids] })}")
+$('#suppliers-hidden-fields').html("#{j (render 'selected_supplier_fields', locals: { suppliers: @suppliers, selected_ids: params[:supplier_salesforce_ids] })}")
+$('#supplier_pagination').html("#{j (paginate(@suppliers, :param_name => "supplier_page", :remote => true).to_s)}");
+$('#supplier_pagination_summary').html("#{j (page_entries_info(@suppliers, entry_name: "supplier").to_s)}");

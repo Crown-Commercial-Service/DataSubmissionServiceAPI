@@ -15,6 +15,21 @@ class V1::TasksController < ApiController
     render jsonapi: tasks, include: params[:include], fields: sparse_field_params, meta: meta, expose: context
   end
 
+  def index_by_supplier
+    task_ids = params[:task_ids]
+    suppliers_and_tasks = current_user.suppliers.includes(tasks: :framework)
+                                      .order('tasks.due_on asc', 'frameworks.name asc')
+
+    suppliers_and_tasks = suppliers_and_tasks.where(tasks: { status: params[:status] }) if params[:status]
+    suppliers_and_tasks = suppliers_and_tasks.where(tasks: { id: task_ids }) if task_ids
+
+    render jsonapi: suppliers_and_tasks, include: ['tasks.framework'], class: {
+      Supplier: SerializableSupplier,
+      Task: SerializableTask,
+      Framework: SerializableFramework
+    }
+  end
+
   def show
     task = current_user.tasks.find(params[:id])
 
@@ -51,6 +66,26 @@ class V1::TasksController < ApiController
     submission = task.active_submission
 
     render jsonapi: submission, status: :created
+  end
+
+  def bulk_no_business
+    tasks = current_user.tasks.find(params.dig('_jsonapi', 'task_ids'))
+
+    Task.transaction do
+      tasks.each do |task|
+        task.file_no_business!(current_user)
+      end
+    end
+
+    tasks_completed = current_user.suppliers.includes(tasks: :framework)
+                                  .where(tasks: { id: params.dig('_jsonapi', 'task_ids') })
+                                  .order('tasks.due_on asc', 'frameworks.name asc')
+
+    render jsonapi: tasks_completed, include: ['tasks.framework'], class: {
+      Supplier: SerializableSupplier,
+      Task: SerializableTask,
+      Framework: SerializableFramework
+    }, status: :created
   end
 
   def complete

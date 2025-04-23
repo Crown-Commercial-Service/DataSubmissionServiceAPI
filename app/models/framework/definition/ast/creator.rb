@@ -34,6 +34,9 @@ class Framework
         rule(optional: simple(:optional), type_def: subtree(:type), field: simple(:field), from: subtree(:from)) do
           { kind: :additional, optional: true, type: type, field: field.to_s, from: from }
         end
+        rule(optional: simple(:optional), type_def: subtree(:type), field: simple(:field), from: subtree(:from), depends_on: subtree(:depends_on)) do
+          { kind: :additional, optional: true, type: type, field: field.to_s, from: from, depends_on: depends_on }
+        end
 
         # Additional field rule
         rule(type_def: subtree(:type), field: simple(:field), from: subtree(:from)) do
@@ -50,6 +53,9 @@ class Framework
 
         rule(optional: simple(:optional), type_def: subtree(:type), from: simple(:from)) do
           { kind: :unknown, optional: true, type: type, from: from }
+        end
+        rule(optional: simple(:optional), type_def: subtree(:type), from: simple(:from), depends_on: subtree(:depends_on)) do
+          { kind: :unknown, optional: true, type: type, from: from, depends_on: depends_on }
         end
 
         # Lookups
