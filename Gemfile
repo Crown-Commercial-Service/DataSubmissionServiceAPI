@@ -4,12 +4,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1', '>= 7.1.3.4'
+gem 'rails', '~> 7.2', '>= 7.2.0'
 
 # State machine
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+
+gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
@@ -60,13 +62,13 @@ gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
-gem 'rubocop-rails', '~> 2.24', '>= 2.24.1'
+gem 'rubocop-rails', '~> 2.30', '>= 2.30.0'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 1.11.0'
+gem 'sidekiq-cron', '>= 2.0.0'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
@@ -90,7 +92,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.16.5'
+gem 'nokogiri', '>= 1.18.8'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'

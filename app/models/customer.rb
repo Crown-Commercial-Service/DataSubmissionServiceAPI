@@ -13,8 +13,7 @@ class Customer < ApplicationRecord
            inverse_of: :customer,
            dependent: :restrict_with_error
 
-  validates :name, :sector, presence: true
-  validates :urn, presence: true, uniqueness: true
+  validates :name, :sector, :urn, presence: true
 
   def self.search(query)
     if query.blank?

@@ -36,6 +36,11 @@ Rails.application.routes.draw do
         post :no_business
         patch :cancel_correction
       end
+
+      collection do
+        get :index_by_supplier
+        post :bulk_no_business
+      end
     end
 
     resources :files, only: [] do
@@ -51,6 +56,8 @@ Rails.application.routes.draw do
     resource :customer_effort_scores, only: :create
 
     resources :notifications, only: :index
+
+    resources :release_notes, only: %i[index show]
 
     namespace :events do
       post 'user_signed_in'
@@ -83,6 +90,10 @@ Rails.application.routes.draw do
       collection do
         resource :bulk_import, only: %i[new create], controller: 'user_bulk_imports', as: :user_bulk_import
         resource :bulk_deactivate, only: %i[new create], controller: 'user_bulk_deactivation', as: :user_bulk_deactivate
+        match 'build', via: %i[get post]
+        get :select_suppliers
+        post :validate_suppliers
+        post :confirm
       end
     end
 
@@ -158,7 +169,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :release_notes, only: %i[index new create show edit update] do
+      member do
+        patch :publish
+      end
+    end
+
     post 'notifications/preview', to: 'notifications#preview'
+    post 'release_notes/preview', to: 'release_notes#preview'
 
     get '/sign_in', to: 'sessions#new', as: :sign_in
     get '/sign_out', to: 'sessions#destroy', as: :sign_out
