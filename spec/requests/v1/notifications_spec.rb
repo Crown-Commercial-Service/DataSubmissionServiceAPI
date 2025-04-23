@@ -6,7 +6,7 @@ RSpec.describe '/v1' do
   describe 'GET /v1/notifications' do
     it 'returns 401 if authentication needed and not provided' do
       ClimateControl.modify API_PASSWORD: 'sdfhg' do
-        get '/v1/agreements', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
+        get '/v1/notifications', headers: { 'X-Auth-Id' => JWT.encode(user.auth_id, 'test') }
         expect(response.status).to eq(401)
       end
     end

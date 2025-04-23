@@ -3,6 +3,8 @@ class DependentFieldInclusionValidator < ActiveModel::EachValidator
     parent_field_values = get_parent_field_values(record)
     parent_field_value_lookup = parent_field_values.map { |v| v&.downcase }
 
+    return if optional && value.nil?
+
     valid_values = get_valid_values(parent_field_value_lookup)
     return if valid_values.include?(value&.downcase)
 
@@ -17,6 +19,10 @@ class DependentFieldInclusionValidator < ActiveModel::EachValidator
   end
 
   private
+
+  def optional
+    options[:optional]
+  end
 
   def parent_field_names
     options[:parents]

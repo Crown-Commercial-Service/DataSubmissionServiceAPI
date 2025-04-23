@@ -1,114 +1,21 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    %noscript
-      .govuk-warning-text
-        %span.govuk-warning-text__icon{"aria-hidden" => "true"} !
-        %strong.govuk-warning-text__text
-          %span.govuk-visually-hidden Warning
-          You have javascript disabled. You can still create a user, however you will need to provide supplier salesforce ID(s) in the field below, and please note supplier searches will refresh the page.
-        
-    = simple_form_for [:admin, @user] do |form|
-      %fieldset.govuk-fieldset
-        %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
-          %h1.govuk-fieldset__heading
-            Add a new user
+    %h1.govuk-heading-l Add a new user
 
-        = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
-
-        = form.input :name
-        = form.input :email
-        
-        %p Supplier(s)
-        #selected-suppliers.govuk-body
-        #selected-suppliers-hidden
-
-        %noscript
-          .govuk-form-group
-            #salesforce-ids-hint.govuk-hint
-              Supplier salesforce ID(s) - please separate with commas
-            %input#salesforce-ids.govuk-input{"aria-describedby" => "salesforce-ids-hint", name: "supplier_salesforce_ids[]", type: "text"}
-        
-        = form.button :submit, value: 'Add new user'
-
-%hr.govuk-section-break.govuk-section-break--m.govuk-section-break--visible/
-
-.govuk-grid-row
-  .govuk-grid-column-two-thirds
-    = form_tag(new_admin_user_path, method: :get, enforce_utf8: false, remote: :true, id: 'supplier-search-form') do
-      %h2.govuk-heading-s
-        Search suppliers
-      .ccs-search-form-group
-        %label.govuk-label.govuk-visually-hidden{ for: 'search' } Search
-        %input#search{ name: 'search', type: 'text', value: params[:search], class: ['govuk-!-width-two-thirds', 'govuk-input'] }
-        %button.govuk-button{ type: 'submit' } Search
-
-      .results{id: 'suppliers-list'}= render 'supplier_list', suppliers: @suppliers
-
-:javascript
-  document.addEventListener("DOMContentLoaded", function() {
+    = form_with model: @user, url: build_admin_users_path, method: :post, local: true do |f|
     
-    function reinitializeCheckboxContainers() {
-      document.querySelectorAll('.js-checkbox-container').forEach(function(container) {
-      container.style.display = 'block';
-    });
-    }
+      = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
 
-    const selectedSuppliers = new Map(); // Use a Map to store IDs and names
+      .govuk-form-group{ class: ('govuk-form-group--error' if @user.errors[:name].any?) }
+        = f.label :name, class: "govuk-label"
+        - if @user.errors[:name].any?
+          %span.govuk-error-message= @user.errors[:name].first
+        = f.text_field :name, class: "govuk-input"
 
-    function updateCheckboxes() {
-      document.querySelectorAll('.govuk-checkboxes__input').forEach(input => {
-        input.checked = selectedSuppliers.has(input.value);
-        input.addEventListener('change', toggleSupplierSelection);
-      });
-    }
+      .govuk-form-group{ class: ('govuk-form-group--error' if @user.errors[:email].any?) }
+        = f.label :email, class: "govuk-label"
+        - if @user.errors[:email].any?
+          %span.govuk-error-message= @user.errors[:email].first
+        = f.email_field :email, class: "govuk-input"
 
-    function toggleSupplierSelection() {
-      const label = document.querySelector(`label[for="${this.id}"]`);
-      if (this.checked) {
-        selectedSuppliers.set(this.value, label ? label.textContent : '');
-      } else {
-        selectedSuppliers.delete(this.value);
-      }
-      updateSelectedSuppliersDisplay();
-      updateHiddenField()
-    }
-
-    function updateSelectedSuppliersDisplay() {
-      const outputElement = document.getElementById('selected-suppliers');
-      const selectedList = Array.from(selectedSuppliers.values()).join('<br>');
-      outputElement.innerHTML = selectedList || 'Please select at least one supplier below';
-      outputElement.className = 'govuk-hint';
-    }
-
-    function updateHiddenField() {
-      const hiddenContainer = document.getElementById('selected-suppliers-hidden');
-      hiddenContainer.innerHTML = '';
-
-      if (selectedSuppliers.size > 0) {
-        selectedSuppliers.forEach((name,id) => {
-          const hiddenInput = document.createElement('input');
-          hiddenInput.type = 'hidden';
-          hiddenInput.name = 'supplier_salesforce_ids[]';
-          hiddenInput.value = id;
-          hiddenContainer.appendChild(hiddenInput);
-        });
-      } else {
-        const emptyInput = document.createElement('input');
-        emptyInput.type = 'hidden';
-        emptyInput.name = 'supplier_salesforce_ids[]';
-        hiddenContainer.appendChild(emptyInput);
-      }
-    }
-
-    updateCheckboxes();
-    reinitializeCheckboxContainers();
-
-    document.getElementById('supplier-search-form').addEventListener('ajax:complete', function(){
-      updateCheckboxes();
-      reinitializeCheckboxContainers();
-    });
-
-    updateSelectedSuppliersDisplay();
-    updateHiddenField();
-  });
-
+      = f.submit "Select suppliers", class: "govuk-button"

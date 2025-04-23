@@ -29,7 +29,7 @@ class Framework
           def add_inclusion_validators(lookup_values)
             options[:case_insensitive_inclusion] = { in: lookup_values } if lookup_values&.any?
             if field.dependent_field_inclusion?
-              options[:dependent_field_inclusion] = { parents: field.dependent_fields, in: field.dependent_field_inclusion_values }
+              options[:dependent_field_inclusion] = { parents: field.dependent_fields, in: field.dependent_field_inclusion_values, optional: field.optional? }
             end
           end
 
