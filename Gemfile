@@ -61,7 +61,7 @@ gem 'rollbar'
 gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
-gem 'rubocop', '>= 1.62.0'
+gem 'rubocop', '>= 1.66.0'
 gem 'rubocop-rails', '~> 2.30', '>= 2.30.0'
 
 gem 'progress_bar', require: false
