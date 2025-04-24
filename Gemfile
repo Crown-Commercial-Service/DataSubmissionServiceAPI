@@ -26,6 +26,8 @@ gem 'jquery-rails', '>= 4.5.0'
 
 gem 'jwt', '~> 2.2'
 
+gem 'mutex_m', '~> 0.3.0'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 

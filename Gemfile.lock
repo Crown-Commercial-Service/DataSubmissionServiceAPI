@@ -320,6 +320,7 @@ GEM
     msgpack (1.5.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    mutex_m (0.3.0)
     net-http (0.6.0)
       uri
     net-http-persistent (4.0.1)
@@ -634,6 +635,7 @@ DEPENDENCIES
   listen (~> 3.5, >= 3.5.1)
   lograge (>= 0.14.0)
   lolsoap (>= 0.11.0)
+  mutex_m (~> 0.3.0)
   net-http (>= 0.4.0)
   nokogiri (>= 1.18.8)
   omniauth-google-oauth2
