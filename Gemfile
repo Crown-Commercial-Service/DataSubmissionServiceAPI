@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.2', '>= 7.2.0'
@@ -10,6 +10,8 @@ gem 'rails', '~> 7.2', '>= 7.2.0'
 gem 'aasm'
 
 gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+
+gem 'csv', '~> 3.3', '>= 3.3.4'
 
 gem 'email_validator', require: 'email_validator/strict'
 
@@ -23,6 +25,8 @@ gem 'jsonapi-rails'
 gem 'jquery-rails', '>= 4.5.0'
 
 gem 'jwt', '~> 2.2'
+
+gem 'mutex_m', '~> 0.3.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
