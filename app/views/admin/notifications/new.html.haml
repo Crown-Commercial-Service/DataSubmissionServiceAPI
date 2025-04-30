@@ -1,5 +1,7 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
+    = link_to 'Back', admin_notifications_path, { class: 'govuk-back-link govuk-!-margin-bottom-5', title: 'Back to notifications' }
+
     = simple_form_for [:admin, @notification] do |form|
       %fieldset.govuk-fieldset
         %legend.govuk-fieldset__legend.govuk-fieldset__legend--xl
