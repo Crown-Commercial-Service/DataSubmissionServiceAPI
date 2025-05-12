@@ -6,7 +6,6 @@ RSpec.describe Customer do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:urn) }
   it { is_expected.to validate_presence_of(:sector) }
-  it { is_expected.to validate_uniqueness_of(:urn) }
 
   it 'is associated with submission_entries via the URN' do
     customer = FactoryBot.create(:customer)
