@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-166] - 2025-06-09
+
+- NRMI-121: Change Agreement page column heading
+
 ## [release-165] - 2025-05-12
 
 - NRMI-88: redesign ad hoc add user
@@ -1100,6 +1104,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-166]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-165...release-166
 [release-165]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-164...release-165
 [release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
 [release-163]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-162...release-163
