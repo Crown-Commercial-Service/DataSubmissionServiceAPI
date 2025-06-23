@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-167] - 2025-06-23
+
+- NRMI-122: fix logo in win11
+
 ## [release-166] - 2025-06-09
 
 - NRMI-121: Change Agreement page column heading
