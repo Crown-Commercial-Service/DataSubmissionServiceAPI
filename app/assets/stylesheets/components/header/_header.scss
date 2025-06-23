@@ -39,13 +39,13 @@ $ccs-header-nav-item-border-color: darken(govuk-colour("primary"), 2);
   display: block;
   width: 122px;
   height: 102px;
-  background-image: govuk-image-url("logo_vertical_white.svg");
+  background-image: govuk-image-url("vertical_logo.png");
   background-repeat: no-repeat;
   background-size: cover;
   @include govuk-media-query($until: desktop) {
     width: auto;
     height: 32px;
-    background-image: govuk-image-url("logo_horizontal_white.svg");
+    background-image: govuk-image-url("horizontal_logo.png");
     background-size: contain;
   }
   @include govuk-media-query($until: tablet) {
