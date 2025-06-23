@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-167] - 2025-06-23
+
+- NRMI-122: fix logo in win11
+
 ## [release-166] - 2025-06-09
 
 - NRMI-121: Change Agreement page column heading
@@ -1104,6 +1108,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-167]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-166...release-167
 [release-166]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-165...release-166
 [release-165]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-164...release-165
 [release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
