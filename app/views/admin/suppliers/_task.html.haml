@@ -1,7 +1,7 @@
 %tbody.govuk-table__body.rmi-govuk-table__body
   %tr.govuk-table__row
     %td.govuk-table__cell
-      = task.framework.short_name
+      = task.framework.short_name.scan(/.{1,9}/).join("<br>").html_safe 
       %br/
       %small
         = task.period_date.to_fs(:month_year)
