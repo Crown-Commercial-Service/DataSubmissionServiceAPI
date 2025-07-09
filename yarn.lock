@@ -9,7 +9,7 @@ accessible-autocomplete@^1.6.2:
   dependencies:
     preact "^8.3.1"
 
-codemirror@^5.65.17:
+codemirror@^5.65.19:
   version "5.65.19"
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.19.tgz#71016c701d6a4b6e1982b0f6e7186be65e49653d"
   integrity sha512-+aFkvqhaAVr1gferNMuN8vkTSrWIFvzlMV9I2KBLCWS2WpZ2+UAkZjlMZmEuT+gcXTi6RrGQCkWq1/bDtGqhIA==
