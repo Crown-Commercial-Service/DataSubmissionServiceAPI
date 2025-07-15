@@ -1,7 +1,7 @@
 %tbody.govuk-table__body.rmi-govuk-table__body
   %tr.govuk-table__row
     %td.govuk-table__cell
-      = task.framework.short_name
+      = task.framework.short_name.scan(/.{1,9}/).join("<br>").html_safe 
       %br/
       %small
         = task.period_date.to_fs(:month_year)
@@ -19,7 +19,7 @@
         - if task.active_submission.created_by
           %br
           %small
-            = task.active_submission.created_by.email.scan(/.{1,20}/).join("\n") 
+            = task.active_submission.created_by.email.gsub("-", "&#8209").scan(/.{1,20}/).join("<br>").html_safe 
         - else
           %br
           %small
