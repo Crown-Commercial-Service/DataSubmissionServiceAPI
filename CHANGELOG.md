@@ -1,5 +1,18 @@
 # Change Log
 
+## [release-168] - 2025-07-07
+
+- NRMI-144: fix user email space issue
+- NRMI-149: move kill long processing submissions into job
+
+## [release-167] - 2025-06-23
+
+- NRMI-122: fix logo in win11
+
+## [release-166] - 2025-06-09
+
+- NRMI-121: Change Agreement page column heading
+
 ## [release-165] - 2025-05-12
 
 - NRMI-88: redesign ad hoc add user
@@ -1100,6 +1113,9 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-168]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-167...release-168
+[release-167]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-166...release-167
+[release-166]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-165...release-166
 [release-165]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-164...release-165
 [release-164]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-163...release-164
 [release-163]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-162...release-163

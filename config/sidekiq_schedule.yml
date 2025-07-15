@@ -6,3 +6,7 @@ daily_data_warehouse_export:
   cron: '30 20 * * * Europe/London'
   class: DataWarehouseExportJob
   queue: default
+kill_stuck_submissions:
+  cron: '*/5 * * * *'
+  class: KillStuckSubmissionsJob
+  queue: default
