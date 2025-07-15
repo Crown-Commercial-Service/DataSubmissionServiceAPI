@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  enum sector: { central_government: 0, wider_public_sector: 1 }
+  enum :sector, { central_government: 0, wider_public_sector: 1 }
 
   has_many :submission_entries,
            primary_key: :urn,
