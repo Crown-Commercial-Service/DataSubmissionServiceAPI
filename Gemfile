@@ -44,7 +44,7 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.1.2'
+gem 'omniauth-google-oauth2', '>= 1.2.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
@@ -66,7 +66,7 @@ gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
-gem 'rubocop-rails', '~> 2.30', '>= 2.30.2'
+gem 'rubocop-rails', '~> 2.31', '>= 2.31.0'
 
 gem 'progress_bar', require: false
 
@@ -109,7 +109,7 @@ group :development, :test do
   gem 'dotenv-rails', '>= 3.1.3'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
+  gem 'rspec-rails', '~> 7.0', '>= 7.0.0'
 end
 
 group :development do
