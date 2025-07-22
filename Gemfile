@@ -17,7 +17,7 @@ gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.12', '>= 2.12.0'
+gem 'jbuilder', '~> 2.13', '>= 2.13.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -85,7 +85,7 @@ gem 'parslet'
 gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.26'
+gem 'rubyXL', '~> 3.4', '>= 3.4.28'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.11.0', require: false
@@ -96,7 +96,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.18.8'
+gem 'nokogiri', '>= 1.18.9'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
@@ -109,7 +109,7 @@ group :development, :test do
   gem 'dotenv-rails', '>= 3.1.3'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
+  gem 'rspec-rails', '~> 7.0', '>= 7.0.0'
 end
 
 group :development do
