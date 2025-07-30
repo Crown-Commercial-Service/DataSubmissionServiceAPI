@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   namespace :v1, defaults: { format: :json } do
     resources :users, only: %i[index]
 
+    resources :suppliers, only: %i[index]
+
     resources :submissions, only: %i[show create update] do
       member do
         post 'complete', to: 'submissions#complete'
