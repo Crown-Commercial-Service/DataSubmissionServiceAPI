@@ -15,37 +15,56 @@ RSpec.feature 'Adding a user' do
     sign_in_as_admin
   end
 
-  scenario 'successfully' do
-    click_on 'Users'
-    click_on 'Add a new user'
+  context 'successfully' do
+    scenario 'from scratch' do
+      click_on 'Users'
+      click_on 'Add a new user'
 
-    fill_in 'Name', with: 'New User'
-    fill_in 'Email address', with: email
+      fill_in 'Name', with: 'New User'
+      fill_in 'Email address', with: email
 
-    click_button 'Select suppliers'
+      click_button 'Select suppliers'
 
-    expect(page).to have_content(supplier_1.name)
-    expect(page).to have_content(supplier_1.salesforce_id)
-    expect(page).to have_content(supplier_2.name)
-    expect(page).to have_content(supplier_2.salesforce_id)
+      expect(page).to have_content(supplier_1.name)
+      expect(page).to have_content(supplier_1.salesforce_id)
+      expect(page).to have_content(supplier_2.name)
+      expect(page).to have_content(supplier_2.salesforce_id)
 
-    fill_in 'Search', with: '2'
-    click_button 'Search'
+      fill_in 'Search', with: '2'
+      click_button 'Search'
 
-    expect(page).not_to have_content(supplier_1.name)
-    expect(page).to have_content(supplier_2.name)
+      expect(page).not_to have_content(supplier_1.name)
+      expect(page).to have_content(supplier_2.name)
 
-    check "supplier_#{supplier_2.salesforce_id}"
+      check "supplier_#{supplier_2.salesforce_id}"
 
-    click_button 'Confirm'
+      click_button 'Confirm'
 
-    expect(page).to have_content('New User')
-    expect(page).to have_content('new@example.com')
-    expect(page).to have_content(supplier_2.name)
+      expect(page).to have_content('New User')
+      expect(page).to have_content('new@example.com')
+      expect(page).to have_content(supplier_2.name)
 
-    click_button 'Create user'
+      click_button 'Create user'
 
-    expect(page).to have_content('User created successfully with linked suppliers.')
+      expect(page).to have_content('User created successfully with linked suppliers.')
+    end
+
+    scenario 'from a supplier' do
+      visit admin_supplier_path(supplier_1)
+
+      click_on 'Add a new user'
+
+      fill_in 'Name', with: 'New User'
+      fill_in 'Email address', with: email
+
+      click_button 'Confirm'
+
+      expect(page).to have_content('New User')
+      expect(page).to have_content(email)
+      expect(page).to have_content(supplier_1.name)
+      click_button 'Create user'
+      expect(page).to have_content('User created successfully with linked suppliers.') 
+    end
   end
 
   context 'when no name is provided' do
