@@ -63,7 +63,7 @@ RSpec.feature 'Adding a user' do
       expect(page).to have_content(email)
       expect(page).to have_content(supplier_1.name)
       click_button 'Create user'
-      expect(page).to have_content('User created successfully with linked suppliers.') 
+      expect(page).to have_content('User created successfully with linked suppliers.')
     end
   end
 
