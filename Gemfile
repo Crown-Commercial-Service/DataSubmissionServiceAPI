@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.0', '>= 8.0.0'
+gem 'rails', '~> 8.0', '>= 8.0.2.1'
 
 # State machine
 gem 'aasm'
@@ -72,12 +72,12 @@ gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.1.0'
+gem 'sidekiq-cron', '>= 2.3.1'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
 
-gem 'activerecord-import', '>= 1.5.0'
+gem 'activerecord-import', '>= 1.5.1'
 
 gem 'parslet'
 
