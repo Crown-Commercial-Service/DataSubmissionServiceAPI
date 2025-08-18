@@ -13,12 +13,17 @@ class Admin::UsersController < AdminController
     @user = User.new(user_params)
   rescue StandardError
     @user = User.new
+    @supplier_sf_id = params[:supplier_sf_id].presence
   end
 
   def build
     @user = User.new(user_params)
+    @selected_supplier_ids = Array(params[:supplier_sf_id])
 
-    if @user.valid?
+    if @user.valid? && params[:supplier_sf_id].present?
+      @suppliers = Supplier.where(salesforce_id: @selected_supplier_ids)
+      render :confirm
+    elsif @user.valid?
       @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
       respond_to do |format|
         format.html { render :select_suppliers }
