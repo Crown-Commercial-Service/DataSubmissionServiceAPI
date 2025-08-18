@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2', '>= 7.2.0'
+gem 'rails', '~> 8.0', '>= 8.0.0'
 
 # State machine
 gem 'aasm'
@@ -35,7 +35,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.4', '>= 6.4.3'
 
 # Audit log
-gem 'rails_event_store', '~> 2.13', '>= 2.13.0'
+gem 'rails_event_store', '~> 2.15', '>= 2.15.0'
 
 # Markdown parser
 gem 'redcarpet', '~> 3.6'
@@ -44,7 +44,7 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '>= 1.1.2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
@@ -66,13 +66,13 @@ gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
-gem 'rubocop-rails', '~> 2.30', '>= 2.30.0'
+gem 'rubocop-rails', '~> 2.30', '>= 2.30.2'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.0.0'
+gem 'sidekiq-cron', '>= 2.1.0'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
@@ -101,15 +101,15 @@ gem 'nokogiri', '>= 1.18.8'
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
 
-gem 'sprockets-rails', '>= 3.5.0'
+gem 'sprockets-rails', '>= 3.5.1'
 
 group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '>= 3.1.1'
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.2'
+  gem 'dotenv-rails', '>= 3.1.3'
+  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
 end
 
 group :development do

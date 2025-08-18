@@ -12,6 +12,8 @@
           = link_to 'Edit supplier', edit_admin_supplier_path(@supplier)
         %li.govuk-page-actions--action
           = link_to "Add a missing task", new_admin_supplier_task_path(@supplier)
+        %li.govuk-page-actions--action
+          = link_to "Add a new user", new_admin_user_path(supplier_sf_id: @supplier.salesforce_id)
 
 
 .govuk-tabs{"data-module" => "govuk-tabs"}

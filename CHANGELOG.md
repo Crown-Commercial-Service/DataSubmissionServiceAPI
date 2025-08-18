@@ -1,5 +1,13 @@
 # Change Log
 
+## [release-169] - 2025-08-18
+
+- NRMI-153: fix for overflowing supplier page table
+- NRMI-150: user can see their account information in a user profile page
+- NRMI-116: new ad hoc 'add new user' journey with pre-selected supplier
+- [Snyk] Upgrade codemirror from 5.65.17 to 5.65.19
+- [Snyk] Upgrade rails from 7.2.0 to 8.0.0
+
 ## [release-168] - 2025-07-07
 
 - NRMI-144: fix user email space issue
@@ -1113,6 +1121,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-169]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-168...release-169
 [release-168]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-167...release-168
 [release-167]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-166...release-167
 [release-166]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-165...release-166
