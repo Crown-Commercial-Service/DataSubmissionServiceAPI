@@ -7,7 +7,7 @@ class Admin::SupplierBulkOnboardsController < AdminController
     csv_path = uploaded_file.tempfile.path
     Onboard::FrameworkSuppliers.new(csv_path, logger: Rails.logger).run
 
-    redirect_to new_admin_supplier_bulk_onboard_path, notice: 'Successfully on-boarded suppliers'
+    redirect_to new_admin_supplier_bulk_onboard_path, success: 'Successfully on-boarded suppliers'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_supplier_bulk_onboard_path, alert: 'Please choose a file to upload'
   rescue ActiveRecord::RecordNotFound, ArgumentError, ActiveRecord::RecordInvalid => e
