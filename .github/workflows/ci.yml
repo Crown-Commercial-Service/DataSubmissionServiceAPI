@@ -45,6 +45,8 @@ jobs:
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
+        env: 
+          BUNDLE_GEMS__CONTRIBSYS__COM: ${{ secrets.BUNDLE_GEMS__CONTRIBSYS__COM }}
 
       - name: Set up database.yml
         run: cp config/database.travis.yml config/database.yml
