@@ -32,6 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Configure bundler for private gems
+        run: bundle config gems.contribsys.com ${{ secrets.BUNDLE_GEMS__CONTRIBSYS__COM }}
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -42,9 +45,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-
-      - name: Configure bundler for private gems
-        run: bundle config gems.contribsys.com ${{ secrets.BUNDLE_GEMS__CONTRIBSYS__COM }}
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
