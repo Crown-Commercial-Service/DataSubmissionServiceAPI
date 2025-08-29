@@ -27,7 +27,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/data_submission_service_api_test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/data_submission_service_api_test
 
     steps:
       - uses: actions/checkout@v3
@@ -50,19 +50,19 @@ jobs:
         env: 
           BUNDLE_GEMS__CONTRIBSYS__COM: ${{ secrets.BUNDLE_GEMS__CONTRIBSYS__COM }}
 
-      - name: Wait for Postgres to be ready
-        run: |
-          until pg_isready -h postgres -p 5432 -U postgres; do
-            echo "Waiting for Postgres..."
-            sleep 2
-          done
-        env:
-          PGPASSWORD: postgres
+      # - name: Wait for Postgres to be ready
+      #   run: |
+      #     until pg_isready -h postgres -p 5432 -U postgres; do
+      #       echo "Waiting for Postgres..."
+      #       sleep 2
+      #     done
+      #   env:
+      #     PGPASSWORD: postgres
 
-      - name: Create test database
-        run: |
-          bundle exec rails db:create
-          bundle exec rails db:schema:load
+      # - name: Create test database
+      #   run: |
+      #     bundle exec rails db:create
+      #     bundle exec rails db:schema:load
 
       - name: Run migrations
         run: bundle exec rails db:migrate
