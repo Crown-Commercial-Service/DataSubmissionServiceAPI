@@ -52,8 +52,8 @@ jobs:
 
       - name: Create test database
         run: |
-          sudo apt-get install -y postgresql-client
-          psql -c 'create database data_submission_service_test;' -U postgres
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
 
       - name: Run migrations
         run: bundle exec rails db:migrate
