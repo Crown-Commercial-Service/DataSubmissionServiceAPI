@@ -49,25 +49,6 @@ jobs:
       - name: Install in2csv (csvkit)
         run: pip install csvkit
 
-      # - name: Install dependencies
-      #   run: bundle install --jobs 4 --retry 3
-      #   env: 
-      #     BUNDLE_GEMS__CONTRIBSYS__COM: ${{ secrets.BUNDLE_GEMS__CONTRIBSYS__COM }}
-
-      # - name: Wait for Postgres to be ready
-      #   run: |
-      #     until pg_isready -h postgres -p 5432 -U postgres; do
-      #       echo "Waiting for Postgres..."
-      #       sleep 2
-      #     done
-      #   env:
-      #     PGPASSWORD: postgres
-
-      # - name: Create test database
-      #   run: |
-      #     bundle exec rails db:create
-      #     bundle exec rails db:schema:load
-
       - name: Run migrations
         run: bundle exec rails db:migrate RAILS_ENV=test
 
@@ -76,3 +57,6 @@ jobs:
 
       - name: Run tests
         run: bundle exec rspec
+
+      - name: Run rubocop
+        run: rubocop
