@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_155125) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_22_123744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -143,7 +143,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_155125) do
     t.string "name"
     t.string "short_name", null: false
     t.text "definition_source", null: false
-    t.boolean "published", default: false
+    t.string "aasm_state", default: "new", null: false
+    t.index ["aasm_state"], name: "index_frameworks_on_aasm_state"
     t.index ["short_name"], name: "index_frameworks_on_short_name", unique: true
   end
 

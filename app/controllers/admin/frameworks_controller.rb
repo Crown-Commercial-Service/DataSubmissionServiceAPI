@@ -1,5 +1,5 @@
 class Admin::FrameworksController < AdminController
-  before_action :find_framework, only: %i[show edit update update_fdl publish download_template]
+  before_action :find_framework, only: %i[show edit update update_fdl publish download_template archive_confirmation archive unarchive_confirmation unarchive]
   before_action :prevent_republish, only: :publish
 
   def index
@@ -74,6 +74,30 @@ class Admin::FrameworksController < AdminController
     redirect_to admin_framework_path(@framework)
   end
 
+  def archive_confirmation; end
+
+  def archive
+    if @framework.can_be_archived?
+      @framework.archive!
+      flash[:success] = 'Framework archived successfully.'
+    else
+      flash[:failure] = 'Framework cannot be archived. Ensure it is published and has no active agreements.'
+    end
+    redirect_to admin_framework_path(@framework)
+  end
+
+  def unarchive_confirmation; end
+
+  def unarchive
+    if @framework.archived?
+      @framework.publish!
+      flash[:success] = 'Framework unarchived successfully.'
+    else
+      flash[:failure] = 'Error unarchiving framework.'
+    end
+    redirect_to admin_framework_path(@framework)
+  end
+
   def download_template
     resp = s3_client.get_object(bucket: bucket, key: @framework.file_key)
     send_data resp.body.read, filename: "#{@framework.full_name} Template#{File.extname(@framework.file_name.to_s)}"
@@ -84,7 +108,7 @@ class Admin::FrameworksController < AdminController
   def filter_framework_status(status_param)
     return if status_param.size == 2
 
-    @frameworks = @frameworks.unpublished if status_param.include? 'New'
+    @frameworks = @frameworks.new_state if status_param.include? 'New'
     @frameworks = @frameworks.published if status_param.include? 'Published'
   end
 
