@@ -1,6 +1,10 @@
 class Admin::FrameworksController < AdminController
-  before_action :find_framework, only: %i[show edit update update_fdl publish download_template archive_confirmation archive unarchive_confirmation unarchive]
+  # rubocop:disable Layout/LineLength
+  before_action :find_framework,
+                only: %i[show edit update update_fdl publish download_template archive_confirmation archive unarchive_confirmation
+                         unarchive]
   before_action :prevent_republish, only: :publish
+  # rubocop:enable Layout/LineLength
 
   def index
     @frameworks = Framework.order(:short_name).all

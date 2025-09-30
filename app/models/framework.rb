@@ -8,7 +8,7 @@ class Framework < ApplicationRecord
 
     event :publish do
       transitions from: %i[new archived], to: :published, guard: :load_lots!
-    end 
+    end
     event :archive do
       transitions from: %i[published], to: :archived
     end
@@ -108,6 +108,6 @@ class Framework < ApplicationRecord
   end
 
   def can_be_archived?
-    published? && agreements.active.none? 
+    published? && agreements.active.none?
   end
 end
