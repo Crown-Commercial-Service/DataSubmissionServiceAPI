@@ -12,12 +12,12 @@ RSpec.describe Submission do
 
   describe 'replacing a validation_failed submission' do
     let(:task) { FactoryBot.create(:task) }
-    let!(:failed_submission) { FactoryBot.create(:submission_with_invalid_entries, task: task ) }
+    let!(:failed_submission) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
 
     Submission::REPLACEMENT_STATES.each do |new_state|
       it "deletes entries and staging entries for the failed submission when the new state is #{new_state}" do
-        new_submission = FactoryBot.create(:submission, aasm_state: new_state, task: task)
-        
+        FactoryBot.create(:submission, aasm_state: new_state, task: task)
+
         expect(failed_submission.entries.reload).to be_empty
         expect(failed_submission.staging_entries.reload).to be_empty
       end
