@@ -6,7 +6,7 @@ namespace :submissions do
 
     total_deleted_entries = 0
 
-    Task.find_in_batches(of: task_batch_size) do |tasks|
+    Task.find_in_batches(task_batch_size) do |tasks|
       tasks.each do |task|
         # Find failed submissions that are not the latest or completed submission for this task
         failed_submissions = task.submissions
@@ -16,7 +16,7 @@ namespace :submissions do
         next if failed_submissions.empty?
 
         failed_submissions.find_each do |submission|
-          submission.entries.in_batches(of: entries_batch_size) do |entries_batch|
+          submission.entries.in_batches(entries_batch_size) do |entries_batch|
             deleted_count = entries_batch.delete_all
             total_deleted_entries += deleted_count
           end
