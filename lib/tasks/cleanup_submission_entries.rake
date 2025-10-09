@@ -9,9 +9,10 @@ namespace :submissions do
     Task.find_in_batches(batch_size: task_batch_size) do |tasks|
       tasks.each do |task|
         # Find failed submissions that are not the latest or completed submission for this task
+        active_id = task.active_submission&.id
         failed_submissions = task.submissions
                                  .where(aasm_state: 'validation_failed')
-                                 .where.not(id: task.active_submission.select(:id))
+                                 .where.not(id: active_id)
 
         next if failed_submissions.empty?
 
