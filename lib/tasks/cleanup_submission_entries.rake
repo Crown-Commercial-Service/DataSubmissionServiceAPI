@@ -11,7 +11,7 @@ namespace :submissions do
         # Find failed submissions that are not the latest or completed submission for this task
         failed_submissions = task.submissions
                                  .where(aasm_state: 'validation_failed')
-                                 .where.not(id: task.completed_or_latest_scope.select(:id))
+                                 .where.not(id: task.active_submission.select(:id))
 
         next if failed_submissions.empty?
 
