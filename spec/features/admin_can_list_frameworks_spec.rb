@@ -9,7 +9,7 @@ RSpec.feature 'Admin can list frameworks' do
     FactoryBot.create(:framework, name: 'Laundry Framework 1', short_name: 'RM1234')
     FactoryBot.create(:framework, name: 'Vehicle Purchase Framework 1', short_name: 'RM5678')
     # And there are some unpublished frameworks
-    FactoryBot.create(:framework, published: false, name: 'Vehicle Purchase Framework 2', short_name: 'RM5679')
+    FactoryBot.create(:framework, aasm_state: 'new', name: 'Vehicle Purchase Framework 2', short_name: 'RM5679')
   end
 
   scenario 'There are some published and unpublished agreements' do
@@ -21,19 +21,19 @@ RSpec.feature 'Admin can list frameworks' do
     within 'tbody > tr:nth-child(1)' do
       expect(page).to have_text('RM1234')
       expect(page).to have_text('Laundry Framework 1')
-      expect(page).to have_text('Published')
+      expect(page).to have_text('published')
     end
 
     within 'tbody > tr:nth-child(2)' do
       expect(page).to have_text('RM5678')
       expect(page).to have_text('Vehicle Purchase Framework 1')
-      expect(page).to have_text('Published')
+      expect(page).to have_text('published')
     end
 
     within 'tbody > tr:nth-child(3)' do
       expect(page).to have_text('RM5679')
       expect(page).to have_text('Vehicle Purchase Framework 2')
-      expect(page).to have_text('New')
+      expect(page).to have_text('new')
     end
   end
 
