@@ -8,6 +8,7 @@ class CleanupSubmissionEntriesJob < ApplicationJob
     Task.find_in_batches(batch_size: TASK_BATCH_SIZE) do |tasks_batch|
       tasks_batch.each do |task|
         active_id = task.active_submission&.id
+
         failed_submissions = task.submissions
                                  .where(aasm_state: 'validation_failed', cleanup_processed: false)
                                  .where.not(id: active_id)
@@ -19,19 +20,16 @@ class CleanupSubmissionEntriesJob < ApplicationJob
         failed_submissions.find_each do |submission|
           submission.entries.in_batches(of: ENTRIES_BATCH_SIZE) do |entries_batch|
             if dry_run
-              Rollbar.info("Dry run: would delete #{entries_batch.size} entries for Submission ID #{submission.id}.")
+              Rollbar.info("Dry run: would delete #{entries_batch.count} entries for Submission ID #{submission.id}.")
             else
               deleted_count = entries_batch.delete_all
               deleted_for_task += deleted_count
               total_deleted_entries += deleted_count
+              Rollbar.info("Task ID #{task.id}: Processed #{failed_submissions.count} failed submissions, deleted #{deleted_for_task} entries.")
             end
           end
 
           submission.update(cleanup_processed: true) unless dry_run
-        end
-
-        unless dry_run
-          Rollbar.info("Task ID #{task.id}: Processed #{failed_submissions.count} failed submissions, deleted #{deleted_for_task} entries.")
         end
       end
 
