@@ -1,5 +1,5 @@
 class CleanupSubmissionEntriesJob < ApplicationJob
-  TASK_BATCH_SIZE = 50
+  TASK_BATCH_SIZE = 25
   ENTRIES_BATCH_SIZE = 1000
 
   def perform(dry_run: false)
