@@ -25,7 +25,9 @@ class CleanupSubmissionEntriesJob < ApplicationJob
               deleted_count = entries_batch.delete_all
               deleted_for_task += deleted_count
               total_deleted_entries += deleted_count
+              # rubocop:disable Layout/LineLength
               Rollbar.info("Task ID #{task.id}: Processed #{failed_submissions.count} failed submissions, deleted #{deleted_for_task} entries.")
+              # rubocop:enable Layout/LineLength
             end
           end
 
