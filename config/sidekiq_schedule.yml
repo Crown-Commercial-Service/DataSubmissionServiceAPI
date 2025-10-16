@@ -14,4 +14,3 @@ cleanup_submission_entries:
   cron: '0 1 * * *'
   class: CleanupSubmissionEntriesJob
   queue: default
-  args: [false]
