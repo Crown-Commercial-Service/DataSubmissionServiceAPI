@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.0', '>= 8.0.0'
+gem 'rails', '~> 8.0', '>= 8.0.2.1'
 
 # State machine
 gem 'aasm'
@@ -44,11 +44,11 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.1.2'
+gem 'omniauth-google-oauth2', '>= 1.2.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
-gem 'haml-rails', '>= 2.1.0'
+gem 'haml-rails', '>= 3.0.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
@@ -66,13 +66,13 @@ gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
-gem 'rubocop-rails', '~> 2.30', '>= 2.30.2'
+gem 'rubocop-rails', '~> 2.31', '>= 2.31.0'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.1.0'
+gem 'sidekiq-cron', '>= 2.3.1'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
@@ -107,9 +107,9 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '>= 3.1.3'
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
+  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
+  gem 'rspec-rails', '~> 7.0', '>= 7.0.0'
 end
 
 group :development do
