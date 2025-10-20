@@ -1,12 +1,15 @@
 class CleanupSubmissionEntriesJob < ApplicationJob
   ENTRIES_BATCH_SIZE = 1000
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def perform(dry_run: false, max_run_time: 5.hours, task_batch_sixe: 100)
     start_time = Time.current
     total_deleted_entries = 0
 
     tasks_with_unprocessed_submissions = Task.joins(:submissions)
-                                             .where(submissions: { aasm_state: 'validation_failed', cleanup_processed: false })
+                                             .where(submissions: { aasm_state: 'validation_failed',
+cleanup_processed: false })
                                              .distinct
 
     tasks_with_unprocessed_submissions.find_in_batches(batch_size: task_batch_sixe) do |tasks_batch|
@@ -37,7 +40,7 @@ class CleanupSubmissionEntriesJob < ApplicationJob
             end
 
             submission.update(cleanup_processed: true) unless dry_run
-          rescue => e
+          rescue StandardError => e
             Rollbar.error(e, "Error processing Submission ID #{submission.id} for Task ID #{task.id}: #{e.message}")
           end
 
@@ -46,7 +49,10 @@ class CleanupSubmissionEntriesJob < ApplicationJob
       end
 
       break if Time.current - start_time >= max_run_time
+
       sleep 1 # To avoid overwhelming the database
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 end
