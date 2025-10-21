@@ -1,5 +1,17 @@
 # Change Log
 
+## [release-171] - 2025-10-23
+
+- NRMI-178: Clean up non-active validation_failed entries job
+
+## [release-170] - 2025-10-13
+
+- NRMI-143: fix unpermitted aria attribute accessibility error
+- NRMI-152: QA observation of inconsistent banner colours
+- NRMI-172: set up github actions
+- NRMI-166: Add archived agreement status
+- NRMI-177: Delete validation failed submission entries when resolved
+
 ## [release-169] - 2025-08-18
 
 - NRMI-153: fix for overflowing supplier page table
@@ -1121,6 +1133,8 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-171]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-170...release-171
+[release-170]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-169...release-170
 [release-169]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-168...release-169
 [release-168]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-167...release-168
 [release-167]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-166...release-167

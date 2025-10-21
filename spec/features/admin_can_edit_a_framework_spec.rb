@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Admin can edit a framework' do
   let(:framework) do
-    create(:framework, published: published, short_name: 'RM999',
+    create(:framework, aasm_state: aasm_state, short_name: 'RM999',
       name: 'Framework to be changed', definition_source: existing_source)
   end
 
@@ -66,13 +66,13 @@ RSpec.feature 'Admin can edit a framework' do
     end
 
     context 'there is an existing unpublished framework' do
-      let(:published) { false }
+      let(:aasm_state) { 'new' }
 
       include_examples 'successful edit'
     end
 
     context 'there is an existing published framework' do
-      let(:published) { true }
+      let(:aasm_state) { 'published' }
 
       include_examples 'successful edit'
     end
@@ -93,7 +93,7 @@ RSpec.feature 'Admin can edit a framework' do
     end
 
     context 'there is an existing unpublished framework' do
-      let(:published) { false }
+      let(:aasm_state) { 'new' }
 
       scenario 'the existing framework is not updated' do
         # When I visit the frameworks page
