@@ -86,7 +86,7 @@ RSpec.feature 'Admin can bulk on-board suppliers' do
   end
 
   context 'with a CSV which references an unpublished framework' do
-    before { fm1234.update(published: false) }
+    before { fm1234.update(aasm_state: 'archived') }
 
     scenario 'displays an error' do
       visit new_admin_supplier_bulk_onboard_path

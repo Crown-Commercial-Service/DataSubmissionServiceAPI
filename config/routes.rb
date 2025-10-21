@@ -152,6 +152,10 @@ Rails.application.routes.draw do
         patch :update_fdl
         patch :publish
         get :download_template
+        get :archive_confirmation
+        post :archive
+        get :unarchive_confirmation
+        post :unarchive
       end
     end
 
