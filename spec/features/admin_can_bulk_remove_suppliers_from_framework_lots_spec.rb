@@ -70,7 +70,7 @@ RSpec.feature 'Admin can bulk remove suppliers from lots' do
   end
 
   context 'with a CSV which references an unpublished framework' do
-    before { fm1234.update(published: false) }
+    before { fm1234.update(aasm_state: 'new') }
 
     scenario 'displays an error' do
       visit new_admin_supplier_bulk_lot_removal_path

@@ -122,6 +122,7 @@ Metrics/AbcSize:
         - 'app/controllers/admin/suppliers_controller.rb'
         - 'app/controllers/v1/tasks_controller.rb'
         - 'app/controllers/admin/users_controller.rb'
+        - 'app/jobs/cleanup_submission_entries_job.rb'
 
 Layout/LineLength:
     Max: 120
