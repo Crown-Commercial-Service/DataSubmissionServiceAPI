@@ -38,7 +38,7 @@ RSpec.describe Offboard::RemoveSuppliersFromLots do
 
     context 'when the CSV references a framework that is not published' do
       it 'raises an error' do
-        framework.update(published: false)
+        framework.update(aasm_state: 'archived')
 
         expect { offboarder.run }.to raise_error(ActiveRecord::RecordNotFound)
       end
