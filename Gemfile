@@ -17,7 +17,7 @@ gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.12', '>= 2.12.0'
+gem 'jbuilder', '~> 2.13', '>= 2.13.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -77,7 +77,7 @@ gem 'sidekiq-cron', '>= 2.3.1'
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
 
-gem 'activerecord-import', '>= 1.5.0'
+gem 'activerecord-import', '>= 1.5.1'
 
 gem 'parslet'
 
@@ -128,7 +128,7 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
+  gem 'shoulda-matchers', '~> 6.0', '>= 6.0.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
   gem 'webmock', '>= 3.20.0'

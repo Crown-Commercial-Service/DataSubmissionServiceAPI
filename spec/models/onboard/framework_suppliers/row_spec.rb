@@ -106,7 +106,7 @@ RSpec.describe Onboard::FrameworkSuppliers::Row do
     end
 
     context 'with a framework that is not published' do
-      before { framework.update(published: false) }
+      before { framework.update(aasm_state: 'archived') }
 
       it 'raises an ActiveRecord::RecordNotFound exception' do
         expect { row.onboard! }.to raise_error(ActiveRecord::RecordNotFound)
