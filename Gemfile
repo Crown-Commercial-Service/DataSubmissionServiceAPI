@@ -131,7 +131,7 @@ group :test do
   gem 'shoulda-matchers', '~> 6.0', '>= 6.0.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
-  gem 'webmock', '>= 3.20.0'
+  gem 'webmock', '>= 3.24.0'
   gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '~> 0.21.2'
 end

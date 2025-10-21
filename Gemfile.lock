@@ -229,7 +229,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
-    hashdiff (1.1.0)
+    hashdiff (1.2.1)
     hashie (5.0.0)
     highline (1.7.10)
     http (5.1.1)
@@ -387,7 +387,7 @@ GEM
     psych (5.2.6)
       date
       stringio
-    public_suffix (6.0.0)
+    public_suffix (6.0.2)
     puma (6.4.3)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -471,7 +471,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retryable (3.0.5)
-    rexml (3.4.1)
+    rexml (3.4.4)
     rollbar (3.4.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -600,7 +600,7 @@ GEM
     uri (1.0.4)
     useragent (0.16.11)
     version_gem (1.1.9)
-    webmock (3.23.1)
+    webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -679,7 +679,7 @@ DEPENDENCIES
   sprockets-rails (>= 3.5.1)
   tzinfo-data
   uglifier (~> 4.2)
-  webmock (>= 3.20.0)
+  webmock (>= 3.24.0)
 
 RUBY VERSION
    ruby 3.4.2p28
