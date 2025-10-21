@@ -10,6 +10,20 @@ RSpec.describe Submission do
   it { is_expected.to have_many(:files) }
   it { is_expected.to have_many(:entries) }
 
+  describe 'replacing a validation_failed submission' do
+    let(:task) { FactoryBot.create(:task) }
+    let!(:failed_submission) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
+
+    Submission::REPLACEMENT_STATES.each do |new_state|
+      it "deletes entries and staging entries for the failed submission when the new state is #{new_state}" do
+        FactoryBot.create(:submission, aasm_state: new_state, task: task)
+
+        expect(failed_submission.entries.reload).to be_empty
+        expect(failed_submission.staging_entries.reload).to be_empty
+      end
+    end
+  end
+
   describe '#ready_for_review state machine event' do
     it 'transitions from processing to in_review, with a valid submission' do
       submission = FactoryBot.create(:submission_with_validated_entries, aasm_state: :processing)

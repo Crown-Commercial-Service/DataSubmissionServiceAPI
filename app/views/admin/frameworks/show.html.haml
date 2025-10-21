@@ -9,7 +9,8 @@
       %h2#page-actions-title.govuk-heading-s{"aria-label" => "Page actions"} Actions
       %ul.govuk-page-actions--actions
         %li.govuk-page-actions--action
-          = link_to 'Edit definition', edit_admin_framework_path(@framework)
+          - if framework_not_archived?(@framework)
+            = link_to 'Edit definition', edit_admin_framework_path(@framework)
         %li.govuk-page-actions--action
           = link_to 'Download users (CSV)', users_admin_framework_reports_path(@framework)
         %li.govuk-page-actions--action
@@ -17,6 +18,11 @@
         %li.govuk-page-actions--action
           - if @framework.template_file.attached?
             = link_to 'Download template (excel document)', download_template_admin_framework_path(@framework, disposition: "attachment"), {'aria-label' => "Download excel document template for #{@framework.short_name} #{@framework.name}"}
+        %li.govuk-page-actions--action
+          - if @framework.can_be_archived?
+            = link_to 'Archive agreement', archive_confirmation_admin_framework_path(@framework)
+          - if @framework.archived?
+            = link_to 'Unarchive agreement', unarchive_confirmation_admin_framework_path(@framework)
 
 .govuk-grid-row
   .govuk-grid-column-full
@@ -27,36 +33,37 @@
 
       %textarea#code-editor{ readonly: true }= @definition_source
 
-.govuk-grid-row
-  .govuk-grid-column-full
-    = simple_form_for [:admin, @framework] do |form|
-      %fieldset.govuk-fieldset
-        %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
-          %h2.govuk-fieldset__heading
-            Template
-
-        - if @framework.template_file.attached?
-          %table.govuk-table
-            %thead.govuk-table__head
-              %tr.govuk-table__row
-                %th.govuk-table__header Name
-                %th.govuk-table__header Uploaded
-            %tbody.govuk-table__body
-              %td.govuk-table__cell= @framework.template_file.filename
-              %td.govuk-table__cell= @framework.template_file.attachment.created_at.to_fs(:date_with_utc_time)
-
-          = form.input :template_file, label: 'Replace file', hide_optional: true
-        - else
-          = form.input :template_file, label: 'Choose a file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
-
-        = form.button :submit, value: 'Upload Template', data: { disable_with: "Update Agreement" }
-
-- unless @framework.published
+- if framework_not_archived?(@framework)
   .govuk-grid-row
     .govuk-grid-column-full
-      = simple_form_for [:admin, @framework], url: publish_admin_framework_path(@framework) do |form|
-        %fieldset.govuk-fieldset
+      = simple_form_for [:admin, @framework] do |form|
+        %fieldset.govuk-fieldset{class: 'govuk-!-margin-top-5'}
           %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
             %h2.govuk-fieldset__heading
-              Publish
-          = form.button :submit, value: 'Publish agreement', data: { disable_with: "Update Agreement" }
+              Template
+
+          - if @framework.template_file.attached?
+            %table.govuk-table
+              %thead.govuk-table__head
+                %tr.govuk-table__row
+                  %th.govuk-table__header Name
+                  %th.govuk-table__header Uploaded
+              %tbody.govuk-table__body
+                %td.govuk-table__cell= @framework.template_file.filename
+                %td.govuk-table__cell= @framework.template_file.attachment.created_at.to_fs(:date_with_utc_time)
+
+            = form.input :template_file, label: 'Replace file', hide_optional: true
+          - else
+            = form.input :template_file, label: 'Choose a file to upload. Accepted file types are Microsoft Excel (.xls or .xlsx).', hide_optional: true
+
+          = form.button :submit, value: 'Upload Template', data: { disable_with: "Update Agreement" }
+
+  - if @framework.new?
+    .govuk-grid-row
+      .govuk-grid-column-full
+        = simple_form_for [:admin, @framework], url: publish_admin_framework_path(@framework) do |form|
+          %fieldset.govuk-fieldset
+            %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
+              %h2.govuk-fieldset__heading
+                Publish
+            = form.button :submit, value: 'Publish agreement', data: { disable_with: "Update Agreement" }
