@@ -1,4 +1,19 @@
 class Framework < ApplicationRecord
+  include AASM
+
+  aasm column: 'aasm_state' do
+    state :new, initial: true
+    state :published
+    state :archived
+
+    event :publish do
+      transitions from: %i[new archived], to: :published, guard: :load_lots!
+    end
+    event :archive do
+      transitions from: %i[published], to: :archived
+    end
+  end
+
   has_many :lots, dependent: :nullify, class_name: 'FrameworkLot'
   has_many :submissions, dependent: :nullify
 
@@ -10,8 +25,9 @@ class Framework < ApplicationRecord
 
   validates :definition_source, fdl: true, allow_nil: true
 
-  scope :published, -> { where(published: true) }
-  scope :unpublished, -> { where(published: false) }
+  scope :published, -> { where(aasm_state: 'published') }
+  scope :archived, -> { where(aasm_state: 'archived') }
+  scope :new_state, -> { where(aasm_state: 'new') }
 
   has_one_attached :template_file
 
@@ -63,11 +79,6 @@ class Framework < ApplicationRecord
     end
   end
 
-  def publish!
-    load_lots!
-    update(published: true)
-  end
-
   def load_lots!
     generator = Framework::Definition::Generator.new(definition_source, Rails.logger)
     fdl_lots = generator.definition.lots || {}
@@ -94,5 +105,9 @@ class Framework < ApplicationRecord
     else
       update(definition_source: definition_source)
     end
+  end
+
+  def can_be_archived?
+    published? && agreements.active.none?
   end
 end

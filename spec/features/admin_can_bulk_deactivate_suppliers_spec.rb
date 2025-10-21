@@ -44,7 +44,7 @@ RSpec.feature 'Admin can bulk deactivate suppliers' do
   end
 
   context 'with a CSV which references an unpublished framework' do
-    before { fm1234.update(published: false) }
+    before { fm1234.update(aasm_state: 'archived') }
 
     scenario 'displays an error' do
       visit admin_suppliers_path
