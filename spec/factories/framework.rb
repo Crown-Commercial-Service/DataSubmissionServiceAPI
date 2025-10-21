@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:name) { |n| "G Cloud #{n}" }
 
     definition_source { DEFAULT_FDL.read }
-    published { true }
+    aasm_state { :published }
 
     transient do
       lot_count { 0 }

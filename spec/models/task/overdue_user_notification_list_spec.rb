@@ -22,7 +22,7 @@ RSpec.describe Task::OverdueUserNotificationList do
         framework1 = create :framework, short_name: 'RM0001', name: 'Framework 1'
         framework2 = create :framework, short_name: 'RM0002', name: 'Framework 2'
         framework3 = create :framework, short_name: 'COMPLETE0001'
-        create :framework, short_name: 'NOTPUBLISHED0001', published: false
+        create :framework, short_name: 'NOTPUBLISHED0001', aasm_state: 'new'
 
         supplier_a = create(:supplier, name: 'Supplier A')
         supplier_b = create(:supplier, name: 'Supplier B')
