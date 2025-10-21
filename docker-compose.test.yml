@@ -27,7 +27,7 @@ services:
   db-test:
     image: postgres
     volumes:
-      - pg_test_data:/var/lib/postgresql/data/:cached
+      - test_data:/var/lib/postgresql/data/:cached
     networks:
       - tests
     restart: on-failure
@@ -39,5 +39,5 @@ networks:
   tests:
 
 volumes:
-  pg_test_data: {}
+  test_data: {}
   node_modules:
