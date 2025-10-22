@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin can edit a framework' do
+RSpec.feature 'Admin can publish a framework' do
   let!(:framework) do
-    create(:framework, published: published, short_name: 'RM999',
+    create(:framework, aasm_state: aasm_state, short_name: 'RM999',
       name: 'Framework to be published', definition_source: definition_source)
   end
   let(:definition_source) do
@@ -26,7 +26,7 @@ RSpec.feature 'Admin can edit a framework' do
   end
 
   context 'there is an existing unpublished framework' do
-    let(:published) { false }
+    let(:aasm_state) { 'new' }
 
     scenario 'everything is fine' do
       visit admin_framework_path(framework)
@@ -37,7 +37,7 @@ RSpec.feature 'Admin can edit a framework' do
   end
 
   context 'there is an existing published framework' do
-    let(:published) { true }
+    let(:aasm_state) { 'published' }
 
     scenario 'no link exists to publish' do
       visit admin_framework_path(framework)
