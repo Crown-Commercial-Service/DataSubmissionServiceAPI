@@ -379,7 +379,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.5.2)
+    prism (1.6.0)
     progress_bar (1.2.0)
       highline (~> 1.6)
       options (~> 2.3.0)
