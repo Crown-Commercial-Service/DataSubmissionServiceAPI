@@ -56,7 +56,7 @@ services:
   db:
     image: postgres
     volumes:
-      - pg_data:/var/lib/postgresql/data/:cached
+      - data:/var/lib/postgresql
     restart: on-failure
     container_name: "data-submission-service-api_db"
     networks:
@@ -72,7 +72,7 @@ services:
       private:
 
 volumes:
-  pg_data: {}
+  data: {}
   node_modules:
 
 networks:
