@@ -36,7 +36,7 @@ RSpec.describe Offboard::DeactivateSuppliers::Row do
     end
 
     context 'with a framework that is not published' do
-      before { framework.update(published: false) }
+      before { framework.update(aasm_state: 'new') }
 
       it 'raises an ActiveRecord::RecordNotFound exception' do
         expect { row.offboard! }.to raise_error(ActiveRecord::RecordNotFound)

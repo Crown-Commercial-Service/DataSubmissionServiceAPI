@@ -13,12 +13,17 @@ class Admin::UsersController < AdminController
     @user = User.new(user_params)
   rescue StandardError
     @user = User.new
+    @supplier_sf_id = params[:supplier_sf_id].presence
   end
 
   def build
     @user = User.new(user_params)
+    @selected_supplier_ids = Array(params[:supplier_sf_id])
 
-    if @user.valid?
+    if @user.valid? && params[:supplier_sf_id].present?
+      @suppliers = Supplier.where(salesforce_id: @selected_supplier_ids)
+      render :confirm
+    elsif @user.valid?
       @suppliers = Supplier.order(:name).search(params[:search]).page(params[:supplier_page])
       respond_to do |format|
         format.html { render :select_suppliers }
@@ -49,7 +54,7 @@ class Admin::UsersController < AdminController
     begin
       import_user_with_suppliers(params[:name], params[:email], supplier_sf_ids)
 
-      redirect_to admin_users_path, notice: 'User created successfully with linked suppliers.'
+      redirect_to admin_users_path, success: 'User created successfully with linked suppliers.'
     rescue StandardError => e
       redirect_to new_admin_user_path, alert: "Failed to create user: #{e.message}"
     end
