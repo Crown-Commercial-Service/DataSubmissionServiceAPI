@@ -1,5 +1,9 @@
 module FrameworksHelper
   def published_status(framework)
-    framework.published ? 'Published' : 'New'
+    framework.aasm_state
+  end
+
+  def framework_not_archived?(framework)
+    framework.aasm_state != 'archived'
   end
 end
