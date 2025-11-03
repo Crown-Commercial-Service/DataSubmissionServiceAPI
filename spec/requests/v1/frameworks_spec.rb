@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe '/v1' do
   before do
-    create(:framework, published: true)
-    create(:framework, published: true)
-    create(:framework, published: false)
+    create(:framework, aasm_state: 'published')
+    create(:framework, aasm_state: 'published')
+    create(:framework, aasm_state: 'new')
   end
 
   describe 'GET /v1/frameworks' do

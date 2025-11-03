@@ -8,7 +8,7 @@ class Admin::AgreementsController < AdminController
   def activate
     @agreement.activate!
 
-    redirect_to [:admin, @supplier], alert: "Activated on #{@framework.short_name}"
+    redirect_to [:admin, @supplier], success: "Activated on #{@framework.short_name}"
   end
 
   def deactivate
