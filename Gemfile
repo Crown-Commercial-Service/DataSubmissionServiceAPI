@@ -86,7 +86,7 @@ gem 'parslet'
 gem 'rack-maintenance', '~> 3.0'
 
 # For parsing and manipulating excel docs
-gem 'rubyXL', '~> 3.4', '>= 3.4.26'
+gem 'rubyXL', '~> 3.4', '>= 3.4.28'
 
 # SOAP-related libraries for Workday integration
 gem 'lolsoap', '>= 0.11.0', require: false
@@ -97,7 +97,7 @@ gem 'http', '>= 4.0.0'
 gem 'hashdiff', require: false
 
 # Manually set Nokgiri version, to update version.
-gem 'nokogiri', '>= 1.18.8'
+gem 'nokogiri', '>= 1.18.9'
 
 # Fix for already initialized constant warning, see: https://stackoverflow.com/questions/67773514/getting-warning-already-initialized-constant-on-assets-precompile-at-the-time
 gem 'net-http', '>= 0.4.0'
