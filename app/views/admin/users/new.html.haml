@@ -1,9 +1,10 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    = link_to 'Back', admin_users_path, { class: 'govuk-back-link govuk-!-margin-bottom-5', title: 'Back to users' }
+    = link_to 'Back', request.referer.present? ? request.referer : admin_users_path, { class: 'govuk-back-link govuk-!-margin-bottom-5', title: 'Back to previous page' }
 
     %h1.govuk-heading-l Add a new user
 
+    - button_text = @supplier_sf_id ? "Confirm" : "Select suppliers"
     = form_with model: @user, url: build_admin_users_path, method: :post, local: true do |f|
     
       = render partial: 'shared/error_summary', locals: { entity: @user } if @user.errors.present?
@@ -20,4 +21,6 @@
           %span.govuk-error-message= @user.errors[:email].first
         = f.email_field :email, class: "govuk-input"
 
-      = f.submit "Select suppliers", class: "govuk-button"
+      = hidden_field_tag :supplier_sf_id, @supplier_sf_id if @supplier_sf_id
+
+      = f.submit button_text, class: "govuk-button"
