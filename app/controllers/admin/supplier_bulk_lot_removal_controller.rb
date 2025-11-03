@@ -7,7 +7,7 @@ class Admin::SupplierBulkLotRemovalController < AdminController
     csv_path = uploaded_file.tempfile.path
     Offboard::RemoveSuppliersFromLots.new(csv_path, logger: Rails.logger).run
 
-    redirect_to new_admin_supplier_bulk_lot_removal_path, notice: 'Successfully off-boarded suppliers'
+    redirect_to new_admin_supplier_bulk_lot_removal_path, success: 'Successfully off-boarded suppliers'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_supplier_bulk_lot_removal_path, alert: 'Please choose a file to upload'
   rescue ActiveRecord::RecordNotFound, ArgumentError, ActiveRecord::RecordInvalid => e

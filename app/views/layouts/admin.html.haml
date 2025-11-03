@@ -11,7 +11,7 @@
     = content_for(:head)
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
+    = javascript_importmap_tags 'application'
 
   %body.govuk-template__body.app-body-class
     %a{ href: '#main-content', class: 'govuk-skip-link' }

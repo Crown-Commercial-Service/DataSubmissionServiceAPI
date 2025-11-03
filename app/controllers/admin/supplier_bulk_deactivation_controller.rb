@@ -7,7 +7,7 @@ class Admin::SupplierBulkDeactivationController < AdminController
     csv_path = uploaded_file.tempfile.path
     Offboard::DeactivateSuppliers.new(csv_path, logger: Rails.logger).run
 
-    redirect_to new_admin_supplier_bulk_deactivate_path, notice: 'Successfully deactivated suppliers'
+    redirect_to new_admin_supplier_bulk_deactivate_path, success: 'Successfully deactivated suppliers'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_supplier_bulk_deactivate_path, alert: 'Please choose a file to upload'
   rescue ActiveRecord::RecordNotFound, ArgumentError, ActiveRecord::RecordInvalid => e

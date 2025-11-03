@@ -39,7 +39,7 @@ RSpec.describe Onboard::FrameworkSuppliers do
     context 'when the CSV references a framework that is not published' do
       let(:csv_path) { Rails.root.join('spec', 'fixtures', 'framework_suppliers.csv') }
 
-      before { framework.update!(published: false) }
+      before { framework.update!(aasm_state: 'archived') }
 
       it 'rolls back any changes to the database' do
         supplier_count_before = Supplier.count
