@@ -26,13 +26,14 @@ module DataSubmissionServiceApi
 
     # config.active_record.yaml_column_permitted_classes = [Time]
 
-    console do
-      require './lib/console_helpers'
-      if defined?(Pry)
-        TOPLEVEL_BINDING.eval('self').extend ConsoleHelpers
-      else
-        Rails::ConsoleMethods.include ConsoleHelpers
-      end
-    end
+    # TODO: this is deprecated, figure out alternative
+    # console do
+    #   require './lib/console_helpers'
+    #   if defined?(Pry)
+    #     TOPLEVEL_BINDING.eval('self').extend ConsoleHelpers
+    #   else
+    #     Rails::ConsoleMethods.include ConsoleHelpers
+    #   end
+    # end
   end
 end

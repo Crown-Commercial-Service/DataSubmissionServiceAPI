@@ -17,7 +17,7 @@ gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.12', '>= 2.12.0'
+gem 'jbuilder', '~> 2.13', '>= 2.13.0'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -44,40 +44,41 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.1', '>= 5.1.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.1.2'
+gem 'omniauth-google-oauth2', '>= 1.2.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Admin Frontend
-gem 'haml-rails', '>= 2.1.0'
+gem 'haml-rails', '>= 3.0.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
 gem 'simple_form', '>= 5.3.1'
+gem 'importmap-rails', '~> 2.2'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage-blob', '>= 2.0.3', require: false
 
 # Exception tracking
-gem 'rollbar'
+gem 'rollbar', '~> 3.5', '>= 3.5.1'
 
 # Logging
 gem 'lograge', '>= 0.14.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
-gem 'rubocop-rails', '~> 2.30', '>= 2.30.2'
+gem 'rubocop-rails', '~> 2.31', '>= 2.31.0'
 
 gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.1.0'
+gem 'sidekiq-cron', '>= 2.3.1'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
 
-gem 'activerecord-import', '>= 1.5.0'
+gem 'activerecord-import', '>= 1.5.1'
 
 gem 'parslet'
 
@@ -107,9 +108,9 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '>= 3.1.3'
-  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
+  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
+  gem 'rspec-rails', '~> 7.0', '>= 7.0.0'
 end
 
 group :development do
@@ -128,10 +129,10 @@ group :test do
   gem 'jsonapi-rspec', require: false
   gem 'ruby_event_store-rspec'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers', '~> 5.1', '>= 5.1.0'
+  gem 'shoulda-matchers', '~> 6.0', '>= 6.0.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
-  gem 'webmock', '>= 3.20.0'
+  gem 'webmock', '>= 3.24.0'
   gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '~> 0.21.2'
 end

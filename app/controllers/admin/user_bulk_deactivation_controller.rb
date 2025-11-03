@@ -7,7 +7,7 @@ class Admin::UserBulkDeactivationController < AdminController
     csv_path = uploaded_file.tempfile.path
     Offboard::DeactivateUsers.new(csv_path, logger: Rails.logger).run
 
-    redirect_to new_admin_user_bulk_deactivate_path, notice: 'Successfully deactivated users'
+    redirect_to new_admin_user_bulk_deactivate_path, success: 'Successfully deactivated users'
   rescue ActionController::ParameterMissing
     redirect_to new_admin_user_bulk_deactivate_path, alert: 'Please choose a file to upload'
   rescue ActiveRecord::RecordNotFound, ArgumentError => e
