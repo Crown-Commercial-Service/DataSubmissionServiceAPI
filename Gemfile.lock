@@ -243,6 +243,10 @@ GEM
     http-form_data (2.3.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.2.2)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
@@ -472,7 +476,7 @@ GEM
       netrc (~> 0.8)
     retryable (3.0.5)
     rexml (3.4.4)
-    rollbar (3.4.0)
+    rollbar (3.6.2)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -637,6 +641,7 @@ DEPENDENCIES
   haml-rails (>= 3.0.0)
   hashdiff
   http (>= 4.0.0)
+  importmap-rails (~> 2.2)
   jbuilder (~> 2.13, >= 2.13.0)
   jquery-rails (>= 4.5.0)
   jsonapi-rails
@@ -661,7 +666,7 @@ DEPENDENCIES
   rails (~> 8.0, >= 8.0.2.1)
   rails_event_store (~> 2.15, >= 2.15.0)
   redcarpet (~> 3.6)
-  rollbar
+  rollbar (~> 3.5, >= 3.5.1)
   rspec-json_expectations
   rspec-rails (~> 7.0, >= 7.0.0)
   rubocop (>= 1.66.0)

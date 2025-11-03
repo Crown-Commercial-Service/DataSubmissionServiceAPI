@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_14_121707) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_20_131706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -252,11 +252,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_121707) do
     t.decimal "invoice_total", precision: 18, scale: 4
     t.boolean "cleanup_processed", default: false, null: false
     t.index ["aasm_state"], name: "index_submissions_on_aasm_state"
+    t.index ["cleanup_processed"], name: "index_submissions_on_cleanup_processed"
     t.index ["created_at"], name: "index_submissions_on_created_at", order: :desc
     t.index ["created_by_id"], name: "index_submissions_on_created_by_id"
     t.index ["framework_id"], name: "index_submissions_on_framework_id"
     t.index ["submitted_by_id"], name: "index_submissions_on_submitted_by_id"
     t.index ["supplier_id"], name: "index_submissions_on_supplier_id"
+    t.index ["task_id", "aasm_state"], name: "index_submissions_on_task_id_and_aasm_state"
     t.index ["task_id"], name: "index_submissions_on_task_id"
     t.index ["updated_at"], name: "index_submissions_on_updated_at", using: :brin
   end
