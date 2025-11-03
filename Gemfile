@@ -53,13 +53,14 @@ gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
 gem 'simple_form', '>= 5.3.1'
+gem "importmap-rails", "~> 2.2"
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage-blob', '>= 2.0.3', require: false
 
 # Exception tracking
-gem 'rollbar'
+gem 'rollbar', '~> 3.5', '>= 3.5.1'
 
 # Logging
 gem 'lograge', '>= 0.14.0'

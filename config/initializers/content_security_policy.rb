@@ -10,13 +10,13 @@ Rails.application.config.content_security_policy do |policy|
   if ENV['MAINTENANCE'].present?
     policy.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   else
-    policy.style_src   :self, 'https://fonts.googleapis.com'
+    policy.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   end
   # For loading fonts referenced by the aforementioned styles
   # (https://fonts.gstatic.com at time of writing, but I see nothing to
   # suggest we can hardcode this host)
   policy.font_src    :self, :https
-  policy.script_src  :self, :unsafe_inline
+  policy.script_src  :self, :unsafe_inline, 'https://esm.sh'
 end
 
 # If you are using UJS then enable automatic nonce generation
