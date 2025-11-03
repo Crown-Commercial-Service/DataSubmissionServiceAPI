@@ -27,7 +27,7 @@ services:
   db-test:
     image: postgres
     volumes:
-      - test_data:/var/lib/postgresql/data/:cached
+      - test_data:/var/lib/postgresql
     networks:
       - tests
     restart: on-failure

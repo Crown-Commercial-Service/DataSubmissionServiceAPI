@@ -53,13 +53,14 @@ gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
 gem 'simple_form', '>= 5.3.1'
+gem 'importmap-rails', '~> 2.2'
 
 gem 'aws-sdk-cloudwatch', require: false
 gem 'aws-sdk-s3', require: false
 gem 'azure-storage-blob', '>= 2.0.3', require: false
 
 # Exception tracking
-gem 'rollbar'
+gem 'rollbar', '~> 3.5', '>= 3.5.1'
 
 # Logging
 gem 'lograge', '>= 0.14.0'
@@ -131,7 +132,7 @@ group :test do
   gem 'shoulda-matchers', '~> 6.0', '>= 6.0.0'
   gem 'capybara', '~> 3.40', '>= 3.40.0'
   gem 'climate_control'
-  gem 'webmock', '>= 3.20.0'
+  gem 'webmock', '>= 3.24.0'
   gem 'launchy', '>= 2.4.3'
   gem 'simplecov', '~> 0.21.2'
 end

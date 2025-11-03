@@ -10,12 +10,13 @@
   display: none;
 }
 
-.govuk-textarea--fdl-source, .CodeMirror {
+.govuk-textarea--fdl-source, 
+.cm-editor,
+.cm-editor .cm-scroller {
   min-height: 40em;
   min-width: 100%;
 }
 
-.CodeMirror {
+.cm-editor  {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
-
