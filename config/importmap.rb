@@ -20,4 +20,4 @@ pin 'style-mod' # @4.1.3
 pin 'w3c-keyname' # @2.2.8
 pin '@codemirror/theme-one-dark', to: '@codemirror--theme-one-dark.js' # @6.1.2
 
-pin "@codemirror/legacy-modes/mode/ruby", to: "https://esm.sh/@codemirror/legacy-modes@6/mode/ruby?bundle"
+pin '@codemirror/legacy-modes/mode/ruby', to: 'https://esm.sh/@codemirror/legacy-modes@6/mode/ruby?bundle'
