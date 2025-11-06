@@ -3,8 +3,6 @@
 pin 'application', to: 'application.js'
 
 pin '@rails/activestorage', to: '@rails--activestorage.js' # @8.1.0
-pin '@rails/ujs', to: '@rails--ujs.js' # @7.1.3
-pin 'govuk-frontend'
 pin 'jquery' # @3.7.1
 
 pin '@codemirror/commands', to: '@codemirror--commands.js' # @6.10.0

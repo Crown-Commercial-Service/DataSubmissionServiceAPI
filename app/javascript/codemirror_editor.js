@@ -10,7 +10,7 @@ export function initializeCodeMirror(textAreaId) {
     const extensions = [
         lineNumbers(),
         keymap.of(defaultKeymap),
-        oneDark,
+        oneDark
     ];
 
     if (textArea.hasAttribute('readonly')) {
@@ -24,14 +24,14 @@ export function initializeCodeMirror(textAreaId) {
 
     const view = new EditorView({
         state,
-        parent: textArea.parentNode
+        parent: textArea.parentElement
     });
-
-    if (textArea.className) view.dom.className += ` ${textArea.className}`;
 
     // Hide the original textarea and update the value before form submission
     textArea.style.display = 'none';
     textArea.form?.addEventListener("submit", () => {
         textArea.value = view.state.doc.toString();
     });
+
+    return view;
 }
