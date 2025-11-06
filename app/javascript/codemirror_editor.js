@@ -3,6 +3,9 @@ import { EditorView, keymap, lineNumbers } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { oneDark } from "@codemirror/theme-one-dark";
 
+import { StreamLanguage } from "@codemirror/language";
+import { ruby as rubyLegacy} from "@codemirror/legacy-modes/mode/ruby";
+
 export function initializeCodeMirror(textAreaId) {
     const textArea = document.getElementById('code-editor');
     if (!textArea) return;
@@ -10,6 +13,7 @@ export function initializeCodeMirror(textAreaId) {
     const extensions = [
         lineNumbers(),
         keymap.of(defaultKeymap),
+        StreamLanguage.define(rubyLegacy),
         oneDark
     ];
 
