@@ -7,5 +7,4 @@
 //= link_tree ../builds .js
 //= link govuk-frontend/govuk/all.js
 //= link rails-ujs.js
-//= link jquery.js
 //= link boot.js
