@@ -1,8 +1,6 @@
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
 
-import "jquery"
-
 import { initializeCodeMirror } from "./codemirror_editor";
 
 import "./main";
