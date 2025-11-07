@@ -3,7 +3,6 @@
 pin 'application', to: 'application.js'
 
 pin '@rails/activestorage', to: '@rails--activestorage.js' # @8.1.0
-pin 'jquery' # @3.7.1
 
 pin '@codemirror/commands', to: '@codemirror--commands.js' # @6.10.0
 pin '@codemirror/language', to: '@codemirror--language.js' # @6.11.3
