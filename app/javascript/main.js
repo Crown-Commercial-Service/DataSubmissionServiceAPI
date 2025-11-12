@@ -7,9 +7,8 @@ readyEvents.forEach((event) => {
     // From the govuk-frontend template.njk
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
 
-    window.GOVUKFrontend.initAll()
-
     $("body").on('click', '.rmi-govuk-table-accordion-icon', function( event ) {
+        console.log("Clicked table accordion icon");
         var tableIconVal = this.getAttribute("data-table-icon");
 
         var tableAccContent = document.querySelector("[data-table-accordion='" + tableIconVal + "']");
