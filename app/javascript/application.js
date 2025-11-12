@@ -1,9 +1,9 @@
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
 
-import { initializeCodeMirror } from "./codemirror_editor";
+import { initializeCodeMirror } from "./codemirror_editor.js";
 
-import "./main";
+import "./main.js";
 
 const readyEvents = ["DOMContentLoaded", "turbo:load", "turboLinks:load"];
 
