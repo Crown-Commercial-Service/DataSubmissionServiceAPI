@@ -1,6 +1,8 @@
 # Pin npm packages by running ./bin/importmap
 
 pin 'application', to: 'application.js'
+pin 'main', to: 'main.js'
+pin 'codemirror_editor', to: 'codemirror_editor.js'
 
 pin '@rails/activestorage', to: '@rails--activestorage.js' # @8.1.0
 
