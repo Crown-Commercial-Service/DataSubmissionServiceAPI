@@ -1,9 +1,7 @@
 class CleanupSubmissionEntriesJob < ApplicationJob
-  ENTRIES_BATCH_SIZE = 1000
-
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
-  def perform(dry_run: false, max_run_time: 5.hours, task_batch_sixe: 100)
+  def perform(dry_run: false, max_run_time: 5.hours, task_batch_size: 100, entries_batch_size: 500)
     start_time = Time.current
     total_deleted_entries = 0
 
@@ -12,7 +10,7 @@ class CleanupSubmissionEntriesJob < ApplicationJob
 cleanup_processed: false })
                                              .distinct
 
-    tasks_with_unprocessed_submissions.find_in_batches(batch_size: task_batch_sixe) do |tasks_batch|
+    tasks_with_unprocessed_submissions.find_in_batches(batch_size: task_batch_size) do |tasks_batch|
       tasks_batch.each do |task|
         active_id = task.active_submission&.id
 
@@ -26,7 +24,7 @@ cleanup_processed: false })
 
         failed_submissions.find_each do |submission|
           begin
-            submission.entries.in_batches(of: ENTRIES_BATCH_SIZE) do |entries_batch|
+            submission.entries.in_batches(of: entries_batch_size) do |entries_batch|
               if dry_run
                 Rollbar.info("Dry run: would delete #{entries_batch.count} entries for Submission ID #{submission.id}.")
               else

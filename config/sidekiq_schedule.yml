@@ -10,7 +10,3 @@ kill_stuck_submissions:
   cron: '*/5 * * * *'
   class: KillStuckSubmissionsJob
   queue: default
-cleanup_submission_entries:
-  cron: '0 1 * * *'
-  class: CleanupSubmissionEntriesJob
-  queue: default

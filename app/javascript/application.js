@@ -1,22 +1,25 @@
-import Rails from "@rails/ujs"
-Rails.start()
-
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
 
-import "jquery"
+import { initializeCodeMirror } from "codemirror_editor";
 
-import { initializeCodeMirror } from "./codemirror_editor";
-
-import "./main";
+import "main";
 
 const readyEvents = ["DOMContentLoaded", "turbo:load", "turboLinks:load"];
 
 readyEvents.forEach((event) => {
     document.addEventListener(event, () => {
+
+    if (window.GOVUKFrontend && typeof window.GOVUKFrontend.initAll === 'function') {
+      // console.log("Initializing GOV.UK Frontend components");
+      window.GOVUKFrontend.initAll();
+    } else {
+      // console.warn("GOV.UK Frontend is not loaded.");
+    }
+    
     const textArea = document.getElementById('code-editor');
     if (textArea) {
-      console.log("Initializing CodeMirror editor");
+      // console.log("Initializing CodeMirror editor");
       initializeCodeMirror('code-editor');
     }
   });
