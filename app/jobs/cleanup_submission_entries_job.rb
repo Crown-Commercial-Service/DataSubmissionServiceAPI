@@ -13,10 +13,12 @@ cleanup_processed: false })
     tasks_with_unprocessed_submissions.find_in_batches(batch_size: task_batch_size) do |tasks_batch|
       tasks_batch.each do |task|
         active_id = task.active_submission&.id
+        latest_id = task.latest_submission&.id
 
         failed_submissions = task.submissions
                                  .where(aasm_state: 'validation_failed', cleanup_processed: false)
                                  .where.not(id: active_id)
+                                 .where.not(id: latest_id)
 
         next if failed_submissions.empty?
 
