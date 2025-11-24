@@ -10,12 +10,35 @@
   display: none;
 }
 
-.govuk-textarea--fdl-source, .CodeMirror {
+.js #code-editor {
+  visibility: hidden;
+}
+
+textarea.govuk-textarea--fdl-source {
   min-height: 40em;
   min-width: 100%;
 }
 
-.CodeMirror {
+.cm-editor {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+
+.cm-editor .cm-scroller {
+  height: 60em;
+  overflow: auto;
+  resize: none;
+}
+
+.cm-gutters {
+  background: inherit;
+  border-right: none;
+}
+
+.cm-content {
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
