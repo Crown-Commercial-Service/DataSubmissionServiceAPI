@@ -1,11 +1,10 @@
 # Pin npm packages by running ./bin/importmap
 
 pin 'application', to: 'application.js'
+pin 'main', to: 'main.js'
+pin 'codemirror_editor', to: 'codemirror_editor.js'
 
 pin '@rails/activestorage', to: '@rails--activestorage.js' # @8.1.0
-pin '@rails/ujs', to: '@rails--ujs.js' # @7.1.3
-pin 'govuk-frontend'
-pin 'jquery' # @3.7.1
 
 pin '@codemirror/commands', to: '@codemirror--commands.js' # @6.10.0
 pin '@codemirror/language', to: '@codemirror--language.js' # @6.11.3
@@ -21,3 +20,5 @@ pin 'crelt' # @1.0.6
 pin 'style-mod' # @4.1.3
 pin 'w3c-keyname' # @2.2.8
 pin '@codemirror/theme-one-dark', to: '@codemirror--theme-one-dark.js' # @6.1.2
+
+pin '@codemirror/legacy-modes/mode/ruby', to: 'https://esm.sh/@codemirror/legacy-modes@6/mode/ruby?bundle'

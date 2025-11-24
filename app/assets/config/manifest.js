@@ -6,3 +6,5 @@
 //= link_tree ../../javascript .js
 //= link_tree ../builds .js
 //= link govuk-frontend/govuk/all.js
+//= link rails-ujs.js
+//= link boot.js
