@@ -8,11 +8,13 @@ RSpec.feature 'Admin can list frameworks' do
     # And there are some published frameworks
     FactoryBot.create(:framework, name: 'Laundry Framework 1', short_name: 'RM1234')
     FactoryBot.create(:framework, name: 'Vehicle Purchase Framework 1', short_name: 'RM5678')
-    # And there are some unpublished frameworks
+    # And there is a new/unpublished frameworks
     FactoryBot.create(:framework, aasm_state: 'new', name: 'Vehicle Purchase Framework 2', short_name: 'RM5679')
+    # And there is an archived frameworks
+    FactoryBot.create(:framework, aasm_state: 'archived', name: 'Archived framework', short_name: 'RM5789')
   end
 
-  scenario 'There are some published and unpublished agreements' do
+  scenario 'There are some new and published but not archived agreements' do
     # When I click the "Agreements" link from the main admin page
     visit admin_root_path
     click_link 'Agreements'
@@ -35,13 +37,16 @@ RSpec.feature 'Admin can list frameworks' do
       expect(page).to have_text('Vehicle Purchase Framework 2')
       expect(page).to have_text('new')
     end
+
+    expect(page).not_to have_text('RM5789')
+    expect(page).not_to have_text('Vehicle Purchase Framework 3')
   end
 
   scenario 'agreements can be filtered by status' do
     visit admin_root_path
     click_link 'Agreements'
 
-    page.check('framework_status_new')
+    page.uncheck('framework_status_published')
     find('#framework-status-filter-submit').click
 
     expect(page).to have_text('RM5679')
@@ -49,12 +54,10 @@ RSpec.feature 'Admin can list frameworks' do
     expect(page).not_to have_text('RM5678')
     expect(page).not_to have_text('Vehicle Purchase Framework 1')
 
-    page.check('framework_status_published')
+    page.check('framework_status_archived')
     find('#framework-status-filter-submit').click
 
-    expect(page).to have_text('RM1234')
-    expect(page).to have_text('Laundry Framework 1')
-    expect(page).not_to have_text('RM5679')
-    expect(page).not_to have_text('Vehicle Purchase Framework 2')
+    expect(page).to have_text('RM5789')
+    expect(page).to have_text('Archived framework')
   end
 end
