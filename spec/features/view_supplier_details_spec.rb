@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.feature 'Viewing a supplier' do
   let!(:supplier) { FactoryBot.create(:supplier, name: 'Test Supplier Ltd') }
   let!(:framework) { FactoryBot.create(:framework, name: 'Test Framework', short_name: 'RM0000') }
+  let!(:archived_framework) { FactoryBot.create(:framework, name: 'Archived Framework', short_name: 'RM0001') }
   let!(:agreement) { FactoryBot.create(:agreement, supplier: supplier, framework: framework) }
+  let!(:inactive_agreement) { FactoryBot.create(:agreement, supplier: supplier, framework: archived_framework) }
   let!(:user) { FactoryBot.create(:user, name: 'User One', email: 'email_one@ccs.co.uk', suppliers: [supplier]) }
 
   before { sign_in_as_admin }
@@ -12,7 +14,13 @@ RSpec.feature 'Viewing a supplier' do
     visit admin_supplier_path(supplier)
     expect(page).to have_content 'Test Supplier Ltd'
     expect(page).to have_content 'RM0000 Test Framework'
-    expect(page).to have_content 'Displaying 1 agreement'
+    expect(page).to have_content 'Displaying all 2 agreements'
+  end
+
+  scenario 'shows activate/deactivate links based on agreement and framework status' do
+    visit admin_supplier_path(supplier)
+    expect(page).to have_link 'Deactivate', href: admin_supplier_agreement_confirm_deactivation_path(supplier, agreement)
+    expect(page).not_to have_link 'Activate'
   end
 
   scenario 'shows paginated list of the supplier’s tasks' do
@@ -73,6 +81,6 @@ framework: framework)
     click_link('Next »', match: :first)
     expect(page).to have_content 'Displaying task 13 - 13 of 13 in total'
     expect(page).to have_content 'Displaying users 1 - 12 of 13 in total'
-    expect(page).to have_content 'Displaying 1 agreement'
+    expect(page).to have_content 'Displaying all 2 agreements'
   end
 end
