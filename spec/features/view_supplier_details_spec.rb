@@ -19,7 +19,8 @@ RSpec.feature 'Viewing a supplier' do
 
   scenario 'shows activate/deactivate links based on agreement and framework status' do
     visit admin_supplier_path(supplier)
-    expect(page).to have_link 'Deactivate', href: admin_supplier_agreement_confirm_deactivation_path(supplier, agreement)
+    expect(page).to have_link 'Deactivate',
+                              href: admin_supplier_agreement_confirm_deactivation_path(supplier, agreement)
     expect(page).not_to have_link 'Activate'
   end
 
