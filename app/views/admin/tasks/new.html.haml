@@ -10,7 +10,7 @@
             = @supplier.name
         = render partial: 'shared/error_summary', locals: { entity: @task } if @task.errors.present?
 
-        = form.input :framework_id, collection: @supplier.frameworks.collect {|x| [x.full_name, x.id]}.sort, include_blank: false
+        = form.input :framework_id, collection: @supplier.frameworks.where(aasm_state: %w[new published]).map {|x| [x.full_name, x.id]}.sort, include_blank: false
         = form.input :period_year, collection: (Date.today.year-10..Date.today.year).to_a.reverse, selected: Date.today.last_month.year
         = form.input :period_month, collection: (1..12).map {|m| [Date::MONTHNAMES[m], m]}, selected: Date.today.last_month.month
         = form.button :submit, value: 'Create task'

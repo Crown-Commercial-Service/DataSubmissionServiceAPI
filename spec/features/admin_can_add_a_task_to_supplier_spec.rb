@@ -51,4 +51,44 @@ RSpec.feature 'Admin users can' do
       end
     end
   end
+
+  context 'when the supplier has frameworks in different states' do
+    let!(:supplier) { FactoryBot.create(:supplier, name: 'Second Supplier') }
+    let!(:published_framework) { FactoryBot.create(:framework, name: 'Published Framework', aasm_state: 'published') }
+    let!(:new_framework) { FactoryBot.create(:framework, name: 'New Framework', aasm_state: 'new') }
+    let!(:archived_framework) { FactoryBot.create(:framework, name: 'Archived Framework', aasm_state: 'archived') }
+
+    before do
+      stub_govuk_bank_holidays_request
+
+      FactoryBot.create(:agreement, framework: published_framework, supplier: supplier)
+      FactoryBot.create(:agreement, framework: new_framework, supplier: supplier)
+      FactoryBot.create(:agreement, framework: archived_framework, supplier: supplier)
+
+      sign_in_as_admin
+    end
+
+    scenario 'frameworks are filtered to only show active ones' do
+      visit new_admin_supplier_task_path(supplier)
+
+      expect(page).to have_select('Framework', options: [published_framework.full_name, new_framework.full_name])
+      expect(page).not_to have_select('Framework', options: [archived_framework.full_name])
+    end
+  end
+
+  context 'when the supplier has only archived frameworks' do
+    before do
+      stub_govuk_bank_holidays_request
+      supplier = FactoryBot.create(:supplier, name: 'Archived Only Supplier')
+      archived_framework = FactoryBot.create(:framework, name: 'Archived Framework', aasm_state: 'archived')
+      FactoryBot.create(:agreement, framework: archived_framework, supplier: supplier)
+      sign_in_as_admin
+    end
+
+    scenario 'does not show add missing task link' do
+      visit admin_suppliers_path
+      click_on 'Archived Only Supplier'
+      expect(page).not_to have_link 'Add a missing task'
+    end
+  end
 end
