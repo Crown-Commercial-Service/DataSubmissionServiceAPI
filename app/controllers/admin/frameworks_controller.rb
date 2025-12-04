@@ -9,7 +9,7 @@ class Admin::FrameworksController < AdminController
   def index
     @frameworks = Framework.order(:short_name).all
 
-    filter_framework_status params[:framework_status] if params[:framework_status]
+    @frameworks = filter_framework_status(@frameworks)
   end
 
   def new
@@ -109,11 +109,14 @@ class Admin::FrameworksController < AdminController
 
   private
 
-  def filter_framework_status(status_param)
-    return if status_param.size == 2
+  def filter_framework_status(scope)
+    if params[:filters_applied].present?
+      return scope unless params.key?(:framework_status)
 
-    @frameworks = @frameworks.new_state if status_param.include? 'New'
-    @frameworks = @frameworks.published if status_param.include? 'Published'
+      scope.where(aasm_state: params[:framework_status].map(&:downcase))
+    else
+      scope.where(aasm_state: %w[new published])
+    end
   end
 
   def find_framework
