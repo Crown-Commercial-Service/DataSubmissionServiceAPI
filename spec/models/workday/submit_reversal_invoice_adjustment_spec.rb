@@ -28,9 +28,12 @@ RSpec.describe Workday::SubmitReversalInvoiceAdjustment do
         invoice_date: '2018-12-31-00:00',
         invoice_number: 'CINV-00000001',
         payment_status: 'Paid'
-      })
-    
-      allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_return(customer_invoice)
+      }
+    )
+
+    # rubocop:disable Layout/LineLength
+    allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_return(customer_invoice)
+    # rubocop:enable Layout/LineLength
   end
 
   it_behaves_like 'a workday request'
