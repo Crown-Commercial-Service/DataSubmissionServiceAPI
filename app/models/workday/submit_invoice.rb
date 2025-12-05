@@ -67,7 +67,7 @@ module Workday
     end
 
     def submitted_by_note_content
-      submission.submitted_by.name if submission.submitted_by.present?
+      "#{submission.submitted_by.name} : #{submission.submitted_by.email}" if submission.submitted_by.present?
     end
 
     def line_item_description
