@@ -9,6 +9,7 @@ RSpec.describe Workday::SubmitReversalInvoice do
                       submitted_by: user,
                       task: task)
   end
+  let!(:submission_invoice) { FactoryBot.create(:submission_invoice, submission: submission) }
   let(:framework) { submission.framework }
   let(:task) { FactoryBot.create(:task, period_month: 12, period_year: 2018) }
   let(:supplier) { submission.supplier }
@@ -19,6 +20,17 @@ RSpec.describe Workday::SubmitReversalInvoice do
       revenue_category_ids: { framework.short_name => 'Revenue_Category_WID' }
     )
     allow(Workday::CommercialAgreements).to receive(:new).and_return(commercial_agreements)
+
+    customer_invoice = instance_double(
+      Workday::CustomerInvoice,
+      invoice_details: {
+        invoice_amount: '0.20',
+        invoice_date: '2018-12-31-00:00',
+        invoice_number: 'CINV-00000001',
+        payment_status: 'Paid'
+      })
+    
+      allow(Workday::CustomerInvoice).to receive(:new).with(submission_invoice.workday_reference).and_return(customer_invoice)
   end
 
   it_behaves_like 'a workday request'
@@ -51,7 +63,7 @@ RSpec.describe Workday::SubmitReversalInvoice do
     end
 
     it 'sets Note_Data with the name of the user who submitted the correction submission' do
-      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'ForenameR SurnameR'
+      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq "ForenameR SurnameR : #{correcting_user.email}"
     end
 
     it 'sets the invoice as submitted' do
@@ -63,7 +75,7 @@ RSpec.describe Workday::SubmitReversalInvoice do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
           text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Line_Item_Description')
-        ).to eq 'Reversal of invoice adjustment for December 2018 management charge'
+        ).to eq 'Reversal of invoice CINV-00000001 for December 2018 management charge'
       end
 
       it 'sets Analytical_Amount as the negative value of the total spend for the submission' do
