@@ -16,7 +16,7 @@ module Workday
 
     def line_item_description
       # rubocop:disable Layout/LineLength
-      "Reversal of invoice #{submission.invoice_details[:invoice_number]} adjustment for #{task_period_in_words} management charge"
+      "Reversal of invoice #{submission.invoice_details[:invoice_number]} for #{task_period_in_words} management charge"
       # rubocop:enable Layout/LineLength
     end
 

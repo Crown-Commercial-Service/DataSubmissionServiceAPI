@@ -78,7 +78,7 @@ RSpec.describe Workday::SubmitReversalInvoiceAdjustment do
       it 'sets Line_Item_Description with a description of the charge' do
         expect(
           text_at_xpath('//ns0:Customer_Invoice_Line_Replacement_Data//ns0:Line_Item_Description')
-        ).to eq 'Reversal of invoice CINV-00000001 adjustment for December 2018 management charge'
+        ).to eq 'Reversal of invoice CINV-00000001 for December 2018 management charge'
       end
 
       it 'sets Analytical_Amount as the negative value of the total spend for the submission' do
