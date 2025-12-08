@@ -1,5 +1,12 @@
 # Change Log
 
+## [release-173] - 2025-12-08
+
+- NRMI-165: add 'archived' filter to agreements page
+- NRMI-167: remove activate action for archived agreements on supplier page
+- NRMI-168: remove archived agreements from add missing task 
+- NRMI-250: include email and invoice number in invoices
+
 ## [release-172] - 2025-11-24
 
 - NRMI-244: update cleanup job
@@ -1144,6 +1151,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-173]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-172...release-173
 [release-172]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-171...release-172
 [release-171]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-170...release-171
 [release-170]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-169...release-170
