@@ -56,7 +56,7 @@ gem 'simple_form', '>= 5.3.1'
 gem 'importmap-rails', '~> 2.2'
 
 gem 'aws-sdk-cloudwatch', require: false
-gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-s3', '>= 1.208.0', require: false
 gem 'azure-storage-blob', '>= 2.0.3', require: false
 
 # Exception tracking
