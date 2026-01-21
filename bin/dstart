@@ -10,13 +10,13 @@ function cleanup {
 
   # ignore errors
   set +e
-  docker-compose down
+  docker compose down
 
   exit $code
 }
 
 trap cleanup EXIT
 
-docker-compose --env-file docker-compose.env up -d --build
+docker compose --env-file docker-compose.env up -d --build
 
 docker attach data-submission-service-api_web
