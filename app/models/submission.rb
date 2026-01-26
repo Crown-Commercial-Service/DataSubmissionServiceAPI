@@ -127,10 +127,12 @@ class Submission < ApplicationRecord
   private
 
   def mark_prev_failed_entries_for_cleanup
+    # rubocop:disable Rails/SkipsModelValidations
     task.submissions
         .where(aasm_state: 'validation_failed')
         .where.not(id: id)
         .update_all(cleanup_processed: false)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def state_changed_to_replacement?
