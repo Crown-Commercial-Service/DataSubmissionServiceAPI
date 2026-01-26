@@ -5,12 +5,11 @@ RSpec.describe CleanupSubmissionEntriesJob, type: :job do
     let!(:task) { FactoryBot.create(:task) }
     let!(:failed_submission1) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
     let!(:failed_submission2) { FactoryBot.create(:submission_with_invalid_entries, task: task) }
-    let!(:submission_entry) { FactoryBot.create(:submission_entry, submission: failed_submission1) }
-
+  
     context 'when dry_run is true' do
       it 'does not delete entries and logs the intended deletions' do
         # rubocop:disable Layout/LineLength
-        expect(Rollbar).to receive(:info).with("Dry run: would delete 1 entries for Submission ID #{failed_submission1.id}.")
+        expect(Rollbar).to receive(:info).with("Dry run: would delete 3 entries for Submission ID #{failed_submission1.id}.")
         # rubocop:enable Layout/LineLength
         expect do
           described_class.perform_now(dry_run: true)
@@ -22,10 +21,10 @@ RSpec.describe CleanupSubmissionEntriesJob, type: :job do
 
     context 'when dry_run is false' do
       it 'deletes entries and marks submissions as processed' do
-        expect(Rollbar).to receive(:info).with("Task ID #{task.id}: Processed 1 failed submissions, deleted 1 entries.")
+        expect(Rollbar).to receive(:info).with("Task ID #{task.id}: Processed Submission ID #{failed_submission1.id}, deleted 3 entries.")
         expect do
           described_class.perform_now(dry_run: false)
-        end.to change(SubmissionEntry, :count).by(-1)
+        end.to change(SubmissionEntry, :count).by(-3)
         expect(failed_submission1.reload.cleanup_processed).to be_truthy
       end
     end

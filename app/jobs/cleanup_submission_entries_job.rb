@@ -1,4 +1,7 @@
 class CleanupSubmissionEntriesJob < ApplicationJob
+  retry_on ActiveRecord::Deadlocked, wait: :exponentially_longer, attempts: 8
+  retry_on PG::TRDeadlockDetected, wait: :exponentially_longer, attempts: 8
+
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def perform(dry_run: false, max_run_time: 5.hours, task_batch_size: 100, entries_batch_size: 500)
@@ -26,25 +29,35 @@ cleanup_processed: false })
 
         failed_submissions.find_each do |submission|
           begin
-            submission.entries.in_batches(of: entries_batch_size) do |entries_batch|
+            break if Time.current - start_time >= max_run_time
+
+            Submission.transaction do
+              submission.lock!
+
               if dry_run
-                Rollbar.info("Dry run: would delete #{entries_batch.count} entries for Submission ID #{submission.id}.")
+                entries_count = submission.entries.count
+                staging_entries_count = submission.staging_entries.count
+                Rollbar.info("Dry run: would delete #{entries_count + staging_entries_count} entries for Submission ID #{submission.id}.")
               else
-                deleted_count = entries_batch.delete_all
-                deleted_for_task += deleted_count
-                total_deleted_entries += deleted_count
-                # rubocop:disable Layout/LineLength
-                Rollbar.info("Task ID #{task.id}: Processed #{failed_submissions.count} failed submissions, deleted #{deleted_for_task} entries.")
-                # rubocop:enable Layout/LineLength
+                deleted_entries = 0
+                deleted_staging_entries = 0
+
+                submission.entries.in_batches(of: entries_batch_size) do |entries_batch|
+                  deleted_entries += entries_batch.delete_all
+                end
+
+                submission.staging_entries.in_batches(of: entries_batch_size) do |staging_entries_batch|
+                  deleted_staging_entries += staging_entries_batch.delete_all
+                end
+
+                submission.update!(cleanup_processed: true)
+
+                Rollbar.info("Task ID #{task.id}: Processed Submission ID #{submission.id}, deleted #{deleted_entries + deleted_staging_entries} entries.")
               end
             end
-
-            submission.update(cleanup_processed: true) unless dry_run
           rescue StandardError => e
             Rollbar.error(e, "Error processing Submission ID #{submission.id} for Task ID #{task.id}: #{e.message}")
           end
-
-          break if Time.current - start_time >= max_run_time
         end
       end
 
