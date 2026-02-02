@@ -21,11 +21,7 @@ Rails.application.routes.draw do
   get '/check', to: 'check#index', defaults: { format: :json }
 
   namespace :v1, defaults: { format: :json } do
-    resources :users, only: %i[index] do
-      collection do
-        patch :update_name
-      end
-    end
+    resources :users, only: %i[index]
 
     resources :suppliers, only: %i[index]
 
