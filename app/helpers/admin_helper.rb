@@ -1,6 +1,6 @@
 module AdminHelper
   def support_email_address
-    'report-mi@crowncommercial.gov.uk'
+    'report-mi@gca.gov.uk'
   end
 
   def link_to_suppliers(suppliers)

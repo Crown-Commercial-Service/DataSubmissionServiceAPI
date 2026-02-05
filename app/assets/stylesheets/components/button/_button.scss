@@ -3,7 +3,7 @@
 $govuk-button-colour: govuk-colour("secondary");
 $govuk-button-hover-colour: darken($govuk-button-colour, 5%);
 $govuk-button-shadow-colour: darken($govuk-button-colour, 15%);
-$govuk-button-text-colour: govuk-colour("white");
+$govuk-button-text-colour: govuk-colour("black");
 
 $button-shadow-size: $govuk-border-width-form-element;
 
