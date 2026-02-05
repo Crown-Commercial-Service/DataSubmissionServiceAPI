@@ -41,9 +41,9 @@ $ccs-header-nav-item-border-color: darken(govuk-colour("primary"), 2);
 
 .govuk-header__link--homepage {
   display: block;
-  width: 122px;
+  width: 117px;
   height: 102px;
-  background-image: govuk-image-url("GCA_vertical_logo.png");
+  background-image: govuk-image-url("GCA_vertical_black.svg");
   background-repeat: no-repeat;
   background-size: cover;
   @include govuk-media-query($until: desktop) {
