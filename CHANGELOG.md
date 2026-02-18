@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-174] - 2026-02-02
+
+- NRMI-257: address deadlock error 
+
 ## [release-173] - 2025-12-08
 
 - NRMI-165: add 'archived' filter to agreements page
@@ -1151,6 +1155,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-174]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-173...release-174
 [release-173]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-172...release-173
 [release-172]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-171...release-172
 [release-171]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-170...release-171
