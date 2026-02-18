@@ -3,6 +3,9 @@ class SubmissionIngestionJob < ApplicationJob
 
   queue_as :ingest
 
+  retry_on ActiveRecord::Deadlocked, wait: :exponentially_longer, attempts: 8
+  retry_on PG::TRDeadlockDetected, wait: :exponentially_longer, attempts: 8
+
   discard_on(Ingest::Loader::MissingColumns) do |job, exception|
     handle_unretryable_job_failure(job, exception)
   end

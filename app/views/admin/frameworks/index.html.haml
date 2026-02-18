@@ -13,6 +13,7 @@
 .govuk-grid-row
   - if @frameworks.present?
     = form_tag(admin_frameworks_path, method: :get, enforce_utf8: false, remote: :true, id: 'framework_status_filter') do
+      = hidden_field_tag :filters_applied, '1'
       .govuk-grid-column-one-quarter
         #accordion-with-summary-sections.ccs-accordion.ccs-accordion--clean{"data-module" => "govuk-accordion", :class => 'govuk-!-margin-top-7'}
           .govuk-accordion__section.ccs-accordion__section--clean.govuk-form-group.govuk-form-group--enclosure.ccs-form-group--enclosure--tight
@@ -25,17 +26,30 @@
               .govuk-form-group
                 %fieldset.govuk-fieldset
                   %legend.govuk-fieldset__legend.govuk-fieldset__legend--m
+                  - if params[:filters_applied].present?
+                    - selected_statuses = Array(params[:framework_status])
+                  - else
+                    - selected_statuses = %w[published new]
+
                   .govuk-checkboxes{id: 'framework_status_checkboxes'}          
                     .govuk-checkboxes__item.govuk-checkboxes__item--small
-                      = check_box_tag('framework_status[]', 'New', false,
+                      = check_box_tag('framework_status[]', 'New',
+                        selected_statuses.include?('new'),
                         id: 'framework_status_new',
                         class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
                       = label_tag "framework_status_new", "New", class: 'govuk-checkboxes__label'
                     .govuk-checkboxes__item.govuk-checkboxes__item--small
-                      = check_box_tag('framework_status[]', 'Published', false,
+                      = check_box_tag('framework_status[]', 'Published',
+                        selected_statuses.include?('published'),
                         id: 'framework_status_published',
                         class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
                       = label_tag "framework_status_published", "Published", class: 'govuk-checkboxes__label'
+                    .govuk-checkboxes__item.govuk-checkboxes__item--small
+                      = check_box_tag('framework_status[]', 'Archived',
+                        selected_statuses.include?('archived'),
+                        id: 'framework_status_archived',
+                        class: 'govuk-checkboxes__input govuk-checkboxes__input--small')
+                      = label_tag "framework_status_archived", "Archived", class: 'govuk-checkboxes__label'
           %noscript
             = surround "&nbsp&nbsp".html_safe do
               = submit_tag "Submit", id: 'framework-status-filter-submit', data: { 'prevent-double-click': true }, class: 'govuk-button'

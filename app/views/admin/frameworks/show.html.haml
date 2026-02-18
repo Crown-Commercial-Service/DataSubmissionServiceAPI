@@ -31,7 +31,7 @@
         %h2.govuk-fieldset__heading
           Definition
 
-      %textarea#code-editor{ readonly: true }= @definition_source
+      %textarea#code-editor{ readonly: true, "aria-label": "framework definition" }= @definition_source
 
 - if framework_not_archived?(@framework)
   .govuk-grid-row

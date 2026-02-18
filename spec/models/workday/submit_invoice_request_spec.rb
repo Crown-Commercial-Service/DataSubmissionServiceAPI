@@ -50,7 +50,7 @@ RSpec.describe Workday::SubmitInvoice do
     end
 
     it 'sets Note_Data with the name of the user who submitted the Submission' do
-      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq 'Forename Surname'
+      expect(text_at_xpath('//ns0:Note_Data//ns0:Note_Content')).to eq "Forename Surname : #{user.email}"
     end
 
     it 'sets the invoice as submitted' do

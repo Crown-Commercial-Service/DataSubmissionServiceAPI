@@ -5,7 +5,7 @@
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
 Rails.application.config.content_security_policy do |policy|
-  policy.default_src :self
+  policy.default_src :self, 'https://esm.sh'
 
   policy.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   # For loading fonts referenced by the aforementioned styles
