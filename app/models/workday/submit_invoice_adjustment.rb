@@ -73,7 +73,7 @@ module Workday
     end
 
     def submitted_by_note_content
-      submission.submitted_by.name if submission.submitted_by.present?
+      submission.submitted_by.presence&.name
     end
 
     def line_item_description
