@@ -2,7 +2,7 @@ class Submission < ApplicationRecord
   ERRORED_ROW_LIMIT = 10
   REPLACEMENT_STATES = %i[validation_failed ingest_failed in_review completed].freeze
 
-  after_save :cleanup_prev_failed_entries, if: :state_changed_to_replacement?
+  after_save :mark_prev_failed_entries_for_cleanup, if: :state_changed_to_replacement?
 
   include AASM
 
@@ -126,11 +126,13 @@ class Submission < ApplicationRecord
 
   private
 
-  def cleanup_prev_failed_entries
-    task.submissions.where(aasm_state: 'validation_failed').where.not(id: id).find_each do |s|
-      s.entries.destroy_all
-      s.staging_entries.destroy_all
-    end
+  def mark_prev_failed_entries_for_cleanup
+    # rubocop:disable Rails/SkipsModelValidations
+    task.submissions
+        .where(aasm_state: 'validation_failed')
+        .where.not(id: id)
+        .update_all(cleanup_processed: false)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def state_changed_to_replacement?
