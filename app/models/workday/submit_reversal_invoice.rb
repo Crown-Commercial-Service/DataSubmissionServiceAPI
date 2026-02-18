@@ -13,7 +13,9 @@ module Workday
     attr_reader :user
 
     def line_item_description
-      "Reversal of invoice adjustment for #{task_period_in_words} management charge"
+      # rubocop:disable Layout/LineLength
+      "Reversal of invoice #{submission.invoice_details[:invoice_number]} adjustment for #{task_period_in_words} management charge"
+      # rubocop:enable Layout/LineLength
     end
 
     def total_spend
@@ -21,7 +23,7 @@ module Workday
     end
 
     def submitted_by_note_content
-      user&.name
+      "#{user&.name} : #{user&.email}"
     end
   end
 end

@@ -1,5 +1,27 @@
 # Change Log
 
+## [release-174] - 2026-02-02
+
+- NRMI-257: address deadlock error 
+
+## [release-173] - 2025-12-08
+
+- NRMI-165: add 'archived' filter to agreements page
+- NRMI-167: remove activate action for archived agreements on supplier page
+- NRMI-168: remove archived agreements from add missing task 
+- NRMI-250: include email and invoice number in invoices
+
+## [release-172] - 2025-11-24
+
+- NRMI-244: update cleanup job
+- NRMI-245: switch from sprockets to importmaps
+- [Snyk] Security upgrade sidekiq-cron from 2.3.0 to 2.3.1 
+- [Snyk] Security upgrade rails from 8.0.2 to 8.0.2.1 
+- [Snyk] Security upgrade codemirror from 5.65.19 to 6.0.0 
+- [Snyk] Security upgrade rspec-rails from 6.1.5 to 7.0.0 
+- [Snyk] Security upgrade nokogiri from 1.18.8 to 1.18.9
+- [Snyk] Security upgrade rubyXL from 3.4.26 to 3.4.28
+
 ## [release-171] - 2025-10-23
 
 - NRMI-178: Clean up non-active validation_failed entries job
@@ -1133,6 +1155,9 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-174]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-173...release-174
+[release-173]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-172...release-173
+[release-172]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-171...release-172
 [release-171]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-170...release-171
 [release-170]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-169...release-170
 [release-169]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-168...release-169
