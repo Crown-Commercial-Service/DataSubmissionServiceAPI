@@ -40,7 +40,7 @@ Finally move the file into the `backups` directory ready to be restored.
 
 Launch a temporary instance of the `web` service, and get a shell on it.
 
-    docker-compose run --rm web bash
+    docker compose run --rm web bash
 
 On this container, install the Postgres client command-line tools, and then run
 a task to load the database backup into the development database.

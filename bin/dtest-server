@@ -3,25 +3,25 @@ set -e
 
 start_test_server()
 {
-  docker-compose --file docker-compose.test.yml --env-file docker-compose.env build
-  docker-compose --file docker-compose.test.yml --env-file docker-compose.env up -d db-test
-  docker-compose --file docker-compose.test.yml --env-file docker-compose.env up -d test
+  docker compose --file docker-compose.test.yml --env-file docker-compose.env build
+  docker compose --file docker-compose.test.yml --env-file docker-compose.env up -d db-test
+  docker compose --file docker-compose.test.yml --env-file docker-compose.env up -d test
 }
 
 
 if [[ $# -eq 0 ]]
 then
-  docker-compose --file docker-compose.test.yml down
+  docker compose --file docker-compose.test.yml down
   start_test_server
 fi
 
 if [[ $1 == "up" ]]
 then
-  docker-compose --file docker-compose.test.yml down
+  docker compose --file docker-compose.test.yml down
   start_test_server
 fi
 
 if [[ $1 == "down" ]]
 then
-  docker-compose --file docker-compose.test.yml down
+  docker compose --file docker-compose.test.yml down
 fi
