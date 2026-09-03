@@ -68,6 +68,8 @@ as: :cancel_pending_email_change
 
     resources :customers, only: :index
 
+    resources :inactive_customers, only: :index
+
     resource :customer_effort_scores, only: :create
 
     resources :notifications, only: :index
