@@ -28,12 +28,15 @@ RSpec.describe SendAnticipatedUserNotificationsJob do
 
   let(:notification_selector) { instance_double(Task::AnticipatedUserNotifications) }
 
-  before do
-    stub_const(
-      'SendAnticipatedUserNotificationsJob::TEMPLATE_ID',
-      'template-id'
-    )
+  around do |example|
+    ClimateControl.modify(
+      GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID: 'template-id'
+    ) do
+      example.run
+    end
+  end
 
+  before do
     allow(Task::AnticipatedUserNotifications)
       .to receive(:new)
       .with(month: 9, year: 2024)

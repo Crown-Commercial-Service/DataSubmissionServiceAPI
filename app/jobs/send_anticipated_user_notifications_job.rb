@@ -1,14 +1,12 @@
 class SendAnticipatedUserNotificationsJob < ApplicationJob
   queue_as :default
 
-  TEMPLATE_ID = ENV.fetch('GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID')
-
   def perform(month: Time.current.month, year: Time.current.year)
     batch = NotificationBatch.create!(
       notification_type: 'due',
       period_month: month,
       period_year: year,
-      template_id: TEMPLATE_ID,
+      template_id: template_id,
       status: 'running',
       started_at: Time.current
     )
@@ -28,5 +26,11 @@ class SendAnticipatedUserNotificationsJob < ApplicationJob
   rescue StandardError
     batch&.update!(status: 'failed', completed_at: Time.current)
     raise
+  end
+
+  private
+
+  def template_id
+    ENV.fetch('GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID')
   end
 end
