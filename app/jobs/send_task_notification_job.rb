@@ -22,7 +22,7 @@ class SendTaskNotificationJob < ApplicationJob
       error_code: error_code(e),
       error_message: e.message,
       completed_at: Time.current
-    )    
+    )
   end
 
   private

@@ -105,10 +105,9 @@ RSpec.feature 'Admin Downloads section' do
       supplier_name: 'Test Supplier'
     )
 
-
     click_on 'Downloads'
 
-    within '#notification-report-' + batch.id.to_s do
+    within "#notification-report-#{batch.id}" do
       expect(page).to have_content 'Due'
       expect(page).to have_content 'November 2018'
       expect(page).to have_content '8 December 2018'
@@ -132,15 +131,15 @@ RSpec.feature 'Admin Downloads section' do
     recent_batch = create(
       :notification_batch,
       notification_type: 'due',
-      started_at: 29.day.ago,
-      created_at: 29.day.ago
+      started_at: 29.days.ago,
+      created_at: 29.days.ago
     )
 
     expired_batch = create(
       :notification_batch,
       notification_type: 'due',
-      started_at: 31.day.ago,
-      created_at: 31.day.ago
+      started_at: 31.days.ago,
+      created_at: 31.days.ago
     )
 
     click_on 'Downloads'

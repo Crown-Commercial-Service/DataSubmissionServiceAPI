@@ -3,17 +3,17 @@ FactoryBot.define do
     association :notification_batch
 
     sequence(:email) { |n| "user#{n}@example.com" }
-    supplier_name { "Supplier A" }
+    supplier_name { 'Supplier A' }
     sequence(:reference) { |n| "delivery-reference-#{n}" }
-    status { "pending" }
+    status { 'pending' }
 
     trait :created do
       sequence(:notify_id) { |n| "notify-id-#{n}" }
-      status {'created'}
+      status { 'created' }
       sent_at { Time.current }
     end
 
-    trait :delivered do 
+    trait :delivered do
       created
       status { 'delivered' }
       completed_at { Time.current }

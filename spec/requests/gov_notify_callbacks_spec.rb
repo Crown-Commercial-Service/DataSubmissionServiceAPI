@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "GovNotifyCallbacks", type: :request do
+RSpec.describe 'GovNotifyCallbacks', type: :request do
   let(:callback_token) { 'test-callback-token' }
 
   let(:batch) do
@@ -53,7 +53,7 @@ RSpec.describe "GovNotifyCallbacks", type: :request do
       '/gov_notify/callbacks/delivery',
       params: body,
       headers: request_headers,
-      as: :json 
+      as: :json
     )
   end
 
@@ -76,10 +76,10 @@ RSpec.describe "GovNotifyCallbacks", type: :request do
   end
 
   %w[
-  delivered
-  permanent-failure
-  temporary-failure
-  technical-failure
+    delivered
+    permanent-failure
+    temporary-failure
+    technical-failure
   ].each do |status|
     it "records a #{status} status" do
       send_callback(
@@ -146,11 +146,11 @@ RSpec.describe "GovNotifyCallbacks", type: :request do
         }
       )
 
-      expect(response).to have_http_status(:unauthorized)  
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 
-  context 'when no delivery can be found' do 
+  context 'when no delivery can be found' do
     it 'returns not found' do
       send_callback(
         body: callback_body.merge(

@@ -25,7 +25,7 @@ class SendAnticipatedUserNotificationsJob < ApplicationJob
     end
 
     batch.update!(status: 'submitted', completed_at: Time.current)
-  rescue StandardError => e
+  rescue StandardError
     batch&.update!(status: 'failed', completed_at: Time.current)
     raise
   end

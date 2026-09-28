@@ -4,9 +4,7 @@ class GovNotifyCallbacksController < ActionController::API
   before_action :authenticate_notify
 
   def delivery
-    Rails.logger.debug "Notify callback params: #{params.to_unsafe_h.inspect}"
-
-    delivery = 
+    delivery =
       NotificationDelivery.find_by(notify_id: params[:id]) ||
       NotificationDelivery.find_by(reference: params[:reference])
 
@@ -17,7 +15,7 @@ class GovNotifyCallbacksController < ActionController::API
       status: params[:status],
       sent_at: params[:sent_at] || delivery.sent_at,
       completed_at: params[:completed_at]
-      )
+    )
 
     head :no_content
   end
@@ -27,8 +25,9 @@ class GovNotifyCallbacksController < ActionController::API
   def authenticate_notify
     authenticate_or_request_with_http_token do |token|
       ActiveSupport::SecurityUtils.secure_compare(
-        token, 
-        ENV.fetch('GOV_NOTIFY_CALLBACK_TOKEN'))
+        token,
+        ENV.fetch('GOV_NOTIFY_CALLBACK_TOKEN')
+      )
     end
   end
 end

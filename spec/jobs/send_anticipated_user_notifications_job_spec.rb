@@ -61,7 +61,7 @@ RSpec.describe SendAnticipatedUserNotificationsJob do
   it 'creates a delivery for each notification' do
     expect { perform_job }
       .to change(NotificationDelivery, :count).by(2)
-    
+
     expect(NotificationDelivery.pluck(:email)).to contain_exactly(
       'alice@example.com',
       'bob@example.com'
@@ -109,9 +109,9 @@ RSpec.describe SendAnticipatedUserNotificationsJob do
 
   it 'records when the batch has finished submitting notifications' do
     freeze_time
-      perform_job
+    perform_job
 
-      expect(NotificationBatch.last.completed_at).to eq(Time.current)
+    expect(NotificationBatch.last.completed_at).to eq(Time.current)
   end
 
   context 'when generating the notification fails' do

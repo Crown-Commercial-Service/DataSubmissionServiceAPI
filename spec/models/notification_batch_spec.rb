@@ -33,8 +33,8 @@ RSpec.describe NotificationBatch do
           notification_type: 'due',
           template_id: 'template-id',
           status: 'submitted',
-          started_at: 29.day.ago,
-          created_at: 29.day.ago
+          started_at: 29.days.ago,
+          created_at: 29.days.ago
         }
       )
     end
@@ -67,8 +67,8 @@ RSpec.describe NotificationBatch do
           notification_type: 'due',
           template_id: 'template-id',
           status: 'submitted',
-          started_at: 29.day.ago,
-          created_at: 29.day.ago
+          started_at: 29.days.ago,
+          created_at: 29.days.ago
         }
       )
     end
@@ -95,7 +95,9 @@ RSpec.describe NotificationBatch do
     end
 
     it 'retains current batches and their associated deliveries' do
-      expect { described_class.purge_expired! }.not_to change { NotificationDelivery.where(reference: 'current-reference').count }
+      expect { described_class.purge_expired! }.not_to change {
+        NotificationDelivery.where(reference: 'current-reference').count
+      }
     end
   end
 end

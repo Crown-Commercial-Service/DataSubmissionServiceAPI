@@ -21,14 +21,14 @@ class NotificationBatchReport
 
     batch.notification_deliveries.order(:email).find_each do |delivery|
       output.puts CSV.generate_line([
-        delivery.email,
-        delivery.supplier_name,
-        delivery.status,
-        delivery.sent_at,
-        delivery.completed_at,
-        delivery.notify_id,
-        delivery.error_message
-      ])
+                                      delivery.email,
+                                      delivery.supplier_name,
+                                      delivery.status,
+                                      delivery.sent_at,
+                                      delivery.completed_at,
+                                      delivery.notify_id,
+                                      delivery.error_message
+                                    ])
     end
   end
 

@@ -49,7 +49,7 @@ class Task
 
     def framework_names_for(supplier)
       supplier.active_frameworks
-              .map{ |framework| "#{framework.short_name} - #{framework.name}" }
+              .map { |framework| "#{framework.short_name} - #{framework.name}" }
               .sort
     end
   end

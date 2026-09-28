@@ -13,7 +13,7 @@ RSpec.describe Task::AnticipatedUserNotifications do
   context 'when there are suppliers with active agreements and users' do
     let(:alice) do
       FactoryBot.create(
-        :user, 
+        :user,
         name: 'Alice Example',
         email: 'alice@example.com'
       )
@@ -21,7 +21,7 @@ RSpec.describe Task::AnticipatedUserNotifications do
 
     let(:bob) do
       FactoryBot.create(
-        :user, 
+        :user,
         name: 'Bob Example',
         email: 'bob@example.com'
       )
@@ -29,7 +29,7 @@ RSpec.describe Task::AnticipatedUserNotifications do
 
     let(:frank) do
       FactoryBot.create(
-        :user, 
+        :user,
         :inactive,
         name: 'Frank Inactive',
         email: 'frank.inactive@example.com'

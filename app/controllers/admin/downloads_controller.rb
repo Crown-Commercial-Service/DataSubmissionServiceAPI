@@ -3,8 +3,8 @@ class Admin::DownloadsController < AdminController
 
   def index
     @notification_batches = NotificationBatch
-      .where(created_at: 30.days.ago..)
-      .order(created_at: :desc)
+                            .where(created_at: 30.days.ago..)
+                            .order(created_at: :desc)
   end
 
   def show
@@ -32,7 +32,8 @@ filename: "customer_effort_scores-#{@from_date.to_date}-#{@to_date.to_date}.csv"
 
     file.rewind
 
-    send_file file, type: 'text/csv', filename: "#{batch.notification_type}_notification_report_#{batch.started_at.to_date}.csv"
+    send_file file, type: 'text/csv',
+filename: "#{batch.notification_type}_notification_report_#{batch.started_at.to_date}.csv"
   end
 
   private

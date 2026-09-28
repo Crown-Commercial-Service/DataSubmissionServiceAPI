@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/check', to: 'check#index', defaults: { format: :json }
 
   post 'gov_notify/callbacks/delivery', to: 'gov_notify_callbacks#delivery'
-  
+
   namespace :v1, defaults: { format: :json } do
     resources :users, only: %i[index] do
       collection do
