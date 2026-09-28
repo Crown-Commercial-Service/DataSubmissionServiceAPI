@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   # Endpoint for Cloudwatch to check API is up and running
   get '/check', to: 'check#index', defaults: { format: :json }
 
+  post 'gov_notify/callbacks/delivery', to: 'gov_notify_callbacks#delivery'
+  
   namespace :v1, defaults: { format: :json } do
     resources :users, only: %i[index] do
       collection do
@@ -186,7 +188,11 @@ as: :cancel_pending_email_change
 
     resources :urn_lists, only: %i[index new create]
 
-    resources :downloads, only: %i[index show new]
+    resources :downloads, only: %i[index show new] do
+      member do
+        get :notification_report
+      end
+    end
 
     resources :unfinished_tasks, only: %i[index]
 

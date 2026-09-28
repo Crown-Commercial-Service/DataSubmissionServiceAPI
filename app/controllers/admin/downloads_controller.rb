@@ -1,7 +1,11 @@
 class Admin::DownloadsController < AdminController
   before_action :catch_unrecognised_download, only: :show
 
-  def index; end
+  def index
+    @notification_batches = NotificationBatch
+      .where(created_at: 30.days.ago..)
+      .order(created_at: :desc)
+  end
 
   def show
     send_file csv_file, type: 'text/csv', filename: csv_filename
@@ -17,6 +21,18 @@ class Admin::DownloadsController < AdminController
 
     send_file csv_file, type: 'text/csv',
 filename: "customer_effort_scores-#{@from_date.to_date}-#{@to_date.to_date}.csv"
+  end
+
+  def notification_report
+    batch = NotificationBatch.find(params[:id])
+
+    file = Tempfile.new
+
+    NotificationBatchReport.new(batch: batch, output: file).generate
+
+    file.rewind
+
+    send_file file, type: 'text/csv', filename: "#{batch.notification_type}_notification_report_#{batch.started_at.to_date}.csv"
   end
 
   private

@@ -87,4 +87,70 @@ RSpec.feature 'Admin Downloads section' do
       expect(page.body).to include 'email address,due_date,person_name'
     end
   end
+
+  scenario 'admin user downloads a recent notification report' do
+    batch = create(
+      :notification_batch,
+      notification_type: 'due',
+      period_month: 11,
+      period_year: 2018,
+      started_at: 1.day.ago
+    )
+
+    create(
+      :notification_delivery,
+      :delivered,
+      notification_batch: batch,
+      email: 'user@example.com',
+      supplier_name: 'Test Supplier'
+    )
+
+
+    click_on 'Downloads'
+
+    within '#notification-report-' + batch.id.to_s do
+      expect(page).to have_content 'Due'
+      expect(page).to have_content 'November 2018'
+      expect(page).to have_content '8 December 2018'
+
+      click_on 'Download report'
+    end
+
+    expect(page.response_headers['Content-Disposition']).to match(/^attachment/)
+    expect(page.response_headers['Content-Disposition']).to include(
+      'due_notification_report_2018-12-08.csv'
+    )
+
+    expect(page.body).to include(
+      'email address,supplier name,status,sent at,completed at,notify id,error'
+    )
+
+    expect(page.body).to include 'user@example.com,Test Supplier,delivered'
+  end
+
+  scenario 'admin user only sees notification reports from the last 30 days' do
+    recent_batch = create(
+      :notification_batch,
+      notification_type: 'due',
+      started_at: 29.day.ago,
+      created_at: 29.day.ago
+    )
+
+    expired_batch = create(
+      :notification_batch,
+      notification_type: 'due',
+      started_at: 31.day.ago,
+      created_at: 31.day.ago
+    )
+
+    click_on 'Downloads'
+
+    expect(page).to have_css(
+      "#notification-report-#{recent_batch.id}"
+    )
+
+    expect(page).not_to have_css(
+      "#notification-report-#{expired_batch.id}"
+    )
+  end
 end
