@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_05_131714) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_22_124626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -192,6 +192,36 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_131714) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "notification_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.string "notification_type", null: false
+    t.integer "period_month"
+    t.integer "period_year"
+    t.datetime "started_at", null: false
+    t.string "status", default: "running", null: false
+    t.string "template_id", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notification_deliveries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "error_code"
+    t.text "error_message"
+    t.uuid "notification_batch_id", null: false
+    t.string "notify_id"
+    t.string "reference", null: false
+    t.datetime "sent_at"
+    t.string "status", default: "pending", null: false
+    t.string "supplier_name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_batch_id"], name: "index_notification_deliveries_on_notification_batch_id"
+    t.index ["notify_id"], name: "index_notification_deliveries_on_notify_id", unique: true
+    t.index ["reference"], name: "index_notification_deliveries_on_reference", unique: true
+  end
+
   create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "notification_message"
     t.boolean "published", default: false
@@ -350,6 +380,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_05_131714) do
   add_foreign_key "email_change_requests", "users"
   add_foreign_key "framework_lots", "frameworks"
   add_foreign_key "memberships", "suppliers"
+  add_foreign_key "notification_deliveries", "notification_batches"
   add_foreign_key "submission_entries", "customers", column: "customer_urn", primary_key: "urn"
   add_foreign_key "submission_entries", "submission_files"
   add_foreign_key "submission_entries", "submissions"
