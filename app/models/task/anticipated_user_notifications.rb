@@ -25,7 +25,7 @@ class Task
                 person_name: user.name,
                 supplier_name: supplier.name,
                 reporting_month: reporting_month,
-                frameworks: framework_names_for(supplier)
+                framework: framework_names_for(supplier)
               }
             }
           )

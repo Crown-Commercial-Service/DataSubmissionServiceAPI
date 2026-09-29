@@ -82,7 +82,7 @@ RSpec.describe Task::AnticipatedUserNotifications do
 
     it 'includes the active frameworks for each supplier' do
       bob_notification = notifications.find { |n| n[:email] == 'bob@example.com' }
-      expect(bob_notification[:personalisation][:frameworks]).to eq(['RM001 - Framework 1', 'RM002 - Framework 2'])
+      expect(bob_notification[:personalisation][:framework]).to eq(['RM001 - Framework 1', 'RM002 - Framework 2'])
     end
 
     it 'ignores inactive users' do

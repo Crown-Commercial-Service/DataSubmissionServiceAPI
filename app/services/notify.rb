@@ -14,6 +14,6 @@ class Notify
     )
   rescue Notifications::Client::RequestError => e
     Rails.logger.error "GOV.UK Notify Error: #{e.message}"
-    false
+    raise
   end
 end
