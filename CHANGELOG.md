@@ -1,5 +1,9 @@
 # Change Log
 
+## [release-179] - 2026-10-05
+
+- NRMI-442: upgrade csvkit and python
+
 ## [release-178] - 2026-09-14
 
 - NRMI-419: new notification page copy update
@@ -1203,6 +1207,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-179]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-178...release-179
 [release-178]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-177...release-178
 [release-177]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-176...release-177
 [release-176]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-175...release-176
