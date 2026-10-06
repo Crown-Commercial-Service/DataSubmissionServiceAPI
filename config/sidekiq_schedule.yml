@@ -20,3 +20,11 @@ inactive_urn_list_importer:
   class: InactiveUrnListApiSyncJob
   queue: default
   active_job: true
+purge_expired_notification_batches:
+  cron: '0 3 * * * Europe/London'
+  class: PurgeExpiredNotificationBatchesJob
+  queue: default
+send_anticipated_user_notifications:
+  cron: '0 8 1 * * Europe/London'
+  class: SendAnticipatedUserNotificationsJob
+  queue: default

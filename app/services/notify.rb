@@ -5,14 +5,15 @@ class Notify
     @client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY'])
   end
 
-  def send_email(template_id:, email:, vars: {})
+  def send_email(template_id:, email:, vars: {}, reference: nil)
     @client.send_email(
       email_address: email,
       template_id: template_id,
-      personalisation: vars
+      personalisation: vars,
+      reference: reference
     )
   rescue Notifications::Client::RequestError => e
     Rails.logger.error "GOV.UK Notify Error: #{e.message}"
-    false
+    raise
   end
 end
