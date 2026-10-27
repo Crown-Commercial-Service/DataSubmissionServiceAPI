@@ -72,4 +72,20 @@ RSpec.describe SendTaskNotificationJob do
       expect(delivery.reload.sent_at).to eq(Time.current)
     end
   end
+
+  it 'does not resend a delivery alrady accepted by Notify' do
+    delivery.update!(notify_id: 'existing-id', status: 'created')
+
+    expect(Notify).not_to receive(:new)
+
+    described_class.perform_now(delivery.id, personalisation)
+  end
+
+  it 'does not automatically resend a failed request' do
+    delivery.update!(status: 'request-failed')
+
+    expect(Notify).not_to receive(:new)
+
+    described_class.perform_now(delivery.id, personalisation)
+  end
 end

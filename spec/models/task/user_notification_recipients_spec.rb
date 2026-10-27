@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task::AnticipatedUserNotifications do
+RSpec.describe Task::UserNotificationRecipients do
   subject(:notifications) { described_class.new(month: month, year: year) }
 
   let(:month) { 1 }

@@ -4,6 +4,8 @@ class SendTaskNotificationJob < ApplicationJob
   def perform(delivery_id, personalisation)
     delivery = NotificationDelivery.find(delivery_id)
 
+    return if delivery.notify_id.present? || delivery.status != 'pending'
+
     response = Notify.new.send_email(
       template_id: delivery.notification_batch.template_id,
       email: delivery.email,

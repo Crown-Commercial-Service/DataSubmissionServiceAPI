@@ -24,7 +24,16 @@ purge_expired_notification_batches:
   cron: '0 3 * * * Europe/London'
   class: PurgeExpiredNotificationBatchesJob
   queue: default
-send_anticipated_user_notifications:
-  cron: '0 8 1 * * Europe/London'
-  class: SendAnticipatedUserNotificationsJob
+  active_job: true
+send_due_notifications:
+  cron: '0 3 1 * * Europe/London'
+  class: ScheduleUserNotificationsJob
   queue: default
+  active_job: true
+  args:
+    - due 
+send_working_day_notifications:
+  cron: '0 8 * * 1-5 Europe/London'
+  class: ScheduleWorkingDayNotificationsJob
+  queue: default
+  active_job: true

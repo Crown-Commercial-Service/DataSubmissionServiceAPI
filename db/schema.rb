@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_22_124626) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_20_125326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -198,10 +198,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_22_124626) do
     t.string "notification_type", null: false
     t.integer "period_month"
     t.integer "period_year"
+    t.string "run_key"
     t.datetime "started_at", null: false
     t.string "status", default: "running", null: false
     t.string "template_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["run_key"], name: "index_notification_batches_on_run_key", unique: true
   end
 
   create_table "notification_deliveries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
