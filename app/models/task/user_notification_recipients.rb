@@ -7,9 +7,9 @@ class Task
       @year = year
       @type = type.to_sym
 
-      unless %i[anticipated incomplete].include?(@type)
-        raise ArgumentError, "Unknown notification type: #{@type}."
-      end
+      return if %i[anticipated incomplete].include?(@type)
+
+      raise ArgumentError, "Unknown notification type: #{@type}."
     end
 
     def each
@@ -68,9 +68,9 @@ class Task
       frameworks = if type == :anticipated
                      supplier.active_frameworks
                    else
-                    supplier.tasks.select do |task|
-                      task.period_month == month && task.period_year == year && task.incomplete?
-                    end.map(&:framework)
+                     supplier.tasks.select do |task|
+                       task.period_month == month && task.period_year == year && task.incomplete?
+                     end.map(&:framework)
                    end
 
       frameworks.map { |framework| "#{framework.short_name} - #{framework.name}" }.uniq.sort

@@ -9,7 +9,7 @@ RSpec.describe 'Notification selector parity' do
   before { stub_govuk_bank_holidays_request }
 
   def csv_emails(csv_text)
-    CSV.parse(csv_text, headers: true).map { |row| row['email address'] }.sort 
+    CSV.parse(csv_text, headers: true).map { |row| row['email address'] }.sort
   end
 
   def selector_emails(selector)
@@ -17,7 +17,7 @@ RSpec.describe 'Notification selector parity' do
   end
 
   def csv_notifications(csv_text)
-    CSV.parse(csv_text, headers: true).map do |row| 
+    CSV.parse(csv_text, headers: true).map do |row|
       {
         email: row['email address'],
         person_name: row['person_name'],
@@ -25,7 +25,7 @@ RSpec.describe 'Notification selector parity' do
         due_date: row['due_date'],
         reporting_month: row['reporting_month'],
         frameworks: row.fields.drop(5).compact.sort
-      } 
+      }
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'Notification selector parity' do
   end
 
   def unfinished_csv_notifications(csv_text)
-    CSV.parse(csv_text, headers: true).map do |row| 
+    CSV.parse(csv_text, headers: true).map do |row|
       {
         email: row['email address'],
         task_period: row['task_period'],
@@ -56,7 +56,7 @@ RSpec.describe 'Notification selector parity' do
         validation_failed: row['validation_failed'],
         ingest_failed: row['ingest_failed'],
         in_review: row['in_review']
-      } 
+      }
     end
   end
 
@@ -120,7 +120,7 @@ RSpec.describe 'Notification selector parity' do
     end
 
     it 'matches the anticipated CSV personalisation' do
-      output = StringIO.new 
+      output = StringIO.new
 
       Task::AnticipatedUserNotificationList.new(month: month, year: year, output: output).generate
 
@@ -222,7 +222,7 @@ RSpec.describe 'Notification selector parity' do
 
     %w[overdue late].each do |notification_type|
       context "#{notification_type} notifications" do
-        let(:csv_output) do 
+        let(:csv_output) do
           output = StringIO.new
 
           Task::OverdueUserNotificationList.new(

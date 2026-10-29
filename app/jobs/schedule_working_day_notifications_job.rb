@@ -9,7 +9,7 @@ class ScheduleWorkingDayNotificationsJob < ApplicationJob
     11 => 'late'
   }.freeze
 
-  def perform(notification_type)
+  def perform
     today = Time.zone.today
     day_number = working_day_number(today)
 

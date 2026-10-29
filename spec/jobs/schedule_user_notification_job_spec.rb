@@ -43,8 +43,8 @@ RSpec.describe ScheduleUserNotificationJob do
   end
 
   it 'rejects unknown notification types' do
-    expect {
+    expect do
       described_class.perform_now('unknown')
-    }.to raise_error(ArgumentError, 'Unknown notification type: unknown.')
+    end.to raise_error(ArgumentError, 'Unknown notification type: unknown.')
   end
 end

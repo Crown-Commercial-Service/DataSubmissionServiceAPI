@@ -26,7 +26,7 @@ class Task
                 supplier_name: supplier.name,
                 task_name: task_name(task),
                 submission_date: submission_date(submission),
-                validation_failed:status_flag(submission, 'validation_failed'),
+                validation_failed: status_flag(submission, 'validation_failed'),
                 ingest_failed: status_flag(submission, 'ingest_failed'),
                 in_review: status_flag(submission, 'in_review')
               }

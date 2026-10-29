@@ -27,22 +27,22 @@ RSpec.describe Task::UnfinishedUserNotifications do
   end
 
   before do
-    user 
+    user
     submission
   end
 
   it 'debugs the unfinished notifications setup' do
-    qualifying_tasks = Task.incomplete
-                           .joins(:submissions)
-                           .merge(
-                            Submission.where(
-                                aasm_state: %w[
-                                validation_failed
-                                ingest_failed
-                                in_review
-                                ]
-                              )
-                           )
+    Task.incomplete
+        .joins(:submissions)
+        .merge(
+          Submission.where(
+            aasm_state: %w[
+              validation_failed
+              ingest_failed
+              in_review
+            ]
+          )
+        )
   end
 
   it 'includes an active user with an unfinished submission' do
@@ -74,7 +74,7 @@ RSpec.describe Task::UnfinishedUserNotifications do
         personalisation = notifications.first.fetch(:personalisation)
 
         %w[validation_failed ingest_failed in_review].each do |flag|
-          expected_value = (flag == status) ? 'y' : 'n'
+          expected_value = flag == status ? 'y' : 'n'
           expect(personalisation[flag.to_sym]).to eq(expected_value)
         end
       end
@@ -143,14 +143,14 @@ RSpec.describe Task::UnfinishedUserNotifications do
     end
 
     before do
-      submission.update_columns(
+      submission.update!(
         created_at: 2.days.ago,
         updated_at: 2.days.ago
       )
 
-      newer_submission.update_columns(
-        created_at: 1.days.ago,
-        updated_at: 1.days.ago
+      newer_submission.update!(
+        created_at: 1.day.ago,
+        updated_at: 1.day.ago
       )
     end
 

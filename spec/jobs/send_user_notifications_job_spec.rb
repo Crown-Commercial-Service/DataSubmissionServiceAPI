@@ -33,7 +33,7 @@ RSpec.describe SendUserNotificationsJob do
       let(:notification_type) { type }
 
       around do |example|
-        ClimateControl.modify(**{template_env => 'test-template-id'}) do
+        ClimateControl.modify(**{ template_env => 'test-template-id' }) do
           example.run
         end
       end
@@ -48,10 +48,10 @@ RSpec.describe SendUserNotificationsJob do
         arguments = if type == 'unfinished'
                       {}
                     else
-                      { 
-                        month: month, 
-                        year: year, 
-                        type: type == 'due' ? :anticipated : :incomplete 
+                      {
+                        month: month,
+                        year: year,
+                        type: type == 'due' ? :anticipated : :incomplete
                       }
                     end
 
@@ -75,17 +75,15 @@ RSpec.describe SendUserNotificationsJob do
       def perform_notifications_job
         arguments = { notification_type: notification_type }
 
-        unless notification_type == 'unfinished'
-          arguments.merge!(month: month, year: year)
-        end
+        arguments.merge!(month: month, year: year) unless notification_type == 'unfinished'
 
         described_class.perform_now(**arguments)
       end
 
       it 'creates a submitted batch with the correct template' do
-        expect {
+        expect do
           perform_notifications_job
-        }.to change(NotificationBatch, :count).by(1)
+        end.to change(NotificationBatch, :count).by(1)
 
         batch = NotificationBatch.last
 
@@ -97,9 +95,9 @@ RSpec.describe SendUserNotificationsJob do
       end
 
       it 'creates a pending delivery' do
-        expect {
+        expect do
           perform_notifications_job
-        }.to change(NotificationDelivery, :count).by(1)
+        end.to change(NotificationDelivery, :count).by(1)
 
         delivery = NotificationDelivery.last
 
@@ -116,7 +114,7 @@ RSpec.describe SendUserNotificationsJob do
 
         expect(SendTaskNotificationJob)
           .to have_been_enqueued.with(
-            delivery.id, 
+            delivery.id,
             notification[:personalisation]
           )
       end
@@ -133,20 +131,20 @@ RSpec.describe SendUserNotificationsJob do
 
     described_class.perform_now(**arguments)
 
-    expect {
+    expect do
       described_class.perform_now(**arguments)
-    }.not_to change(NotificationBatch, :count)
+    end.not_to change(NotificationBatch, :count)
   end
 
   it 'rejects unknown notification types' do
-    expect {
+    expect do
       described_class.perform_now(notification_type: 'unknown')
-    }.to raise_error(KeyError)
+    end.to raise_error(KeyError)
   end
 
   it 'rejects missing reporting periods' do
-    expect {
+    expect do
       described_class.perform_now(notification_type: 'due')
-    }.to raise_error(ArgumentError, /Month and year must be provided/)
+    end.to raise_error(ArgumentError, /Month and year must be provided/)
   end
 end
