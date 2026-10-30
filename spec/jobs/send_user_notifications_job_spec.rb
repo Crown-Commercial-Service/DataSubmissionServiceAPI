@@ -28,6 +28,18 @@ RSpec.describe SendUserNotificationsJob do
     'unfinished' => 'GOV_NOTIFY_UNFINISHED_USER_TEMPLATE_ID'
   }
 
+  around do |example|
+    ClimateControl.modify(
+      GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID: 'test-anticipated-template',
+      GOV_NOTIFY_DUE_TODAY_USER_TEMPLATE_ID: 'test-due-template',
+      GOV_NOTIFY_OVERDUE_USER_TEMPLATE_ID: 'test-overdue-template',
+      GOV_NOTIFY_LATE_USER_TEMPLATE_ID: 'test-late-template',
+      GOV_NOTIFY_UNFINISHED_USER_TEMPLATE_ID: 'test-unfinished-template'
+    ) do
+      example.run
+    end
+  end
+
   config.each do |type, template_env|
     context "when notification_type is '#{type}'" do
       let(:notification_type) { type }
