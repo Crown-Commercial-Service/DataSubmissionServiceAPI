@@ -378,8 +378,8 @@ GEM
       logger
       rack (>= 2.2.3)
       rack-protection
-    omniauth-google-oauth2 (1.2.2)
-      jwt (>= 2.9.2)
+    omniauth-google-oauth2 (1.2.3)
+      jwt (>= 2.9.2, < 4)
       oauth2 (~> 2.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8)
@@ -676,7 +676,7 @@ DEPENDENCIES
   net-http (>= 0.4.0)
   nokogiri (>= 1.18.9)
   notifications-ruby-client (>= 6.4.0)
-  omniauth-google-oauth2 (>= 1.2.2)
+  omniauth-google-oauth2 (>= 1.2.3)
   omniauth-rails_csrf_protection (~> 2.0, >= 2.0.0)
   parslet
   pg (>= 0.18, < 2.0)

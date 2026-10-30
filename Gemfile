@@ -44,7 +44,7 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.14', '>= 5.14.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.2.2'
+gem 'omniauth-google-oauth2', '>= 1.2.3'
 gem 'omniauth-rails_csrf_protection', '~> 2.0', '>= 2.0.0'
 
 # Admin Frontend
