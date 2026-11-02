@@ -14,7 +14,7 @@ RSpec.describe ScheduleUserNotificationsJob do
 
     expect(SendUserNotificationsJob).to have_been_enqueued.with(
       notification_type: 'due',
-      month: 9,
+      month: 8,
       year: 2026,
       run_key: 'due-2026-09-12'
     )
@@ -26,7 +26,7 @@ RSpec.describe ScheduleUserNotificationsJob do
 
       expect(SendUserNotificationsJob).to have_been_enqueued.with(
         notification_type: type,
-        month: 9,
+        month: 8,
         year: 2026,
         run_key: "#{type}-2026-09-12"
       )

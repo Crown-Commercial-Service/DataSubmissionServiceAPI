@@ -22,8 +22,9 @@ class ScheduleWorkingDayNotificationsJob < ApplicationJob
     }
 
     unless notification_type == 'unfinished'
-      arguments[:month] = today.month
-      arguments[:year] = today.year
+      reporting_period = today.prev_month
+      arguments[:month] = reporting_period.month
+      arguments[:year] = reporting_period.year
     end
 
     SendUserNotificationsJob.perform_later(**arguments)

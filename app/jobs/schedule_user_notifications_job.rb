@@ -15,22 +15,10 @@ class ScheduleUserNotificationsJob < ApplicationJob
     }
 
     unless type == 'unfinished'
-      period = reporting_period_for(type, today)
-
-      arguments.merge!(month: period.month, year: period.year)
+      reporting_period = Time.zone.today.prev_month
+      arguments.merge!(month: reporting_period.month, year: reporting_period.year)
     end
 
     SendUserNotificationsJob.perform_later(**arguments)
-  end
-
-  private
-
-  def reporting_period_for(type, today)
-    case type
-    when 'due', 'duetoday', 'overdue', 'late'
-      today.beginning_of_month
-    else
-      raise ArgumentError, "Unknown notification type: #{type}."
-    end
   end
 end
