@@ -32,7 +32,7 @@ class ScheduleWorkingDayNotificationsJob < ApplicationJob
   private
 
   def working_day_number(date)
-    holidays = BankHolidays.allow
+    holidays = BankHolidays.all
 
     (date.beginning_of_month..date).count do |d|
       !d.saturday? && !d.sunday? && !holidays.include?(d)

@@ -1,4 +1,4 @@
-class ScheduleUserNotificationJob < ApplicationJob
+class ScheduleUserNotificationsJob < ApplicationJob
   queue_as :default
 
   def perform(notification_type)

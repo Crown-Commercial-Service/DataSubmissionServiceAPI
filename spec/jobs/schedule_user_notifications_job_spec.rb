@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ScheduleUserNotificationJob do
+RSpec.describe ScheduleUserNotificationsJob do
   include ActiveJob::TestHelper
 
   around do |example|
