@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1', '>= 8.1.2.1'
+gem 'rails', '~> 8.1.4'
 
 # State machine
 gem 'aasm'
@@ -44,7 +44,7 @@ gem 'redcarpet', '~> 3.6'
 gem 'auth0', '~> 5.14', '>= 5.14.2', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.2.2'
+gem 'omniauth-google-oauth2', '>= 1.2.3'
 gem 'omniauth-rails_csrf_protection', '~> 2.0', '>= 2.0.0'
 
 # Admin Frontend
@@ -73,7 +73,7 @@ gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.3.1'
+gem 'sidekiq-cron', '>= 2.4.0'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
