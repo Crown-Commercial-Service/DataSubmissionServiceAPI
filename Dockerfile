@@ -4,7 +4,7 @@
 # It also improves build times by caching the base stage.
 
 # Base stage
-FROM ruby:3.4.9-alpine AS base
+FROM ruby:3.4.12-alpine AS base
 RUN apk add build-base bzip2-dev curl libc-utils libffi-dev libpq-dev nodejs tzdata yaml-dev xz-dev zlib-dev && rm -rf /var/cache/apk/*
 
 # Set locale and timezone
@@ -71,7 +71,7 @@ COPY . $INSTALL_PATH
 RUN bundle exec rake DATABASE_URL=postgresql:does_not_exist SECRET_KEY_BASE=dummy --quiet assets:precompile
 
 # Runtime stage
-FROM ruby:3.4.9-alpine
+FROM ruby:3.4.12-alpine
 ENV INSTALL_PATH /srv/dss-api
 RUN mkdir -p $INSTALL_PATH
 
