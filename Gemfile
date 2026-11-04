@@ -106,7 +106,7 @@ gem 'net-http', '>= 0.4.0'
 gem 'sprockets-rails', '>= 3.5.1'
 
 gem 'connection_pool', '< 3'
-gem 'notifications-ruby-client', '>= 6.4.0'
+gem 'notifications-ruby-client', '>= 6.5.1'
 
 group :development, :test do
   gem 'brakeman', require: false
