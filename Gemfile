@@ -41,7 +41,7 @@ gem 'rails_event_store', '~> 2.18', '>= 2.18.0'
 gem 'redcarpet', '~> 3.6'
 
 # Auth0
-gem 'auth0', '~> 5.14', '>= 5.14.2', require: false
+gem 'auth0', '~> 5.20', require: false
 
 # Google Login
 gem 'omniauth-google-oauth2', '>= 1.2.3'
