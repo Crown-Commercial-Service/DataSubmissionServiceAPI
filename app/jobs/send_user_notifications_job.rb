@@ -7,11 +7,11 @@ class SendUserNotificationsJob < ApplicationJob
       selector_type: :anticipated
     },
     'duetoday' => {
-      template_env: 'GOV_NOTIFY_DUE_TODAY_USER_TEMPLATE_ID',
+      template_env: 'GOV_NOTIFY_DUE_TODAY_TEMPLATE_ID',
       selector_type: :incomplete
     },
     'overdue' => {
-      template_env: 'GOV_NOTIFY_OVERDUE_USER_TEMPLATE_ID',
+      template_env: 'GOV_NOTIFY_OVERDUE_TEMPLATE_ID',
       selector_type: :incomplete
     },
     'late' => {
@@ -19,7 +19,7 @@ class SendUserNotificationsJob < ApplicationJob
       selector_type: :incomplete
     },
     'unfinished' => {
-      template_env: 'GOV_NOTIFY_UNFINISHED_USER_TEMPLATE_ID',
+      template_env: 'GOV_NOTIFY_UNFINISHED_TEMPLATE_ID',
       selector_type: :unfinished
     }
   }.freeze

@@ -22,19 +22,19 @@ RSpec.describe SendUserNotificationsJob do
 
   config = {
     'due' => 'GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID',
-    'duetoday' => 'GOV_NOTIFY_DUE_TODAY_USER_TEMPLATE_ID',
-    'overdue' => 'GOV_NOTIFY_OVERDUE_USER_TEMPLATE_ID',
+    'duetoday' => 'GOV_NOTIFY_DUE_TODAY_TEMPLATE_ID',
+    'overdue' => 'GOV_NOTIFY_OVERDUE_TEMPLATE_ID',
     'late' => 'GOV_NOTIFY_LATE_USER_TEMPLATE_ID',
-    'unfinished' => 'GOV_NOTIFY_UNFINISHED_USER_TEMPLATE_ID'
+    'unfinished' => 'GOV_NOTIFY_UNFINISHED_TEMPLATE_ID'
   }
 
   around do |example|
     ClimateControl.modify(
       GOV_NOTIFY_ANTICIPATED_USER_TEMPLATE_ID: 'test-anticipated-template',
-      GOV_NOTIFY_DUE_TODAY_USER_TEMPLATE_ID: 'test-due-template',
-      GOV_NOTIFY_OVERDUE_USER_TEMPLATE_ID: 'test-overdue-template',
+      GOV_NOTIFY_DUE_TODAY_TEMPLATE_ID: 'test-due-template',
+      GOV_NOTIFY_OVERDUE_TEMPLATE_ID: 'test-overdue-template',
       GOV_NOTIFY_LATE_USER_TEMPLATE_ID: 'test-late-template',
-      GOV_NOTIFY_UNFINISHED_USER_TEMPLATE_ID: 'test-unfinished-template'
+      GOV_NOTIFY_UNFINISHED_TEMPLATE_ID: 'test-unfinished-template'
     ) do
       example.run
     end
