@@ -48,7 +48,7 @@ gem 'omniauth-google-oauth2', '>= 1.2.3'
 gem 'omniauth-rails_csrf_protection', '~> 2.0', '>= 2.0.0'
 
 # Admin Frontend
-gem 'haml-rails', '>= 3.0.0'
+gem 'haml-rails', '>= 3.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
 gem 'kaminari', '>= 1.2.2'
