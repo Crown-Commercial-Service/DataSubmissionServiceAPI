@@ -17,7 +17,7 @@ gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.13', '>= 2.13.0'
+gem 'jbuilder', '>= 2.15'
 
 # JSON API
 gem 'jsonapi-rails'
