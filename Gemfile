@@ -63,7 +63,7 @@ gem 'azure-storage-blob', '>= 2.0.3', require: false
 gem 'rollbar', '~> 3.5', '>= 3.5.1'
 
 # Logging
-gem 'lograge', '>= 0.14.0'
+gem 'lograge', '>= 0.15.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
