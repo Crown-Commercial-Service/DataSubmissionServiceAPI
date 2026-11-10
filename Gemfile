@@ -4,12 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1', '>= 8.1.2.1'
+gem 'rails', '~> 8.1.4.1'
 
 # State machine
 gem 'aasm'
 
-gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+gem 'bootsnap', '~> 1.12', '>= 1.12.0', require: false
 
 gem 'csv', '~> 3.3', '>= 3.3.4'
 
@@ -17,7 +17,7 @@ gem 'email_validator', require: 'email_validator/strict'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7', '>= 2.7.0'
-gem 'jbuilder', '~> 2.13', '>= 2.13.0'
+gem 'jbuilder', '>= 2.15'
 
 # JSON API
 gem 'jsonapi-rails'
@@ -41,17 +41,17 @@ gem 'rails_event_store', '~> 2.18', '>= 2.18.0'
 gem 'redcarpet', '~> 3.6'
 
 # Auth0
-gem 'auth0', '~> 5.14', '>= 5.14.2', require: false
+gem 'auth0', '~> 5.20', require: false
 
 # Google Login
-gem 'omniauth-google-oauth2', '>= 1.2.2'
+gem 'omniauth-google-oauth2', '>= 1.2.3'
 gem 'omniauth-rails_csrf_protection', '~> 2.0', '>= 2.0.0'
 
 # Admin Frontend
-gem 'haml-rails', '>= 3.0.0'
+gem 'haml-rails', '>= 3.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
-gem 'kaminari', '>= 1.2.2'
+gem 'kaminari', '~> 1.3.0'
 gem 'simple_form', '>= 5.4.0'
 gem 'importmap-rails', '~> 2.2', '>= 2.2.3'
 
@@ -63,7 +63,7 @@ gem 'azure-storage-blob', '>= 2.0.3', require: false
 gem 'rollbar', '~> 3.5', '>= 3.5.1'
 
 # Logging
-gem 'lograge', '>= 0.14.0'
+gem 'lograge', '>= 0.15.0'
 # gem 'skylight', '~> 6.0', '>= 6.0.0'
 
 gem 'rubocop', '>= 1.66.0'
@@ -73,7 +73,7 @@ gem 'progress_bar', require: false
 
 gem 'sidekiq-pro', source: 'https://gems.contribsys.com/'
 # gem 'sidekiq', '>=5.2.10' # Free version, use for local image building
-gem 'sidekiq-cron', '>= 2.3.1'
+gem 'sidekiq-cron', '>= 2.4.0'
 
 # Alpine and Windows do not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby ruby]
@@ -106,7 +106,7 @@ gem 'net-http', '>= 0.4.0'
 gem 'sprockets-rails', '>= 3.5.1'
 
 gem 'connection_pool', '< 3'
-gem 'notifications-ruby-client', '>= 6.4.0'
+gem 'notifications-ruby-client', '>= 6.5.1'
 
 group :development, :test do
   gem 'brakeman', require: false
@@ -114,7 +114,7 @@ group :development, :test do
   gem 'dotenv-rails', '>= 3.2.0'
   gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 8.0', '>= 8.0.4'
+  gem 'rspec-rails', '~> 8.1.0', '>= 8.1.0'
 end
 
 group :development do
