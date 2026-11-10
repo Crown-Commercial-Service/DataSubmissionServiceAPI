@@ -51,7 +51,7 @@ gem 'omniauth-rails_csrf_protection', '~> 2.0', '>= 2.0.0'
 gem 'haml-rails', '>= 3.1.0'
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'uglifier', '~> 4.2'
-gem 'kaminari', '>= 1.2.2'
+gem 'kaminari', '~> 1.3.0'
 gem 'simple_form', '>= 5.4.0'
 gem 'importmap-rails', '~> 2.2', '>= 2.2.3'
 
