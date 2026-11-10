@@ -134,8 +134,8 @@ GEM
       nokogiri (~> 1, >= 1.10.8)
     base64 (0.3.0)
     bigdecimal (4.1.2)
-    bootsnap (1.11.1)
-      msgpack (~> 1.2)
+    bootsnap (1.26.1)
+      msgpack (~> 1.5)
     brakeman (4.3.1)
     builder (3.3.0)
     byebug (12.0.0)
@@ -647,7 +647,7 @@ DEPENDENCIES
   aws-sdk-cloudwatch
   aws-sdk-s3 (>= 1.208.0)
   azure-storage-blob (>= 2.0.3)
-  bootsnap (~> 1.11, >= 1.11.1)
+  bootsnap (~> 1.12, >= 1.12.0)
   brakeman
   byebug
   capybara (~> 3.40, >= 3.40.0)

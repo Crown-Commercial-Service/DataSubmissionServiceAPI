@@ -9,7 +9,7 @@ gem 'rails', '~> 8.1.4'
 # State machine
 gem 'aasm'
 
-gem 'bootsnap', '~> 1.11', '>= 1.11.1', require: false
+gem 'bootsnap', '~> 1.12', '>= 1.12.0', require: false
 
 gem 'csv', '~> 3.3', '>= 3.3.4'
 
