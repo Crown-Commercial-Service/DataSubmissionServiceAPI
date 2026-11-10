@@ -114,7 +114,7 @@ group :development, :test do
   gem 'dotenv-rails', '>= 3.2.0'
   gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 8.0', '>= 8.0.4'
+  gem 'rspec-rails', '~> 8.0.5', '>= 8.0.5'
 end
 
 group :development do

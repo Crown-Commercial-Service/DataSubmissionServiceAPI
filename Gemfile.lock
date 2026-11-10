@@ -510,7 +510,7 @@ GEM
     rspec-mocks (3.13.8)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (8.0.4)
+    rspec-rails (8.0.5)
       actionpack (>= 7.2)
       activesupport (>= 7.2)
       railties (>= 7.2)
@@ -689,7 +689,7 @@ DEPENDENCIES
   redcarpet (~> 3.6)
   rollbar (~> 3.5, >= 3.5.1)
   rspec-json_expectations
-  rspec-rails (~> 8.0, >= 8.0.4)
+  rspec-rails (~> 8.0.5)
   rubocop (>= 1.66.0)
   rubocop-rails (~> 2.34, >= 2.34.0)
   rubyXL (~> 3.4, >= 3.4.28)
