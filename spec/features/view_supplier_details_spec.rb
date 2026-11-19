@@ -80,8 +80,8 @@ framework: framework)
 
     visit admin_supplier_path(supplier)
     click_link('Next »', match: :first)
-    expect(page).to have_content 'Displaying task 13 - 13 of 13 in total'
-    expect(page).to have_content 'Displaying users 1 - 12 of 13 in total'
+    expect(page).to have_content 'Displaying task 13–13 of 13 in total'
+    expect(page).to have_content 'Displaying users 1–12 of 13 in total'
     expect(page).to have_content 'Displaying all 2 agreements'
   end
 end
