@@ -1,5 +1,10 @@
 # Change Log
 
+## [release-180] - 2026-11-23
+
+- NRMI-451: critical fix and various minor upgrades
+- [Snyk] Security upgrade ruby from 3.4.9-alpine to 3.4.13-alpine 
+
 ## [release-179] - 2026-10-05
 
 - NRMI-442: upgrade csvkit and python
@@ -1207,6 +1212,7 @@ this should have been released in release 45 but wasn't actually merged
 
 Initial release
 
+[release-180]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-179...release-180
 [release-179]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-178...release-179
 [release-178]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-177...release-178
 [release-177]: https://github.com/Crown-Commercial-Service/DataSubmissionServiceAPI/compare/release-176...release-177
