@@ -6,7 +6,7 @@ class UpdateUserEmailInAuth0
   end
 
   def call
-    auth0_client.update_user(user.auth_id, email: user.email, verify_email: false, email_verified: true)
+    auth0_client.users.update(id: user.auth_id, email: user.email, verify_email: false, email_verified: true)
   end
 
   private

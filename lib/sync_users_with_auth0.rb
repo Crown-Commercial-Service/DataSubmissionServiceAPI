@@ -1,4 +1,5 @@
 require 'auth0'
+require 'auth0/version'
 
 class SyncUsersWithAuth0
   class << self
@@ -6,7 +7,7 @@ class SyncUsersWithAuth0
       User.active.each do |user|
         delay_request unless Rails.env.test?
 
-        response = auth0_client.get_users(q: "email:#{user.email}")
+        response = auth0_client.users.list(q: "email:#{user.email}").to_a
 
         if response.empty?
           Rails.logger.info("Email: #{user.email} could not be found in Auth0")
@@ -28,7 +29,7 @@ class SyncUsersWithAuth0
     end
 
     def update_user(user:, response:, dry:)
-      auth_id = response.first.fetch('user_id')
+      auth_id = response.first.user_id
       return if user.auth_id == auth_id
 
       if dry

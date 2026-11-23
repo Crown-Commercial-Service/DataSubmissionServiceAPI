@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'auth0'
+require 'auth0/version'
 
 RSpec.describe CreateUserInAuth0 do
   describe '#call' do
@@ -25,18 +26,20 @@ RSpec.describe CreateUserInAuth0 do
     context 'when an error is thrown' do
       context 'due to that user already existing' do
         let(:auth0_user_exists_error) do
-          params = JSON[{
+          error_json = {
             'statusCode' => 409,
             'error' => 'Conflict',
             'message' => 'The user already exists.',
             'errorCode' => 'auth0_idp_error'
-          }]
-
-          Auth0::Unsupported.new(params)
+          }.to_json
+          
+          error = Auth0::Errors::ClientError.allocate
+          allow(error).to receive(:to_s).and_return(error_json)
+          error
         end
 
         it 'fetches that user and updates the local record' do
-          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :create_user)
+          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :users, :create)
             .and_raise(auth0_user_exists_error)
 
           find_user_service_double = double(FindUserInAuth0)
@@ -64,7 +67,7 @@ RSpec.describe CreateUserInAuth0 do
 
           unexpected_error = Auth0::Unsupported.new(params)
 
-          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :create_user)
+          allow_any_instance_of(Auth0Api).to receive_message_chain(:client, :users, :create)
             .and_raise(unexpected_error)
 
           expect { subject }.to raise_error(unexpected_error)

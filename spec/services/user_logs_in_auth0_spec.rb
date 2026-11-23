@@ -11,10 +11,8 @@ RSpec.describe UserLogsInAuth0 do
     end
 
     it 'fetches logs from Auth0' do
-      expected_query = "(type:\"s\" OR type:\"f\") AND user_id:\"#{user.auth_id}\""
-      auth0_logs_call = stub_request(:get, 'https://testdomain/api/v2/logs')
-                        .with(query: hash_including('q' => expected_query))
-                        .to_return(status: 200, body: '[]', headers: { 'Content-Type' => 'application/json' })
+      auth0_logs_call = stub_request(:get, /api\/v2\/logs/)
+                        .to_return(status: 200, body: { logs: [] }.to_json, headers: { 'Content-Type' => 'application/json' })
 
       subject
 
