@@ -17,11 +17,9 @@ class CreateUserInAuth0
     )
     user.update(auth_id: auth0_response.user_id)
   rescue Auth0::Errors::ClientError => e
-    if e.to_s.include?('"statusCode":409') && e.to_s.include?('The user already exists')
-      updated_existing_user!
-    else
-      raise e
-    end
+    raise e unless e.to_s.include?('"statusCode":409') && e.to_s.include?('The user already exists')
+
+    updated_existing_user!
   end
 
   def self.temporary_password

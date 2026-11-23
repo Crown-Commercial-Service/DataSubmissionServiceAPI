@@ -32,7 +32,7 @@ RSpec.describe CreateUserInAuth0 do
             'message' => 'The user already exists.',
             'errorCode' => 'auth0_idp_error'
           }.to_json
-          
+
           error = Auth0::Errors::ClientError.allocate
           allow(error).to receive(:to_s).and_return(error_json)
           error

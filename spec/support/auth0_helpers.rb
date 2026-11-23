@@ -3,12 +3,12 @@ module Auth0Helpers
     # The Auth0 v6 SDK automatically fetches the token and expects JSON with an expiry
     stub_request(:post, 'https://testdomain/oauth/token')
       .to_return(
-        status: 200, 
+        status: 200,
         headers: { 'Content-Type' => 'application/json' },
-        body: { 
-          access_token: 'TOKEN', 
-          expires_in: 86400, 
-          token_type: 'Bearer' 
+        body: {
+          access_token: 'TOKEN',
+          expires_in: 86400,
+          token_type: 'Bearer'
         }.to_json
       )
   end
@@ -21,7 +21,7 @@ module Auth0Helpers
   def stub_auth0_delete_user_request_failure(user)
     stub_request(:delete, "https://testdomain/api/v2/users/#{user.auth_id}")
       .to_return(
-        status: 400, 
+        status: 400,
         headers: { 'Content-Type' => 'application/json' },
         body: { error: 'Internal Server Error', message: 'Something went wrong' }.to_json
       )
@@ -47,7 +47,7 @@ module Auth0Helpers
   def stub_auth0_update_user_request_failure(user)
     stub_request(:patch, "https://testdomain/api/v2/users/#{user.auth_id}")
       .to_return(
-        status: 400, 
+        status: 400,
         headers: { 'Content-Type' => 'application/json' },
         body: { error: 'Internal Server Error', message: 'Something went wrong' }.to_json
       )
