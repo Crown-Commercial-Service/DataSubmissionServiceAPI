@@ -8,22 +8,18 @@ class CreateUserInAuth0
   end
 
   def call
-    auth0_response = auth0_client.create_user(
-      'Username-Password-Authentication',
+    auth0_response = auth0_client.users.create(
+      connection: 'Username-Password-Authentication',
       name: user.name,
       email: user.email,
       email_verified: true,
       password: CreateUserInAuth0.temporary_password
     )
-    user.update(auth_id: auth0_response.fetch('user_id'))
-  rescue Auth0::Unsupported => e
-    error_hash = JSON.parse(e.to_s)
-    if error_hash['statusCode'].eql?(409) &&
-       error_hash['message'].eql?('The user already exists.')
-      updated_existing_user!
-    else
-      raise e
-    end
+    user.update(auth_id: auth0_response.user_id)
+  rescue Auth0::Errors::ClientError => e
+    raise e unless e.to_s.include?('"statusCode":409') && e.to_s.include?('The user already exists')
+
+    updated_existing_user!
   end
 
   def self.temporary_password
