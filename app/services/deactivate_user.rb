@@ -18,7 +18,7 @@ class DeactivateUser
 
       begin
         DeleteUserInAuth0.new(user: user).call
-      rescue Auth0::Exception
+      rescue Auth0::Errors::ApiError
         result.success = false
         Rails.logger.error("Error adding user #{user.email} to Auth0 during DeactivateUser")
         raise ActiveRecord::Rollback

@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'auth0'
+require 'auth0/version'
 
 RSpec.describe FindUserInAuth0 do
   describe '#call' do

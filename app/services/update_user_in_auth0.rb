@@ -8,7 +8,7 @@ class UpdateUserInAuth0
   end
 
   def call
-    auth0_client.update_user(user.auth_id, name: user.name)
+    auth0_client.users.update(id: user.auth_id, name: user.name)
   end
 
   private

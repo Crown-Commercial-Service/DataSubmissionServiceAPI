@@ -8,7 +8,7 @@ class DeleteUserInAuth0
   def call
     return unless user.active?
 
-    auth0_client.delete_user(user.auth_id)
+    auth0_client.users.delete(id: user.auth_id)
   end
 
   private

@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'sync_users_with_auth0'
 require 'auth0'
+require 'auth0/version'
 
 RSpec.describe SyncUsersWithAuth0 do
   before(:each) do
