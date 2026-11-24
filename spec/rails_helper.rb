@@ -76,7 +76,8 @@ RSpec.configure do |config|
   end
 
   config.around(:each) do |example|
-    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com', AUTH0_DOMAIN: 'testdomain', AUTH_SECRET: 'test' do
+    ClimateControl.modify ADMIN_EMAILS: 'admin@example.com', AUTH0_DOMAIN: 'testdomain', AUTH_SECRET: 'test',
+                          AUTH0_CLIENT_ID: 'test_client_id', AUTH0_CLIENT_SECRET: 'test_client_secret' do
       example.run
     end
   end
