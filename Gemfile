@@ -32,7 +32,7 @@ gem 'mutex_m', '~> 0.3.0'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 6.4', '>= 6.4.3'
+gem 'puma', '~> 7.2.1'
 
 # Audit log
 gem 'rails_event_store', '~> 2.18', '>= 2.18.0'
