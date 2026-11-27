@@ -9,11 +9,11 @@ class UserLogsInAuth0
 
   def call
     query = "(type:\"s\" OR type:\"f\") AND user_id:\"#{user.auth_id}\""
-    auth0_client.logs(
+    auth0_client.logs.list(
       q: query,
       per_page: 5,
       sort: 'date:-1'
-    )
+    ).to_a
   end
 
   private

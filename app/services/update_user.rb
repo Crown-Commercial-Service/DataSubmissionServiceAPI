@@ -13,7 +13,7 @@ class UpdateUser
       user.update(name: @new_name)
       begin
         UpdateUserInAuth0.new(user: user).call
-      rescue Auth0::Exception
+      rescue Auth0::Errors::ApiError
         result.success = false
         Rails.logger.error("Error updating user name for #{user.email} in Auth0 during UpdateUser")
         raise ActiveRecord::Rollback

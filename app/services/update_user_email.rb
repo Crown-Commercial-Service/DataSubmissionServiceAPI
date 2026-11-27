@@ -26,7 +26,7 @@ class UpdateUserEmail
   def sync_with_auth0
     UpdateUserEmailInAuth0.new(user: @user).call
     SendConfirmEmailVerificationJob.perform_later(new_email: @new_email, person_name: @user.name)
-  rescue Auth0::Exception => e
+  rescue Auth0::Errors::ApiError => e
     errors.add(:base, "Auth0 update failed: #{e.message}")
     Rails.logger.error("Auth0 Error: #{e.message}")
     raise ActiveRecord::Rollback

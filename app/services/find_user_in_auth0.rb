@@ -8,11 +8,10 @@ class FindUserInAuth0
   end
 
   def call
-    auth0_response = auth0_client.get_users(q: "email:#{user.email}")
-    auth0_client.headers = auth0_client.headers.except(:params)
+    auth0_response = auth0_client.users.list(q: "email:#{user.email}").to_a
     return nil if auth0_response.empty?
 
-    auth0_response[0]['user_id']
+    auth0_response[0].user_id
   end
 
   private

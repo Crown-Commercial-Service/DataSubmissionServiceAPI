@@ -88,3 +88,46 @@
           %td.govuk-table__cell
             04 Management information is incomplete/unfinished
           %td.govuk-table__cell= link_to 'Download CSV', admin_download_path(:unfinished)
+
+.govuk-grid-row
+  .govuk-grid-column-full
+    %h2.govuk-heading-m
+      Recent notification reports
+
+    %p 
+      Notification reports are available for 30 days after they are generated.
+
+    - if @notification_batches.any?
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header{scope: 'col'}
+              Notification
+            %th.govuk-table__header{scope: 'col'}
+              Reporting period
+            %th.govuk-table__header{scope: 'col'}
+              Date sent
+            %th.govuk-table__header{scope: 'col'}
+              Status
+            %th.govuk-table__header{scope: 'col'}
+              %span.govuk-visually-hidden
+                Action
+        %tbody.govuk-table__body
+          - @notification_batches.each do |batch|
+            %tr.govuk-table__row{id: "notification-report-#{batch.id}"}
+              %td.govuk-table__cell
+                = batch.notification_type.humanize
+              %td.govuk-table__cell
+                - if batch.period_month.present? && batch.period_year.present?
+                  = Date.new(batch.period_year, batch.period_month).strftime('%B %Y')
+                - else
+                  = '-'
+              %td.govuk-table__cell
+                = batch.started_at.strftime('%-d %B %Y')
+              %td.govuk-table__cell
+                = batch.status.humanize
+              %td.govuk-table__cell
+                = link_to 'Download report', notification_report_admin_download_path(batch), class: 'govuk-link'
+    - else
+      %p 
+        There are no notification reports from the last 30 days.
